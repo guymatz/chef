@@ -1,0 +1,7 @@
+{
+    "id": "lhamre",
+    "name": "Lasse Hamre",
+    "email": "lassehamre@clearchannel.com",
+    "groups": ["dev", "data-team"],
+    "ssh_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCvshMpdx/Mbmy03sBJRd+e3R0DPRdH8yvxvJBvTZvLkhfSaP2eCldAY+u5Fa9lvGMsJrQ+DwGlvElBz/baTfeRn5UGvbukwwsuhcV3HMM+WYSf7a+3lW3FJN40PkM/UBgYmOSNuQiCenVUnu/wRkt0rjEISppja+OcS4/zMJgnpnFPRtSIryc3aL00sC3MNyr2zrxE8BkVwlaPAF23+GvyvE3qybFsLrSON5HVZ6hBn2CKpZqWzlTsZVWXoKp1qlu6zh1yJTenVJStHbMe6Cy3WjvC0wbjBFvyyOayRCdOnZPfpPB1Nt2KLMN5X3QKIGnk9AY68jPfnBpmTJhEHkgy7c+nF0HR434T3IK+E2xEM8moYurMTMpvJC8YguejW9oInWPCwXadmMTqfGCuaQ8inEUEgnn3poEe8vvHljVZqdBooCE5JdML+tODspqb8Hui4y4QyYMK3qnlg53uF33IisVchTR4TGBoszPC4Hv7uOTLuCyQmS9zYi7dVMy0NLuBhjc+DSMSnivzjhZd286HlainyJhP3GOuyYrHzqAHhAPBEdvWHVIkObCcNo7MDdCknWGekbga/BY0r7g9k0Q99kxfxeYcvP8v8YzLGSdMfyFpR2SHfL08nUJjmkJ4KLc/94iQYqcZCNIMpPgPeZx6ULv1jGMJZNo1q1rx2KNdSQ== lhamre@lhamer"
+}

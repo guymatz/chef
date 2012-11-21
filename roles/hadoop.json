@@ -1,0 +1,15 @@
+{
+  "name": "hadoop",
+  "env_run_lists": {
+  },
+  "json_class": "Chef::Role",
+  "description": "",
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "default_attributes": {
+  },
+  "run_list": [
+
+  ]
+}

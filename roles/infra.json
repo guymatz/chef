@@ -1,0 +1,15 @@
+{
+  "run_list": [
+
+  ],
+  "chef_type": "role",
+  "default_attributes": {
+  },
+  "name": "infra",
+  "env_run_lists": {
+  },
+  "description": "Infrastructure Hosts",
+  "override_attributes": {
+  },
+  "json_class": "Chef::Role"
+}

@@ -1,0 +1,29 @@
+{
+  "name": "bind-chroot",
+  "description": "Installs/Configures bind-chroot",
+  "long_description": "Travis-ci status: [![Build Status](https://secure.travis-ci.org/jackl0phty/opschef-cookbook-bind-chroot.png?branch=master)](http://travis-ci.org/jackl0phty/opschef-cookbook-bind-chroot)\n\nDESCRIPTION\n===========\n\nThis cookbook will install bind9, a DNS server, in a CHROOT jail environment.\n\nIf all you want is to install bind9 in a chroot jail environment then\nsimply apply the bind-chroot:chroot recipe against your node!\n\nSUPPORTED PLATFORMS\n===================\n\nI've only tested this cookbook on the latest version of Debian stable.\n\nNOTE ABOUT LDAP BACKEND SUPPORT\n===============================\n\nThe ultimate goal of this cookbook is to configure openldap as a backend\nfor bind9.  However, this is NOT working at this time!!!!\n\nREQUIREMENTS\n============\n\nApply the recipe bind-chroot::chroot if you just want to install bind9 in a chroot\njail environment.\n\nATTRIBUTES\n==========\n\nIf you just want to install bind9 in a CHROOT jail environmment, which is \nall this cookbook supports right now, then don't worrry about any\nattributes.\n",
+  "maintainer": "Gerald L. Hevener Jr., M.S.",
+  "maintainer_email": "jackl0phty@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.0.12"
+}

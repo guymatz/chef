@@ -1,0 +1,16 @@
+{
+  "id": "jplimack",
+  "name":	"Jake Plimack",
+  "email":	"jakeplimack@clearchannel.com",
+  "groups":	["sysadmin", "dba"],
+  "ssh_keys":	[
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCzHh0UD/L49ObrxnM+7Sv+onb1BYoyUzh9mOtevURP8b4qc9vxmsQyUeB2GP3Ei+aEYqa6Xu6dDzBunKba1dtnp6B0wqgP4CdbjrSe7PcVhziewEGRTL7z7D5RgmPbhdOY5spA6TLYHMCDO/Y5+BprHjGADalGTeWMN67xQkSCunmdOMP9gZZWb01YhHcIu47o3XLKIwCcB6EyYoRc8CPGL+a4JApr89KBeIpSwSBf2Z3Zg5nRUsEGMbR/3IPFUUEWBScIGA+lGZqByJ4Idb4eVO3wSUKNgy+FgSkrui/QrGX+s1A1kVPWzjtZiPAWToA/voWCDLbbgW7pVhoZRFiAfrX/bFIqPIW2NZH0MGmROIz14QVyz+jBpRZ5GEel+fTEU3pHwGW3Ck7AH3e5DX4jwnIV24kLh/IeaK6tdcLu6Ne/JfYRvsINNSNXMv3t6Qywh5Fwn1CcfxfXlnk3hjuY3WG4HVngjlHOE6S3/Qg7aeR23O2Ij159xNlPQ8juUL5KWi8bSID4ejt6o9pYFxE+dkx1/ajf1VD/zDf7oPjgE8CBYEy2xJp6VgBEhczEgrvYdXHIPtapyqekUh4xeme6R5TOOcPrQWlOls71RKoN14ssqCUYylFoQQKoEQbO5F46ThpOwLS9KGH3iiRCi4Ir7WbckCQcL02iKETQ/mYRQQ== /Users/jplimack/.ssh/id_rsa",
+      "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAgEA2R8xJktR0aee3Fq9wGxivdwKUuQgXqog0pxonYEsrTRffNgD2ayuGjJA8ClhsOT7i3jA3MG5ZozF/s0x+2/hhT4MSIiaPbPvbVgjCjKXX9y88vlFCS0p/Xe5JY/bkz7dzMZnnXMVLceXFUJ7cSedc0lb9WA5RhidyTDN2i894IzFc2qsVv5pBZZ/BH+f0Z0YMCGA3ErxOErw/mZFvGo8ehDG6kubvkQQV0DcnuDnUD54NK4nOAgz7AZMwUvbIqqNvwcUAKMm9TRXiIYdvGbw8i685q2f5emsUUW+4vXplscMo1YmQzJL7kcpW+9iQXCrgARK8jWbtD6OCLKhzWEeQvCPn8oczJW8Hmmf18+IeOWv0fzk0+ASjHHepXGLekzQSO4nn5F4ED+38MBWjfZp90UB2WFWXs+7YsZqSmiQJcIVDWx50feTkE3wcT8dcYgpixDFxnOQSKBF273YQN0nWSMdSsAmeBkFkmxqUgDz/Y2fCKDo5oJenUD2nJ5cPd+DKrWz73zdMXQYvq4WKT/77RuQ1Nd8RMkfTATi2mOiGQymns9OZ07shaLNmIn68a8Q9N25rK03KBoT5KmPNAjswvZELNlko3SlB+3AdT+8r7csSZ8c80LIr3nztARM8yb16WqmKYYVmJpU+g6wJQt0bqPC4JmWQJQbtI/BLhcJvjs= /Users/jplimack/.ssh/id_rsa"
+  ],
+  "shell":	"/bin/zsh",
+    "nagios": {
+	"email": "jakeplimack@clearchannel.com",
+	"pager": "jakeplimack+98765@gmail.com"
+    },
+    "htpasswd": "{SHA}48pjCrAIZIGO58nhpat488q7+HI="
+}

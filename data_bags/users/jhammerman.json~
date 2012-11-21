@@ -1,0 +1,6 @@
+{
+  "id": "jhammerman",
+  "groups": ["sysadmin"],
+  "ssh-keys": "ssh-dss AAAAB3NzaC1kc3MAAACBAMSsfWhz35tpUvbaPUQhSvXTOb1c88BKHauy8dDbEaekGopLDrdGgGiZXa4N389JrYc2IVywiy9Zk8XN0NZUa+tJUTHw8iiHgwZIDkphbMkLVkLnaiNIJIRnVRbbgUDXA148dUGYdUCYndqh7o03iq/M",
+  "shell": "/bin/bash"
+}

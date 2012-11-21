@@ -1,0 +1,5 @@
+{
+    "id": "hadoop",
+    "hostgroup_name": "hadoop",
+    "search_query": "name:*hadoop*"
+}
