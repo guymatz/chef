@@ -1,4 +1,0 @@
-
-
-default[:ipplan][:packageurl] = "http://sourceforge.net/projects/iptrack/files/ipplan/Release%204.92/ipplan-4.92b.tar.gz/download"
-default[:ipplan][:install_path] = "/data/www/ipplan"

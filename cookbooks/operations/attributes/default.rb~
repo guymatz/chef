@@ -1,7 +1,0 @@
-
-
-# Operations cookbook
-# written by Jake Plimack <jakeplimack@clearchannel.com
-#
-
-default['operations']['packages'] = %w[ telnet dstat net-snmp net-tools iftop htop top vmstat sysstat nmap pv tree sysstat ]
