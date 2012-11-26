@@ -13,3 +13,9 @@ GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%' identified by '<%= node['mysql']['s
 GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '<%= node['mysql']['server_root_password'] %>' WITH GRANT OPTION;
 <% end -%>
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('<%= node['mysql']['server_root_password'] %>');
+
+# grant sysadmins and dbas all privs, as long as they're logged in locally
+
+<% @dbas.each do |dba| %>
+GRANT ALL PRIVILEGES ON *.* TO '<%= dba %>'@'localhost';
+<% end %>

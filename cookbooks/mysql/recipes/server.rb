@@ -114,13 +114,13 @@ unless platform?(%w{mac_os_x})
   end
 
   skip_federated = case node['platform']
-                   when 'fedora', 'ubuntu', 'amazon'
-                     true
-                   when 'centos', 'redhat', 'scientific'
-                     node['platform_version'].to_f < 6.0
-                   else
-                     false
-                   end
+  when 'fedora', 'ubuntu', 'amazon'
+    true
+  when 'centos', 'redhat', 'scientific'
+    node['platform_version'].to_f < 6.0
+  else
+    false
+  end
 
   template "#{node['mysql']['conf_dir']}/my.cnf" do
     source "my.cnf.erb"
@@ -176,12 +176,20 @@ else
     t = resources("template[#{grants_path}]")
   rescue
     Chef::Log.info("Could not find previously defined grants.sql resource")
+    results = search(:users, "groups:dba OR groups:sysadmin")
+    alldbas = Array.new
+    results.each do |r|
+      alldbas << r['id']
+    end
     t = template grants_path do
       source "grants.sql.erb"
       owner "root" unless platform? 'windows'
       group node['mysql']['root_group'] unless platform? 'windows'
       mode "0600"
       action :create
+      variables(
+                :dbas => alldbas
+                )
     end
   end
 
