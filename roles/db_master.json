@@ -1,0 +1,15 @@
+{
+  "env_run_lists": {
+  },
+  "description": "",
+  "override_attributes": {
+  },
+  "name": "db_master",
+  "run_list": [
+      "recipe[ipplan::database]"
+  ],
+  "chef_type": "role",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role"
+}
