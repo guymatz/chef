@@ -42,6 +42,9 @@ nice            = 0
 #   If you make changes to these settings and your system uses apparmor, you may
 #   also need to also adjust /etc/apparmor.d/usr.sbin.mysqld.
 #
+# Skip reverse DNS lookup of clients
+<%= "skip-name-resolve" if node['mysql']['tunable']['skip_name_resolve'] %>
+
 
 user            = mysql
 pid-file        = <%= node['mysql']['pid_file'] %>
