@@ -43,7 +43,7 @@ end
 if node[:roles].include?('db_master')
   db_server = 'localhost'
 else
-  results = search(:node, "recipes:ipplan\\:\\:database AND chef_environment:#{node.chef_environment}")
+  results = search(:node, "recipes:ipplan\\:\\:database")
   db_server = results[0][:fqdn]
 end
 
