@@ -40,4 +40,7 @@ template "#{node['php']['conf_dir']}/php.ini" do
   owner "root"
   group "root"
   mode "0644"
+  variables ({
+               :timezone => node[:php][:timezone]
+             })
 end
