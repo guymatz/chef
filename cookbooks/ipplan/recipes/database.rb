@@ -29,9 +29,8 @@ webservers.each do |webserver|
   ip = webserver['ipaddress']
   ruby_block "add_#{ip}_#{node[:ipplan][:app_name]}_permissions" do
     Chef::Log.debug("Setting up users and grants")
-    Chef::Log.debug("Host: " + ip)
     block do
-      %x[mysql -u #{mysql_connection_info[:username]} -p#{mysql_connection_info[:password]} -e "GRANT SELECT,INSERT,UPDATE,DELETE ON #{node[:ipplan][:app_name]}.* to '#{node[:ipplan][:db_user]}'@'#{ip}' IDENTIFIED BY '#{app_secrets['pass']}';"]
+      %x[mysql -u #{mysql_connection_info[:username]} -p#{mysql_connection_info[:password]} -e "GRANT ALL PRIVILEGES ON #{node[:ipplan][:app_name]}.* to '#{node[:ipplan][:db_user]}'@'#{ip}' IDENTIFIED BY '#{app_secrets['pass']}';"]
     end
     not_if "mysql -u #{mysql_connection_info[:username]} -p#{mysql_connection_info[:password]} -e \"SELECT user, host FROM mysql.user\" | grep #{node[:ipplan][:db_user]} | grep #{ip}"
     action :create

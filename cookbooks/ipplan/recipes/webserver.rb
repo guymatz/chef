@@ -15,7 +15,7 @@ end
 directory node[:ipplan][:install_path] do
   owner node[:apache][:user]
   group node[:apache][:group]
-  mode 0755
+  mode 0750
 end
 
 bash "extract-package" do
