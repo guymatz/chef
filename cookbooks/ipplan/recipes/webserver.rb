@@ -5,6 +5,10 @@ include_recipe "apache2::mod_php5"
 
 version = node[:ipplan][:version]
 
+node[:ipplan][:packages].each do |p|
+  package p
+end
+
 remote_file "#{Chef::Config[:file_cache_path]}/ipplan-#{version}.tar.gz" do
   puts "Downloading from #{node[:ipplan][:package_url]}"
   source node[:ipplan][:package_url]

@@ -13,9 +13,13 @@ default[:ipplan][:user][:rhel] = "apache"
 default[:ipplan][:checksum] = "92f2499755e13260c06f51424cfce173"
 
 
-# Apache Settings
+# Apache & PHP Settings
 default[:ipplan][:server_name] = "ipplan.ihrdev.com"
 default[:ipplan][:server_aliases] = "ipplan"
+case node['platform']
+when "centos", "redhat", "suse", "fedora", "scientific", "amazon"
+  default[:ipplan][:packages] = %w{ php-snmp zlib zlib-devel }
+end
 
 # Database Settings
 default[:ipplan][:db_user] = "ipplan"
