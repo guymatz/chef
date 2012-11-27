@@ -3,7 +3,7 @@
 <VirtualHost *:<%= node['nagios']['http_port'] %>>
   ServerAdmin     <%= node['nagios']['sysadmin_email'] %>
   ServerName      <%= node['fqdn'] %>
-  ServerAlias     nagios nagios.<%= node.chef_environment =~ /^_default$/ ? "default" : node.chef_environment%>.<%= @public_domain %>
+  ServerAlias     nagios <%= node['nagios']['server_aliases'] %> nagios.<%= node.chef_environment =~ /^_default$/ ? "default" : node.chef_environment%>.<%= @public_domain %>
   DocumentRoot    <%= node['nagios']['docroot'] %>
   CustomLog       <%= node['nagios']['log_dir'] %>/apache_access.log combined
   ErrorLog        <%= node['nagios']['log_dir'] %>/apache_error.log
