@@ -36,8 +36,8 @@ when :apache
   web_group = node["apache"]["group"] || web_user
 else
   Chef::Log.fatal("Unknown web server option provided for Nagios server: " <<
-    "#{node['nagios']['server']['web_server']} provided. Allowed: :nginx or :apache"
-  )
+                  "#{node['nagios']['server']['web_server']} provided. Allowed: :nginx or :apache"
+                  )
   raise 'Unknown web server option provided for Nagios server'
 end
 
@@ -62,8 +62,8 @@ else
     group web_group
     mode 0640
     variables(
-      :sysadmins => sysadmins
-    )
+              :sysadmins => sysadmins
+              )
   end
 end
 
@@ -79,9 +79,9 @@ end
 os_list = Array.new
 
 nodes.each do |n|
-	if !os_list.include?(n['os'])
-		os_list << n['os']
-	end
+  if !os_list.include?(n['os'])
+    os_list << n['os']
+  end
 end
 
 # Load Nagios services from the nagios_services data bag
@@ -104,7 +104,7 @@ begin
     hostgroup_list << hg['hostgroup_name']
     temp_hostgroup_array= Array.new
     search(:node, "#{hg['search_query']}") do |n|
-       temp_hostgroup_array << n['hostname']
+      temp_hostgroup_array << n['hostname']
     end
     hostgroup_nodes[hg['hostgroup_name']] = temp_hostgroup_array.join(",")
   end
@@ -124,6 +124,26 @@ search(:role, "*:*") do |r|
   role_list << r.name
   search(:node, "role:#{r.name} AND chef_environment:#{node.chef_environment}") do |n|
     service_hosts[r.name] = n['hostname']
+  end
+end
+
+## Handle Unmanaged Hosts via Data Bag
+begin
+  unmanaged_hosts = search(:nagios_unmanagedhosts, "*:*")
+rescue Net::HTTPServerException
+  Chef::Log.info("Search for nagios_unmanagedhosts data bag failed, so we'll just move on.")
+end
+
+# Create an unmanaged-hosts hostgroup to the role_list if they are not already present
+if unmanaged_hosts.nil? || unmanaged_hosts.empty?
+  Chef::Log.info("No unmanaged hosts returned from data bag search.")
+else
+  unmanaged_hosts.each do |host|
+    host['hostgroups'].each do |nested_hostgroup|
+      if !role_list.include?(nested_hostgroup) and !os_list.include?(nested_hostgroup)
+        role_list << nested_hostgroup
+      end
+    end
   end
 end
 
@@ -194,9 +214,9 @@ end
 
 nagios_conf "services" do
   variables(
-    :service_hosts => service_hosts,
-    :services => services
-  )
+            :service_hosts => service_hosts,
+            :services => services
+            )
 end
 
 nagios_conf "contacts" do
@@ -205,15 +225,18 @@ end
 
 nagios_conf "hostgroups" do
   variables(
-    :roles => role_list,
-    :os => os_list,
-    :search_hostgroups => hostgroup_list,
-    :search_nodes => hostgroup_nodes
-    )
+            :roles => role_list,
+            :os => os_list,
+            :search_hostgroups => hostgroup_list,
+            :search_nodes => hostgroup_nodes
+            )
 end
 
 nagios_conf "hosts" do
-  variables :nodes => nodes
+  variables(
+            :nodes => nodes,
+            :unmanaged_hosts => unmanaged_hosts
+            )
 end
 
 service "nagios" do
