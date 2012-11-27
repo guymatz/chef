@@ -5,6 +5,7 @@
     },
     "run_list": [
         "recipe[resolver]",
+	"recipe[timezone]",
         "recipe[chef-client]",
         "recipe[zsh]",
         "recipe[users]",
