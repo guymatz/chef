@@ -16,13 +16,13 @@
 # limitations under the License.
 
 # Set CHROOT directory
-default['bind_chroot']['chroot_dir'] = "/var/bind9/chroot"
+default['bind_chroot']['chroot_dir'] = "/var/named/chroot"
 
 # Set user name for BIND
-default['bind_chroot']['bind_user_name'] = "bind"
+default['bind_chroot']['bind_user_name'] = "named"
 
 # Set group name for BIND
-default['bind_chroot']['bind_group_name'] = "bind"
+default['bind_chroot']['bind_group_name'] = "named"
 
 # Store zones in OpenLDAP
 default['bind_chroot']['store_zones_in_openldap'] = "no"

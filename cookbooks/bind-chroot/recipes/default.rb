@@ -17,4 +17,10 @@
 # NOTE: The recipe zones-openldap.rb DOES NOT WORK YET!!!!!
 # Please consider this still in test/dev!
 
-include_recipe "bind-chroot::chroot"
+
+cookbook_file "/etc/profile.d/bind_aliases.sh" do
+  source "aliases.sh"
+  owner "root"
+  group "root"
+  mode "0755"
+end

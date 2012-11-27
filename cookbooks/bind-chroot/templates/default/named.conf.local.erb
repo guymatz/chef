@@ -7,4 +7,127 @@
 // Consider adding the 1918 zones here, if they are not used in your
 // organization
 
-include "/etc/bind/zones.rfc1918";
+# AddThis BIND Config 
+#
+# Written by Kyle Jake Plimack
+#
+#
+
+include "/etc/named.options";
+#include "/etc/zones.rfc1918";
+
+
+# Who we allow xfer's from
+acl "xfer" {
+    127.0.0.1;	# localhost
+    10.0/8;	# RFC1918
+    172.16/12;  # RFC1918
+    192.168/16;	# RFC1918
+};
+
+# Who do we trust to view the zones
+acl "trusted" {
+    10.0/8;	# RFC1918
+    172.16/12;	# RFC1918
+    192.168/16;	# RFC1918
+    127.0.0.1;	# localhost
+};
+
+acl "akamai" {
+    60.254.128.45;
+    72.246.0.10;
+    72.246.192.168;
+    72.247.45.25;
+    72.247.45.65;
+    72.247.45.110;
+    72.247.45.157;
+    80.67.64.10;
+    80.67.64.148;
+    193.108.152.143;
+    193.108.155.34;
+};
+
+acl "bogon" {
+    224.0.0.0/3;
+};
+
+logging {
+  channel simple_log {
+    file "/var/log/named/bind.log" versions 3 size 5m;
+    severity warning;
+    print-time yes;
+    print-severity yes;
+    print-category yes;
+  };
+  category default{
+    simple_log;
+  };
+};
+
+#include "/etc/named.options";
+include "/etc/rndc.key";
+
+controls {
+	 inet 127.0.0.1 allow { localhost; } keys { rndckey; };
+};
+
+view "internal" {
+     match-clients { trusted; };
+     recursion yes;
+     additional-from-auth yes;
+     additional-from-cache yes;
+
+     # root servers
+     zone "." {
+     	  type hint;
+	  file "/var/named/named.root";
+     };
+
+     # verisign sux
+     zone "com." { type delegation-only; };
+     zone "net." { type delegation-only; };
+
+     # loopback
+     zone "localhost." {
+     	  type master;
+	  file "/var/named/localhost.zone";
+	  forwarders {};
+     };
+
+     zone "0.0.127.in-addr.arpa." {
+     	  type master;
+	  file "/var/named/0.0.127.in-addr.arpa.zone";
+	  allow-query { any; };
+	  allow-transfer { none; };
+	  forwarders {};
+     };
+
+     #  the following zones are auto-generated from IPPLAN 
+     
+     zone "add." {
+     	  type master;
+	  file "/var/named/internal/add.autogen.zone";
+	  forwarders {};
+	  allow-transfer { xfer; };
+     };
+
+     zone "clearspring.com" in{
+          type master;
+          file "/var/named/internal/clearspring.com.autogen.zone";
+          forwarders {};
+          allow-transfer { xfer; };
+     };
+
+     zone "clearspring.local" in{
+          type master;
+          file "/var/named/internal/clearspring.local.autogen.zone";
+          forwarders {};
+          allow-transfer { xfer; };
+     };
+
+     zone "20.10.in-addr.arpa." {
+     	  type master;
+	  file "/var/named/internal/20.10.in-addr.arpa.autogen.zone";
+	  forwarders {};
+     };
+};

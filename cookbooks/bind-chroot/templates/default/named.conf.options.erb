@@ -1,23 +1,40 @@
 // This file is managed by Opscode Chef.
 // Local changes will be overridden!
 
+# bind options
+#
+# Written by Kyle J Plimack
+#
+#
+
 options {
-        directory "/var/cache/bind";
+#	directory "/var/named/chroot/";
+	check-names master ignore;
+	check-names slave ignore;
+	check-names response ignore;
+	pid-file "/var/run/named/named.pid";
+	statistics-file "/var/tmp/named.stats";
+	dump-file "/tmp/named.dump";
+	zone-statistics yes;
+	recursive-clients 10000;
+	interface-interval 5;
+	
+	# mr.slave stuff
 
-        // If there is a firewall between you and nameservers you want
-        // to talk to, you may need to fix the firewall to allow multiple
-        // ports to talk.  See http://www.kb.cert.org/vuls/id/800113
+	also-notify {};
+	allow-transfer { xfer; };
+	notify no;
+	transfer-format many-answers;
+	max-transfer-time-in 60; # minutes
 
-        // If your ISP provided one or more IP addresses for stable
-        // nameservers, you probably want to use them as forwarders.
-        // Uncomment the following block, and insert the addresses replacing
-        // the all-0's placeholder.
+	allow-query { trusted; };
+	blackhole { bogon; };
+	lame-ttl 1800;
+	
+	# dont tell people what wer're doing
+	version "yourface!";
+	auth-nxdomain no;    # conform to RFC1035
 
-        // forwarders {
-        //      0.0.0.0;
-        // };
-
-        auth-nxdomain no;    # conform to RFC1035
-        listen-on-v6 { any; };
+	forward only;
+	forwarders { 8.8.8.8; 4.4.4.4; };
 };
-

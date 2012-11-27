@@ -34,7 +34,7 @@ case node['platform']
 
 # Install Bind9 on Redhat
   when "redhat","centos","scientific","arch","amazon"
-    %w{ bind-chroot bind-utils }.each do |pkg|
+    %w{ bind97-chroot bind97-utils }.each do |pkg|
     package pkg do
       action :install
     end
