@@ -7,12 +7,6 @@
 // Consider adding the 1918 zones here, if they are not used in your
 // organization
 
-# AddThis BIND Config 
-#
-# Written by Kyle Jake Plimack
-#
-#
-
 include "/etc/named.options";
 #include "/etc/zones.rfc1918";
 
@@ -102,32 +96,22 @@ view "internal" {
 	  forwarders {};
      };
 
-     #  the following zones are auto-generated from IPPLAN 
-     
-     zone "add." {
+     #  the following zones are auto-generated from IPPLAN
+
+     <% @dns_fwd_zones.each do |zone| -%>
+     zone "<%= zone %>"
      	  type master;
-	  file "/var/named/internal/add.autogen.zone";
+	  file "<%= @zones_path %>/<%= zone %>.autogen.zone";
 	  forwarders {};
 	  allow-transfer { xfer; };
      };
+     <% end -%>
 
-     zone "clearspring.com" in{
-          type master;
-          file "/var/named/internal/clearspring.com.autogen.zone";
-          forwarders {};
-          allow-transfer { xfer; };
-     };
-
-     zone "clearspring.local" in{
-          type master;
-          file "/var/named/internal/clearspring.local.autogen.zone";
-          forwarders {};
-          allow-transfer { xfer; };
-     };
-
-     zone "20.10.in-addr.arpa." {
+     <% @dns_rev_zones.each do |zone| -%>
+     zone "<%= zone %>.in-addr.arpa." {
      	  type master;
-	  file "/var/named/internal/20.10.in-addr.arpa.autogen.zone";
+	  file "<%= @zones_path %>/<%= zone %>.in-addr.arpa.autogen.zone";
 	  forwarders {};
      };
+     <% end -%>
 };
