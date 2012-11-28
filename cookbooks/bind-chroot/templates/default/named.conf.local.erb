@@ -17,6 +17,8 @@ acl "xfer" {
     10.0/8;	# RFC1918
     172.16/12;  # RFC1918
     192.168/16;	# RFC1918
+
+
 };
 
 # Who do we trust to view the zones
@@ -25,6 +27,11 @@ acl "trusted" {
     172.16/12;	# RFC1918
     192.168/16;	# RFC1918
     127.0.0.1;	# localhost
+
+    # Chef adds trusted nets below this from databag networks type:internal
+    <% @trusted_nets.each do |net| -%>
+    <%= net['number'] %>; # <%= net['description'] %>
+    <% end -%>
 };
 
 acl "akamai" {

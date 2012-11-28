@@ -24,6 +24,7 @@ when "ubuntu","debian"
   # Set group name for BIND
   default['bind_chroot']['bind_group_name'] = "bind"
   # Store zones in OpenLDAP
+  default['bind-chroot']['packages'] = %w{ bind9 bind9-doc bind9-host bind9utils dnsutils }
 when "redhat","centos","fedora","scientific","amazon"
   # Set CHROOT directory
   default['bind_chroot']['chroot_dir'] = "/var/named/chroot"

@@ -87,11 +87,20 @@ directory "#{node['bind-chroot']['chroot_dir']}/var/run/bind/run" do
   recursive true
 end
 
+results = search(:networks, "type:internal")
+trusted_nets = Array.new
+results.each do |r|
+  trusted_nets << r
+end
+
 template "#{node['bind-chroot']['chroot_dir']}/etc/named.conf" do
   source "named.conf.local.erb"
   owner node['bind_chroot']['bind_user_name']
   group node['bind_chroot']['bind_group_name']
   mode "0644"
+  variables({
+              :trusted_nets => trusted_nets
+            })
 end
 
 template "#{node['bind-chroot']['chroot_dir']}/etc/named.options" do
