@@ -30,22 +30,8 @@ acl "trusted" {
 
     # Chef adds trusted nets below this from databag networks type:internal
     <% @trusted_nets.each do |net| -%>
-    <%= net['number'] %>; # <%= net['description'] %>
+    <%= net['number'] %>/<%= net['mask'] %>; # <%= net['description'] %>
     <% end -%>
-};
-
-acl "akamai" {
-    60.254.128.45;
-    72.246.0.10;
-    72.246.192.168;
-    72.247.45.25;
-    72.247.45.65;
-    72.247.45.110;
-    72.247.45.157;
-    80.67.64.10;
-    80.67.64.148;
-    193.108.152.143;
-    193.108.155.34;
 };
 
 acl "bogon" {
@@ -106,18 +92,18 @@ view "internal" {
      #  the following zones are auto-generated from IPPLAN
 
      <% @dns_fwd_zones.each do |zone| -%>
-     zone "<%= zone %>"
+     zone "<%= zone['zone'] %>" {
      	  type master;
-	  file "<%= @zones_path %>/<%= zone %>.autogen.zone";
+	  file "/var/named/internal/<%= zone['zone'] %>.autogen.zone";
 	  forwarders {};
 	  allow-transfer { xfer; };
      };
      <% end -%>
 
      <% @dns_rev_zones.each do |zone| -%>
-     zone "<%= zone %>.in-addr.arpa." {
+     zone "<%= zone['net'] %>.in-addr.arpa." {
      	  type master;
-	  file "<%= @zones_path %>/<%= zone %>.in-addr.arpa.autogen.zone";
+	  file "/var/named/internal/<%= zone['net'] %>.in-addr.arpa.autogen.zone";
 	  forwarders {};
      };
      <% end -%>
