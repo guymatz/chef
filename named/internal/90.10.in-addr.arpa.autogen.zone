@@ -3,7 +3,7 @@ $ORIGIN 90.10.in-addr.arpa.
 
 $TTL 21600
 @	IN	SOA	ns1.ihrdev.com. myemail.mydomain.com. (
-			2012112821 ; serial
+			2012112822 ; serial
 			86400      ; refresh
 			3600       ; retry
 			604800     ; expire
