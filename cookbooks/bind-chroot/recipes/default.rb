@@ -72,6 +72,13 @@ directory "#{node['bind_chroot']['chroot_dir']}/var/run/named" do
   recursive true
 end
 
+directory "#{node['bind_chroot']['chroot_dir']}/var/log/named" do
+  owner node['bind_chroot']['bind_user_name']
+  group node['bind_chroot']['bind_group_name']
+  mode "0755"
+  recursive true
+end
+
 directory "#{node['bind_chroot']['chroot_dir']}/var/named/internal" do
   owner node['bind_chroot']['bind_user_name']
   group node['bind_chroot']['bind_group_name']
@@ -91,6 +98,12 @@ directory "#{node[:bind_chroot][:staging]}/var/named/internal" do
   group node['bind_chroot']['bind_group_name']
   mode "0755"
   recursive true
+end
+
+directory "/var/log/#{node['bind_chroot']['name']}" do
+  owner node['bind_chroot']['bind_user_name']
+  group node['bind_chroot']['bind_group_name']
+  mode "0755"
 end
 
 results = search(:networks, "type:internal")
@@ -137,6 +150,18 @@ template "#{node['bind_chroot']['chroot_dir']}/etc/rndc.key" do
   owner node['bind_chroot']['bind_user_name']
   group node['bind_chroot']['bind_group_name']
   mode "0644"
+end
+
+template "/usr/local/sbin/push-dns" do
+  source "push-dns.sh.erb"
+  owner "root"
+  group "root"
+  mode "0755"
+  variables({
+              :scripts_dir => node[:ipplan][:scripts_dir],
+              :chroot_dir => node[:bind_chroot][:chroot_dir],
+              :daemon => node[:bind_chroot][:name]
+            })
 end
 
 cookbook_file "#{node['bind_chroot']['chroot_dir']}/etc/named.rfc1912.zones" do

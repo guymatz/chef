@@ -18,7 +18,10 @@ acl "xfer" {
     172.16/12;  # RFC1918
     192.168/16;	# RFC1918
 
-
+    # Chef adds trusted nets below this from databag networks type:internal
+    <% @trusted_nets.each do |net| -%>
+    <%= net['number'] %>/<%= net['mask'] %>; # <%= net['description'] %>
+    <% end -%>
 };
 
 # Who do we trust to view the zones
@@ -38,18 +41,42 @@ acl "bogon" {
     224.0.0.0/3;
 };
 
+# Logging Configuration
+#
 logging {
-  channel simple_log {
-    file "/var/log/named/bind.log" versions 3 size 5m;
-    severity warning;
-    print-time yes;
-    print-severity yes;
-    print-category yes;
-  };
-  category default{
-    simple_log;
-  };
+#
+# Define channels for the two log files
+#
+        channel log_dns {
+                file "/var/log/named/bind.log" versions 3 size 10m;
+                print-category yes;
+                print-severity yes;
+                print-time yes;
+        };
+        channel log_queries {
+                file "/var/log/named/query.log" versions 3 size 20m;
+                print-category yes;
+                print-severity yes;
+                print-time yes;
+        };
+        category default {log_dns;};
+        category queries {log_queries;};
+        category lame-servers { null;};
+        category edns-disabled { null; };
 };
+
+# logging {
+#   channel simple_log {
+#     file "/var/log/named/bind.log" versions 3 size 5m;
+#     severity warning;
+#     print-time yes;
+#     print-severity yes;
+#     print-category yes;
+#   };
+#   category default{
+#     simple_log;
+#   };
+# };
 
 #include "/etc/named.options";
 include "/etc/rndc.key";
