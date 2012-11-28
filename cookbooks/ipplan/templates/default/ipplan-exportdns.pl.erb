@@ -36,7 +36,7 @@ if ( $event =~ /^12(0|1|2)$/ ) {
 }
 elsif ( $event =~ /^13(0|1|2)$/ ){
     to_syslog( "rev dns actions for all zones" );
-    export_rev_dns(  );
+    export_rev_dns( $arg );
     to_syslog("Done exporting rev-dns \n\n\n");
 }
 else {
@@ -82,7 +82,8 @@ sub export_fwd_dns {
 sub export_rev_dns {
   #http://<%= @ipplan_url %>/user/modifyzone.php?cust=2&zoneid=0&action=export
     to_syslog("Invoking reverse script to export all changed reverse zones");
-    fake_request( @rev_script, 'cust=1&zoneid=0&action=export' );
+    print "REVSCRIPT: @rev_script"."cust=$customer&zoneid=0&action=export";
+    fake_request( @rev_script, "cust=$customer&zoneid=0&action=export" );
 }
 
 sub query_db {

@@ -60,6 +60,26 @@ template "#{node[:ipplan][:scripts_dir]}/bin/ipplan-updatedns.sh" do
             })
 end
 
+# drop a github private deploy key for ops-auto
+deploy_keys = Chef::EncryptedDataBagItem.load("keys", "ops-auto")
+file "/etc/chef/ops-auto" do
+  owner "root"
+  group "root"
+  mode "0400"
+  content deploy_keys['private_key']
+  :create_if_missing
+end
+
+file "/root/.ssh/config" do
+  owner "root"
+  group "root"
+  mode "0755"
+  content <<-EOH
+  Host github.com
+    IdentityFile /etc/chef/ops-auto
+EOH
+end
+
 results = search(:node, "roles:dns-server")
 dns_hosts = Array.new
 results.each do |r|
@@ -86,9 +106,15 @@ template "#{node[:ipplan][:scripts_dir]}/bin/update.conf" do
             })
 end
 
-cookbook_file "#{node[:ipplan][:scripts_dir]}/bin/ipplan-updatefunc.sh" do
-  source "ipplan-updatefunc.sh"
+git_repo = "git@github.com:kplimack/ipplan-autogen.git"
+
+template "#{node[:ipplan][:scripts_dir]}/bin/ipplan-updatefunc.sh" do
+  source "ipplan-updatefunc.sh.erb"
   owner "root"
   group "root"
   mode "0700"
+  variables({
+              :git_repo => git_repo
+            })
 end
+
