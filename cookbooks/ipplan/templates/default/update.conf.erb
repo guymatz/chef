@@ -1,0 +1,45 @@
+# Variables
+export STAMP=$(date +%Y%m%d%H%M)
+export HOSTNAME=$(hostname)
+export HOSTAUTOGENIP="10.191.205.72"
+export LOGINUID=$(whoami)
+export ID=$(/usr/bin/id -u)
+export MAILEXEC=/bin/mail
+export MAILADDR="jakeplimack@clearchannel.com"
+export ZONES="<%= @dns_zones.join(' ') %>"
+export FILETAG="autogen"
+export COMMITTAG="autogen-DNS"
+
+
+export ROOTDIR=/var/named/chroot-stage/var/named/internal
+export WORKDIR=<%= @work_dir %>
+export WORKDIRGIT=git.$$
+export STAGING=<%= @work_dir %>/staging
+export EXPORTDNS=<%= @scripts_dir %>/bin/ipplan-exportdns.pl
+
+export FWDERRTOUCHFILE="<% @scripts_dir %>/tmp/if-this-file-exists-there-was-an-error-with-the-last-forward-export"
+export REVERRTOUCHFILE="<% @scripts_dir %>/tmp/if-this-file-exists-there-was-an-error-with-the-last-reverse-export"
+
+# Binaries
+export XSLTPROC=/usr/bin/xsltproc
+export NC=/usr/bin/nc
+export SUDO=/usr/bin/sudo
+export STAT=/usr/bin/stat
+export NAGIOSPASSIVE='/bin/echo'
+export DIFF=/usr/bin/diff
+export PATCH=/usr/bin/patch
+export NAMEDCHKZONE=/usr/sbin/named-checkzone
+
+export DNSHOSTSINT="<% @dns_hosts %>"
+export HTTPDPORT=80
+
+# stylesheets:
+export SS_BIND9_REV=<%= @install_path %>/contrib/bind9_revzone.xsl
+export SS_BIND9_FWD=<%= @install_path %>/contrib/bind9_zone.xsl
+
+if [ "$DEBUG" ]; then
+    export RSYNCOPTS="-rv --exclude proc"
+else
+    export RSYNCOPTS="-r --exclude proc"
+fi
+

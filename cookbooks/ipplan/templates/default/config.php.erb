@@ -207,7 +207,7 @@ define("DNSSERVER4", 'ns4.example.com');
 //   this will usually be the user under which Apache runs. If the 
 // permissions are not correct, the files will be created in the
 // system temp directory, usually /tmp
-define("DNSEXPORTPATH", '/tmp/dns/');
+define("DNSEXPORTPATH", '<%= @ipplan_export_path %>');
 
 // dnsslaveonly is the default setting for when creating new zones. If your
 // dns server only serves as a slave for most of your zones, it's helpful

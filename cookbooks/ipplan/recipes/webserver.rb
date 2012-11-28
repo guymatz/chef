@@ -2,6 +2,7 @@
 
 include_recipe "apache2"
 include_recipe "apache2::mod_php5"
+include_recipe "ipplan::scripts"
 
 version = node[:ipplan][:version]
 
@@ -56,6 +57,7 @@ template "#{node[:ipplan][:install_path]}/config.php" do
             :db_server => db_server,
             :db_user => node[:ipplan][:db_user],
             :db_pass => app_secrets['pass'],
-            :db_name => node[:ipplan][:app_name]
+            :db_name => node[:ipplan][:app_name],
+            :ipplan_export_path => "#{node[:ipplan][:scripts_dir]}/dns"
             )
 end

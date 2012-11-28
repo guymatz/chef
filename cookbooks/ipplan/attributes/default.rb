@@ -19,7 +19,15 @@ default[:ipplan][:server_aliases] = "ipplan"
 case node['platform']
 when "centos", "redhat", "suse", "fedora", "scientific", "amazon"
   default[:ipplan][:packages] = %w{ php-snmp zlib zlib-devel }
+  default[:ipplan][:scripts][:packages] = %w{ perl-DBI perl-DBD-MySQL }
 end
 
 # Database Settings
 default[:ipplan][:db_user] = "ipplan"
+
+# Script Settings for Exporting
+
+default[:ipplan][:staging_dir] = "/staging_bind"
+default[:ipplan][:scripts_dir] = "/usr/local/bin/ipplan"
+default[:ipplan][:ipplan_url] = "ipplan.ihrdev.com"
+default[:ipplan][:ipplan_user] = "ops-auto"
