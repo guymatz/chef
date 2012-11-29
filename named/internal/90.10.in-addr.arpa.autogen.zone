@@ -3,7 +3,7 @@ $ORIGIN 90.10.in-addr.arpa.
 
 $TTL 21600
 @	IN	SOA	ns1.ihrdev.com. myemail.mydomain.com. (
-			2012112900 ; serial
+			2012112901 ; serial
 			86400      ; refresh
 			3600       ; retry
 			604800     ; expire
@@ -13,5 +13,6 @@ $TTL 21600
 	IN	NS	ns2.ihrdev.com.
 	IN	NS	ns3.ihrdev.com.
 11.20.90.10.in-addr.arpa.	IN	PTR	tdrapeau-stsr.ihrdev.com.
+17.20.90.10.in-addr.arpa.	IN	PTR	test01.ihrdev.com.
 109.20.90.10.in-addr.arpa.	IN	PTR	tpftp01.ihrdev.com.
 110.20.90.10.in-addr.arpa.	IN	PTR	tpftp02.ihrdev.com.
