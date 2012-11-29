@@ -118,3 +118,7 @@ template "#{node[:ipplan][:scripts_dir]}/bin/ipplan-updatefunc.sh" do
             })
 end
 
+cron "update DNS from IPplan" do
+  minute "1,31"
+  command "/usr/local/bin/ipplan/ipplan-updatedns.sh"
+end
