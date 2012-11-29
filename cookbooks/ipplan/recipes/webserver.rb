@@ -1,0 +1,90 @@
+# webserver recipe
+
+include_recipe "apache2"
+include_recipe "apache2::mod_php5"
+include_recipe "ipplan::scripts"
+
+version = node[:ipplan][:version]
+
+node[:ipplan][:packages].each do |p|
+  package p
+end
+
+remote_file "#{Chef::Config[:file_cache_path]}/ipplan-#{version}.tar.gz" do
+  puts "Downloading from #{node[:ipplan][:package_url]}"
+  source node[:ipplan][:package_url]
+  #  checksum node[:ipplan][:checksum]
+  action :create_if_missing
+end
+
+directory node[:ipplan][:install_path] do
+  owner node[:apache][:user]
+  group node[:apache][:group]
+  mode 0750
+  recursive true
+end
+
+bash "extract-package" do
+  cwd Chef::Config[:file_cache_path]
+  code <<-EOH
+    tar zxvf ipplan-#{version}.tar.gz
+    mv ipplan/* #{node[:ipplan][:install_path]}
+  EOH
+  not_if "test -f #{node[:ipplan][:install_path]}/index.php"
+end
+
+# setup the apache virtualhost
+
+web_app node[:ipplan][:app_name] do
+  server_name node[:ipplan][:server_name]
+  docroot node[:ipplan][:install_path]
+  server_aliases node[:ipplan][:server_aliases], node['fqdn'], node['hostname']
+  template "#{node[:ipplan][:app_name]}.conf.erb"
+end
+
+if node[:roles].include?('db_master')
+  db_server = 'localhost'
+else
+  results = search(:node, "recipes:ipplan\\:\\:database")
+  db_server = results[0][:fqdn]
+end
+
+
+app_secrets = Chef::EncryptedDataBagItem.load("secrets", node[:ipplan][:app_name])
+
+Chef::Log.info("Configuring IPplan settings:")
+Chef::Log.info("DBSERVER:" + db_server)
+Chef::Log.info("DBUSER:" + node[:ipplan][:db_user])
+Chef::Log.info("DBNAME:" + node[:ipplan][:app_name])
+Chef::Log.info("DBPASS:" + app_secrets['pass'])
+Chef::Log.info("EXPORTPATH:" + "#{node[:ipplan][:scripts_dir]}/dns")
+
+template "#{node[:ipplan][:install_path]}/config.php" do
+  source "config.php.erb"
+  mode "0755"
+  variables({
+              :db_server => db_server,
+              :db_user => node[:ipplan][:db_user],
+              :db_pass => app_secrets['pass'],
+              :db_name => node[:ipplan][:app_name],
+              :ipplan_export_path => "#{node[:ipplan][:scripts_dir]}/dns"
+            })
+end
+
+template "/usr/local/sbin/push-dns" do
+  source "push-dns.sh.erb"
+  owner "root"
+  group "root"
+  mode "0755"
+  variables({
+              :scripts_dir => node[:ipplan][:scripts_dir],
+              :chroot_dir => node[:bind_chroot][:chroot_dir],
+              :daemon => node[:bind_chroot][:name]
+            })
+end
+
+bash "export dns from ipplan" do
+  user "root"
+  cwd "/usr/local/bin/ipplan"
+  code "/usr/local/bin/ipplan/bin/ipplan-updatedns.sh"
+end

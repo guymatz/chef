@@ -1,0 +1,10 @@
+{
+  "address": "use1c-hadoop-datanode004.ihrdev.com",
+  "hostgroups": [
+    "base",
+    "hadoop",
+      "linux"
+  ],
+  "notifications": 0,
+  "id": "use1c-hadoop-datanode004"
+}

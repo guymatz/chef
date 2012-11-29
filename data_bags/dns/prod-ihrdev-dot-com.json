@@ -1,0 +1,5 @@
+{
+  "id": "prod-ihrdev-dot-com",
+  "zone": "prod.ihrdev.com",
+  "mode": "forward"
+}

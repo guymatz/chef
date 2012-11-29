@@ -1,0 +1,10 @@
+{
+  "address": "HN.ihrdev.com",
+  "hostgroups": [
+    "base",
+    "hadoop",
+      "linux"
+  ],
+  "notifications": 0,
+  "id": "HN"
+}

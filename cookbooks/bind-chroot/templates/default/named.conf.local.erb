@@ -1,0 +1,137 @@
+// This file is managed by Opscode Chef.
+// Local changes will be overridden!
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+
+include "/etc/named.options";
+#include "/etc/zones.rfc1918";
+
+
+# Who we allow xfer's from
+acl "xfer" {
+    127.0.0.1;	# localhost
+    10.0/8;	# RFC1918
+    172.16/12;  # RFC1918
+    192.168/16;	# RFC1918
+
+    # Chef adds trusted nets below this from databag networks type:internal
+    <% @trusted_nets.each do |net| -%>
+    <%= net['number'] %>/<%= net['mask'] %>; # <%= net['description'] %>
+    <% end -%>
+};
+
+# Who do we trust to view the zones
+acl "trusted" {
+    10.0/8;	# RFC1918
+    172.16/12;	# RFC1918
+    192.168/16;	# RFC1918
+    127.0.0.1;	# localhost
+
+    # Chef adds trusted nets below this from databag networks type:internal
+    <% @trusted_nets.each do |net| -%>
+    <%= net['number'] %>/<%= net['mask'] %>; # <%= net['description'] %>
+    <% end -%>
+};
+
+acl "bogon" {
+    224.0.0.0/3;
+};
+
+# Logging Configuration
+#
+logging {
+#
+# Define channels for the two log files
+#
+        channel log_dns {
+                file "/var/log/named/bind.log" versions 3 size 10m;
+                print-category yes;
+                print-severity yes;
+                print-time yes;
+        };
+        channel log_queries {
+                file "/var/log/named/query.log" versions 3 size 20m;
+                print-category yes;
+                print-severity yes;
+                print-time yes;
+        };
+        category default {log_dns;};
+        category queries {log_queries;};
+        category lame-servers { null;};
+        category edns-disabled { null; };
+};
+
+# logging {
+#   channel simple_log {
+#     file "/var/log/named/bind.log" versions 3 size 5m;
+#     severity warning;
+#     print-time yes;
+#     print-severity yes;
+#     print-category yes;
+#   };
+#   category default{
+#     simple_log;
+#   };
+# };
+
+#include "/etc/named.options";
+include "/etc/rndc.key";
+
+controls {
+	 inet 127.0.0.1 allow { localhost; } keys { rndckey; };
+};
+
+view "internal" {
+     match-clients { trusted; };
+     recursion yes;
+     additional-from-auth yes;
+     additional-from-cache yes;
+
+     # root servers
+     zone "." {
+     	  type hint;
+	  file "/var/named/named.root";
+     };
+
+     # verisign sux
+     zone "com." { type delegation-only; };
+     zone "net." { type delegation-only; };
+
+     # loopback
+     zone "localhost." {
+     	  type master;
+	  file "/var/named/localhost.zone";
+	  forwarders {};
+     };
+
+     zone "0.0.127.in-addr.arpa." {
+     	  type master;
+	  file "/var/named/0.0.127.in-addr.arpa.zone";
+	  allow-query { any; };
+	  allow-transfer { none; };
+	  forwarders {};
+     };
+
+     #  the following zones are auto-generated from IPPLAN
+
+     <% @dns_fwd_zones.each do |zone| -%>
+     zone "<%= zone['zone'] %>" {
+     	  type master;
+	  file "/var/named/internal/<%= zone['zone'] %>.autogen.zone";
+	  forwarders {};
+	  allow-transfer { xfer; };
+     };
+     <% end -%>
+
+     <% @dns_rev_zones.each do |zone| -%>
+     zone "<%= zone['net'] %>.in-addr.arpa." {
+     	  type master;
+	  file "/var/named/internal/<%= zone['net'] %>.in-addr.arpa.autogen.zone";
+	  forwarders {};
+     };
+     <% end -%>
+};

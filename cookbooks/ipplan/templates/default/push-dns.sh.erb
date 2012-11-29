@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -x
+sudo -v
+
+<%= @scripts_dir %>/bin/ipplan-updatedns.sh
+cd /staging_bind
+git pull origin master
+cp -r named/* <%= @chroot_dir %>/var/named/
+/etc/init.d/<%= @daemon %> reload
+
