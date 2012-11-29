@@ -19,7 +19,7 @@ default[:ipplan][:server_aliases] = "ipplan"
 case node['platform']
 when "centos", "redhat", "suse", "fedora", "scientific", "amazon"
   default[:ipplan][:packages] = %w{ php-snmp zlib zlib-devel }
-  default[:ipplan][:scripts][:packages] = %w{ perl-DBI perl-DBD-MySQL }
+  default[:ipplan][:scripts][:packages] = %w{ perl-DBI perl-DBD-MySQL libxslt }
 end
 
 # Database Settings

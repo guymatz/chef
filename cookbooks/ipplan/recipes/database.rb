@@ -22,7 +22,7 @@ ruby_block "create_#{node[:ipplan][:app_name]}_db" do
 end
 
 # get a list of webservers hosting ipplan
-webservers = search(:node, "role:dns-server AND role:infra")
+webservers = search(:node, "role:dns-server")
 
 # grant mysql privs to each ipplan-webserver
 webservers.each do |webserver|

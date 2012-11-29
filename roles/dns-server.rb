@@ -1,7 +1,6 @@
 name "dns-server"
 description "dns-master, ipplan"
 all_env = [
-           "recipe[ipplan]",
            "recipe[bind-chroot]"
           ]
 env_run_lists(

@@ -70,3 +70,21 @@ template "#{node[:ipplan][:install_path]}/config.php" do
               :ipplan_export_path => "#{node[:ipplan][:scripts_dir]}/dns"
             })
 end
+
+template "/usr/local/sbin/push-dns" do
+  source "push-dns.sh.erb"
+  owner "root"
+  group "root"
+  mode "0755"
+  variables({
+              :scripts_dir => node[:ipplan][:scripts_dir],
+              :chroot_dir => node[:bind_chroot][:chroot_dir],
+              :daemon => node[:bind_chroot][:name]
+            })
+end
+
+bash "export dns from ipplan" do
+  user "root"
+  cwd "/usr/local/bin/ipplan"
+  code "/usr/local/bin/ipplan/bin/ipplan-updatedns.sh"
+end

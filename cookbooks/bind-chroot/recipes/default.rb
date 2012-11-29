@@ -152,18 +152,6 @@ template "#{node['bind_chroot']['chroot_dir']}/etc/rndc.key" do
   mode "0644"
 end
 
-template "/usr/local/sbin/push-dns" do
-  source "push-dns.sh.erb"
-  owner "root"
-  group "root"
-  mode "0755"
-  variables({
-              :scripts_dir => node[:ipplan][:scripts_dir],
-              :chroot_dir => node[:bind_chroot][:chroot_dir],
-              :daemon => node[:bind_chroot][:name]
-            })
-end
-
 cookbook_file "#{node['bind_chroot']['chroot_dir']}/etc/named.rfc1912.zones" do
   source "named.rfc1912.zones"
   owner node['bind_chroot']['bind_user_name']
@@ -190,12 +178,6 @@ cookbook_file "#{node['bind_chroot']['chroot_dir']}/var/named/named.root" do
   owner node['bind_chroot']['bind_user_name']
   group node['bind_chroot']['bind_group_name']
   mode "0644"
-end
-
-bash "export dns from ipplan" do
-  user "root"
-  cwd "/usr/local/bin/ipplan"
-  code "/usr/local/bin/ipplan/bin/ipplan-updatedns.sh"
 end
 
 git_repo = "git@github.com:kplimack/ipplan-autogen.git"
