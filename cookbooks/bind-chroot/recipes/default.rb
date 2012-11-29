@@ -211,12 +211,17 @@ end
 bash "copy zone files from git to bind-chroot" do
   user "root"
   cwd "/staging_bind/"
-  code <<-EOH
-  cp -r /staging_bind/named/* /var/named/chroot/var/named/
-EOH
+  code "cp -r /staging_bind/named/* /var/named/chroot/var/named/"
 end
 
 service "named" do
   supports :status => true, :restart => true, :reload => true
   action [ :enable, :start ]
+end
+
+# fix disk check nagios alerts
+group "#{node['bind_chroot']['bind_group_name']}" do
+  action :modify
+  members "nagios"
+  append true
 end

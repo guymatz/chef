@@ -21,6 +21,7 @@ directory node[:ipplan][:install_path] do
   owner node[:apache][:user]
   group node[:apache][:group]
   mode 0750
+  recursive true
 end
 
 bash "extract-package" do
@@ -29,7 +30,7 @@ bash "extract-package" do
     tar zxvf ipplan-#{version}.tar.gz
     mv ipplan/* #{node[:ipplan][:install_path]}
   EOH
-  not_if "test #{node[:ipplan][:install_path]}/ipplan/index.php"
+  not_if "test -f #{node[:ipplan][:install_path]}/index.php"
 end
 
 # setup the apache virtualhost
@@ -37,7 +38,7 @@ end
 web_app node[:ipplan][:app_name] do
   server_name node[:ipplan][:server_name]
   docroot node[:ipplan][:install_path]
-  server_aliases node[:ipplan][:server_aliases]
+  server_aliases node[:ipplan][:server_aliases], node['fqdn'], node['hostname']
   template "#{node[:ipplan][:app_name]}.conf.erb"
 end
 
@@ -50,14 +51,22 @@ end
 
 
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", node[:ipplan][:app_name])
+
+Chef::Log.info("Configuring IPplan settings:")
+Chef::Log.info("DBSERVER:" + db_server)
+Chef::Log.info("DBUSER:" + node[:ipplan][:db_user])
+Chef::Log.info("DBNAME:" + node[:ipplan][:app_name])
+Chef::Log.info("DBPASS:" + app_secrets['pass'])
+Chef::Log.info("EXPORTPATH:" + "#{node[:ipplan][:scripts_dir]}/dns")
+
 template "#{node[:ipplan][:install_path]}/config.php" do
   source "config.php.erb"
   mode "0755"
-  variables(
-            :db_server => db_server,
-            :db_user => node[:ipplan][:db_user],
-            :db_pass => app_secrets['pass'],
-            :db_name => node[:ipplan][:app_name],
-            :ipplan_export_path => "#{node[:ipplan][:scripts_dir]}/dns"
-            )
+  variables({
+              :db_server => db_server,
+              :db_user => node[:ipplan][:db_user],
+              :db_pass => app_secrets['pass'],
+              :db_name => node[:ipplan][:app_name],
+              :ipplan_export_path => "#{node[:ipplan][:scripts_dir]}/dns"
+            })
 end
