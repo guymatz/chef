@@ -180,6 +180,18 @@ cookbook_file "#{node['bind_chroot']['chroot_dir']}/var/named/named.root" do
   mode "0644"
 end
 
+file "/root/.ssh/config" do
+  owner "root"
+  group "root"
+  mode "0755"
+  content <<-EOH
+  Host github.com
+    IdentityFile /etc/chef/ops-auto
+    StrictHostKeyChecking no
+    UserKnownHostsFile=/dev/null
+EOH
+end
+
 git_repo = "git@github.com:kplimack/ipplan-autogen.git"
 git "/staging_bind" do
   repository git_repo
