@@ -1,25 +1,30 @@
 #
-# Cookbook Name::       hive
-# Description::         Base configuration for hive
-# Recipe::              default
-# Author::              Philip (flip) Kromer - Infochimps, Inc
+# Cookbook Name:: hive
+# Recipe:: default
 #
-# Copyright 2009, Opscode, Inc.
+# Copyright 2012, Clearchannel.com (iHeartRadio)
+# Written by Jake Plimack <jake.plimack@gmail.com>
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# All rights reserved - Do Not Redistribute
 #
 
-include_recipe "java::sun"
-include_recipe "hadoop_cluster::add_cloudera_repo"
+node[:hive][:packages].each do |p|
+  package p
+end
 
-package "hadoop-hive"
+remote_file "#{Chef::Config[:file_cache_path]}/mysql-connector-java-#{node[:hive][:version]}.tar.gz" do
+  url = node[:hive][:url_pre] + node[:hive][:version] + ".tar.gz"
+  Chef::Log.info("Downloading mysql-connector-java from " + url)
+  source url
+  action :create_if_missing
+end
+
+bash "extract-package: java-mysql-connector" do
+  cwd Chef::Config[:file_cache_path]
+  code <<-EOH
+tar xf mysql-connector-java-#{node[:hive][:version]}.tar.gz
+cp mysql-connector-java-5.1.22/mysql-connector-java-5.1.22-bin.jar /usr/lib/hive/lib/
+EOH
+  not_if "test -f /usr/lib/hive/lib/mysql-connector-java-5.1.22-bin.jar"
+end
+
