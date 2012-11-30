@@ -6,7 +6,8 @@
   },
   "name": "db_master",
   "run_list": [
-      "recipe[ipplan::database]"
+      "recipe[ipplan::database]",
+      "recipe[hive::mysql]"
   ],
   "chef_type": "role",
   "default_attributes": {
