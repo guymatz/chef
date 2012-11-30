@@ -28,3 +28,25 @@ EOH
   not_if "test -f /usr/lib/hive/lib/mysql-connector-java-5.1.22-bin.jar"
 end
 
+
+app_secrets = Chef::EncryptedDataBagItem.load("secrets", node[:hive][:app_name])
+
+if node[:roles].include?('db_master')
+  db_server = 'localhost'
+else
+  results = search(:node, "recipes:hive\\:\\:mysql")
+  db_server = results[0][:fqdn]
+end
+
+template "/etc/hive/conf/hive-site.xml" do
+  source "hive-site.xml.erb"
+  owner "root"
+  group "root"
+  mode "0644"
+  variables({
+              :db_host => db_server,
+              :db_user => node[:hive][:db_user],
+              :db_name => node[:hive][:db_name],
+              :db_pass => app_secrets['pass']
+            })
+end
