@@ -31,12 +31,17 @@ end
 
 hiveservers = search(:node, "role:hadoop")
 
+results = search(:hadoop, "id:hive")
+results[0]['servers'].each do |r|
+  hiveservers << r
+end
+
 hiveservers.each do |h|
   ip = h['ipaddress']
   ruby_block "add_#{ip}_#{node[:hive][:app_name]}_permissions" do
     Chef::Log.debug("Setting up users and grants")
     block do
-      %x[mysql -u #{mysql_connection_info[:username]} -p#{mysql_connection_info[:password]} -e "GRANT ALL PRIVILEGES ON #{node[:hive][:app_name]}.* to '#{node[:hive][:db_user]}'@'#{ip}' IDENTIFIED BY '#{app_secrets['pass']}';"]
+      %x[mysql -u #{mysql_connection_info[:username]} -p#{mysql_connection_info[:password]} -e "GRANT ALL PRIVILEGES ON #{node[:hive][:db_name]}.* to '#{node[:hive][:db_user]}'@'#{ip}' IDENTIFIED BY '#{app_secrets['pass']}';"]
     end
     not_if "mysql -u #{mysql_connection_info[:username]} -p#{mysql_connection_info[:password]} -e \"SELECT user, host FROM mysql.user\" | grep #{node[:hive][:db_user]} | grep #{ip}"
     action :create
