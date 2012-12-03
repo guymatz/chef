@@ -3,7 +3,7 @@ $ORIGIN ihrdev.com.
 
 $TTL 21600
 @	IN	SOA	ns1.ihrdev.com. myemail.mydomain.com. (
-			2012112905 ; serial
+			2012120301 ; serial
 			86400      ; refresh
 			3600       ; retry
 			604800     ; expire
@@ -18,5 +18,6 @@ ns2	IN	A	23.22.182.166
 ns3	IN	A	23.22.182.166
 test	IN	A	10.9.176.2
 test01	IN	A	10.90.20.17
+dl-test-face	IN	A	10.9.173.4
 
 
