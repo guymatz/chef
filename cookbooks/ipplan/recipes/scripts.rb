@@ -106,7 +106,7 @@ template "#{node[:ipplan][:scripts_dir]}/bin/update.conf" do
             })
 end
 
-git_repo = "git@github.com:kplimack/ipplan-autogen.git"
+git_repo = "git@github.com:iheartradio/ipplan-autogen.git"
 
 template "#{node[:ipplan][:scripts_dir]}/bin/ipplan-updatefunc.sh" do
   source "ipplan-updatefunc.sh.erb"

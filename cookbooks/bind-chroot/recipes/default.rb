@@ -192,7 +192,7 @@ file "/root/.ssh/config" do
 EOH
 end
 
-git_repo = "git@github.com:kplimack/ipplan-autogen.git"
+git_repo = "git@github.com:iheartradio/ipplan-autogen.git"
 git "/staging_bind" do
   repository git_repo
   revision "HEAD"
