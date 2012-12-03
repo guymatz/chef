@@ -1,0 +1,61 @@
+#!/usr/bin/perl
+
+=head1
+
+Call as:
+
+  colorize-strace [filename...]
+
+or pipe to it
+
+  strace 2>&1 | colorize-strace
+
+you can then pipe the output to less (with the special -R option to preserve the colors)
+
+  colorize-strace | less -R
+
+or my personal favorite, fire up an strace in background, fire up less tailing with no linewraps
+
+  strace -o strace.out &
+  colorize-strace strace.out | less -RS +F
+
+=cut
+
+use strict;
+
+use Term::ANSIColor qw(:constants);
+
+while (<>) {
+    #chomp;
+    #my ($delta, $func, $args, $result, $time) = m/^(?:\s+(\d+\.\d+)\s+)? (\w+) \( (.*) \) \s+ = \s+ (\d+) \s+ <(\d+\.\d+)>$/x;
+
+    s/^(?:\s+\d+\.\d+\s+)? ( (?:epoll\w+|select|poll) \( (.*) \))/CYAN . $1 . RESET/xe;
+
+    s/^(\s+(\d+\.\d+))\b/timecolor($2) . $1 . RESET/e;
+    s/(<(\d+\.\d+)>)$/timecolor($2) . $1 . RESET/e;
+
+
+#     0.000162 epoll_ctl(5, EPOLL_CTL_MOD, 89, {EPOLLIN|EPOLLOUT|EPOLLERR|EPOLLHUP|0x20, {u32=89, u64=89}}) = 0 <0.000005>
+
+
+    #if ($func =~ m/^(?:epoll_|select|poll)/) {
+    #    print CYAN . "$delta $func($args) = $result ";
+    #    print timecolor($time) . "<$time>" . RESET . "\n";
+    #    next;
+    #}
+
+    #print timecolor($time) . $_ . RESET . "\n";
+    print $_;
+}
+
+sub timecolor {
+    my $time = shift;
+
+    if ($time > .1) {
+        return RED;
+    } elsif ($time > .001) {
+        return YELLOW;
+    } else {
+        return GREEN;
+    }
+}
