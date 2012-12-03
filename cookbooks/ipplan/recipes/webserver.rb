@@ -53,11 +53,10 @@ end
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", node[:ipplan][:app_name])
 
 Chef::Log.info("Configuring IPplan settings:")
-Chef::Log.info("DBSERVER:" + db_server)
-Chef::Log.info("DBUSER:" + node[:ipplan][:db_user])
-Chef::Log.info("DBNAME:" + node[:ipplan][:app_name])
-Chef::Log.info("DBPASS:" + app_secrets['pass'])
-Chef::Log.info("EXPORTPATH:" + "#{node[:ipplan][:scripts_dir]}/dns")
+Chef::Log.debug("DBSERVER:" + db_server)
+Chef::Log.debug("DBUSER:" + node[:ipplan][:db_user])
+Chef::Log.debug("DBNAME:" + node[:ipplan][:app_name])
+Chef::Log.debug("EXPORTPATH:" + "#{node[:ipplan][:scripts_dir]}/dns")
 
 template "#{node[:ipplan][:install_path]}/config.php" do
   source "config.php.erb"
