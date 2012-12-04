@@ -1,0 +1,17 @@
+{
+  "override_attributes": {
+      "nagios": {
+	  "pagerduty_key": "070362201f8d0130eff422000afc4cb2",
+	  "notifications_enabled": 1
+      }
+  },
+  "chef_type": "environment",
+  "cookbook_versions": {
+  },
+  "name": "ec2",
+  "default_attributes": {
+
+  },
+    "json_class": "Chef::Environment",
+  "description": ""
+}
