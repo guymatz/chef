@@ -1,0 +1,17 @@
+{
+  "json_class": "Chef::Role",
+  "description": "Secured SSH Bastion Server",
+  "name": "bastion",
+  "env_run_lists": {
+  },
+  "chef_type": "role",
+  "default_attributes": {
+  },
+  "run_list": [
+    "recipe[users::sysadmins]",
+    "recipe[openssh]",
+      "recipe[iptables]"
+  ],
+  "override_attributes": {
+  }
+}
