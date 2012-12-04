@@ -17,6 +17,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+node[:selinux][:packages].each do |p|
+  package p
+end
 
 execute "enable selinux as permissive" do
   not_if "getenforce | egrep -qx 'Permissive|Disabled'"

@@ -18,10 +18,8 @@
 # limitations under the License.
 #
 
-execute "enable selinux enforcement" do
-  not_if "getenforce | grep -qx 'Enforcing'"
-  command "setenforce 1"
-  action :run
+node[:selinux][:packages].each do |p|
+  package p
 end
 
 template "/etc/selinux/config" do
@@ -30,4 +28,10 @@ template "/etc/selinux/config" do
     :selinux => "enforcing",
     :selinuxtype => "targeted"
   )
+end
+
+execute "enable selinux enforcement" do
+  not_if "getenforce | grep -qx 'Enforcing'"
+  command "setenforce 1"
+  action :run
 end
