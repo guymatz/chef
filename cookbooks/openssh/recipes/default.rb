@@ -17,7 +17,6 @@
 # limitations under the License.
 #
 
-include_recipe "iptables"
 
 def listen_addr_for interface, type
   interface_node = node['network']['interfaces'][interface]['addresses']
@@ -73,5 +72,3 @@ template "/etc/ssh/sshd_config" do
   variables(:settings => node['openssh']['server'])
   notifies :restart, "service[ssh]"
 end
-
-iptables_rule "port_ssh"
