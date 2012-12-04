@@ -1,17 +1,25 @@
 {
-  "json_class": "Chef::Role",
-  "description": "Secured SSH Bastion Server",
-  "name": "bastion",
-  "env_run_lists": {
-  },
-  "chef_type": "role",
-  "default_attributes": {
-  },
-  "run_list": [
-    "recipe[users::sysadmins]",
-    "recipe[openssh]",
-      "recipe[iptables]"
-  ],
-  "override_attributes": {
-  }
+    "json_class": "Chef::Role",
+    "description": "Secured SSH Bastion Server",
+    "name": "bastion",
+    "env_run_lists": {
+    },
+    "chef_type": "role",
+    "default_attributes": {
+    },
+    "run_list": [
+        "recipe[users::sysadmins]",
+	"recipe[sudo]",
+        "recipe[openssh]",
+        "recipe[iptables]",
+	"recipe[ntp]",
+	"recipe[selinux::enforcing]",
+	"recipe[chef-client]",
+	"recipe[nagios::client]",
+	"recipe[operations]",
+	"recipe[timezone]",
+	"recipe[zsh]"
+    ],
+    "override_attributes": {
+    }
 }

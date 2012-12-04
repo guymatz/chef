@@ -6,6 +6,8 @@ version           "1.1.0"
 
 recipe "openssh", "Installs openssh"
 
+depends "iptables"
+
 %w{ redhat centos fedora ubuntu debian arch scientific }.each do |os|
   supports os
 end
