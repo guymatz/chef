@@ -2,6 +2,7 @@ name "monitoring"
 description "monitoring"
 all_env = [
            "recipe[nagios::server]",
+           "recipe[nagios::pagerduty]",
            "recipe[bind-chroot]"
           ]
 run_list(all_env)
