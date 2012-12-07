@@ -1,7 +1,6 @@
 name "base"
 description "common role applied to all nodes"
 all_env = [
-    "recipe[resolver]",
     "recipe[timezone]",
     "recipe[chef-client]",
     "recipe[zsh]",
