@@ -4,7 +4,7 @@ all_env = [
     "recipe[timezone]",
     "recipe[chef-client]",
     "recipe[zsh]",
-    "recipe[users]",
+    "recipe[users::sysadmin]",
     "recipe[sudo]",
     "recipe[emacs]",
     "recipe[vim]",
