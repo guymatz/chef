@@ -2,7 +2,7 @@
 # Cookbook Name:: application
 # Recipe:: default
 #
-# Copyright 2009, Opscode, Inc.
+# Copyright:: 2012, Opscode, Inc <legal@opscode.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,15 +16,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-search(:apps) do |app|
-  (app["server_roles"] & node.run_list.roles).each do |app_role|
-    app["type"][app_role].each do |thing|
-      node.run_state[:current_app] = app
-      include_recipe "application::#{thing}"
-    end
-  end
-end
-
-node.run_state.delete(:current_app)
-
+# Empty placeholder recipe, use the LWRPs, see README.md.
