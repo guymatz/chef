@@ -38,5 +38,5 @@
     "python::pip": "Installs pip from source.",
     "python::virtualenv": "Installs virtualenv using the python_pip resource."
   },
-  "version": "1.0.8"
+  "version": "1.1.0"
 }
