@@ -33,5 +33,5 @@
     "tomcat::default": "Installs and configures Tomcat",
     "tomcat::users": "Setup users and roles for Tomcat"
   },
-  "version": "0.11.0"
+  "version": "0.12.0"
 }
