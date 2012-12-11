@@ -21,6 +21,7 @@ application "basejump" do
   group "nogroup"
   repository "git://github.com/kplimack/basejump.git"
   revision "HEAD"
+  enable_submodules true
   migrate true
   environment_name "production"
   action :deploy
