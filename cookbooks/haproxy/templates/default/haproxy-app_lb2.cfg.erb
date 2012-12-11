@@ -1,0 +1,71 @@
+global
+        log 127.0.0.1   local0
+        log 127.0.0.1   local1 notice
+        #log loghost    local0 info
+        maxconn 4096
+        #debug
+        #quiet
+        user haproxy
+        group haproxy
+
+defaults
+        log     global
+        mode    http
+        option  httplog
+        option  dontlognull
+        retries 3
+        option redispatch
+        maxconn 2000
+        contimeout      5000
+        clitimeout      50000
+        srvtimeout      50000
+        <% if node["haproxy"]["x_forwarded_for"] -%>
+        option httpclose
+        option forwardfor
+        <% end -%>
+
+# http://haproxy.1wt.eu/download/1.4/doc/configuration.txt
+frontend all_http 0.0.0.0:80
+	 <% @backends.each do |svc| -%>
+	 <% svc['vhosts'].each do |vhost| -%>
+	 acl acl_<%= svc['id'] %> hdr_end(host) -i <%= vhost %>
+	 <% end -%>
+	 <% end -%>
+
+	 <% @backends.each do |svc| -%>
+	 use_backend <%= svc['id'] %> if acl_<%= svc['id'] %>
+	 <% end -%>
+
+	 <% if @default_backend -%>
+	 default_backend <%= @default_backend['name'] %>
+	 <% end -%>
+
+# Set up application listeners here.
+<% @backends.each do |svc| -%>
+backend <%= svc['id'] %>
+	balance <%= node["haproxy"]["balance_algorithm"] %>
+	option <%= svc['option'] %>
+	cookie <%= svc['cookie'] %>
+	<% svc['backends'].each do |be| -%>
+	server <%= be['server'] %> <%= be['ipaddress'] %>:<%= be['port'] %> weight 1 maxconn <%= node["haproxy"]["member_max_connections"] %> check
+	<% end -%>
+<% end -%>
+
+<% if node["haproxy"]["enable_admin"] -%>
+listen admin 0.0.0.0:22002
+       mode http
+       stats uri /
+<% end -%>
+
+<% if @default_backend -%>
+backend <%= @default_backend['name'] %>
+	mode http
+	balance roundrobin
+	<% @default_backend['options'].each do |option| -%>
+	option <%= option %>
+	<% end -%>
+	<% @default_backend['pool'].each do |backend| -%>
+	server <%= backend['server'] %>:<%= backend['port'] %> weight 1 check
+	<% end -%>
+<% end -%>
+

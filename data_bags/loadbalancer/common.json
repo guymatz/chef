@@ -1,0 +1,13 @@
+{
+    "id": "common",
+    "options": [
+        "httpchk HEAD /check.txt HTTP/1.0",
+        "httpclose",
+        "forwardfor"
+    ],
+    "backends": {
+        "default_backend": [
+            {  "server": "use1b-ss-web001.ihrdev.com", "port": "80" }
+        ]
+    }
+}

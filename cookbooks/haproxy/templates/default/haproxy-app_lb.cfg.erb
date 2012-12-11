@@ -23,7 +23,7 @@ defaults
         option httpclose
         option forwardfor
         <% end -%>
-        
+
 # Set up application listeners here.
 listen application 0.0.0.0:<%= node["haproxy"]["incoming_port"] %>
   balance <%= node["haproxy"]["balance_algorithm"] %>

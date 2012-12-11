@@ -1,0 +1,12 @@
+{
+    "id": "basejump",
+    "cookie": "SERVERID insert nocache indirect",
+    "option": "httpchk HEAD /check.txt HTTP/1.0",
+    "vhosts": [ "basejump.ihrdev.com" ],
+    "backends": [
+	{
+            "server": "use1b-ss-web001.ihrdev.com",
+            "port": "8080"
+	}
+    ]
+}

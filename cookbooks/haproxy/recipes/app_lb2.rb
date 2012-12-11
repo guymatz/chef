@@ -44,6 +44,21 @@ package "haproxy" do
   action :install
 end
 
+# grab the backends except the common which we do later
+results = search(:loadbalancer, "NOT id:common")
+backends = Array.new
+results.each do |svc|
+  svc['backends'].each do |be|
+    Chef::Log.info("Searching for: " + "name:#{be['server']}")
+    servers = search(:node, "name:#{be['server']}")
+    servers.each do |s|
+      Chef::Log.info(JSON::dump(s))
+      be['ipaddress'] = s['ipaddress']
+    end
+  end
+  backends << svc
+end
+
 template "/etc/default/haproxy" do
   source "haproxy-default.erb"
   owner "root"
@@ -64,7 +79,7 @@ def_backends = result['backends']
 # ***refactorme***
 
 default_backend = Hash.new
-default_backend['name'] = "default_backend"
+default_backend['name'] = "use1b-ss-web"
 default_pool = Array.new
 default_options = Array.new
 def_backends.values.each do |backend|
@@ -76,13 +91,14 @@ default_backend['pool'] = default_pool
 default_backend['options'] = result['options']
 
 template "/etc/haproxy/haproxy.cfg" do
-  source "haproxy-app_lb.cfg.erb"
+  source "haproxy-app_lb2.cfg.erb"
   owner "root"
   group "root"
   mode 0644
   variables ({
                :pool_members => pool_members.uniq,
-               :default_backend => default_backend
+               :default_backend => default_backend,
+               :backends => backends
              })
   notifies :restart, "service[haproxy]"
 end
