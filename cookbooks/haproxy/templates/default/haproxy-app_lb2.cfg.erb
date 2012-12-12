@@ -47,7 +47,7 @@ backend <%= svc['id'] %>
 	option <%= svc['option'] %>
 	cookie <%= svc['cookie'] %>
 	<% svc['backends'].each do |be| -%>
-	server <%= be['server'] %> <%= be['ipaddress'] %>:<%= be['port'] %> weight 1 maxconn <%= node["haproxy"]["member_max_connections"] %> check
+	server <%= be['server'] %> <%= be['ipaddress'] %>:<%= be['port'] %> cookie <%= be['server'] %> check
 	<% end -%>
 <% end -%>
 
@@ -65,7 +65,7 @@ backend <%= @default_backend['name'] %>
 	option <%= option %>
 	<% end -%>
 	<% @default_backend['pool'].each do |backend| -%>
-	server <%= backend['server'] %>:<%= backend['port'] %> weight 1 check
+	server <%= backend['server'] %> <%= backend['ipaddress'] %>:<%= backend['port'] %> cookie <%= backend['server'] %> check
 	<% end -%>
 <% end -%>
 

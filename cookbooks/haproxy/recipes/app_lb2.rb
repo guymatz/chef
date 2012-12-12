@@ -84,6 +84,10 @@ default_pool = Array.new
 default_options = Array.new
 def_backends.values.each do |backend|
   backend.each do |b|
+    servers = search(:node, "name:#{b['server']}")
+    servers.each do |s|
+      b['ipaddress'] = s['ipaddress']
+    end
     default_pool << b
   end
 end
