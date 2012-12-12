@@ -1,0 +1,35 @@
+{
+  "license": "Apache 2.0",
+  "attributes": {
+  },
+  "providing": {
+  },
+  "version": "0.0.3",
+  "suggestions": {
+  },
+  "dependencies": {
+    "nginx": ">= 0.0.0",
+    "python": ">= 0.0.0",
+    "gunicorn": ">= 0.0.0",
+    "bluepill": ">= 0.0.0",
+    "runit": ">= 0.0.0"
+  },
+  "maintainer": "Chris Roberts",
+  "recipes": {
+  },
+  "replacing": {
+  },
+  "conflicting": {
+  },
+  "groupings": {
+  },
+  "recommendations": {
+  },
+  "description": "Installs and configures gitpaste pastebin app",
+  "maintainer_email": "chrisroberts.code@gmail.com",
+  "name": "gitpaste",
+  "long_description": "GitPaste Cookbook\n=================\n\nThis cookbook installs and configures gitpaste. Currently supported configuration:\n\n* ubuntu\n* nginx\n* bluepill/runit\n\nAttributes:\n-----------\n\n* node[:gitpaste][:directory] = '/var/www/gitpaste'                  # base installation directory\n* node[:gitpaste][:init_type] = :bluepill                            # init type to use (bluepill/runit). defaults to bluepill\n* node[:gitpaste][:gunicorn][:workers] = 4                           # number of worker processes\n* node[:gitpaste][:gunicorn][:listen] = nil                          # gunicorn socket (tcp/unix). defaults to unix socket\n* node[:gitpaste][:gunicorn][:pid] = nil                             # location of pid file\n* node[:gitpaste][:gunicorn][:exec] = nil                            # path to gunicorn executable\n* node[:gitpaste][:gunicorn][:config] = '/etc/gunicorn/gitpaste.app' # path to gunicorn config file\n* node[:gitpaste][:superuser][:username] = 'admin'                   # django superuser username\n* node[:gitpaste][:superuser][:passowrd] = 'secret'                  # django superuser password\n* node[:gitpaste][:superuser][:email] = 'admin@example.com'          # django superuser email\n\nDjango Superuser\n----------------\n\nThe django super user is created on application creation and the attributes\nare no longer useful after the first run.\n\nGithub\n------\n\nhttp://github.com/heavywater/chef-gitpaste\n\nMore Info\n---------\ngitpaste: http://github.com/justinvh/gitpaste\n\n",
+  "platforms": {
+    "ubuntu": ">= 0.0.0"
+  }
+}
