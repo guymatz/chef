@@ -44,10 +44,10 @@ frontend all_http 0.0.0.0:80
 <% @backends.each do |svc| -%>
 backend <%= svc['id'] %>
 	balance <%= node["haproxy"]["balance_algorithm"] %>
-	option <%= svc['option'] %>
+	<% if svc['option'] -%>option <%= svc['option'] %><% end -%>
 	cookie <%= svc['cookie'] %>
 	<% svc['backends'].each do |be| -%>
-	server <%= be['server'] %> <%= be['ipaddress'] %>:<%= be['port'] %> cookie <%= be['server'] %> check
+	server <%= be['server'] %> <%= be['ipaddress'] %>:<%= be['port'] %> cookie <%= be['server'] %> <% if be['check'] -%>check<% end -%>
 	<% end -%>
 <% end -%>
 

@@ -66,10 +66,6 @@ template "/etc/default/haproxy" do
   mode 0644
 end
 
-service "haproxy" do
-  supports :restart => true, :status => true, :reload => true
-  action [:enable, :start]
-end
 
 result = data_bag_item('loadbalancer', 'common')
 def_backends = result['backends']
@@ -105,4 +101,19 @@ template "/etc/haproxy/haproxy.cfg" do
                :backends => backends
              })
   notifies :restart, "service[haproxy]"
+end
+
+cookbook_file "/etc/rsyslog.d/haproxy.conf" do
+  source "haproxy.conf"
+  mode "0644"
+  owner "root"
+  group "root"
+  action :create_if_missing
+  only_if "test -d /etc/rsyslog.d"
+  notifies :restart, "service[rsyslog]"
+end
+
+service "haproxy" do
+  supports :restart => true, :status => true, :reload => true
+  action [:enable, :start]
 end
