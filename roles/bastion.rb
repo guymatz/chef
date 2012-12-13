@@ -4,7 +4,7 @@ run_list(
          "recipe[users::sysadmins]",
          "recipe[sudo]",
          "role[monitored]",
-         "recipe[openssh::bastion]",
+         "recipe[openssh::iptables]",
          "recipe[iptables]",
          "recipe[ntp]",
          "recipe[selinux::permissive]",
