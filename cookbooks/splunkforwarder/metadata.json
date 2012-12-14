@@ -1,0 +1,35 @@
+{
+  "name": "splunkforwarder",
+  "description": "Installs & Configures Splunk Forwarder",
+  "long_description": "Description\n===========\nCookbook for installing splunkforwarder.\n\n[![Build Status](https://secure.travis-ci.org/ampledata/cookbook-splunkforwarder.png?branch=master)](http://travis-ci.org/ampledata/cookbook-splunkforwarder)\n\n\nRequirements\n============\n* Linux host on which to run splunkforwarder.\n\n\nAttributes\n==========\nThis Cookbook uses the following Attributes to configure the\nsplunkforwarder installation.\n\nRequired Attributes\n-------------------\nThe following Required Attributes have default settings, see\n`attributes/default.rb`:\n\n* `node['splunkforwarder']['download_url']` - URL to the splunkforwarder\n  download site.\n* `node['splunkforwarder']['build']` - Build Number (CL#) of\n  splunkforwarder package to install.\n\n* `node['splunkforwarder']['version']` - Version of splunkforwarder\n  package to install.\n\n\nUsage\n=====\n1. Add this Cookbook to a Node's Run List.\n\n\nSource\n======\nhttps://github.com/ampledata/cookbook-splunkforwarder\n\nAuthor\n======\nAuthor:: Greg Albrecht (mailto:gba@splunk.com) for splunkforwarder.\nAuthor:: Aaron Wallis (aaron.wallis@lexer.com.au) for stormforwarder.\n\nCredits\n=======\nThe splunkforwarder Cookbook is based on the stormforwarder Cookbook\nwritten by Aaron Wallis of Lexer.\n\nCopyright\n=========\nCopyright 2012-2013, Lexer Pty Ltd.\nCopyright 2012 Splunk, Inc.\n\nLicense\n=======\nApache License 2.0. See LICENSE.txt\n",
+  "maintainer": "Greg Albrecht",
+  "maintainer_email": "gba@splunk.com",
+  "license": "Apache License 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "suse": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "1.0.0"
+}
