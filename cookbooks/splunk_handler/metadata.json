@@ -1,0 +1,30 @@
+{
+  "name": "splunk_handler",
+  "description": "Installs/Configures the Chef Exception & Reporting Handler for Splunk.",
+  "long_description": "Description\n===========\nCookbook version of the Chef Exception & Reporting Handler for Splunk.\n\n[![Build Status](https://secure.travis-ci.org/ampledata/cookbook-splunk_handler.png?branch=master)](http://travis-ci.org/ampledata/cookbook-splunk_handler)\n\n\nRequirements\n============\nThe `chef_handler` cookbook.\n\n\nAttributes\n==========\nThis cookbook uses the following attributes to configure how it is installed.\n\nRequired Attributes\n-------------------\n* `node['chef_client']['handler']['splunk']['username']` - Username\n  for Splunk Server.\n* `node['chef_client']['handler']['splunk']['username']` - Password for Splunk Server.\n* `node['chef_client']['handler']['splunk']['host']` - Splunk Server Host Name.\n\nOptional Attributes\n-------------------\n* `node['chef_client']['handler']['splunk']['port']` - Splunk Server Management Port (Default '8089').\n* `node['chef_client']['handler']['splunk']['index']` - Index to use on\n  the Splunk Server (Default 'main').\n* `node['chef_client']['handler']['splunk']['scheme']` - Protocol Scheme\n  to use when connecting to the Splunk Server (Default 'https').\n\n\nUsage\n=====\n1. Set at least the `username`, `password` and `host` Attributes on a\n  Node.\n2. Add the `splunk_handler` Cookbook to a Node's Run List.\n\n\nSource\n======\nhttps://github.com/ampledata/cookbook-splunk_handler\n\nAuthor\n======\nAuthor:: Greg Albrecht (mailto:gba@splunk.com) for splunk_handler.\nAuthor:: Peter Donald for graphite_handler.\n\nCredits\n=======\nThe splunk_handler Cookbook is based on the graphite_handler Cookbook\nwritten by Peter Donald.\n\nCopyright\n=========\nCopyright 2012 Splunk, Inc.\n\nLicense\n=======\nApache License 2.0. See LICENSE.txt\n",
+  "maintainer": "Greg Albrecht",
+  "maintainer_email": "gba@splunk.com",
+  "license": "Apache License 2.0",
+  "platforms": {
+  },
+  "dependencies": {
+    "chef_handler": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "1.2.0"
+}
