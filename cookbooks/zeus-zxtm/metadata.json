@@ -1,0 +1,29 @@
+{
+  "name": "zeus-zxtm",
+  "description": "Installs/Configures zeus-zxtm",
+  "long_description": "Description\n===========\n\nRequirements\n============\n\nAttributes\n==========\n\nUsage\n=====\n\n",
+  "maintainer": "Kos Media, LLC",
+  "maintainer_email": "jeremy@dailykos.com",
+  "license": "MIT",
+  "platforms": {
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.0"
+}

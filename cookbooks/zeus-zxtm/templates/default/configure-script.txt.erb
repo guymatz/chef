@@ -1,0 +1,11 @@
+accept-license=accept
+admin!password=<%= @password %>
+<% if node[:zeus][:ec2] %>
+net!warn=
+<% end %>
+start_at_boot=y
+zxtm!cluster=c
+zxtm!group=<%= node[:zeus][:group] %>
+zxtm!license_key=<%= @license_key %>
+zxtm!unique_bind=n
+zxtm!user=<%= node[:zeus][:user] %>
