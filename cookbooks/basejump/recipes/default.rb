@@ -19,8 +19,8 @@ application "basejump" do
   path "/data/www/basejump"
   owner "nobody"
   group "nogroup"
-  repository "git://github.com/kplimack/basejump.git"
-  revision "HEAD"
+  repository node[:basejump][:repo]
+  revision node[:basejump][:rev]
   enable_submodules true
   migrate true
   environment_name "production"
