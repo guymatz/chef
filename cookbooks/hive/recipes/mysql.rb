@@ -2,7 +2,7 @@
 
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", node[:hive][:app_name])
 
-results = search(:node, "recipes:hive\\:\\:mysql AND chef_environment:#{node.chef_environment}")
+results = search(:node, "run_list:recipe\\[hive\\:\\:mysql\\] AND chef_environment:#{node.chef_environment}")
 db_server = results[0]
 
 unless db_server.nil?
@@ -20,6 +20,11 @@ cookbook_file "#{Chef::Config[:file_cache_path]}/#{node[:hive][:mysql_migration_
   group "root"
   action :create_if_missing
 end
+
+Chef::Log.info("mysql connection info:")
+Chef::Log.info("user: " + mysql_connection_info[:username])
+Chef::Log.info("Pass:" + mysql_connection_info[:password])
+Chef::Log.info("DB: " + node[:hive][:db_name])
 
 ruby_block "create_#{node[:hive][:app_name]}_db" do
   block do

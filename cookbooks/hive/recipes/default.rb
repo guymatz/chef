@@ -19,15 +19,16 @@ remote_file "#{Chef::Config[:file_cache_path]}/mysql-connector-java-#{node[:hive
   action :create_if_missing
 end
 
-bash "extract-package: java-mysql-connector" do
-  cwd Chef::Config[:file_cache_path]
-  code <<-EOH
+if platform?("centos", "redhat")
+  bash "extract-package: java-mysql-connector" do
+    cwd Chef::Config[:file_cache_path]
+    code <<-EOH
 tar xf mysql-connector-java-#{node[:hive][:version]}.tar.gz
-cp mysql-connector-java-5.1.22/mysql-connector-java-5.1.22-bin.jar /usr/lib/hive/lib/
+cp mysql-connector-java-#{node[:hive][:version]}/mysql-connector-java-#{node[:hive][:version]}-bin.jar /usr/lib/hive/lib/
 EOH
-  not_if "test -f /usr/lib/hive/lib/mysql-connector-java-5.1.22-bin.jar"
+    not_if "test -f /usr/lib/hive/lib/mysql-connector-java-#{node[:hive][:version]}-bin.jar"
+  end
 end
-
 
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", node[:hive][:app_name])
 
