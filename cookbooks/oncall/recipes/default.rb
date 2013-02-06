@@ -18,14 +18,14 @@ application "oncall" do
   environment_name "production"
   action :deploy
 
-  django do
-    requirements "requirements.txt"
-    debug true
-    settings_template "settings.py.erb"
-  end
+  # django do
+  #   requirements "requirements.txt"
+  #   debug true
+  #   settings_template "settings.py.erb"
+  # end
 
   gunicorn do
-    app_module :django
+
     Chef::Log.info("Starting up Gunicorn on port 8081 for OnCall")
     port 8081
   end
