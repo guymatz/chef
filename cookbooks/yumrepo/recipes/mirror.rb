@@ -30,6 +30,12 @@ dirs = [
   node[:yum][:mirror][:yumdir]
 ]
 
+if ! node[:yum][:mirror][:centos_version].empty?
+  node[:yum][:mirror][:centos_version].each do |x|
+    dirs.push("#{node[:yum][:mirror][:yumdir]}/centos/#{x}")
+  end
+end
+
 dirs.each do |dir|
   directory dir do
     action :create
