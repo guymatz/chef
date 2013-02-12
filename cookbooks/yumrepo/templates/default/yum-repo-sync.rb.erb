@@ -44,8 +44,8 @@ repos = Hash.new
 # Build a hash with all the centos versions to sync
 <% node[:yum][:mirror][:centos_version].each do |x| %>
   repos.merge!( 
-               :"centos<%= x %>"    => { :source => "<%= node[:yum][:mirror][:centos_mirror] %><%= x %>",
-                                     :target => "#{yumdir}/centos/<%= x %>",
+               :"centos<%= x %>"    => { :source => "<%= node[:yum][:mirror][:centos_mirror] %><%= x %>/",
+                                     :target => "#{yumdir}/centos/<%= x %>/",
                                      :enable => <%= node[:yum][:mirror][:sync_centos] %> }
   )
 <% end %>
