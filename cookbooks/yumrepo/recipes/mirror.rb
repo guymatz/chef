@@ -53,7 +53,7 @@ template "#{node[:yum][:mirror][:bindir]}/yum-repo-sync.rb" do
   mode '755'
 end
 
-cron_d 'Sync Yum repos' do
+cron_d "sync-yum-repos" do
   command "#{node[:yum][:mirror][:bindir]}/yum-repo-sync.rb > /dev/null 2>&1"
   hour node[:yum][:mirror][:cron_hour]
   minute node[:yum][:mirror][:cron_minute]
