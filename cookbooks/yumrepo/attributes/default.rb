@@ -19,8 +19,7 @@
 #centos version control variable -- set to whichever version you would like to mirror
 default[:yum][:mirror][:centos_version]   = [ '6.3' ]
 #desired symlinks
-default[:yum][:mirror][:centos_links]            = { '6' => '6.3'
-                                            }
+default[:yum][:mirror][:centos_links]            = { }
 
 default[:yum][:repos]                     = []
 default[:yum][:packages]                  = %w[ redhat-lsb yum-utils ]
