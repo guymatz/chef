@@ -41,10 +41,10 @@ if server.length > 0
   arch = node[:kernel][:machine]
 
   server.each do |srv|
-    hosts_entry 'yumrepo' do
+    hostsfile_entry 'yumrepo' do
       ip srv[:ipaddress]
       aliases [ srv[:hostname], srv[:fqdn], 'mirror' ]
-      comment "added by recipe[yum]"
+      comment "added by recipe yumrepo::default"
     end
 
     if srv[:yum][:mirror][:sync_centos] == true

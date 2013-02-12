@@ -10,7 +10,7 @@ depends          "cron"
 recipe           "yumrepo::server", "Sets up and optionally synchronizes remote Yum repositories."
 recipe           "yumrepo::mirror", "Sets up mirrors for centos."
 %w{ centos }.each { |os| supports os }
-%w{ hosts }.each { |cb| depends cb }
+%w{ hostsfile }.each { |cb| depends cb }
 
 attribute 'yumrepo/package',
   :display_name => 'Package',
