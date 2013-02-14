@@ -15,6 +15,7 @@
   <% end -%>
   
   DocumentRoot <%= @gem_directory %>
+  Alias /gemrepo <%= @gem_directory %>
   <Directory />
           Options FollowSymLinks
           AllowOverride None
