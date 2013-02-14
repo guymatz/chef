@@ -9,6 +9,7 @@ recipe            "gems::server", "Sets up a local gem server repository"
 recipe            "gems::mirror", "Crons an rsync of rubyforge"
 depends           "apache2"
 depends           "rsync"
+depends           "cron"
 suggests          "ruby" # :-)
 
 %w{ ubuntu debian }.each do |os|
