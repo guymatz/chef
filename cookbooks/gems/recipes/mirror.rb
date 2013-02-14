@@ -44,9 +44,9 @@ directory "#{node[:gem_server][:rf_directory]}/gems" do
   mode "0755"
 end
 
-cron "mirror-rubyforge" do
+cron_d "mirror-rubyforge" do
   command "gem mirror > /dev/null 2>&1 && gem generate_index -d #{node[:gem_server][:rf_directory]}" 
-  hour "2"
+  hour "4"
   minute "0"
 end
 
