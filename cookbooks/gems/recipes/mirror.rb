@@ -20,20 +20,32 @@
 
 include_recipe "rsync"
 
-directory "#{node[:gem_server][:directory]}" do
+package "ruby"
+package "rubygems"
+
+gem_package "rubygems-mirror" do
+  action :install
+  ignore_failure true
+end
+
+template "/root/.gem/.mirrorrc" do
+  source "mirrorrc.erb"
+end
+
+directory "#{node[:gem_server][:rf_directory]}" do
   owner "root"
   group "root"
   mode "0755"
 end
 
-directory "#{node[:gem_server][:directory]}/gems" do
+directory "#{node[:gem_server][:rf_directory]}/gems" do
   owner "root"
   group "root"
   mode "0755"
 end
 
-cron "mirror_rubyforge" do
-  command "rsync -av rsync://master.mirror.rubyforge.org/gems/ #{node[:gem_server][:rf_directory]}/gems && gem generate_index -d #{node[:gem_server][:rf_directory]}" 
+cron "mirror-rubyforge" do
+  command "gem mirror > /dev/null 2>&1 && gem generate_index -d #{node[:gem_server][:rf_directory]}" 
   hour "2"
   minute "0"
 end
