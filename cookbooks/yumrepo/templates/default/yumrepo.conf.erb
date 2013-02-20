@@ -5,7 +5,7 @@
 <VirtualHost yum.ihrdev.com:80>
   ServerAdmin <%= node[:apache][:contact] %>
   ServerName yum
-  ServerAlias mirror yum.ihrdev.com
+  ServerAlias xyum.ihrdev.com yum.ihrdev.com
   DocumentRoot <%= node[:yum][:mirror][:yumdir] %>
   Alias /yum <%= node[:yum][:mirror][:yumdir] %>
   RewriteEngine On
