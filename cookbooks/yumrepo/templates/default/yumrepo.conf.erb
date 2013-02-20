@@ -2,7 +2,7 @@
 # File managed by Chef on <%= node[:fqdn] %>
 #
 
-<VirtualHost *:80>
+<VirtualHost yum.ihrdev.com:80>
   ServerAdmin <%= node[:apache][:contact] %>
   ServerName yum
   ServerAlias mirror yum.ihrdev.com
