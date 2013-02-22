@@ -1,0 +1,12 @@
+{
+    "id": "ipplan",
+    "cookie": "SERVERID insert nocache indirect",
+    "vhosts": [ "ipplan.ihrdev.com" ],
+    "check": "True",
+    "backends": [
+	{
+            "server": "use1b-ss-web001.ihrdev.com",
+            "port": "80"
+	}
+    ]
+}

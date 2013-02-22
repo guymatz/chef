@@ -1,0 +1,10 @@
+{
+    "id": "ganglia",
+    "cookie": "SERVERID insert nocache indirect",
+    "vhosts": [ "ganglia.ihrdev.com" ],
+    "check": "True",
+    "backends": [
+	{  "server": "use1b-ss-web001.ihrdev.com", "port": "80"  },
+	{  "server": "use1b-ss-web002.ihrdev.com", "port": "80"  }
+    ]
+}
