@@ -2,7 +2,6 @@
 
 include_recipe "apache2"
 include_recipe "apache2::mod_php5"
-include_recipe "ipplan::scripts"
 
 version = node[:ipplan][:version]
 
@@ -82,8 +81,4 @@ template "/usr/local/sbin/push-dns" do
             })
 end
 
-bash "export dns from ipplan" do
-  user "root"
-  cwd "/usr/local/bin/ipplan"
-  code "/usr/local/bin/ipplan/bin/ipplan-updatedns.sh"
-end
+include_recipe "ipplan::scripts"

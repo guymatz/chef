@@ -55,3 +55,5 @@ application "basejump" do
     port 8080
   end
 end
+
+include_recipe "basejump::kickstarter"

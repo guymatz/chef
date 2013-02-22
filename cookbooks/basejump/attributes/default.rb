@@ -7,9 +7,11 @@ default[:basejump][:repo] = "https://github.com/iheartradio/basejump.git"
 #leaving this on HEAD while developing, eventually this will be a git-tag
 default[:basejump][:rev] = "HEAD"
 
+default[:basejump][:kickstarter][:tftp_root] = '/data/tftpboot'
+
 case node['platform']
 when "debian","ubuntu"
-  default['basejump']['packages'] = %w[ python-mysqldb libmysqlclient-dev ]
+  default['basejump']['packages'] = %w[ python-mysqldb libmysqlclient-dev xinetd tftpd-hpa syslinux ]
 when "redhat","centos","scientific","amazon"
-  default['basejump']['packages'] = %w[ MySQL-python mysql-devel ]
+  default['basejump']['packages'] = %w[ MySQL-python mysql-devel syslinux ]
 end

@@ -21,6 +21,12 @@ directory "#{node[:ipplan][:scripts_dir]}/bin" do
   mode "0755"
 end
 
+directory "#{node[:ipplan][:scripts_dir]}/dns" do
+  owner "#{node[:apache][:user]}"
+  group "#{node[:apache][:group]}"
+  mode "0755"
+end
+
 directory "#{node[:ipplan][:scripts_dir]}/dns/staging" do
   owner "#{node[:apache][:user]}"
   group "#{node[:apache][:group]}"
@@ -121,4 +127,11 @@ end
 cron "update DNS from IPplan" do
   minute "1,31"
   command "/usr/local/bin/ipplan/ipplan-updatedns.sh"
+end
+
+bash "export dns from ipplan" do
+  user "root"
+  cwd "/usr/local/bin/ipplan"
+  code "/usr/local/bin/ipplan/bin/ipplan-updatedns.sh"
+  action :nothing
 end

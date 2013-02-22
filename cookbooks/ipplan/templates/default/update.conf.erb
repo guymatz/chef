@@ -1,3 +1,4 @@
+#!/bin/bash
 # Variables
 export STAMP=$(date +%Y%m%d%H%M)
 export HOSTNAME=$(hostname)
@@ -22,7 +23,16 @@ export REVERRTOUCHFILE="<% @scripts_dir %>/tmp/if-this-file-exists-there-was-an-
 
 # Binaries
 export XSLTPROC=/usr/bin/xsltproc
-export NC=/usr/bin/nc
+
+OS=$(cat /etc/issue)
+case "$OS" in
+    Debian*)
+	export NC=/bin/nc
+	;;
+	*)
+	export NC=/usr/bin/nc
+	;;
+esac
 export SUDO=/usr/bin/sudo
 export STAT=/usr/bin/stat
 export NAGIOSPASSIVE='/bin/echo'

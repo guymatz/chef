@@ -20,6 +20,9 @@ case node['platform']
 when "centos", "redhat", "suse", "fedora", "scientific", "amazon"
   default[:ipplan][:packages] = %w{ php-snmp zlib zlib-devel }
   default[:ipplan][:scripts][:packages] = %w{ perl-DBI perl-DBD-MySQL libxslt }
+when "debian"
+  default[:ipplan][:packages] = %w{ php5-snmp zlib1g zlib1g-dev }
+  default[:ipplan][:scripts][:packages] = %w{ libdbi-perl libdbd-mysql-perl libdbd-mysql libxslt1.1 libwww-perl php5-mysql xsltproc netcat6 }
 end
 
 # Database Settings

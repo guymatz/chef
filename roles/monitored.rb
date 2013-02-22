@@ -1,6 +1,6 @@
 name "monitored"
-description "Sets up Nagios, Rsyslog"
+description "Sets up Nagios, Rsyslog, Ganglia"
 run_list(
-         "recipe[rsyslog::client]",
-         "recipe[nagios::client]"
+         "recipe[nagios::client]",
+         "recipe[rsyslog]"
 )

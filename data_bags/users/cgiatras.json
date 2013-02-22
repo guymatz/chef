@@ -1,14 +1,15 @@
 {
-  "id": "cgiatras",
-  "name":	"Kosta",
-  "email":	"cgiatras@clearchannel.com",
-  "groups":	["sysadmin", "dba"],
-  "ssh_keys":	[
-      "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAsl9FjEJkhfirAxPzH0jdDMyE4CtaRWwlKsUqKZuhP8jyrPkBxdZqKxF51fd+CIu7wUXHuwRYOcoFPkH1X3JSmqGFmC0BqAuK6yi6twi5KTVoN9gyVfUaTlJkOct6lMpAX/HInWgt1vXoie8zAduXxjhK0druS8WCxHq2oWbXybHA6MvTDlC8jgouAkUtwEEvVhfUTemOhfHWBO0uTDh5IvHSh3QlLdhhtXH4M9jeEwEFYUsqUd0FvwOMTP7BsvdTbjF+WAVH5zv1hD6QHjOxYwZm/NQSVNJ7GFSbePg4/by7jMe61e/TbzU5AjCCwa4YqqkuTzfbC0/RlWxv74YuXQ== cgiatras@TECH-CGIATRAS.local"
-  ],
-  "shell":	"/bin/bash",
+    "id": "cgiatras",
+    "name":	"Kosta",
+    "email":	"cgiatras@clearchannel.com",
+    "action": "remove",
+    "groups":	["sysadmin", "dba"],
+    "ssh_keys":	[
+	"ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAsl9FjEJkhfirAxPzH0jdDMyE4CtaRWwlKsUqKZuhP8jyrPkBxdZqKxF51fd+CIu7wUXHuwRYOcoFPkH1X3JSmqGFmC0BqAuK6yi6twi5KTVoN9gyVfUaTlJkOct6lMpAX/HInWgt1vXoie8zAduXxjhK0druS8WCxHq2oWbXybHA6MvTDlC8jgouAkUtwEEvVhfUTemOhfHWBO0uTDh5IvHSh3QlLdhhtXH4M9jeEwEFYUsqUd0FvwOMTP7BsvdTbjF+WAVH5zv1hD6QHjOxYwZm/NQSVNJ7GFSbePg4/by7jMe61e/TbzU5AjCCwa4YqqkuTzfbC0/RlWxv74YuXQ== cgiatras@TECH-CGIATRAS.local"
+    ],
+    "shell":	"/bin/bash",
     "nagios": {
 	"email": "cgiatras@clearchannel.com",
-    },
-    "htpasswd": "{SHA}AWwITUB8dAO2+6sU4yb/j0W+wEY="
+	"htpasswd": "{SHA}AWwITUB8dAO2+6sU4yb/j0W+wEY="
+   }
 }

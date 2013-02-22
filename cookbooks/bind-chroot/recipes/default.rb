@@ -11,8 +11,8 @@ end
 # Add template for /etc/default/named
 template "/etc/default/named" do
   source "named.erb"
-  owner "named"
-  group "named"
+  owner node[:bind_chroot][:bind_user_name]
+  group node[:bind_chroot][:bind_group_name]
   mode "0644"
   variables({
               :chroot_dir => node['bind_chroot']['chroot_dir']
@@ -180,6 +180,16 @@ cookbook_file "#{node['bind_chroot']['chroot_dir']}/var/named/named.root" do
   mode "0644"
 end
 
+# drop a github private deploy key for ops-auto
+deploy_keys = Chef::EncryptedDataBagItem.load("keys", "ops-auto")
+file "/etc/chef/ops-auto" do
+  owner "root"
+  group "root"
+  mode "0400"
+  content deploy_keys['private_key']
+  :create_if_missing
+end
+
 file "/root/.ssh/config" do
   owner "root"
   group "root"
@@ -205,10 +215,10 @@ end
 bash "copy zone files from git to bind-chroot" do
   user "root"
   cwd "/staging_bind/"
-  code "cp -r /staging_bind/named/* /var/named/chroot/var/named/"
+  code "cp -r /staging_bind/named/* #{node[:bind_chroot][:chroot_dir]}/var/named/"
 end
 
-service "named" do
+service node[:bind_chroot][:service] do
   supports :status => true, :restart => true, :reload => true
   action [ :enable, :start ]
 end
