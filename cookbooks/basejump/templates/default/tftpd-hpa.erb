@@ -1,0 +1,16 @@
+# enable xinetd Inetd compat mode
+INETD_COMPAT=Yes
+
+# Options to pass to xinetd
+#
+# -stayalive comes by default : it can be removed if xinetd is expected
+# not to start when no service is configured
+#
+XINETD_OPTS="-stayalive"
+root@use1b-ss-web001:/etc/default# cat tftpd-hpa 
+# /etc/default/tftpd-hpa
+
+TFTP_USERNAME="tftp"
+TFTP_DIRECTORY="<%= @tftp_root %>"
+TFTP_ADDRESS="0.0.0.0:69"
+TFTP_OPTIONS="--secure"
