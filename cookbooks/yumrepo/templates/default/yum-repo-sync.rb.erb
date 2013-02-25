@@ -55,6 +55,9 @@ repos = Hash.new
 arch = %w[alpha amd64 arm armel hppa i386 i486 i586 ia64 m68k mips
           mipsel powerpc ppc ppc64 sparc s390 s390x x86_64 ]
 
+# List of repos to exclude
+excluded_repos = %w[ centosplus contrib cr extras fasttrack ]
+
 # RSYNC Options
 rsync_opts = '-ahvhz --progress --partial --delete-after'
 
@@ -177,9 +180,9 @@ log("Started running at: #{Time.now}")
 options[:arch].each {|a| arch.delete(a)}
 
 if options[:iso]
-  exclude = arch
+  exclude = arch.concat(excluded_repos)
 else
-  exclude = arch << '*.iso'
+  exclude = arch.concat(excluded_repos) << '*.iso'
 end
 
 begining = Time.now
