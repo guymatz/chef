@@ -2,6 +2,7 @@
 default[:basejump][:db_name] = "basejump"
 default[:basejump][:app_name] = "basejump"
 default[:basejump][:db_user] = "basejump"
+default[:basejump][:tools_user] = "basejumper"
 
 default[:basejump][:repo] = "https://github.com/iheartradio/basejump.git"
 #leaving this on HEAD while developing, eventually this will be a git-tag
