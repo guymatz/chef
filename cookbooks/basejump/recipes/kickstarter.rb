@@ -9,8 +9,8 @@ end
 
 case node['platform']
 when "debian"
-  template "/etc/default/tftpd-hpa" do
-    source "tftpd-hpa.erb"
+  template "/etc/xinetd.d/tftp" do
+    source "tftp.xinetd"
     owner "root"
     group "root"
     mode "0644"

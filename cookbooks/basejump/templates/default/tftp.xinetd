@@ -1,0 +1,11 @@
+service tftp
+{
+        disable = no
+        wait = yes
+        user = root
+        socket_type = dgram
+        protocol = udp
+        port = 69
+        server = /usr/sbin/in.tftpd
+        server_args = -s <%= @tftp_root %>
+}

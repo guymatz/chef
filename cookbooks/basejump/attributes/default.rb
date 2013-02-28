@@ -12,7 +12,7 @@ default[:basejump][:kickstarter][:tftp_root] = '/data/tftpboot'
 
 case node['platform']
 when "debian","ubuntu"
-  default['basejump']['packages'] = %w[ python-mysqldb libmysqlclient-dev xinetd tftpd-hpa syslinux ]
+  default['basejump']['packages'] = %w[ python-mysqldb libmysqlclient-dev xinetd tftpd syslinux ]
 when "redhat","centos","scientific","amazon"
   default['basejump']['packages'] = %w[ MySQL-python mysql-devel syslinux ]
 end
