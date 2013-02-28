@@ -1,0 +1,164 @@
+##
+## There are four sections to this file:
+##
+## Global Options - messages, timeouts, misc
+## (Menu Options)
+##  Operating Systems - CentOS, Debian
+##  Utilities - gPXE, rescue mode
+##  Other - poweroff, reboot, boot local
+##
+
+##
+## Global options
+##
+
+# To guarantee that the serial directive works properly, it should be the first
+# directive in the configuration file.
+# - http://syslinux.zytor.com/wiki/index.php/SYSLINUX#SERIAL_port_.5B.5Bbaudrate.5D_flowcontrol.5D
+serial 0 115200
+
+# This line activates the simple menu sytem.
+# - http://syslinux.zytor.com/wiki/index.php/Menu
+ui /modules/menu.c32
+
+# Menu title. The title is presented at the top of the menu.
+menu title iHeartRadio PXE Menu
+
+# Replaces message below menu
+menu tabmsg Press [Tab] to edit options or [Esc] to get a prompt
+
+# Text displayed below menu with countdown timer replacing '#'
+menu autoboot Defaulting to 10 in # seconds
+
+# Set the default label. Note: This has the same effect as 'menu start' when
+# pointing to a label inside a submenu. Which means you'll need to hit [Esc]
+# to get to the main menu
+default localboot
+
+# How long in 1/10 of a second to wait before default menu option is loaded.
+# The timeout is cancelled as soon as the user types anything on the keyboard
+timeout 300 # 30 secs
+
+# Don't halt the processor while idle. Halting the processor while idle
+# significantly reduces the power consumption, but can cause poor
+# responsiveness to the serial console
+nohalt 1
+
+##
+## Menu options
+##
+
+# For serial console, append the following to the kernel command line:
+# console=tty0 console=ttyS0,115200n8 (/dev/ttyS0, 115200 baud, no parity, word size 8 bits)
+#
+# When multiple console= options are listed like above, the Linux kernel will
+# output to both when possible. i.e vga AND serial. This is useful for
+# troubleshooting problems in the datacenter as well as over serial console
+# - http://www.kernel.org/doc/Documentation/serial-console.txt
+
+#
+## Operating Systems
+#
+
+menu begin
+    menu title iHeartRadio PXE Menu - Install Operating System
+    menu tabmsg Press [Tab] to edit options or [Esc] to go back
+    menu label Install Operating System
+    text help
+        Install Operating System
+    endtext
+
+#
+# CentOS
+#
+
+    label -
+        menu label Install CentOS
+        menu disable
+
+    # For a full list of Anaconda options see:
+    # - http://fedoraproject.org/wiki/Anaconda/Options
+
+    label centos6.3-x86_64
+        menu label centos6.3-x86_64
+        menu indent 4
+        kernel distros/centos/6.3/x86_64/vmlinuz
+        append ks=http://10.88.189.107:8080/kickstarter/kickme/centos/6.3/x86_64 initrd=distros/centos/6.3/x86_64/initrd.img rd_NO_PLYMOUTH ramdisk_size=9216 console=tty0 console=ttyS0,115200n8 serial skipddc text noipv6 kssendmac ksdevice=eth0
+
+menu end
+
+#
+## Utilities
+#
+
+menu begin
+    menu title Run Utility
+    menu title iHeartRadio PXE Menu - Run Utility
+    menu tabmsg Press [Tab] to edit options or [Esc] to go back
+    menu label Run Utility
+
+    text help
+        Run a Utility
+    endtext
+
+    label -
+        menu label Utilities
+        menu disable
+
+    label gpxe
+        menu label gPXE
+        menu indent 2
+        kernel /utilities/gpxe/undionly.0
+
+    text help
+        chainload gPXE from PXE capable NIC
+    endtext
+
+    label rescue-centos6.3-x86_64
+        menu label Centos 6.3 Rescue Media
+        menu indent 2
+        kernel /centos/6.3/x86_64/vmlinuz
+        append ks=http://localhost:8080/kick/centos/6.3/x86_64/rescue kssendmac initrd=/centos/6.3/x86_64/initrd.img ramdisk_size=9216 console=tty0 console=ttyS0,115200n8 serial skipddc text noipv6 rescue ksdevice=eth0
+
+    text help
+        Centos rescue media
+    endtext
+
+    label memtest86+-4.10
+        menu label Memtest86+-4.10
+        menu indent 2
+        kernel /utilities/memtest86+/memtest86+-4.10.bin console=tty0 console=ttyS0,115200n8
+
+    text help
+       Memory diagnostic
+    endtext
+
+menu separator
+
+#
+## Other
+#
+
+label poweroff
+    menu label Power off machine
+    comboot /modules/poweroff.com
+
+    text help
+        APM Power off
+    endtext
+
+label reboot
+    menu label Reboot machine
+    com32 /modules/reboot.c32
+
+    text help
+        APM Reboot
+    endtext
+
+label localboot
+    menu label Boot local hard disk
+    localboot 0
+
+    text help
+        Boot local hard disk
+    endtext

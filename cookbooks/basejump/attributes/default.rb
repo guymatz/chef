@@ -18,12 +18,15 @@ when "redhat","centos","scientific","amazon"
 end
 
 default[:basejump][:kickstarter][:syslinux_url] = "http://www.kernel.org/pub/linux/utils/boot/syslinux/syslinux-5.01.tar.gz"
+default[:basejump][:kickstarter][:syslinux_links] = ({
+                                                       "ldlinux.c32" => "syslinux-5.01/com32/elflink/ldlinux/ldlinux.c32",
+                                                       "libutil.c32" => "syslinux-5.01/com32/libutil/libutil.c32",
+                                                       "pxelinux.0" => "./syslinux-5.01/core/pxelinux.0"
+                                                      })
 
-default[:basejump][:kickstarter][:syslinux_links] = [{
-                                                       :target_file => "ldlinux.c32",
-                                                       :source_file => "syslinux-5.01/com32/elflink/ldlinux/ldlinux.c32"
-                                                     },
-                                                     {
-                                                       :testkey => "testval"
-                                                     }
-                                                     ]
+default[:basejump][:kickstarter][:flavors] = ({
+                                                "centos" => %w{ 6.3 }
+                                              })
+default[:basejump][:kickstarter][:mirrors] = ({
+                                                "centos" => "http://mirror.stanford.edu/yum/pub/"
+                                              })

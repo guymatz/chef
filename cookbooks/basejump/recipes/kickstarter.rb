@@ -39,9 +39,64 @@ EOH
 end
 
 tftp_root = node[:basejump][:kickstarter][:tftp_root]
-node[:basejump][:kickstarter][:syslinux_links].map{|t|
-  Chef::Log.info("t=" + t.inspect)
-  }
-  # link tftp_root + "/" + t['target_file'] do
-  #   to tftp_root + "/" + t['source_file']
-  # end
+
+node[:basejump][:kickstarter][:syslinux_links].each do |k,v|
+  Chef::Log.info("target=" + k)
+  Chef::Log.info("source=" + v)
+   link tftp_root + "/" + k do
+    to tftp_root + "/" + v
+  end
+end
+
+cookbook_file "#{node[:basejump][:kickstarter][:tftp_root]}/menu.msg" do
+  source "menu.msg"
+  owner "root"
+  group "root"
+  mode "0755"
+end
+
+directory "#{node[:basejump][:kickstarter][:tftp_root]}/modules" do
+  owner "root"
+  group "root"
+end
+
+link "#{node[:basejump][:kickstarter][:tftp_root]}/modules/menu.c32" do
+  to "#{node[:basejump][:kickstarter][:tftp_root]}/syslinux-5.01/com32/menu/menu.c32"
+end
+
+directory "#{node[:basejump][:kickstarter][:tftp_root]}/distros" do
+  owner "root"
+  group "root"
+end
+
+mirrors = node[:basejump][:kickstarter][:mirrors]
+node[:basejump][:kickstarter][:flavors].each do |flavor,v|
+  v.each do |release|
+    directory "#{node[:basejump][:kickstarter][:tftp_root]}/distros/#{flavor}/#{release}/x86_64" do
+      owner "root"
+      group "root"
+      recursive true
+    end
+    remote_file "#{node[:basejump][:kickstarter][:tftp_root]}/distros/#{flavor}/#{release}/x86_64/initrd.img" do
+      source mirrors[flavor] + "/#{flavor}/#{release}/os/x86_64/images/pxeboot/initrd.img"
+      action :create_if_missing
+      owner "root"
+      group "root"
+      mode "0755"
+    end
+    remote_file "#{node[:basejump][:kickstarter][:tftp_root]}/distros/#{flavor}/#{release}/x86_64/vmlinuz" do
+      source mirrors[flavor] + "/#{flavor}/#{release}/os/x86_64/images/pxeboot/vmlinuz"
+      action :create_if_missing
+      owner "root"
+      group "root"
+      mode "0755"
+    end
+  end
+end
+
+cookbook_file "#{node[:basejump][:kickstarter][:tftp_root]}/pxelinux.cfg/default" do
+  source "default"
+  owner "root"
+  group "root"
+  mode "0755"
+end
