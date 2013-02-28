@@ -16,3 +16,14 @@ when "debian","ubuntu"
 when "redhat","centos","scientific","amazon"
   default['basejump']['packages'] = %w[ MySQL-python mysql-devel syslinux ]
 end
+
+default[:basejump][:kickstarter][:syslinux_url] = "http://www.kernel.org/pub/linux/utils/boot/syslinux/syslinux-5.01.tar.gz"
+
+default[:basejump][:kickstarter][:syslinux_links] = [{
+                                                       :target_file => "ldlinux.c32",
+                                                       :source_file => "syslinux-5.01/com32/elflink/ldlinux/ldlinux.c32"
+                                                     },
+                                                     {
+                                                       :testkey => "testval"
+                                                     }
+                                                     ]

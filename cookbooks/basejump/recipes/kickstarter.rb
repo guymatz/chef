@@ -20,3 +20,28 @@ when "debian"
   end
 end
 
+service "xinetd" do
+  action :restart
+end
+
+remote_file "#{node[:basejump][:kickstarter][:tftp_root]}/syslinux-5.01.tar.gz" do
+  puts "Downloading SYSLINUX from #{node[:basejump][:kickstarter][:syslinux_url]}"
+  source node[:basejump][:kickstarter][:syslinux_url]
+  action :create_if_missing
+end
+
+bash "Extract SYSLINUX" do
+  cwd node[:basejump][:kickstarter][:tftp_root]
+  code <<-EOH
+tar zxvf syslinux-5.01.tar.gz
+EOH
+  not_if "test -d #{node[:basejump][:kickstarter][:tftp_root]}/syslinux-5.01"
+end
+
+tftp_root = node[:basejump][:kickstarter][:tftp_root]
+node[:basejump][:kickstarter][:syslinux_links].each do |t|
+  Chef::Log.info("t=" + t.inspect)
+  # link tftp_root + "/" + t['target_file'] do
+  #   to tftp_root + "/" + t['source_file']
+  # end
+end
