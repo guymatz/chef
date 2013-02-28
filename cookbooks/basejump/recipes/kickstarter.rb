@@ -39,9 +39,9 @@ EOH
 end
 
 tftp_root = node[:basejump][:kickstarter][:tftp_root]
-node[:basejump][:kickstarter][:syslinux_links].each do |t|
+node[:basejump][:kickstarter][:syslinux_links].map{|t|
   Chef::Log.info("t=" + t.inspect)
+  }
   # link tftp_root + "/" + t['target_file'] do
   #   to tftp_root + "/" + t['source_file']
   # end
-end
