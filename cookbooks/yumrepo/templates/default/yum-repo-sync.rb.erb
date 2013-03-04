@@ -59,7 +59,7 @@ arch = %w[alpha amd64 arm armel hppa i386 i486 i586 ia64 m68k mips
 excluded_repos = %w[ centosplus contrib cr extras fasttrack ]
 
 # RSYNC Options
-rsync_opts = '-ahvhz --progress --partial --delete-after'
+rsync_opts = '-ahvuz --progress --partial --delete-after'
 
 FileUtils.mkdir(yumdir) unless File.directory?(yumdir)
 
