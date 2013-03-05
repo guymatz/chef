@@ -36,6 +36,6 @@ default[:ipplan][:ipplan_url] = "ipplan.ihrdev.com"
 default[:ipplan][:ipplan_user] = "ops-auto"
 
 
-default[:ipplan][:fwd_zones] = %w{ ihr ihrdev.com }
+default[:ipplan][:fwd_zones] = %w{ ihr }
 
 default[:ipplan][:repo] = "git@github.com:iheartradio/ipplan-autogen.git"
