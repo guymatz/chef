@@ -45,6 +45,6 @@ default[:yum][:mirror][:iso]              = false
 default[:yum][:mirror][:arch]             = 'x86_64'
 
 include_attribute 'yumrepo::centos'
-
+include_attribute 'yumrepo::local_repo'
 
 # vi:filetype=ruby:tabstop=2:expandtab
