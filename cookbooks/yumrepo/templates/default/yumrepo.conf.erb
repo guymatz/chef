@@ -4,7 +4,7 @@
 <VirtualHost *:80>
   ServerAdmin <%= node[:apache][:contact] %>
   ServerName yum
-  ServerAlias xyum.ihrdev.com yum.ihrdev.com
+  ServerAlias xyum.ihrdev.com yum.ihrdev.com yum.ihr
   DocumentRoot <%= node[:yum][:mirror][:yumdir] %>
   Alias /yum <%= node[:yum][:mirror][:yumdir] %>
   RewriteEngine On
@@ -16,7 +16,7 @@
     deny from None
   </Directory>
 
-  ErrorLog <%= node[:apache][:log_dir] %>/yumrepo-error.log 
+  ErrorLog <%= node[:apache][:log_dir] %>/yumrepo-error.log
 
   # Possible values include: debug, info, notice, warn, error, crit,
   # alert, emerg.
