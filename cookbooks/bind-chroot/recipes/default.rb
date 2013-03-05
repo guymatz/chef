@@ -190,6 +190,12 @@ file "/etc/chef/ops-auto" do
   :create_if_missing
 end
 
+directory "/root/.ssh" do
+  owner "root"
+  group "root"
+  mode "0700"
+end
+
 file "/root/.ssh/config" do
   owner "root"
   group "root"
@@ -202,9 +208,15 @@ file "/root/.ssh/config" do
 EOH
 end
 
-git_repo = "git@github.com:iheartradio/ipplan-autogen.git"
+
+directory "/staging_bind" do
+  owner "root"
+  group "root"
+  mode "0700"
+end
+
 git "/staging_bind" do
-  repository git_repo
+  repository node[:bind_chroot][:repo]
   revision "HEAD"
   reference "master"
   action :sync
@@ -220,7 +232,7 @@ end
 
 service node[:bind_chroot][:service] do
   supports :status => true, :restart => true, :reload => true
-  action [ :enable, :start ]
+  action [ :enable, :reload ]
 end
 
 # fix disk check nagios alerts

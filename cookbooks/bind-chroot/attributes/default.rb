@@ -31,3 +31,5 @@ default['bind_chroot']['zones_rfc1928'] = "yes"
 include_attribute 'bind-chroot::openldap'
 
 default[:bind_chroot][:staging] = "/var/named/chroot-stage"
+
+default[:bind_chroot][:repo] = "git@github.com:iheartradio/ipplan-autogen.git"
