@@ -30,6 +30,7 @@ if node["platform"] == "windows"
     which = 'set PATHEXT=.exe & where'
     Chef::Log.debug "Using exists? and 'where', since we're on Windows"
 else
+    include_recipe "chef-client::config"
     existence_check = :executable?
     which = 'which'
     Chef::Log.debug "Using executable? and 'which' since we're on Linux"
