@@ -112,15 +112,13 @@ template "#{node[:ipplan][:scripts_dir]}/bin/update.conf" do
             })
 end
 
-git_repo = "git@github.com:iheartradio/ipplan-autogen.git"
-
 template "#{node[:ipplan][:scripts_dir]}/bin/ipplan-updatefunc.sh" do
   source "ipplan-updatefunc.sh.erb"
   owner "root"
   group "root"
   mode "0700"
   variables({
-              :git_repo => git_repo
+              :git_repo => node[:ipplan][:repo]
             })
 end
 
