@@ -60,10 +60,6 @@ directory "#{node[:basejump][:kickstarter][:tftp_root]}/modules" do
   group "root"
 end
 
-link "#{node[:basejump][:kickstarter][:tftp_root]}/modules/menu.c32" do
-  to "#{node[:basejump][:kickstarter][:tftp_root]}/syslinux-5.01/com32/menu/menu.c32"
-end
-
 directory "#{node[:basejump][:kickstarter][:tftp_root]}/distros" do
   owner "root"
   group "root"
@@ -95,6 +91,13 @@ node[:basejump][:kickstarter][:flavors].each do |flavor,v|
 end
 
 cookbook_file "#{node[:basejump][:kickstarter][:tftp_root]}/pxelinux.cfg/default" do
+  source "default"
+  owner "root"
+  group "root"
+  mode "0755"
+end
+
+cookbook_file "#{node[:basejump][:kickstarter][:tftp_root]}/pxelinux.cfg/background.png" do
   source "default"
   owner "root"
   group "root"
