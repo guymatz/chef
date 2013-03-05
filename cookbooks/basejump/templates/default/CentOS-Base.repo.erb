@@ -10,23 +10,28 @@
 #
 #
 
+[iheart]
+name=iHeart
+baseurl=http://yum.ihr/iheart/
+gpgcheck=0
+
 [base]
 name=CentOS-$releasever - Base
-baseurl=http://xyum.ihrdev.com/centos/6.3/os/$basearch/
+baseurl=http://yum.ihr/centos/6.3/os/$basearch/
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 
 #released updates
 [updates]
 name=CentOS-$releasever - Updates
-baseurl=http://xyum.ihrdev.com/centos/6.3/updates/$basearch/
+baseurl=http://yum.ihr/centos/6.3/updates/$basearch/
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 
 #additional packages that may be useful
 [extras]
 name=CentOS-$releasever - Extras
-baseurl=http://xyum.ihrdev.com/centos/6/3/extras/$basearch/
+baseurl=http://yum.ihr/centos/6/3/extras/$basearch/
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 enabled=0
@@ -34,7 +39,7 @@ enabled=0
 #additional packages that extend functionality of existing packages
 [centosplus]
 name=CentOS-$releasever - Plus
-baseurl=http://xyum.ihrdev.com/centos/6/3/centosplus/$basearch/
+baseurl=http://yum.ihr/centos/6/3/centosplus/$basearch/
 gpgcheck=1
 enabled=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
@@ -42,7 +47,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 #contrib - packages by Centos Users
 [contrib]
 name=CentOS-$releasever - Contrib
-baseurl=http://xyum.ihrdev.com/centos/6.3/contrib/$basearch/
+baseurl=http://yum.ihr/centos/6.3/contrib/$basearch/
 gpgcheck=1
 enabled=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
