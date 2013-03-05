@@ -17,8 +17,8 @@
 #
 
 
-default['resolver']['search'] = "ihrdev.com"
-default['resolver']['nameservers'] = ["172.16.0.23"]
+default['resolver']['search'] = "ihr"
+default['resolver']['nameservers'] = ["10.5.32.21"]
 default['resolver']['options'] = {
   "timeout" => 2,
   "rotate" => nil
