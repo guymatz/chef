@@ -1,0 +1,65 @@
+<att:attivio xmlns:att="http://www.attivio.com/configuration"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:spring="http://www.springframework.org/schema/beans"
+             xmlns:f="http://www.attivio.com/configuration/features/core"
+             xsi:schemaLocation="http://www.attivio.com/configuration http://www.attivio.com/configuration/attivio-config.xsd
+                                 http://www.attivio.com/configuration/features/core http://www.attivio.com/configuration/features/coreFeatures.xsd
+                                 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+  <configuration projectName="iheartradio" >
+    <!--  import any project specific properties referenced in later configuration files -->
+    <environment-properties>
+      <file-properties location="iheartradio.<%= @attivio_env %>.properties"/>
+    </environment-properties>
+  </configuration>
+
+  <!-- The indexer configuration is different in each environment so we define the index routing in this top level environment specific config file. -->
+  <beans>
+    <!-- Default index feature, a single partition, single node index, running on the "local" node -->
+    <f:index name="index">
+      <f:contentDispatcher nodeset="processors" />
+      <f:queryDispatcher workflow="searcher" nodeset="searchers" />
+      <f:searchConfiguration>
+        <% @search_config.each do |key, val| -%>
+        <f:property name="<%= key %>" value="<%= val %>" />
+        <% end -%>
+      </f:searchConfiguration>
+      <!-- <f:engineConfiguration> <f:property name="maxBooleanClauses" value="1000000"/> </f:engineConfiguration> -->
+      <f:partitionSet size="4">
+        <f:writeTo nodeset="indexers1" name="row1" datadir="${index1.data.dir}"/>
+        <% if @cluster -%>
+        <f:shareTo nodeset="searchers1" source="row1" />
+        <f:broadcastTo nodeset="searchers2"/>
+        <f:broadcastTo nodeset="searchers3"/>
+        <f:broadcastTo nodeset="searchers4"/>
+        <f:broadcastTo nodeset="searchers5"/>
+      <% end if -%>
+      </f:partitionSet>
+    </f:index>
+    <f:index name="contentSpotlight" schema="contentspotlight">
+      <f:contentDispatcher workflow="contentSpotlightIngest" nodeset="processors" />
+      <f:queryDispatcher workflow="contentSpotlightSearch" nodeset="searchers" />
+      <f:partitionSet size="4">
+        <f:writeTo nodeset="indexers1" name="row1" datadir="${index1.data.dir}" />
+        <% if @cluster -%>
+        <f:shareTo nodeset="searchers1" source="row1" />
+        <f:broadcastTo nodeset="searchers2"/>
+        <f:broadcastTo nodeset="searchers3"/>
+        <f:broadcastTo nodeset="searchers4"/>
+        <f:broadcastTo nodeset="searchers5"/>
+        <% end if -%>
+      </f:partitionSet>
+      <f:searchConfiguration>
+        <f:property name="searchAutowarmFactor" value="0.0"/>
+        <f:property name="filterAutowarmFactor" value="0.0"/>
+      </f:searchConfiguration>
+    </f:index>
+
+  </beans>
+
+  <imports>
+    <import resource="iheartradio.xml" />
+  </imports>
+
+</att:attivio>
