@@ -1,4 +1,3 @@
-#
 # Author:: Joshua Timberman (<joshua@opscode.com>)
 # Author:: Seth Chisamore (<schisamo@opscode.com>)
 # Cookbook Name:: chef
@@ -53,7 +52,7 @@ else
   raise "Could not locate the chef-client bin in any known path. Please set the proper path by overriding node['chef_client']['bin'] in a role."
 end
 
-node["chef_client"]["bin"] = client_bin
+node.default["chef_client"]["bin"] = client_bin
 
 
 %w{run_path cache_path backup_path log_dir}.each do |key|

@@ -11,6 +11,8 @@ default[:basejump][:rev] = "HEAD"
 
 default[:basejump][:kickstarter][:tftp_root] = '/data/tftpboot'
 
+default[:basejump][:install_path] = "/data/www/basejump"
+
 case node['platform']
 when "debian","ubuntu"
   default['basejump']['packages'] = %w[ python-mysqldb libmysqlclient-dev xinetd tftpd syslinux ]

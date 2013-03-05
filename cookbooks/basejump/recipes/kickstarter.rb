@@ -103,3 +103,16 @@ cookbook_file "#{node[:basejump][:kickstarter][:tftp_root]}/pxelinux.cfg/backgro
   group "root"
   mode "0755"
 end
+
+directory "#{node[:basejump][:install_path]}/current/kickstarter/repos" do
+  owner "root"
+  group "root"
+  mode "0755"
+end
+
+template "#{node[:basejump][:install_path]}/current/kickstarter/repos/CentOS-Base.repo" do
+  source "CentOS-Base.repo.erb"
+  owner "root"
+  group "root"
+  mode "0755"
+end
