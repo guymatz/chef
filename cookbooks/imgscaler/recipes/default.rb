@@ -14,4 +14,15 @@ cookbook_file "#{Chef::Config[:file_cache_path]}/imgscaler.tar.gz" do
   action :create
 end
 
+user tomcat do
+  home "/home/tomcat"
+  shell "/bin/bash"
+end
+
+directory "/usr/local/tomcat7" do
+  owner "tomcat"
+  group "tomcat"
+  action :create
+end
+
 
