@@ -9,14 +9,14 @@
 
 package "jdK"
 
-cookbook_file "#{Chef::Config[:file_cache_path]}/imgscaler.tar.gz" do
-  source "imgscaler.tar.gz"
-  action :create
-end
-
 user tomcat do
   home "/home/tomcat"
   shell "/bin/bash"
+end
+
+cookbook_file "#{Chef::Config[:file_cache_path]}/imgscaler.tar.gz" do
+  source "imgscaler.tar.gz"
+  action :create
 end
 
 directory "/usr/local/tomcat7" do
@@ -25,4 +25,14 @@ directory "/usr/local/tomcat7" do
   action :create
 end
 
+bash "extract_tomcat" do
+  user "tomcat"
+  cwd "/usr/local/tomcat7"
+  code <<-EOH
+  tar xpf #{Chef::Config[:file_cache_path]}/imgscaler.tar.gz
+  EOH
+end
 
+cookbook_file "/etc/init.d/tomcat" do
+
+end
