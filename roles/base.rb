@@ -21,7 +21,6 @@ all_env = [
            "recipe[nscd]",
            "recipe[openssh]",
            "recipe[motd-tail]",
-           "recipe[nagios::client]",
            "recipe[operations]"
           ]
 run_list(all_env)
