@@ -1,0 +1,107 @@
+#!/bin/bash
+#
+# connector - Attivio connector daemon
+#
+# description: Attivio connector daemon
+#
+# chkconfig: 2345 90 10
+# processname: attivio31-connector
+#
+
+USER=<%= @attivio["user"] %>
+NODENAME=<%= @nodename %>
+LOG_DIR=<%= @attivio[:install_path] %>/iheartradio3/logs-<%= @nodename %>-connector
+export ATTIVIO_HOME=<%= @attivio[:aie_install_path] %>
+export ATTIVIO_PROJECT=<%= @attivio[:install_path] %>/iheartradio3/
+export PATH=$ATTIVIO_HOME/bin:$PATH
+export ZOOKEEPER_HOST=<%= @searchers.join(":" + @zookeeper_port +",") %>
+export ATTIVIO_ARGS="-Dattivio.data.directory=$ATTIVIO_PROJECT/data-$NODENAME $ATTIVIO_ARGS"
+export ATTIVIO_ARGS="-Dattivio.log.directory=$LOG_DIR $ATTIVIO_ARGS"
+export ATTIVIO_ARGS="-Dattivio.process.jvm.enabled=true $ATTIVIO_ARGS"
+export ATTIVIO_ARGS="-project=$ATTIVIO_PROJECT $ATTIVIO_ARGS"
+export ATTIVIO_ARGS="-node $NODENAME $ATTIVIO_ARGS"
+export ATTIVIO_ARGS="-zooKeeper $ZOOKEEPER_HOST $ATTIVIO_ARGS"
+export ATTIVIO_ARGS="-n iheartradio-<%= @attivio_env %> $ATTIVIO_ARGS"
+export AIE_ARGS="-node $NODENAME"
+export AIE_ARGS="-zooKeeper $ZOOKEEPER_HOST $AIE_ARGS"
+export AIE_ARGS="-n iheartradio-<%= @attivio_env %> $AIE_ARGS"
+export ATTIVIO_MEM=<%= @indexer["memory"] %>
+export PB_CLASS=com.attivio.platform.process.ProcessBuilderServiceRunner
+export NOHUP=setsid nohup
+
+if [[ ! -d  ${LOG_DIR} ]]
+  then
+    echo "The directory ${LOG_DIR} does not exist"
+    return 1
+fi
+
+# Source function library
+. /etc/init.d/functions
+
+# Get network config
+. /etc/sysconfig/network
+
+RETVAL=0
+
+start() {
+  echo  "Starting Connector:"
+  pushd ${ATTIVIO_HOME}/bin > /dev/null
+  echo  "Starting external process builder:"
+  daemon --user $USER "$NOHUP ${ATTIVIO_HOME}/bin/aie-main $PB_CLASS -cmd start -mode remote $ATTIVIO_ARGS > $LOG_DIR/processbuilder.start.$NODENAME.log 2>&1 &" > /dev/null
+  daemon --user $USER "${ATTIVIO_HOME}/bin/aie-main $PB_CLASS -cmd waitfor -mode remote $ATTIVIO_ARGS > $LOG_DIR/processbuilder.waitfor.$NODENAME.log 2>&1" > /dev/null
+  echo
+  echo  "Starting multi-node AIE"
+  daemon --user $USER "${ATTIVIO_HOME}/bin/attivio -cmd start -mode remote $ATTIVIO_ARGS $ATTIVIO_ARGS &" > /dev/null &
+  echo  "Stopping external process manager"
+  daemon --user $USER "${ATTIVIO_HOME}/bin/aie-main $PB_CLASS -cmd stop -mode remote $ATTIVIO_ARGS > $LOG_DIR/processbuilder.waitfor.$NODENAME.log 2>&1 &" > /dev/null
+  RETVAL=$?
+  popd > /dev/null
+  echo
+  [ ${RETVAL} -eq 0 ] && touch /var/lock/subsys/connector
+  return ${RETVAL}
+}
+
+stop() {
+  echo -n "Stopping Connector:"
+  pushd ${ATTIVIO_HOME}/bin > /dev/null
+  daemon --user $USER "${ATTIVIO_HOME}/bin/attivio -cmd stop -mode remote $ATTIVIO_ARGS > ${LOG_DIR}/connector.start.${NODENAME}.log 2>&1" > /dev/null
+  echo
+  RETVAL=$?
+  echo
+  popd > /dev/null
+  [ ${RETVAL} -eq 0 ] && rm -f /var/lock/subsys/connector
+  return ${RETVAL}
+}
+
+restart() {
+  stop
+  start
+}
+
+reload() {
+    stop
+    start
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  restart)
+    restart
+    ;;
+  condrestart)
+    [ -f /var/lock/subsys/connector] && restart || :
+    ;;
+  reload)
+    reload
+    ;;
+  *)
+    echo $"Usage: $0 {start|stop|status|restart|condrestart|reload}"
+    exit 1
+esac
+
+exit $?

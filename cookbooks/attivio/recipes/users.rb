@@ -27,6 +27,7 @@ file "/home/#{node[:attivio][:user]}/.ssh/config" do
   content <<-EOH
   Host *github.com
     IdentityFile "/home/#{node[:attivio][:user]}/.ssh/deploy"
+    StrictHostKeyChecking no
 EOH
 end
 

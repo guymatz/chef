@@ -25,12 +25,15 @@ default[:attivio][:search_config] = ({
                                        "documentCacheMaxSize" => "75000",
                                        "documentCacheLoadFactor" => "0.01" # cache size will be 10% of the segment size
                                      })
-
+default[:attivio][:searcher][:memory] = "128m"
+default[:attivio][:indexer][:memory] = "1g"
+default[:attivio][:connector][:memory] = "1g"
 default[:attivio][:memory] = "2g"
 
 default[:attivio][:connector_port] = "19200"
 default[:attivio][:indexer_port] = "19100"
 default[:attivio][:searcher_port] = "19000"
+default[:attivio][:zookeeper_port] = "15000"
 
 # ARTIST XML INDEXING
 # These paths are appended to default[:attivio][:install_path]

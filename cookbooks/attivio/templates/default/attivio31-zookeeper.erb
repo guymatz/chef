@@ -1,0 +1,74 @@
+#!/bin/bash
+#
+#attivio31-zookeeper  Attivio Zookeeper Daemon
+#
+#description: Attivio Zookeeper Daemon
+#
+#chkconfig: 2345 89 9
+#
+#processname: attivio31-zookeeper
+
+USER=<%= @attivio["user"] %>
+LOG_DIR=<%= @attivio["install_path"] %>/iheartradio3/logs-<%= @nodename %>-zookeeper
+export ATTIVIO_HOME=<%= @attivio["aie_install_path"] %>
+export ATTIVIO_PROJECT=<%= @attivio["install_path"] %>/iheartradio3
+export ZOOKEEPER_HOST=<%= @searchers.join(":" + @zookeeper_port +",") %>
+export NOHUP=setsid nohup
+
+# Source function library
+. /etc/init.d/functions
+
+# Get network config
+. /etc/sysconfig/network
+
+RETVAL=0
+
+
+start() {
+  echo -n "Starting ZooKeeper:"
+  pushd ${PROJECT_HOME}/bin/${ENV} > /dev/null
+  daemon --user $USER "${ATTIVIO_HOME}/bin/aie-exec configserver -Xmx32m -d ${ATTIVIO_PROJECT} -z ${ZOOKEEPER_HOST} &" > /dev/null
+  echo
+  # Start me up!
+  RETVAL=$?
+  echo
+  popd > /dev/null
+  [ ${RETVAL} -eq 0 ] && touch /var/lock/subsys/zookeeper
+  return ${RETVAL}
+}
+
+stop() {
+  echo -n "Stopping Zookeeper:"
+  pushd ${ATTIVIO_HOME}/bin > /dev/null
+  /bin/cut -d' ' -f 3
+  pkill -f "${ATTIVIO_HOME}/bin/aie-exec configserver"
+  echo
+  RETVAL=$?
+  echo
+  popd > /dev/null
+  [ ${RETVAL} -eq 0 ] && rm -f /var/lock/subsys/zookeeper
+  return ${RETVAL}
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  restart)
+    restart
+    ;;
+  condrestart)
+    [ -f /var/lock/subsys/zookeeper] && restart || :
+    ;;
+  reload)
+    reload
+    ;;
+  *)
+    echo $"Usage: $0 {start|stop|status|restart|condrestart|reload}"
+    exit 1
+esac
+
+exit $?
