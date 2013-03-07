@@ -69,16 +69,5 @@ template "#{node[:ipplan][:install_path]}/config.php" do
             })
 end
 
-template "/usr/local/sbin/push-dns" do
-  source "push-dns.sh.erb"
-  owner "root"
-  group "root"
-  mode "0755"
-  variables({
-              :scripts_dir => node[:ipplan][:scripts_dir],
-              :chroot_dir => node[:bind_chroot][:chroot_dir],
-              :daemon => node[:bind_chroot][:name]
-            })
-end
-
+include_recipe "ipplan::pushdns"
 include_recipe "ipplan::scripts"

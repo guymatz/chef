@@ -1,10 +1,22 @@
 #!/usr/bin/env bash
 set -x
+
+if [[ $EUID -eq 0 ]]; then
+    echo "This script must NOT be run as root" 1>&2
+    exit 1
+fi
+
 sudo -v
 
-<%= @scripts_dir %>/bin/ipplan-updatedns.sh
-#cd /staging_bind
-#git pull origin master
-#cp -r named/* <%= @chroot_dir %>/var/named/
-#/etc/init.d/<%= @daemon %> reload
+IPPLAN_HOST="<%= @ipplan_host %>"
+DNS_SERVERS="<%= @dns_servers.join(" ") %>"
+HOSTNAME=$(hostname -f)
+if [ "$IPPLAN_HOST" == "$HOSTNAME" ] ; then
+    <%= @scripts_dir %>/bin/ipplan-updatedns.sh
+else
+    ssh "$IPPLAN_HOST" "sudo push-dns"
+fi
 
+for i in $DNS_SERVERS ; do
+    ssh $i "sudo chef-client"
+done

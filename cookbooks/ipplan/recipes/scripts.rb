@@ -83,6 +83,7 @@ file "/root/.ssh/config" do
   content <<-EOH
   Host github.com
     IdentityFile /etc/chef/ops-auto
+    StrictHostKeyChecking no
 EOH
 end
 

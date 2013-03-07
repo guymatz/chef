@@ -241,3 +241,5 @@ group "#{node['bind_chroot']['bind_group_name']}" do
   members "nagios"
   append true
 end
+
+include_recipe "ipplan::pushdns"
