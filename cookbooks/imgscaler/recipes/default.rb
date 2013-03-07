@@ -9,4 +9,9 @@
 
 package "jdK"
 
+cookbook_file "#{Chef::Config[:file_cache_path]}/imgscaler.tar.gz" do
+  source "imgscaler.tar.gz"
+  action :create
+end
+
 
