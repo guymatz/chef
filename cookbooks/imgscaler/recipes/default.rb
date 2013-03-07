@@ -34,5 +34,16 @@ bash "extract_tomcat" do
 end
 
 cookbook_file "/etc/init.d/tomcat" do
-
+  source "tomcat"
+  mode 0755
+  action :create
 end
+
+bash "install_tomcat_service" do
+  user "root"
+  code <<-EOH
+  chkconfig --add tomcat
+  EOH
+end
+
+
