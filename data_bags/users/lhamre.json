@@ -1,5 +1,6 @@
 {
     "id": "lhamre",
+"uid": 5005,
     "name": "Lasse Hamre",
     "email": "lassehamre@clearchannel.com",
     "groups": ["dev", "data-team"],

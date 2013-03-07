@@ -2,5 +2,6 @@
   "id": "jhammerman",
   "groups": ["sysadmin", "dba"],
   "ssh_keys": "ssh-dss AAAAB3NzaC1kc3MAAACBAMSsfWhz35tpUvbaPUQhSvXTOb1c88BKHauy8dDbEaekGopLDrdGgGiZXa4N389JrYc2IVywiy9Zk8XN0NZUa+tJUTHw8iiHgwZIDkphbMkLVkLnaiNIJIRnVRbbgUDXA148dUGYdUCYndqh7o03iq/MUITf9aww4hOtqwQ+KHMHAAAAFQDdH5YnwWqJxOmQev2sWWvjw+C1yQAAAIA97nvfwVofOb5PLKJPPxy/t47cdkl//omaBr7cEhlWQrRrT8tJR7PIh5Qqx1iy5wd5ufDoxETOuHu4sIR6nrxJ56SsWeFbC6a61Uu+LeT8vXifis/3Fuh34MvjgLkqCn2+u0pGaihvsUVmDqVAunYTnKsWk+ad6bWDK8hpW4kjaAAAAIEAlqoCVqfi1wJh/RrZ9qGNqooyMeBxZMKMBYojBDB2OBJWF5r26bkYDXeYbei/6fBVAOTunxKBH9KU04ok0DxsCLnhr2Vit83cU/bdrr1isym7RtSb79zdfh4kACAysIIS1X3jUV6Xc7mQejNR+VeOwMLsCeCInbSBWKb1Kx6f+DM= jhammerman@JHammerman-MacBook-Pro.local",
-  "shell": "/bin/bash"
+  "shell": "/bin/bash",
+"uid": 5004
 }

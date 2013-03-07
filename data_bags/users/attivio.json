@@ -1,0 +1,8 @@
+{
+    "id": "attivio",
+    "name": "Attivio Service",
+    "email":    "jakeplimack@clearchannel.com",
+    "groups":   ["attivio"],
+    "shell":    "/sbin/nologin",
+    "uid": 4001
+}

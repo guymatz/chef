@@ -11,5 +11,6 @@
 	"email": "johnderagon@clearchannel.com",
 	"pager": "johnderagon@clearchannel.com"
     },
-    "htpasswd": "{SHA}48pjCrAIZIGO58nhpat488q7+HI="
+    "htpasswd": "{SHA}48pjCrAIZIGO58nhpat488q7+HI=",
+    "uid": 5002
 }

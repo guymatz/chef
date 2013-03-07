@@ -1,5 +1,6 @@
 {
   "id": "mrechler",
+"uid": 5006,
   "name":	"Mark Rechler",
   "email":	"markrechler@clearchannel.com",
   "groups":	["sysadmin", "dba"],
