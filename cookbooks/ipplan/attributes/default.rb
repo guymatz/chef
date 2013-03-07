@@ -15,7 +15,7 @@ default[:ipplan][:checksum] = "92f2499755e13260c06f51424cfce173"
 
 # Apache & PHP Settings
 default[:ipplan][:server_name] = "ipplan.ihrdev.com"
-default[:ipplan][:server_aliases] = "ipplan"
+default[:ipplan][:server_aliases] = "ipplan ipplan.ihr"
 case node['platform']
 when "centos", "redhat", "suse", "fedora", "scientific", "amazon"
   default[:ipplan][:packages] = %w{ php-snmp zlib zlib-devel }
@@ -36,6 +36,6 @@ default[:ipplan][:ipplan_url] = "ipplan.ihrdev.com"
 default[:ipplan][:ipplan_user] = "ops-auto"
 
 
-default[:ipplan][:fwd_zones] = %w{ ihr }
+default[:ipplan][:fwd_zones] = %w{ ihr prod.ihr dev.ihr }
 
 default[:ipplan][:repo] = "git@github.com:iheartradio/ipplan-autogen.git"
