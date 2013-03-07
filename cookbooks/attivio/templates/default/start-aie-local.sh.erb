@@ -1,0 +1,29 @@
+#!/bin/bash
+
+. ./env.sh $1 $2
+
+# Set the amount of memory for AIE to use
+export ATTIVIO_MEM=<%= @attivio_mem %>
+
+export NODENAME=local
+
+export LOG_DIR=$ATTIVIO_PROJECT/logs-$NODENAME
+mkdir -p $LOG_DIR
+export ATTIVIO_ARGS="-Dattivio.data.directory=$ATTIVIO_PROJECT/data-$NODENAME $ATTIVIO_ARGS"
+export ATTIVIO_ARGS="-Dattivio.log.directory=$LOG_DIR $ATTIVIO_ARGS"
+export ATTIVIO_ARGS="-Dattivio.process.jvm.enabled=true $ATTIVIO_ARGS"
+export PB_CLASS=com.attivio.platform.process.ProcessBuilderServiceRunner
+
+export NOHUP=setsid nohup
+
+
+# start the external process manager for launching backup scripts, advanced text extraction.  wait for it to start.
+echo Starting external process builder
+$NOHUP aie-main $PB_CLASS -cmd start -mode local $ATTIVIO_ARGS > $LOG_DIR/processbuilder.start.$NODENAME.log 2>&1 &
+aie-main $PB_CLASS -cmd waitfor -mode local $ATTIVIO_ARGS > $LOG_DIR/processbuilder.waitfor.$NODENAME.log
+
+echo "Starting local (non multi-node) AIE"
+attivio -cmd start -mode local -project="$ATTIVIO_PROJECT" $ATTIVIO_ARGS <%= @iheart_env_xml %>
+
+echo Stopping external process manager
+aie-main $PB_CLASS -cmd stop -mode local $ATTIVIO_ARGS > $LOG_DIR/processbuilder.stop.$NODENAME.log

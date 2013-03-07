@@ -1,0 +1,73 @@
+<att:attivio xmlns:att="http://www.attivio.com/configuration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.attivio.com/configuration http://www.attivio.com/configuration/attivio-config.xsd">
+
+  <!--Copyright 2012 Attivio Inc., All rights reserved-->
+
+  <!-- This file contains a sample list of nodes and nodesets.
+       Different versions of this file might lay out different topologies for different
+       deployment environments (development/qa/staging/production)
+    -->
+  <topology>
+    <nodes>
+      <% if @cluster -%>
+      <node name="connector1" host="${host1}" port="${connector.port}" />
+      <node name="indexer1" host="${host1}" port="${indexer.port}" />
+      <node name="searcher1" host="${host1}" port="${searcher.port}" />
+      <!--node name="indexer2" host="${host2}" port="${indexer.port}" /-->
+      <node name="searcher2" host="${host2}" port="${searcher.port}" />
+      <node name="searcher3" host="${host3}" port="${searcher.port}" />
+      <node name="searcher4" host="${host4}" port="${searcher.port}" />
+      <node name="searcher5" host="${host5}" port="${searcher.port}" />
+      <% else -%>
+      <node name="local" host="localhost" port="17000" />
+      <% end -%>
+    </nodes>
+    <nodesets>
+      <% if @cluster -%>
+      <nodeset name="connector">
+        <include name="connector1" />
+      </nodeset>
+      <nodeset name="processors">
+        <include name="connector1" />
+      </nodeset>
+      <nodeset name="indexers1">
+        <include name="indexer1" />
+      </nodeset>
+      <nodeset name="searchers1">
+        <include name="searcher1" />
+      </nodeset>
+      <nodeset name="searchers2">
+        <include name="searcher2" />
+      </nodeset>
+      <nodeset name="searchers3">
+        <include name="searcher3" />
+      </nodeset>
+      <nodeset name="searchers4">
+        <include name="searcher4" />
+      </nodeset>
+      <nodeset name="searchers5">
+        <include name="searcher5" />
+      </nodeset>
+      <nodeset name="searchers">
+        <include name="searcher1" />
+        <include name="searcher2" />
+        <include name="searcher3" />
+        <include name="searcher4" />
+        <include name="searcher5" />
+      </nodeset>
+      <% else -%>
+      <nodeset name="connector">
+        <include name="local" />
+      </nodeset>
+      <nodeset name="processors">
+        <include name="local" />
+      </nodeset>
+      <nodeset name="indexers">
+        <include name="local" />
+      </nodeset>
+      <nodeset name="searchers">
+        <include name="local" />
+      </nodeset>
+      <% end -%>
+    </nodesets>
+  </topology>
+</att:attivio>

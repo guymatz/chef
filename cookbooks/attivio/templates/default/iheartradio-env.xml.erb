@@ -10,7 +10,7 @@
   <configuration projectName="iheartradio" >
     <!--  import any project specific properties referenced in later configuration files -->
     <environment-properties>
-      <file-properties location="iheartradio.<%= @attivio_env %>.properties"/>
+      <file-properties location="<%= @attivio_conf %>/iheartradio.<%= @attivio_env %>.properties"/>
     </environment-properties>
   </configuration>
 
@@ -27,28 +27,32 @@
       </f:searchConfiguration>
       <!-- <f:engineConfiguration> <f:property name="maxBooleanClauses" value="1000000"/> </f:engineConfiguration> -->
       <f:partitionSet size="4">
-        <f:writeTo nodeset="indexers1" name="row1" datadir="${index1.data.dir}"/>
         <% if @cluster -%>
+        <f:writeTo nodeset="indexers1" name="row1" datadir="${index1.data.dir}"/>
         <f:shareTo nodeset="searchers1" source="row1" />
         <f:broadcastTo nodeset="searchers2"/>
         <f:broadcastTo nodeset="searchers3"/>
         <f:broadcastTo nodeset="searchers4"/>
         <f:broadcastTo nodeset="searchers5"/>
-      <% end if -%>
+        <% else -%>
+        <f:writeTo nodeset="indexers" datadir="${index1.data.dir}"/>
+        <% end -%>
       </f:partitionSet>
     </f:index>
     <f:index name="contentSpotlight" schema="contentspotlight">
       <f:contentDispatcher workflow="contentSpotlightIngest" nodeset="processors" />
       <f:queryDispatcher workflow="contentSpotlightSearch" nodeset="searchers" />
       <f:partitionSet size="4">
-        <f:writeTo nodeset="indexers1" name="row1" datadir="${index1.data.dir}" />
         <% if @cluster -%>
+        <f:writeTo nodeset="indexers1" name="row1" datadir="${index1.data.dir}" />
         <f:shareTo nodeset="searchers1" source="row1" />
         <f:broadcastTo nodeset="searchers2"/>
         <f:broadcastTo nodeset="searchers3"/>
         <f:broadcastTo nodeset="searchers4"/>
         <f:broadcastTo nodeset="searchers5"/>
-        <% end if -%>
+        <% else -%>
+        <f:writeTo nodeset="indexers" datadir="${index1.data.dir}"/>
+        <% end -%>
       </f:partitionSet>
       <f:searchConfiguration>
         <f:property name="searchAutowarmFactor" value="0.0"/>
@@ -59,7 +63,7 @@
   </beans>
 
   <imports>
-    <import resource="iheartradio.xml" />
+    <import resource="<%= @attivio_conf %>/iheartradio.xml" />
   </imports>
 
 </att:attivio>
