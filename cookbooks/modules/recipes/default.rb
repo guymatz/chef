@@ -48,7 +48,7 @@ when "ubuntu"
   service "module-init-tools" do
     provider Chef::Provider::Service::Upstart
   end
-  
+
   service "modules-load" do
     provider Chef::Provider::Service::Upstart
     action [:enable, :start]
@@ -67,7 +67,7 @@ if node.attribute?('modules')
     owner "root"
     group "root"
     variables(
-      :modules => node['modules'] 
+      :modules => node['modules']
     )
     notifies :start, "service[modules-load]"
   end
