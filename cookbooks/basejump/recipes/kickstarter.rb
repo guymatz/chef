@@ -1,6 +1,6 @@
 
 directory "#{node[:basejump][:kickstarter][:tftp_root]}/pxelinux.cfg" do
-  owner "root"
+  owner "nobody"
   group "nogroup"
   mode "0755"
   action :create
@@ -63,6 +63,22 @@ end
 directory "#{node[:basejump][:kickstarter][:tftp_root]}/distros" do
   owner "root"
   group "root"
+end
+
+%w{ chain.c32 mboot.c32 memdisk menu.c32 menu.msg vesamenu.c32 }.each do |f|
+  cookbook_file "#{node[:basejump][:kickstarter][:tftp_root]}/modules/#{f}" do
+    source f
+    owner "nobody"
+    group "nogroup"
+    mode "0755"
+  end
+end
+
+cookbook_file "#{node[:basejump][:kickstarter][:tftp_root]}/pxelinux.0" do
+  source "pxelinux.0"
+  owner "nobody"
+  group "nogroup"
+  mode "0755"
 end
 
 mirrors = node[:basejump][:kickstarter][:mirrors]

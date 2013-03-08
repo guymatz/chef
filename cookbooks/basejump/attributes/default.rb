@@ -24,9 +24,6 @@ default[:basejump][:kickstarter][:syslinux_url] = "http://www.kernel.org/pub/lin
 default[:basejump][:kickstarter][:syslinux_links] = ({
                                                        "ldlinux.c32" => "syslinux-5.01/com32/elflink/ldlinux/ldlinux.c32",
                                                        "libutil.c32" => "syslinux-5.01/com32/libutil/libutil.c32",
-                                                       "pxelinux.0" => "syslinux-5.01/core/pxelinux.0",
-                                                       "modules/vesamenu.c32" => "syslinux-5.01/com32/menu/vesamenu.c32",
-                                                       "modules/menu.c32" => "syslinux-5.01/com32/menu/menu.c32",
                                                        "modules/reboot.c32" => "syslinux-5.01/com32/modules/reboot.c32",
                                                        "libcom32.c32" => "syslinux-5.01/com32/lib/libcom32.c32"
                                                       })

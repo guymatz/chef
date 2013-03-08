@@ -16,7 +16,8 @@ MENU TABMSG Press [Tab] to edit options or [Esc] to get a prompt
 # Text displayed below menu with countdown timer replacing '#'
 MENU AUTOBOOT Defaulting to localboot in # seconds
 DEFAULT localboot
-TIMEOUT 300 # 30 secs
+TIMEOUT 100 # 10 secs
+TOTALTIMEOUT 30 # 30 secs
 
 # Don't halt the processor while idle. Halting the processor while idle
 # significantly reduces the power consumption, but can cause poor
@@ -119,8 +120,6 @@ LABEL localboot
     MENU LABEL Boot local hard disk
     localboot 0x80
     MENU default
-    TIMEOUT 3000
-    TOTALTIMEOUT 40000
 
     TEXT help
         Boot local hard disk
