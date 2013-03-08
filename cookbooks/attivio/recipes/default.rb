@@ -74,6 +74,17 @@ EOH
 end
 
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", "attivio")
+cluster = search(:node, "recipes:attivio\\:\\:clustered AND chef_environment:#{node.chef_environment}")
+master = search(:node, "recipes:attivio\\:\\:clustermaster AND chef_environment:#{node.chef_environment}")
+
+# searcher = cluster - master
+searchers = cluster
+searchers.each_with_index do |s, index|
+  if master[0]["fqdn"] == s["fqdn"]
+    searchers.delete_at(index)
+  end
+end
+
 
 template "#{node[:attivio][:config_path]}/iheartradio-#{node.chef_environment}.xml" do
   source "iheartradio-env.xml.erb"
@@ -82,7 +93,8 @@ template "#{node[:attivio][:config_path]}/iheartradio-#{node.chef_environment}.x
   variables({
               :attivio_env => node.chef_environment,
               :search_config => node[:attivio][:search_config],
-              :attivio_conf => node[:attivio][:config_path]
+              :attivio_conf => node[:attivio][:config_path],
+              :cluster => searchers
             })
 end
 
@@ -108,7 +120,8 @@ template "#{node[:attivio][:config_path]}/iheartradio.#{node.chef_environment}.p
               :dbconns => app_secrets["#{node.chef_environment}"],
               :directory => node[:attivio][:directory],
               :xml => node[:attivio][:xml],
-              :cluster => nil
+              :cluster => searchers,
+              :master => master[0]
             })
 end
 
@@ -120,7 +133,8 @@ template "#{node[:attivio][:config_path]}/topology-nodes-#{node.chef_environment
               :connector_port => node[:attivio][:connector_port],
               :indexer_port => node[:attivio][:indexer_port],
               :searcher_port => node[:attivio][:searcher_port],
-              :cluster => nil
+              :cluster => cluster,
+              :master => master
             })
 end
 

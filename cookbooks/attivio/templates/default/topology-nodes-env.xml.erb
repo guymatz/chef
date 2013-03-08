@@ -9,14 +9,13 @@
   <topology>
     <nodes>
       <% if @cluster -%>
+      <% if @master -%>
       <node name="connector1" host="${host1}" port="${connector.port}" />
       <node name="indexer1" host="${host1}" port="${indexer.port}" />
-      <node name="searcher1" host="${host1}" port="${searcher.port}" />
-      <!--node name="indexer2" host="${host2}" port="${indexer.port}" /-->
-      <node name="searcher2" host="${host2}" port="${searcher.port}" />
-      <node name="searcher3" host="${host3}" port="${searcher.port}" />
-      <node name="searcher4" host="${host4}" port="${searcher.port}" />
-      <node name="searcher5" host="${host5}" port="${searcher.port}" />
+      <% end -%>
+      <% @cluster.each_with_index do |node, index| %>
+      <node name="searcher<%= index+1 %>" host="${host<%= index+1 %>}" port="${searcher.port}" />
+      <% end %>
       <% else -%>
       <node name="local" host="localhost" port="17000" />
       <% end -%>
@@ -32,27 +31,15 @@
       <nodeset name="indexers1">
         <include name="indexer1" />
       </nodeset>
-      <nodeset name="searchers1">
-        <include name="searcher1" />
+      <% @cluster.each_with_index do |node, index| %>
+      <nodeset name="searchers<%= index+1 %>">
+        <include name="searcher<%= index+1 %>" />
       </nodeset>
-      <nodeset name="searchers2">
-        <include name="searcher2" />
-      </nodeset>
-      <nodeset name="searchers3">
-        <include name="searcher3" />
-      </nodeset>
-      <nodeset name="searchers4">
-        <include name="searcher4" />
-      </nodeset>
-      <nodeset name="searchers5">
-        <include name="searcher5" />
-      </nodeset>
+      <% end -%>
       <nodeset name="searchers">
-        <include name="searcher1" />
-        <include name="searcher2" />
-        <include name="searcher3" />
-        <include name="searcher4" />
-        <include name="searcher5" />
+        <% @cluster.each_with_index do |node, index| %>
+        <include name="searcher<%= index+1 %>" />
+        <% end -%>
       </nodeset>
       <% else -%>
       <nodeset name="connector">

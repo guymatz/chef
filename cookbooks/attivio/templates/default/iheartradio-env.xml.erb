@@ -30,10 +30,9 @@
         <% if @cluster -%>
         <f:writeTo nodeset="indexers1" name="row1" datadir="${index1.data.dir}"/>
         <f:shareTo nodeset="searchers1" source="row1" />
-        <f:broadcastTo nodeset="searchers2"/>
-        <f:broadcastTo nodeset="searchers3"/>
-        <f:broadcastTo nodeset="searchers4"/>
-        <f:broadcastTo nodeset="searchers5"/>
+        <%= @cluster.each_with_index do |host,index| %>
+        <f:broadcastTo nodeset="searchers<%= index + 1 %>"/>
+        <% end -%>
         <% else -%>
         <f:writeTo nodeset="indexers" datadir="${index1.data.dir}"/>
         <% end -%>
