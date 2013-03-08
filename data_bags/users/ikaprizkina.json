@@ -1,0 +1,9 @@
+{
+  "id": "ikaprizkina",
+  "name":	"Irena Kaprizkina",
+  "email":	"irenakaprizkina@clearchannel.com",
+  "groups":	["dba"],
+  "ssh_keys":	"",
+  "shell":	"/bin/bash",
+    "uid": 5009
+}
