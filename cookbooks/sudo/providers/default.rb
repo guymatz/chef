@@ -29,6 +29,7 @@ def check_inputs user, group, foreign_template, foreign_vars
 end
 
 def sudo_test tmpl_name
+  Chef::Log.debug("creating sudoers file #{tmpl_name}")
   cmd = Chef::ShellOut.new(%Q[ visudo -cf #{tmpl_name} ]).run_command
   unless cmd.exitstatus == 0
     Chef::Log.debug('sudoers fragment failed validation. Here it is for your viewing pleasure')

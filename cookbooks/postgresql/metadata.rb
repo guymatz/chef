@@ -21,3 +21,6 @@ end
 end
 
 depends "openssl"
+depends "psql"
+depends "users"
+depends "sudo"

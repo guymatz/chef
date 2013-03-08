@@ -79,3 +79,5 @@ echo "ALTER ROLE postgres ENCRYPTED PASSWORD '#{node['postgresql']['password']['
   not_if "echo '\connect' | PGPASSWORD=#{node['postgresql']['password']['postgres']} psql --username=postgres --no-password -h localhost"
   action :run
 end
+
+include_recipe "postgresql::users"

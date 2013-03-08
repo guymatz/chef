@@ -22,7 +22,11 @@ notifying_action :create do
   options[:admin_username] = new_resource.admin_username
   options[:admin_password] = new_resource.admin_password
 
-  command = "CREATE USER \"#{new_resource.username}\" WITH PASSWORD '#{new_resource.password}'"
+  if not options[:admin_username].nil?
+    command = "CREATE USER \"#{new_resource.username}\" WITH PASSWORD '#{new_resource.password}'"
+  else
+    command = "CREATE USER \"%{new_resource.username}\""
+  end
   unless_command = "SELECT * FROM pg_user WHERE usename='#{new_resource.username}'"
 
   bash "psql #{new_resource.name}" do
