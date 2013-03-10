@@ -94,7 +94,7 @@ view "internal" {
      # root servers
      zone "." {
      	  type hint;
-	  file "/var/named/named.root";
+	      file "/var/named/named.root";
      };
 
      # verisign sux
@@ -104,16 +104,16 @@ view "internal" {
      # loopback
      zone "localhost." {
      	  type master;
-	  file "/var/named/localhost.zone";
-	  forwarders {};
+	      file "/var/named/localhost.zone";
+	      forwarders {};
      };
 
      zone "0.0.127.in-addr.arpa." {
      	  type master;
-	  file "/var/named/0.0.127.in-addr.arpa.zone";
-	  allow-query { any; };
-	  allow-transfer { none; };
-	  forwarders {};
+          file "/var/named/0.0.127.in-addr.arpa.zone";
+	      allow-query { any; };
+	      allow-transfer { none; };
+	      forwarders {};
      };
 
      #  the following zones are auto-generated from IPPLAN
@@ -121,23 +121,23 @@ view "internal" {
      <% @dns_fwd_zones.each do |zone| -%>
      zone "<%= zone['zone'] %>" {
      	  type master;
-	  file "/var/named/internal/<%= zone['zone'] %>.autogen.zone";
-	  forwarders {};
-	  allow-transfer { xfer; };
+	      file "/var/named/internal/<%= zone['zone'] %>.autogen.zone";
+	      forwarders {};
+	      allow-transfer { xfer; };
      };
      <% end -%>
 
      <% @dns_rev_zones.each do |zone| -%>
      zone "<%= zone['net'] %>.in-addr.arpa." {
      	  type master;
-	  file "/var/named/internal/<%= zone['net'] %>.in-addr.arpa.autogen.zone";
-	  forwarders {};
+	      file "/var/named/internal/<%= zone['net'] %>.in-addr.arpa.autogen.zone";
+	      forwarders {};
      };
      <% end -%>
-    
+
      zone "sompa.thumbplay.com" in{
-     type slave;
-     file "/var/named/internal/slave.sompa.thumbplay.com";
-     masters{10.90.40.5;};
-};
+          type slave;
+          file "/var/named/internal/slave.sompa.thumbplay.com";
+          masters{10.90.40.5;};
+     };
 };
