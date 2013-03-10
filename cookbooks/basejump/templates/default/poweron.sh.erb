@@ -16,6 +16,6 @@ if [[ "$CONSOLE" =~ "None" ]] ; then
     echo "$HOSTNAME has no defined console in Basejump"
     exit 1
 else
-    IPMI_CMD="/usr/local/bin/ipmitool -C3 -I lanplus -H $CONSOLE -U $IPMI_USER -P $IPMI_PASS power on
+    IPMI_CMD="/usr/bin/ipmitool -C3 -I lanplus -H $CONSOLE -U $IPMI_USER -P $IPMI_PASS power on
     $IPMI_CMD
 fi
