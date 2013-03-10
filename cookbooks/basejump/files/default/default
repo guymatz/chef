@@ -4,8 +4,8 @@
 # directive in the configuration file.
 # - http://syslinux.zytor.com/wiki/index.php/SYSLINUX#SERIAL_port_.5B.5Bbaudrate.5D_flowcontrol.5D
 serial 0 115200
-#ui /modules/menu.c32
-UI /modules/vesamenu.c32
+UI /modules/menu.c32
+#UI /modules/vesamenu.c32
 MENU TITLE iHeartRadio PXE Menu
 MENU BACKGROUND /modules/background.png
 PROMPT 0
@@ -16,8 +16,7 @@ MENU TABMSG Press [Tab] to edit options or [Esc] to get a prompt
 # Text displayed below menu with countdown timer replacing '#'
 MENU AUTOBOOT Defaulting to localboot in # seconds
 DEFAULT localboot
-TIMEOUT 100 # 10 secs
-TOTALTIMEOUT 30 # 30 secs
+TIMEOUT 300 # 30 secs
 
 # Don't halt the processor while idle. Halting the processor while idle
 # significantly reduces the power consumption, but can cause poor

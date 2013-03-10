@@ -50,19 +50,19 @@ end
 
 cookbook_file "#{node[:basejump][:kickstarter][:tftp_root]}/menu.msg" do
   source "menu.msg"
-  owner "root"
-  group "root"
+  owner "nobody"
+  group "nogroup"
   mode "0755"
 end
 
 directory "#{node[:basejump][:kickstarter][:tftp_root]}/modules" do
-  owner "root"
-  group "root"
+  owner "nobody"
+  group "nogroup"
 end
 
 directory "#{node[:basejump][:kickstarter][:tftp_root]}/distros" do
-  owner "root"
-  group "root"
+  owner "nobody"
+  group "nogroup"
 end
 
 %w{ chain.c32 mboot.c32 memdisk menu.c32 menu.msg vesamenu.c32 }.each do |f|
