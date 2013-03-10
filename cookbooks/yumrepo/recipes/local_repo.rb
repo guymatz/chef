@@ -14,8 +14,6 @@ node[:yum][:local][:dirs].each do |repo|
   bash repo do
     user "root"
     cwd repo
-    code <<-EOH
-    createrepo --update -d .
-    EOH
+    code "createrepo --update -d . || createrepo ."
   end
 end
