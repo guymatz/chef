@@ -134,4 +134,10 @@ view "internal" {
 	  forwarders {};
      };
      <% end -%>
+    
+     zone "sompa.thumbplay.com" in{
+     type slave;
+     file "/var/named/internal/slave.sompa.thumbplay.com";
+     masters{10.90.40.5;};
+};
 };
