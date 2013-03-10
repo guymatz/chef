@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+if [ $# -lt 1 ]
+then
+    echo "Usage: $0 <hostname>"
+    exit 1
+fi
+
+IPMI_USER="<%= @ipmi_user %>"
+IPMI_PASS="<%= @ipmi_pass %>"
+HOSTNAME="$1"
+BASEJUMP="<%= @basejump_host %>"
+BASEJUMP_URL="http://basejump.ihrdev.com/invdb/console/$HOSTNAME"
+CONSOLE=$(curl -s $BASEJUMP_URL)
+if [[ "$CONSOLE" =~ "None" ]] ; then
+    echo "$HOSTNAME has no defined console in Basejump"
+    exit 1
+else
+    IPMI_CMD="/usr/local/bin/ipmitool -C3 -I lanplus -H $CONSOLE -U $IPMI_USER -P $IPMI_PASS power on
+    $IPMI_CMD
+fi

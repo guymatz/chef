@@ -1,8 +1,9 @@
 
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", "drac")
 
-template "/usr/sbin/consoleto" do
-  source "consoleto.sh.erb"
+%w{ consoleto poweron poweroff rebooter }.each do |s|
+template "/usr/sbin/#{s}" do
+  source "%{s}.sh.erb"
   owner "root"
   group "root"
   mode "0700"
