@@ -1,4 +1,4 @@
-results = search(:node, "recipes:attivio\\:\\:clustered")
+results = search(:node, "recipes:attivio\\:\\:clustered AND chef_environment:#{node.chef_environment}")
 
 searchers = Array.new
 results.each do |r|

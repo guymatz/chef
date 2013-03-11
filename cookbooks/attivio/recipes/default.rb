@@ -79,9 +79,11 @@ master = search(:node, "recipes:attivio\\:\\:clustermaster AND chef_environment:
 
 # searcher = cluster - master
 searchers = cluster
-searchers.each_with_index do |s, index|
-  if master[0]["fqdn"] == s["fqdn"]
-    searchers.delete_at(index)
+unless (defined?(master[0]["fqdn"])).nil?
+  searchers.each_with_index do |s, index|
+    if master[0]["fqdn"] == s["fqdn"]
+      searchers.delete_at(index)
+    end
   end
 end
 

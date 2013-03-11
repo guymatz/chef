@@ -31,14 +31,18 @@
       <nodeset name="indexers1">
         <include name="indexer1" />
       </nodeset>
-      <% @cluster.each_with_index do |node, index| %>
-      <nodeset name="searchers<%= index+1 %>">
-        <include name="searcher<%= index+1 %>" />
+      <nodeset name="searchers1">
+        <include name="searcher1" />
+      </nodeset>
+      <% @cluster.each_with_index do |host, index| %>
+      <nodeset name="searchers<%= index+2 %>">
+        <include name="searcher<%= index+2 %>" />
       </nodeset>
       <% end -%>
       <nodeset name="searchers">
+        <include name="searcher1" />
         <% @cluster.each_with_index do |node, index| %>
-        <include name="searcher<%= index+1 %>" />
+        <include name="searcher<%= index+2 %>" />
         <% end -%>
       </nodeset>
       <% else -%>
