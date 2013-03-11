@@ -17,7 +17,6 @@ all_env = [
            "recipe[perl]",
            "recipe[python]",
            "recipe[screen]",
-           "recipe[tmux]",
            "recipe[nscd]",
            "recipe[openssh]",
            "recipe[motd-tail]",
