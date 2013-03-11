@@ -136,7 +136,7 @@ template "#{node[:attivio][:config_path]}/topology-nodes-#{node.chef_environment
               :indexer_port => node[:attivio][:indexer_port],
               :searcher_port => node[:attivio][:searcher_port],
               :cluster => cluster,
-              :master => master
+              :master => master[0]
             })
 end
 
@@ -146,6 +146,12 @@ directory "#{node[:attivio][:bin_path]}/#{node.chef_environment}" do
   mode "0755"
 end
 
+fqdns = Array.new
+fqdns << master[0]["fqdn"]
+cluster.each do |c|
+  fqdns << c["fqdn"]
+end
+
 template "#{node[:attivio][:bin_path]}/#{node.chef_environment}/env.sh" do
   source "env.sh.erb"
   owner node[:attivio][:user]
@@ -153,7 +159,7 @@ template "#{node[:attivio][:bin_path]}/#{node.chef_environment}/env.sh" do
   variables({
               :attivio_home => node[:attivio][:aie_install_path],
               :attivio_project => node[:attivio][:install_path],
-              :zookeeper => nil
+              :zookeeper => fqdns,
             })
 end
 
