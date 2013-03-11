@@ -14,7 +14,7 @@ LOG_DIR=<%= @attivio["install_path"] %>/iheartradio3/logs-<%= @nodename %>-index
 export ATTIVIO_HOME=<%= @attivio["aie_install_path"] %>
 export ATTIVIO_PROJECT=<%= @attivio["install_path"] %>/iheartradio3
 export PATH=$ATTIVIO_HOME/bin:$PATH
-export ZOOKEEPER_HOST=<%= @searchers.join(":" + @zookeeper_port +",") %>
+export ZOOKEEPER_HOST=<%= @searchers.join(":" + @zookeeper_port +",") %>:<%= @zookeeper_port %>
 export ATTIVIO_ARGS="-Dattivio.data.directory=$ATTIVIO_PROJECT/data-$NODENAME $ATTIVIO_ARGS"
 export ATTIVIO_ARGS="-Dattivio.log.directory=$LOG_DIR $ATTIVIO_ARGS"
 export ATTIVIO_ARGS="-Dattivio.process.jvm.enabled=true $ATTIVIO_ARGS"

@@ -12,7 +12,7 @@ USER=<%= @attivio["user"] %>
 LOG_DIR=<%= @attivio["install_path"] %>/iheartradio3/logs-<%= @nodename %>-zookeeper
 export ATTIVIO_HOME=<%= @attivio["aie_install_path"] %>
 export ATTIVIO_PROJECT=<%= @attivio["install_path"] %>/iheartradio3
-export ZOOKEEPER_HOST=<%= @searchers.join(":" + @zookeeper_port +",") %>
+export ZOOKEEPER_HOST=<%= @searchers.join(":" + @zookeeper_port +",") %>:<%= @zookeeper_port %>
 export NOHUP=setsid nohup
 
 # Source function library
