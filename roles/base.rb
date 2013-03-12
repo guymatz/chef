@@ -28,6 +28,6 @@ env_run_lists(
               "_default" => all_env,
               "qa2" => all_env,
               "dev" => all_env,
-              "prod" => all_env,
+              "prod" => all_env + ["role[monitored]"],
               "ec2" => all_env
               )
