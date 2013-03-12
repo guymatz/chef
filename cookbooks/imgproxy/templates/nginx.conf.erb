@@ -1,0 +1,18 @@
+server {
+    listen {{app_port}} default;
+    server_name _;
+
+    keepalive_timeout 5;
+    client_max_body_size 1M;
+
+    location / {
+        root /dev/null;
+        try_files \$uri @proxy_to_app;
+    }
+
+    location @proxy_to_app {
+        include proxy_params;
+        proxy_redirect off;
+        proxy_pass http://unix:/tmp/{{app_name}}.sock;
+    }
+}

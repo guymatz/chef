@@ -27,10 +27,27 @@ pips.each do |pip|
   python_pip pip
 end
 
-cookbook_file "all of em" do
+static_files = { "/etc/sudoers.d/keep_agent" => "keep_agent",
+                 "/etc/ssh/ssh_config" => "ssh_conf",
+                 "/etc/nginx/proxy_params" => "nginx_proxy_params",
+                 "/etc/init.d/supervisor" => "supervisor_init",
+                 "/etc/sysconfig/varnish" => "varnish_sysconfig",
+                 "/opt/varnish_carbon.py" => "varnish_carbon.py"
+               }
 
+static_files.each do |dest,src|
+  cookbook_file dest do
+    source src
+    if dest.include?("init") || dest.include?("py")
+      mode "755"
+    end
+  end
 end
 
+bash "install_supervisor_service" do
+  user "root"
+  code "chkconfig --add supervisor"
+end
 
 
 files:
