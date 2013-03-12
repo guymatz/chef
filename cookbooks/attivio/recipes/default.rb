@@ -26,6 +26,7 @@ git node[:attivio][:install_path] do
   user node[:attivio][:user]
   group node[:attivio][:group]
   action :sync
+  not_if "test -d #{node[:attivio][:install_path]}/.git"
 end
 
 cookbook_file "/tmp/AIE-installer.sh.gz" do
@@ -147,7 +148,9 @@ directory "#{node[:attivio][:bin_path]}/#{node.chef_environment}" do
 end
 
 fqdns = Array.new
-fqdns << master[0]["fqdn"]
+if (defined?(master[0]["fqdn"]))
+  fqdns << master[0]["fqdn"]
+end
 cluster.each do |c|
   fqdns << c["fqdn"]
 end

@@ -25,3 +25,12 @@ service "attivio31-connector" do
   supports :status =>true, :start => true, :stop => true, :restart => true, :reload => true
   action :nothing
 end
+
+nagios_nrpecheck "Attivio_Process_Connector" do
+  command "#{node['nagios']['plugin_dir']}/check_procs"
+  warning_condition "1:1"
+  critical_condition "1:1"
+  parameters "-C attivio-java -a connector1"
+  action :add
+end
+

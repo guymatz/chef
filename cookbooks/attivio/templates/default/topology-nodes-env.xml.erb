@@ -12,8 +12,8 @@
       <% if @master -%>
       <node name="connector1" host="${host1}" port="${connector.port}" />
       <node name="indexer1" host="${host1}" port="${indexer.port}" />
-      <% end -%>
       <node name="<%= @master["fqdn"].gsub('.', '-') %>-searcher" host="${host1}" port="${searcher.port}" />
+      <% end -%>
       <% @cluster.each_with_index do |node, index| %>
       <node name="<%= node["fqdn"].gsub('.', '-') %>-searcher" host="${host<%= index+2 %>}" port="${searcher.port}" />
       <% end %>
@@ -33,7 +33,9 @@
         <include name="indexer1" />
       </nodeset>
       <nodeset name="searchers1">
+        <% if @master -%>
         <include name="<%= @master["fqdn"].gsub('.', '-') %>-searcher" />
+        <% end -%>
       </nodeset>
       <% @cluster.each_with_index do |host, index| %>
       <nodeset name="searchers<%= index+2 %>">
@@ -41,7 +43,9 @@
       </nodeset>
       <% end -%>
       <nodeset name="searchers">
+        <% if @master -%>
         <include name="<%= @master["fqdn"].gsub('.', '-') %>-searcher" />
+        <% end -%>
         <% @cluster.each_with_index do |node, index| %>
         <include name="<%= node["fqdn"].gsub('.', '-') %>-searcher" />
         <% end -%>
