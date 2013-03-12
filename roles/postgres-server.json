@@ -7,6 +7,7 @@
   },
   "run_list": [
     "recipe[postgresql::users]"
+    "recipe[postgresql::mounts]"
   ],
   "description": "",
   "chef_type": "role",
