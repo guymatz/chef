@@ -20,6 +20,12 @@ template "/etc/init.d/attivio31-indexer" do
             })
 end
 
+directory "#{node[:attivio][:install_path]}/iheartradio3/logs-#{node["fqdn"]}-indexer" do
+  owner node[:attivio][:user]
+  group node[:attivio][:group]
+  mode "0755"
+end
+
 service "attivio31-indexer" do
   provider Chef::Provider::Service::Init
   supports :status =>true, :start => true, :stop => true, :restart => true, :reload => true
