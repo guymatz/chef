@@ -1,0 +1,5 @@
+{
+    "id": "attivio",
+    "hostgroup_name": "attivio",
+    "search_query": "name:iad-search*"
+}
