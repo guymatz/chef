@@ -8,6 +8,7 @@
 #
 
 include_recipe "attivio::users"
+include_recipe "attivio::ulimits"
 
 node[:attivio][:packages].each do |p|
   package p
@@ -115,7 +116,7 @@ template "#{node[:attivio][:config_path]}/iheartradio.#{node.chef_environment}.p
   owner node[:attivio][:user]
   group node[:attivio][:group]
   variables({
-              :attivio_env => node[:attivio][:env],
+              :attivio_env => node.chef_environment,
               :install_path => node[:attivio][:install_path],
               :connector_port => node[:attivio][:connector_port],
               :indexer_port => node[:attivio][:indexer_port],
