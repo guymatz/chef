@@ -170,5 +170,6 @@ file "#{node[:attivio][:aie_install_path]}/conf/attivio.license" do
   owner node[:attivio][:user]
   group node[:attivio][:group]
   content app_secrets["license"]
+  only_if "test -d #{node[:attivio][:aie_install_path]}/conf/"
 end
 
