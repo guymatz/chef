@@ -1,5 +1,5 @@
 {
-  "hostgroup_name": "iad-search*",
+  "hostgroup_name": "attivio",
   "id": "Attivio-Process-Searcher",
-  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c check_attivio_process_searcher -t 20"
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Attivio_Process_Searcher -t 20"
 }
