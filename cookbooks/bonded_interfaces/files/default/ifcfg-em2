@@ -1,0 +1,6 @@
+DEVICE="em2"
+BOOTPROTO="static"
+MASTER=bond0
+SLAVE=yes
+ONBOOT="yes"
+NOZEROCONF=true

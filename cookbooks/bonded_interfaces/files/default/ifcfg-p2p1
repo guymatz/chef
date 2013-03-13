@@ -1,0 +1,6 @@
+DEVICE="p1p2"
+BOOTPROTO="static"
+MASTER=bond0
+SLAVE=yes
+ONBOOT="yes"
+NOZEROCONF=true
