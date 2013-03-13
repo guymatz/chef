@@ -1,4 +1,3 @@
-
 default[:attivio][:aie_install_path] = "/data/apps/attivio"
 default[:attivio][:install_path] = "/data/apps/attivio31"
 default[:attivio][:config_path] = "/data/apps/attivio31/iheartradio3/conf"
@@ -45,3 +44,25 @@ default[:attivio][:xml][:artist_delete_batch_size] = "10"
 default[:attivio][:xml][:track_update_batch_size] = "10"
 default[:attivio][:xml][:artist_update_batch_size] = "10"
 default[:attivio][:xml][:track_bundle_update_batch_size] = "10"
+
+# ulimits
+default[:attivio][:ulimits] = [{
+                                 "type" => "hard",
+                                 "item" => "nproc",
+                                 "value" => "4096"
+                               },
+                               {
+                                 "type" => "soft",
+                                 "item" => "nproc",
+                                 "value" => "4096"
+                               },
+                               {
+                                 "type" => "hard",
+                                 "item" => "nofile",
+                                 "value" => "65535"
+                               },
+                               {
+                                 "type" => "soft",
+                                 "item" => "nofile",
+                                 "value" => "65535"
+                               }]
