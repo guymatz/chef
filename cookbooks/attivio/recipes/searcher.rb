@@ -31,3 +31,12 @@ service "attivio31-searcher" do
   supports :status =>true, :start => true, :stop => true, :restart => true, :reload => true
   action :nothing
 end
+
+nagios_nrpecheck "Attivio_Process_Searcher" do
+  command "#{node['nagios']['plugin_dir']}/check_procs"
+  warning_condition "1:1"
+  critical_condition "1:1"
+  parameters "-C attivio-java -a searcher"
+  action :add
+  notifies :restart, resources(:service => "nagios-nrpe-server")
+end
