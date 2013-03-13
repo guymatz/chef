@@ -27,18 +27,30 @@ defaults
 # http://haproxy.1wt.eu/download/1.4/doc/configuration.txt
 frontend all_http 0.0.0.0:80
 	 <% @backends.each do |svc| -%>
+	 <% unless svc['vhosts'].nil? -%>
 	 <% svc['vhosts'].each do |vhost| -%>
 	 acl acl_<%= svc['id'] %> hdr_end(host) -i <%= vhost %>
 	 <% end -%>
 	 <% end -%>
+	 <% end -%>
 
 	 <% @backends.each do |svc| -%>
+	 <% if svc['listen'].nil? or svc['listen'] == "80" -%>
 	 use_backend <%= svc['id'] %> if acl_<%= svc['id'] %>
+	 <% end -%>
 	 <% end -%>
 
 	 <% if @default_backend -%>
 	 default_backend <%= @default_backend['name'] %>
 	 <% end -%>
+
+<% @backends.each do |svc| -%>
+<% if defined?(svc['listen']) and svc['listen'] != "80" and not svc['listen'].nil? -%>
+frontend <%= svc['id'] %> 0.0.0.0:<%= svc['listen'] %>
+	 mode <%= svc['protocol'] %>
+	 default_backend <%= svc['id'] %>
+<% end -%>
+<% end -%>
 
 # Set up application listeners here.
 <% @backends.each do |svc| -%>
@@ -67,5 +79,6 @@ backend <%= @default_backend['name'] %>
 	<% @default_backend['pool'].each do |backend| -%>
 	server <%= backend['server'] %> <%= backend['ipaddress'] %>:<%= backend['port'] %> cookie <%= backend['server'] %> check
 	<% end -%>
+
 <% end -%>
 
