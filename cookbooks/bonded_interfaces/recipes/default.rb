@@ -14,32 +14,32 @@ node[:bonded_interfaces][:slaves].each do |s|
 		group "root"
 		mode "0644"
 		variables({
-			:device => #{s}
-			:master => #{node[:bonded_interfaces][:master]
+			:device => s,
+			:master => node[:bonded_interfaces][:master]
 		})
 		notifies :restart, resources(:service => "network")
 	end
 end
 
-template "/etc/sysconfig/network-scripts/ifcfg-#{node[:bonded_interfaces][:master]" do
+template "/etc/sysconfig/network-scripts/ifcfg-#{node[:bonded_interfaces][:master]}" do
 	source "ifcfg-bonded"
 	mode 0644
 	owner "root"
 	group "root"
 	variables({
-                        :master => #{node[:bonded_interfaces][:master]
+                        :master => node[:bonded_interfaces][:master]
         })
 end
 
-template "/etc/sysconfig/network-scripts/ifcfg-#{node[:bonded_interfaces][:master]}.#{node[:bonded_interfaces][:vlan]" do
+template "/etc/sysconfig/network-scripts/ifcfg-#{node[:bonded_interfaces][:master]}.#{node[:bonded_interfaces][:vlan]}" do
 	source "ifcfg-bonded_and_trunked.erb"
         owner "root"
         group "root"
         mode "0644"
         variables({
-		:device => #{node[:bonded_interfaces][:master]},
-     		:ip => #{node[:bonded_interfaces][:configuration][:ip],
-		:vlan => #{node[:bonded_interfaces][:configuration][:vlan],
-		:netmask #{node[:bonded_interfaces][:configuration][:netmask]
+		:device => node[:bonded_interfaces][:master],
+     		:ip => node[:bonded_interfaces][:configuration][:ip],
+		:vlan => node[:bonded_interfaces][:configuration][:vlan],
+		:netmask => node[:bonded_interfaces][:configuration][:netmask]
 	})
 end
