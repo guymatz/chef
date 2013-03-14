@@ -32,3 +32,10 @@ directory "/data/archwal" do
   mode 0755
   action :create
 end
+
+directory "/home/postgres" do
+  owner "postgres"
+  group "postgres"
+  mode  0775
+  action :create
+end
