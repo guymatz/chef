@@ -23,5 +23,5 @@ http {
   keepalive_timeout  65;
 
   gzip  on;
-  include {{nginx_include_dir}}/*.conf;
+  include <%= node[:nginx][:web_dir] %>/*.conf;
 }

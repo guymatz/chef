@@ -55,31 +55,27 @@ template_files.each do |dest,src|
   end
 end
 
-template "/opt/supervisor.d/imgproxy" do
-  source "supervisor.conf.erb"
-  variables(:name => "imgproxy")
-end
-
 bash "install_supervisor_service" do
   user "root"
   code "chkconfig --add supervisor"
 end
 
+template "#{node[:supervisor][:process_dir]}/imgproxy" do
+  source "supervisor.conf.erb"
+  variables(:name => "imgproxy")
+  notifies :reload, "service[supervisor]"
+end
 
+template "#{node[:nginx][:web_dir]}/imgproxy" do
+  source "nginx.conf.erb"
+  variables(:name => "imgproxy", :port => 8000)
+  notifies :reload, "service[nginx]"
+end
 
-files:
- FileXfer('deploy/assets/keep_agent.txt', '/etc/sudoers.d/keep_agent', sudo=True, mode=0440, owner=0, group=0),
-    FileXfer('deploy/assets/ssh_conf.txt', '/etc/ssh/ssh_config', sudo=True, mode=644),
-    FileXfer('deploy/assets/nginx_proxy_params.txt', '/etc/nginx/proxy_params', sudo=True),
-    FileXfer('deploy/assets/supervisor_init.txt', '/etc/init.d/supervisor', sudo=True, mode=755),
-    FileXfer('deploy/assets/supervisor.txt', '/etc/supervisord.conf', template=True, sudo=True),
-    FileXfer('deploy/assets/nginx.txt', '/etc/nginx/nginx.conf', template=True, sudo=True),
+service "nginx" do
+  action [:enable, :start]
+end
 
-services:
-
-Command('chkconfig --add supervisor', sudo=True),
-    Command('chkconfig --level 345 supervisor on', sudo=True),
-    Command('chkconfig --level 345 nginx on', sudo=True),
-    Command('chkconfig --level 345 collectd on', sudo=True),
-
-
+service "supervisor" do
+  action [:enable, :start]
+end

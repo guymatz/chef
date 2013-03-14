@@ -1,5 +1,5 @@
 server {
-    listen {{app_port}} default;
+    listen <%= @port %> default;
     server_name _;
 
     keepalive_timeout 5;
@@ -13,6 +13,6 @@ server {
     location @proxy_to_app {
         include proxy_params;
         proxy_redirect off;
-        proxy_pass http://unix:/tmp/{{app_name}}.sock;
+        proxy_pass http://unix:/tmp/<%= @name %>.sock;
     }
 }
