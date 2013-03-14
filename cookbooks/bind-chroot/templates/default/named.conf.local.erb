@@ -138,6 +138,12 @@ view "internal" {
      zone "sompa.thumbplay.com" in{
           type slave;
           file "/var/named/internal/slave.sompa.thumbplay.com";
-          masters{10.90.40.5;};
+          masters{ 10.90.40.5; };
+     };
+
+     zone "sompa.iheart.com" in{
+          type slave;
+          file "/var/named/internal/slave.sompa.iheart.com";
+          masters{ 10.90.40.5; };
      };
 };
