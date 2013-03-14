@@ -56,7 +56,7 @@ when "fedora"
     default['postgresql']['version'] = "8.4"
   end
 
-  default['postgresql']['dir'] = "/home/postgres"
+  default['postgresql']['dir'] = "/var/lib/pgsql/data"
   default['postgresql']['client']['packages'] = %w{postgresql-devel}
   default['postgresql']['server']['packages'] = %w{postgresql-server}
 
@@ -70,7 +70,7 @@ when "amazon"
 when "redhat", "centos", "scientific", "oracle"
 
   default['postgresql']['version'] = "8.4"
-  default['postgresql']['dir'] = "/var/lib/pgsql/data"
+  default['postgresql']['dir'] = "/home/postgres"
 
   if node['platform_version'].to_f >= 6.0
     default['postgresql']['client']['packages'] = %w{postgresql-devel}
