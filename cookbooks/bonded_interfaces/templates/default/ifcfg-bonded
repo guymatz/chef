@@ -1,0 +1,4 @@
+DEVICE=<%= @master =>
+ONBOOT=yes
+TYPE=Ethernet
+VLAN=yes

@@ -7,40 +7,39 @@
 # All rights reserved - Do Not Redistribute
 #
 
-ruby_block "prod_ip" do
-	block do
-		prod_ip=resolv::dns("#{node['hostname']}.prod.ihr")
+node[:bonded_interfaces][:slaves].each do |s|
+	template "/etc/sysconfig/network-scripts/ifcfg-#{s}" do
+		source "ifcfg-slave.erb"
+		owner "root"
+		group "root"
+		mode "0644"
+		variables({
+			:device => #{s}
+			:master => #{node[:bonded_interfaces][:master]
+		})
+		notifies :restart, resources(:service => "network")
 	end
 end
 
-cookbook_file "/etc/sysconfig/network-scripts/ifcfg-em2" do
-	source "ifcfg-em2"
+template "/etc/sysconfig/network-scripts/ifcfg-#{node[:bonded_interfaces][:master]" do
+	source "ifcfg-bonded"
+	mode 0644
 	owner "root"
 	group "root"
-	mode "0644"
+	variables({
+                        :master => #{node[:bonded_interfaces][:master]
+        })
 end
 
-cookbook_file "/etc/sysconfig/network-scripts/ifcfg-p2p1" do
-        source "ifcfg-p2p1"
+template "/etc/sysconfig/network-scripts/ifcfg-#{node[:bonded_interfaces][:master]}.#{node[:bonded_interfaces][:vlan]" do
+	source "ifcfg-bonded_and_trunked.erb"
         owner "root"
         group "root"
         mode "0644"
-end
-
-cookbook_file "/etc/sysconfig/network-scripts/ifcfg-bond0" do
-        source "ifcfg-bond0"
-        owner "root"
-        group "root"
-        mode "0644"
-end
-
-template "/etc/sysconfig/network-scripts/ifcfg-bond0.200" do
-	owner "root"
-	group "root"
-	mode "0644"
-	source "ifcfg-bond0.200.erb"
-	variables ({
-		:ipaddress => prod_ip
-		})
-	notifies :restart, "service[network]"
+        variables({
+		:device => #{node[:bonded_interfaces][:master]},
+     		:ip => #{node[:bonded_interfaces][:configuration][:ip],
+		:vlan => #{node[:bonded_interfaces][:configuration][:vlan],
+		:netmask #{node[:bonded_interfaces][:configuration][:netmask]
+	})
 end
