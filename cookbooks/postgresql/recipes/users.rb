@@ -25,3 +25,10 @@ sudo "postgresql-sysadmin" do
   runas "postgres"
   nopasswd true
 end
+
+sudo "postgres-user" do
+  group "postgres"
+  commands ["/etc/init.d/postgresql-9.1"]
+  runas "root"
+  nopasswd true
+end
