@@ -73,8 +73,8 @@ when "redhat", "centos", "scientific", "oracle"
   default['postgresql']['dir'] = "/home/postgres"
 
   if node['platform_version'].to_f >= 6.0
-    default['postgresql']['client']['packages'] = %w{postgresql-devel}
-    default['postgresql']['server']['packages'] = %w{postgresql-server}
+    default['postgresql']['client']['packages'] = %w{postgresql-devel perl-DBI perl-DBD-Pg}
+    default['postgresql']['server']['packages'] = %w{postgresql-server perl-DBI  perl-DBD-Pg}
   else
     default['postgresql']['client']['packages'] = ["postgresql#{node['postgresql']['version'].split('.').join}-devel"]
     default['postgresql']['server']['packages'] = ["postgresql#{node['postgresql']['version'].split('.').join}-server"]

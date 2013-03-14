@@ -6,7 +6,9 @@
   "env_run_lists": {
   },
   "run_list": [
-    "recipe[postgresql::users]", "recipe[postgresql::mounts]"
+      "recipe[postgresql]",
+      "recipe[postgresql::users]",
+      "recipe[postgresql::mounts]"
   ],
   "description": "",
   "chef_type": "role",
