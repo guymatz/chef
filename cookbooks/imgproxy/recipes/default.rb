@@ -21,7 +21,7 @@ pkgs.each do |pkg|
   package pkg
 end
 
-pips = ['supervisor','pymongo','python-memcached', 'gunicorn','greenlet', 'statsd']
+pips = [ 'supervisor','pymongo','python-memcached', 'gunicorn','greenlet', 'statsd', 'flask', 'jinja2', 'sqlalchemy', 'werkzeug', 'pyparsing', 'wsgiref' ]
 
 pips.each do |pip|
   python_pip pip
@@ -44,10 +44,27 @@ static_files.each do |dest,src|
   end
 end
 
+template_files = { "/etc/supervisord.conf" => "supervisor.erb",
+                   "/etc/nginx/nginx.conf" => "nginx.erb",
+                   "/etc/varnish/default.vcl" => "varnish.vcl.erb"
+                 }
+
+template_files.each do |dest,src|
+  template dest do
+    source src
+  end
+end
+
+template "/opt/supervisor.d/imgproxy" do
+  source "supervisor.conf.erb"
+  variables(:name => "imgproxy")
+end
+
 bash "install_supervisor_service" do
   user "root"
   code "chkconfig --add supervisor"
 end
+
 
 
 files:
