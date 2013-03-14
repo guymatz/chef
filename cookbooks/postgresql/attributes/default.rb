@@ -56,7 +56,7 @@ when "fedora"
     default['postgresql']['version'] = "8.4"
   end
 
-  default['postgresql']['dir'] = "/var/lib/pgsql/data"
+  default['postgresql']['dir'] = "/home/postgres"
   default['postgresql']['client']['packages'] = %w{postgresql-devel}
   default['postgresql']['server']['packages'] = %w{postgresql-server}
 

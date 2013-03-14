@@ -1,7 +1,7 @@
 directory "/data/dbdata" do
   owner "postgres"
   group "postgres"
-  mode 0755
+  mode 0700
   action :create
 end
 
@@ -12,7 +12,7 @@ directory "/data/wal" do
   action :create
 end
 
-directory "/data/dbindex" do
+directory "/data/index" do
   owner "postgres"
   group "postgres"
   mode 0755
@@ -20,6 +20,13 @@ directory "/data/dbindex" do
 end
 
 directory "/data/backups" do
+  owner "postgres"
+  group "postgres"
+  mode 0755
+  action :create
+end
+
+directory "/data/archwal" do
   owner "postgres"
   group "postgres"
   mode 0755

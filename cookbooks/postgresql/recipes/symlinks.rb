@@ -6,8 +6,8 @@ link "/u02" do
 	to "/data/wal"
 end
 
-link "/u03" do
-	to "/data/dbindex"
+link "/u03/pg/indexes" do
+	to "/data/index"
 end
 
 link "/u04" do
