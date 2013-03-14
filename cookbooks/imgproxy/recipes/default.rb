@@ -7,24 +7,31 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe "yum::epel"
-
-rpm_package "varhnish_repo" do
-  action :install
-  options "--no-signature"
+remote_file "#{Chef::Config['file_cache_path']}/varnish_repo.rpm" do
   source "http://repo.varnish-cache.org/redhat/varnish-3.0/el5/noarch/varnish-release-3.0-1.noarch.rpm"
 end
 
-pkgs = [ 'nginx','collectd','collectd-nginx','zlib-devel','libjpeg','zlib','gcc', 'python-devel','git','libevent-devel','libevent','zeromq-devel','zeromq', 'python-setuptools', 'python-ldap', 'python-zmq', 'varnish', 'python-imaging', 'python-psycopg2' ]
+rpm_package "varhnish_repo" do
+  action :install
+  options "--nosignature"
+  source "#{Chef::Config['file_cache_path']}/varnish_repo.rpm"
+end
 
-pkgs.each do |pkg|
+include_recipe "yum::epel"
+
+node[:pkgs].each do |pkg|
   package pkg
 end
 
-pips = [ 'supervisor','pymongo','python-memcached', 'gunicorn','greenlet', 'statsd', 'flask', 'jinja2', 'sqlalchemy', 'werkzeug', 'pyparsing', 'wsgiref' ]
+include_recipe "python::pip"
 
-pips.each do |pip|
-  python_pip pip
+node[:pips].each do |pip|
+  python_pip pip do
+    action :install
+    if pip.include?("pyparsing")
+      version "1.5.7"
+    end
+  end
 end
 
 static_files = { "/etc/sudoers.d/keep_agent" => "keep_agent",
@@ -36,22 +43,22 @@ static_files = { "/etc/sudoers.d/keep_agent" => "keep_agent",
                }
 
 static_files.each do |dest,src|
-  cookbook_file dest do
-    source src
+  cookbook_file "#{dest}" do
+    source "#{src}"
     if dest.include?("init") || dest.include?("py")
       mode "755"
     end
   end
 end
 
-template_files = { "/etc/supervisord.conf" => "supervisor.erb",
+template_files = { "/etc/supervisord.conf" => "supervisord.conf.erb",
                    "/etc/nginx/nginx.conf" => "nginx.erb",
                    "/etc/varnish/default.vcl" => "varnish.vcl.erb"
                  }
 
 template_files.each do |dest,src|
-  template dest do
-    source src
+  template "#{dest}" do
+    source "#{src}"
   end
 end
 

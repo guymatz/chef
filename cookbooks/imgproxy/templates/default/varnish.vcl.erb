@@ -1,6 +1,6 @@
 backend default {
     .host = "127.0.0.1";
-    .port = "{{app_port}}";
+    .port = "<%= node[:varnish][:app_port] %>";
 }
 
 sub vcl_recv {
