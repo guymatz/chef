@@ -1,0 +1,36 @@
+= DESCRIPTION:
+  Installs opendkim package and basically follows this: https://help.ubuntu.com/community/Postfix/DKIM
+
+  Doesn't touch postfix, you should do that on your own by modifying your postfix cookbook or something.
+
+  This has only been tested on Ubuntu 10.04
+
+= REQUIREMENTS:
+  Postfix
+
+= ATTRIBUTES:
+  See `man 5 opendkim.conf` for more info on these:
+    postfix_dkim[:domain] - Domain to sign (default: your FQDN)
+    postfix_dkim[:keyfile] - Full path to location of private key. If it doesn't exist, will use dkim-genkey to make one for you. (default: /etc/mail/dkim.key)
+    postfix_dkim[:selector] - See the section on selectors http://dkim.org/info/dkim-faq.html (default: mail)
+    postfix_dkim[:autorestart] - Restart on failure (default: false). Should probably flip this to true when you're sure the filter works.
+
+  For /etc/default/opendkim:
+    postfix_dkim[:socket] - Socket to bind to. (default: 'inet:8891@localhost')
+
+  For key generation using key-genkey:
+    postfix_dkim[:testmode] - Run DKIM in test mode? see "t=" on http://www.dkim.org/specs/rfc4871-dkimbase.html#key-text (default: true)
+
+= USAGE:
+  Set the attributes (defaults should work for most on Ubuntu), and it installs the postfix filter and writes config files.
+
+  Will attempt to generate a private key for you, if it doesn't already exist (key file is specified in the postfix_dkim[:keyfile] attribute)
+
+  You should also modify your /etc/postfix/main.cf file to contain something like this (Replacing "inet:localhost:8891" with something that corresponds to postfix_dkim[:socket]):
+    milter_default_action = accept
+    milter_protocol = 2
+    smtpd_milters = inet:localhost:8891
+    non_smtpd_milters = inet:localhost:8891
+
+  **** Important *****
+  DKIM setup is not complete until you create the necessary TXT DNS record containing your public key, which is located in the postfix_dkim[:selector].txt file within the postfix_dkim[:keyfile] directory.  So, if you're using defaults, this will be located in /etc/mail/mail.txt. You can safely delete or move this file once you've created the DNS record.
