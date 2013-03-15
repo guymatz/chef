@@ -8,7 +8,7 @@
 #
 
 remote_file "#{Chef::Config['file_cache_path']}/varnish_repo.rpm" do
-  source "http://repo.varnish-cache.org/redhat/varnish-3.0/el5/noarch/varnish-release-3.0-1.noarch.rpm"
+  source node[:varnish_repo]
 end
 
 rpm_package "varhnish_repo" do
@@ -34,29 +34,19 @@ node[:pips].each do |pip|
   end
 end
 
-static_files = { "/etc/sudoers.d/keep_agent" => "keep_agent",
-                 "/etc/ssh/ssh_config" => "ssh_conf",
-                 "/etc/nginx/proxy_params" => "nginx_proxy_params",
-                 "/etc/init.d/supervisor" => "supervisor_init",
-                 "/etc/sysconfig/varnish" => "varnish_sysconfig",
-                 "/opt/varnish_carbon.py" => "varnish_carbon.py"
-               }
-
-static_files.each do |dest,src|
+node[:imgproxy][:static_files].each do |dest,src|
   cookbook_file "#{dest}" do
     source "#{src}"
     if dest.include?("init") || dest.include?("py")
       mode "755"
     end
+    if dest.include?("keep_agent")
+      mode "440"
+    end
   end
 end
 
-template_files = { "/etc/supervisord.conf" => "supervisord.conf.erb",
-                   "/etc/nginx/nginx.conf" => "nginx.erb",
-                   "/etc/varnish/default.vcl" => "varnish.vcl.erb"
-                 }
-
-template_files.each do |dest,src|
+node[:imgproxy][:template_files].each do |dest,src|
   template "#{dest}" do
     source "#{src}"
   end
@@ -67,14 +57,25 @@ bash "install_supervisor_service" do
   code "chkconfig --add supervisor"
 end
 
-template "#{node[:supervisor][:process_dir]}/imgproxy" do
+directory node[:supervisor][:process_dir]
+node[:supervisor][:run_dirs].each do |dir|
+  directory dir
+end
+directory node[:nginx][:web_dir] do
+  owner "nginx"
+  group "nginx"
+end
+
+template "#{node[:supervisor][:process_dir]}/imgproxy.conf" do
   source "supervisor.conf.erb"
   variables(:name => "imgproxy")
   notifies :reload, "service[supervisor]"
 end
 
-template "#{node[:nginx][:web_dir]}/imgproxy" do
+template "#{node[:nginx][:web_dir]}/imgproxy.conf" do
   source "nginx.conf.erb"
+  owner "nginx"
+  group "nginx"
   variables(:name => "imgproxy", :port => 8000)
   notifies :reload, "service[nginx]"
 end
