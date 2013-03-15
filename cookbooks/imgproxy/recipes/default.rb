@@ -66,10 +66,18 @@ directory node[:nginx][:web_dir] do
   group "nginx"
 end
 
+service "nginx" do
+  action [:enable, :start]
+end
+
+service "supervisor" do
+  action [:enable, :start]
+end
+
 template "#{node[:supervisor][:process_dir]}/imgproxy.conf" do
   source "supervisor.conf.erb"
   variables(:name => "imgproxy")
-  notifies :reload, "service[supervisor]"
+  notifies :restart, "service[supervisor]"
 end
 
 template "#{node[:nginx][:web_dir]}/imgproxy.conf" do
@@ -77,13 +85,5 @@ template "#{node[:nginx][:web_dir]}/imgproxy.conf" do
   owner "nginx"
   group "nginx"
   variables(:name => "imgproxy", :port => 8000)
-  notifies :reload, "service[nginx]"
-end
-
-service "nginx" do
-  action [:enable, :start]
-end
-
-service "supervisor" do
-  action [:enable, :start]
+  notifies :restart, "service[nginx]"
 end
