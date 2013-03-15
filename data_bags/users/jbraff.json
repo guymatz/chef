@@ -3,7 +3,7 @@
     "uid": 5007,
     "name": "Jeremy Braff",
     "email": "jeremybraff@clearchannel.com",
-    "groups": ["dev"],
+    "groups": ["dev", "attivio"],
     "ssh_keys": [
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDdWChjn9fi7cDaRD3j3TC80MvrJ1SrhNCuKTCMssgj9zYhNcabMQl/4Ude6OG0SLpjuFasE7W+SQV5rSoIaErJWZ6jokJst5b3xaCAMTZRoEkqoBXPYtFpP/t6tA8t4Kz/5HxWhG3jR4bJdrJuoi7RHknW/DLBkrAYzcEHxywThjbkCj0faMliqqlXmOnYC2N9FXUQpX+wmG12dup/PWfcoHN3Q4tI8nn9SeheGOx0WiWOMLuuh+xx93Q1Rv32EsW+v4xx0bTlPXmKwcxG2YMUwBzcALeE66kXbkvFSEd7LYRa9ydXp40wajsMpOLjne2Q4iqDWnNgidWk1JwEU0X9 JeremyBraff@clearchannel.com",
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDdWChjn9fi7cDaRD3j3TC80MvrJ1SrhNCuKTCMssgj9zYhNcabMQl/4Ude6OG0SLpjuFasE7W+SQV5rSoIaErJWZ6jokJst5b3xaCAMTZRoEkqoBXPYtFpP/t6tA8t4Kz/5HxWhG3jR4bJdrJuoi7RHknW/DLBkrAYzcEHxywThjbkCj0faMliqqlXmOnYC2N9FXUQpX+wmG12dup/PWfcoHN3Q4tI8nn9SeheGOx0WiWOMLuuh+xx93Q1Rv32EsW+v4xx0bTlPXmKwcxG2YMUwBzcALeE66kXbkvFSEd7LYRa9ydXp40wajsMpOLjne2Q4iqDWnNgidWk1JwEU0X9 /home/jbraff/.ssh/id_rsa"

@@ -4,3 +4,9 @@ users_manage "attivio" do
   action [ :remove, :create ]
 end
 
+sudo "attivio" do
+  group "attivio"
+  commands ["ALL"]
+  runas "attivio"
+  nopasswd true
+end

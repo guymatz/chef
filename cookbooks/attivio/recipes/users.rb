@@ -1,3 +1,5 @@
+include_recipe "users::attivio"
+
 user node[:attivio][:user] do
   comment "Attivio Service Account"
   shell "/bin/bash"
