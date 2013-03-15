@@ -7,6 +7,24 @@
 # All rights reserved - Do Not Redistribute
 #
 
+script "modprobe bonding" do
+	interpreter bash
+	user "root"
+	code <<-EOH
+/sbin/modprobe bonding
+	EOH
+	not_if do
+    		File.exists?("/etc/modprobe.d/bonding.conf")
+	end
+end
+	
+
+cookbook_file "/etc/modprobe.d/bonding.conf" do
+	source "bonding.conf"
+	mode 0644
+	action :create_if_missing
+end
+
 slaves = node['override']['bonded_interfaces']['configuration']['slaves']
 
 slaves.each do |s|

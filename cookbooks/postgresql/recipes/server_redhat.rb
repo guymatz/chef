@@ -28,10 +28,17 @@ group "postgres" do
   gid 26
 end
 
+directory "/home/postgres" do
+  owner "postgres"
+  group "postgres"
+  mode 0700
+  action :create
+end
+
 user "postgres" do
   shell "/bin/bash"
   comment "PostgreSQL Server"
-  home "/var/lib/pgsql"
+  home "/home/postgres"
   gid "postgres"
   system true
   uid 26
