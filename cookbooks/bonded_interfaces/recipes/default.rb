@@ -8,16 +8,15 @@
 #
 
 script "modprobe bonding" do
-	interpreter bash
+	interpreter "bash"
 	user "root"
-	code <<-EOH
-/sbin/modprobe bonding
-	EOH
+	code "/sbin/modprobe bonding"
 	not_if do
     		File.exists?("/etc/modprobe.d/bonding.conf")
 	end
+  action :nothing
 end
-	
+
 
 cookbook_file "/etc/modprobe.d/bonding.conf" do
 	source "bonding.conf"
