@@ -1,0 +1,10 @@
+{
+    "id": "apatel",
+    "uid": 5013,
+    "name": "Amit Patel",
+    "email": "amitpatel@gmail.com",
+    "groups": ["dev"],
+    "ssh_keys": [
+"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDNhaRaJdCV93WJ1ZVGd5hdKIg5niF9ArUmOY6yygPRBL6du+xBJrAFXZK7G8A1EJYhdwOvsuPftym5Vm8NRfDf/SfLUp5pnqQpuiIySaP+gpbbFtLPXE5BXxgVzG2NnXwJ6ISASidgGWbMsOw+WbUKapvwlihjtWLWsiDdkcYTzDp/zVkr8B3kzgISJZERztf24gFrantHsDf9DIIMRRjAmtc55v/4J5/GX+RZCo2EbaAHYU60odErHyYk9Y5+IoZMsiUpNs1xuCPmdi8ETYNt/5Sv/BLozj/rcXFp9ZWOjVKEnXgMHvq2iQG0Kd3I/XtpdW2DWeMENbg7D6M8sniN apatel@mmoss-HP-Z600-Workstation"
+    ]
+}
