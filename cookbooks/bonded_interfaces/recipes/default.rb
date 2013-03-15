@@ -17,7 +17,8 @@ node[:bonded_interfaces][:slaves].each do |s|
 			:device => s,
 			:master => node[:bonded_interfaces][:master]
 		})
-		notifies :run resources(:execute => "ifdown #{s}; ifup #{s}")
+		notifies :run, resources(:execute => "ifdown #{s}")
+		notifies :run, resources(:execute => "ifup #{s}")
 	end
 end
 
@@ -29,7 +30,8 @@ template "/etc/sysconfig/network-scripts/ifcfg-#{node[:bonded_interfaces][:maste
 	variables({
                         :master => node[:bonded_interfaces][:master]
         })
-	notifies :run resources(:execute => "ifdown #{node[:bonded_interfaces][:master]}; ifup #{node[:bonded_interfaces][:master]}")
+	notifies :run, resources(:execute => "ifdown #{node[:bonded_interfaces][:master]}")
+	notifies :run, resources(:execute => "ifup #{node[:bonded_interfaces][:master]}")
 end
 
 template "/etc/sysconfig/network-scripts/ifcfg-#{node[:bonded_interfaces][:master]}.#{node[:bonded_interfaces][:vlan]}" do
@@ -43,5 +45,6 @@ template "/etc/sysconfig/network-scripts/ifcfg-#{node[:bonded_interfaces][:maste
 		:vlan => node[:bonded_interfaces][:configuration][:vlan],
 		:netmask => node[:bonded_interfaces][:configuration][:netmask]
 	})
-	notifies :run resources(:execute => "ifdown #{node[:bonded_interfaces][:master]}.#{node[:bonded_interfaces][:vlan]}; ifup #{node[:bonded_interfaces][:master]}.#{node[:bonded_interfaces][:vlan]}")
+	notifies :run resources(:execute => "ifdown #{node[:bonded_interfaces][:master]}.#{node[:bonded_interfaces][:vlan]}") 
+	notifies :run resources(:execute => "ifup #{node[:bonded_interfaces][:master]}.#{node[:bonded_interfaces][:vlan]}")
 end

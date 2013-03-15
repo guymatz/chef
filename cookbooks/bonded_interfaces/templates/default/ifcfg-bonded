@@ -1,4 +1,4 @@
 DEVICE=<%= @master =>
 ONBOOT=yes
-TYPE=Ethernet
+TYPE=BOND
 VLAN=yes
