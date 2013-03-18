@@ -15,5 +15,5 @@
 #    rules.
 
 
-default['timezone']['zone'] = "UTC"
-default['timezone']['zonefile'] = "/usr/share/zoneinfo/UTC"
+default['timezone']['zone'] = "Eastern"
+default['timezone']['zonefile'] = "/usr/share/zoneinfo/Eastern"
