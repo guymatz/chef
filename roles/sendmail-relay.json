@@ -1,0 +1,16 @@
+{
+  "name": "sendmail-relay",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+      "recipe[sendmail]",
+      "recipe[sendmail::sendmail_relay]"
+  ],
+  "description": "",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}
