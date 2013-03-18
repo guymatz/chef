@@ -1,8 +1,10 @@
+#Place where application will live
 default[:pkgs] = [ 'nginx','collectd','collectd-nginx','zlib-devel','libjpeg','zlib','gcc', 'python-devel','git','libevent-devel','libevent','zeromq-devel','zeromq', 'python-setuptools', 'python-ldap', 'python-zmq', 'varnish', 'python-imaging', 'python-psycopg2' ]
 default[:pips] = [ 'supervisor','pymongo','python-memcached', 'gunicorn','greenlet', 'statsd', 'flask', 'jinja2', 'sqlalchemy', 'werkzeug', 'pyparsing', 'wsgiref' ]
+default[:supervisor][:imgproxy][:dir] = "/opt/image"
 default[:supervisor][:app] = { "imgproxy" => { "environment" => "IMAGE_SERVER_CONF=conf/prod.py",
                                                "command" => "/usr/bin/gunicorn -w 10 -b unix:/tmp/imgproxy.sock -p /var/run/imgproxy.pid server:app",
-                                               "directory" => "/opt/image"
+                                               "directory" => default[:supervisor][:imgproxy][:dir]
                                              }
                              }
 default[:supervisor][:process_dir] = "/etc/supervisor.d"
