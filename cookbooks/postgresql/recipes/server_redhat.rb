@@ -70,6 +70,13 @@ if node['postgresql']['version'].to_f < 9.0
   end
 end
 
+cookbook_file "/etc/init.d/postgresql-9.1" do
+	source "postgresql-9.1"
+	mode 0755
+	action :create_if_missing
+end
+
+
 service "postgresql" do
   supports :restart => true, :status => true, :reload => true
   action [:enable, :start]
