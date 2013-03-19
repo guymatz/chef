@@ -34,3 +34,11 @@ default[:basejump][:kickstarter][:flavors] = ({
 default[:basejump][:kickstarter][:mirrors] = ({
                                                 "centos" => "http://mirror.stanford.edu/yum/pub/"
                                               })
+
+default[:basejump][:kickstarter][:user] = "nobody"
+case node['platform']
+when "debian"
+  default[:basejump][:kickstarter][:group] = "nogroup"
+when "centos"
+  default[:basejump][:kickstarter][:group] = "nobody"
+end

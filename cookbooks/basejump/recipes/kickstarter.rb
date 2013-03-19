@@ -1,14 +1,19 @@
 
+%w{ xinetd tftp-server }.each do |p|
+  package p
+end
+
+
 directory "#{node[:basejump][:kickstarter][:tftp_root]}/pxelinux.cfg" do
-  owner "nobody"
-  group "nogroup"
+  owner node[:basejump][:kickstarter][:user]
+  group node[:basejump][:kickstarter][:group]
   mode "0755"
   action :create
   recursive true
 end
 
 case node['platform']
-when "debian"
+when "debian", "centos"
   template "/etc/xinetd.d/tftp" do
     source "tftp.xinetd"
     owner "root"
@@ -38,6 +43,23 @@ EOH
   not_if "test -d #{node[:basejump][:kickstarter][:tftp_root]}/syslinux-5.01"
 end
 
+cookbook_file "#{node[:basejump][:kickstarter][:tftp_root]}/menu.msg" do
+  source "menu.msg"
+  owner node[:basejump][:kickstarter][:user]
+  group node[:basejump][:kickstarter][:group]
+  mode "0755"
+end
+
+directory "#{node[:basejump][:kickstarter][:tftp_root]}/modules" do
+  owner node[:basejump][:kickstarter][:user]
+  group node[:basejump][:kickstarter][:group]
+end
+
+directory "#{node[:basejump][:kickstarter][:tftp_root]}/distros" do
+  owner node[:basejump][:kickstarter][:user]
+  group node[:basejump][:kickstarter][:group]
+end
+
 tftp_root = node[:basejump][:kickstarter][:tftp_root]
 
 node[:basejump][:kickstarter][:syslinux_links].each do |k,v|
@@ -48,36 +70,19 @@ node[:basejump][:kickstarter][:syslinux_links].each do |k,v|
   end
 end
 
-cookbook_file "#{node[:basejump][:kickstarter][:tftp_root]}/menu.msg" do
-  source "menu.msg"
-  owner "nobody"
-  group "nogroup"
-  mode "0755"
-end
-
-directory "#{node[:basejump][:kickstarter][:tftp_root]}/modules" do
-  owner "nobody"
-  group "nogroup"
-end
-
-directory "#{node[:basejump][:kickstarter][:tftp_root]}/distros" do
-  owner "nobody"
-  group "nogroup"
-end
-
 %w{ chain.c32 mboot.c32 memdisk menu.c32 menu.msg vesamenu.c32 }.each do |f|
   cookbook_file "#{node[:basejump][:kickstarter][:tftp_root]}/modules/#{f}" do
     source f
-    owner "nobody"
-    group "nogroup"
+    owner node[:basejump][:kickstarter][:user]
+    group node[:basejump][:kickstarter][:group]
     mode "0755"
   end
 end
 
 cookbook_file "#{node[:basejump][:kickstarter][:tftp_root]}/pxelinux.0" do
   source "pxelinux.0"
-  owner "nobody"
-  group "nogroup"
+  owner node[:basejump][:kickstarter][:user]
+  group node[:basejump][:kickstarter][:group]
   mode "0755"
 end
 
@@ -124,6 +129,7 @@ directory "#{node[:basejump][:install_path]}/current/kickstarter/repos" do
   owner "root"
   group "root"
   mode "0755"
+  only_if "test -d #{node[:basejump][:install_path]}/current/kickstarter"
 end
 
 template "#{node[:basejump][:install_path]}/current/kickstarter/repos/CentOS-Base.repo" do
@@ -131,4 +137,5 @@ template "#{node[:basejump][:install_path]}/current/kickstarter/repos/CentOS-Bas
   owner "root"
   group "root"
   mode "0755"
+  only_if "test -d #{node[:basejump][:install_path]}/current/kickstarter/repos"
 end
