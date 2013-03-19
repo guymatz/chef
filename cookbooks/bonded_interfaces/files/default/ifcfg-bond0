@@ -1,4 +1,0 @@
-DEVICE=bond0
-ONBOOT=yes
-TYPE=Ethernet
-VLAN=yes
