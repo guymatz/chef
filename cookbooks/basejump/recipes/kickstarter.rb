@@ -5,8 +5,8 @@ end
 
 
 directory "#{node[:basejump][:kickstarter][:tftp_root]}/pxelinux.cfg" do
-  owner node[:basejump][:kickstarter][:user]
-  group node[:basejump][:kickstarter][:group]
+  owner node[:basejump][:user]
+  group node[:basejump][:group]
   mode "0755"
   action :create
   recursive true
@@ -45,19 +45,19 @@ end
 
 cookbook_file "#{node[:basejump][:kickstarter][:tftp_root]}/menu.msg" do
   source "menu.msg"
-  owner node[:basejump][:kickstarter][:user]
-  group node[:basejump][:kickstarter][:group]
+  owner node[:basejump][:user]
+  group node[:basejump][:group]
   mode "0755"
 end
 
 directory "#{node[:basejump][:kickstarter][:tftp_root]}/modules" do
-  owner node[:basejump][:kickstarter][:user]
-  group node[:basejump][:kickstarter][:group]
+  owner node[:basejump][:user]
+  group node[:basejump][:group]
 end
 
 directory "#{node[:basejump][:kickstarter][:tftp_root]}/distros" do
-  owner node[:basejump][:kickstarter][:user]
-  group node[:basejump][:kickstarter][:group]
+  owner node[:basejump][:user]
+  group node[:basejump][:group]
 end
 
 tftp_root = node[:basejump][:kickstarter][:tftp_root]
@@ -73,16 +73,16 @@ end
 %w{ chain.c32 mboot.c32 memdisk menu.c32 menu.msg vesamenu.c32 }.each do |f|
   cookbook_file "#{node[:basejump][:kickstarter][:tftp_root]}/modules/#{f}" do
     source f
-    owner node[:basejump][:kickstarter][:user]
-    group node[:basejump][:kickstarter][:group]
+    owner node[:basejump][:user]
+    group node[:basejump][:group]
     mode "0755"
   end
 end
 
 cookbook_file "#{node[:basejump][:kickstarter][:tftp_root]}/pxelinux.0" do
   source "pxelinux.0"
-  owner node[:basejump][:kickstarter][:user]
-  group node[:basejump][:kickstarter][:group]
+  owner node[:basejump][:user]
+  group node[:basejump][:group]
   mode "0755"
 end
 

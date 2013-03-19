@@ -17,8 +17,8 @@ end
 application "basejump" do
   name "basejump"
   path "/data/www/basejump"
-  owner "nobody"
-  group "nogroup"
+  owner node[:basejump][:user]
+  group node[:basejump][:group]
   repository node[:basejump][:repo]
   revision node[:basejump][:rev]
   enable_submodules true
