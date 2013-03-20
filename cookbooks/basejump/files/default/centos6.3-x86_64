@@ -15,8 +15,8 @@ MENU TABMSG Press [Tab] to edit options or [Esc] to get a prompt
 
 # Text displayed below menu with countdown timer replacing '#'
 MENU AUTOBOOT Defaulting to localboot in # seconds
-DEFAULT localboot
-TIMEOUT 300 # 30 secs
+DEFAULT CentOS-6.3_x86_64
+TIMEOUT 50 # 5 secs
 
 # Don't halt the processor while idle. Halting the processor while idle
 # significantly reduces the power consumption, but can cause poor

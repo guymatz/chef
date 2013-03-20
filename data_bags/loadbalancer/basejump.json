@@ -5,7 +5,7 @@
     "check": "True",
     "backends": [
 	{
-            "server": "use1b-ss-web001.ihrdev.com",
+            "server": "iad-admin101.ihr",
             "port": "8080"
 	}
     ]

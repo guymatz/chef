@@ -42,13 +42,15 @@ end
 
 admins = search(:node, "recipes:basejump\\:\\:tools")
 admins.each do |server|
-  ip = admin['ipaddress']
-  ruby_block "add_#{ip}_#{node[:basejump][:app_name]}_permissions" do
-    Chef::Log.debug("Setting up users and grants")
-    block do
-      %x[mysql -u #{mysql_connection_info[:username]} -p#{mysql_connection_info[:password]} -e "GRANT SELECT ON #{node[:basejump][:app_name]}.* to '#{node[:basejump][:tools_user]}'@'#{ip}' IDENTIFIED BY '#{app_secrets['tools_pass']}';"]
+  if defined?(admin['ipaddress'])
+    ip = admin['ipaddress']
+    ruby_block "add_#{ip}_#{node[:basejump][:app_name]}_permissions" do
+      Chef::Log.debug("Setting up users and grants")
+      block do
+        %x[mysql -u #{mysql_connection_info[:username]} -p#{mysql_connection_info[:password]} -e "GRANT SELECT ON #{node[:basejump][:app_name]}.* to '#{node[:basejump][:tools_user]}'@'#{ip}' IDENTIFIED BY '#{app_secrets['tools_pass']}';"]
+      end
+      not_if "mysql -u #{mysql_connection_info[:username]} -p#{mysql_connection_info[:password]} -e \"SELECT user, host FROM mysql.user\" | grep #{node[:basejump][:tools_user]} | grep #{ip}"
+      action :create
     end
-    not_if "mysql -u #{mysql_connection_info[:username]} -p#{mysql_connection_info[:password]} -e \"SELECT user, host FROM mysql.user\" | grep #{node[:basejump][:tools_user]} | grep #{ip}"
-    action :create
   end
 end
