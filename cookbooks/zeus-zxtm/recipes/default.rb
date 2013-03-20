@@ -33,7 +33,7 @@ remote_file "/tmp/zeus-tarball.tgz" do
 end
 
 # Get our encrypted data
-enc_data = Chef::EncryptedDataBagItem.load("zeus", "items")
+enc_data = Chef::EncryptedDataBagItem.load("zeus", "zeus")
 
 # Get the license from an encrypted data bag.
 license_key = "/tmp/zeus-license-#{$$}.txt"
@@ -41,7 +41,8 @@ file license_key do
   owner "root"
   group "root"
   action :create
-  content enc_data["license"]
+  host = node[:fqdn]
+  content enc_data["license_index"][host]
 end
 
 # make helper files
@@ -57,7 +58,7 @@ template "/tmp/configure-script.txt" do
   mode 0700
   variables(
     :password => enc_data["password"],
-    :license_key => license_key
+    :license_key => license
   )
 end
 
