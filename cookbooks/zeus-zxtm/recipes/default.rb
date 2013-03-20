@@ -33,7 +33,7 @@ remote_file "/tmp/zeus-tarball.tgz" do
 end
 
 # Get our encrypted data
-enc_data = Chef::EncryptedDataBagItem.load("zeus", "zeus")
+enc_data = Chef::EncryptedDataBagItem.load("zeus", "items")
 
 # Get the license from an encrypted data bag.
 license_key = "/tmp/zeus-license-#{$$}.txt"
