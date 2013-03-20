@@ -9,5 +9,15 @@ default[:postgres][:ulimits] = [ {
                                    "type" => "hard",
                                    "item" => "nofile",
                                    "value" => "65535"
+                                 },
+                                 {
+                                   "type" => "soft",
+                                   "item" => "nproc",
+                                   "value" => "2048"
+                                 },
+                                 {
+                                   "type" => "hard",
+                                   "item" => "nproc",
+                                   "value" => "16384"
                                  }
                                ]

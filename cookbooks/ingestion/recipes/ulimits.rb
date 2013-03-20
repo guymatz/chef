@@ -6,6 +6,6 @@ template "/etc/security/limits.d/postgres.conf" do
   group "root"
   mode "0644"
   variables ({ :domain => node[:postgres][:user],
-              :ulimits => node[:postgres][:ulimits]
+               :ulimits => node[:postgres][:ulimits]
             })
 end
