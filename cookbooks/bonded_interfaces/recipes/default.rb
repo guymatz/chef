@@ -23,24 +23,24 @@ cookbook_file "/etc/modprobe.d/bonding.conf" do
 	mode 0644
 	action :create_if_missing
 end
+if defined?(node[:bonded_interfaces][:configuration][:slaves]) 
+	slaves = node['bonded_interfaces']['configuration']['slaves']
 
-slaves = node['override']['bonded_interfaces']['configuration']['slaves']
-
-slaves.each do |s|
-	template "/etc/sysconfig/network-scripts/ifcfg-#{s}" do
-		source "ifcfg-slave.erb"
-		owner "root"
-		group "root"
-		mode "0644"
-		variables({
-			:device => s,
-			:master => node['override']['bonded_interfaces']['master']
-		})
-		#notifies :run, resources(:execute => "ifdown #{s}")
-		#notifies :run, resources(:execute => "ifup #{s}")
+	slaves.each do |s|
+		template "/etc/sysconfig/network-scripts/ifcfg-#{s}" do
+			source "ifcfg-slave.erb"
+			owner "root"
+			group "root"
+			mode "0644"
+			variables({
+				:device => s,
+				:master => node['override']['bonded_interfaces']['master']
+			})
+			#notifies :run, resources(:execute => "ifdown #{s}")
+			#notifies :run, resources(:execute => "ifup #{s}")
+		end
 	end
 end
-
 template "/etc/sysconfig/network-scripts/ifcfg-#{node['override']['bonded_interfaces']['master']}" do
 	source "ifcfg-bonded"
 	mode 0644
