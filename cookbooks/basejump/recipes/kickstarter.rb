@@ -118,6 +118,13 @@ cookbook_file "#{node[:basejump][:kickstarter][:tftp_root]}/pxelinux.cfg/default
   mode "0755"
 end
 
+cookbook_file "#{node[:basejump][:kickstarter][:tftp_root]}/pxelinux.cfg/centos6.3-x86_64" do
+  source "centos6.3-x86_64"
+  owner "root"
+  group "root"
+  mode "0755"
+end
+
 cookbook_file "#{node[:basejump][:kickstarter][:tftp_root]}/pxelinux.cfg/background.png" do
   source "default"
   owner "root"
