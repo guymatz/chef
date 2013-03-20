@@ -13,11 +13,11 @@ default[:postgres][:ulimits] = [ {
                                  {
                                    "type" => "soft",
                                    "item" => "nproc",
-                                   "value" => "2048"
+                                   "value" => "unlimited"
                                  },
                                  {
                                    "type" => "hard",
                                    "item" => "nproc",
-                                   "value" => "16384"
+                                   "value" => "unlimited"
                                  }
                                ]
