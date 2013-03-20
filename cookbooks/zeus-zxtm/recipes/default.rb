@@ -58,7 +58,7 @@ template "/tmp/configure-script.txt" do
   mode 0700
   variables(
     :password => enc_data["password"],
-    :license_key => license
+    :license_key => license_key
   )
 end
 
