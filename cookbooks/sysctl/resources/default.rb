@@ -1,8 +1,6 @@
-#
 # Cookbook Name:: sysctl
-# Recipe:: default
-# Author:: jesse nelson <spheromak@gmail.com>
-# This recipe simply reads attributes and drives them with the provider
+# Resource:: sysctl
+# Author:: Jesse Nelson <spheromak@gmail.com>
 #
 # Copyright 2011, Jesse Nelson
 #
@@ -18,8 +16,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+actions :set, :write
+attribute :name,  :kind_of => String,  :name_attribute => true 
+attribute :value, :kind_of => [ String, Fixnum, Integer ], :default => nil
+attribute :save,  :kind_of => [ TrueClass, FalseClass ], :default => true
 
-# default values from attributes and roles
-node.sysctl.each_pair do |k,v|
- sysctl k do value v end
+def initialize(*args)
+  super
+  @action = [ :set, :write ]
 end

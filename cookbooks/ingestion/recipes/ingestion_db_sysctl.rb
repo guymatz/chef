@@ -1,10 +1,8 @@
-include_recipe "sysctl"
-
 sysctl "kernel.sysrq" do
-    value 0 
+    value 0
 end
 sysctl "kernel.core_uses_pid" do
-    value 1 
+    value 1
 end
 sysctl "kernel.msgmnb" do
     value 65536
@@ -55,28 +53,28 @@ sysctl "net.ipv4.conf.default.secure_redirects" do
     value 0
 end
 sysctl "net.ipv4.icmp_echo_ignore_broadcasts" do
-    value 1 
+    value 1
 end
 sysctl "net.ipv4.icmp_ignore_bogus_error_responses" do
-    value 1 
+    value 1
 end
 sysctl "net.ipv4.tcp_syncookies" do
-    value 1 
+    value 1
 end
 sysctl "net.ipv4.conf.all.rp_filter" do
-    value 1 
+    value 1
 end
 sysctl "net.ipv4.conf.default.rp_filter" do
-    value 1 
+    value 1
 end
 sysctl "net.ipv4.tcp_timestamps" do
-    value 0 
+    value 0
 end
 sysctl "kernel.exec-shield" do
-    value 1 
+    value 1
 end
 sysctl "kernel.randomize_va_space" do
-    value 1 
+    value 1
 end
 sysctl "net.core.rmem_default" do
     value 262144
@@ -94,10 +92,10 @@ sysctl "net.core.netdev_max_backlog" do
     value 10000
 end
 sysctl "net.ipv4.tcp_rmem" do
-    value 8192 87380 8388608
+    value "8192 87380 8388608"
 end
 sysctl "net.ipv4.tcp_wmem" do
-    value 8192 65536 8388608
+    value "8192 65536 8388608"
 end
 sysctl "net.ipv4.udp_rmem_min" do
     value 16384
@@ -106,13 +104,13 @@ sysctl "net.ipv4.udp_wmem_min" do
     value 16384
 end
 sysctl "net.ipv4.tcp_mem" do
-    value 8388608 12582912 16777216
+    value "8388608 12582912 16777216"
 end
 sysctl "net.ipv4.udp_mem" do
-    value 8388608 12582912 16777216
+    value "8388608 12582912 16777216"
 end
 sysctl "vm.swappiness" do
-    value 1 
+    value 1
 end
 sysctl "vm.dirty_ratio" do
     value 50
