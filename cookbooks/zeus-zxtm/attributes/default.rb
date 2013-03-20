@@ -1,8 +1,9 @@
-default[:zeus][:tarball_url] = "http://example.com/zeus/Linux-x86_64.tgz"
-# This will vary between versions and platforms, so needs to be set
-default[:zeus][:tarball_dir] = "ZeusTM_90r3_Linux-x86_64"
-default[:zeus][:checksum] = "94e65172855d85ceb37104535058ef9c3f658282"
-default[:zeus][:zeus_root] = "/usr/local/zeus"
+#temp location for download
+default[:zeus][:tarball_url] = "http://graphite1.ihrdev.com/content/ZeusTM_91_Linux-x86_64.tgz"
+#temp location for download
+default[:zeus][:tarball_dir] = "ZeusTM_91_Linux-x86_64"
+default[:zeus][:checksum] = "9109cc4640fc897352754693b2df4875"
+default[:zeus][:zeus_root] = "/opt/zeus"
 default[:zeus][:force_install] = false
 default[:zeus][:group] = "nogroup"
 default[:zeus][:user] = "nobody"
