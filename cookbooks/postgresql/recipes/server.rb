@@ -51,33 +51,33 @@ when "debian"
   include_recipe "postgresql::server_debian"
 end
 
-template "#{node['postgresql']['dir']}/postgresql.conf" do
-  source "postgresql.conf.erb"
-  owner "postgres"
-  group "postgres"
-  mode 0600
-  notifies :restart, 'service[postgresql]', :immediately
-end
+#template "#{node['postgresql']['dir']}/postgresql.conf" do
+#  source "postgresql.conf.erb"
+#  owner "postgres"
+#  group "postgres"
+#  mode 0600
+#  notifies :restart, 'service[postgresql]', :immediately
+#end
 
-template "#{node['postgresql']['dir']}/pg_hba.conf" do
-  source "pg_hba.conf.erb"
-  owner "postgres"
-  group "postgres"
-  mode 00600
-  notifies :reload, 'service[postgresql]', :immediately
-end
+#template "#{node['postgresql']['dir']}/pg_hba.conf" do
+#  source "pg_hba.conf.erb"
+#  owner "postgres"
+#  group "postgres"
+#  mode 00600
+#  notifies :reload, 'service[postgresql]', :immediately
+#end
 
 # Default PostgreSQL install has 'ident' checking on unix user 'postgres'
 # and 'md5' password checking with connections from 'localhost'. This script
 # runs as user 'postgres', so we can execute the 'role' and 'database' resources
 # as 'root' later on, passing the below credentials in the PG client.
-bash "assign-postgres-password" do
-  user 'postgres'
-  code <<-EOH
-echo "ALTER ROLE postgres ENCRYPTED PASSWORD '#{node['postgresql']['password']['postgres']}';" | psql
-  EOH
-  not_if "echo '\connect' | PGPASSWORD=#{node['postgresql']['password']['postgres']} psql --username=postgres --no-password -h localhost"
-  action :run
-end
+#bash "assign-postgres-password" do
+#  user 'postgres'
+#  code <<-EOH
+#echo "ALTER ROLE postgres ENCRYPTED PASSWORD '#{node['postgresql']['password']['postgres']}';" | psql
+#  EOH
+#  not_if "echo '\connect' | PGPASSWORD=#{node['postgresql']['password']['postgres']} psql --username=postgres --no-password -h localhost"
+#  action :run
+#end
 
 include_recipe "postgresql::users"
