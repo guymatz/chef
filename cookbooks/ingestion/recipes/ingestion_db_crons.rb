@@ -31,7 +31,7 @@ end
 
 cron "generate_pg_log_report" do
   minute        "58"
-  hour          "32"
+  hour          "23"
   day           "*"
   weekday       "*"
   command       "/home/postgres/scripts/sql-reports/generate-pglog-report.sh iad-ing101 /data/dbdata/pg_log"
@@ -94,7 +94,7 @@ cron "log_file_monitor" do
   hour          "*"
   day           "*"
   weekday       "*"
-  command       "/home/postgres/scripts/LogFileMonitor.sh 5 "/data/dbdata/pg_log/postgresql*" > /dev/null"
+  command       "/home/postgres/scripts/LogFileMonitor.sh 5 \"/data/dbdata/pg_log/postgresql*\" > /dev/null"
   mailto        "CCRDDatabaseOperations@clearchannel.com"
   user          "postgres"
 end
