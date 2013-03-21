@@ -1,6 +1,6 @@
 
 %w{ xinetd tftp-server }.each do |p|
-  package p
+  yum_package p
 end
 
 
