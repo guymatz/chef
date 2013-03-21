@@ -1,4 +1,4 @@
-cron "rsync_wals" do
+crond "rsync_wals" do
   action	:create
   minute 	"*"
   hour   	"*"
@@ -9,7 +9,7 @@ cron "rsync_wals" do
   user		"postgres"
 end
 
-cron "kill_idle" do
+crond "kill_idle" do
   minute	"0,10,20,30,40,50"
   hour		"*"
   day		"*"
@@ -19,7 +19,7 @@ cron "kill_idle" do
   user		"postgres"
 end
 
-cron "clean_pg_log" do
+crond "clean_pg_log" do
   minute        "0"
   hour          "0"
   day           "*"
@@ -29,7 +29,7 @@ cron "clean_pg_log" do
   user		"postgres"
 end
 
-cron "generate_pg_log_report" do
+crond "generate_pg_log_report" do
   minute        "58"
   hour          "23"
   day           "*"
@@ -39,7 +39,7 @@ cron "generate_pg_log_report" do
   user		"postgres"
 end
 
-cron "vacuum_analyze_pgfouine" do
+crond "vacuum_analyze_pgfouine" do
   minute        "3"
   hour          "0,7,14,18"
   day           "*"
@@ -49,7 +49,7 @@ cron "vacuum_analyze_pgfouine" do
   user		"postgres"
 end
 
-cron "vacuum_analyze_pgfouine" do
+crond "vacuum_analyze_pgfouine" do
   minute        "3"
   hour          "0,7,14,18"
   day           "*"
@@ -59,7 +59,7 @@ cron "vacuum_analyze_pgfouine" do
   user		"postgres"
 end
 
-cron "reindex_system_catalogs" do
+crond "reindex_system_catalogs" do
   minute        "0"
   hour          "1"
   day           "*"
@@ -69,7 +69,7 @@ cron "reindex_system_catalogs" do
   user          "postgres"
 end
 
-cron "online_backup" do
+crond "online_backup" do
   minute        "0"
   hour          "3"
   day           "*"
@@ -79,7 +79,7 @@ cron "online_backup" do
   user          "postgres"
 end
 
-cron "rotate_archived_wals" do
+crond "rotate_archived_wals" do
   minute        "5,37"
   hour          "*"
   day           "*"
@@ -89,7 +89,7 @@ cron "rotate_archived_wals" do
   user          "postgres"
 end
 
-cron "log_file_monitor" do
+crond "log_file_monitor" do
   minute        "*/5"
   hour          "*"
   day           "*"
