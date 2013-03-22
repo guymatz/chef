@@ -14,5 +14,4 @@ end
 
 link "/etc/localtime" do
   to "#{node['timezone']['zonefile']}"
-  not_if "test -L /etc/localtime && ! $(readlink /etc/localtime) =~ #{node['timezone']['zonefile']}"
 end
