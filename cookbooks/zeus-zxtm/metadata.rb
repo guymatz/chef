@@ -1,9 +1,9 @@
-maintainer       "Kos Media, LLC"
-maintainer_email "jeremy@dailykos.com"
+maintainer       "Modified from original version: Kos Media, LLC"
+maintainer_email "ccd-sa@clearchannel.com"
 license          "MIT"
 description      "Installs/Configures zeus-zxtm"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.1.0"
+version          "0.2.0"
 recipe		 "default", "Main Zeus ZXTM configuration"
 
 attribute "zeus",
@@ -39,4 +39,4 @@ attribute "zeus/user",
 attribute "zeus/group",
   :display_name => "Zeus Group",
   :description => "Group Zeus runs as",
-  :default => "nogroup"
+  :default => "nobody"

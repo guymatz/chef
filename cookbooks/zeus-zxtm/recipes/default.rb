@@ -30,6 +30,8 @@ remote_file "/tmp/zeus-tarball.tgz" do
   source node[:zeus][:tarball_url]
   checksum node[:zeus][:checksum]
   mode 0644
+  action :create_if_missing
+  not_if { node.attribute?("zeus_deployed") }
 end
 
 # Get our encrypted data
@@ -37,12 +39,14 @@ enc_data = Chef::EncryptedDataBagItem.load("zeus", "items")
 
 # Get the license from an encrypted data bag.
 license_key = "/tmp/zeus-license-#{$$}.txt"
+
 file license_key do
   owner "root"
   group "root"
   action :create
   host = node[:fqdn]
   content enc_data["license_index"][host]
+  not_if { node.attribute?("zeus_deployed") }
 end
 
 # make helper files
@@ -50,6 +54,7 @@ template "/tmp/zinstall-script.txt" do
   source "zinstall-script.txt.erb"
   owner "root"
   mode 0700
+  not_if { node.attribute?("zeus_deployed") }
 end
 
 template "/tmp/configure-script.txt" do
@@ -60,9 +65,9 @@ template "/tmp/configure-script.txt" do
     :password => enc_data["password"],
     :license_key => license_key
   )
+  not_if { node.attribute?("zeus_deployed") }
 end
 
-# Install if we haven't already, or if force_install is true
 bash "install_zeus" do
   user "root"
   cwd "/tmp"
@@ -72,4 +77,12 @@ bash "install_zeus" do
     ./zinstall --replay-from=/tmp/zinstall-script.txt
     #{node[:zeus][:zeus_root]}/zxtm/configure --replay-from=/tmp/configure-script.txt    
   EOH
+  not_if { node.attribute?("zeus_deployed") }
 end
+
+  ruby_block "deployed_flag" do
+    block do
+      node.set['zeus_deplayed'] = true
+      node.save
+    end
+ end
