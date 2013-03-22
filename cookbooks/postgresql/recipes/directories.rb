@@ -39,3 +39,17 @@ directory "/home/postgres" do
   mode  0775
   action :create
 end
+
+directory "/u03" do
+  owner "postgres"
+  group "postgres"
+  mode  0775
+  action :create
+end
+
+directory "/u03/pg" do
+  owner "postgres"
+  group "postgres"
+  mode  0775
+  action :create
+end

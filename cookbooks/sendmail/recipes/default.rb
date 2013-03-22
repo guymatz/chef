@@ -10,6 +10,10 @@
 package 'sendmail'
 
 package 'sendmail-cf'
+
+service 'postfix' do
+	action [ :disable,:stop ]
+end
  
 service 'sendmail' do
         action [ :enable,:start ]

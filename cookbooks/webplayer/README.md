@@ -3,18 +3,15 @@ webplayer Cookbook
 TODO: Enter the cookbook description here.
 
 e.g.
-This cookbook configures and deploys WebPlayers
+This cookbook makes your favorite breakfast sandwhich.
 
 Requirements
 ------------
-* Nagios
-* Application_python (Django)
-* Nginx (handles connections for Django)
-* Linux, Any
+TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
 
 e.g.
 #### packages
-* Virtualenv
+- `toaster` - webplayer needs toaster to brown your bagel.
 
 Attributes
 ----------
@@ -40,6 +37,9 @@ e.g.
 Usage
 -----
 #### webplayer::default
+TODO: Write usage instructions for each cookbook.
+
+e.g.
 Just include `webplayer` in your node's `run_list`:
 
 ```json
@@ -50,20 +50,19 @@ Just include `webplayer` in your node's `run_list`:
   ]
 }
 ```
-Though... making a webplayer role with other cookbooks grouped together makes sense, too.
 
 Contributing
 ------------
-* Talk to Jake Plimack
+TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
 
 e.g.
-1. Fork the repository on Github (git clone git@github.com:iheartradio/iheart-chef)
-2. Create a named feature branch (like `add_component_x`) (git branch awesome-feature; git checkout !$)
-3. Write you change (git add ....; git commit -m ".....")
-4. Write tests for your change (if applicable) (Bonus Points)
-5. Run the tests, ensuring they all pass (Throw it on jenkins)
-6. Submit a Pull Request using Github (We'll love you for it)
+1. Fork the repository on Github
+2. Create a named feature branch (like `add_component_x`)
+3. Write you change
+4. Write tests for your change (if applicable)
+5. Run the tests, ensuring they all pass
+6. Submit a Pull Request using Github
 
 License and Authors
 -------------------
-Authors: Jake Plimack <jake.plimack@gmail.com>
+Authors: TODO: List authors

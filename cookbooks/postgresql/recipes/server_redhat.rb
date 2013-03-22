@@ -73,11 +73,19 @@ end
 cookbook_file "/etc/init.d/postgresql-9.1" do
 	source "postgresql-9.1"
 	mode 0755
-	action :create_if_missing
+	action :create
 end
-
 
 service "postgresql" do
   supports :restart => true, :status => true, :reload => true
-  action [:enable, :start]
+  action [:stop,:disable]
+end
+
+file "/etc/init.d/postgresql" do
+  action :delete
+end
+
+service "postgresql-9.1" do
+  supports :restart => true, :status => true, :reload => true
+  action [:enable]
 end
