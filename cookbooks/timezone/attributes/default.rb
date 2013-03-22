@@ -16,4 +16,4 @@
 
 
 default['timezone']['zone'] = "Eastern"
-default['timezone']['zonefile'] = "/usr/share/zoneinfo/Eastern"
+default['timezone']['zonefile'] = "/usr/share/zoneinfo/US/Eastern"
