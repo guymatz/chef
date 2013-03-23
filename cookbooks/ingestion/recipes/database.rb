@@ -1,6 +1,10 @@
 include_recipe "postgresql::server"
 include_recipe "postgresql::slony"
 
+node[:ingestion][:scripts][:packages].each do |p|
+  package p
+end
+
 cookbook_file "/var/lib/pgsql/9.1/data/pg_hba.conf" do
   source "pg_hba.conf"
   mode 0600
