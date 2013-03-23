@@ -44,6 +44,7 @@ application "webplayer" do
   migrate false
 
   django do
+    interpreter "python27"
     settings({
                :secrets => app_secrets,
                :url => node[:webplayer][:settings][:url],
