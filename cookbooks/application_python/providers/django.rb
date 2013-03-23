@@ -99,6 +99,7 @@ protected
 
 def install_packages
   python_virtualenv new_resource.virtualenv do
+    interpreter new_resource.interpreter
     path new_resource.virtualenv
     action :create
   end
