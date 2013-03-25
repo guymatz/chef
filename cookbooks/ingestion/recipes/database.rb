@@ -1,4 +1,8 @@
 
+
+include_recipe "postgresql::server"
+include_recipe "postgresql::slony"
+
 node[:ingestion][:database][:packages].each do |p|
   package p
 end

@@ -8,7 +8,8 @@
     "run_list": [
         "recipe[ingestion]",
         "recipe[ingestion::db_mounts]",
-        "recipe[ingestion::database]"
+        "recipe[ingestion::database]",
+        "role[postgresql-server]"
     ],
     "description": "Ingestion & ETL",
     "chef_type": "role",
