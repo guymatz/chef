@@ -75,7 +75,7 @@ when "redhat", "centos", "scientific", "oracle"
   if node['platform_version'].to_f >= 6.0
     default['postgresql']['client']['packages'] = %w{postgresql-devel perl-DBI perl-DBD-Pg}
     # the server recipe includes the client, no need to list packages twice
-    default['postgresql']['server']['packages'] = %w{postgresql91 postgresql91-server postgresql91-contrib postgresql91-devel postgresql91-libs }
+    default['postgresql']['server']['packages'] = %w{postgresql91 postgresql91-server postgresql91-contrib postgresql91-devel postgresql91-libs numactl }
   else
     default['postgresql']['client']['packages'] = ["postgresql#{node['postgresql']['version'].split('.').join}-devel"]
     default['postgresql']['server']['packages'] = ["postgresql#{node['postgresql']['version'].split('.').join}-server"]
