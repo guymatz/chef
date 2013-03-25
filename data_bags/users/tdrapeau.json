@@ -1,0 +1,10 @@
+{
+    "id": "tdrapeau",
+    "uid": 5015,
+    "name": "Thomas Drapeau",
+    "email": "thomasdrapeau@clearchannel.com",
+    "groups": ["dev"],
+    "ssh_keys": [
+"ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA7CbDaZRjvSPQ3qyJ8fIjN+KVEXdOwe7XA2Zg3iY1jn3wGGFQhcQi7uaV/vKWov1sGIzPaXRkkkIoSzw5Z7Q4ecOXMHofPgvdHpM1Fy9wU8nhnwEMw+FWxz9w3lG00yCpwuGWMuP14vN08GxdEVhXQV8il3IYhH/pHQ6kFsftLWaE0IsS/zl3NsC2daQ6Qit4qQw/u/J2IYIvPeayt2DBZ3WHwc9mRBnnqqh54k0F4Lsjg8JH3DPJKteP/ivbKh6WiEloVSYht+HEy7T5HME5m3qnq7+Nw9FwMXihpprM3FInOY6oHr6sBX2YKDNjOCMzymRh0DDCevl+TE/6okQPTw== thomasdrapeau@clearchannel.com"
+    ]
+}

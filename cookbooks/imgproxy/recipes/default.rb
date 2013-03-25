@@ -9,14 +9,14 @@
 
 remote_file "#{Chef::Config['file_cache_path']}/varnish_repo.rpm" do
   source node[:varnish_repo]
-  not_if { node.attribute?("imgproxy_deployed") }
+  not_if { node.normal.attribute?("imgproxy_deployed") }
 end
 
 rpm_package "varhnish_repo" do
   action :install
   options "--nosignature"
   source "#{Chef::Config['file_cache_path']}/varnish_repo.rpm"
-  not_if { node.attribute?("imgproxy_deployed") }
+  not_if { node.normal.attribute?("imgproxy_deployed") }
 end
 
 include_recipe "yum::epel"
@@ -24,7 +24,7 @@ include_recipe "yum::epel"
 node[:pkgs].each do |pkg|
   package pkg do
     action :install
-    not_if { node.attribute?("imgproxy_deployed") }
+    not_if { node.normal.attribute?("imgproxy_deployed") }
   end
 end
 
@@ -36,7 +36,7 @@ node[:pips].each do |pip|
     if pip.include?("pyparsing")
       version "1.5.7"
     end
-    not_if { node.attribute?("imgproxy_deployed") }
+    not_if { node.normal.attribute?("imgproxy_deployed") }
   end
 end
 
@@ -61,7 +61,7 @@ end
 bash "deploy_imgproxy" do
   cwd "#{node[:supervisor][:imgproxy][:dir]}"
   code "tar xpf imgproxy.tar.gz"
-  not_if { node.attribute?("imgproxy_deployed") }
+  not_if { node.normal.attribute?("imgproxy_deployed") }
 end
 
 node[:imgproxy][:template_files].each do |dest,src|

@@ -44,6 +44,7 @@ application "webplayer" do
   migrate false
 
   django do
+    interpreter "python27"
     settings({
                :secrets => app_secrets,
                :url => node[:webplayer][:settings][:url],
@@ -57,13 +58,11 @@ application "webplayer" do
   end
 
   gunicorn do
-    app_module "tusiq.config.prod.wsgi"
+    app_module :django
+    command "tusiq.config.prod.wsgi"
     worker_class "gevent"
     Chef::Log.info("Starting up Gunicorn on port 8080 for Basejump")
     port 8080
-    environment({
-                  :command => "/data/www/webplayer/shared/env/bin/gunicorn -c /data/www/webplayer/shared/gunicorn_config.py tusiq.config.prod.wsgi"
-                })
   end
 
 end

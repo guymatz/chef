@@ -1,3 +1,7 @@
+node[:ingestion][:scripts][:packages].each do |p|
+  package p
+end
+
 crond "rsync_wals" do
   action	:create
   minute 	"*"

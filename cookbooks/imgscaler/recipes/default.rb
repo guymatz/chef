@@ -30,7 +30,7 @@ cookbook_file "#{Chef::Config[:file_cache_path]}/imgscaler.tar.gz" do
   source "imgscaler.tar.gz"
   owner "tomcat"
   action :create
-  not_if { node.attribute?("imgproxy_deployed") }
+  not_if { node.normal.attribute?("imgscaler_deployed") }
 end
 
 bash "extract_tomcat" do
@@ -39,14 +39,14 @@ bash "extract_tomcat" do
   code <<-EOH
   tar xpf #{Chef::Config[:file_cache_path]}/imgscaler.tar.gz
   EOH
-  not_if { node.attribute?("imgproxy_deployed") }
+  not_if { node.normal.attribute?("imgscaler_deployed") }
 end
 
 cookbook_file "/etc/init.d/tomcat" do
   source "tomcat"
   mode 0755
   action :create
-  not_if { node.attribute?("imgproxy_deployed") }
+  not_if { node.normal.attribute?("imgscaler_deployed") }
 end
 
 bash "install_tomcat_service" do
@@ -55,7 +55,7 @@ bash "install_tomcat_service" do
   chkconfig --add tomcat
   service tomcat start
   EOH
-  not_if { node.attribute?("imgproxy_deployed") }
+  not_if { node.normal.attribute?("imgscaler_deployed") }
 end
 
 # Not working :-(
@@ -65,8 +65,7 @@ end
 
 ruby_block "set_deploy_flag" do
   block do
-    node.set['imgproxy_deployed'] = true
+    node.set['imgscaler_deployed'] = true
     node.save
   end
-  action :nothing
 end

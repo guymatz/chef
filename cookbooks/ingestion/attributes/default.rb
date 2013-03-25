@@ -1,3 +1,5 @@
+default[:ingestion][:scripts][:packages] = %w{ php-gd }
+
 # Ingestion default attributes
 default[:postgres][:user] = "postgres"
 default[:postgres][:ulimits] = [ {
