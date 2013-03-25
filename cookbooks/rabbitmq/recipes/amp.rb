@@ -21,6 +21,11 @@ users.each do |k,v|
   end
 end
 
+rabbitmq_user "thumbplay" do
+  tags "administrator"
+  action :set_tags
+end
+
 rabbitmq_user "guest" do
   action :delete
 end
