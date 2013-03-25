@@ -1,4 +1,5 @@
 default[:ingestion][:scripts][:packages] = %w{ php-gd }
+default[:ingestion][:database][:packages] = %w { mutt }
 
 # Ingestion default attributes
 default[:postgres][:user] = "postgres"
