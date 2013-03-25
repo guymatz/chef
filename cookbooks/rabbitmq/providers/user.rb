@@ -51,6 +51,7 @@ end
 
 action :set_tags do
   execute "rabbitmqctl set_user_tags #{new_resource.user} #{new_resource.tags}" do
+    only_if "rabbitmqctl list_users | grep #{new_resource.user}"
     Chef::Log.info "Setting RabbtiMQ user '#{new_resource.user}' tags to '#{new_resource.tags}'"
     new_resource.updated_by_last_action(true)
   end
