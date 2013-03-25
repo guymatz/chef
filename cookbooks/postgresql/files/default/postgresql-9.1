@@ -26,7 +26,7 @@
 
 # PGVERSION is the full package version, e.g., 9.0.0
 # Note: the specfile inserts the correct value during package build
-PGVERSION=9.1.3
+PGVERSION=9.1.8
 # PGMAJORVERSION is major version, e.g., 9.0 (this should match PG_VERSION)
 PGMAJORVERSION=`echo "$PGVERSION" | sed 's/^\([0-9]*\.[0-9]*\).*$/\1/'`
 
@@ -134,7 +134,7 @@ start(){
 
 	echo -n "$PSQL_START"
 	test x"$PG_OOM_ADJ" != x && echo "$PG_OOM_ADJ" > /proc/self/oom_adj
-	$SU -l postgres -c "'numactl' $PGENGINE/postmaster -p '$PGPORT' -D '$PGDATA' ${PGOPTS} &" >> "$PGLOG" 2>&1 < /dev/null
+	$SU -l postgres -c "'numactl --interleave-all' $PGENGINE/postmaster -p '$PGPORT' -D '$PGDATA' ${PGOPTS} &" >> "$PGLOG" 2>&1 < /dev/null
 	sleep 2
 	pid=`head -n 1 "$PGDATA/postmaster.pid" 2>/dev/null`
 	if [ "x$pid" != x ]
