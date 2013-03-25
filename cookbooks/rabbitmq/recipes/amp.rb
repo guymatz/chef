@@ -7,13 +7,15 @@ rabbitmq_vhost "/amp" do
 end
 
 #Setup all our users/passwords
-Chef::EncryptedDataBagItem.load("rabbitmq", "passwords").each do |k,v|
+users = Chef::EncryptedDataBagItem.load("rabbitmq", "passwords").to_hash
+users.each do |k,v|
   next if k == "id"
   rabbitmq_user k do
     password v
     action :add
   end
   rabbitmq_user k do
+    vhost "/amp"
     permissions "\".*\" \".*\" \".*\""
     action :set_permissions
   end
