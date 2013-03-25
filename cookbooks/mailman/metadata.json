@@ -1,0 +1,30 @@
+{
+  "attributes": {
+  },
+  "recommendations": {
+  },
+  "replacing": {
+  },
+  "description": "Installs/Configures mailman",
+  "dependencies": {
+    "openssl": ">= 0.0.0"
+  },
+  "license": "Apache 2.0",
+  "groupings": {
+  },
+  "version": "0.9.5",
+  "platforms": {
+  },
+  "suggestions": {
+  },
+  "providing": {
+  },
+  "long_description": "Description\n===========\n\n\nRequirements\n============\n\nAttributes\n==========\n\nsee attributes.rb for possible attributes\nsite_pass and list_creator only will be set if defined externally\n\nUsage\n=====\n\nmailman_list \"mylist1\" do\n  email \"owner@example.com\"\nend\n\nmailman_list \"mylist2\" do\n  email \"owner@example.com\"\n  password \"my_non_random_password\"\nend\n\nmailman_list \"mylist3\" do\n  action :delete\nend\n",
+  "recipes": {
+  },
+  "conflicting": {
+  },
+  "maintainer_email": "chef-cookbooks@computerlyrik.de",
+  "maintainer": "computerlyrik",
+  "name": "mailman"
+}
