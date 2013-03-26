@@ -2,7 +2,7 @@ node[:ingestion][:scripts][:packages].each do |p|
   package p
 end
 
-crond "rsync_wals" do
+cron_d "rsync_wals" do
   action	:create
   minute 	"*"
   hour   	"*"
@@ -13,7 +13,7 @@ crond "rsync_wals" do
   user		"postgres"
 end
 
-crond "kill_idle" do
+cron_d "kill_idle" do
   minute	"0,10,20,30,40,50"
   hour		"*"
   day		"*"
@@ -23,7 +23,7 @@ crond "kill_idle" do
   user		"postgres"
 end
 
-crond "clean_pg_log" do
+cron_d "clean_pg_log" do
   minute        "0"
   hour          "0"
   day           "*"
@@ -33,7 +33,7 @@ crond "clean_pg_log" do
   user		"postgres"
 end
 
-crond "generate_pg_log_report" do
+cron_d "generate_pg_log_report" do
   minute        "58"
   hour          "23"
   day           "*"
@@ -43,7 +43,7 @@ crond "generate_pg_log_report" do
   user		"postgres"
 end
 
-crond "vacuum_analyze_pgfouine" do
+cron_d "vacuum_analyze_pgfouine" do
   minute        "3"
   hour          "0,7,14,18"
   day           "*"
@@ -53,7 +53,7 @@ crond "vacuum_analyze_pgfouine" do
   user		"postgres"
 end
 
-crond "vacuum_analyze_pgfouine" do
+cron_d "vacuum_analyze_pgfouine" do
   minute        "3"
   hour          "0,7,14,18"
   day           "*"
@@ -63,7 +63,7 @@ crond "vacuum_analyze_pgfouine" do
   user		"postgres"
 end
 
-crond "reindex_system_catalogs" do
+cron_d "reindex_system_catalogs" do
   minute        "0"
   hour          "1"
   day           "*"
@@ -73,7 +73,7 @@ crond "reindex_system_catalogs" do
   user          "postgres"
 end
 
-crond "online_backup" do
+cron_d "online_backup" do
   minute        "0"
   hour          "3"
   day           "*"
@@ -83,7 +83,7 @@ crond "online_backup" do
   user          "postgres"
 end
 
-crond "rotate_archived_wals" do
+cron_d "rotate_archived_wals" do
   minute        "5,37"
   hour          "*"
   day           "*"
@@ -93,7 +93,7 @@ crond "rotate_archived_wals" do
   user          "postgres"
 end
 
-crond "log_file_monitor" do
+cron_d "log_file_monitor" do
   minute        "*/5"
   hour          "*"
   day           "*"
