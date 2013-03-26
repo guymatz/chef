@@ -49,6 +49,14 @@ action :set_permissions do
   end
 end
 
+action :set_tags do
+  execute "rabbitmqctl set_user_tags #{new_resource.user} #{new_resource.tags}" do
+    only_if "rabbitmqctl list_users | grep #{new_resource.user}"
+    Chef::Log.info "Setting RabbtiMQ user '#{new_resource.user}' tags to '#{new_resource.tags}'"
+    new_resource.updated_by_last_action(true)
+  end
+end
+
 action :clear_permissions do
   if new_resource.vhost
     execute "rabbitmqctl clear_permissions -p #{new_resource.vhost} #{new_resource.user}" do

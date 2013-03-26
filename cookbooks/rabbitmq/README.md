@@ -23,6 +23,7 @@ Adds and deletes users, fairly simplistic permissions management.
 - `:add` adds a `user` with a `password`
 - `:delete` deletes a `user`
 - `:set_permissions` sets the `permissions` for a `user`, `vhost` is optional
+- `:set_tags` sets the `tags` for a `user`
 - `:clear_permissions` clears the permissions for a `user`
 
 ### Examples
