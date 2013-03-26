@@ -40,6 +40,8 @@ when "rhel"
   end
 
   package "erlang"
+  package "zlib-devel"
+  package "zlib"
 
 else
 
