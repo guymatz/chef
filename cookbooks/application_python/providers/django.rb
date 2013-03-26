@@ -25,9 +25,11 @@ include Chef::Mixin::LanguageIncludeRecipe
 action :before_compile do
 
   include_recipe 'python'
-
-  new_resource.migration_command "#{::File.join(new_resource.virtualenv, "bin", "python")} manage.py syncdb --noinput" if !new_resource.migration_command
-
+  if defined?(new_resource.interpreter)
+    new_resource.migration_command "#{::File.join(new_resource.virtualenv, "bin", new_resource.interpreter)} manage.py syncdb --noinput" if !new_resource.migration_command
+  else
+    new_resource.migration_command "#{::File.join(new_resource.virtualenv, "bin", "python")} manage.py syncdb --noinput" if !new_resource.migration_command
+  end
   new_resource.symlink_before_migrate.update({
     new_resource.local_settings_base => new_resource.local_settings_file,
   })
@@ -71,7 +73,11 @@ action :before_symlink do
 
   if new_resource.collectstatic
     cmd = new_resource.collectstatic.is_a?(String) ? new_resource.collectstatic : "collectstatic --noinput"
-    execute "#{::File.join(new_resource.virtualenv, "bin", "python")} manage.py #{cmd}" do
+    env-python="python"
+    if defined?(new_resource.interpreter)
+      env-python=new_resource.interpreter
+    end
+    execute "#{::File.join(new_resource.virtualenv, "bin", env-python)} manage.py #{cmd}" do
       user new_resource.owner
       group new_resource.group
       cwd new_resource.release_path
