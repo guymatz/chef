@@ -20,6 +20,7 @@
 
 action :install do
   python_virtualenv new_resource.virtualenv do
+    interpreter new_resource.interpreter
     action :create
   end if new_resource.virtualenv
 
