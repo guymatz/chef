@@ -1,4 +1,4 @@
-#!/usr/bin/python26
+#!/bin/env python
 
 import mechanize
 import sys
