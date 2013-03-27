@@ -8,6 +8,7 @@ recipe            "rabbitmq::cluster", "Set up RabbitMQ clustering."
 depends           "apt", ">= 1.4.4"
 depends           "yum", ">= 0.5.0"
 depends           "erlang", ">= 0.9"
+depends           "nagios"
 
 %w{ubuntu debian redhat centos scientific amazon fedora}.each do |os|
   supports os
