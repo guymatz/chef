@@ -9,7 +9,7 @@ target_hostname=sys.argv[1]
 
 username = "thumbplay"
 password = "clearchannel"
-target_page= "http://" + target_hostname + ":55672/api/nodes"
+target_page= "http://" + target_hostname + ":15672/api/nodes"
 
 browser = mechanize.Browser()
 browser.addheaders.append(('Authorization', 'Basic %s' % base64.encodestring('%s:%s' % (username, password))))
