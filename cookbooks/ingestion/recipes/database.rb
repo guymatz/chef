@@ -29,7 +29,6 @@ directory "/data" do
   action :create
 end
 
-
 directory "/data/sql-reports" do
   owner "postgres"
   group "postgres"
