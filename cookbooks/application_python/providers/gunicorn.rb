@@ -27,6 +27,7 @@ action :before_compile do
   django_resource = new_resource.application.sub_resources.select{|res| res.type == :django}.first
   gunicorn_install "gunicorn-#{new_resource.application.name}" do
     virtualenv django_resource ? django_resource.virtualenv : nil
+    interpreter django_resource.interpreter
   end
 
   if !new_resource.restart_command

@@ -9,8 +9,6 @@
   ],
   "shell":	"/bin/zsh",
     "nagios": {
-	"email": "jakeplimack@clearchannel.com",
-	"pager": "jakeplimack+98765@gmail.com"
     },
     "htpasswd": "{SHA}48pjCrAIZIGO58nhpat488q7+HI=",
     "uid": 5001

@@ -21,6 +21,7 @@
 actions :install
 
 attribute :virtualenv, :kind_of => String, :default => nil
+attribute :interpreter, :kind_of => String, :default => nil
 
 def initialize(*args)
   super

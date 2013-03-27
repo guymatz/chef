@@ -22,6 +22,11 @@ file "/etc/chef/deploy" do
   :create_if_missing
 end
 
+directory "/root/.ssh" do
+  owner "root"
+  group "root"
+end
+
 file "/root/.ssh/config" do
   owner "root"
   group "root"
@@ -42,7 +47,7 @@ application "webplayer" do
   repository node[:webplayer][:repo]
   revision node[:webplayer][:rev]
   migrate false
-
+  action :deploy
   django do
     interpreter "python27"
     settings({

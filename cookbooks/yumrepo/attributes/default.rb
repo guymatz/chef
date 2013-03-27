@@ -38,7 +38,7 @@ default[:yum][:mirror][:yumdir]           = '/data/yum.repos'
 default[:yum][:mirror][:cron_hour]        = 1
 default[:yum][:mirror][:cron_minute]      = 30
 
-default[:yum][:mirror][:centos_mirror]    = 'rsync://mirror.rackspace.com/centos/'
+default[:yum][:mirror][:centos_mirror]    = 'rsync://mirror.umd.edu/centos/'
 
 default[:yum][:mirror][:sync_centos]      = true
 default[:yum][:mirror][:iso]              = false

@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: rabbitmq
-# Resource:: user
+# Cookbook Name:: mailman
+# Resource:: list
 #
-# Copyright 2011, Opscode, Inc.
+# Copyright 2013, computerlyrik
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,17 +15,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-actions :add, :delete, :set_permissions, :set_tags, :clear_permissions
+actions :create, :delete
+default_action :create
 
-attribute :user, :kind_of => String, :name_attribute => true
+attribute :name, :kind_of => String, :name_attribute => true
+attribute :email, :kind_of => String, :required => true
 attribute :password, :kind_of => String
-attribute :tags, :kind_of => String
-attribute :vhost, :kind_of => String
-attribute :permissions, :kind_of => String
-
-def initialize(*args)
-  super
-  @action = :add
-end

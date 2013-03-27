@@ -44,9 +44,9 @@ app_secrets = Chef::EncryptedDataBagItem.load("secrets", node[:ipplan][:app_name
 
 template "#{node[:ipplan][:scripts_dir]}/bin/ipplan-exportdns.pl" do
   source "ipplan-exportdns.pl.erb"
-  owner "root"
-  group "root"
-  mode "0700"
+  owner node[:apache][:user]
+  group node[:apache][:group]
+  mode "0755"
   variables({
               :ipplan_url => node[:ipplan][:ipplan_url],
               :ipplan_user => node[:ipplan][:ipplan_user],
@@ -101,9 +101,9 @@ end
 
 template "#{node[:ipplan][:scripts_dir]}/bin/update.conf" do
   source "update.conf.erb"
-  owner "root"
-  group "root"
-  mode "0700"
+  owner node[:apache][:user]
+  group node[:apache][:group]
+  mode "0755"
   variables({
               :work_dir => "#{node[:ipplan][:scripts_dir]}/dns",
               :scripts_dir => node[:ipplan][:scripts_dir],
@@ -115,9 +115,9 @@ end
 
 template "#{node[:ipplan][:scripts_dir]}/bin/ipplan-updatefunc.sh" do
   source "ipplan-updatefunc.sh.erb"
-  owner "root"
-  group "root"
-  mode "0700"
+  owner node[:apache][:user]
+  group node[:apache][:group]
+  mode "0755"
   variables({
               :git_repo => node[:ipplan][:repo]
             })

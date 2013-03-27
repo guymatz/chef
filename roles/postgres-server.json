@@ -8,7 +8,8 @@
   "run_list": [
       "recipe[postgresql]",
       "recipe[postgresql::server]",
-      "recipe[postgresql::users]"
+      "recipe[postgresql::users]",
+      "recipe[postgresql::nagios]"
   ],
   "description": "",
   "chef_type": "role",

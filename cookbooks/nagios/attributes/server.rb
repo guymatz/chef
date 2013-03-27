@@ -22,7 +22,7 @@
 # limitations under the License.
 #
 
-default['nagios']['pagerduty_key'] = ""
+default['nagios']['pagerduty_key'] = "05f110a1aa524e86937256ad2609d270"
 
 case node['platform']
 when "ubuntu","debian"

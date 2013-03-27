@@ -42,3 +42,4 @@ attribute :logfile, :kind_of => String, :default => '-'
 attribute :loglevel, :kind_of => [String, Symbol], :default => :info
 attribute :proc_name, :kind_of => [String, NilClass], :default => nil
 attribute :command, :kind_of => [String, NilClass], :default => ""
+attribute :interpreter, :kind_of => String, :default => nil
