@@ -9,3 +9,4 @@
 #
 
 include_recipe "ipplan::webserver"
+include_recipe "ipplan::scripts"
