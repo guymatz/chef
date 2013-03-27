@@ -28,6 +28,10 @@ users.each do |k,v|
     permissions "\".*\" \".*\" \".*\""
     action :set_permissions
   end
+  rabbitmq_user k do
+    tags "monitoring"
+    action :set_tags
+  end
 end
 
 # Make thumbplay an admin
