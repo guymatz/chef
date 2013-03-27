@@ -9,7 +9,7 @@
         "recipe[ingestion]",
         "recipe[ingestion::db_mounts]",
         "recipe[ingestion::database]",
-        "role[postgresql-server]"
+        "role[postgres-server]"
     ],
     "description": "Ingestion & ETL",
     "chef_type": "role",

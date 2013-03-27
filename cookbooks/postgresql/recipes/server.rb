@@ -81,3 +81,4 @@ end
 #end
 
 include_recipe "postgresql::users"
+include_recipe "postgresql::nagios"
