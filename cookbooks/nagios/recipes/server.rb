@@ -45,7 +45,7 @@ end
 include_recipe "nagios::server_#{node['nagios']['server']['install_method']}"
 
 sysadmins = search(:users, 'groups:sysadmin')
-devs = search(:users, 'groups:dev')
+allcontacts = search(:users, 'groups:sysadmin')
 
 case node['nagios']['server_auth_method']
 when "openid"
@@ -123,6 +123,7 @@ begin
         cg['members'] = Array.new
       end
       cg['members'].push(m['id'])
+      allcontacts.push(m)
     end
   end
 rescue Net::HTTPServerException
@@ -236,8 +237,9 @@ nagios_conf "services" do
             )
 end
 
+allcontacts = allcontacts.uniq { |c| c['id'] }
 nagios_conf "contacts" do
-  variables :admins => sysadmins, :members => members, :devs => devs, :contact_groups => contactgroups
+  variables :admins => sysadmins, :members => members, :allcontacts => allcontacts, :contact_groups => contactgroups
 end
 
 nagios_conf "hostgroups" do

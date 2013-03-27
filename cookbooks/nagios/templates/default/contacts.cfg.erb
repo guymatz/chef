@@ -34,20 +34,12 @@ define contactgroup {
 }
 <% end -%>
 
-<% @admins.each do |a| -%>
+# Contacts below are generated from a list of sysadmins and adding contacts for each contactgroup as needed
+<% @allcontacts.each do |c| -%>
 define contact {
   use          default-contact
-  contact_name <%= a['id'] %>
-  <%= "email  #{a['nagios']['email']}" unless a['nagios'].nil? || a['nagios']['email'].nil? %>
-}
-
-<% end -%>
-
-<% @devs.each do |d| -%>
-define contact {
-  use          default-contact
-  contact_name <%= d['id'] %>
-  <%= "email  #{d['email']}" unless d['email'].nil? %>
+  contact_name <%= c['id'] %>
+  <%= "email  #{c['email']}" unless c['email'].nil? %>
 }
 
 <% end -%>
