@@ -1,5 +1,6 @@
 {
   "hostgroup_name": "postgres-server",
   "id": "Postgres-QueryTime",
-  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Postgres-QueryTime -t 20"
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Postgres-QueryTime -t 20",
+    "contact_groups": ["dba"]
 }
