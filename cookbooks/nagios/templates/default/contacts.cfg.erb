@@ -26,11 +26,28 @@ define contactgroup {
   members           <%= @members.join(',') %>
 }
 
+<% @contact_groups.each do |cg| -%>
+define contactgroup {
+  contactgroup_name <%= cg['id'] %>
+  <%= "alias " + cg['id'] + "-email" %>
+  <%= "members " + cg['members'].join (',') unless cg['members'].nil? %>
+}
+<% end -%>
+
 <% @admins.each do |a| -%>
 define contact {
   use          default-contact
   contact_name <%= a['id'] %>
   <%= "email  #{a['nagios']['email']}" unless a['nagios'].nil? || a['nagios']['email'].nil? %>
+}
+
+<% end -%>
+
+<% @devs.each do |d| -%>
+define contact {
+  use          default-contact
+  contact_name <%= d['id'] %>
+  <%= "email  #{d['email']}" unless d['email'].nil? %>
 }
 
 <% end -%>

@@ -63,8 +63,6 @@ end
 tftp_root = node[:basejump][:kickstarter][:tftp_root]
 
 node[:basejump][:kickstarter][:syslinux_links].each do |k,v|
-  Chef::Log.info("target=" + k)
-  Chef::Log.info("source=" + v)
    link tftp_root + "/" + k do
     to tftp_root + "/" + v
   end

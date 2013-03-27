@@ -31,11 +31,6 @@ application "basejump" do
   db_user = node[:basejump][:db_user]
   db_name = node[:basejump][:db_name]
 
-  Chef::Log.info("Setting up DB for Basejump")
-  Chef::Log.info("USER: " + db_user)
-  Chef::Log.info("DB_NAME: " + db_name)
-  Chef::Log.info("PASS: " + app_secrets['pass'])
-
   django do
     requirements "requirements.txt"
     debug true

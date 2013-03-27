@@ -45,6 +45,7 @@ end
 include_recipe "nagios::server_#{node['nagios']['server']['install_method']}"
 
 sysadmins = search(:users, 'groups:sysadmin')
+devs = search(:users, 'groups:dev')
 
 case node['nagios']['server_auth_method']
 when "openid"
@@ -111,6 +112,21 @@ begin
   end
 rescue Net::HTTPServerException
   Chef::Log.info("Search for nagios_hostgroups data bag failed, so we'll just move on.")
+end
+
+# Load search defined Nagios ContactGroups from the nagios_contactgroups data bag
+begin
+  contactgroups = search(:nagios_contactgroups, "*:*")
+  contactgroups.each do |cg|
+    search(:users, "groups:#{cg['id']}") do |m|
+      if cg['members'].nil?
+        cg['members'] = Array.new
+      end
+      cg['members'].push(m['id'])
+    end
+  end
+rescue Net::HTTPServerException
+  Chef::Log.info("Search for nagios_contactgroups data bag failed, so we'll just move on.")
 end
 
 members = Array.new
@@ -221,7 +237,7 @@ nagios_conf "services" do
 end
 
 nagios_conf "contacts" do
-  variables :admins => sysadmins, :members => members
+  variables :admins => sysadmins, :members => members, :devs => devs, :contact_groups => contactgroups
 end
 
 nagios_conf "hostgroups" do
