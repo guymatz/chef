@@ -54,6 +54,12 @@ MENU BEGIN
         KERNEL distros/centos/6.3/x86_64/vmlinuz
         APPEND ks=http://10.5.32.21:8080/kickstarter/kickme/centos/6.3/x86_64 initrd=distros/centos/6.3/x86_64/initrd.img rd_NO_PLYMOUTH ramdisk_size=9216 console=tty0 console=ttyS0,115200n8 serial skipddc text noipv6 kssendmac ksdevice=em1
 
+    LABEL VMware-CentOS-6.3_x86_64
+        MENU LABEL VMware-CentOS-6.3_x86_64
+        MENU INDENT 4
+        KERNEL distros/centos/6.3/x86_64/vmlinuz
+        APPEND ks=http://10.5.32.21:8080/kickstarter/kickme/centos/6.3/x86_64 initrd=distros/centos/6.3/x86_64/initrd.img skipddc text noipv6 kssendmac ksdevice=bootif
+
 MENU END
 MENU BEGIN
     MENU TITLE Run Utility
