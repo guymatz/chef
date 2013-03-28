@@ -31,7 +31,8 @@ remote_file "/tmp/zeus-tarball.tgz" do
   checksum node[:zeus][:checksum]
   mode 0644
   action :create_if_missing
-  not_if { node.attribute?("zeus_deployed") }
+  #not_if { node.attribute?("zeus_deployed") }
+  not_if "test -f #{node[:zeus][:zeus_root]}/LICENSE"
 end
 
 # Get our encrypted data
@@ -46,7 +47,8 @@ file license_key do
   action :create
   host = node[:fqdn]
   content enc_data["license_index"][host]
-  not_if { node.attribute?("zeus_deployed") }
+  #not_if { node.attribute?("zeus_deployed") }
+  not_if "test -f #{node[:zeus][:zeus_root]}/LICENSE"
 end
 
 # make helper files
@@ -54,7 +56,8 @@ template "/tmp/zinstall-script.txt" do
   source "zinstall-script.txt.erb"
   owner "root"
   mode 0700
-  not_if { node.attribute?("zeus_deployed") }
+  #not_if { node.attribute?("zeus_deployed") }
+  not_if "test -f #{node[:zeus][:zeus_root]}/LICENSE"
 end
 
 template "/tmp/configure-script.txt" do
@@ -65,7 +68,8 @@ template "/tmp/configure-script.txt" do
     :password => enc_data["password"],
     :license_key => license_key
   )
-  not_if { node.attribute?("zeus_deployed") }
+  #not_if { node.attribute?("zeus_deployed") }
+  not_if "test -f #{node[:zeus][:zeus_root]}/LICENSE"
 end
 
 bash "install_zeus" do
@@ -77,7 +81,8 @@ bash "install_zeus" do
     ./zinstall --replay-from=/tmp/zinstall-script.txt
     #{node[:zeus][:zeus_root]}/zxtm/configure --replay-from=/tmp/configure-script.txt    
   EOH
-  not_if { node.attribute?("zeus_deployed") }
+  #not_if { node.attribute?("zeus_deployed") }
+  not_if "test -f #{node[:zeus][:zeus_root]}/LICENSE"
 end
 
   ruby_block "deployed_flag" do
