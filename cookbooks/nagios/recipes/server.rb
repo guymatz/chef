@@ -195,7 +195,7 @@ directory "#{node['nagios']['state_dir']}/rw" do
 end
 
 execute "archive-default-nagios-object-definitions" do
-  command "mv #{node['nagios']['config_dir']}/*_nagios*.cfg #{node['nagios']['conf_dir']}/dist"
+  command "cp #{node['nagios']['config_dir']}/*_nagios*.cfg #{node['nagios']['conf_dir']}/dist"
   not_if { Dir.glob("#{node['nagios']['config_dir']}/*_nagios*.cfg").empty? }
 end
 
