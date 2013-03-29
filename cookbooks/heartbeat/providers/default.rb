@@ -18,6 +18,7 @@
 #
 
 action :create do
+  Chef::Log.info("Searching for ha.cf nodes: " + new_resource.search)
   query = new_resource.search || "recipes:#{new_resource.cookbook_name}\\:\\:#{new_resource.recipe_name}"
   nodes = search(:node, query)
   nodes << node if nodes.select{|n| n['macaddress'] == node['macaddress']}.empty?
@@ -51,7 +52,7 @@ action :create do
     group "root"
     mode "644"
     notifies :restart, "service[heartbeat]"
-    variables :heartbeat => new_resource, :default => nodes.sort_by{|n| n['macaddress']}.first['hostname']
+    variables :heartbeat => new_resource, :default => nodes.sort_by{|n| n['macaddress']}.first['fqdn']
   end
 
 end

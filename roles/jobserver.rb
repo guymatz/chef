@@ -1,9 +1,7 @@
 name "jobserver"
 description "Job Server: Cron, ETL, Etc."
 all_env = [
-           "recipe[cron]",
-           "recipe[java]",
-           "recipe[heartbeat]"
+           "recipe[jobserver]"
           ]
 run_list(all_env)
 

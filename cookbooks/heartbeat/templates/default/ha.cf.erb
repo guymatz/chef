@@ -20,9 +20,9 @@ bcast <%= @interface.join(' ') %>
 <% when :mcast -%>
 mcast <%= @interface.first %> <%= @heartbeat.mcast_group %> <%= @heartbeat.udpport %> <%= @heartbeat.mcast_ttl %>
 <% end -%>
-
+debugfile /var/log/ha-debug
 auto_failback <%= @heartbeat.auto_failback ? "on" : "off" %>
 
 <% @nodes.each do |n| -%>
-node <%= n['hostname'] %>
+node <%= n['fqdn'] %>
 <% end -%>
