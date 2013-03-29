@@ -1,0 +1,22 @@
+= DESCRIPTION:
+
+= REQUIREMENTS:
+
+= ATTRIBUTES:
+  Attribute [:vmware][:esx][:tools][:version] can be set for other vmware guest tools version
+
+
+= USAGE:
+  Simply include "recipe[vmware::tools]" on your run_list
+
+= TODO:
+    - Add support for other platform
+= CHANGELOG:
+  0.0.3
+	- ignore_failure on kmod package installation (Vmware have a delay for building new package)
+
+  0.0.2
+    - Metadata change
+
+  0.0.1
+    -Initial import
