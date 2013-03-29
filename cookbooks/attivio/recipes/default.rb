@@ -30,8 +30,8 @@ git node[:attivio][:install_path] do
   not_if "test -d #{node[:attivio][:install_path]}/.git"
 end
 
-cookbook_file "/tmp/AIE-installer.sh.gz" do
-  source "AIE_lin64_3.1.3.56386.sh.gz"
+remote_file "/tmp/AIE-installer.sh.gz" do
+  source "http://yum.ihr/files/AIE_lin64_3.1.3.56386.sh.gz"
   action :create_if_missing
   owner "root"
   group "root"
