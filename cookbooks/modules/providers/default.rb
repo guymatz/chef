@@ -20,7 +20,12 @@
 
 
 def path
-  new_resource.path ? new_resource.path : "/etc/modules-load.d/#{new_resource.name}.conf"
+  case node['platform_family']
+  when "debian", "ubuntu"
+    new_resource.path ? new_resource.path : "/etc/modules-load.d/#{new_resource.name}.conf"
+  when "rhel", "fedora", "centos"
+    new_resource.path ? new_resource.path : "/etc/modprobe.d/#{new_resource.name}.conf"
+  end
 end
 
 def serializeOptions
@@ -34,7 +39,9 @@ def serializeOptions
 end
 
 action :save do
+  puts "creating modprobe.d file"
   file path do
+    puts "creating d"
     content new_resource.module + serializeOptions
     owner "root"
     group "root"

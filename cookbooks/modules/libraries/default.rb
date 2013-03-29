@@ -7,8 +7,10 @@ def supported?
     else
       return false
     end
+  when "centos"
+    return true
   else
-    Chef::log.info("Your platform isn't manage to save module changes")
+    Chef::Log.info("Your platform isn't manage to save module changes")
     return false
   end
 end
