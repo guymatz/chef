@@ -85,7 +85,9 @@ file "/etc/init.d/postgresql" do
   action :delete
 end
 
-service "postgresql-9.1" do
-  supports :restart => true, :status => true, :reload => true
-  action [:enable]
+if not node.role?("postgres-server-ha")
+  service "postgresql-9.1" do
+    supports :restart => true, :status => true, :reload => true
+    action [:enable]
+  end
 end

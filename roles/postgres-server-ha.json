@@ -1,0 +1,17 @@
+{
+  "name": "postgres-server-ha",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "recipe[postgresql]",
+    "recipe[postgresql::server]",
+    "recipe[postgresql::users]"
+  ],
+  "description": "",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}
