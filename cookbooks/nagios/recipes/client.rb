@@ -91,3 +91,5 @@ nagios_nrpecheck "check_users" do
   critical_condition "30"
   action :add
 end
+
+include_recipe "nagios::nsca_source"
