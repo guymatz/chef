@@ -7,6 +7,8 @@
 # Apache v2.0
 #
 
+
+default['esx']['url'] = "http://yum.ihr/files"
 default['esx']['version'] = ""
 default['esx']['tarball'] = ""
 
