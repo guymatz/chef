@@ -62,6 +62,7 @@ bash "link_jdk" do
     code <<-EOF
         ln -s /usr/java/jdk1.6.0_26/ /usr/bin/jdk
     EOF
+    not_if { node.normal.attribute?("encoder_deployed") }
 end
 
 ruby_block "deployed_flag" do
