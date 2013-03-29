@@ -130,6 +130,13 @@ rescue Net::HTTPServerException
   Chef::Log.info("Search for nagios_contactgroups data bag failed, so we'll just move on.")
 end
 
+# Load search defined Nagios Contacts from the nagios_contacts data bag
+begin
+  search(:nagios_contacts, "*:*").each do |nc|
+    allcontacts.push(nc)
+  end
+end
+
 members = Array.new
 sysadmins.each do |s|
   members << s['id']

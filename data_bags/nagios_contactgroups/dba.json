@@ -1,3 +1,4 @@
 {
-    "id": "dba"
+    "id": "dba",
+    "members": ["dbas"]
 }
