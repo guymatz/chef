@@ -1,0 +1,17 @@
+{
+  "name": "encoders",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[encoders]"
+    "recipe[jruby]",
+    "recipe[users::encoder]"
+  ],
+  "env_run_lists": {
+  }
+}
