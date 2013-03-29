@@ -28,6 +28,14 @@ package cron_package do
   action :install
 end
 
+cookbook_file "/usr/bin/cronwrap" do
+  source "cronwrap.sh"
+  owner "root"
+  group "root"
+  mode "0755"
+  action :create_if_missing
+end
+
 service "crond" do
   case node['platform']
   when "redhat", "centos", "scientific", "fedora", "amazon"
