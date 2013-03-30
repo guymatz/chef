@@ -25,7 +25,6 @@ node[:network][:interfaces].each do |iface, vals|
 end
 
 unless node_addresses.has_key? 'bond0'
-  puts "NO BONDS FOUND, PARTY TIME"
   begin
     Chef::Log.info("Creating modprobe-config: bonding")
     modules "bonding" do
@@ -38,7 +37,6 @@ unless node_addresses.has_key? 'bond0'
                })
     end
   end
-  # we don't necessarily have to load dot1q, so we wont yet
 end
 
 include_recipe "bondage::bonds"
