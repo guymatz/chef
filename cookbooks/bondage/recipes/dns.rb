@@ -71,8 +71,14 @@ puts "We're going to setup:\n" + interfaces.inspect
 
 case node['platform']
 when "centos"
+
   interfaces.each do |intf|
     Chef::Log.info("Setting up: " + intf.inspect)
+    service "network" do
+      action :nothing
+      supports :restart => true
+      provider Chef::Provider::Service::Init
+    end
     template "/etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}" do
       source "ifcfg-bond.vlan.erb"
       owner "root"
@@ -84,7 +90,9 @@ when "centos"
                    :vlan => intf[:vlan],
                    :netmask => '255.255.254.0'
                  })
+      not_if "test -f /etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}"
+      notifies :restart, resources(:service => "network")
     end
   end
-  notifies :restart, resources(:service => "network")
 end
+
