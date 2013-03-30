@@ -136,7 +136,7 @@ define service {
   host_name <%= service['host_name'] %>
   check_command check_<%= service['id'] %>
   use default-service
-  <%= "contact_groups " + service['contact_groups'].join(',') unless service['contact_groups'].nil? %>
+  <%= 'contact_groups +' + service['contact_groups'].join(',') unless service['contact_groups'].nil? %>
 }
   <% end -%>
 <% end -%>
