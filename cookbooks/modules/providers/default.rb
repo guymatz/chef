@@ -39,9 +39,7 @@ def serializeOptions
 end
 
 action :save do
-  puts "creating modprobe.d file"
   file path do
-    puts "creating d"
     content new_resource.module + serializeOptions
     owner "root"
     group "root"
