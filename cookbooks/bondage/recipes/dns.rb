@@ -120,4 +120,5 @@ when "centos"
                  })
     end
   end
+  notifies :restart, resources(:service => "network")
 end
