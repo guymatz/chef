@@ -9,7 +9,7 @@ env_run_lists(
               "_default" => all_env,
               "qa2" => all_env,
               "dev" => all_env,
-              "prod" => all_env,
+              "prod" => all_env + ["recipe[bondage::dns]"],
               "ec2-prod" => all_env,
               "ec2" => all_env
               )

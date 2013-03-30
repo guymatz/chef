@@ -31,7 +31,7 @@ unless node[:dmi][:system][:manufacturer].nil?
   case node[:dmi][:system][:manufacturer]
   when "VMware, Inc."
     sys_type = "vmware"
-    return # just bag doing anything for now
+    master_intf = "eth2"
   when "Dell Inc."
     sys_type = "dell"
     master_intf = "bond0"
@@ -50,8 +50,14 @@ res = Net::DNS::Resolver.new
 ihrzone = res.axfr 'ihr'
 
 interfaces = Array.new
+tagged_interfaces = Array.new
 
 # be careful, this thinks every IP is a /32 address, to_s will strip it
+shortname =~ /(\w*-\w*\d{3})([ab]{0,1})/
+unless $1 == shortname
+  vip_name = $1
+end
+
 ihrzone.answer.each do |rr|
   if rr.type == 'A' and rr.name.include? shortname + "-v"
     rr.name =~ /(\w*-\w*\d*)-v(\d*)(\..*)$/
@@ -59,6 +65,16 @@ ihrzone.answer.each do |rr|
                       :ip => rr.address.to_s,
                       :vlan => $2
                     })
+  elsif defined? vip_name and rr.name.include? vip_name + "-v"
+    rr.name =~ /(\w*-\w*\d{3})-v(\d*)(\..*)/
+    interfaces.push({
+                      :ip => rr.address.to_s,
+                      :vlan => $2
+                    })
+    tagged_interfaces.push({
+                             :ip => rr.address.to_s,
+                             :vlan => $2
+                           })
   end
 end
 
@@ -79,19 +95,39 @@ when "centos"
       supports :restart => true
       provider Chef::Provider::Service::Init
     end
-    template "/etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}" do
-      source "ifcfg-bond.vlan.erb"
-      owner "root"
+    if sys_type == "dell"
+      template "/etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}" do
+        source "ifcfg-bond.vlan.erb"
+        owner "root"
+        group "root"
+        mode "0644"
+        variables ({
+                     :ip => intf[:ip],
+                     :device => master_intf,
+                     :vlan => intf[:vlan],
+                     :netmask => '255.255.254.0'
+                   })
+        not_if "test -f /etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}"
+        notifies :restart, resources(:service => "network")
+      end
+    end
+  end
+
+  tagged_interfaces.each do |intf|
+    vip_netmask = '255.255.254.0'
+    template "/etc/sysconfig/network-scripts/ifcfg-#{master_intf}" do
+      source "ifcfg-intf.erb"
+      user "root"
       group "root"
       mode "0644"
       variables ({
-                   :ip => intf[:ip],
-                   :device => master_intf,
-                   :vlan => intf[:vlan],
-                   :netmask => '255.255.254.0'
+                   :device => master_intf
                  })
-      not_if "test -f /etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}"
-      notifies :restart, resources(:service => "network")
+    end
+    if node.has_key? 'heartbeat'
+      Chef::Log.info("Creating Heartbeat Config: IPaddr::#{intf[:ip]}/#{vip_netmask}/#{master_intf}")
+      node.set[:heartbeat][:ha_resources]["#{master_intf}_#{intf[:vlan]}"] = "IPaddr::#{intf[:ip]}/#{vip_netmask}/#{master_intf}"
+#     node.save
     end
   end
 end

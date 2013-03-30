@@ -73,8 +73,8 @@ end
 ha_resources = Array.new
 ha_resources.push("IPaddr::#{vip_ip}/#{vip_netmask}/#{attach_to}")
 begin
-  node[:jobserver][:ha_resources].each do |r|
-    ha_resources.push(r)
+  node[:heartbeat][:ha_resources].each do |k,v|
+    ha_resources.push(v)
   end
   rescue NoMethodError
 end
