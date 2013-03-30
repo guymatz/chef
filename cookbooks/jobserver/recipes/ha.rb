@@ -31,9 +31,11 @@ if node.has_key?('virtualization')
     if node['virtualization']['system'].include? 'vmware'
       host_type = 'vmware'
       ha_intf = 'eth1'
+      attach_to = 'eth0'
     else
       host_type = 'physical'
-      ha_intf = 'em1'
+      ha_intf = 'em2'
+      attach_to = 'em1'
     end
   end
 end
@@ -68,6 +70,14 @@ if node['heartbeat']['config']['authkeys'].nil?
   end
 end
 
+ha_resources = Array.new
+ha_resources.push("IPaddr::#{vip_ip}/#{vip_netmask}/#{attach_to}")
+begin
+  node[:jobserver][:ha_resources].each do |r|
+    ha_resources.push(r)
+  end
+  rescue NoMethodError
+end
 
 heartbeat "jobserver" do
   auto_failback false
@@ -86,5 +96,5 @@ heartbeat "jobserver" do
   # mcast_group
   # mcast_ttl
   mode "ucast"
-  resource_groups ["IPaddr::#{vip_ip}/#{vip_netmask}"]
+  resource_groups ha_resources
 end
