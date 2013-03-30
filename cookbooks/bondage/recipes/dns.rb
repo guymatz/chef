@@ -42,40 +42,6 @@ else
   return
 end
 
-# okay, who's gonna be the Dom?
-case node['platform']
-when "centos"
-  if sys_type == "dell"
-
-    # Dell Systems running Centos
-    template "/etc/sysconfig/network-scripts/ifcfg-#{master_intf}" do
-      source "ifcfg-master.erb"
-      mode 0644
-      owner "root"
-      group "root"
-      variables({
-                  :master => master_intf
-                })
-    end
-
-    # put Mr. Slave on the box
-    slave_intfs.each do |s|
-      template "/etc/sysconfig/network-scripts/ifcfg-#{s}" do
-        source "ifcfg-slave.erb"
-        owner "root"
-        group "root"
-        mode "0644"
-        variables({
-                    :device => s,
-                    :master => master_intf
-                  })
-      end
-
-    end
-  end
-end
-
-
 node[:fqdn] =~ /(\w*-\w*\d*)(\..*)$/
 shortname = $1
 domain = $2
