@@ -15,13 +15,8 @@ iad-jobserver101b-v200.ihr.  21600      IN      A      10.5.41.12
 
 Requirements
 ------------
-modules
-
-#### packages
-
-Attributes
-----------
-None
+`modules`
+`heartbeat` (optional)
 
 Usage
 -----
@@ -29,6 +24,9 @@ Usage
 The default recipe only sets up modprobe bonding
 #### bondage::dns
 Looks up sub-interfaces in DNS and configures the interfaces accordingly
+If the node has heartbeat in it's runlist, `bondage::dns` will add attributes for heartbeat in
+`node[:heartbeat][:haresources][:intf_vlan]`.
+
 #### bondage::static
 does absolutely nothing
 
