@@ -127,7 +127,7 @@ when "centos"
     if node.has_key? 'heartbeat'
       Chef::Log.info("Creating Heartbeat Config: IPaddr::#{intf[:ip]}/#{vip_netmask}/#{master_intf}")
       node.set[:heartbeat][:ha_resources]["#{master_intf}_#{intf[:vlan]}"] = "IPaddr::#{intf[:ip]}/#{vip_netmask}/#{master_intf}"
-#     node.save
+      node.save
     end
   end
 end
