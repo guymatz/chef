@@ -342,9 +342,8 @@ define command {
 }
 <% end -%>
 
-<% @passive_services.each do |service| -%>
 define command {
-  command_name check_<%= service['id'] %>
-  command_line $USER1$/check_dummy 4
+  command_name check_dummy
+  command_line $USER1$/check_dummy $ARG1$
 }
-<% end -%>
+

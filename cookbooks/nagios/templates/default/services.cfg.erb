@@ -149,7 +149,6 @@ define service {
             service_description <%= service['id'] %>
             <%= 'hostgroup_name ' + service['hostgroup_name'] unless service['hostgroup_name'].nil? %>
             <%= 'host_name ' + service['host_name'] unless service['host_name'].nil? %>
-            <%= 'check_command check_' + service['id'] %>
 }
   <% end -%>
 <% end -%>

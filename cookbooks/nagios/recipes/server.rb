@@ -247,7 +247,7 @@ end
 end
 
 nagios_conf "commands" do
-  variables :services => services, :passive_services => passive_services
+  variables :services => services
 end
 
 nagios_conf "services" do
