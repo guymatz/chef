@@ -1,0 +1,101 @@
+####################################################
+# NSCA Daemon Config File
+# Written by: Jake Plimack <jake.plimack@gmail.com>
+####################################################
+
+pid_file=/var/run/nsca.pid
+server_port=5667
+
+# SERVER ADDRESS
+# Address that NSCA has to bind to in case there are
+# more as one interface and we do not want NSCA to bind
+# (thus listen) on all interfaces.
+
+# I think w're gonna listen on all interfaces, for now
+# server_address=192.168.1.1
+
+# NOTE: These option is ignored if NSCA is running under either inetd or xinetd
+nsca_user=nagios
+nsca_group=nagios
+
+# NSCA CHROOT
+# If specified, determines a directory into which the nsca daemon
+# will perform a chroot(2) operation before dropping its privileges.
+# for the security conscious this can add a layer of protection in
+# the event that the nagios daemon is compromised.
+#
+# NOTE: if you specify this option, the command file will be opened
+#       relative to this directory.
+#nsca_chroot=/var/run/nagios/rw
+
+# This option determines whether or not debugging messages are logged to the syslog facility.
+debug=1
+
+command_file=/var/rw/nagios.cmd
+alternate_dump_file=/var/rw/nsca.dump
+
+# AGGREGATED WRITES OPTION
+# This option determines whether or not the nsca daemon will
+# aggregate writes to the external command file for client
+# connections that contain multiple check results.  If you
+# are queueing service check results on remote hosts and
+# sending them to the nsca daemon in bulk, you will probably
+# want to enable bulk writes, as this will be a bit more
+# efficient.
+# Values: 0 = do not aggregate writes, 1 = aggregate writes
+aggregate_writes=0
+
+# Donut Change!!
+append_to_file=0
+
+# MAX PACKET AGE OPTION
+# This option is used by the nsca daemon to determine when client
+# data is too old to be valid.  Keeping this value as small as
+# possible is recommended, as it helps prevent the possibility of
+# "replay" attacks.  This value needs to be at least as long as
+# the time it takes your clients to send their data to the server.
+# Values are in seconds.  The max packet age cannot exceed 15
+# minutes (900 seconds).  If this variable is set to zero (0), no
+# packets will be rejected based on their age.
+
+max_packet_age=30
+
+
+
+# DECRYPTION PASSWORD
+# This is the password/passphrase that should be used to descrypt the
+# incoming packets.  Note that all clients must encrypt the packets
+# they send using the same password!
+# IMPORTANT: You don't want all the users on this system to be able
+# to read the password you specify here, so make sure to set
+# restrictive permissions on this config file!
+
+password=<%= @authkey %>
+
+# ENCRYPTION METHODS
+# 	0 = None	(Do NOT use this option)
+#   1 = Simple XOR  (No security, just obfuscation, but very fast)
+#   2 = DES
+#   3 = 3DES (Triple DES)
+#	4 = CAST-128
+#	5 = CAST-256
+#	6 = xTEA
+#	7 = 3WAY
+#	8 = BLOWFISH
+#	9 = TWOFISH
+#	10 = LOKI97
+#	11 = RC2
+#	12 = ARCFOUR
+#	14 = RIJNDAEL-128
+#	15 = RIJNDAEL-192
+#	16 = RIJNDAEL-256
+#	19 = WAKE
+#	20 = SERPENT
+#	22 = ENIGMA (Unix crypt)
+#	23 = GOST
+#	24 = SAFER64
+#	25 = SAFER128
+#	26 = SAFER+
+
+decryption_method=<%= @encryption %>
+

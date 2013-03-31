@@ -1,0 +1,17 @@
+# default: on
+# description: NSCA (Nagios Service Check Acceptor)
+service nsca
+{
+       	flags           = REUSE
+        socket_type     = stream
+       	wait            = no
+        user            = <%= @nagios[:user] %>
+        group		    = <%= @nagios[:group] %>
+       	server          = <%= @nsca[:server][:path] %>
+        server_args     = -c <%= @nsca[:server][:config] %> --inetd
+       	log_on_failure  += USERID
+        disable         = no
+        port            = 5667
+        protocol        = tcp
+        type            = UNLISTED
+}

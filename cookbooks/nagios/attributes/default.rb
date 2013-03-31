@@ -22,3 +22,7 @@ default['nagios']['user'] = "nagios"
 default['nagios']['group'] = "nagios"
 
 default['nagios']['plugin_dir'] = "/usr/lib/nagios/plugins"
+
+default[:nsca][:encryption] = "8" # BLOWFISH
+default[:nsca][:server][:path] = "/usr/bin/nsca"
+default[:nsca][:server][:config] = "/etc/nagios/nsca.conf"

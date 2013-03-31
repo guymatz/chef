@@ -88,7 +88,7 @@ end
 # Load Nagios services from the nagios_services data bag
 begin
   services = search(:nagios_services, '*:*')
-  Chef::Log.info("Found nagios_services:\n" + services.inspect + "\n\n")
+  Chef::Log.info("Found nagios_services:\n")
 rescue Net::HTTPServerException
   Chef::Log.info("Could not search for nagios_service data bag items, skipping dynamically generated service checks")
 end
