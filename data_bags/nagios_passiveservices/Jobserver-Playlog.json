@@ -1,0 +1,5 @@
+{
+    "id": "Jobserver-Playlog",
+    "host_name": "iad-jobserver101.ihr",
+    "freshness_threshold": "7500"
+}
