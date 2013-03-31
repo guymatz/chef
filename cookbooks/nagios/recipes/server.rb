@@ -88,7 +88,7 @@ end
 # Load Nagios services from the nagios_services data bag
 begin
   services = search(:nagios_services, '*:*')
-  Chef::Log.info("Found nagios_services:\n")
+  Chef::Log.info("Found nagios_services.")
 rescue Net::HTTPServerException
   Chef::Log.info("Could not search for nagios_service data bag items, skipping dynamically generated service checks")
 end
@@ -96,6 +96,19 @@ end
 if services.nil? || services.empty?
   Chef::Log.info("No services returned from data bag search.")
   services = Array.new
+end
+
+# Load Nagios passive-services from the nagios_passiveservices data bag
+begin
+  passive_services = search(:nagios_passiveservices, "*:*")
+  Chef::Log.info("Found nagios_passiveservices.")
+rescue Net::HTTPServerException
+  Chef::Log.info("Could not search for nagios_passiveservices from data bag search.")
+end
+
+if passive_services.nil? || passive_services.empty?
+  Chef::Log.info("No passive-services returned from data bag search.")
+  passive_services = Array.new
 end
 
 # Load search defined Nagios hostgroups from the nagios_hostgroups data bag and find nodes
@@ -234,13 +247,14 @@ end
 end
 
 nagios_conf "commands" do
-  variables :services => services
+  variables :services => services, :passive_services => passive_services
 end
 
 nagios_conf "services" do
   variables(
             :service_hosts => service_hosts,
-            :services => services
+            :services => services,
+            :passive_services => passive_services
             )
 end
 

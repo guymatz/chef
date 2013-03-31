@@ -30,9 +30,10 @@ define host {
 define host{
   use server
   address <%= n['address'] %>
-  host_name <%= n['id'] %>
+  alias <%= n['address'] %>
+  host_name <%= n['address'] %>
   hostgroups <%= n['hostgroups'].join(",") %>
-  notifications_enabled = <%= n['notifications'] %>
+  <%= 'notifications_enabled' + n['notifications'] unless n ['notifications'].nil? %>
 }
 <% end -%>
 <% end -%>
