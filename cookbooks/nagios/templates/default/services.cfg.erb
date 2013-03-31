@@ -149,6 +149,8 @@ define service {
             service_description <%= service['id'] %>
             <%= 'hostgroup_name ' + service['hostgroup_name'] unless service['hostgroup_name'].nil? %>
             <%= 'host_name ' + service['host_name'] unless service['host_name'].nil? %>
+            <%= 'freshness_threshold ' + service['freshness_threshold'] unless service['freshness_threshold'].nil? %>
+            <%= 'contact_groups +' + service['contact_groups'].join(',') unless service['contact_groups'].nil? %>
 }
   <% end -%>
 <% end -%>

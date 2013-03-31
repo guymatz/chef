@@ -87,9 +87,10 @@ if node[:recipes].include? 'nagios::server'
     not_if "test -f #{node['nsca']['server'][:path]}"
   end
 
-  directory "/var/rw" do
+  file "/var/lib/nagios3/rw/nagios.cmd" do
     owner node[:nagios][:user]
     group node[:nagios][:group]
+    action :create_if_missing
   end
 
   template node[:nsca][:server][:config] do
