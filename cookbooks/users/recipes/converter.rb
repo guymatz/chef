@@ -1,6 +1,6 @@
 
 users_manage "converer" do
-  group_id 2307
+  group_id 2306
   action [ :remove, :create ]
 end
 

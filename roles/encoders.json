@@ -10,7 +10,7 @@
   "run_list": [
     "recipe[encoders]"
     "recipe[jruby]",
-    "recipe[users::encoder]"
+    "recipe[users::converter]"
   ],
   "env_run_lists": {
   }
