@@ -11,6 +11,7 @@
     "recipe[encoders]",
     "recipe[jruby]",
     "recipe[users::converter]"
+    "recipe[users::github]"
   ],
   "env_run_lists": {
   }
