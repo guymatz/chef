@@ -52,6 +52,28 @@ The recipe also reads in whether to start up memcached from a
 /etc/default/memcached "ENABLE_MEMCACHED" setting, which is "yes" by
 default.
 
+Data Bags
+=========
+The `memcached::multi` recipe attempts to match the host-class against the id of the `memcached` data bag.  For example, a host named `iad-web105.ihr` has a host-class `iad-web` and will look for a memcached pool `iad-web-cache`.
+```json
+{
+    "id": "iad-web-cache",
+    "instances": [
+    {
+      "port": "11211",
+      "memory": "8096",
+      "maxconn": "2048",
+      "listen": "0.0.0.0"
+    },
+    {
+      "port": "11212",
+      "memory": "8096",
+      "maxconn": "2048",
+      "listen": "0.0.0.0"
+    }
+    ]
+}
+```
 License and Author
 ==================
 

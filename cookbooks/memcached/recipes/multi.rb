@@ -45,12 +45,9 @@ when "rhel"
     return # nothing else to do
   end
 
-  # we need to replace the memcached init script
-  # lets nake sure it's stopped first so we dont zombie
-
   service "memcached" do
     supports :status => true, :start => true, :stop => true, :restart => true
-    action [:stop, :enable]
+    action :nothing
   end
 
   template "/etc/init.d/memcached" do
@@ -88,21 +85,24 @@ when "rhel"
         owner "root"
         group "root"
         mode "0644"
+        options = Array.new
+        options.push('-vv >> /var/log/memcached 2>&1')
         variables(
                   :listen => listen,
                   :user => node[:memcached][:user],
                   :port => node[:memcached][:port],
                   :maxconn => mc[:maxconn],
-                  :memory => mc[:memory]
+                  :memory => mc[:memory],
+                  :options => options
                   )
         notifies :restart, resources(:service => "memcached"), :immediately
       end
     end
   end
 
-  # make sure we're started
   service "memcached" do
-    action :start
+    supports :status => true, :start => true, :stop => true, :restart => true
+    action [:enable, :start]
   end
 
 end
