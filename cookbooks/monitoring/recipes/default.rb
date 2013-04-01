@@ -10,7 +10,7 @@
 # Figure out what kind of system we've got here apply monitoring utils as appriopriate
 
 unless node[:dmi][:system][:manufacturer].nil?
-  puts "Detected manufacturer"
+  puts "Detected manufacturer " + node[:dmi][:system][:manufacturer]
   case node[:dmi][:system][:manufacturer]
   when "VMware, Inc."
     include_recipe "vmware-tools"
