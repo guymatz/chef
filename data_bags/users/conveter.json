@@ -1,0 +1,8 @@
+{
+    "id": "conveter",
+    "name": "Converter Service",
+    "email":    "ccd-sa@clearchannel.com",
+    "groups":   ["converter"],
+    "shell":    "/bin/bash",
+    "uid": 4002
+}
