@@ -33,7 +33,7 @@ cookbook_file "/usr/bin/cronwrap" do
   owner "root"
   group "root"
   mode "0755"
-  action :create_if_missing
+  action :create
 end
 
 service "crond" do

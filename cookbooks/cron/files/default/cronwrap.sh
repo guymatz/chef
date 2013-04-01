@@ -43,17 +43,23 @@ fi
 
 TMPFILE="/var/tmp/cronwrap.$$"
 HOST=$1
+SERVICENAME=$2
 START=$(date +%s)
 /bin/bash -c "$3" >$TMPFILE.out 2>$TMPFILE.err
 RETVAL=$?        # one for our exit value
+NRETVAL=$RETVAL  # for nagios_passive
 END=$(date +%s)
 DURATION=$(echo $END - $START | bc)
 
 if [ $NRETVAL -gt 0 ]; then
     STATUS="An unknown error has occurred (after running for $DURATION seconds)"
+    NRETVAL=1
 else
     STATUS="OK - $2 ran in $DURATION seconds"
 fi
+
+CMD_ARGS=$(echo -e "$HOST\t$SERVICENAME\t$NRETVAL\t$STATUS")
+/usr/bin/nagios_passive.py $CMD_ARGS
 
 # send the actual script output to syslog.
 echo "$2 ran in $DURATION seconds (from $START to $END)" | logger -p cron.info -t $2
