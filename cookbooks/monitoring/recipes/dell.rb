@@ -12,6 +12,6 @@
 # Do not install repos, ever.  we don't trust them that much
 
 case node['platform_family']
-when "centos","redhat","scientific","fedora"
+when "rhel"
   package "srvadmin-all"
 end

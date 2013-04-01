@@ -1,4 +1,4 @@
-default[:memcached][:memory]  = 64
+default[:memcached][:memory]  = 8
 default[:memcached][:port]    = 11211
 default[:memcached][:user]    = "nobody"
 default[:memcached][:listen]  = "0.0.0.0"
