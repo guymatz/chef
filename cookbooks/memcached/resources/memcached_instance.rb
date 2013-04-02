@@ -16,3 +16,4 @@ attribute :listen, :kind_of => String, :default => "0.0.0.0"
 attribute :memory, :kind_of => Integer, :default => nil
 attribute :port, :kind_of => Integer, :default => "11211"
 attribute :options, :kind_of => String, :default => ''
+attribute :maxconn, :kind_of => Integer, :default => "1024"
