@@ -26,7 +26,7 @@ else
 end
 
 # okay, who's gonna be the Dom?
-case node['platform']
+case node[:platform]
 when "centos"
   if sys_type == "dell"
 
