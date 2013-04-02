@@ -11,3 +11,4 @@ depends "sysctl"
 depends "cron"
 depends "multipath"
 depends "bonded_interfaces"
+depends 'php'
