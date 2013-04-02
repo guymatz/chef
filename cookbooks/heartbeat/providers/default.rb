@@ -20,7 +20,11 @@
 action :create do
   Chef::Log.info("Searching for ha.cf nodes: " + new_resource.search)
   query = new_resource.search || "recipes:#{new_resource.cookbook_name}\\:\\:#{new_resource.recipe_name}"
-  nodes = search(:node, query)
+  if Chef::Config[:solo]
+     Chef::Log.warn("This recipe uses search. Chef Solo does not support search.")
+  else
+    nodes = search(:node, query)
+  end
   nodes << node if nodes.select{|n| n['macaddress'] == node['macaddress']}.empty?
   interface = new_resource.interface.is_a?(Array) ? new_resource.interface : [new_resource.interface]
   authkeys = new_resource.authkeys.is_a?(Array) ? new_resource.authkeys : [new_resource.authkeys]
@@ -55,4 +59,5 @@ action :create do
     variables :heartbeat => new_resource, :default => nodes.sort_by{|n| n['macaddress']}.first['fqdn']
   end
 
+  new_resource.updated_by_last_action(true)
 end
