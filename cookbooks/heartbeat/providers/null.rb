@@ -18,4 +18,3 @@
 #
 
 # This space left intentionally blank
-new_resource.updated_by_last_action(false)
