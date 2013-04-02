@@ -26,6 +26,18 @@ directory "/var/run/tomcat" do
   action :create
 end
 
+directory "/opt/telecom" do
+  owner "tomcat"
+  group "tomcat"
+  action :create
+end
+
+directory "/opt/telecom/filecache" do
+  owner "tomcat"
+  group "tomcat"
+  action :create
+end
+
 cookbook_file "#{Chef::Config[:file_cache_path]}/imgscaler.tar.gz" do
   source "imgscaler.tar.gz"
   owner "tomcat"
@@ -52,6 +64,7 @@ end
 bash "install_tomcat_service" do
   user "root"
   code <<-EOH
+  chown -R tomcat:tomcat /usr/local/tomcat7
   chkconfig --add tomcat
   service tomcat start
   EOH
