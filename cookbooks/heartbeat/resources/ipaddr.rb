@@ -17,6 +17,9 @@
 # limitations under the License.
 #
 
+actions :to_resource
+default_action :to_resource
+
 attribute :ip, :kind_of => String, :name_attribute => true
 
 def to_resource

@@ -1,0 +1,48 @@
+#
+# Cookbook Name:: radioedit
+# Recipe:: cms
+#
+# Copyright 2013, iHeartRadio
+#
+# All rights reserved - Do Not Redistribute
+#
+
+# default recipe is also called "radioedit-core"
+include_recipe "radioedit::default"
+
+directory "#{node[:radioedit][:cms][:path]}" do
+  owner node[:radioedit][:user]
+  group node[:radioedit][:group]
+end
+
+node[:radioedit][:cms][:packages].each do |p|
+  package p
+end
+
+application "radioedit-cms" do
+  repository node[:radioedit][:cms][:repo]
+  branch node[:radioedit][:image][:branch]
+  path node[:radioedit][:cms][:path]
+  owner node[:radioedit][:user]
+  group node[:radioedit][:group]
+  migrate false
+  action :deploy
+
+  django do
+    interpreter "python27"
+    requirements "requirements.txt"
+    debug true
+    settings_template "settings.py.erb"
+  end
+
+  gunicorn do
+    app_module :django
+    Chef::Log.info("Starting up Gunicorn on port #{node[:radioedit][:cms][:port]} for Radioedit-CMS")
+    port node[:radioedit][:cms][:port]
+    worker_processes 10
+    listen node[:radioedit][:cms][:listen]
+    command "radioedit.wsgi"
+    pid "/var/run/radioedit-cms.pid"
+  end
+
+end

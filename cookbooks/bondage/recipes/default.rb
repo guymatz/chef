@@ -24,8 +24,7 @@ node[:network][:interfaces].each do |iface, vals|
   end
 end
 
-unless node_addresses.has_key? 'bond0'
-  begin
+begin
     Chef::Log.info("Creating modprobe-config: bonding")
     modules "bonding" do
       action :save
@@ -36,7 +35,6 @@ unless node_addresses.has_key? 'bond0'
                  "miimon" => "100"
                })
     end
-  end
 end
 
 include_recipe "bondage::bonds"

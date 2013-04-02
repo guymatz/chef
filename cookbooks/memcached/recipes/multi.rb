@@ -38,7 +38,11 @@ cluster_name = $1 + '-cache'
 case node[:platform_family]
 when "rhel"
   begin
-    memcached_instances = search(:memcached, "id:#{cluster_name}")[0]
+    if Chef::Config[:solo]
+      Chef::Log.warn("This recipe uses search. Chef Solo does not support search.")
+    else
+      memcached_instances = search(:memcached, "id:#{cluster_name}")[0]
+    end
     Chef::Log.info("Found memcached cluster: #{cluster_name}.")
   rescue Net::HTTPServerException
     Chef::Log.info("Could not search for memcached for cluster #{cluster_name}.")
@@ -95,7 +99,7 @@ when "rhel"
                   :memory => mc[:memory],
                   :options => options
                   )
-        notifies :restart, resources(:service => "memcached"), :immediately
+        notifies :restart, "service[memcached]", :immediately
       end
     end
   end

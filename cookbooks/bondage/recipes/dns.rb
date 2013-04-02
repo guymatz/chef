@@ -85,7 +85,7 @@ end
 
 puts "We're going to setup:\n" + interfaces.inspect
 
-case node['platform']
+case node[:platform]
 when "centos"
 
   interfaces.each do |intf|
@@ -108,7 +108,7 @@ when "centos"
                      :netmask => '255.255.254.0'
                    })
         not_if "test -f /etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}"
-        notifies :restart, resources(:service => "network")
+        notifies :restart, "services[network]"
       end
     end
   end
