@@ -8,6 +8,7 @@
 #
 
 package "java-1.6.0-openjdk"
+package "ImageMagick"
 
 user "tomcat" do
   home "/home/tomcat"
