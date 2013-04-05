@@ -1,3 +1,31 @@
+## v1.10.0:
+
+* [COOK-2400] - Allow java ark :url to be https
+* [COOK-2436] - Upgrade needed for oracle jdk in java cookbook
+
+## v1.9.6:
+
+* [COOK-2412] - add support for Oracle Linux
+
+## v1.9.4:
+
+* [COOK-2083] - Run set-env-java-home in Java cookbook only if necessary
+* [COOK-2332] - ark provider does not allow for *.tgz tarballs to be used
+* [COOK-2345] - Java cookbook fails on CentOS6 (update-java-alternatives)
+
+## v1.9.2:
+
+* [COOK-2306] - FoodCritic fixes for java cookbook
+
+## v1.9.0:
+
+* [COOK-2236] - Update the Oracle Java version in the Java cookbook to
+  release 1.7u11
+
+## v1.8.2:
+
+* [COOK-2205] - Fix for missing /usr/lib/jvm/default-java on Debian
+
 ## v1.8.0:
 
 * [COOK-2095] - Add windows support

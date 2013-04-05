@@ -26,7 +26,7 @@ default['java']['jdk_version'] = '6'
 default['java']['arch'] = kernel['machine'] =~ /x86_64/ ? "x86_64" : "i586"
 
 case platform
-when "centos","redhat","fedora","scientific","amazon"
+when "centos","redhat","fedora","scientific","amazon","oracle"
   default['java']['java_home'] = "/usr/lib/jvm/java"
 when "freebsd"
   default['java']['java_home'] = "/usr/local/openjdk#{java['jdk_version']}"
@@ -53,12 +53,12 @@ default['java']['jdk']['6']['bin_cmds'] = [ "appletviewer", "apt", "ControlPanel
                                             "schemagen", "serialver", "servertool", "tnameserv", "unpack200", "wsgen", "wsimport", "xjc" ]
 
 # x86_64
-default['java']['jdk']['6']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/6u37-b06/jdk-6u37-linux-x64.bin'
-default['java']['jdk']['6']['x86_64']['checksum'] = '51d594cec29948bdf58918ba802a872826bc7caae3f0aada42b65eacdc14a7f4'
+default['java']['jdk']['6']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/6u43-b01/jdk-6u43-linux-x64.bin'
+default['java']['jdk']['6']['x86_64']['checksum'] = '653c35ec6c64c3b127dea0afed1f16ba2b32efcaeae86fc02777b70e3e166aee'
 
 # i586
-default['java']['jdk']['6']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/6u37-b06/jdk-6u37-linux-i586.bin'
-default['java']['jdk']['6']['i586']['checksum'] = '44cc51ed452a08a3e0b4e397922832607161642e5a6e206f256af86f8fbaae90'
+default['java']['jdk']['6']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/6u43-b01/jdk-6u43-linux-i586.bin'
+default['java']['jdk']['6']['i586']['checksum'] = '616df04eddac146b1c67de00ae07bb2d1179f470f35f9e661e1f5075423cf4e1'
 
 # jdk7 attributes
 
@@ -69,9 +69,9 @@ default['java']['jdk']['7']['bin_cmds'] = [ "appletviewer", "apt", "ControlPanel
                                             "schemagen", "serialver", "servertool", "tnameserv", "unpack200", "wsgen", "wsimport", "xjc" ]
 
 # x86_64
-default['java']['jdk']['7']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/7u9-b05/jdk-7u9-linux-x64.tar.gz'
-default['java']['jdk']['7']['x86_64']['checksum'] = '1b39fe2a3a45b29ce89e10e59be9fbb671fb86c13402e29593ed83e0b419c8d7'
+default['java']['jdk']['7']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/7u17-b02/jdk-7u17-linux-x64.tar.gz'
+default['java']['jdk']['7']['x86_64']['checksum'] = '8611ce31e0b7ecb99d34703ad89b29a545a3fb30356553be3674366cbe722782'
 
 # i586
-default['java']['jdk']['7']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/7u9-b05/jdk-7u9-linux-i586.tar.gz'
-default['java']['jdk']['7']['i586']['checksum'] = '47e86ceb7f59c821a8d0c54f34530bca84e10c1849ed46da7f4fdb5f621bc8d6'
+default['java']['jdk']['7']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/7u17-b02/jdk-7u17-linux-i586.tar.gz'
+default['java']['jdk']['7']['i586']['checksum'] = '4046e941e05717538dd4deb1b1f55cb8bb6bd38793c7317034d1f5019086d956'
