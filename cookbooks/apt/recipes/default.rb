@@ -32,7 +32,7 @@ execute "apt-get update" do
   action :nothing
 end
 
-# Automatically remove packages that are no longer needed for depdencies
+# Automatically remove packages that are no longer needed for dependencies
 execute "apt-get autoremove" do
   command "apt-get -y autoremove"
   action :nothing
@@ -62,7 +62,7 @@ end
   directory dirname do
     owner "root"
     group "root"
-    mode  0644
+    mode  00755
     action :create
   end
 end
