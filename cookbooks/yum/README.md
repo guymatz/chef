@@ -28,7 +28,7 @@ family.
     - Defaults to the current release of the IUS repo.
 
 * `yum['repoforge_release']`
-    - Set the repoforge release to install.
+    - Set the RepoForge release to install.
     - Defaults to the current release of the repoforge repo.
 
 EPEL attributes used in the `yum::epel` recipe, see
@@ -43,8 +43,32 @@ EPEL attributes used in the `yum::epel` recipe, see
 * `yum['epel']['key_url']`
     - URL to the GPG key for the repo.
 
+* `yum['epel']['includepkgs']`
+    - list of packages you want to use for the repo.
+
+* `yum['epel']['exclude']`
+    - list of packages you do NOT want to use for the repo.
+
 The `node['yum']['epel_release']` attribute is removed, see the __epel__
 recipe information below.
+
+remi attributes used in the `yum::remi` recipe, see
+`attributes/remi.rb` for default values:
+
+* `yum['remi']['key']`
+    - Name of the GPG key used for the repo.
+
+* `yum['remi']['url']`
+    - URL to the remi mirrorlist.
+
+* `yum['remi']['key_url']`
+    - URL to the GPG key for the repo.
+
+* `yum['remi']['includepkgs']`
+    - list of packages you want to use for the repo.
+
+* `yum['remi']['exclude']`
+    - list of packages you do NOT want to use for the repo.
 
 Proxy settings used in yum.conf on RHEL family 5 and 6:
 
@@ -98,10 +122,28 @@ them using the `yum_repository` LWRP in your own cookbook(s).
 
 Installs the [IUS Community repositories](http://iuscommunity.org/Repos)
 via RPM. Uses the `node['yum']['ius_release']` attribute to select the
-right versino of the package to install.
+right version of the package to install.
 
 The IUS repository requires EPEL, and includes `yum::epel` as a
 dependency.
+
+## repoforge
+
+Installs the [RepoForge repositories](http://repoforge.org/)
+via RPM. Uses the `node['yum']['repoforge_release']` attribute to select the
+right version of the package to install.
+
+The RepoForge repository requires EPEL, and includes `yum::epel` as a
+dependency.
+
+## remi
+
+Install the [Les RPM de Remi - Repository](http://rpms.famillecollet.com/)
+with the `yum_key` and `yum_repository` resources from this cookbook
+are used to manage the remi repository.  Use the `yum['remi']`
+attributes (see above) to configure the key, url and download the GPG
+key for the repo. The defaults are detected by platform and should
+just work without modification in most use cases.
 
 # Resources/Providers
 
@@ -145,7 +187,8 @@ repo is added.
 
 #### Actions
 
-- :add: creates a repository file and builds the repository listing (default)
+- :create: creates a repository file and builds the repository listing
+- :add: runs create action if repository file is missing (default)
 - :remove: removes the repository file
 - :update: updates the repository
 
@@ -175,6 +218,7 @@ failovermethod "priority".
 ``` ruby
 # add the Zenoss repository
 yum_repository "zenoss" do
+  repo_name "zenoss"
   description "Zenoss Stable repo"
   url "http://dev.zenoss.com/yum/stable/"
   key "RPM-GPG-KEY-zenoss"
@@ -193,7 +237,8 @@ Put `recipe[yum::yum]` in the run list to ensure yum is configured
 correctly for your environment within your Chef run.
 
 Use the `yum::epel` recipe to enable EPEL, or the `yum::ius` recipe to
-enable IUS, per __Recipes__ section above.
+enable IUS, or the `yum::repoforge` recipe to enable RepoForge, or the
+`yum::remi` recipe to enable remi per __Recipes__ section above.
 
 You can manage GPG keys either with cookbook_file in a recipe if you
 want to package it with a cookbook or use the `url` parameter of the

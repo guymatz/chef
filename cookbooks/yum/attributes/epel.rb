@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: yumrepo
+# Cookbook Name:: yum
 # Attributes:: epel
 #
 # Copyright 2011, Eric G. Wolfe
@@ -33,3 +33,5 @@ else
 end
 
 default['yum']['epel']['key_url'] = "http://download.fedoraproject.org/pub/epel/#{node['yum']['epel']['key']}"
+default['yum']['epel']['includepkgs'] = nil
+default['yum']['epel']['exclude'] = nil
