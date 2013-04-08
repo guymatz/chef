@@ -1,0 +1,21 @@
+= DESCRIPTION:
+
+creates an SSH wrapper script for use with Git as $GIT_SSH
+
+= REQUIREMENTS:
+
+= ATTRIBUTES:
+
+= USAGE:
+
+  SshWrapper.generate(:user=>"foo", :group=>"foogroup", :prefix=>"/tmp/foo", :private_key=>"ssh private key")
+
+will generate the following files, owned by <tt>foo:foogroup</tt> :
+  /tmp/foo_identity
+  /tmp/foo_ssh_wrapper
+
+<tt>/tmp/foo_ssh_wrapper</tt> can be used as a $GIT_SSH wrapper script
+
+= LICENSE:
+
+Apache License, Version 2.0 : http://www.apache.org/licenses/LICENSE-2.0.html
