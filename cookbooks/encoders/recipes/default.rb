@@ -101,6 +101,25 @@ bash "github checkout" do
     not_if { node.normal.attribute?("encoder_deployed") }
 end
 
+mount_line = "#{node[:encoders][:nfsserver]}:/nfs#{node[:encoders][:ftpmount]} #{node[:encoders][:ftpmount]}       nfs   rw,bg,soft,tcp,intr  0   0"
+
+execute "mkdirs" do
+    command "mkdir #{node[:encoders][:ftpmount]}"
+    not_if { ::File.exists?("#{node[:encoders][:ftpmount]}")}
+end
+
+execute "mounts" do
+    command "/bin/mount -a"
+    action :run
+end
+
+append_if_no_line "encoder_ftp" do
+    path "/etc/fstab"
+    line mount_line
+    notifies :run, "execute[mkdirs]", :immediately
+    notifies :run, "execute[mounts]", :immediately
+end
+
 ruby_block "deployed_flag" do
   block do
     node.set['encoder_deployed'] = true
