@@ -59,22 +59,29 @@ unless $1 == shortname
 end
 
 ihrzone.answer.each do |rr|
+  # skip, we just want A records
+  next if rr.name == 'ihr.'
+  next if rr.type != 'A'
+
   if rr.type == 'A' and rr.name.include? shortname + "-v"
     rr.name =~ /(\w*-\w*\d*)-v(\d*)(\..*)$/
     interfaces.push({
                       :ip => rr.address.to_s,
                       :vlan => $2
                     })
-  elsif defined? vip_name and rr.name.include? vip_name + "-v"
-    rr.name =~ /(\w*-\w*\d{3})-v(\d*)(\..*)/
-    interfaces.push({
-                      :ip => rr.address.to_s,
-                      :vlan => $2
-                    })
-    tagged_interfaces.push({
-                             :ip => rr.address.to_s,
-                             :vlan => $2
-                           })
+  elsif defined? vip_name and vip_name.to_s.length > 4         # ".ihr." -> 5
+    puts "VIPNAME: (#{vip_name})"
+    if rr.name.include? vip_name + "-v"
+      rr.name =~ /(\w*-\w*\d{3})-v(\d*)(\..*)/
+      interfaces.push({
+                        :ip => rr.address.to_s,
+                        :vlan => $2
+                      })
+      tagged_interfaces.push({
+                               :ip => rr.address.to_s,
+                               :vlan => $2
+                             })
+    end
   end
 end
 
@@ -108,7 +115,7 @@ when "centos"
                      :netmask => '255.255.254.0'
                    })
         not_if "test -f /etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}"
-        notifies :restart, "services[network]"
+        notifies :restart, "service[network]"
       end
     end
   end
