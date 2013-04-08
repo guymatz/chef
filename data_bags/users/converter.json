@@ -1,8 +1,8 @@
 {
-    "id": "conveter",
+    "id": "converter",
     "name": "Converter Service",
     "email":    "ccd-sa@clearchannel.com",
-    "groups":   ["converter"],
+    "groups":   ["converter", "prn-transcoding", "mixins-transcoding", "talk-transcoding" ],
     "shell":    "/bin/bash",
     "uid": 4002
 }

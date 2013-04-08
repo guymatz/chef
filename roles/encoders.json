@@ -6,11 +6,13 @@
   },
   "override_attributes": {
   },
+  "chef_environment": "prod",
   "chef_type": "role",
   "run_list": [
-    "recipe[encoders]",
     "recipe[jruby]",
-    "recipe[users::converter]"
+    "recipe[encoders]",
+    "recipe[users::converter]",
+    "recipe[users::github]"
   ],
   "env_run_lists": {
   }

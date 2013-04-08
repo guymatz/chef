@@ -13,6 +13,10 @@ recipe "memcached", "Installs and configures memcached"
   supports os
 end
 
+%w{ nagios }.each do |dep|
+  depends dep
+end
+
 attribute "memcached/memory",
   :display_name => "Memcached Memory",
   :description => "Memory allocated for memcached instance",

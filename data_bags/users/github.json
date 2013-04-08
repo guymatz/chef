@@ -1,0 +1,14 @@
+{
+    "id": "github",
+    "name": "Github Chef Checkout Account",
+    "email":    "ccd-sa@clearchannel.com",
+    "groups":   ["github"],
+    "ssh_keys": [
+        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCyZqtk7RZvtILS/mtTR9zM0itoWZndiCFPndVu/8sjCK7X49FGyVhzNp8Pm1A6E8V4olR7UYBnBbOEpXCJZ4kjL8Mvlqf9Z8zWi+NMDdaraLi4lf2Ul3WYGCAHTOU5Zk53Fmm9a+372JSjoG1OBaFfLiKyOx/TGl5FkWmzEKIvlIBX+ZH+XN4ebgn7mMWmlApw68M3lj0lhTo4UXIvqUXimzRlG7eq+DaNyoXit37YLvB2kU0bT3pxAIpcZYDmdrJ+AyHTgL8hZMUTzlTnfDbuqA4ic9EFZsw4LGSAjGeOZ245ykzoKMDsmmk+ANb+Z7q9S9ODmSxHuU84QqDrkHBf github@iheart.com"
+    ],
+    "shell":    "/bin/bash",
+    "nagios": {
+    },
+    "htpasswd": "{SHA}48pjCrAIZIGO58nhpat488q7+HI=",
+    "uid": 4003
+}
