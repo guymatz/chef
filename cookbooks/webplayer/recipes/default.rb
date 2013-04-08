@@ -12,6 +12,18 @@ node[:webplayer][:packages].each do |p|
   package p
 end
 
+include_recipe "apache2::mod_proxy"
+include_recipe "apache2::mod_rewrite"
+include_recipe "apache2::mod_status"
+include_recipe "apache2::mod_deflate"
+include_recipe "apache2::mod_expires"
+include_recipe "apache2::mod_headers"
+include_recipe "apache2::mod_log_config"
+include_recipe "apache2::mod_proxy_http"
+include_recipe "java"
+
+node.set[:java][:oracle][:accept_oracle_download_terms] = true
+
 # drop a github private deploy key for ops-auto
 deploy_keys = Chef::EncryptedDataBagItem.load("keys", "webplayer-deploy")
 file "/etc/chef/deploy" do
@@ -48,6 +60,10 @@ application "webplayer" do
   revision node[:webplayer][:rev]
   migrate false
   action :deploy
+
+  # Callbacks
+  before_restart "tusiq/config/local/manage.py assets build --settings=tusiq.config.prod.settings"
+
   django do
     interpreter "python27"
     settings({

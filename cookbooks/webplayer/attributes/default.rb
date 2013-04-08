@@ -1,6 +1,6 @@
 # Deployment Settings
 default[:webplayer][:repo] = "git@github.com:iheartradio/web.git"
-default[:webplater][:rev] = "deploy"
+default[:webplater][:rev] = "release-4.11.0-zombie-rc2"
 default[:webplayer][:deploy_path] = "/data/www/webplayer"
 
 default[:webplayer][:packages] = %w{ libxslt-devel }
