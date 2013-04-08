@@ -49,9 +49,14 @@ default[:users]['cassandra'][:gid]      = 330
 
 default[:cassandra][:listen_addr]       = "localhost"
 default[:cassandra][:seeds]             = ["127.0.0.1"]
+default[:cassandra][:start_native_transport]	= "false"
+default[:cassandra][:native_transport_port]	= 9042
+default[:cassandra][:start_rpc]		= "true"
+default[:cassandra][:rpc_server_type]   = "sync"
 default[:cassandra][:rpc_addr]          = "localhost"
 default[:cassandra][:rpc_port]          = 9160
 default[:cassandra][:storage_port]      = 7000
+default[:cassandra][:ssl_storage_port]  = 7001
 default[:cassandra][:jmx_dash_port]     = 12345         # moved from default of 8080 (conflicts with hadoop)
 default[:cassandra][:mx4j_addr]  = "127.0.0.1"
 default[:cassandra][:mx4j_port]  = "8081"
@@ -82,29 +87,40 @@ default[:cassandra][:mx4j_release_url]  = "http://downloads.sourceforge.net/proj
 # Tunables - Partitioning
 #
 
-default[:cassandra][:auto_bootstrap]    = 'false'
 default[:cassandra][:authenticator]     = "org.apache.cassandra.auth.AllowAllAuthenticator"
-default[:cassandra][:authority]         = "org.apache.cassandra.auth.AllowAllAuthority"
-default[:cassandra][:partitioner]       = "org.apache.cassandra.dht.RandomPartitioner"       # "org.apache.cassandra.dht.OrderPreservingPartitioner"
+default[:cassandra][:authorizer]         = "org.apache.cassandra.auth.AllowAllAuthorizer"
+default[:cassandra][:permissions_validity_in_ms] = 2000
+default[:cassandra][:partitioner]       = "org.apache.cassandra.dht.Murmur3Partitioner"       # "org.apache.cassandra.dht.OrderPreservingPartitioner"
 default[:cassandra][:endpoint_snitch]   = "org.apache.cassandra.locator.SimpleSnitch"
-default[:cassandra][:dynamic_snitch]    = 'true'
+default[:cassandra][:dynamic_snitch]    = "true"
 default[:cassandra][:initial_token]     = ""
-default[:cassandra][:hinted_handoff_enabled]       = 'true'
-default[:cassandra][:max_hint_window_in_ms]        = 3600000
-default[:cassandra][:hinted_handoff_delay_ms]      = 50
+default[:cassandra][:hinted_handoff_enabled]       = "true"
+default[:cassandra][:max_hint_window_in_ms]        = 10800000
+default[:cassandra][:max_hints_delivery_threads]   = 2
 
 #
 # Tunables -- Memory, Disk and Performance
 #
 
+default[:cassandra][:key_cache_size_in_mb]	   = ""
+default[:cassandra][:key_cache_save_period]	   = 14400
+default[:cassandra][:key_cache_keys_to_save]	   = ""
+default[:cassandra][:row_cache_size_in_mb]	   = 0
+default[:cassandra][:row_cache_save_period]	   = 0
+default[:cassandra][:row_cache_keys_to_save]       = ""
+default[:cassandra][:row_cache_provider]	   = "SerializingCacheProvider"
+default[:cassandra][:disk_failure_policy]	   = "stop" 
+default[:cassandra][:populate_io_cache_on_flush]   = "false"
 default[:cassandra][:java_heap_size_min]           = "128M"        # consider setting equal to max_heap in production
 default[:cassandra][:java_heap_size_max]           = "1650M"
 default[:cassandra][:java_heap_size_eden]          = "1500M"
-default[:cassandra][:disk_access_mode]             = "auto"
-default[:cassandra][:concurrent_reads]             = 8             # 2 per core
+default[:cassandra][:concurrent_reads]             = 32             # 2 per core
 default[:cassandra][:concurrent_writes]            = 32            # typical number of clients
 default[:cassandra][:memtable_flush_writers]       = 1             # see comment in cassandra.yaml.erb
+default[:cassandra][:memtable_flush_queue_size]	   = 4
 default[:cassandra][:memtable_flush_after]         = 60
+default[:cassandra][:trickle_fsync]                = "false"
+default[:cassandra][:trickle_fsync_interval_in_kb] = 10240
 default[:cassandra][:sliced_buffer_size]           = 64            # size of column slices
 default[:cassandra][:thrift_framed_transport]      = 15            # default 15; fixes CASSANDRA-475, but make sure your client is happy (Set to nil for debugging)
 default[:cassandra][:thrift_max_message_length]    = 16
@@ -118,6 +134,7 @@ default[:cassandra][:compaction_preheat_key_cache] = true
 default[:cassandra][:commitlog_rotation_threshold] = 128
 default[:cassandra][:commitlog_sync]               = "periodic"
 default[:cassandra][:commitlog_sync_period]        = 10000
+default[:cassandra][:commitlog_segment_size_in_mb] = 32
 default[:cassandra][:flush_largest_memtables_at]   = 0.75
 default[:cassandra][:reduce_cache_sizes_at]        = 0.85
 default[:cassandra][:reduce_cache_capacity_to]     = 0.6
