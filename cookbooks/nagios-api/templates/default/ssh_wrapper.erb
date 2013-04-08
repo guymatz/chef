@@ -1,0 +1,2 @@
+#!/usr/bin/env
+ssh -i <%= @deploy_key %> -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $1 $2
