@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: heartbeat
-# Provider:: null
+# Cookbook Name:: snmp
+# Attributes:: extendbind
 #
-# Copyright 2009-2012, Opscode, Inc.
+# Copyright 2012, Eric G. Wolfe
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,4 +17,17 @@
 # limitations under the License.
 #
 
-# This space left intentionally blank
+case node['platform_family']
+when "redhat"
+  case node['platform_version'].to_i
+  when 5
+    # BIND <= 9.3 stats
+    default['snmp']['rndc_stats_script'] = "snmp_rndc_stats.pl"
+  when 6
+    # BIND >= 9.7 stats
+    default['snmp']['rndc_stats_script'] = "snmp_rndc_stats_v97.pl"
+  end
+else
+  # Else assume we're using BIND 9.7 or newer
+  default['snmp']['rndc_stats_script'] = "snmp_rndc_stats_v97.pl"
+end

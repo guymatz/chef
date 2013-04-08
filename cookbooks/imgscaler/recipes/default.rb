@@ -8,6 +8,7 @@
 #
 
 package "java-1.6.0-openjdk"
+package "ImageMagick"
 
 user "tomcat" do
   home "/home/tomcat"
@@ -21,6 +22,18 @@ directory "/usr/local/tomcat7" do
 end
 
 directory "/var/run/tomcat" do
+  owner "tomcat"
+  group "tomcat"
+  action :create
+end
+
+directory "/opt/telecom" do
+  owner "tomcat"
+  group "tomcat"
+  action :create
+end
+
+directory "/opt/telecom/filecache" do
   owner "tomcat"
   group "tomcat"
   action :create
@@ -52,6 +65,7 @@ end
 bash "install_tomcat_service" do
   user "root"
   code <<-EOH
+  chown -R tomcat:tomcat /usr/local/tomcat7
   chkconfig --add tomcat
   service tomcat start
   EOH

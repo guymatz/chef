@@ -20,9 +20,9 @@ sudo "postgresql-dba" do
 end
 
 sudo "postgresql-sysadmin" do
-  group "sysadmin"
+  group "dba"
   commands ["ALL"]
-  runas "postgres"
+  runas "root"
   nopasswd true
 end
 

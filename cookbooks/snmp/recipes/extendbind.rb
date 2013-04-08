@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: heartbeat
-# Provider:: null
+# Cookbook Name:: snmp
+# Recipe:: extendbind
 #
-# Copyright 2009-2012, Opscode, Inc.
+# Copyright 2012, Eric G. Wolfe
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,4 +17,20 @@
 # limitations under the License.
 #
 
-# This space left intentionally blank
+node.set['snmp']['is_dnsserver'] = true
+
+if node['snmp']['is_dnsserver']
+  include_recipe "perl"
+  %w{ version Getopt::Declare }.each do |pm|
+    cpan_module pm
+  end
+
+  cookbook_file "/usr/local/bin/snmp_rndc_stats.pl" do
+    mode 0755
+    owner "root"
+    group "root"
+    source node['snmp']['rndc_stats_script']
+  end
+end
+
+include_recipe "snmp::default"

@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: heartbeat
-# Provider:: null
+# Cookbook Name:: snmp
+# Recipe:: default
 #
-# Copyright 2009-2012, Opscode, Inc.
+# Copyright 2010, Eric G. Wolfe
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,4 +17,27 @@
 # limitations under the License.
 #
 
-# This space left intentionally blank
+node['snmp']['packages'].each do |snmppkg|
+  package snmppkg
+end
+
+if not node['snmp']['cookbook_files'].empty?
+  node['snmp']['cookbook_files'].each do |snmpfile|
+    cookbook_file snmpfile do
+      mode 0644
+      owner "root"
+      group "root"
+    end
+  end
+end
+
+service node['snmp']['service'] do
+  action [ :start, :enable ]
+end
+
+template "/etc/snmp/snmpd.conf" do
+  mode 0644
+  owner "root"
+  group "root"
+  notifies :restart, "service[#{node['snmp']['service']}]"
+end
