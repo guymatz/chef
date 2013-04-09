@@ -25,15 +25,15 @@ node[:network][:interfaces].each do |iface, vals|
 end
 
 begin
-    Chef::Log.info("Creating modprobe-config: bonding")
-    modules "bonding" do
-      action :save
-      # there is an order preference,
-      # getting it right means chef doesnt have to update it every run
-      options ({
-                 "mode" => "1",
-                 "miimon" => "100"
-               })
+  Chef::Log.info("Creating modprobe-config: bonding")
+  case node[:platform_family]
+  when "rhel"
+    # Persistant loading of bonding module
+    # We will set options later when we define the interfaces
+    file "/etc/sysconfig/modules/bonding.modules" do
+      content "modprobe bonding"
+      owner "root"
+      group "root"
     end
 end
 

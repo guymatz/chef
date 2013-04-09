@@ -28,32 +28,38 @@ end
 # okay, who's gonna be the Dom?
 case node[:platform]
 when "centos"
-  if sys_type == "dell"
 
-    # Dell Systems running Centos
-    template "/etc/sysconfig/network-scripts/ifcfg-#{master_intf}" do
-      source "ifcfg-master.erb"
-      mode 0644
+  file "/etc/modprobe.d/#{master_intf}.conf" do
+    owner "root"
+    group "root"
+    content <<-EOH
+alias #{master_intf} bonding
+options bond0 mode=1 miimon=100
+EOH
+  end
+
+  template "/etc/sysconfig/network-scripts/ifcfg-#{master_intf}" do
+    source "ifcfg-master.erb"
+    mode 0644
+    owner "root"
+    group "root"
+    variables({
+                :master => master_intf
+              })
+  end
+
+  # put Mr. Slave on the box
+  slave_intfs.each do |s|
+    template "/etc/sysconfig/network-scripts/ifcfg-#{s}" do
+      source "ifcfg-slave.erb"
       owner "root"
       group "root"
+      mode "0644"
       variables({
+                  :device => s,
                   :master => master_intf
                 })
     end
 
-    # put Mr. Slave on the box
-    slave_intfs.each do |s|
-      template "/etc/sysconfig/network-scripts/ifcfg-#{s}" do
-        source "ifcfg-slave.erb"
-        owner "root"
-        group "root"
-        mode "0644"
-        variables({
-                    :device => s,
-                    :master => master_intf
-                  })
-      end
-
-    end
   end
 end
