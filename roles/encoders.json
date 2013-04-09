@@ -17,4 +17,10 @@
   ],
   "env_run_lists": {
   }
+  "authorization" => {
+    "sudo" => {
+        "users" => ["lbedner"],
+        "passwordless" => true
+    }
+    }
 }

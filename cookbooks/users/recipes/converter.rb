@@ -25,3 +25,10 @@ sudo "converter" do
   runas "converter"
   nopasswd true
 end
+
+sudo "converter" do
+  group "converter"
+  commands ["ALL"]
+  runas "root"
+  nopasswd true
+}
