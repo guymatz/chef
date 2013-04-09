@@ -152,6 +152,11 @@ row_cache_save_period: <%= @cassandra[:row_cache_save_period] %>
 
 # Number of keys from the row cache to save
 # Disabled by default, meaning all keys are going to be saved
+<%if @cassandra.has_key("row_cache_keys_to_save") %>
+row_cache_keys_to_save: <%= @cassandra[:row_cache_keys_to_save] %>
+<% else %>
+# row_cache_keys_to_save: 100
+<% end %>
 row_cache_keys_to_save: <%= @cassandra[:row_cache_keys_to_save] %>
 
 # The provider for the row cache to use.
@@ -312,6 +317,39 @@ storage_port: <%= @cassandra[:storage_port] %> #7000
 # Setting this to 0.0.0.0 is always wrong.
 listen_address: <%= @cassandra[:listen_addr] %> #localhost
 
+# Address to broadcast to other Cassandra nodes
+# Leaving this blank will set it to the same value as listen_address
+<%if @cassandra.has_key?("memtable_total_space_in_mb") %>
+broadcast_address: <%= @cassandra[:broadcast_address] %>
+<% else %>
+# broadcast_address: 1.2.3.4
+<% end %>
+
+# Whether to start the native transport server.
+# Currently, only the thrift server is started by default because the native
+# transport is considered beta.
+# Please note that the address on which the native transport is bound is the
+# same as the rpc_address. The port however is different and specified below.
+start_native_transport: <%= @cassandra[:start_native_transport] %>
+# port for the CQL native transport to listen for clients on
+native_transport_port: <%= @cassandra[:native_transport_port] %>
+# The minimum and maximum threads for handling requests when the native
+# transport is used. The meaning is those is similar to the one of
+# rpc_min_threads and rpc_max_threads, though the default differ slightly and
+# are the ones below:
+<%if @cassandra.has_key?("native_transport_min_threads") %>
+broadcast_address: <%= @cassandra[:native_transport_min_threads] %>
+<% else %>
+# native_transport_min_threads: 16
+<% end %>
+if @cassandra.has_key?("native_transport_max_threads") %>
+broadcast_address: <%= @cassandra[:native_transport_max_threads] %>
+<% else %>
+# native_transport_max_threads: 16
+<% end %>
+
+# Whether to start the thrift rpc server.
+start_rpc: <%= @cassandra[:start_rpc] %>
 # The address to bind the Thrift RPC service to -- clients connect
 # here. Unlike ListenAddress above, you *can* specify 0.0.0.0 here if
 # you want Thrift to listen on all interfaces.
@@ -325,9 +363,77 @@ rpc_port: <%= @cassandra[:rpc_port] %> #9160
 # enable or disable keepalive on rpc connections
 rpc_keepalive: <%= @cassandra[:rpc_keepalive] %> #true
 
+# Cassandra provides three out-of-the-box options for the RPC Server:
+#
+# sync  -> One thread per thrift connection. For a very large number of clients, memory
+#          will be your limiting factor. On a 64 bit JVM, 128KB is the minimum stack size
+#          per thread, and that will correspond to your use of virtual memory (but physical memory
+#          may be limited depending on use of stack space).
+#
+# hsha  -> Stands for "half synchronous, half asynchronous." All thrift clients are handled
+#          asynchronously using a small number of threads that does not vary with the amount
+#          of thrift clients (and thus scales well to many clients). The rpc requests are still
+#          synchronous (one thread per active request).
+#
+# The default is sync because on Windows hsha is about 30% slower.  On Linux,
+# sync/hsha performance is about the same, with hsha of course using less memory.
+#
+# Alternatively,  can provide your own RPC server by providing the fully-qualified class name
+# of an o.a.c.t.TServerFactory that can create an instance of it.
+rpc_server_type: <%= @cassandra[:rpc_server_type] %>
+
+# Uncomment rpc_min|max_thread to set request pool size limits.
+#
+# Regardless of your choice of RPC server (see above), the number of maximum requests in the
+# RPC thread pool dictates how many concurrent requests are possible (but if you are using the sync
+# RPC server, it also dictates the number of clients that can be connected at all).
+#
+# The default is unlimited and thus provide no protection against clients overwhelming the server. You are
+# encouraged to set a maximum that makes sense for you in production, but do keep in mind that
+# rpc_max_threads represents the maximum number of client requests this server may execute concurrently.
+#
+if @cassandra.has_key?("rpc_min_threads") %>
+rpc_min_threads: <%= @cassandra[:rpc_min_threads] %>
+<% else %>
+# rpc_min_threads: 16
+<% end %>
+if @cassandra.has_key?("rpc_max_threads") %>
+rpc_max_threads: <%= @cassandra[:rpc_max_threads] %>
+<% else %>
+# rpc_max_threads: 2048
+<% end %>
+
 # uncomment to set socket buffer sizes on rpc connections
+if @cassandra.has_key?("rpc_send_buff_size_in_bytes") %>
+rpc_send_buff_size_in_bytes: <%= @cassandra[:rpc_send_buff_size_in_bytes] %>
+<% else %>
 # rpc_send_buff_size_in_bytes:
+<% end %>
+if @cassandra.has_key?("rpc_recv_buff_size_in_bytes") %>
+rpc_recv_buff_size_in_bytes: <%= @cassandra[:rpc_recv_buff_size_in_bytes] %>
+<% else %>
 # rpc_recv_buff_size_in_bytes:
+<% end %>
+
+# Uncomment to set socket buffer size for internode communication
+# Note that when setting this, the buffer size is limited by net.core.wmem_max
+# and when not setting it it is defined by net.ipv4.tcp_wmem
+# See:
+# /proc/sys/net/core/wmem_max
+# /proc/sys/net/core/rmem_max
+# /proc/sys/net/ipv4/tcp_wmem
+# /proc/sys/net/ipv4/tcp_wmem
+# and: man tcp
+if @cassandra.has_key?("internode_send_buff_size_in_bytes") %>
+internode_send_buff_size_in_bytes: <%= @cassandra[:internode_send_buff_size_in_bytes] %>
+<% else %>
+# internode_send_buff_size_in_bytes:
+<% end %>
+if @cassandra.has_key?("internode_recv_buff_size_in_bytes") %>
+internode_recv_buff_size_in_bytes: <%= @cassandra[:internode_recv_buff_size_in_bytes] %>
+<% else %>
+# internode_recv_buff_size_in_bytes:
+<% end %>
 
 # Frame size for thrift (maximum field length).
 # 0 disables TFramedTransport in favor of TSocket. This option
@@ -348,11 +454,13 @@ incremental_backups: <%= @cassandra[:incremental_backups] %> # false
 # careful using this option, since Cassandra won't clean up the
 # snapshots for you.  Mostly useful if you're paranoid when there
 # is a data format change.
-snapshot_before_compaction: <%= @cassandra[:snapshot_before_compaction ] %> #false
+snapshot_before_compaction: <%= @cassandra[:snapshot_before_compaction] %> #false
 
-# change this to increase the compaction thread's priority.  In java, 1 is the
-# lowest priority and that is our default.
-# compaction_thread_priority: 1
+# Whether or not a snapshot is taken of the data before keyspace truncation
+# or dropping of column families. The STRONGLY advised default of true
+# should be used to provide data safety. If you set this flag to false, you will
+# lose data on truncation or drop.
+auto_snapshot: <%= @cassandra[:auto_snapshot]
 
 # Add column indexes to a row after its contents reach this size.
 # Increase if your column values are large, or if you have a very large
@@ -365,42 +473,140 @@ column_index_size_in_kb: <%= @cassandra[:column_index_size] %> #64
 
 # Size limit for rows being compacted in memory.  Larger rows will spill
 # over to disk and use a slower two-pass compaction process.  A message
-# will be logged specifying the row key.
+# will be  logged specifying the row key.
 in_memory_compaction_limit_in_mb: <%= @cassandra[:in_memory_compaction_limit] %> #64
+
+# Number of simultaneous compactions to allow, NOT including
+# validation "compactions" for anti-entropy repair.  Simultaneous
+# compactions can help preserve read performance in a mixed read/write
+# workload, by mitigating the tendency of small sstables to accumulate
+# during a single long running compactions. The default is usually
+# fine and if you experience problems with compaction running too
+# slowly or too fast, you should look at
+# compaction_throughput_mb_per_sec first.
+#
+# concurrent_compactors defaults to the number of cores.
+# Uncomment to make compaction mono-threaded, the pre-0.8 default.
+if @cassandra.has_key?("concurrent_compactors") %>
+concurrent_compactors: <%= @cassandra[:concurrent_compactors] %>
+<% else %>
+# concurrent_compactors: 1
+<% end %>
+
+# Multi-threaded compaction. When enabled, each compaction will use
+# up to one thread per core, plus one thread per sstable being merged.
+# This is usually only useful for SSD-based hardware: otherwise,
+# your concern is usually to get compaction to do LESS i/o (see:
+# compaction_throughput_mb_per_sec), not more.
+multithreaded_compaction: false
 
 # Track cached row keys during compaction, and re-cache their new
 # positions in the compacted sstable.  Disable if you use really large
 # key caches.
 compaction_preheat_key_cache: <%= @cassandra[:compaction_preheat_key_cache] %> # true
 
-# Time to wait for a reply from other nodes before failing the command 
-rpc_timeout_in_ms: <%= @cassandra[:rpc_timeout_in_ms] %> #10000
+# Throttles compaction to the given total throughput across the entire
+# system. The faster you insert data, the faster you need to compact in
+# order to keep the sstable count down, but in general, setting this to
+# 16 to 32 times the rate you are inserting data is more than sufficient.
+# Setting this to 0 disables throttling. Note that this account for all types
+# of compaction, including validation compaction.
+compaction_throughput_mb_per_sec: <%= @cassandra[:compaction_throughput_mb_per_sec] %>
+
+# Throttles all outbound streaming file transfers on this node to the
+# given total throughput in Mbps. This is necessary because Cassandra does
+# mostly sequential IO when streaming data during bootstrap or repair, which
+# can lead to saturating the network connection and degrading rpc performance.
+# When unset, the default is 400 Mbps or 50 MB/s.
+if @cassandra.has_key?("stream_throughput_outbound_megabits_per_sec") %>
+stream_throughput_outbound_megabits_per_sec: <%= @cassandra[:stream_throughput_outbound_megabits_per_sec] %>
+<% else %>
+# stream_throughput_outbound_megabits_per_sec: 400
+<% end %>
+
+# How long the coordinator should wait for read operations to complete
+read_request_timeout_in_ms: <%= @cassandra[:read_request_timeout_in_ms] %>
+# How long the coordinator should wait for seq or index scans to complete
+range_request_timeout_in_ms: <%= @cassandra[:range_request_timeout_in_ms] %>
+# How long the coordinator should wait for writes to complete
+write_request_timeout_in_ms: <%= @cassandra[:write_request_timeout_in_ms] %>
+# How long the coordinator should wait for truncates to complete
+# (This can be much longer, because unless auto_snapshot is disabled
+# we need to flush first so we can snapshot before removing the data.)
+truncate_request_timeout_in_ms: <%= @cassandra[:truncate_request_timeout_in_ms] %>
+# The default timeout for other, miscellaneous operations
+request_timeout_in_ms: <%= @cassandra[:request_timeout_in_ms] %>
+
+# Enable operation timeout information exchange between nodes to accurately
+# measure request timeouts, If disabled cassandra will assuming the request
+# was forwarded to the replica instantly by the coordinator
+#
+# Warning: before enabling this property make sure to ntp is installed
+# and the times are synchronized between the nodes.
+cross_node_timeout: <%= @cassandra[:cross_node_timeout] %>
+
+# Enable socket timeout for streaming operation.
+# When a timeout occurs during streaming, streaming is retried from the start
+# of the current file. This *can* involve re-streaming an important amount of
+# data, so you should avoid setting the value too low.
+# Default value is 0, which never timeout streams.
+streaming_socket_timeout_in_ms: <%= @cassandra[:streaming_socket_timeout_in_ms] %>
 
 # phi value that must be reached for a host to be marked down.
 # most users should never need to adjust this.
 phi_convict_threshold: <%= @cassandra[:phi_convict_threshold] %> #8
 
 # endpoint_snitch -- Set this to a class that implements
-# IEndpointSnitch, which will let Cassandra know enough
-# about your network topology to route requests efficiently.
+# IEndpointSnitch.  The snitch has two functions:
+# - it teaches Cassandra enough about your network topology to route
+#   requests efficiently
+# - it allows Cassandra to spread replicas around your cluster to avoid
+#   correlated failures. It does this by grouping machines into
+#   "datacenters" and "racks."  Cassandra will do its best not to have
+#   more than one replica on the same "rack" (which may not actually
+#   be a physical location)
+#
+# IF YOU CHANGE THE SNITCH AFTER DATA IS INSERTED INTO THE CLUSTER,
+# YOU MUST RUN A FULL REPAIR, SINCE THE SNITCH AFFECTS WHERE REPLICAS
+# ARE PLACED.
+#
 # Out of the box, Cassandra provides
-#  - org.apache.cassandra.locator.SimpleSnitch:
+#  - SimpleSnitch:
 #    Treats Strategy order as proximity. This improves cache locality
 #    when disabling read repair, which can further improve throughput.
-#  - org.apache.cassandra.locator.RackInferringSnitch:
+#    Only appropriate for single-datacenter deployments.
+#  - PropertyFileSnitch:
+#    Proximity is determined by rack and data center, which are
+#    explicitly configured in cassandra-topology.properties.
+#  - GossipingPropertyFileSnitch
+#    The rack and datacenter for the local node are defined in
+#    cassandra-rackdc.properties and propagated to other nodes via gossip.  If
+#    cassandra-topology.properties exists, it is used as a fallback, allowing
+#    migration from the PropertyFileSnitch.
+#  - RackInferringSnitch:
 #    Proximity is determined by rack and data center, which are
 #    assumed to correspond to the 3rd and 2nd octet of each node's
-#    IP address, respectively
-# org.apache.cassandra.locator.PropertyFileSnitch:
-#  - Proximity is determined by rack and data center, which are
-#    explicitly configured in cassandra-topology.properties.
+#    IP address, respectively.  Unless this happens to match your
+#    deployment conventions (as it did Facebook's), this is best used
+#    as an example of writing a custom Snitch class.
+#  - Ec2Snitch:
+#    Appropriate for EC2 deployments in a single Region.  Loads Region
+#    and Availability Zone information from the EC2 API. The Region is
+#    treated as the Datacenter, and the Availability Zone as the rack.
+#    Only private IPs are used, so this will not work across multiple
+#    Regions.
+#  - Ec2MultiRegionSnitch:
+#    Uses public IPs as broadcast_address to allow cross-region
+#    connectivity.  (Thus, you should set seed addresses to the public
+#    IP as well.) You will need to open the storage_port or
+#    ssl_storage_port on the public IP firewall.  (For intra-Region
+#    traffic, Cassandra will switch to the private IP after
+#    establishing a connection.)
+#
+# You can use a custom Snitch by setting this to the full class name
+# of the snitch, which will be assumed to be on your classpath.
 endpoint_snitch: <%= @cassandra[:endpoint_snitch] %> #org.apache.cassandra.locator.SimpleSnitch
 
-# dynamic_snitch -- This boolean controls whether the above snitch is
-# wrapped with a dynamic snitch, which will monitor read latencies
-# and avoid reading from hosts that have slowed (due to compaction,
-# for instance)
-dynamic_snitch: <%= @cassandra[:dynamic_snitch ] %> #true
 # controls how often to perform the more expensive part of host score
 # calculation
 dynamic_snitch_update_interval_in_ms: 100 
@@ -456,7 +662,69 @@ request_scheduler: <%= @cassandra[:request_scheduler] %> #org.apache.cassandra.s
 # the request scheduling. Currently the only valid option is keyspace.
 # request_scheduler_id: keyspace
 
-# The Index Interval determines how large the sampling of row keys
-#  is for a given SSTable. The larger the sampling, the more effective
-#  the index is at the cost of space.
+# index_interval controls the sampling of entries from the primrary
+# row index in terms of space versus time.  The larger the interval,
+# the smaller and less effective the sampling will be.  In technicial
+# terms, the interval coresponds to the number of index entries that
+# are skipped between taking each sample.  All the sampled entries
+# must fit in memory.  Generally, a value between 128 and 512 here
+# coupled with a large key cache size on CFs results in the best trade
+# offs.  This value is not often changed, however if you have many
+# very small rows (many to an OS page), then increasing this will
+# often lower memory usage without a impact on performance.
 index_interval: 128
+
+# Enable or disable inter-node encryption
+# Default settings are TLS v1, RSA 1024-bit keys (it is imperative that
+# users generate their own keys) TLS_RSA_WITH_AES_128_CBC_SHA as the cipher
+# suite for authentication, key exchange and encryption of the actual data transfers.
+# NOTE: No custom encryption options are enabled at the moment
+# The available internode options are : all, none, dc, rack
+#
+# If set to dc cassandra will encrypt the traffic between the DCs
+# If set to rack cassandra will encrypt the traffic between the racks
+#
+# The passwords used in these options must match the passwords used when generating
+# the keystore and truststore.  For instructions on generating these files, see:
+# http://download.oracle.com/javase/6/docs/technotes/guides/security/jsse/JSSERefGuide.html#CreateKeystore
+#
+server_encryption_options:
+    internode_encryption: none
+    keystore: conf/.keystore
+    keystore_password: cassandra
+    truststore: conf/.truststore
+    truststore_password: cassandra
+    # More advanced defaults below:
+    # protocol: TLS
+    # algorithm: SunX509
+    # store_type: JKS
+    # cipher_suites: [TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_256_CBC_SHA]
+    # require_client_auth: false
+
+# enable or disable client/server encryption.
+client_encryption_options:
+    enabled: false
+    keystore: conf/.keystore
+    keystore_password: cassandra
+    # require_client_auth: false
+    # Set trustore and truststore_password if require_client_auth is true
+    # truststore: conf/.truststore
+    # truststore_password: cassandra
+    # More advanced defaults below:
+    # protocol: TLS
+    # algorithm: SunX509
+    # store_type: JKS
+    # cipher_suites: [TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_256_CBC_SHA]
+
+# internode_compression controls whether traffic between nodes is
+# compressed.
+# can be:  all  - all traffic is compressed
+#          dc   - traffic between different datacenters is compressed
+#          none - nothing is compressed.
+internode_compression: all
+
+# Enable or disable tcp_nodelay for inter-dc communication.
+# Disabling it will result in larger (but fewer) network packets being sent,
+# reducing overhead from the TCP protocol itself, at the cost of increasing
+# latency if you block for cross-datacenter responses.
+inter_dc_tcp_nodelay: true
