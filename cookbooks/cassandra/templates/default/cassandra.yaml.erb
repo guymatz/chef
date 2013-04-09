@@ -338,12 +338,12 @@ native_transport_port: <%= @cassandra[:native_transport_port] %>
 # rpc_min_threads and rpc_max_threads, though the default differ slightly and
 # are the ones below:
 <%if @cassandra.has_key?("native_transport_min_threads") %>
-broadcast_address: <%= @cassandra[:native_transport_min_threads] %>
+native_transport_min_threads: <%= @cassandra[:native_transport_min_threads] %>
 <% else %>
 # native_transport_min_threads: 16
 <% end %>
-if @cassandra.has_key?("native_transport_max_threads") %>
-broadcast_address: <%= @cassandra[:native_transport_max_threads] %>
+<%if @cassandra.has_key?("native_transport_max_threads") %>
+native_transport_min_threads: <%= @cassandra[:native_transport_max_threads] %>
 <% else %>
 # native_transport_max_threads: 16
 <% end %>
@@ -392,24 +392,24 @@ rpc_server_type: <%= @cassandra[:rpc_server_type] %>
 # encouraged to set a maximum that makes sense for you in production, but do keep in mind that
 # rpc_max_threads represents the maximum number of client requests this server may execute concurrently.
 #
-if @cassandra.has_key?("rpc_min_threads") %>
+<%if @cassandra.has_key?("rpc_min_threads") %>
 rpc_min_threads: <%= @cassandra[:rpc_min_threads] %>
 <% else %>
 # rpc_min_threads: 16
 <% end %>
-if @cassandra.has_key?("rpc_max_threads") %>
+<%if @cassandra.has_key?("rpc_max_threads") %>
 rpc_max_threads: <%= @cassandra[:rpc_max_threads] %>
 <% else %>
 # rpc_max_threads: 2048
 <% end %>
 
 # uncomment to set socket buffer sizes on rpc connections
-if @cassandra.has_key?("rpc_send_buff_size_in_bytes") %>
+<%if @cassandra.has_key?("rpc_send_buff_size_in_bytes") %>
 rpc_send_buff_size_in_bytes: <%= @cassandra[:rpc_send_buff_size_in_bytes] %>
 <% else %>
 # rpc_send_buff_size_in_bytes:
 <% end %>
-if @cassandra.has_key?("rpc_recv_buff_size_in_bytes") %>
+<%if @cassandra.has_key?("rpc_recv_buff_size_in_bytes") %>
 rpc_recv_buff_size_in_bytes: <%= @cassandra[:rpc_recv_buff_size_in_bytes] %>
 <% else %>
 # rpc_recv_buff_size_in_bytes:
@@ -424,12 +424,12 @@ rpc_recv_buff_size_in_bytes: <%= @cassandra[:rpc_recv_buff_size_in_bytes] %>
 # /proc/sys/net/ipv4/tcp_wmem
 # /proc/sys/net/ipv4/tcp_wmem
 # and: man tcp
-if @cassandra.has_key?("internode_send_buff_size_in_bytes") %>
+<%if @cassandra.has_key?("internode_send_buff_size_in_bytes") %>
 internode_send_buff_size_in_bytes: <%= @cassandra[:internode_send_buff_size_in_bytes] %>
 <% else %>
 # internode_send_buff_size_in_bytes:
 <% end %>
-if @cassandra.has_key?("internode_recv_buff_size_in_bytes") %>
+<%if @cassandra.has_key?("internode_recv_buff_size_in_bytes") %>
 internode_recv_buff_size_in_bytes: <%= @cassandra[:internode_recv_buff_size_in_bytes] %>
 <% else %>
 # internode_recv_buff_size_in_bytes:
@@ -460,7 +460,7 @@ snapshot_before_compaction: <%= @cassandra[:snapshot_before_compaction] %> #fals
 # or dropping of column families. The STRONGLY advised default of true
 # should be used to provide data safety. If you set this flag to false, you will
 # lose data on truncation or drop.
-auto_snapshot: <%= @cassandra[:auto_snapshot]
+auto_snapshot: <%= @cassandra[:auto_snapshot] %>
 
 # Add column indexes to a row after its contents reach this size.
 # Increase if your column values are large, or if you have a very large
@@ -487,7 +487,7 @@ in_memory_compaction_limit_in_mb: <%= @cassandra[:in_memory_compaction_limit] %>
 #
 # concurrent_compactors defaults to the number of cores.
 # Uncomment to make compaction mono-threaded, the pre-0.8 default.
-if @cassandra.has_key?("concurrent_compactors") %>
+<%if @cassandra.has_key?("concurrent_compactors") %>
 concurrent_compactors: <%= @cassandra[:concurrent_compactors] %>
 <% else %>
 # concurrent_compactors: 1
@@ -518,7 +518,7 @@ compaction_throughput_mb_per_sec: <%= @cassandra[:compaction_throughput_mb_per_s
 # mostly sequential IO when streaming data during bootstrap or repair, which
 # can lead to saturating the network connection and degrading rpc performance.
 # When unset, the default is 400 Mbps or 50 MB/s.
-if @cassandra.has_key?("stream_throughput_outbound_megabits_per_sec") %>
+<%if @cassandra.has_key?("stream_throughput_outbound_megabits_per_sec") %>
 stream_throughput_outbound_megabits_per_sec: <%= @cassandra[:stream_throughput_outbound_megabits_per_sec] %>
 <% else %>
 # stream_throughput_outbound_megabits_per_sec: 400
