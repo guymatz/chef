@@ -94,6 +94,11 @@ puts "We're going to setup:\n" + interfaces.inspect
 
 case node[:platform]
 when "centos"
+  file "/etc/sysconfig/modules/8021q.modules" do
+    content "modprobe 8021q"
+    owner "root"
+    group "root"
+  end
 
   interfaces.each do |intf|
     Chef::Log.info("Setting up: " + intf.inspect)

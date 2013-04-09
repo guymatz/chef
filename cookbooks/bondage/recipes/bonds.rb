@@ -40,7 +40,7 @@ EOH
 
   template "/etc/sysconfig/network-scripts/ifcfg-#{master_intf}" do
     source "ifcfg-master.erb"
-    mode 0644
+    mode "0644"
     owner "root"
     group "root"
     variables({

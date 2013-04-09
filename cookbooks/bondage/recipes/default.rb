@@ -35,6 +35,7 @@ begin
       owner "root"
       group "root"
     end
+  end
 end
 
 include_recipe "bondage::bonds"
