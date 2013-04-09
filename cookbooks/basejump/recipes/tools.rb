@@ -1,6 +1,10 @@
 
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", "drac")
 
+%w{ ipmitool }.each do |dep|
+  package dep
+end
+
 %w{ consoleto poweron poweroff rebooter }.each do |s|
   template "/usr/sbin/#{s}" do
     source "#{s}.sh.erb"
