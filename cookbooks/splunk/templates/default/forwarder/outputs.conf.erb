@@ -1,7 +1,7 @@
 [tcpout]
 defaultGroup = splunk_indexers
 disabled = false
-compressed = true
+<% if node['splunk']['ssl_forwarding'] == true -%>compressed = true<% end -%>
 
 [tcpout:splunk_indexers]
 server=<% @splunk_servers.sort.each_with_index do |server, index| -%><%= server['ipaddress'] %>:<%= node['splunk']['receiver_port']%><% if @splunk_servers.size-1 > index -%>,<% end -%><% end -%>

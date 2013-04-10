@@ -69,36 +69,31 @@ bash "link_jdk" do
     not_if { node.normal.attribute?("encoder_deployed") }
 end
 
-private_key = "/home/#{node[:encoders][:github_user]}/.ssh/id_rsa"
-
-file private_key do
-    owner "github"
-    group "github"
-    mode "0400"
-    action :create
-    content enc_data["private_key"]
-    not_if { node.normal.attribute?("encoder_deployed") }
-end
+#private_key = "/home/#{node[:encoders][:github_user]}/.ssh/id_rsa"
+#
+#file private_key do
+#    owner "github"
+#    group "github"
+#    mode "0400"
+#    action :create
+#    content enc_data["private_key"]
+#    not_if { node.normal.attribute?("encoder_deployed") }
+#end
 
 bash "github checkout" do
     code <<-EOF
         if [ ! -x #{node[:encoders][:source_dir]} ]
             then
                 mkdir -p #{node[:encoders][:source_dir]}
-                chown github.github  #{node[:encoders][:source_dir]}
+                chown #{node[:encoders][:converter_user]}.#{node[:encoders][:converter_user]}  #{node[:encoders][:source_dir]}
             fi
-        if [ ! -d #{node[:encoders][:github_user]}/.ssh ]
-            then
-                mkdir -p #{node[:encoders][:github_user]}/.ssh
-            fi
-
         if [ ! -L #{node[:encoders][:source_dir]} ]
             then
                 ln -s #{node[:encoders][:source_dir]} /home/#{node[:encoders][:converter_user]}
         fi
-        su github -c 'cd #{node[:encoders][:source_dir]}; git clone #{node[:encoders][:github_url]}'
+#        su #{node[:encoders][:converter_user]} -c 'cd #{node[:encoders][:source_dir]}; git clone #{node[:encoders][:github_url]}'
     EOF
-    not_if { node.normal.attribute?("encoder_deployed") }
+#    not_if { node.normal.attribute?("encoder_deployed") }
 end
 
 mount_line = "#{node[:encoders][:nfsserver]}:/nfs#{node[:encoders][:ftpmount]} #{node[:encoders][:ftpmount]}       nfs   rw,bg,soft,tcp,intr  0   0"

@@ -17,11 +17,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-service "splunk" do
-  action [ :nothing ]
-  supports :status => true, :start => true, :stop => true, :restart => true
-end
-
 directory "/opt" do
   mode "0755"
   owner "root"
@@ -62,10 +57,9 @@ package splunk_package_version do
   end
 end
 
-execute "#{splunk_cmd} enable boot-start --accept-license --answer-yes" do
+execute "#{splunk_cmd} enable boot-start --accept-license --answer-yes && echo true > /opt/splunk_license_accepted_#{node['splunk']['forwarder_version']}" do
   not_if do
-    File.symlink?('/etc/rc4.d/S20splunk') ||
-    File.symlink?('/etc/rc4.d/S90splunk')
+    File.exists?("/opt/splunk_license_accepted_#{node['splunk']['forwarder_version']}")
   end
 end
 
@@ -74,6 +68,11 @@ execute "#{splunk_cmd} edit user admin -password #{splunk_password} -roles admin
   not_if do
     File.exists?("/opt/splunk_setup_passwd")
   end
+end
+
+service "splunk" do
+  action [ :nothing ]
+  supports :status => true, :start => true, :stop => true, :restart => true
 end
 
 if Chef::Config[:solo]
@@ -139,20 +138,15 @@ end
    end
 end
 
-# Find the inputs file to move.  There will be the default and then we will over-write it as necessary
-node.cookbook_collection[node['splunk']['cookbook_name']].template_filenames.each do |filename|
- inputsfile = "forwarder/#{node['splunk']['forwarder_config_folder']}/#{node['splunk']['forwarder_role']}.inputs.conf.erb"
- if inputsfile == filename
-   template "Moving inputs file for role: #{node['splunk']['forwarder_role']}" do
- 	    path "#{node['splunk']['forwarder_home']}/etc/system/local/inputs.conf"
-	    source inputsfile
-      owner "root"
-      group "root"
-      mode "0640"
-      notifies :restart, resources(:service => "splunk")
-    end
-  end
+template "Moving inputs file for role: #{node['splunk']['forwarder_role']}" do
+  path "#{node['splunk']['forwarder_home']}/etc/system/local/inputs.conf"
+  source "forwarder/#{node['splunk']['forwarder_config_folder']}/#{node['splunk']['forwarder_role']}.inputs.conf.erb"
+  owner "root"
+  group "root"
+  mode "0600"
+  notifies :restart, resources(:service => "splunk")
 end
+
 
 
 template "/etc/init.d/splunk" do

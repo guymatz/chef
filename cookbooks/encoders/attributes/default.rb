@@ -62,4 +62,6 @@ default[:encoders][:github_user] = [ "github" ]
 default[:encoders][:converter_user] = [ "converter" ]
 
 default[:encoders][:ftpmount] = "/encoder-ftp"
-default[:encoders][:nfsserver] = "10.5.40.2"
+
+default[:encoders][:user] = "converter"
+default[:encoders][:group] = "converter"
