@@ -49,23 +49,23 @@ directory node['supervisor']['log_dir'] do
   recursive true
 end
 
+template "/etc/init.d/supervisor" do
+  source "supervisor.init.erb"
+  owner "root"
+  group "root"
+  mode "755"
+end
+
 case node['platform']
 when "debian", "ubuntu"
-  template "/etc/init.d/supervisor" do
-    source "supervisor.init.erb"
-    owner "root"
-    group "root"
-    mode "755"
-  end
-
   template "/etc/default/supervisor" do
     source "supervisor.default.erb"
     owner "root"
     group "root"
     mode "644"
   end
+end
 
-  service "supervisor" do
-    action [:enable, :start]
-  end
+service "supervisor" do
+  action [:enable, :start]
 end

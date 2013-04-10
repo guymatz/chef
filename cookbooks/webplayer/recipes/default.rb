@@ -78,6 +78,18 @@ application "webplayer" do
     settings_template "settings.py.erb"
   end
 
+  before_restart do
+    bash "Webplayers: Build Static Resources" do
+      user "root"
+      cwd "#{node[:webplayer][:deploy_path]}"
+      code <<-EOH
+      source shared/env/bin/activate
+      cd current
+      python27 tusiq/config/local/manage.py assets build --settings=tusiq.config.prod.settings
+      EOH
+    end
+  end
+
   gunicorn do
     app_module :django
     command "tusiq.config.prod.wsgi"
@@ -86,4 +98,26 @@ application "webplayer" do
     port 8080
   end
 
+end
+
+service "httpd-apache2" do
+  case node[:platform_family]
+  when "rhel"
+    service_name "httpd"
+  when "debian"
+    service_name "apache2"
+  end
+  supports :start => true, :stop => true, :restart => true, :reload => true, :status => true
+  action [:enable, :start]
+end
+
+template "#{node[:apache][:dir]}/sites-available/iheart.com" do
+  owner "root"
+  group "root"
+  source "iheart.com.erb"
+end
+
+apache_site "iheart.com" do
+  enable true
+  notifies :reload, "service[httpd-apache2]"
 end
