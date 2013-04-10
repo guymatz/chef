@@ -96,6 +96,7 @@ application "webplayer" do
     worker_class "gevent"
     Chef::Log.info("Starting up Gunicorn on port 8080 for Basejump")
     port 8080
+    autostart true
   end
 
 end
