@@ -8,3 +8,9 @@ version          '0.1.0'
 
 depends 'heartbeat'
 depends 'openssl'
+depends "postgresql"
+depends "sysctl"
+depends "cron"
+depends "multipath"
+depends "bonded_interfaces"
+depends 'php'

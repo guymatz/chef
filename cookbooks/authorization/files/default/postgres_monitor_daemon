@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# This daemon will break heartbeat if the PostGres fails
+
+POSTGRES=`which postgres`;
+
+. ~postgres/.bash_profile
+while true;
+do
+
+  ps aux | grep postmaster | grep -v grep -q > /dev/null 2>&1;
+  EC=$?;
+
+  if [ "$EC" -eq "0" ]
+  then
+    # Test connection
+    psql -d postgres -U postgres -c'select 1;' > /dev/null 2>&1;
+
+    EC=$?
+    if [ "$EC" -ne "0" ]
+    then
+
+      #attempt to restart postgres
+      /etc/init.d/postgres restart;
+      sleep 10; #give postgres time to start up
+
+      #test connection again
+      psql -d postgres -U postgres -c'select 1;' > /dev/null 2>&1
+      EC=$?
+
+      if [ "$EC" -ne "0" ]
+      then
+        /etc/init.d/heartbeat restart > /dev/null 2>&1; # restart heartbeat to force failover
+      fi;
+
+    fi;
+
+
+
+  else # process is NOT running
+
+    #attempt to restart postgres
+    /etc/init.d/postgres restart;
+    sleep 10; #give postgres time to start up
+
+    #test again if postgres is running
+    ps aux | grep postmaster | grep -v grep -q > /dev/null 2>&1;
+    EC=$?;
+
+    if [ "$EC" -ne "0" ]
+    then
+      /etc/init.d/heartbeat restart > /dev/null 2>&1; # restart heartbeat to force failover
+    fi;
+
+  fi;
+
+  sleep 10;
+
+done;

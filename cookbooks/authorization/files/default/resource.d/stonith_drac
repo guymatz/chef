@@ -1,0 +1,72 @@
+#!/bin/bash
+arg=$1
+
+lhost=`hostname`
+peernode=`cat /etc/ha.d/ha.cf | grep node | grep -v $lhost | awk -F"\t" '{print $2}'`
+
+# These files contain 1 or 0 indicator. If file does not exist - 0 is assumed.
+# Indicator specifies resource status that should be returned by status command.
+# 1 - resource up and running, 0 - resource is down.
+
+STATUSFILE='/dev/shm/is_stonith_drac_resource_running'
+
+if [ "$arg" == "start" ]
+then
+
+  UPTIME=`cat /proc/uptime | awk '{printf "%.0f\n", $1}'`
+
+  # Check if other node was not brought down nicely
+
+  peer_node_status=`ssh root@$peernode "cat $STATUSFILE"`; return=$?
+
+  if [[ $return -eq 255 ]]
+  then
+    peer_node_status=1 # ssh failed, node has problems, will do stonith
+  elif [[ $return -ne 0 ]]
+  then
+    # Error - most likely file does not exist
+    peer_node_status=0 # file does not exist
+  fi
+
+  if [ $peer_node_status -eq 1 ] && [ $UPTIME -gt 120 ]
+  then
+    /usr/sbin/poweroff $peernode
+  fi
+
+  echo "OK"
+  echo 1 > $STATUSFILE
+  exit 0
+fi
+
+
+if [ "$arg" == "status" ]; then
+
+  if [[  -s $STATUSFILE ]]
+  then
+        this_node_status=`cat /dev/shm/is_stonith_drac_resource_running`
+  else
+        this_node_status=0
+  fi
+
+  if [ $this_node_status -eq 0 ]
+  then
+    echo "SCRIPT HAS NOT RUN"
+    exit 1
+  fi
+
+  if [ $this_node_status -eq 1 ]
+  then
+    echo "OK"
+    exit 0
+  fi
+fi
+
+if [ "$arg" == "stop" ]
+then
+  echo 0 > $STATUSFILE
+  echo "OK"
+  exit 0
+fi
+
+echo "NO STONITH PROCESS REQUIRED"
+exit 0

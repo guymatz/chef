@@ -8,6 +8,7 @@
   "run_list": [
     "recipe[postgresql]",
     "recipe[postgresql::server]",
+    "recipe[postgresql::slony]",
     "recipe[postgresql::users]"
   ],
   "description": "",
