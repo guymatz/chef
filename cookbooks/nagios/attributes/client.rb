@@ -48,7 +48,9 @@ default['nagios']['plugins']['checksum'] = '51136e5210e3664e1351550de3aff4a766d9
 default['nagios']['nrpe']['url']      = 'http://prdownloads.sourceforge.net/sourceforge/nagios'
 default['nagios']['nrpe']['version']  = '2.12'
 default['nagios']['nrpe']['checksum'] = '7e8d093abef7d7ffc7219ad334823bdb612121df40de2dbaec9c6d0adeb04cfc'
-default['nagios']['nrpe']['mon_host_ips'] = [ '10.5.36.11' ]
+default['nagios']['nrpe']['mon_host_ips'] = [ '10.5.36.11',
+                                              '10.5.40.12'
+                                            ]
 
 # for nsca from source installation
 default['nagios']['nsca']['url']      = 'http://prdownloads.sourceforge.net/project/nagios/nsca-2.x'
