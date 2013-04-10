@@ -23,6 +23,7 @@
 #
 
 mon_host = ['127.0.0.1']
+mon_host << node['nagios']['nrpe']['mon_host_ips']
 
 if node.run_list.roles.include?(node['nagios']['server_role'])
   mon_host << node['ipaddress']
