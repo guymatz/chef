@@ -62,7 +62,7 @@ application "webplayer" do
   action :deploy
 
   # Callbacks
-  before_restart "tusiq/config/local/manage.py assets build --settings=tusiq.config.prod.settings"
+  # before_restart "tusiq/config/local/manage.py assets build --settings=tusiq.config.prod.settings"
 
   django do
     interpreter "python27"

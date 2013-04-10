@@ -3,7 +3,7 @@ default[:webplayer][:repo] = "git@github.com:iheartradio/web.git"
 default[:webplater][:rev] = "release-4.11.0-zombie-rc2"
 default[:webplayer][:deploy_path] = "/data/www/webplayer"
 
-default[:webplayer][:packages] = %w{ libxslt-devel }
+default[:webplayer][:packages] = %w{ libxslt-devel python27-debuginfo python27-libs python27-tools python27-devel python27 python27-test }
 
 default[:webplayer][:user] = "nobody"
 case node['platform']
