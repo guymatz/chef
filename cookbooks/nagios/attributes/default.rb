@@ -26,3 +26,10 @@ default['nagios']['plugin_dir'] = "/usr/lib/nagios/plugins"
 default[:nsca][:encryption] = "8" # BLOWFISH
 default[:nsca][:server][:path] = "/usr/bin/nsca"
 default[:nsca][:server][:config] = "/etc/nagios/nsca.conf"
+
+case node[:platform_family]
+when "rhel"
+  default[:nsca][:packages] = %w{ libmcrypt-devel }
+when "debian"
+  default[:nsca][:packages] = %w{ libxcrypt-dev }
+end

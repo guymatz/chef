@@ -5,8 +5,7 @@
 #
 include_recipe "build-essential"
 
-# deps
-%w{ libmcrypt-devel }.each do |p|
+node[:nsca][:packages].each do |p|
   package p
 end
 
