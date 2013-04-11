@@ -23,6 +23,13 @@ template "/etc/ha.d/ha.cf" do
 	})
 end
 
+directory "/root/.ssh" do
+  owner "root"
+  group "root"
+  mode 0700
+  action :create
+end
+
 if node[:fqdn] =~ /iad-auth102.ihr/
  ifconfig "172.16.0.2" do
  	 bootproto "static"
@@ -30,6 +37,20 @@ if node[:fqdn] =~ /iad-auth102.ihr/
          mask "255.255.255.252"
  	 onboot "yes"
          action :enable
+ end
+ cookbook_file "/root/.ssh/id_rsa" do
+	 source "node2_root/.ssh/id_rsa"
+ 	 mode 0600
+	 owner "root"
+	 group "root"
+	 action :create_if_missing
+ end
+ cookbook_file "/root/.ssh/id_rsa.pub" do
+         source "node2_root/.ssh/id_rsa.pub"
+         mode 0644
+         owner "root"
+         group "root"
+         action :create_if_missing
  end
 end
 if node[:fqdn] =~ /iad-auth101.ihr/
@@ -39,6 +60,20 @@ if node[:fqdn] =~ /iad-auth101.ihr/
          mask "255.255.255.252"
          onboot "yes"
          action :enable
+ end
+ cookbook_file "/root/.ssh/id_rsa" do
+         source "node1_root/.ssh/id_rsa"
+         mode 0600
+         owner "root"
+         group "root"
+         action :create_if_missing
+ end
+ cookbook_file "/root/.ssh/id_rsa.pub" do
+         source "node1_root/.ssh/id_rsa.pub"
+         mode 0644
+         owner "root"
+         group "root"
+         action :create_if_missing
  end
 end
 
