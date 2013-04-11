@@ -7,10 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe "yum::epel"
-
 enc_data = Chef::EncryptedDataBagItem.load("secrets", "github")
-
 
 node[:pkgs686].each do |pkg|
   yum_package pkg do

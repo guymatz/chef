@@ -1,10 +1,10 @@
 deploy "converter" do
-    repo  #{node[:encoders][:github_url]}
-    deploy_to "/data/converter"
-    migrate true
-    remote "origin"
-    user "converter"
-    group "converter"
-    action :deploy
-    not_if "test -d /data/converter"
+  repo  node[:encoders][:github_url]
+  branch "master"
+  deploy_to "#{node[:encoders][:deploy_path]}"
+  migrate true
+  remote "origin"
+  user "converter"
+  group "converter"
+  action :deploy
 end
