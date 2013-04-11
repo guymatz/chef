@@ -127,7 +127,7 @@ directory "/home/amqp-consumer/playlog-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"
 end
-directory "/home/amqp-consumer/playlog-consumer" do
+directory "/var/log/playlog-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"
 end
