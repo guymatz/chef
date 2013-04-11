@@ -34,7 +34,7 @@ when "centos"
     group "root"
     content <<-EOH
 alias #{master_intf} bonding
-options bond0 mode=1 miimon=100
+options #{master_intf} mode=1 miimon=100
 EOH
   end
 
