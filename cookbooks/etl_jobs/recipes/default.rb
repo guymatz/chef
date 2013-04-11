@@ -131,6 +131,10 @@ directory "/home/amqp-consumer/playlog-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"
 end
+directory "/var/run/playlog-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
 remote_file "/home/amqp-consumer/playlog-consumer/playlog_consumer.jar" do
   source "http://yum.ihr/files/jobs/playlog-consumer/playlog_consumer.jar"
   owner "amqp-consumer"
@@ -156,6 +160,10 @@ directory "/home/amqp-consumer/facebook-consumer" do
   group "amqp-consumer"
 end
 directory "/var/log/facebook-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+directory "/var/run/facebook-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"
 end
