@@ -1,6 +1,17 @@
 {
   "name": "zeus",
+  "description": "Zeus Load Balancer",
   "json_class": "Chef::Role",
+  "default_attributes": {
+      route "10.0.0.0/8" do
+        gateway "10.5.32.1"
+        device "em1"
+      end
+      route "0.0.0.0/0" do
+        gateway "10.5.36.1"
+        device "bond1.150"
+      end
+  },
   "override_attributes": {
   },
   "chef_type": "role",
@@ -8,11 +19,9 @@
     "recipe[base]"
   ],
   "env_run_lists": {
-      "prod": [
       "role[base]",
       "recipe[java]",
       "recipe[zeus-zxtm]",
       "recipe[bonded_interfaces]"
-   ]
   }
 }
