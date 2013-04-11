@@ -12,7 +12,6 @@
     "recipe[jruby]",
     "recipe[encoders]",
     "recipe[users::converter]",
-    "recipe[users::github]",
     "recipe[nfs]"
   ],
   "env_run_lists": {

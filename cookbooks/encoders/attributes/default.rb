@@ -57,10 +57,11 @@ default[:encoders][:static_files] = {
 
 
 default[:encoders][:source_dir] = [ "/data/" ]
-default[:encoders][:github_url] = [ "git@github.com:iheartradio/converter.git" ]
+default[:encoders][:github_url] = [ "git@github.com:iheartradio/converter" ]
 default[:encoders][:github_user] = [ "github" ]
 default[:encoders][:converter_user] = [ "converter" ]
 
+default[:encoders][:nfsserver] = [ "10.5.40.2" ]
 default[:encoders][:ftpmount] = "/encoder-ftp"
 
 default[:encoders][:user] = "converter"
