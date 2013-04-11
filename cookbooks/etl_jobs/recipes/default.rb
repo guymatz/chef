@@ -131,6 +131,14 @@ directory "/var/log/playlog-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"
 end
+directory "/var/log/companion-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+directory "/var/log/talk-playlog-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
 directory "/var/run/playlog-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"
