@@ -27,7 +27,6 @@ git node[:attivio][:install_path] do
   user node[:attivio][:user]
   group node[:attivio][:group]
   action :sync
-  not_if "test -d #{node[:attivio][:install_path]}/.git"
 end
 
 remote_file "/tmp/AIE-installer.sh.gz" do
