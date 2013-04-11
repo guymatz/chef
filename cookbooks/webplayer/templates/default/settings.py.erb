@@ -49,10 +49,10 @@ CACHES = {
 'default': {
 'BACKEND': 'ihr.cache.backends.memcached.IhrMemcachedCache',
 'LOCATION': [
-             'apimemcache1a01:11213',
-             'apimemcache1a02:11213',
-             'apimemcache1a03:11213',
-             'apimemcache1a04:11213'],
+             <% @memcached.each do |server, port| -%>
+             '<%= server + ':' + port + ',' %>'
+             <% end -%>
+             ],
 'KEY_PREFIX': 'W'
 }
 }

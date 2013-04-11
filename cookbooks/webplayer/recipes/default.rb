@@ -52,6 +52,17 @@ end
 
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", "webplayers")
 
+begin
+  res = search(:node, "chef_environment:#{node.chef_environment} AND recipes:webplayer\\:\\:memcached")
+rescue  Net::HTTPServerException
+  Chef::Log.info("Could not search for memcached servers, bailing out!")
+  exit
+end
+memcached_servers = Hash.new
+res.each do |s|
+  memcached_servers[s[:fqdn]] = s[:memcached][:port].to_s
+end
+
 application "webplayer" do
   path node[:webplayer][:deploy_path]
   owner "root"
@@ -71,7 +82,8 @@ application "webplayer" do
                :url => node[:webplayer][:settings][:url],
                :rpc => node[:webplayer][:settings][:rpc],
                :statsd_conn => node[:webplayer][:settings][:statsd_conn],
-               :jinja => node[:webplayer][:settings][:jinja]
+               :jinja => node[:webplayer][:settings][:jinja],
+               :memcached => memcached_servers
              })
     requirements "requirements.txt"
     debug true
