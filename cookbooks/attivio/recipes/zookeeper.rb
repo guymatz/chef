@@ -23,5 +23,5 @@ end
 service "attivio31-zookeeper" do
   provider Chef::Provider::Service::Init
   supports :status =>true, :start => true, :stop => true, :restart => true, :reload => true
-  action :start
+  action [:enable, :start]
 end
