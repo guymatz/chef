@@ -17,13 +17,6 @@ require 'socket'
 require 'rubygems'
 require 'net/dns'
 
-begin
-  Chef::Log.info("Creating modprobe-config: 8021q")
-  modules "8021q" do
-    action :save
-  end
-end
-
 # so if w're on a dell, we want to bond em2 and p2p1
 # if we're on vmware, we should use eth2 without bonding
 
