@@ -61,7 +61,7 @@ end
 
 directory "/data/jobs/custom_thumbs"
 directory "/var/log/customradiothumbslog"
-remote_file "/data/jobs/ccustom_thumbs/custom_thumbs_job.jar" do
+remote_file "/data/jobs/custom_thumbs/custom_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/custom_thumbs/custom_thumbs_job.jar"
 end
 cron_d "custom_thumbs_job" do
