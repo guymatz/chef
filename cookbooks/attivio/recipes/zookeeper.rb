@@ -21,7 +21,7 @@ template "/etc/init.d/attivio31-zookeeper" do
 end
 
 service "attivio31-zookeeper" do
-  provider Chef::Provider::Service::Init
+  provider Chef::Provider::Service::Redhat
   supports :status =>true, :start => true, :stop => true, :restart => true, :reload => true
   action [:enable, :start]
 end
