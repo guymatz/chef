@@ -16,7 +16,6 @@
     "thrift": ">= 0.0.0",
     "iptables": ">= 0.0.0",
     "volumes": ">= 0.0.0",
-    "metachef": ">= 0.0.0",
     "install_from": ">= 0.0.0"
   },
   "recommendations": {

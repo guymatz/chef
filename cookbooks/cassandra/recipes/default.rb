@@ -21,7 +21,6 @@
 
 # == Recipes
 
-include_recipe "metachef"
 include_recipe "volumes"
 include_recipe "java" ; complain_if_not_sun_java(:cassandra)
 include_recipe "thrift"

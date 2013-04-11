@@ -12,7 +12,6 @@ depends          "runit"
 depends          "thrift"
 depends          "iptables"
 depends          "volumes"
-depends          "metachef"
 depends          "install_from"
 
 recipe           "cassandra::autoconf",                "Automatically configure nodes from chef-server information."
@@ -30,7 +29,7 @@ recipe           "cassandra::mx4j",                    "Mx4j"
 recipe           "cassandra::server",                  "Server"
 recipe           "cassandra::ruby_client",             "support gems for cassandra (incl. fauna/cassandra and apache/avro)"
 
-%w[ debian ubuntu ].each do |os|
+%w[ debian ubuntu centos ].each do |os|
   supports os
 end
 
