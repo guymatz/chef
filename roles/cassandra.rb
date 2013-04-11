@@ -17,8 +17,11 @@ override_attributes({
                         "cluster_name" => "iad-cassandra1",
 			"concurrent_reads" => "96",
 			"concurrent_writes" => "400",
-			
+		      },
+		      "java" => {
+			"install_flavor" => "oracle",
+			"oracle" => {
+			   "accept_oracle_download_terms" => "true"
 			}
-                      },
                       }
                     })

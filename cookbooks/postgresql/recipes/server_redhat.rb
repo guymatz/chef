@@ -76,6 +76,10 @@ cookbook_file "/etc/init.d/postgresql-9.1" do
 	action :create
 end
 
+link "/etc/init.d/postgres" do
+	to "/etc/init.d/postgresql-9.1"
+end
+
 service "postgresql" do
   supports :restart => true, :status => true, :reload => true
   action [:stop,:disable]

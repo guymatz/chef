@@ -61,7 +61,7 @@ end
 
 directory "/data/jobs/custom_thumbs"
 directory "/var/log/customradiothumbslog"
-remote_file "/data/jobs/ccustom_thumbs/custom_thumbs_job.jar" do
+remote_file "/data/jobs/custom_thumbs/custom_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/custom_thumbs/custom_thumbs_job.jar"
 end
 cron_d "custom_thumbs_job" do
@@ -127,6 +127,22 @@ directory "/home/amqp-consumer/playlog-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"
 end
+directory "/var/log/playlog-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+directory "/var/log/companion-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+directory "/var/log/talk-playlog-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+directory "/var/run/playlog-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
 remote_file "/home/amqp-consumer/playlog-consumer/playlog_consumer.jar" do
   source "http://yum.ihr/files/jobs/playlog-consumer/playlog_consumer.jar"
   owner "amqp-consumer"
@@ -148,6 +164,14 @@ remote_file "/etc/init.d/playlog-consumer" do
 end
 
 directory "/home/amqp-consumer/facebook-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+directory "/var/log/facebook-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+directory "/var/run/facebook-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"
 end
