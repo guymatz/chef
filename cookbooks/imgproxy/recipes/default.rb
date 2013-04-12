@@ -9,6 +9,10 @@
 
 package "ImageMagick"
 
+%w{ /data /data/apps }.each do |dir|
+  directory dir
+end
+
 remote_file "#{Chef::Config['file_cache_path']}/varnish_repo.rpm" do
   source node[:varnish_repo]
   not_if { node.normal.attribute?("imgproxy_deployed") }

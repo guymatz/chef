@@ -1,0 +1,73 @@
+
+<VirtualHost *:80>
+
+    # Enable gzip for text statics
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/x-javascript
+
+    DocumentRoot /data/www/webplayer/current/tusiq/static
+    Customlog	/var/log/httpd/webplayer-access.log common
+    ErrorLog	/var/log/httpd/webplayer-error.log
+
+    <Directory /data/www/webplayer/current/tusiq/static>
+      Order allow,deny
+      Allow from all
+      AllowOverride None
+    </Directory>
+
+ProxyPass /server-status !
+    <Location /server-status>
+      SetHandler server-status
+      Order Deny,Allow
+      Allow from 10.0.0.0/8
+      Allow from 127.0.0.1
+      Deny from All
+    </Location>
+
+
+    RewriteEngine On
+    ExpiresActive On
+
+    # Hostname rewrites
+    RewriteCond %{HTTP_HOST} ^beta.iheartradio.com [OR]
+    RewriteCond %{HTTP_HOST} ^www.beta.iheartradio.com [OR]
+    RewriteCond %{HTTP_HOST} ^iheart.com
+    RewriteRule ^/(.*)$      http://www.iheart.com/$1 [QSA,R=301,L]
+
+  # Set somewhat-far-expiry times for sdk-related assets
+    <LocationMatch "^/dist/">
+      FileETag None
+      ExpiresDefault "access plus 5 min"
+      # Akamai headers
+      Header set Edge-Control "!no-store, max-age=300s"
+      Header set X-IHR-Edge-Control "!no-store, max-age=300s"
+    </LocationMatch>
+
+    # Set far-expiry times for assets when accessed like /_/1a7b66c1f/img/image.jpg
+    <LocationMatch "^/_/">
+      FileETag None
+      ExpiresDefault "access plus 1 year"
+      # Akamai headers
+      Header set Edge-Control "!no-store, max-age=31536000s"
+      Header set X-IHR-Edge-Control "!no-store, max-age=31536000s"
+    </LocationMatch>
+
+    RewriteRule ^/_/[\w]+/(.*)$ /$1
+    <Location />
+	   Order Deny,Allow
+	   Allow from all
+    </Location>
+
+    # Proxy all requests to gunicorn except statics
+    ProxyRequests Off
+    ProxyPass /favicon.ico !
+    ProxyPass /css !
+    ProxyPass /js !
+    ProxyPass /img !
+    ProxyPass /flash !
+    ProxyPass /_c !
+    ProxyPass /dist !
+    ProxyPass / http://127.0.0.1:8080/
+
+    Header unset Server
+
+</VirtualHost>
