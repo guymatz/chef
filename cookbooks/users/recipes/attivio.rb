@@ -7,6 +7,6 @@ end
 sudo "attivio" do
   group "attivio"
   commands ["ALL"]
-  runas "attivio"
+  runas "root"
   nopasswd true
 end
