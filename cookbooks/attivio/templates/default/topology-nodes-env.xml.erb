@@ -39,15 +39,15 @@
       </nodeset>
       <% @cluster.each_with_index do |host, index| %>
       <nodeset name="searchers<%= index+2 %>">
-        <include name="<%= node["fqdn"].gsub('.', '-') %>-searcher" />
+        <include name="<%= host["fqdn"].gsub('.', '-') %>-searcher" />
       </nodeset>
       <% end -%>
       <nodeset name="searchers">
         <% if @master -%>
         <include name="<%= @master["fqdn"].gsub('.', '-') %>-searcher" />
         <% end -%>
-        <% @cluster.each_with_index do |node, index| %>
-        <include name="<%= node["fqdn"].gsub('.', '-') %>-searcher" />
+        <% @cluster.each_with_index do |anode, index| %>
+        <include name="<%= anode["fqdn"].gsub('.', '-') %>-searcher" />
         <% end -%>
       </nodeset>
       <% else -%>
