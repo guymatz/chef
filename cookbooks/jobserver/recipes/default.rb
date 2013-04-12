@@ -9,6 +9,7 @@
 
 if node.chef_environment == 'prod'
   include_recipe "jobserver::ha"
+  include_recipe "fac::talk"
 end
 
 nagios_nrpecheck "Process-Cron" do
