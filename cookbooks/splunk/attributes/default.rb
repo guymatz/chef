@@ -21,7 +21,7 @@ default['splunk']['deploy_dashboards']         = true
 default['splunk']['dashboards_to_deploy']      = ["apache_http","useragents"]
 
 
-default['splunk']['server_config_folder']      = "prodlike"
+default['splunk']['server_config_folder']      = "prod"
 
 # Static Server Configs (Configs that match regardless of environment -Dev,QA,PL,Prod,Etc)
 default['splunk']['static_server_configs']     = ["web","transforms","limits","indexes"]

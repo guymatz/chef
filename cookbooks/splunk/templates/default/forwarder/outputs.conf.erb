@@ -4,6 +4,7 @@ disabled = false
 <% if node['splunk']['ssl_forwarding'] == true -%>compressed = true<% end -%>
 
 [tcpout:splunk_indexers]
+compressed = true
 server=<% @splunk_servers.sort.each_with_index do |server, index| -%><%= server['ipaddress'] %>:<%= node['splunk']['receiver_port']%><% if @splunk_servers.size-1 > index -%>,<% end -%><% end -%>
 
 <% @splunk_servers.sort.each do |server| -%>

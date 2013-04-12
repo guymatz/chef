@@ -1,0 +1,10 @@
+[default]
+host = <%= node['hostname'] %>
+
+[monitor://<%= node['splunk']['forwarder_home']%>/var/log/splunk]
+    disabled = 0
+
+[monitor://<%= node['splunk']['forwarder_home']%>/var/log/secure]
+    blacklist = \.(gz|bz2)$
+    disabled = 0
+

@@ -1,0 +1,14 @@
+{
+  "name": "Lyebeng Ong",
+  "groups": [
+    "carpathia",
+    "sysadmin"
+  ],
+  "ssh_keys": [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAgEAwkfIAr0rhpdnyhRlUu+hCjWUApwvJ56VG/x0LKQTdhmjzN1ur/V9bq+8BlBHQP9EdPF0L0wcpU68zQi8qkWLaxyJpZG/B4ZcbZI7uWpFvshEtMlIAtPSwM5CfaYN7+Gxn1Azy6+pvd6xxYjIbSe/eWNiaGI7uwcq6PXTGwcYydipopKTNtzQO5l04zKXYEOdxA1Q/JNdtkskP/s3PVw+HsErZBjBkRM9zYGC+5Rhw04qjL9WUVTJwSmw8OeePqWi3/VRObknfD8JdpeTigKxEHsyCCGqtjSFyzb+6mR1sXznMsu17rDHga0vyGqCLegZblMrQetpGJ3QQFL8K8iopSoJlxmnl3EOQ6IVIgPdJvVylWz2lDVoTqRehl42lZ/Hqa5fUCLfRCx+GzJJy4RI76+wGsL5kvIHQd1bXCbWFkdr1lQqTEXVZJ7x9e3YN4PKeenB2HQwc4xdCFdZMHd/Lz+YHP3P4QBcI5Iing6KPHpjEHGXa22VgwcD/6WwhiqXgwHn+gUgDK0EM13ET8xdRmWmZNT3wFREVuTLEYj5LcxInFX+5vEOR8kVC6uFuLHD/1/ur4D8hiw9Ve8yfmW5yIiqP/oksFwYT8BkjrtA0LFb6K4yPFk/l5a1UHN6hPEy91AgHoUaOtyWljOzAkY8qso8RcRzhzjxMosyV3pZqRc= long@access.cirn.net"
+  ],
+  "id": "long",
+  "uid": 5018,
+  "shell": "/bin/bash",
+  "email": ""
+}

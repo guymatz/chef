@@ -68,11 +68,17 @@ bash "link_jdk" do
     not_if { node.normal.attribute?("encoder_deployed") }
 end
 
-mount_line = "#{node[:encoders][:nfsserver]}:/nfs#{node[:encoders][:ftpmount]} #{node[:encoders][:ftpmount]}       nfs   rw,bg,soft,tcp,intr  0   0"
+ftp_mount_line = "#{node[:encoders][:nfsserver]}:/nfs#{node[:encoders][:ftp_mount]} #{node[:encoders][:ftp_mount]}       nfs   rw,bg,soft,tcp,intr  0   0"
+encoder_mount_line = "#{node[:encoders][:nfsserver]}:/nfs#{node[:encoders][:encoder_mount]} #{node[:encoders][:encoder_mount]}       nfs   rw,bg,soft,tcp,intr  0   0"
 
 execute "mkdirs" do
-    command "mkdir #{node[:encoders][:ftpmount]}"
-    not_if { ::File.exists?("#{node[:encoders][:ftpmount]}")}
+    command "mkdir -p #{node[:encoders][:ftp_mount]}"
+    not_if { ::File.exists?("#{node[:encoders][:ftp_mount]}")}
+end
+
+execute "mkdirs2" do
+    command "mkdir -p #{node[:encoders][:encoder_mount]}"
+    not_if { ::File.exists?("#{node[:encoders][:encoder_mount]}")}
 end
 
 execute "mounts" do
@@ -80,9 +86,16 @@ execute "mounts" do
     action :run
 end
 
+append_if_no_line "encoder_mount" do
+    path "/etc/fstab"
+    line encoder_mount_line
+    notifies :run, "execute[mkdirs2]", :immediately
+    notifies :run, "execute[mounts]", :immediately
+end
+
 append_if_no_line "encoder_ftp" do
     path "/etc/fstab"
-    line mount_line
+    line ftp_mount_line
     notifies :run, "execute[mkdirs]", :immediately
     notifies :run, "execute[mounts]", :immediately
 end
