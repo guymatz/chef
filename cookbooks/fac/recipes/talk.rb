@@ -6,19 +6,16 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-
-node.set[:java][:oracle][:accept_oracle_download_terms] = true
-node.save
-include_recipe "java"
-
-download_url = "#{node[:fac][:url]}/FAC-talk/#{node[:fac][:prn][:version]}/FAC-talk-#{node[:fac][:prn][:version]}.jar"
-script_dir = "#{node[:fac][:script_path]}/talk"
+app = "talk"
+download_url = "#{node[:fac][:url]}/FAC-#{app}/#{node[:fac][app][:version]}/FAC-#{app}-#{node[:fac][app][:version]}.jar"
+script_dir = "#{node[:fac][:script_path]}/#{app}"
 
 directory "#{script_dir}" do
   recursive true
 end
 
-remote_file "#{script_dir}/fac-talk.jar" do
+remote_file "#{script_dir}/fac-#{app}.jar" do
+  Chef::Log.info("Downloading fac-#{app} from #{download_url}")
   source "#{download_url}"
   mode "0755"
 end
@@ -31,13 +28,13 @@ end
   end
 end
 
-template "/etc/init.d/fac-talk" do
+template "/etc/init.d/fac-#{app}" do
   source "fac.init.erb"
   mode "0755"
   owner "root"
   group "root"
   variables({
-              :fac_app => "talk",
-              :jarfile => "#{script_dir}/fac-talk.jar"
+              :fac_app => app,
+              :jarfile => "#{script_dir}/fac-#{app}.jar"
             })
 end
