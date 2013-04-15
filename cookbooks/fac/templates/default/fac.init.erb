@@ -35,7 +35,7 @@ start() {
 
   # Redirects default and error output to a log file
   java -Xmx4G -jar <%= @jarfile %> initialOverlap='200' >> /dev/null 2>&1 &
-  pgrep -f 'java -Xmx4G -jar <%= @jarfile %> initialOverlap=200' > /var/run/factalk/factalk.pid
+  pgrep -f 'java -Xmx4G -jar <%= @jarfile %> initialOverlap=200' > /var/run/fac/<%= @fac_app %>.pid
   echo "OK"
 }
 
