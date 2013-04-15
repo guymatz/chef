@@ -9,6 +9,7 @@
 
 package "java-1.6.0-openjdk"
 package "ImageMagick"
+package "nfs-utils"
 
 user "tomcat" do
   home "/home/tomcat"
