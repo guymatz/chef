@@ -9,10 +9,15 @@
         "recipe[ingestion]",
         "recipe[ingestion::db_mounts]",
         "recipe[ingestion::database]",
+        "recipe[splunk::forwarder]",
         "role[postgres-server]"
     ],
     "description": "Ingestion & ETL",
     "chef_type": "role",
     "override_attributes": {
+          "splunk": {
+            "forwarder_config_folder": "prod",
+            "forwarder_role": "ingestion"
+          }
     }
 }

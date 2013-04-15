@@ -94,7 +94,7 @@ if node['splunk']['ssl_forwarding'] == true
     group "root"
     action :create
   end
-  
+
   [node['splunk']['ssl_forwarding_cacert'],node['splunk']['ssl_forwarding_servercert']].each do |cert|
     cookbook_file "#{node['splunk']['forwarder_home']}/etc/auth/forwarders/#{cert}" do
       source "ssl/forwarders/#{cert}"

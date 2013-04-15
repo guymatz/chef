@@ -13,6 +13,10 @@
       end
   },
   "override_attributes": {
+      "splunk": {
+          "forwarder_config_folder": "prod",
+          "forwarder_role": "zeus"
+      }
   },
   "chef_type": "role",
   "run_list": [
