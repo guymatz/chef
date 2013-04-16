@@ -16,14 +16,21 @@ directory "/var/log/event"
 remote_file "/data/jobs/event/event_job.jar" do
   source "http://yum.ihr/files/jobs/event/event_job.jar"
 end
+remote_file "/data/jobs/event/batch.properties" do
+  source "http://yum.ihr/files/jobs/event/batch.properties"
+end
+remote_file "/data/jobs/event/log4j.properties" do
+  source "http://yum.ihr/files/jobs/event/log4j.properties"
+end
 cron_d "event_job" do
-  command "cronwrap iad-jobserver101.ihr event-job \"java -jar /data/jobs/event/event_job.jar launch-context.xml eventJob rundate=`/bin/date`\""
+  command "cronwrap iad-jobserver101.ihr event-job \"java -jar /data/jobs/event/event_job.jar launch-context.xml eventJob rundate=\\\"`/bin/date`\\\"\""
   minute 30
   hour 5
 end
 
 directory "/data/jobs/playlog"
 directory "/var/log/playlog"
+directory "/var/log/playlog/processed"
 remote_file "/data/jobs/playlog/playlog.jar" do
   source "http://yum.ihr/files/jobs/playlog/playlog_job.jar"
 end
@@ -34,7 +41,7 @@ remote_file "/data/jobs/playlog/batch.properties" do
   source "http://yum.ihr/files/jobs/playlog/batch.properties"
 end
 cron_d "playlog_job" do
-  command "cronwrap iad-jobserver101.ihr playlog-job \"java -jar /data/jobs/playlog/playlog.jar launch-context.xml playlogJob\""
+  command "cronwrap iad-jobserver101.ihr playlog-job \"java -jar /data/jobs/playlog/playlog.jar launch-context.xml playlogJob rundate=\\\"`/bin/date`\\\"\""
   minute 22
 end
 
@@ -44,43 +51,47 @@ remote_file "/data/jobs/profile/profile_job.jar" do
   source "http://yum.ihr/files/jobs/profile/profile_job.jar"
 end
 cron_d "profile_job" do
-  command "cronwrap iad-jobserver101.ihr profile-job \"java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date`\""
+  command "cronwrap iad-jobserver101.ihr profile-job \"java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=\\\"`/bin/date`\\\"\""
   minute 30
   hour 3
 end
 
 directory "/data/jobs/live_thumbs"
 directory "/var/log/liveradiothumbslog"
+directory "/var/log/liveradiothumbslog/processed"
 remote_file "/data/jobs/live_thumbs/live_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/live_thumbs/live_thumbs_job.jar"
 end
 cron_d "live_thumbs_job" do
-  command "cronwrap iad-jobserver101.ihr live-thumb-job \"java -jar /data/jobs/live_thumbs/live_thumbs_job.jar launch-context.xml liveradiothumbslogJob rundate=`/bin/date`\""
+  command "cronwrap iad-jobserver101.ihr live-thumb-job \"java -jar /data/jobs/live_thumbs/live_thumbs_job.jar launch-context.xml liveradiothumbslogJob rundate=\\\"`/bin/date`\\\"\""
   minute 51
 end
 
 directory "/data/jobs/custom_thumbs"
 directory "/var/log/customradiothumbslog"
+directory "/var/log/customradiothumbslog/processed"
 remote_file "/data/jobs/custom_thumbs/custom_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/custom_thumbs/custom_thumbs_job.jar"
 end
 cron_d "custom_thumbs_job" do
-  command "cronwrap iad-jobserver101.ihr custom-thumb-job \"java -jar /data/jobs/custom_thumbs/custom_thumbs_job.jar launch-context.xml customradiothumbslogJob rundate=`/bin/date`\""
+  command "cronwrap iad-jobserver101.ihr custom-thumb-job \"java -jar /data/jobs/custom_thumbs/custom_thumbs_job.jar launch-context.xml customradiothumbslogJob rundate=\\\"`/bin/date`\\\"\""
   minute 38
 end
 
 directory "/data/jobs/talk_thumbs"
 directory "/var/log/talkthumbslog"
+directory "/var/log/talkthumbslog/processed"
 remote_file "/data/jobs/talk_thumbs/talk_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/talk_thumbs/talk_thumbs_job.jar"
 end
 cron_d "talk_thumbs_job" do
-  command "cronwrap iad-jobserver101.ihr talk-thumb-job \"java -jar /data/jobs/talktl/talk_thumbs_job.jar launch-context.xml talkthumbslogJob rundate=`/bin/date`\""
+  command "cronwrap iad-jobserver101.ihr talk-thumb-job \"java -jar /data/jobs/talk_thumbs/talk_thumbs_job.jar launch-context.xml talkthumbslogJob rundate=\\\"`/bin/date`\\\"\""
   minute 41
 end
 
 directory "/data/jobs/skiplog"
 directory "/var/log/skiplog"
+directory "/var/log/skiplog/processed"
 remote_file "/data/jobs/skiplog/skiplog_job.jar" do
   source "http://yum.ihr/files/jobs/skiplog/skiplog_job.jar"
 end
@@ -91,17 +102,27 @@ remote_file "/data/jobs/skiplog/skipbatch.properties" do
   source "http://yum.ihr/files/jobs/skiplog/skipbatch.properties"
 end
 cron_d "skiplog_job" do
-  command "cronwrap iad-jobserver101.ihr skiplog-job \"java -jar /data/jobs/skiplog/skiplog_job.jar launch-context.xml skiplogJob rundate=`/bin/date`\""
+  command "cronwrap iad-jobserver101.ihr skiplog-job \"java -jar /data/jobs/skiplog/skiplog_job.jar launch-context.xml skiplogJob rundate=\\\"`/bin/date`\\\"\""
   minute 17
 end
 
 directory "/data/jobs/talklog"
 directory "/var/log/talkplaylog"
+directory "/var/log/talkplaylog/processed"
 remote_file "/data/jobs/talklog/talklog_job.jar" do
   source "http://yum.ihr/files/jobs/talklog/talklog_job.jar"
 end
+remote_file "/data/jobs/talklog/log4j.properties" do
+  source "http://yum.ihr/files/jobs/talklog/log4j.properties"
+end
+remote_file "/data/jobs/talklog/skipbatch.properties" do
+  source "http://yum.ihr/files/jobs/talklog/skipbatch.properties"
+end
+remote_file "/data/jobs/talklog/talkbatch.properties" do
+  source "http://yum.ihr/files/jobs/talklog/talkbatch.properties"
+end
 cron_d "talklog_job" do
-  command "cronwrap iad-jobserver101.ihr talklog-job \"java -jar /data/jobs/talklog/talklog_job.jar launch-context.xml talkJob rundate=`/bin/date`\""
+  command "cronwrap iad-jobserver101.ihr talklog-job \"java -jar /data/jobs/talklog/talklog_job.jar launch-context.xml talkJob rundate=\\\"`/bin/date`\\\"\""
   minute 21
 end
 
@@ -117,7 +138,7 @@ remote_file "/data/jobs/sysinfo/log4j.properties" do
   source "http://yum.ihr/files/jobs/sysinfo/log4j.properties"
 end
 cron_d "sysinfo_job" do
-  command "cronwrap iad-jobserver101.ihr sysinfo-job \"java -jar /data/jobs/sysinfo/sysinfo_job.jar launch-context.xml sysInfoJob rundate=`/bin/date`\""
+  command "cronwrap iad-jobserver101.ihr sysinfo-job \"java -jar /data/jobs/sysinfo/sysinfo_job.jar launch-context.xml sysInfoJob rundate=\\\"`/bin/date`\\\"\""
   minute 30
   hour 5
 end
