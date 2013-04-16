@@ -1,0 +1,5 @@
+{
+  "hostgroup_name": "cassandra",
+  "id": "Cassandra-JVM-Heap-Used",
+  "command_line": "$USER1$/check_jmx -U service:jmx:rmi:///jndi/rmi://$HOSTADDRESS$:7199/jmxrmi -O java.lang:type=Memory -A HeapMemoryUsage -K used -I HeapMemoryUsage -J used -vvvv -w 12884901888 -c 15032385536"
+}
