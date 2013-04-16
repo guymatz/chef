@@ -34,7 +34,7 @@ remote_file "/data/jobs/playlog/batch.properties" do
   source "http://yum.ihr/files/jobs/playlog/batch.properties"
 end
 cron_d "playlog_job" do
-  command "cronwrap iad-jobserver101.ihr playlog-job \"java -jar /data/jobs/playlog/playlog.jar launch-context.xml playlogJob\""
+  command "cronwrap iad-jobserver101.ihr playlog-job \"java -jar /data/jobs/playlog/playlog.jar launch-context.xml playlogJob rundate=`/bin/date`\""
   minute 22
 end
 
