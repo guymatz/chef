@@ -16,6 +16,12 @@ directory "/var/log/event"
 remote_file "/data/jobs/event/event_job.jar" do
   source "http://yum.ihr/files/jobs/event/event_job.jar"
 end
+remote_file "/data/jobs/event/batch.properties" do
+  source "http://yum.ihr/files/jobs/event/batch.properties"
+end
+remote_file "/data/jobs/event/log4j.properties" do
+  source "http://yum.ihr/files/jobs/event/log4j.properties"
+end
 cron_d "event_job" do
   command "cronwrap iad-jobserver101.ihr event-job \"java -jar /data/jobs/event/event_job.jar launch-context.xml eventJob rundate=\\\"`/bin/date`\\\"\""
   minute 30
