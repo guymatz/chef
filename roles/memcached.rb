@@ -1,8 +1,7 @@
 name "memcached"
 description "memcached"
 all_env = [
-           "role[auto-bonded]",
-           "recipe[memcached]"
+           "role[auto-bonded]"
           ]
 run_list(all_env)
 env_run_lists(
