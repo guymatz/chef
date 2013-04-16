@@ -21,11 +21,16 @@ remote_file "#{script_dir}/fac-#{app}.jar" do
 end
 
 # init directories
-%w{ /var/run/fac /var/log/fac-\#{app }.each do |dir|
+%w{ /var/run/fac }.each do |dir|
   directory dir do
     recursive true
     mode "0755"
   end
+end
+
+directory "/var/log/fac-#{app}" do
+  recursive true
+  mode "0755"
 end
 
 template "/etc/init.d/fac-#{app}" do

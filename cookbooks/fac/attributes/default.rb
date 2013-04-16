@@ -7,3 +7,4 @@ default[:fac][:music][:version] = "3.4.4"
 
 default[:fac][:script_path] = "/usr/local/bin/fac"
 default[:fac][:url] = "http://archiva.ihrdev.com:8080/archiva/repository/internal/com/ccrd/fac"
+default[:fac][:radiobuild][:url] = "http://yum.ihr/files/radio-build-20130416.jar"
