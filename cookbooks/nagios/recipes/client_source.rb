@@ -67,8 +67,10 @@ end
 
 nrpe_version = node['nagios']['nrpe']['version']
 
+src = "#{node['nagios']['nrpe']['url']}/nrpe-#{nrpe_version}.tar.gz"
 remote_file "#{Chef::Config[:file_cache_path]}/nrpe-#{nrpe_version}.tar.gz" do
-  source "#{node['nagios']['nrpe']['url']}/nrpe-#{nrpe_version}.tar.gz"
+  Chef::Log.info("Downloading nagios-nrpe from #{src}")
+  source src
   checksum node['nagios']['nrpe']['checksum']
   action :create_if_missing
 end
