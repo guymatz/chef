@@ -24,6 +24,7 @@ end
 
 directory "/data/jobs/playlog"
 directory "/var/log/playlog"
+directory "/var/log/playlog/processed"
 remote_file "/data/jobs/playlog/playlog.jar" do
   source "http://yum.ihr/files/jobs/playlog/playlog_job.jar"
 end
