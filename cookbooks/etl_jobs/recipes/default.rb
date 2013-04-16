@@ -106,6 +106,15 @@ directory "/var/log/talkplaylog/processed"
 remote_file "/data/jobs/talklog/talklog_job.jar" do
   source "http://yum.ihr/files/jobs/talklog/talklog_job.jar"
 end
+remote_file "/data/jobs/talklog/log4j.properties" do
+  source "http://yum.ihr/files/jobs/talklog/log4j.properties"
+end
+remote_file "/data/jobs/talklog/skipbatch.properties" do
+  source "http://yum.ihr/files/jobs/talklog/skipbatch.properties"
+end
+remote_file "/data/jobs/talklog/talkbatch.properties" do
+  source "http://yum.ihr/files/jobs/talklog/talkbatch.properties"
+end
 cron_d "talklog_job" do
   command "cronwrap iad-jobserver101.ihr talklog-job \"java -jar /data/jobs/talklog/talklog_job.jar launch-context.xml talkJob rundate=\\\"`/bin/date`\\\"\""
   minute 21
