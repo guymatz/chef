@@ -38,6 +38,8 @@ default[:cassandra][:log_dir]           = '/var/log/cassandra'
 default[:cassandra][:lib_dir]           = '/var/lib/cassandra'
 default[:cassandra][:pid_dir]           = '/var/run/cassandra'
 
+default[:cassandra][:data_root_mount]	= ["/data"]
+default[:cassandra][:data_device]	= ["/dev/sdb1"]
 default[:cassandra][:data_dirs]         = ["/data/db/cassandra"]
 default[:cassandra][:commitlog_dir]     = "/mnt/cassandra/commitlog"
 default[:cassandra][:saved_caches_dir]  = "/var/lib/cassandra/saved_caches"
@@ -101,12 +103,11 @@ default[:cassandra][:max_hints_delivery_threads]   = 2
 # Tunables -- Memory, Disk and Performance
 #
 
+default[:cassandra][:num_tokens]		   = 256
 default[:cassandra][:key_cache_size_in_mb]	   = ""
 default[:cassandra][:key_cache_save_period]	   = 14400
-default[:cassandra][:key_cache_keys_to_save]	   = ""
 default[:cassandra][:row_cache_size_in_mb]	   = 0
 default[:cassandra][:row_cache_save_period]	   = 0
-default[:cassandra][:row_cache_keys_to_save]       = ""
 default[:cassandra][:row_cache_provider]	   = "SerializingCacheProvider"
 default[:cassandra][:disk_failure_policy]	   = "stop" 
 default[:cassandra][:populate_io_cache_on_flush]   = "false"

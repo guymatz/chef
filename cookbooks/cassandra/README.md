@@ -8,8 +8,6 @@ Cassandra: a massively scalable high-performance distributed storage system
 
 Cookbook based on Benjamin Black's (<b@b3k.us>) -- original at http://github.com/b/cookbooks/tree/cassandra/cassandra/
 
-Modified to use `metachef` discovery and options preparation.
-
 ## Recipes 
 
 * `authentication`           - Authentication
@@ -37,8 +35,6 @@ Cookbook dependencies:
 * runit
 * thrift
 * iptables
-* volumes
-* metachef
 * install_from
 
 

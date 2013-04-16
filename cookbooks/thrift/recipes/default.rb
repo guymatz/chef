@@ -23,7 +23,7 @@ include_recipe "build-essential"
 include_recipe "boost"
 include_recipe "python"
 
-%w{ flex bison libtool autoconf pkg-config }.each do |pkg|
+%w{ flex bison libtool autoconf pkgconfig }.each do |pkg|
   package pkg
 end
 
