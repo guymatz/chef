@@ -52,6 +52,7 @@ end
 
 directory "/data/jobs/live_thumbs"
 directory "/var/log/liveradiothumbslog"
+directory "/var/log/liveradiothumbslog/processed"
 remote_file "/data/jobs/live_thumbs/live_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/live_thumbs/live_thumbs_job.jar"
 end
@@ -62,6 +63,7 @@ end
 
 directory "/data/jobs/custom_thumbs"
 directory "/var/log/customradiothumbslog"
+directory "/var/log/customradiothumbslog/processed"
 remote_file "/data/jobs/custom_thumbs/custom_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/custom_thumbs/custom_thumbs_job.jar"
 end
@@ -72,6 +74,7 @@ end
 
 directory "/data/jobs/talk_thumbs"
 directory "/var/log/talkthumbslog"
+directory "/var/log/talkthumbslog/processed"
 remote_file "/data/jobs/talk_thumbs/talk_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/talk_thumbs/talk_thumbs_job.jar"
 end
@@ -82,6 +85,7 @@ end
 
 directory "/data/jobs/skiplog"
 directory "/var/log/skiplog"
+directory "/var/log/skiplog/processed"
 remote_file "/data/jobs/skiplog/skiplog_job.jar" do
   source "http://yum.ihr/files/jobs/skiplog/skiplog_job.jar"
 end
@@ -98,6 +102,7 @@ end
 
 directory "/data/jobs/talklog"
 directory "/var/log/talkplaylog"
+directory "/var/log/talkplaylog/processed"
 remote_file "/data/jobs/talklog/talklog_job.jar" do
   source "http://yum.ihr/files/jobs/talklog/talklog_job.jar"
 end
