@@ -51,7 +51,7 @@ remote_file "/data/jobs/profile/profile_job.jar" do
   source "http://yum.ihr/files/jobs/profile/profile_job.jar"
 end
 cron_d "profile_job" do
-  command "cronwrap iad-jobserver101.ihr profile-job \"java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate="`/bin/date +%s`\""
+  command "cronwrap iad-jobserver101.ihr profile-job \"java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +%s`\""
   minute 30
   hour 3
 end
