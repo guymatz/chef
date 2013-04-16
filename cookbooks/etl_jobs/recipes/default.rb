@@ -79,7 +79,7 @@ remote_file "/data/jobs/talk_thumbs/talk_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/talk_thumbs/talk_thumbs_job.jar"
 end
 cron_d "talk_thumbs_job" do
-  command "cronwrap iad-jobserver101.ihr talk-thumb-job \"java -jar /data/jobs/talktl/talk_thumbs_job.jar launch-context.xml talkthumbslogJob rundate=\\\"`/bin/date`\\\"\""
+  command "cronwrap iad-jobserver101.ihr talk-thumb-job \"java -jar /data/jobs/talk_thumbs/talk_thumbs_job.jar launch-context.xml talkthumbslogJob rundate=\\\"`/bin/date`\\\"\""
   minute 41
 end
 
