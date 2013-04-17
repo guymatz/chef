@@ -1,0 +1,5 @@
+{
+  "id": "RabbitMQ-Memory-Watermark",
+  "command_line": "$USER1$/check_rabbit_memory_watermark.py $HOSTADDRESS$",
+  "hostgroup_name": "amp_rabbit_server"
+}

@@ -47,7 +47,7 @@ case "$1" in
   stop)
   # Stop daemons.
   echo -n "Shutting down nagios-nrpe-server: "
-  pkill nrpe
+  pkill -xf "/usr/bin/nrpe -c <%= node['nagios']['nrpe']['conf_dir'] %>/nrpe.cfg -d"
   echo
   rm -f $LockFile
   ;;

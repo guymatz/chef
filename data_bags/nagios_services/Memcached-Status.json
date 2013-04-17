@@ -1,5 +1,5 @@
 {
-    "id": "Memcached-Status",
-    "hostgroup_name": "memcached",
-    "command_line": "$USER1$/check_memcached.pl -H $HOSTADDRESS$"
+  "id": "Memcached-Status",
+  "hostgroup_name": "memcached",
+  "command_line": "$USER1$/check_memcached.pl -H $HOSTADDRESS$"
 }

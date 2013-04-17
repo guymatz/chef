@@ -1,0 +1,5 @@
+{
+  "id": "RabbitMQ-Overview",
+  "hostgroup_name": "amp_rabbit_server",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c check_rabbitmq_overview -t 20"
+}
