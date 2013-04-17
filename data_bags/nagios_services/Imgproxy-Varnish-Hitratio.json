@@ -1,0 +1,5 @@
+{
+  "id": "Imgproxy-Varnish-Hitratio",
+  "hostgroup_name": "imgproxy_server",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c check_varnish_ratio -t 20"
+}

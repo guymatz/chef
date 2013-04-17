@@ -1,0 +1,5 @@
+{
+  "id": "Imgscaler-Vip-Alive",
+  "hostgroup_name": "zeus",
+  "command_line": "$USER1$/check_http -H iad-imgscaler-vip-v150.ihr -p 80 -u '/sca/imscale?w=88&h=0&img=http://assets.iheart.com/images/drp200/p240/p240923h3u3.jpg'"
+}

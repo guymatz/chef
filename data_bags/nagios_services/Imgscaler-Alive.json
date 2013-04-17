@@ -1,0 +1,5 @@
+{
+  "id": "Imgscaler-Alive",
+  "command_line": "$USER1$/check_http -H $HOSTADDRESS$ -p 8080 -u '/sca/imscale?w=88&h=0&img=http://assets.iheart.com/images/drp200/p240/p240923h3u3.jpg'",
+  "hostgroup_name": "imgscaler_server"
+}
