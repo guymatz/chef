@@ -2,7 +2,8 @@ name "monitoring"
 description "monitoring"
 all_env = [
   "recipe[nagios::server]",
-  "recipe[nagios::pagerduty]"
+  "recipe[nagios::pagerduty]",
+  "recipe[java]"
           ]
 run_list(all_env)
 env_run_lists(

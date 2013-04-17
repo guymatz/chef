@@ -18,19 +18,22 @@ then
   # Check if other node was not brought down nicely
 
   peer_node_status=`ssh root@$peernode "cat $STATUSFILE"`; return=$?
+  echo "Checking peer node status: peer_node_status=$peer_node_status, return=$return" | tee -a $LOG
 
   if [[ $return -eq 255 ]]
   then
+    echo "ssh failed, node has problems, will do stonith"
     peer_node_status=1 # ssh failed, node has problems, will do stonith
   elif [[ $return -ne 0 ]]
   then
-    # Error - most likely file does not exist
+    # Most likely file does not exist
+    echo "Error reading file on peer node - file does not exist, no stonith"
     peer_node_status=0 # file does not exist
   fi
 
   if [ $peer_node_status -eq 1 ] && [ $UPTIME -gt 120 ]
   then
-    /usr/sbin/poweroff $peernode
+    /usr/sbin/poweroff $peernode 2>&1 | tee -a $LOG
   fi
 
   echo "OK"
@@ -43,7 +46,7 @@ if [ "$arg" == "status" ]; then
 
   if [[  -s $STATUSFILE ]]
   then
-        this_node_status=`cat /dev/shm/is_stonith_drac_resource_running`
+        this_node_status=`cat $STATUSFILE`
   else
         this_node_status=0
   fi
