@@ -3,8 +3,8 @@
     "uid": 5013,
     "name": "Amit Patel",
     "email": "amitpatel@gmail.com",
-    "groups": ["dev"],
+    "groups": ["dev", "attivio"],
     "ssh_keys": [
-"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDNhaRaJdCV93WJ1ZVGd5hdKIg5niF9ArUmOY6yygPRBL6du+xBJrAFXZK7G8A1EJYhdwOvsuPftym5Vm8NRfDf/SfLUp5pnqQpuiIySaP+gpbbFtLPXE5BXxgVzG2NnXwJ6ISASidgGWbMsOw+WbUKapvwlihjtWLWsiDdkcYTzDp/zVkr8B3kzgISJZERztf24gFrantHsDf9DIIMRRjAmtc55v/4J5/GX+RZCo2EbaAHYU60odErHyYk9Y5+IoZMsiUpNs1xuCPmdi8ETYNt/5Sv/BLozj/rcXFp9ZWOjVKEnXgMHvq2iQG0Kd3I/XtpdW2DWeMENbg7D6M8sniN apatel@mmoss-HP-Z600-Workstation"
+"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbi0Xi6NBZWch/txhopvc6dYlnwY3CXjDHG7/85O5J0vr3msjp+dpVzDUZnvAObNC/MIdQa7GdWiQWfZ5jlPPFHP3zzrlO96mcCMfU0M2RFcZQAxMxT0LSMJMtVLMsdKV6BF0UbeIrOIqviYuH8A5u1Khh8m3/Qk48cQiCGkJdT3z2rfRoPT4NmIDeuXbH9CsDqBCZnEaAG+0umiQHqnXkK24Nc2G+fPOVPCNNyTJgSW+0GWfeBZ1z5DykKhcoIy6BPJlsX2wkBeJpLNKCnghQnI16y3qkNgTOJQqtmdHP4O3GZk7/G1ZS49iSlw7fHPhRWFTWil7RFXA9PmBzl1Xv AmitPatel@clearchannel.com"
     ]
 }
