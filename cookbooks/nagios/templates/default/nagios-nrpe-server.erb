@@ -52,8 +52,7 @@ case "$1" in
   rm -f $LockFile
   ;;
   restart)
-  $0 stop
-  $0 start
+  $0 stop;$0 start
   ;;
   status)
   status nagios-nrpe-server
