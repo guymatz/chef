@@ -12,6 +12,14 @@ include_recipe "authorization::sysctl"
 include_recipe "authorization::ulimits"
 include_recipe "php"
 
+node[:authorization][:database][:packages].each do |p|
+  package p
+end
+
+node[:authorization][:scripts][:packages].each do |p|
+  package p
+end
+
 template "/etc/ha.d/ha.cf" do
 	source "ha.cf.erb"
 	mode 0644
@@ -31,13 +39,6 @@ directory "/root/.ssh" do
 end
 
 if node[:fqdn] =~ /iad-auth102.ihr/
- ifconfig "172.16.0.2" do
- 	 bootproto "static"
- 	 device "p2p2"
-         mask "255.255.255.252"
- 	 onboot "yes"
-         action :enable
- end
  cookbook_file "/root/.ssh/id_rsa" do
 	 source "node2_root/.ssh/id_rsa"
  	 mode 0600
@@ -54,13 +55,6 @@ if node[:fqdn] =~ /iad-auth102.ihr/
  end
 end
 if node[:fqdn] =~ /iad-auth101.ihr/
- ifconfig "172.16.0.1" do
-         bootproto "static"
-         device "p2p2"
-         mask "255.255.255.252"
-         onboot "yes"
-         action :enable
- end
  cookbook_file "/root/.ssh/id_rsa" do
          source "node1_root/.ssh/id_rsa"
          mode 0600
@@ -82,6 +76,14 @@ directory "/data" do
   group "postgres"
   mode 0755
   action :create
+end
+
+cookbook_file "/etc/modprobe.d/bonding_1.conf" do
+	source "bonding_1.conf"
+	mode 0644
+	owner "root"
+	group "root"
+	action :create_if_missing
 end
 
 cookbook_file "/etc/ha.d/README.config" do

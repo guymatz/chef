@@ -23,3 +23,9 @@ define command {
        command_name     notify-host-by-pagerduty
        command_line     <%= node['nagios']['plugin_dir'] %>/pagerduty_nagios.pl enqueue -f pd_nagios_object=host
 }
+
+define contactgroup {
+       contactgroup_name                        pagerduty_group
+       alias                                    PagerDuty Group
+       members                                  pagerduty
+}

@@ -1,14 +1,15 @@
 #
 # Cookbook Name:: fac
-# Recipe:: music
+# Recipe:: prn
 #
 # Copyright 2013, iHeartRadio
 #
 # All rights reserved - Do Not Redistribute
 #
 
-app = "music"
-download_url = "#{node[:fac][:url]}/FAC-#{app}/#{node[:fac][app][:version]}/FAC-#{app}-#{node[:fac][app][:version]}.jar"
+
+app = 'radiobuild'
+download_url = node[:fac][:radiobuild][:url]
 script_dir = "#{node[:fac][:script_path]}/#{app}"
 
 directory "#{script_dir}" do
@@ -44,5 +45,3 @@ template "/etc/init.d/fac-#{app}" do
               :jarfile => "#{script_dir}/fac-#{app}.jar"
             })
 end
-
-

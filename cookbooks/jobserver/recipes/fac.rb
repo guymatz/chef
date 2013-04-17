@@ -9,6 +9,6 @@
 # Description: Sets up jobs for FAC-PRN, fac-talk, and fac-music
 #              allong with necessary monitoring for the processes and jobs
 
-%w{ default prn music talk }.each do |r|
+%w{ default prn music talk radiobuild }.each do |r|
   include_recipe "fac::#{r}"
 end

@@ -11,8 +11,10 @@ end
 
 nsca_version = node['nagios']['nsca']['version']
 
+src = "#{node['nagios']['nsca']['url']}/nsca-#{nsca_version}.tar.gz"
 remote_file "#{Chef::Config[:file_cache_path]}/nsca-#{nsca_version}.tar.gz" do
-  source "#{node['nagios']['nsca']['url']}/nsca-#{nsca_version}/nsca-#{nsca_version}.tar.gz"
+  Chef::Log.info("Downloading nagios-nsca from #{src}")
+  source src
   checksum node['nagios']['nsca']['checksum']
   action :create_if_missing
 end

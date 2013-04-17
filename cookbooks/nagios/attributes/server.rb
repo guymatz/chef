@@ -54,7 +54,7 @@ default['nagios']['ssl_req'] = "/C=US/ST=NY/L=NewYork/O=iheartradio/OU=Operation
   "CN=#{node['nagios']['server_name']}/emailAddress=ops@#{node['nagios']['server_name']}"
 
 # for server from source installation
-default['nagios']['server']['url']      = 'http://prdownloads.sourceforge.net/sourceforge/nagios'
+default['nagios']['server']['url']      = 'http://yum.ihr/files'
 default['nagios']['server']['version']  = '3.4.1'
 default['nagios']['server']['checksum'] = 'a5c693f9af22410cc17d6da9c0df9bd65c47d787de3f937b5ccbda934131f8c8'
 
