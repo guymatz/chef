@@ -1,0 +1,22 @@
+#!/bin/sh
+# tomcat7 stop / start scripts
+#     written hastily by Jake Plimack
+#
+# chkconfig: 2345 90 20
+
+case "$1" in
+    start)
+        <%= node[:tomcat7][:install_path] %>/bin/startup.sh
+        ;;
+    stop)
+        <%= node[:tomcat7][:install_path] %>/bin/shutdown.sh
+        ;;
+    restart)
+        <%= node[:tomcat7][:install_path] %>/bin/shutdown.sh
+        echo "Sleeping 5 secs before starting tomcat back up... this may not be enough"
+        sleep 5
+        <%= node[:tomcat7][:install_path] %>/bin/startup.sh
+        ;;
+        *)
+        echo "Syntax: $0 <start|stop|restart>"
+esac
