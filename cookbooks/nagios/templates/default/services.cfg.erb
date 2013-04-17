@@ -136,7 +136,7 @@ define service {
   host_name <%= service['host_name'] %>
   check_command check_<%= service['id'] %>
   use default-service
-  <%= 'contact_groups ' + service['contact_groups'].to_s unless service['contact_groups'].nil? %>
+  <%= 'contact_groups ' + service['contact_groups'].join(',') unless service['contact_groups'].nil? %>
 }
   <% end -%>
 <% end -%>
@@ -150,7 +150,7 @@ define service {
             <%= 'hostgroup_name ' + service['hostgroup_name'] unless service['hostgroup_name'].nil? %>
             <%= 'host_name ' + service['host_name'] unless service['host_name'].nil? %>
             <%= 'freshness_threshold ' + service['freshness_threshold'] unless service['freshness_threshold'].nil? %>
-            <%= 'contact_groups ' + service['contact_groups'].to_s unless service['contact_groups'].nil? %>
+            <%= 'contact_groups ' + service['contact_groups'].join(',') unless service['contact_groups'].nil? %>
 }
   <% end -%>
 <% end -%>
