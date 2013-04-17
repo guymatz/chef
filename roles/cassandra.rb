@@ -5,6 +5,7 @@ all_env = [
            "recipe[cassandra::install_from_release]",
            "recipe[cassandra::server]",
            "recipe[cassandra::users]",
+           "recipe[cassandra::nagios]",
 	  ]
 run_list(all_env)
 env_run_lists(
