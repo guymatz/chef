@@ -183,5 +183,5 @@ when "centos"
   end
 end
 
-node.set('whipped')
+node.set['whipped'] = true
 node.save
