@@ -33,3 +33,9 @@ env_run_lists(
               "ec2-prod" => all_env + ["recipe[users::data-team]"],
               "ec2" => all_env
               )
+
+default_attributes ({
+      "ntp" => {
+        "servers" => ["ntp101.ihrdev.com", "ntp102.ihrdev.com"],
+      }
+})
