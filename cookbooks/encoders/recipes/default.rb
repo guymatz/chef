@@ -68,8 +68,8 @@ bash "link_jdk" do
     not_if { node.normal.attribute?("encoder_deployed") }
 end
 
-ftp_mount_line = "#{node[:encoders][:nfsserver]}:/nfs#{node[:encoders][:ftp_mount]} #{node[:encoders][:ftp_mount]}       nfs   rw,bg,soft,tcp,intr  0   0"
-encoder_mount_line = "#{node[:encoders][:nfsserver]}:/nfs#{node[:encoders][:encoder_mount]} #{node[:encoders][:encoder_mount]}       nfs   rw,bg,soft,tcp,intr  0   0"
+ftp_mount_line = "#{node[:encoders][:nfsserver]}:/nfs#{node[:encoders][:ftp_mount]} #{node[:encoders][:ftp_mount]}       nfs   rw,vers=3,bg,soft,tcp,intr  0   0"
+encoder_mount_line = "#{node[:encoders][:nfsserver]}:/nfs#{node[:encoders][:encoder_mount]} #{node[:encoders][:encoder_mount]}       nfs   rw,vers=3,bg,soft,tcp,intr  0   0"
 
 execute "mkdirs" do
     command "mkdir -p #{node[:encoders][:ftp_mount]}"
