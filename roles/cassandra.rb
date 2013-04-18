@@ -4,6 +4,7 @@ all_env = [
            "recipe[cassandra]",
            "recipe[cassandra::install_from_release]",
            "recipe[cassandra::server]",
+           "recipe[cassandra::jna_support]",
            "recipe[cassandra::users]",
            "recipe[cassandra::nagios]",
 	  ]
