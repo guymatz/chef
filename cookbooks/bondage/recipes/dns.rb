@@ -169,8 +169,13 @@ when "centos"
                  })
     end
     if node.has_key? 'heartbeat'
-      Chef::Log.info("Creating Heartbeat Config: IPaddr::#{intf[:ip]}/#{vip_netmask}/#{master_intf}")
-      node.set[:heartbeat][:ha_resources]["#{master_intf}_#{intf[:vlan]}"] = "IPaddr::#{intf[:ip]}/#{vip_netmask}/#{master_intf}"
+      if sys_type == "vmware"
+        Chef::Log.info("Creating Heartbeat Config: IPaddr::#{intf[:ip]}/#{vip_netmask}/#{master_intf}")
+        node.set[:heartbeat][:ha_resources]["#{master_intf}_#{intf[:vlan]}"] = "IPaddr::#{intf[:ip]}/#{vip_netmask}/#{master_intf}.#{intf[:vlan]}"
+      else
+        Chef::Log.info("Creating Heartbeat Config: IPaddr::#{intf[:ip]}/#{vip_netmask}/#{master_intf}")
+        node.set[:heartbeat][:ha_resources]["#{master_intf}_#{intf[:vlan]}"] = "IPaddr::#{intf[:ip]}/#{vip_netmask}/#{master_intf}"
+      end
       node.save
     end
   end

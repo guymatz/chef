@@ -27,6 +27,7 @@ action :create do
   end
   nodes << node if nodes.select{|n| n['macaddress'] == node['macaddress']}.empty?
   interface = new_resource.interface.is_a?(Array) ? new_resource.interface : [new_resource.interface]
+  interface_partner_ip = new_resource.interface_partner_ip
   authkeys = new_resource.authkeys.is_a?(Array) ? new_resource.authkeys : [new_resource.authkeys]
 
   template "#{node['heartbeat']['conf_dir']}/ha.cf" do
@@ -36,7 +37,12 @@ action :create do
     owner "root"
     group "root"
     notifies :restart, "service[heartbeat]"
-    variables :heartbeat => new_resource, :nodes => nodes, :interface => interface, :partner_ip => intf_partner_ip
+    variables({
+                :heartbeat => new_resource,
+                :nodes => nodes,
+                :interface => interface,
+                :partner_ip => interface_partner_ip
+                })
   end
 
   template "#{node['heartbeat']['conf_dir']}/authkeys" do
