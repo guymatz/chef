@@ -42,7 +42,7 @@ application "radioedit-cms" do
     workers 10
     host node[:radioedit][:cms][:host]
     command "radioedit.wsgi"
-    pid "/var/run/radioedit-cms.pid"
+    pidfile "/var/run/radioedit-cms.pid"
   end
 
 end
