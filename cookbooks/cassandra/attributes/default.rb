@@ -71,6 +71,7 @@ default[:cassandra][:mx4j_port]  = "8081"
 default[:cassandra][:version]           = "1.2.3"
 # install_from_release: tarball url
 default[:cassandra][:release_url]       = ":apache_mirror:/cassandra/:version:/apache-cassandra-:version:-bin.tar.gz"
+default[:cassandra][:jna_release_url]	= "http://yum.ihr/files/jna-3.5.2.jar"
 
 # Git install
 

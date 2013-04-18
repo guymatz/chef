@@ -28,12 +28,18 @@ if node[:platform].downcase == "ubuntu" && node[:kernel][:machine] == "x86_64"
     code        %Q{wget -q -O #{dlfile} #{node[:cassandra][:jna_deb_amd64_url]} && dpkg -i #{dlfile}}
     not_if      "dpkg -s libjna-java | egrep '^Status: .* installed' > /dev/null"
   end
+end
+if node[:platform].downcase == "centos" && node[:kernel][:machine] == "x86_64"
+  remote_file "/usr/lib/jvm/jdk1.6.0_37/lib/jna.jar" do
+    source "#{node[:cassandra][:jna_release_url]}"
+    mode 0644
+    notifies :restart, "service[cassandra]"
+  end
+end
+  
 
   # Link into our cassandra directory
-  link "#{node[:cassandra][:home_dir]}/lib/jna.jar" do
-    to          "/usr/share/java/jna.jar"
-    notifies    :restart, "service[cassandra]", :delayed if startable?(node[:cassandra])
-  end
-else
-  Chef::Log.warn("JNA cookbook not supported on this platform")
+link "#{node[:cassandra][:home_dir]}/lib/jna.jar" do
+  to          "/usr/lib/jvm/jdk1.6.0_37/lib/jna.jar"
+  notifies    :restart, "service[cassandra]"
 end

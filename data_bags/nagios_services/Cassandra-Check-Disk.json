@@ -1,5 +1,5 @@
 {
   "hostgroup_name": "cassandra",
   "id": "Check-Disk-Cassandra",
-  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -p /data -w 45 -c 50"
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Check-Disk-Cassandra -t 20"
 }
