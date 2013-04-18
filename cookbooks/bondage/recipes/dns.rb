@@ -112,7 +112,7 @@ when "centos"
                      :vlan => intf[:vlan],
                      :netmask => '255.255.254.0'
                    })
-        not_if "test -f /etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}"
+        not_if "test -f /etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}" || node.attribute.normal?('whipped')
         notifies :restart, "service[network]"
       end
     elsif sys_type == "vmware"
@@ -124,7 +124,7 @@ when "centos"
         variables ({
                      :device => master_intf
                    })
-        not_if "test -f /etc/sysconfig/network-scripts/ifcfg-#{master_intf}"
+        not_if "test -f /etc/sysconfig/network-scripts/ifcfg-#{master_intf}" || node.attribute.normal?('whipped')
         notifies :restart, "service[network]"
       end
 
@@ -139,6 +139,7 @@ when "centos"
                      :vlan => intf[:vlan],
                      :netmask => '255.255.254.0'
                    })
+        not_if node.attribute.normal?('whipped')
         notifies :restart, "service[network]"
       end
     end
@@ -151,6 +152,7 @@ when "centos"
           file.insert_line_if_no_match("/GATEWAY=10.5.40.1/", "GATEWAY=10.5.40.1")
           file.write_file
         end
+        not_if node.attribute.normal?('whipped')
         notifies :restart, "service[network]"
       end
     end
@@ -180,3 +182,6 @@ when "centos"
     end
   end
 end
+
+node.set('whipped')
+node.save
