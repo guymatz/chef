@@ -21,7 +21,7 @@ end
 
 application "radioedit-cms" do
   repository node[:radioedit][:cms][:repo]
-  branch node[:radioedit][:image][:branch]
+  revision node[:radioedit][:image][:branch]
   path node[:radioedit][:cms][:path]
   owner node[:radioedit][:user]
   group node[:radioedit][:group]

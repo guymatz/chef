@@ -24,7 +24,7 @@ unless node[:dmi][:system][:manufacturer].nil?
   case node[:dmi][:system][:manufacturer]
   when "VMware, Inc."
     sys_type = "vmware"
-    master_intf = "eth2"
+    master_intf = "eth1"
   when "Dell Inc."
     sys_type = "dell"
     master_intf = "bond0"
@@ -105,7 +105,7 @@ when "centos"
         source "ifcfg-bond.vlan.erb"
         owner "root"
         group "root"
-        mode "0644"
+        mode "0755"
         variables ({
                      :ip => intf[:ip],
                      :device => master_intf,
@@ -115,7 +115,46 @@ when "centos"
         not_if "test -f /etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}"
         notifies :restart, "service[network]"
       end
+    elsif sys_type == "vmware"
+      template "/etc/sysconfig/network-scripts/ifcfg-#{master_intf}" do
+        source "ifcfg-intf.erb"
+        owner "root"
+        group "root"
+        mode "0755"
+        variables ({
+                     :device => master_intf
+                   })
+        not_if "test -f /etc/sysconfig/network-scripts/ifcfg-#{master_intf}"
+        notifies :restart, "service[network]"
+      end
+
+      template "/etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}" do
+        source "ifcfg-intf-vlan.erb"
+        owner "root"
+        group "root"
+        mode "0755"
+        variables ({
+                     :ip => intf[:ip],
+                     :device => master_intf,
+                     :vlan => intf[:vlan],
+                     :netmask => '255.255.254.0'
+                   })
+        notifies :restart, "service[network]"
+      end
     end
+
+    if intf[:vlan] == "200"
+      Chef::Log.info("Adjusting Default GW to PROD")
+      ruby_block "Setup PROD Default GW" do
+        block do
+          file = Chef::Util::FileEdit.new("/etc/sysconfig/network")
+          file.insert_line_if_no_match("/GATEWAY=10.5.40.1/", "GATEWAY=10.5.40.1")
+          file.write_file
+        end
+        notifies :restart, "service[network]"
+      end
+    end
+
   end
 
   tagged_interfaces.each do |intf|
@@ -124,7 +163,7 @@ when "centos"
       source "ifcfg-intf.erb"
       user "root"
       group "root"
-      mode "0644"
+      mode "0755"
       variables ({
                    :device => master_intf
                  })
@@ -136,4 +175,3 @@ when "centos"
     end
   end
 end
-
