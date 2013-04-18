@@ -174,3 +174,24 @@ file "#{node[:attivio][:aie_install_path]}/conf/attivio.license" do
   only_if "test -d #{node[:attivio][:aie_install_path]}/conf/"
 end
 
+# Input Directories
+dirs = [
+        "artistalias", "enrichment", "priority",
+        "xml/artist/archive", "xml/artist/delete", "xml/artist/update",
+        "xml/bundle/delete", "xml/bundle/update",
+        "xml/createstation", "xml/station/update", "xml/tmpCreateStation",
+        "xml/track/delete", "xml/track/update" ]
+dirs.each do |der|
+  directory "#{node[:attivio][:input_path]}/#{der}" do
+    owner node[:attivio][:user]
+    group node[:attivio][:group]
+    mode "0755"
+    recursive true
+  end
+end
+
+directory "#{node[:attivio][:install_path]}/#{node[:attivio][:directory][:fac_archive]}" do
+  owner node[:attivio][:user]
+  group node[:attivio][:group]
+  mode "0755"
+end

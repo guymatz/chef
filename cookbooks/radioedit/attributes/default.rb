@@ -32,8 +32,8 @@ default[:radioedit][:core][:pips] = %w{ supervisor pymongo python-memcached guni
 default[:radioedit][:diablocore][:packages] = %w{ nginx zlib-devel libjpeg zlib gcc python-devel git libevent-devel libevent zeromq-devel zeromq }
 
 # Gunicorn Settings
-default[:radioedit][:image][:port] = "8000"
+default[:radioedit][:image][:port] = 8000
 default[:radioedit][:image][:listen] = "/var/tmp/radioedit-image.sock"
 
-default[:radioedit][:cms][:port] = "80"
+default[:radioedit][:cms][:port] = 80
 default[:radioedit][:cms][:listen] = "/var/tmp/radioedit-cms.sock"

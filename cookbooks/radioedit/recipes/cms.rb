@@ -39,7 +39,7 @@ application "radioedit-cms" do
     app_module :django
     Chef::Log.info("Starting up Gunicorn on port #{node[:radioedit][:cms][:port]} for Radioedit-CMS")
     port node[:radioedit][:cms][:port]
-    worker_processes 10
+    workers 10
     listen node[:radioedit][:cms][:listen]
     command "radioedit.wsgi"
     pid "/var/run/radioedit-cms.pid"
