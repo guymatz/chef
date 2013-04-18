@@ -8,10 +8,10 @@ default['graphite']['password'] = "change_me"
 default['graphite']['url'] = "graphite"
 default['graphite']['url_aliases'] = []
 default['graphite']['listen_port'] = 80
-default['graphite']['base_dir'] = "/opt/graphite"
-default['graphite']['doc_root'] = "/opt/graphite/webapp"
-default['graphite']['storage_dir'] = "/opt/graphite/storage"
-default['graphite']['timezone'] = "America/Los_Angeles"
+default['graphite']['base_dir'] = "/data/graphite"
+default['graphite']['doc_root'] = "/data/graphite/webapp"
+default['graphite']['storage_dir'] = "/data/graphite/storage"
+default['graphite']['timezone'] = "America/New_York"
 default['graphite']['django_root'] = "@DJANGO_ROOT@"
 
 default['graphite']['whisper']['uri'] = "https://launchpad.net/graphite/0.9/#{node['graphite']['version']}/+download/whisper-#{node['graphite']['version']}.tar.gz"
@@ -59,4 +59,4 @@ default['graphite']['carbon']['amqp_password'] = "guest"
 default['graphite']['carbon']['amqp_exchange'] = "graphite"
 default['graphite']['carbon']['amqp_metric_name_in_body'] = false
 
-default['graphite']['encrypted_data_bag']['name'] = nil
+default['graphite']['encrypted_data_bag']['name'] = "secrets"

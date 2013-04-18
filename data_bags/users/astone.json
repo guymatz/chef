@@ -1,0 +1,12 @@
+{
+    "id": "astone",
+    "name": "Andrew Stone",
+    "email":    "andrewstone@clearchannel.com",
+    "groups":   ["dev"],
+    "ssh_keys": [
+        "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvaVOGKGxuycPTx8uFcKrOEJonnYyu78Le6S4VBOyMM7giCp/wNaAIZsDuddPoDt9T9alS/ZEJ+YBoOFcmqVWhSsxpdv+mpAcv2en4s5fl5Gfr8m4UMGlKmVZhji++g5pxUGALZ3I/krSPWOmAiZClXBqU0RT7ZfdUvyHLxIUhEUqC3BAmp7ykT6cgG4EbeQ37OMnUtVdWjiVgJz4XN3MOeuda6zx74cndL5qU4eUjzHK8gLs0VIdxVbCCZO+j6AVnq92pySumZjub621YssJsS2uzQxgK+10InpiqLW6VpGsZ3nHvACkU3ym+V804n+A2LeN98VW5F6mLprxYegR4w== andi@Apollo"
+    ],
+    "shell":    "/bin/bash",
+    "htpasswd": "",
+    "uid": 5022
+}

@@ -1,0 +1,8 @@
+{
+  "id": "syesuratnam",
+  "groups": ["sysadmin"],
+  "ssh_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIBlSdpV0EsNtnieOFO1e+Iy4y6WxDeMHjjC8BG9ecdfwlk+khhEst9SrQ/fxdGXRbZSWplOymMLXgpw84q0kiF8qZo/ILC0TcjqtlAPTwi8t3WFBJXCISdtkbXhcRjQEPOD0R0j+ND62ZtMKi8B6zCaBo291bCTIERsWMzp4x2WOQ== rsa-key-20130418",
+  "shell": "/bin/bash",
+  "uid": 5021,
+  "htpasswd": "{SHA}ODYEryh/4BvrdNTgp3Mb3Xd0GgE="
+}
