@@ -29,7 +29,7 @@ default[:radioedit][:cms][:packages] = %w{ python-psycopg2 postgresql-libs }
 default[:radioedit][:core][:packages] = %w{ nginx zlib-devel libjpeg zlib gcc python-devel git libevent-devel libevent zeromq-devel zeromq python-setuptools python-ldap python-zmq }
 default[:radioedit][:core][:pips] = %w{ supervisor pymongo python-memcached gunicorn greenlet statsd }
 
-default[:radioedit][:diablo-core][:packages] = %w{ nginx zlib-devel libjpeg zlib gcc python-devel git libevent-devel libevent zeromq-devel zeromq }
+default[:radioedit][:diablocore][:packages] = %w{ nginx zlib-devel libjpeg zlib gcc python-devel git libevent-devel libevent zeromq-devel zeromq }
 
 # Gunicorn Settings
 default[:radioedit][:image][:port] = "8000"
