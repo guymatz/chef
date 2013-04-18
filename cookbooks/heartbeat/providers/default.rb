@@ -36,7 +36,7 @@ action :create do
     owner "root"
     group "root"
     notifies :restart, "service[heartbeat]"
-    variables :heartbeat => new_resource, :nodes => nodes, :interface => interface
+    variables :heartbeat => new_resource, :nodes => nodes, :interface => interface, :partner_ip => intf_partner_ip
   end
 
   template "#{node['heartbeat']['conf_dir']}/authkeys" do
