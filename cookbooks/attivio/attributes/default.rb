@@ -1,5 +1,6 @@
 default[:attivio][:aie_install_path] = "/data/apps/attivio"
 default[:attivio][:install_path] = "/data/apps/attivio31"
+default[:attivio][:input_path] = "/data/apps/attivio31/input"
 default[:attivio][:config_path] = "/data/apps/attivio31/iheartradio3/conf"
 default[:attivio][:bin_path] = "/data/apps/attivio31/iheartradio3/bin"
 default[:attivio][:user] = "attivio"
