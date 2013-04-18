@@ -40,7 +40,7 @@ application "radioedit-cms" do
     Chef::Log.info("Starting up Gunicorn on port #{node[:radioedit][:cms][:port]} for Radioedit-CMS")
     port node[:radioedit][:cms][:port]
     workers 10
-    listen node[:radioedit][:cms][:listen]
+    host node[:radioedit][:cms][:host]
     command "radioedit.wsgi"
     pid "/var/run/radioedit-cms.pid"
   end

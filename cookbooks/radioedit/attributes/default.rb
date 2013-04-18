@@ -37,3 +37,4 @@ default[:radioedit][:image][:listen] = "/var/tmp/radioedit-image.sock"
 
 default[:radioedit][:cms][:port] = 80
 default[:radioedit][:cms][:listen] = "/var/tmp/radioedit-cms.sock"
+default[:radioedit][:cms][:host] = "/var/tmp/radioedit-cms.sock"
