@@ -1,0 +1,19 @@
+= DESCRIPTION:
+
+Install and configure mrtg in order to graph switches and routers discovered from a data bag.
+
+= REQUIREMENTS:
+
+Works on debian, may work on ubuntu and other debian based distributions.
+
+= ATTRIBUTES:
+
+= USAGE:
+
+Default recipe search into a "switches" data bag for item like this one :
+
+{
+    "id": "some-id",
+    "fqdn": "switch.or.router.fqdn"
+}
+
