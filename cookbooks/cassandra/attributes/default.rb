@@ -155,7 +155,35 @@ default[:cassandra][:request_scheduler]            = 'org.apache.cassandra.sched
 default[:cassandra][:throttle_limit]               = 80           # 2x (concurrent_reads + concurrent_writes)
 default[:cassandra][:request_scheduler_id]         = 'keyspace'
 
-#
-# Machine tuning -- use the tuning cookbook to have this take effect
-#
-default[:tuning][:ulimit]['cassandra'] = { :nofile => { :both => 32768 }, :nproc => { :both => 50000 } }
+default[:cassandra][:ulimits] = [ { 
+                                   "type" => "soft",
+                                   "item" => "nofile",
+                                   "value" => "65535"
+                                 },
+                                 { 
+                                   "type" => "hard",
+                                   "item" => "nofile",
+                                   "value" => "65535"
+                                 },
+                                 { 
+                                   "type" => "soft",
+                                   "item" => "memlock",
+                                   "value" => "unlimited"
+                                 },
+                                 { 
+                                   "type" => "hard",
+                                   "item" => "memlock",
+                                   "value" => "unlimited"
+                                 }
+                               ]
+default[:cassandra][:root_ulimits] = [ {
+                                   "type" => "soft",
+                                   "item" => "nofile",
+                                   "value" => "65535"
+                                 },
+                                 { 
+                                   "type" => "hard",
+                                   "item" => "nofile",
+                                   "value" => "65535"
+                                 }
+                               ]
