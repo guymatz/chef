@@ -19,6 +19,7 @@ remote_file "#{script_dir}/fac-#{app}.jar" do
   Chef::Log.info("Downloading fac-#{app} from #{download_url}")
   source "#{download_url}"
   mode "0755"
+  action :create_if_missing
 end
 
 # init directories
@@ -44,5 +45,3 @@ template "/etc/init.d/fac-#{app}" do
               :jarfile => "#{script_dir}/fac-#{app}.jar"
             })
 end
-
-

@@ -143,7 +143,6 @@ cron_d "sysinfo_job" do
   hour 5
 end
 
-user "amqp-consumer"
 directory "/home/amqp-consumer/playlog-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"

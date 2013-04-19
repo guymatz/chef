@@ -23,14 +23,14 @@ end
 partner_ip = IPSocket::getaddress(partner_hostname)
 
 # figure out if we're vmware or physical
-# vmware will always use eth1 for the HA-link
+# vmware will always use eth2 for the HA-link
 # physicals will always use em2 for the HA-Link
 
 if node.has_key?('virtualization')
   if node['virtualization'].has_key?('system')
     if node['virtualization']['system'].include? 'vmware'
       host_type = 'vmware'
-      ha_intf = 'eth1'
+      ha_intf = 'eth2'
       attach_to = 'eth0'
     else
       host_type = 'physical'
@@ -93,6 +93,7 @@ heartbeat "jobserver" do
   warntime 15
   search "chef_environment:#{node.chef_environment} AND roles:jobserver"
   interface ha_intf
+  interface_partner_ip partner_ha_ip
   # mcast_group
   # mcast_ttl
   mode "ucast"

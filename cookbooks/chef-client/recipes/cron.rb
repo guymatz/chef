@@ -27,6 +27,7 @@ root_group = value_for_platform(
                                 "default" => "root"
                                 )
 
+Chef::Log.info("Configuring chef-client as cron task")
 # COOK-635 account for alternate gem paths
 # try to use the bin provided by the node attribute
 if ::File.executable?(node["chef_client"]["bin"])

@@ -112,7 +112,7 @@ when "centos"
                      :vlan => intf[:vlan],
                      :netmask => '255.255.254.0'
                    })
-        not_if "test -f /etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}"
+        not_if { File.exists?("/etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}") || node.normal.attribute?('whipped') }
         notifies :restart, "service[network]"
       end
     elsif sys_type == "vmware"
@@ -124,7 +124,7 @@ when "centos"
         variables ({
                      :device => master_intf
                    })
-        not_if "test -f /etc/sysconfig/network-scripts/ifcfg-#{master_intf}"
+        not_if { File.exists?("/etc/sysconfig/network-scripts/ifcfg-#{master_intf}") || node.normal.attribute?('whipped') }
         notifies :restart, "service[network]"
       end
 
@@ -139,6 +139,7 @@ when "centos"
                      :vlan => intf[:vlan],
                      :netmask => '255.255.254.0'
                    })
+        not_if { node.normal.attribute?('whipped') }
         notifies :restart, "service[network]"
       end
     end
@@ -151,6 +152,7 @@ when "centos"
           file.insert_line_if_no_match("/GATEWAY=10.5.40.1/", "GATEWAY=10.5.40.1")
           file.write_file
         end
+        not_if { node.normal.attribute?('whipped') }
         notifies :restart, "service[network]"
       end
     end
@@ -169,9 +171,17 @@ when "centos"
                  })
     end
     if node.has_key? 'heartbeat'
-      Chef::Log.info("Creating Heartbeat Config: IPaddr::#{intf[:ip]}/#{vip_netmask}/#{master_intf}")
-      node.set[:heartbeat][:ha_resources]["#{master_intf}_#{intf[:vlan]}"] = "IPaddr::#{intf[:ip]}/#{vip_netmask}/#{master_intf}"
+      if sys_type == "vmware"
+        Chef::Log.info("Creating Heartbeat Config: IPaddr::#{intf[:ip]}/#{vip_netmask}/#{master_intf}")
+        node.set[:heartbeat][:ha_resources]["#{master_intf}_#{intf[:vlan]}"] = "IPaddr::#{intf[:ip]}/#{vip_netmask}/#{master_intf}.#{intf[:vlan]}"
+      else
+        Chef::Log.info("Creating Heartbeat Config: IPaddr::#{intf[:ip]}/#{vip_netmask}/#{master_intf}")
+        node.set[:heartbeat][:ha_resources]["#{master_intf}_#{intf[:vlan]}"] = "IPaddr::#{intf[:ip]}/#{vip_netmask}/#{master_intf}"
+      end
       node.save
     end
   end
 end
+
+node.set['whipped'] = true
+node.save
