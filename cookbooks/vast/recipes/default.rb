@@ -9,6 +9,7 @@
 #
 
 include_recipe "tomcat7"
+include_recipe "users::vast"
 node.save
 
 service "tomcat" do
