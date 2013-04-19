@@ -55,6 +55,8 @@ else
     SU=su
 fi
 
+#Ensuring that sysctl.conf is set correctly before launching the daemon
+/sbin/sysctl -e
 
 # Set defaults for configuration variables
 PGENGINE=/usr/pgsql-9.1/bin

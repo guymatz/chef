@@ -6,6 +6,8 @@
 #
 # All rights reserved - Do Not Redistribute
 
+include_recpie "users::amqp-consumer"
+
 package "jdk"
 
 directory "/data"

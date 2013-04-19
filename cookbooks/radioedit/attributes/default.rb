@@ -9,6 +9,9 @@ when "debian"
   default[:radioedit[:group]] = "nogroup"
 end
 
+# ZeroMQ repo
+default[:zeromq][:repo_url] = ""
+
 # Installation Settings
 default[:radioedit][:install_path] = "/data/apps/radioedit"
 default[:radioedit][:image][:path] = "/data/apps/radioedit/images"
