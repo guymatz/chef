@@ -6,7 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 
-include_recpie "users::amqp-consumer"
+include_recipe "users::amqp-consumer"
 
 package "jdk"
 
