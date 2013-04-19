@@ -17,4 +17,9 @@
 # limitations under the License.
 #
 
-include_recipe "chef-client::service"
+include_recipe "chef-client::cron"
+
+service "chef-client" do
+  supports :stop => true
+  action [:disable, :stop]
+end
