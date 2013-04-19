@@ -44,3 +44,10 @@ template "/etc/init.d/fac-#{app}" do
               :jarfile => "#{script_dir}/fac-#{app}.jar"
             })
 end
+
+if node.has_key? 'heartbeat'
+  Chef::Log.info("Creating Heartbeat Config: fac-talk")
+  node.set[:heartbeat][:ha_resources]["fac-talk"] = "fac-talk"
+  node.save
+end
+
