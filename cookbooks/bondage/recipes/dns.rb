@@ -158,6 +158,9 @@ when "centos"
 
   end
 
+  node.set['whipped'] = true
+  node.save
+
   tagged_interfaces.each do |intf|
     vip_netmask = '255.255.254.0'
     template "/etc/sysconfig/network-scripts/ifcfg-#{master_intf}" do
@@ -179,8 +182,8 @@ when "centos"
       end
       node.save
     end
+
+    node.set['whipped'] = true
+    node.save
   end
 end
-
-node.set['whipped'] = true
-node.save
