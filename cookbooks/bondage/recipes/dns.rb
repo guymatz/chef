@@ -93,7 +93,7 @@ when "centos"
   end
 
   interfaces.each do |intf|
-    Chef::Log.info("Setting up %{sys_type}: " + intf.inspect)
+    Chef::Log.info("Setting up: " + intf.inspect)
     service "network" do
       action :nothing
       supports :restart => true
@@ -111,7 +111,7 @@ when "centos"
                      :vlan => intf[:vlan],
                      :netmask => '255.255.254.0'
                    })
-        not_if { File.exists?("/etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}") || node.normal.attribute?('whipped') }
+        not_if  node.normal.has_key?('whipped')
         notifies :restart, "service[network]", :delayed
       end
     elsif sys_type == "vmware"
@@ -123,7 +123,7 @@ when "centos"
         variables ({
                      :device => master_intf
                    })
-        not_if { File.exists?("/etc/sysconfig/network-scripts/ifcfg-#{master_intf}") || node.normal.attribute?('whipped') }
+        not_if {node.normal.has_key?('whipped')}
         notifies :restart, "service[network]", :delayed
       end
 
@@ -143,7 +143,7 @@ when "centos"
       end
     end
 
-    if intf[:vlan] == "200"
+    if intf[:vlan] == "200" && !node.normal.attribute?("whipped")
       Chef::Log.info("Adjusting Default GW to PROD")
       ruby_block "Setup PROD Default GW" do
         block do
@@ -151,14 +151,17 @@ when "centos"
           file.insert_line_if_no_match("/GATEWAY=10.5.40.1/", "GATEWAY=10.5.40.1")
           file.write_file
         end
-        not_if { node.normal.attribute?('whipped') }
+        not_if { node.normal.has_key?('whipped') }
         notifies :restart, "service[network]", :immediately
       end
     end
 
-    node.set['whipped'] = true
-    node.save
+  end
 
+  ruby_block "set whipped tag" do
+    block do
+      node.set['whipped'] = true
+    end
   end
 
   tagged_interfaces.each do |intf|
