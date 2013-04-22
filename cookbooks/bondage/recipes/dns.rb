@@ -93,7 +93,7 @@ when "centos"
   end
 
   interfaces.each do |intf|
-    Chef::Log.info("Setting up: " + intf.inspect)
+    Chef::Log.info("Setting up %{sys_type}: " + intf.inspect)
     service "network" do
       action :nothing
       supports :restart => true
@@ -112,7 +112,7 @@ when "centos"
                      :netmask => '255.255.254.0'
                    })
         not_if { File.exists?("/etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}") || node.normal.attribute?('whipped') }
-        notifies :restart, "service[network]"
+        notifies :restart, "service[network]", :delayed
       end
     elsif sys_type == "vmware"
       template "/etc/sysconfig/network-scripts/ifcfg-#{master_intf}" do
@@ -124,7 +124,7 @@ when "centos"
                      :device => master_intf
                    })
         not_if { File.exists?("/etc/sysconfig/network-scripts/ifcfg-#{master_intf}") || node.normal.attribute?('whipped') }
-        notifies :restart, "service[network]"
+        notifies :restart, "service[network]", :delayed
       end
 
       template "/etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}" do
@@ -139,7 +139,7 @@ when "centos"
                      :netmask => '255.255.254.0'
                    })
         not_if { node.normal.attribute?('whipped') }
-        notifies :restart, "service[network]"
+        notifies :restart, "service[network]", :delayed
       end
     end
 
@@ -152,14 +152,14 @@ when "centos"
           file.write_file
         end
         not_if { node.normal.attribute?('whipped') }
-        notifies :restart, "service[network]"
+        notifies :restart, "service[network]", :immediately
       end
     end
 
-  end
+    node.set['whipped'] = true
+    node.save
 
-  node.set['whipped'] = true
-  node.save
+  end
 
   tagged_interfaces.each do |intf|
     vip_netmask = '255.255.254.0'
@@ -183,7 +183,5 @@ when "centos"
       node.save
     end
 
-    node.set['whipped'] = true
-    node.save
   end
 end
