@@ -5,6 +5,8 @@ default[:pkgs686] = [ 'libtool-ltdl-devel', 'alsa-lib',  'ncurses-libs', 'ncurse
 default[:pkgsx64] = [ 'zlib-devel', 'libxml2-devel', 'libxslt', 'libxslt-devel' ]
 # Iheart RPMS
 default[:iheart_pkg] = [ 'jdk', 'mpg123',  'sox', 'lame-libs', 'libmad-devel', 'libmad'  ]
+default[:ftpserver] = [ 'vsftpd' ]
+
 
 default[:jruby_gems] =  {
      "ruby-mp3info" => "0.7.1",

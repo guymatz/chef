@@ -25,9 +25,9 @@ end
 
 switches = []
 
-search(:switches, "*:*") do |switch|
+search(:mrtg, "*:*") do |switch|
   execute "Configure MRTG for #{switch[:fqdn]}" do
-    command "cfgmaker public@#{switch[:fqdn]} > /etc/mrtg.d/#{switch[:fqdn]}.conf"
+    command "cfgmaker IHRCCPublic@#{switch[:fqdn]} > /etc/mrtg.d/#{switch[:fqdn]}.conf"
     creates "/etc/mrtg.d/#{switch[:fqdn]}.conf"
     notifies :run, "execute[Generate MRTG index]"
   end

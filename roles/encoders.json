@@ -5,6 +5,10 @@
   "default_attributes": {
   },
   "override_attributes": {
+    "splunk": {
+        "forwarder_config_folder": "prod",
+        "forwarder_role": "encoders"
+    }
   },
   "chef_environment": "prod",
   "chef_type": "role",
@@ -12,6 +16,7 @@
     "recipe[jruby]",
     "recipe[encoders]",
     "recipe[users::converter]",
+    "recipe[splunk::forwarder]",
     "recipe[nfs]"
   ],
   "env_run_lists": {
