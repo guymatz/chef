@@ -6,6 +6,6 @@ description      'Installs/Configures fac'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.1.0'
 
-%w{ java cron }.each do |dep|
+%w{ java cron hostsfile }.each do |dep|
   depends dep
 end

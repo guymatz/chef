@@ -1,0 +1,5 @@
+{
+  "host_name": "iad-jobserver101.ihr",
+  "id": "Liveradio-Thumb-ETL-Job",
+  "freshness_threshold": "7500"
+}

@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+include_recipe "users::jobserver"
+
 if node.chef_environment == 'prod'
   include_recipe "jobserver::ha"
 end

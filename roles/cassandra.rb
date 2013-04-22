@@ -2,6 +2,7 @@ name "cassandra"
 description "cassandra"
 all_env = [
            "recipe[cassandra]",
+           "recipe[cassandra::ulimits]",
            "recipe[cassandra::install_from_release]",
            "recipe[cassandra::server]",
            "recipe[cassandra::jna_support]",

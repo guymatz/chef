@@ -26,3 +26,19 @@ remote_file "#{node[:tomcat7][:webapp_dir]}/vast.war" do
   only_if "test -d #{node[:tomcat7][:webapp_dir]}"
   notifies :restart, "service[tomcat]", :immediately
 end
+
+directory "/var/run/tomcat" do
+  owner node[:tomcat7][:user]
+  group node[:tomcat7][:group]
+  recursive true
+end
+
+template "#{node[:tomcat7][:install_path]}/bin/setenv.sh" do
+  source "setenv.sh.erb"
+  owner node[:tomcat7][:user]
+  group node[:tomcat7][:group]
+  mode "0755"
+  variables({
+              :tomcat_dir => node[:tomcat7][:install_path]
+            })
+end

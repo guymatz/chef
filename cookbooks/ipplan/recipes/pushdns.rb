@@ -13,8 +13,6 @@ template "/usr/local/bin/push-dns" do
   mode "0755"
   variables({
               :scripts_dir => node[:ipplan][:scripts_dir],
-              :chroot_dir => node[:bind_chroot][:chroot_dir],
-              :daemon => node[:bind_chroot][:name],
               :dns_servers => dns_servers,
               :ipplan_host => ipplan_host
             })

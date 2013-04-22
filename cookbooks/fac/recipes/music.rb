@@ -45,3 +45,22 @@ template "/etc/init.d/fac-#{app}" do
               :jarfile => "#{script_dir}/fac-#{app}.jar"
             })
 end
+
+template "#{script_dir}/fac-incremental-runner.sh" do
+  source "fac-incremental-runner.sh.erb"
+  owner "nobody"
+  group "nobody"
+  mode "0755"
+  variables({
+              :script_dir => script_dir,
+              :radiobuild_dir => "#{node[:fac][:script_path]}/fac-radiobuild"
+            })
+end
+
+cron_d "fac-updatestream" do
+  minute "2"
+  hour "2"
+  day "2" # tuesday
+  command "cronwrap iad-jobserver101 fac-music \"#{script_dir}/fac-incremental-runner.sh\" 2>&1 > /var/log/fac-#{app}"
+  user "root"
+end
