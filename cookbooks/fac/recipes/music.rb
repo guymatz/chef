@@ -60,7 +60,7 @@ template "#{script_dir}/fac-incremental-runner.sh" do
             })
 end
 
-cron_d "fac-updatestream" do
+cron_d "fac-music" do
   minute "2"
   hour "2"
   day "2" # tuesday
