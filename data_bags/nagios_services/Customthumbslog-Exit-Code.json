@@ -1,0 +1,5 @@
+{
+  "id": "Customthumbslog-Exit-Code",
+  "host_name": "iad-jobserver101.ihr",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c check_customthumbslog_exit_code -t 20"
+}
