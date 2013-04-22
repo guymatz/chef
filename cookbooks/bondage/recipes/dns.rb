@@ -161,6 +161,7 @@ when "centos"
   ruby_block "set whipped tag" do
     block do
       node.set['whipped'] = true
+      node.save
     end
   end
 
