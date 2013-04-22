@@ -19,7 +19,11 @@
 
 include_recipe "chef-client::cron"
 
-service "chef-client" do
-  supports :stop => true
-  action [:disable, :stop]
+begin
+  service "chef-client" do
+    supports :stop => true
+    action [:disable, :stop]
+  end
+  rescue
+  # There is no chef-client daemon
 end

@@ -2,7 +2,7 @@ name "memcached"
 description "memcached"
 all_env = [
            "role[auto-bonded]",
-           "recipe[couchbase::server]"
+           "recipe[membase]"
           ]
 run_list(all_env)
 env_run_lists(

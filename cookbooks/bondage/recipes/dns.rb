@@ -111,8 +111,8 @@ when "centos"
                      :vlan => intf[:vlan],
                      :netmask => '255.255.254.0'
                    })
-        not_if { File.exists?("/etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}") || node.normal.attribute?('whipped') }
-        notifies :restart, "service[network]"
+        not_if  node.normal.has_key?('whipped')
+        notifies :restart, "service[network]", :delayed
       end
     elsif sys_type == "vmware"
       template "/etc/sysconfig/network-scripts/ifcfg-#{master_intf}" do
@@ -123,8 +123,8 @@ when "centos"
         variables ({
                      :device => master_intf
                    })
-        not_if { File.exists?("/etc/sysconfig/network-scripts/ifcfg-#{master_intf}") || node.normal.attribute?('whipped') }
-        notifies :restart, "service[network]"
+        not_if {node.normal.has_key?('whipped')}
+        notifies :restart, "service[network]", :delayed
       end
 
       template "/etc/sysconfig/network-scripts/ifcfg-#{master_intf}.#{intf[:vlan]}" do
@@ -139,11 +139,11 @@ when "centos"
                      :netmask => '255.255.254.0'
                    })
         not_if { node.normal.attribute?('whipped') }
-        notifies :restart, "service[network]"
+        notifies :restart, "service[network]", :delayed
       end
     end
 
-    if intf[:vlan] == "200"
+    if intf[:vlan] == "200" && !node.normal.attribute?("whipped")
       Chef::Log.info("Adjusting Default GW to PROD")
       ruby_block "Setup PROD Default GW" do
         block do
@@ -151,11 +151,18 @@ when "centos"
           file.insert_line_if_no_match("/GATEWAY=10.5.40.1/", "GATEWAY=10.5.40.1")
           file.write_file
         end
-        not_if { node.normal.attribute?('whipped') }
-        notifies :restart, "service[network]"
+        not_if { node.normal.has_key?('whipped') }
+        notifies :restart, "service[network]", :immediately
       end
     end
 
+  end
+
+  ruby_block "set whipped tag" do
+    block do
+      node.set['whipped'] = true
+      node.save
+    end
   end
 
   tagged_interfaces.each do |intf|
@@ -179,8 +186,6 @@ when "centos"
       end
       node.save
     end
+
   end
 end
-
-node.set['whipped'] = true
-node.save
