@@ -111,7 +111,7 @@ when "centos"
                      :vlan => intf[:vlan],
                      :netmask => '255.255.254.0'
                    })
-        not_if  node.normal.has_key?('whipped')
+        not_if { node.normal.has_key?('whipped') }
         notifies :restart, "service[network]", :delayed
       end
     elsif sys_type == "vmware"
@@ -123,7 +123,7 @@ when "centos"
         variables ({
                      :device => master_intf
                    })
-        not_if {node.normal.has_key?('whipped')}
+        not_if { node.normal.has_key?('whipped') }
         notifies :restart, "service[network]", :delayed
       end
 
