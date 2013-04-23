@@ -1,51 +1,10 @@
 
 
-DEBUG = <%= @debug ? "True" : "False" %>
-  STATSD_CONN_ARGS = ('<%= @statsd_conn[:host] %>', <%= @statsd_conn[:port] %>)
-
-RPC_CONNECTION_TIMEOUT = <%= @rpc[:connection_timeout] %>
-  RPC_RETRY_TOTAL_TIMEOUT = <%= @rpc[:retry_timeout] %>
-  RPC_CACHE_PREFIX = '<%= @rpc[:cache_prefix] %>'
-RPC_CACHE_ENABLED = <%= @rpc[:cache_enabled] %>
-
-  AMP_URL = '<%= @url[:amp] %>'
-AMP_CDN_URL = AMP_URL
-
-CMS_URL = '<%= @url[:cms] %>'
-
-IMAGE_SCALER_URL = '<%= @url[:image_scaler] %>'
-IMAGE_SCALER_URL_NEW = '<%= @url[:image_scaler_new] %>'
-
-CCRD_API_URL = '<%= @url[:ccrd_api_url] %>'
 CCRD_API_KEY = '<%= @secrets['ccrd_api_key'] %>'
 
-TEST_RUNNER = 'ihr.testing.runner.NoseTestRunnerDummyDB'
-
-SAILTHRU_API_KEY = "<%= @secrets['sailthru_api_key'] %>"
-SAILTHRU_API_SECRET = "<%= @secrets['sailthru_api_secret'] %>"
-
-AMAZON_AWS_KEY = '<%= @secrets['amazon_aws_key'] %>'
 AMAZON_AWS_SECRET = '<%= @secrets['amazon_aws_secret'] %>'
 
-AES_KEY = "<%= @secrets['aes_key'] %>"
-
-RECAPTCHA_KEY = '<%= @secrets['recaptcha_key'] %>'
-
-SITE_HOST = '<%= @url[:site_host] %>'
-ADMINS = (
-          ('Errors', 'errors.iheartradio@gmail.com'),)
-
-STATIC_URL = '/_/%s/' % RELEASE_NUM # For cache busting
-
-2SERVER_EMAIL = '<%= @node.chef_environment %>@www.iheart.com'
-
-SECRET_KEY = ''
-
-JINJA2_ENVIRONMENT_OPTIONS ['cache_size'] = <%= @jinja[:cache_size]  %>
-  JINJA2_ENVIRONMENT_OPTIONS ['auto_reload'] = <%= @jinja[:auto_reload]  %>
-  JINJA2_ENVIRONMENT_OPTIONS ['bytecode_cache'] = <%= @jinja[:bytecode_cache]  %>
-
-  CACHES = {
+CACHES = {
   'default': {
     'BACKEND': 'ihr.cache.backends.memcached.IhrMemcachedCache',
     'LOCATION': [
@@ -54,11 +13,6 @@ JINJA2_ENVIRONMENT_OPTIONS ['cache_size'] = <%= @jinja[:cache_size]  %>
     'KEY_PREFIX': 'W'
   }
 }
-
-SHORTY_HOST = '<%= @url[:shorty] %>'
-
-LOGGLY_JS_KEY = '<%= @secrets['loggly_js_key'] %>'
-LOGGLY_PY_KEY = '<%= @secrets['loggly_py_key'] %>'
 
 FACEBOOK_APP_ID = '<%= @secrets['facebook_app_id'] %>'' # Only works for iheart.com
 FACEBOOK_APP_SECRET = '<%= @secrets['facebook_app_secret'] %>'
