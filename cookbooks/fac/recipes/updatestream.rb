@@ -81,3 +81,21 @@ cron_d "fac-updatestream" do
   user "nobody"
 end
 
+master = search(:node, "recipes:attivio\\:\\:clustermaster AND chef_environment:#{node.chef_environment}")
+
+template "#{script_dir}/streaminfo/ship2attivio.sh" do
+  source "ship2attivio.sh.erb"
+  owner node[:attivio][:user]
+  group node[:attivio][:group]
+  mode "0755"
+  variables({
+              :updatestream => "#{script_dir}/streaminfo",
+              :attivio_master => master[0],
+              :attivio_dropbox => "#{node[:attivio][:input_path]}/xml/station/update/"
+            })
+end
+cron_d "fac-updatestream-ship2attivio" do
+  minute "5"
+  user "attivio"
+  command "/usr/bin/cronwrap iad-jobserver101 fac-updatestream-ship2attivio \"#{script_dir}/streaminfo/ship2attivio.sh\""
+end
