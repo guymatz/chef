@@ -1,0 +1,25 @@
+{
+  "name": "encoders-ftp",
+  "description": "inbound public ftp for music ingestion",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+    "splunk": {
+        "forwarder_config_folder": "prod",
+        "forwarder_role": "encoders-ftp"
+    }
+  },
+  "chef_environment": "prod",
+  "chef_type": "role",
+  "run_list": [
+    "recipe[splunk::forwarder]",
+    "recipe[nfs]"
+  ],
+  "env_run_lists": {
+  },
+  "authorization": {
+    "sudo": {
+    }
+  }
+}

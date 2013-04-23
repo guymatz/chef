@@ -20,6 +20,10 @@ host = <%= node['hostname'] %>
     blacklist = \.(gz|bz2)$
     disabled = 0
 
+[monitor:///var/log/vsftpd.log]
+    blacklist = \.(gz|bz2)$
+    disabled = 0
+
 [monitor:///var/log/auth.log]
     blacklist = \.(gz|bz2)$
     disabled = 0

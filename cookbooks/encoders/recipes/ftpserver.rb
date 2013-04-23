@@ -33,28 +33,41 @@ node[:ftpserver].each do |pkg|
     end
 end
 
+template "/etc/vsftpd/vuser/music_users.txt" do
+    source "music_users.txt"
+    owner "root"
+    group "root"
+    mode 0400
+end
 
+
+##
+## Not the most elegant parsing of the databag, but this shows my inexperience in ruby
+## need to clean it up.
+## JPD
 
 # Get our encrypted data
 users = Chef::EncryptedDataBagItem.load("music_upload", "upload_users").to_hash
 
 users.each do |k,v|
     next if k == "id"
-    bash "tt" do
-    code <<-EOF
-        "echo #{k} >> /etc/vsftpd/vuser/music_users.txt"
-        "echo #{v["password"]} >> /etc/vsftpd/vuser/music_users.txt"
-       # echo #{k}
-       # echo #{v["password"]}
-    EOF
-    end
-    bash "createdb" do
-    code <<-EOF
-        /usr/bin/db_load -T -t hash -f /etc/vsftpd/vuser/music_vusers.txt /etc/vsftpd/vuser/music_vusers.db
-        #rm -f /etc/vsftpd/vuser/music_vusers.txt
-    EOF
+    v.each do |dis, pw|
+        bash "duh" do
+            code <<-EOF
+                echo "#{k}" >> /etc/vsftpd/vuser/music_users.txt
+                echo "#{pw}" >> /etc/vsftpd/vuser/music_users.txt
+            EOF
+        end
     end
 end
+
+bash "createdb" do
+    code <<-EOF
+        /usr/bin/db_load -T -t hash -f /etc/vsftpd/vuser/music_users.txt /etc/vsftpd/vuser/music_vusers.db
+        rm -f /etc/vsftpd/vuser/music_users.txt
+    EOF
+end
+
 
 append_if_no_line "sftp" do
     path "/etc/ssh/sshd_config"
