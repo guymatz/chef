@@ -2,7 +2,7 @@
 
 <% @settings.sort_by { |key,value| key.hash }.each do |key, value| -%>
 <%  if value.kind_of? Array -%>
-<%    value.each do |item| -%>
+<%    value.sort.each do |item| -%>
 <%=     "#{key.split("_").map { |w| w.capitalize}.join} #{item}" %>
 <%    end -%>
 <%  else -%>
