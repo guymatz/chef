@@ -4,5 +4,8 @@
     "email":    "jakeplimack@clearchannel.com",
     "groups":   ["attivio"],
     "shell":    "/sbin/nologin",
-    "uid": 4001
+    "uid": 4001,
+    "ssh_keys": [
+        "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAyWhS1tVlw/ixVXej71yzUPV7e9hz2oMAY9vILq9m/gwermSgBE94u0iDaWioyIpU8mPyTFcR5/PvOTxQ9OzhYYE0e/sGgVJ6rtQ+O0hAhIGaiVRu+qwtFYe6rEHqX/YV1OjDs0FGH9KaMrxZBbaPUKRG7pP7n2HUk4xLVJnowBgxV6P/PuYrr+7xOk8w388YTbdSN5q+vchjYsiOb8GMvRCFZ4ElgKWcqp5ITI5RNMC0agoGv/OhHwDAP7XrMeqMmWLSc/dv0smxoFdeXzsutQmdMBbXpvfh46qAMTKxtx+v7A1kOG1+wvfFp0F8ry03OR24CEojqvUoo6zlZkMiaQ== attivio@use1b-search004.ihrdev.com"
+    ]
 }

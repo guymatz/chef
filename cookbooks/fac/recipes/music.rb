@@ -7,6 +7,9 @@
 # All rights reserved - Do Not Redistribute
 #
 
+# this is to setup keys for shipping files
+include_recipe "attivio::users"
+
 app = "music"
 download_url = "#{node[:fac][:url]}/FAC-#{app}/#{node[:fac][app][:version]}/FAC-#{app}-#{node[:fac][app][:version]}.jar"
 script_dir = "#{node[:fac][:script_path]}/#{app}"
@@ -53,11 +56,11 @@ template "#{script_dir}/fac-incremental-runner.sh" do
   mode "0755"
   variables({
               :script_dir => script_dir,
-              :radiobuild_dir => "#{node[:fac][:script_path]}/fac-radiobuild"
+              :radiobuild_dir => "#{node[:fac][:script_path]}/radiobuild"
             })
 end
 
-cron_d "fac-updatestream" do
+cron_d "fac-music" do
   minute "2"
   hour "2"
   day "2" # tuesday

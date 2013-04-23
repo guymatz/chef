@@ -58,9 +58,9 @@ rescue  Net::HTTPServerException
   Chef::Log.info("Could not search for memcached servers, bailing out!")
   exit
 end
-memcached_servers = Hash.new
+memcached_servers = Array.new
 res.each do |s|
-  memcached_servers[s[:fqdn]] = s[:memcached][:port].to_s
+  memcached_servers << s[:hostname] + "-v200.ihr:11211"
 end
 
 application "webplayer" do

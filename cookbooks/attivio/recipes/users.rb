@@ -27,7 +27,7 @@ file "/home/#{node[:attivio][:user]}/.ssh/config" do
   group node[:attivio][:group]
   mode "0755"
   content <<-EOH
-  Host *github.com
+  Host *github.com *.ihr iad-search*
     IdentityFile "/home/#{node[:attivio][:user]}/.ssh/deploy"
     StrictHostKeyChecking no
 EOH

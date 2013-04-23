@@ -48,7 +48,8 @@ tagged_interfaces = Array.new
 # be careful, this thinks every IP is a /32 address, to_s will strip it
 shortname =~ /(\w*-\w*\d{3})([ab]{0,1})/
 unless $1 == shortname
-  vip_name = $1
+  vip_name = $1 + "-v200"
+  vip_ip = Socket::getaddrinfo(vip_name, 'www', nil, Socket::SOCK_STREAM)[0][3]
 end
 
 ihrzone.answer.each do |rr|
@@ -93,6 +94,8 @@ when "centos"
   end
 
   interfaces.each do |intf|
+    Chef::Log.info("Checking that #{intf[:ip]} is not #{vip_ip}")
+    next if intf[:ip] == vip_ip
     Chef::Log.info("Setting up: " + intf.inspect)
     service "network" do
       action :nothing
@@ -111,7 +114,7 @@ when "centos"
                      :vlan => intf[:vlan],
                      :netmask => '255.255.254.0'
                    })
-        not_if  node.normal.has_key?('whipped')
+        not_if { node.normal.has_key?('whipped') }
         notifies :restart, "service[network]", :delayed
       end
     elsif sys_type == "vmware"
@@ -123,7 +126,7 @@ when "centos"
         variables ({
                      :device => master_intf
                    })
-        not_if {node.normal.has_key?('whipped')}
+        not_if { node.normal.has_key?('whipped') }
         notifies :restart, "service[network]", :delayed
       end
 

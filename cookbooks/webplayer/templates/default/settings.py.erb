@@ -1,14 +1,14 @@
 
 
 DEBUG = <%= @debug ? "True" : "False" %>
-STATSD_CONN_ARGS = ('<%= @statsd_conn[:host] %>', <%= @statsd_conn[:port] %>)
+  STATSD_CONN_ARGS = ('<%= @statsd_conn[:host] %>', <%= @statsd_conn[:port] %>)
 
 RPC_CONNECTION_TIMEOUT = <%= @rpc[:connection_timeout] %>
-RPC_RETRY_TOTAL_TIMEOUT = <%= @rpc[:retry_timeout] %>
-RPC_CACHE_PREFIX = '<%= @rpc[:cache_prefix] %>'
+  RPC_RETRY_TOTAL_TIMEOUT = <%= @rpc[:retry_timeout] %>
+  RPC_CACHE_PREFIX = '<%= @rpc[:cache_prefix] %>'
 RPC_CACHE_ENABLED = <%= @rpc[:cache_enabled] %>
 
-AMP_URL = '<%= @url[:amp] %>'
+  AMP_URL = '<%= @url[:amp] %>'
 AMP_CDN_URL = AMP_URL
 
 CMS_URL = '<%= @url[:cms] %>'
@@ -42,19 +42,17 @@ STATIC_URL = '/_/%s/' % RELEASE_NUM # For cache busting
 SECRET_KEY = ''
 
 JINJA2_ENVIRONMENT_OPTIONS ['cache_size'] = <%= @jinja[:cache_size]  %>
-JINJA2_ENVIRONMENT_OPTIONS ['auto_reload'] = <%= @jinja[:auto_reload]  %>
-JINJA2_ENVIRONMENT_OPTIONS ['bytecode_cache'] = <%= @jinja[:bytecode_cache]  %>
+  JINJA2_ENVIRONMENT_OPTIONS ['auto_reload'] = <%= @jinja[:auto_reload]  %>
+  JINJA2_ENVIRONMENT_OPTIONS ['bytecode_cache'] = <%= @jinja[:bytecode_cache]  %>
 
-CACHES = {
-'default': {
-'BACKEND': 'ihr.cache.backends.memcached.IhrMemcachedCache',
-'LOCATION': [
-             <% @memcached.each do |server, port| -%>
-             '<%= server + ':' + port + ',' %>'
-             <% end -%>
-             ],
-'KEY_PREFIX': 'W'
-}
+  CACHES = {
+  'default': {
+    'BACKEND': 'ihr.cache.backends.memcached.IhrMemcachedCache',
+    'LOCATION': [
+                 <%= @memcached.map {|s| "'#{s}'"}.join(",") %>
+                ],
+    'KEY_PREFIX': 'W'
+  }
 }
 
 SHORTY_HOST = '<%= @url[:shorty] %>'
