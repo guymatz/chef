@@ -10,6 +10,9 @@
 # default recipe is also called "radioedit-core"
 include_recipe "radioedit::default"
 
+directory "/data"
+directory "/data/apps"
+
 directory "#{node[:radioedit][:cms][:path]}" do
   owner node[:radioedit][:user]
   group node[:radioedit][:group]
