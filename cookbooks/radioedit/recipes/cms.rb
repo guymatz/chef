@@ -10,6 +10,10 @@
 # default recipe is also called "radioedit-core"
 include_recipe "radioedit::default"
 
+remote_file "/etc/yum.repos.d/zeromq.repo" do
+  source "http://download.opensuse.org/repositories/home:/fengshuo:/zeromq/CentOS_CentOS-6/home:fengshuo:zeromq.repo"
+end
+
 directory "#{node[:radioedit][:cms][:path]}" do
   owner node[:radioedit][:user]
   group node[:radioedit][:group]
