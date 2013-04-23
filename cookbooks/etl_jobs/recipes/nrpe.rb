@@ -31,3 +31,7 @@ end
 nagios_nrpecheck "check_customthumbslog_exit_code" do
   command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /var/log/customradiothumbslog/exitCode"
 end
+
+nagios_nrpecheck "check_livethumbslog_exit_code" do
+  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /var/log/liveradiothumbslog/exitCode"
+end
