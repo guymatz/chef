@@ -12,6 +12,10 @@ include_recipe "radioedit::default"
 
 directory "/data"
 directory "/data/apps"
+directory "/data/apps/radioedit" do
+  owner node[:radioedit][:user]
+  group node[:radioedit][:group]
+end
 
 directory "#{node[:radioedit][:cms][:path]}" do
   owner node[:radioedit][:user]
