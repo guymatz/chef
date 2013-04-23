@@ -21,7 +21,7 @@ default[:radioedit][:cms][:path] = "/data/apps/radioedit/radioedit-core"
 default[:radioedit][:image][:repo] = "git@github.com:iheartradio/radioedit-img.git"
 default[:radioedit][:image][:branch] = "deploy"
 
-default[:radioedit][:cms][:repo] = "git@github.com:iheartradio/featuredcontent.git"
+default[:radioedit][:cms][:repo] = "git@github.com:iheartradio/featcontent.git"
 default[:radioedit][:cms][:branch] = "deploy"
 
 # Requirements
