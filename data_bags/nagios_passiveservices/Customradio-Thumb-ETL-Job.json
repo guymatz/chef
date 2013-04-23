@@ -2,7 +2,5 @@
   "host_name": "iad-jobserver101.ihr",
   "id": "Customradio-Thumb-ETL-Job",
   "freshness_threshold": "7500",
-  "contact_groups": [
-    "etl"
-  ]
+  "contact_groups": ["etl"]
 }
