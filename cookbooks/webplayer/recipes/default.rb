@@ -21,6 +21,7 @@ include_recipe "apache2::mod_headers"
 include_recipe "apache2::mod_log_config"
 include_recipe "apache2::mod_proxy_http"
 include_recipe "java"
+include_recipe "users::webplayer"
 
 node.set[:java][:oracle][:accept_oracle_download_terms] = true
 
@@ -58,9 +59,13 @@ rescue  Net::HTTPServerException
   Chef::Log.info("Could not search for memcached servers, bailing out!")
   exit
 end
+
+# data bucket = 11212
+# session bucket 11213
+
 memcached_servers = Array.new
 res.each do |s|
-  memcached_servers << s[:hostname] + "-v200.ihr:11211"
+  memcached_servers << s[:hostname] + "-v200.ihr:11212"
 end
 
 application "webplayer" do
@@ -97,14 +102,14 @@ application "webplayer" do
       code <<-EOH
       source shared/env/bin/activate
       cd current
-      python27 tusiq/config/local/manage.py assets build --settings=tusiq.config.prod.settings
+      python27 tusiq/config/local/manage.py assets build --settings=tusiq.config.prod2.settings
       EOH
     end
   end
 
   gunicorn do
     app_module :django
-    command "tusiq.config.prod.wsgi"
+    command "tusiq.config.prod2.wsgi"
     worker_class "gevent"
     Chef::Log.info("Starting up Gunicorn on port 8080 for Basejump")
     port 8080

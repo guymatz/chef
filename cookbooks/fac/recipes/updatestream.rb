@@ -94,8 +94,11 @@ template "#{script_dir}/streaminfo/ship2attivio.sh" do
               :attivio_dropbox => "#{node[:attivio][:input_path]}/xml/station/update/"
             })
 end
-cron_d "fac-updatestream-ship2attivio" do
-  minute "5"
-  user "attivio"
-  command "/usr/bin/cronwrap iad-jobserver101 fac-updatestream-ship2attivio \"#{script_dir}/streaminfo/ship2attivio.sh\""
+
+cron_d "fac-updatestream-t3dump" do
+  minute "35"
+  hour "3"
+  day "4"
+  user "nobody"
+  command "/usr/bin/cronwrap iad-jobserver101 fac-updatestream-t3dump \"#{script_dir}/streaminfo/zip/t3_dump_zip.py"
 end
