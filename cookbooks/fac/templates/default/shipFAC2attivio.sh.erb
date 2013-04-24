@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+ATTIVIO_MASTER="<%= @attivio_master[:fqdn] %>"
+INPUT_DIR="<%= @attivio_inputdir %>"
+SCP_USER=attivio
+
+declare -A ders
+ders["/data/jobs/fac/music/attivio/add/track"]="$INPUT_DIR/xml/track/update"
+ders["/data/jobs/fac/music/attivio/add/bundle"]="$INPUT_DIR/xml/bundle/update"
+ders["/data/jobs/fac/music/attivio/add/artist"]="$INPUT_DIR/xml/artist/update"
+ders["/data/jobs/fac/music/attivio/delete/track"]="$INPUT_DIR/xml/track/delete"
+ders["/data/jobs/fac/music/attivio/delete/bundle"]="$INPUT_DIR/xml/bundle/delete"
+ders["/data/jobs/fac/music/attivio/delete/artist"]="$INPUT_DIR/xml/artist/delete"
+ders["/data/jobs/fac/radiobuild/output"]="$INPUT_DIR/xml/createstation"
+
+for der in "${!ders[@]}" ; do
+    SRC_DIR=$der
+    DST_DIR=${ders["$der"]}
+
+    # check that there's no open file handles before shipping files
+    until [ $(lsof $SRC_DIR | wc -l) -eq 0 ] ; do
+        echo "There are open filehandles to $SRC_DIR, sleeping for 30 secs and trying again :( $(date)"
+        sleep 30
+    done
+
+    scp -i /home/$SCP_USER/.ssh/deploy -r $SRC_DIR $SCP_USER@$ATTIVIO_MASTER:$DST_DIR
+
+    if [ $? -ne 0 ] ; then
+        echo "An error occured shipping $SRC_DIR to $ATTIVIO_MASTER:$DST_DIR"
+        exit $?
+    fi
+
+done
+
