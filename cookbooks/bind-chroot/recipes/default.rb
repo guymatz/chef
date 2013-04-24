@@ -196,17 +196,17 @@ directory "/root/.ssh" do
   mode "0700"
 end
 
-file "/root/.ssh/config" do
-  owner "root"
-  group "root"
-  mode "0755"
-  content <<-EOH
-  Host github.com
-    IdentityFile /etc/chef/ops-auto
-    StrictHostKeyChecking no
-    UserKnownHostsFile=/dev/null
-EOH
-end
+# file "/root/.ssh/config" do
+#   owner "root"
+#   group "root"
+#   mode "0755"
+#   content <<-EOH
+#   Host github.com
+#     IdentityFile /etc/chef/ops-auto
+#     StrictHostKeyChecking no
+#     UserKnownHostsFile=/dev/null
+# EOH
+# end
 
 
 directory "/staging_bind" do
@@ -221,7 +221,7 @@ git "/staging_bind" do
   reference "master"
   action :sync
   user "root"
-  group "root"
+  group "ihr-deployer"
 end
 
 bash "copy zone files from git to bind-chroot" do
