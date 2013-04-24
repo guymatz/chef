@@ -12,6 +12,7 @@ package "jdk"
 
 directory "/data"
 directory "/data/jobs"
+directory "/data/log"
 
 directory "/data/jobs/event"
 directory "/data/log/event"
