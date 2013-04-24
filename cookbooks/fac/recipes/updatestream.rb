@@ -98,7 +98,7 @@ end
 cron_d "fac-updatestream-t3dump" do
   minute "35"
   hour "3"
-  day "4"
+  weekday "4"
   user "nobody"
   command "/usr/bin/cronwrap iad-jobserver101 fac-updatestream-t3dump \"#{script_dir}/streaminfo/zip/t3_dump_zip.py"
 end
