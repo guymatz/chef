@@ -14,7 +14,7 @@ directory "/data"
 directory "/data/jobs"
 
 directory "/data/jobs/event"
-directory "/var/log/event"
+directory "/data/log/event"
 remote_file "/data/jobs/event/event_job.jar" do
   source "http://yum.ihr/files/jobs/event/event_job.jar"
 end
@@ -31,8 +31,8 @@ cron_d "event_job" do
 end
 
 directory "/data/jobs/playlog"
-directory "/var/log/playlog"
-directory "/var/log/playlog/processed"
+directory "/data/log/playlog"
+directory "/data/log/playlog/processed"
 remote_file "/data/jobs/playlog/playlog.jar" do
   source "http://yum.ihr/files/jobs/playlog/playlog_job.jar"
 end
@@ -48,7 +48,7 @@ cron_d "playlog_job" do
 end
 
 directory "/data/jobs/profile"
-directory "/var/log/profile"
+directory "/data/log/profile"
 remote_file "/data/jobs/profile/profile_job.jar" do
   source "http://yum.ihr/files/jobs/profile/profile_job.jar"
 end
@@ -59,8 +59,8 @@ cron_d "profile_job" do
 end
 
 directory "/data/jobs/live_thumbs"
-directory "/var/log/liveradiothumbslog"
-directory "/var/log/liveradiothumbslog/processed"
+directory "/data/log/liveradiothumbslog"
+directory "/data/log/liveradiothumbslog/processed"
 remote_file "/data/jobs/live_thumbs/live_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/live_thumbs/live_thumbs_job.jar"
 end
@@ -70,8 +70,8 @@ cron_d "live_thumbs_job" do
 end
 
 directory "/data/jobs/custom_thumbs"
-directory "/var/log/customradiothumbslog"
-directory "/var/log/customradiothumbslog/processed"
+directory "/data/log/customradiothumbslog"
+directory "/data/log/customradiothumbslog/processed"
 remote_file "/data/jobs/custom_thumbs/custom_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/custom_thumbs/custom_thumbs_job.jar"
 end
@@ -81,8 +81,8 @@ cron_d "custom_thumbs_job" do
 end
 
 directory "/data/jobs/talk_thumbs"
-directory "/var/log/talkthumbslog"
-directory "/var/log/talkthumbslog/processed"
+directory "/data/log/talkthumbslog"
+directory "/data/log/talkthumbslog/processed"
 remote_file "/data/jobs/talk_thumbs/talk_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/talk_thumbs/talk_thumbs_job.jar"
 end
@@ -92,8 +92,8 @@ cron_d "talk_thumbs_job" do
 end
 
 directory "/data/jobs/skiplog"
-directory "/var/log/skiplog"
-directory "/var/log/skiplog/processed"
+directory "/data/log/skiplog"
+directory "/data/log/skiplog/processed"
 remote_file "/data/jobs/skiplog/skiplog_job.jar" do
   source "http://yum.ihr/files/jobs/skiplog/skiplog_job.jar"
 end
@@ -109,8 +109,8 @@ cron_d "skiplog_job" do
 end
 
 directory "/data/jobs/talklog"
-directory "/var/log/talkplaylog"
-directory "/var/log/talkplaylog/processed"
+directory "/data/log/talkplaylog"
+directory "/data/log/talkplaylog/processed"
 remote_file "/data/jobs/talklog/talklog_job.jar" do
   source "http://yum.ihr/files/jobs/talklog/talklog_job.jar"
 end
@@ -129,7 +129,7 @@ cron_d "talklog_job" do
 end
 
 directory "/data/jobs/sysinfo"
-directory "/var/log/sysinfo"
+directory "/data/log/sysinfo"
 remote_file "/data/jobs/sysinfo/sysinfo_job.jar" do
   source "http://yum.ihr/files/jobs/sysinfo/sysinfo_job.jar"
 end
@@ -149,15 +149,15 @@ directory "/home/amqp-consumer/playlog-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"
 end
-directory "/var/log/playlog-consumer" do
+directory "/data/log/playlog-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"
 end
-directory "/var/log/companion-consumer" do
+directory "/data/log/companion-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"
 end
-directory "/var/log/talk-playlog-consumer" do
+directory "/data/log/talk-playlog-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"
 end
@@ -189,7 +189,7 @@ directory "/home/amqp-consumer/facebook-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"
 end
-directory "/var/log/facebook-consumer" do
+directory "/data/log/facebook-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"
 end
