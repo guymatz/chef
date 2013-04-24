@@ -9,6 +9,12 @@
 
 ftp_mount_line = "#{node[:encoders][:nfsserver]}:/nfs#{node[:encoders][:ftp_mount]} #{node[:encoders][:ftp_mount]}       nfs   rw,vers=3,bg,soft,tcp,intr  0   0"
 
+
+service "vsftpd" do
+    action [ :nothing ]
+    supports :status => true, :start => true, :stop => true, :restart => true
+end
+
 execute "mkdirs" do
     command "mkdir -p #{node[:encoders][:ftp_mount]}"
     not_if { ::File.exists?("#{node[:encoders][:ftp_mount]}")}
@@ -72,4 +78,8 @@ end
 append_if_no_line "sftp" do
     path "/etc/ssh/sshd_config"
     line "Subsystem sftp /usr/libexec/openssh/sftp-server"
+end
+
+service "vsftpd" do
+   action :start
 end

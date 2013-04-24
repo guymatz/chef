@@ -29,5 +29,5 @@ default['fail2ban']['syslog_facility'] = "1"
 # jail.conf configuration options
 default['fail2ban']['bantime'] = 300
 default['fail2ban']['maxretry'] = 5
-default['fail2ban']['email'] = 'root@localhost'
+default['fail2ban']['email'] = 'ccd-sa@clearchannel.com'
 default['fail2ban']['backend'] = 'polling'

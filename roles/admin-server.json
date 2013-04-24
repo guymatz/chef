@@ -1,0 +1,19 @@
+{
+  "name": "admin-server",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+
+  ],
+  "description": "admin-server",
+  "chef_type": "role",
+  "override_attributes": {
+        "splunk": {
+            "forwarder_config_folder": "prod",
+            "forwarder_role": "encoders-ftp"
+        }
+  }
+}

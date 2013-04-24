@@ -8,10 +8,6 @@ host = <%= node['hostname'] %>
     blacklist = \.(gz|bz2)$
     disabled = 0
 
-[monitor:///data/dbdata/pg_log]
-    blacklist = \.(gz|bz2)$
-    disabled = 0
-
 [monitor:///var/log/syslog]
     blacklist = \.(gz|bz2)$
     disabled = 0
@@ -27,4 +23,9 @@ host = <%= node['hostname'] %>
 [monitor:///var/log/auth.log]
     blacklist = \.(gz|bz2)$
     disabled = 0
+
+[monitor:///var/log/fail2ban.log]
+    blacklist = \.(gz|bz2)$
+    disabled = 0
+
 

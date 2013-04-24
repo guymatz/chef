@@ -1,7 +1,8 @@
 name "jobserver"
 description "Job Server: Cron, ETL, Etc."
 all_env = [
-           "recipe[jobserver]"
+           "recipe[jobserver]",
+           "recipe[splunk::forwarder]"
           ]
 run_list(all_env)
 
@@ -13,3 +14,10 @@ env_run_lists(
               "ec2-prod" => all_env,
               "ec2" => all_env
               )
+
+override_attributes({
+        "splunk" => {
+            "forwarder_config_folder" => "prod",
+            "forwarder_role" =>  "jobserver"
+        }
+})

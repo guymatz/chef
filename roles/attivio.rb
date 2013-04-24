@@ -1,7 +1,8 @@
 name "attivio"
 description "Attivio Search"
 all_env = [
-           "recipe[attivio]"
+           "recipe[attivio]",
+           "recipe[splunk::forwarder]"
           ]
 run_list(all_env)
 
@@ -13,3 +14,9 @@ env_run_lists(
               "ec2-prod" => all_env,
               "ec2" => all_env
               )
+override_attributes({
+        "splunk" => {
+            "forwarder_config_folder" => "prod",
+            "forwarder_role" =>  "attivio"
+          }
+})
