@@ -1,12 +1,12 @@
 
 # User Settings
 
-default[:radioedit][:user] = "nobody"
+default[:radioedit][:user] = "ihr-deployer"
 case node[:platform_family]
 when "rhel"
-  default[:radioedit][:group] = "nobody"
+  default[:radioedit][:group] = "ihr-deployer"
 when "debian"
-  default[:radioedit[:group]] = "nogroup"
+  default[:radioedit[:group]] = "ihr-deployer"
 end
 
 # ZeroMQ repo
