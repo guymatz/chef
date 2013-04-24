@@ -1,6 +1,6 @@
 
 users_manage "webplayer" do
-  group_id 2308
+  group_id 2309
   action [ :remove, :create ]
 end
 
