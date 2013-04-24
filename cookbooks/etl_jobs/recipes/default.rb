@@ -217,6 +217,14 @@ remote_file "/etc/init.d/facebook-consumer" do
   mode 0755
 end
 
+cookbook_file "/data/jobs/log-archive.sh" do
+  source "log-archive.sh"
+  mode 0755
+end
+cron_d "archive_logs" do
+  command "/usr/bin/cronwrap iad-jobserver101.ihr Archive-Logs \"/data/jobs/log-archive.sh 2>&1 >> /dev/null\""
+end
+
 #directory "/usr/local/radiomigrations"
 #%w{ FileProcess_Live.py FileProcess.py FileProcessTalk.py ImportToDBFromCSV.sh RenameTables_Live.py RenameTables.py TruncateData.py }.each do |file|
 #  remote_file "/usr/local/radiomigrations/#{file}" do
