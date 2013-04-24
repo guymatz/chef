@@ -60,6 +60,19 @@ template "#{script_dir}/fac-incremental-runner.sh" do
             })
 end
 
+master = search(:node, "recipes:attivio\\:\\:clustermaster AND chef_environment:#{node.chef_environment}")
+
+template "#{script_dir}/shipFAC2attivio.sh" do
+  source "shipFAC2attivio.sh.erb"
+  owner node[:attivio][:user]
+  group node[:attivio][:group]
+  mode "0755"
+  variables({
+              :attivio_master => master[0],
+              :attivio_inputdir => "#{node[:attivio][:input_path]}"
+            })
+end
+
 cron_d "fac-music" do
   minute "2"
   hour "2"

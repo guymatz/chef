@@ -14,3 +14,5 @@ sleep $SLEEP_MINUTES
 /usr/bin/java -Xms4G -Xmx4G -jar <%= @script_dir %>/fac-music.jar classpath:/facStartup.xml artistIncrementalDelete time=$(date +%s) writeToMongo=true writeToAttivio=true jobType=artistIncrementalDelete reloadIds=8872138 doAmgMatch=true intervalOverride= independentJob=false commitSpeed=-1;
 
 /usr/bin/java -jar -Xmx14g <%= @radiobuild_dir %>/fac-radiobuild.jar
+
+./shipFAC2attivio.sh
