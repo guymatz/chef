@@ -23,12 +23,13 @@ for der in "${!ders[@]}" ; do
         sleep 30
     done
 
-    scp -i /home/$SCP_USER/.ssh/deploy -r $SRC_DIR $SCP_USER@$ATTIVIO_MASTER:$DST_DIR
+    scp -i /home/$SCP_USER/.ssh/deploy -r $SRC_DIR/* $SCP_USER@$ATTIVIO_MASTER:$DST_DIR
 
     if [ $? -ne 0 ] ; then
         echo "An error occured shipping $SRC_DIR to $ATTIVIO_MASTER:$DST_DIR"
         exit $?
     fi
+    rm -rf $SRC_DIR/*
 
 done
 
