@@ -8,10 +8,10 @@ default[:rabbitmq][:plugins] = [ "amqp_client",
 default[:rabbitmq][:ulimits] = [{
                                   "type" => "hard",
                                   "item" => "nofile",
-                                  "value" => "65535"
+                                  "value" => "390000"
                                 },
                                 {
                                   "type" => "soft",
                                   "item" => "nofile",
-                                  "value" => "65535"
+                                  "value" => "390000"
                                 }]
