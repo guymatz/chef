@@ -3,6 +3,9 @@
 # Setup the management plugin
 include_recipe "rabbitmq::mgmt_console"
 
+# Setup rabbit ulimits
+include_recipe "rabbitmq::ulimits"
+
 # Ensure we have all other desired plugins
 node[:rabbitmq][:plugins].each do |plugin|
   rabbitmq_plugin plugin do
