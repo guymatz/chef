@@ -4,3 +4,14 @@ default[:rabbitmq][:plugins] = [ "amqp_client",
                                  "rabbitmq_management_agent",
                                  "webmachine"
                                ]
+
+default[:rabbitmq][:ulimits] = [{
+                                  "type" => "hard",
+                                  "item" => "nofile",
+                                  "value" => "65535"
+                                },
+                                {
+                                  "type" => "soft",
+                                  "item" => "nofile",
+                                  "value" => "65535"
+                                }]
