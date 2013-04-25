@@ -51,4 +51,8 @@ application "basejump" do
   end
 end
 
+link "/data/www/basejump/current/kickstarter/ksconfigs/ksconfig" do
+  to "/data/www/basejump/current/kickstarter/ksconfigs/ksconfig.bigdata"
+end
+
 include_recipe "basejump::kickstarter"
