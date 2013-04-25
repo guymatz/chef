@@ -1,4 +1,4 @@
-template "/etc/security/limits.d/attivio.conf" do
+template "/etc/security/limits.d/rabbitmq.conf" do
   source "limits.conf.erb"
   owner "root"
   group "root"
