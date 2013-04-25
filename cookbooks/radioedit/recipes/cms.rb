@@ -48,7 +48,6 @@ application "radioedit-cms" do
     port node[:radioedit][:cms][:port]
     workers 10
     host node[:radioedit][:cms][:host]
-    command "radioedit.wsgi"
     pidfile "/var/run/radioedit-cms.pid"
   end
 
