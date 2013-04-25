@@ -20,6 +20,7 @@ default['rabbitmq']['use_distro_version'] = false
 # "The .config extension is automatically appended by the Erlang runtime."
 default['rabbitmq']['config'] = "/etc/rabbitmq/rabbitmq"
 default['rabbitmq']['erlang_cookie_path'] = '/var/lib/rabbitmq/.erlang.cookie'
+default['rabbitmq']['dir'] = '/etc/rabbitmq'
 
 # rabbitmq.config defaults
 default['rabbitmq']['default_user'] = 'guest'

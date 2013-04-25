@@ -49,7 +49,7 @@ rabbitmq_user "guest" do
 end
 
 # Drop rabbitmqadmin
-rabbitmq_admin = "#{node['rabbitmq']['config']}/rabbitmqadmin"
+rabbitmq_admin = "#{node['rabbitmq']['dir']}/rabbitmqadmin"
 cookbook_file rabbitmq_admin do
   source "admin/rabbitmqadmin"
   mode 0755
