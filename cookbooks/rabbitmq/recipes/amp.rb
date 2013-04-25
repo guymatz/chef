@@ -50,7 +50,7 @@ end
 
 # Drop rabbitmqadmin
 rabbitmq_admin = "#{node['rabbitmq']['config']}/rabbitmqadmin"
-cookbook_file rabbimq_admin do
+cookbook_file rabbitmq_admin do
   source "admin/rabbitmqadmin"
   mode 0755
   action :create_if_missing
