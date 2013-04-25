@@ -4,7 +4,7 @@ template "/etc/security/limits.d/attivio.conf" do
   group "root"
   mode "0644"
   variables ({
-               :domain => '*',
+               :domain => 'rabbitmq',
                :ulimits => node[:attivio][:ulimits]
              })
 end
