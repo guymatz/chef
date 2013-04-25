@@ -44,3 +44,24 @@ end
 rabbitmq_user "guest" do
   action :delete
 end
+
+# Drop rabbitmqadmin
+rabbitmq_admin = "#{node['rabbitmq']['config']}/rabbitmqadmin"
+cookbook_file rabbimq_admin do
+  source "admin/rabbitmqadmin"
+  mode 0755
+  action :create_if_missing
+end
+
+# Drop rabbitmq queue/exchange settings json
+rabbitmq_settings = "#{node['rabbitmq']['config']}/rabbitmqsettings.json"
+template rabbitmq_settings do
+  source "amp/rabbitsettings.json"
+  notifies :execute, 'bash[install-settings]', :immediately
+end
+
+# Load rabbitmq queue/exchange settings
+bash "install-settings" do
+  code "#{rabbitmq_admin} -u thumbplay -p #{users['thumbplay']} #{rabbitmq_settings}"
+  action :nothing
+end
