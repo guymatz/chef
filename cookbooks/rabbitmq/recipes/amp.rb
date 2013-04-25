@@ -65,6 +65,6 @@ end
 
 # Load rabbitmq queue/exchange settings
 bash "install-settings" do
-  code "#{rabbitmq_admin} -u thumbplay -p #{users['thumbplay']} #{rabbitmq_settings}"
+  code "#{rabbitmq_admin} -u thumbplay -p #{users['thumbplay']} import #{rabbitmq_settings}"
   action :nothing
 end
