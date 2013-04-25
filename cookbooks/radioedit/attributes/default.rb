@@ -38,6 +38,6 @@ default[:radioedit][:diablocore][:packages] = %w{ nginx zlib-devel libjpeg zlib 
 default[:radioedit][:image][:port] = 8000
 default[:radioedit][:image][:listen] = "/var/tmp/radioedit-image.sock"
 
-default[:radioedit][:cms][:port] = 80
+default[:radioedit][:cms][:port] = "/var/tmp/radioedit-cms.sock"
 default[:radioedit][:cms][:listen] = "/var/tmp/radioedit-cms.sock"
-default[:radioedit][:cms][:host] = "/var/tmp/radioedit-cms.sock"
+default[:radioedit][:cms][:host] = "unix"
