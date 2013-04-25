@@ -57,7 +57,7 @@ cookbook_file rabbitmq_admin do
 end
 
 # Drop rabbitmq queue/exchange settings json
-rabbitmq_settings = "#{node['rabbitmq']['config']}/rabbitmqsettings.json"
+rabbitmq_settings = "#{node['rabbitmq']['dir']}/rabbitmqsettings.json"
 template rabbitmq_settings do
   source "amp/rabbitsettings.json"
   notifies :execute, 'bash[install-settings]', :immediately
