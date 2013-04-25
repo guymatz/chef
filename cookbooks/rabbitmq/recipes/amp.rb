@@ -60,7 +60,7 @@ end
 rabbitmq_settings = "#{node['rabbitmq']['dir']}/rabbitmqsettings.json"
 template rabbitmq_settings do
   source "amp/rabbitsettings.json"
-  notifies :execute, 'bash[install-settings]', :immediately
+  notifies :run, 'bash[install-settings]', :immediately
 end
 
 # Load rabbitmq queue/exchange settings
