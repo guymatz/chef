@@ -8,3 +8,7 @@ version          "1.1.4"
 %w{ ubuntu debian redhat centos fedora freebsd}.each do |os|
   supports os
 end
+
+%w{ sudo }.each do |dep|
+  depends dep  
+end
