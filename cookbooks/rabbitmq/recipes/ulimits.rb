@@ -5,6 +5,6 @@ template "/etc/security/limits.d/rabbitmq.conf" do
   mode "0644"
   variables ({
                :domain => 'rabbitmq',
-               :ulimits => node[:attivio][:ulimits]
+               :ulimits => node[:rabbitmq][:ulimits]
              })
 end
