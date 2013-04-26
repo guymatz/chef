@@ -11,7 +11,9 @@ case "$1" in
     stop)
         <%= node[:tomcat7][:install_path] %>/bin/shutdown.sh
         kill $(cat /var/run/tomcat/tomcat.pid)
-        rm /var/run/tomcat/tomcat.pid
+        if [ -f /var/run/tomcat/tomcat.pid ] ; then
+            rm /var/run/tomcat/tomcat.pid
+        fi
         ;;
     restart)
         <%= node[:tomcat7][:install_path] %>/bin/shutdown.sh
