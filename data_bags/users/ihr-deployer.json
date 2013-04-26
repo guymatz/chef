@@ -1,0 +1,8 @@
+{
+    "id": "ihr-deployer",
+    "name": "Github Deploy User",
+    "email":    "ihr-deployer@clearchannel.com",
+    "groups":   ["ihr-deployer"],
+    "shell":    "/sbin/nologin",
+    "uid": 4007
+}
