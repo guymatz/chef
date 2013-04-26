@@ -31,3 +31,51 @@ hosts.each do |host,ip|
   end
 end
 
+service "tomcat" do
+  supports :start => true, :stop => true, :status => true
+  action [:enable, :start]
+end
+
+begin
+  puts "entered begin block"
+  unless node[:amp][:deployed] == node[:amp][:version]
+    puts "INSTALLING AMP DERP DERP"
+    service "tomcat" do
+      action :stop
+    end
+
+    remote_file "#{node[:tomcat7][:webapp_dir]}/amp-rest.war" do
+      source "#{node[:amp][:url]}/#{node[:amp][:version]}/amp-rest-#{node[:amp][:version]}.war"
+      owner node[:tomcat7][:user]
+      group node[:tomcat7][:group]
+      mode "0755"
+    end
+
+    remote_file "#{node[:tomcat7][:install_path]}/lib/env.properties" do
+      source "#{node[:amp][:url]}/#{node[:amp][:version]}/env.properties"
+      owner node[:tomcat7][:user]
+      group node[:tomcat7][:group]
+      mode "0755"
+    end
+
+    remote_file "#{node[:tomcat7][:install_path]}/lib/log4j.xml" do
+      source "#{node[:amp][:url]}/#{node[:amp][:version]}/log4j.xml"
+      owner node[:tomcat7][:user]
+      group node[:tomcat7][:group]
+      mode "0755"
+    end
+
+    service "tomcat" do
+      action [:enable, :start]
+    end
+
+    node.set[:amp][:deployed] = node[:amp][:version]
+    node.save
+  end
+rescue
+  node.set[:amp][:deployed] = "false"
+end
+
+service "tomcat" do
+  action [:enable, :start]
+end
