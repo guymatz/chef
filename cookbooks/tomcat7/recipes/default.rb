@@ -17,6 +17,18 @@
 # limitations under the License.
 #
 
+group node[:tomcat7][:group] do
+  gid 91
+  action [:create]
+end
+
+user node[:tomcat7][:user] do
+  comment "Tomcat Service User"
+  shell "/sbin/nologin"
+  uid 91
+  gid 91
+  action [:create]
+end
 
 remote_file "#{Chef::Config[:file_cache_path]}/tomcat7.tar.gz" do
   source "#{node[:tomcat7][:url]}/v#{node[:tomcat7][:version]}/bin/apache-tomcat-#{node[:tomcat7][:version]}.tar.gz"
@@ -41,6 +53,10 @@ template "#{node[:tomcat7][:install_path]}/conf/server.xml" do
   source "server7.xml.erb"
   owner "root"
   mode "0644"
+end
+
+bash "tomcat perms" do
+  code "chown -R #{node[:tomcat7][:user]}.#{node[:tomcat7][:group]} #{node[:tomcat7][:install_path]}"
 end
 
 template "/etc/init.d/tomcat" do
