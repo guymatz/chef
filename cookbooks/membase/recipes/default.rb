@@ -9,6 +9,12 @@
 
 # we set the common uid of 497, but move the homedir to /data/membase.
 # Local storage data is kept in /data/membase/data
+
+# Dell monitoring installs a user called sfcb with a conflicting gid
+package "sblim-sfcb" do
+  action :remove
+end
+
 include_recipe "users::membase"
 
 node[:membase][:packages].each do |pkg|
