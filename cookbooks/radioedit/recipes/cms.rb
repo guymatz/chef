@@ -52,3 +52,20 @@ application "radioedit-cms" do
   end
 
 end
+
+service "nginx"
+
+%w{ nginx.conf proxy_params.conf }.each do |conf|
+  template "/etc/nginx/#{conf}" do
+    source conf
+    owner "nginx"
+    group "nginx"
+  end
+end
+
+template "/etc/nginx/conf.d/radioedit-cms.conf" do
+  source "nginx_cms.conf"
+  owner "nginx"
+  group "nginx"
+  notifies :reload, 'service[nginx]', :immediately
+end
