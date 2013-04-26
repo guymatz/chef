@@ -49,7 +49,8 @@ default['nagios']['nrpe']['url']      = 'http://yum.ihr/files'
 default['nagios']['nrpe']['version']  = '2.12'
 default['nagios']['nrpe']['checksum'] = '7e8d093abef7d7ffc7219ad334823bdb612121df40de2dbaec9c6d0adeb04cfc'
 default['nagios']['nrpe']['mon_host_ips'] = [ '10.5.36.11',
-                                              '10.5.40.12'
+                                              '10.5.40.12',
+                                              '10.5.43.20'
                                             ]
 
 # for nsca from source installation
