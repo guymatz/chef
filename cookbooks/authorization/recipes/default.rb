@@ -10,6 +10,7 @@
 include_recipe "heartbeat"
 include_recipe "authorization::sysctl"
 include_recipe "authorization::ulimits"
+include_recipe "authorization::nagios"
 include_recipe "php"
 
 node[:authorization][:database][:packages].each do |p|

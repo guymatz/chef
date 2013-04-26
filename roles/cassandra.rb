@@ -22,6 +22,8 @@ default_attributes({
                         "concurrent_reads" => "96",
                         "concurrent_writes" => "400",
                         "throttle_limit" => "92",
+			"key_cache_size_in_mb" => "0",
+			"key_cache_save_period" => "0",
                       }
                    })
 override_attributes({

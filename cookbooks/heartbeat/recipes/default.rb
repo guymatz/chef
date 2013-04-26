@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+include_recipe "heartbeat::nrpe"
+
 case node['platform_family']
 when "rhel", "fedora"
     package_list = ['heartbeat', 'heartbeat-devel']

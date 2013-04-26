@@ -1,0 +1,8 @@
+{
+  "contact_groups": [
+    "dba"
+  ],
+  "id": "Postgres-QueryTime-VIP",
+  "host_name": "iad-auth101-v260.ihr",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Postgres-QueryTime -t 20"
+}

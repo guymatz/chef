@@ -1,0 +1,6 @@
+port=<%=@mongodb[:port]%>
+configdb=<%@mongodb.configdbs.join(',')%>
+logpath=<%@mongodb[:logpath]%>
+logappend=<%@mongodb[:logappend]%>
+fork=true
+pidfilepath=<%@mongodb[:pidfile_loc]%><%@mongodb[:pidfile_name]%>

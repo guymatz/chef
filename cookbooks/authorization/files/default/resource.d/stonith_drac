@@ -3,6 +3,7 @@ arg=$1
 
 lhost=`hostname`
 peernode=`cat /etc/ha.d/ha.cf | grep node | grep -v $lhost | awk -F"\t" '{print $2}'`
+LOG=/var/log/ha-log
 
 # These files contain 1 or 0 indicator. If file does not exist - 0 is assumed.
 # Indicator specifies resource status that should be returned by status command.
@@ -13,7 +14,7 @@ STATUSFILE='/dev/shm/is_stonith_drac_resource_running'
 if [ "$arg" == "start" ]
 then
 
-  UPTIME=`cat /proc/uptime | awk '{printf "%.0f\n", $1}'`
+  #UPTIME=`cat /proc/uptime | awk '{printf "%.0f\n", $1}'`
 
   # Check if other node was not brought down nicely
 
@@ -31,7 +32,7 @@ then
     peer_node_status=0 # file does not exist
   fi
 
-  if [ $peer_node_status -eq 1 ] && [ $UPTIME -gt 120 ]
+  if [ $peer_node_status -eq 1 ] #&& [ $UPTIME -gt 120 ]
   then
     /usr/sbin/poweroff $peernode 2>&1 | tee -a $LOG
   fi

@@ -1,7 +1,7 @@
 # mongo.conf
 
 #where to log
-logpath=/var/log/mongo/mongod.log
+logpath=<%@mongodb[:logpath]%>
 
 logappend=true
 
@@ -9,8 +9,6 @@ logappend=true
 fork = true
 
 #port = 27017
-
-dbpath=/dbdata/mongo_users1
 
 # Enables periodic logging of CPU utilization and I/O wait
 #cpu = true
@@ -78,8 +76,11 @@ dbpath=/dbdata/mongo_users1
 # or
 #master = true2
 #source = slaveo.example.com
-replSet=Mongo-users1
-port=37017
-rest=true
-journal=true
-pidfilepath=/var/lib/mongo/mongod.lock
+dbpath=<%=@mongodb[:data_dir]%>
+replSet=<%=@mongodb[:replset]%>
+port=<%=@mongodb[:port]%>
+rest=<%=@mongodb[:rest]%>
+configsvr=<%=@mongodb[:configsvr]%>
+arbiter=<%=@mongodb[:arbiter]%>
+journal=<%=@mongodb[:journal]%>
+pidfilepath=<%=@mongodb[:pidfile_loc]%><%=@mongodb[:pidfile_name]%>

@@ -34,7 +34,11 @@ num_tokens: <%=@cassandra[:num_tokens]%>
 # the heaviest-loaded existing node.  If there is no load information
 # available, such as is the case with a new cluster, it will pick
 # a random token, which will lead to hot spots.
-# initial_token: 
+<%if @cassandra.has_key?("initial_token") %>
+initial_token: <%= @cassandra[:initial_token] %>
+<% else %>
+# initial_token:
+<% end %>
 
 # See http://wiki.apache.org/cassandra/HintedHandoff
 hinted_handoff_enabled: <%= @cassandra[:hinted_handoff_enabled] %> #true
