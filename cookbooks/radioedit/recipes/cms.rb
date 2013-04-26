@@ -55,7 +55,7 @@ end
 
 service "nginx"
 
-%w{ nginx.conf proxy_params.conf }.each do |conf|
+%w{ nginx.conf proxy_params }.each do |conf|
   template "/etc/nginx/#{conf}" do
     source conf
     owner "nginx"
