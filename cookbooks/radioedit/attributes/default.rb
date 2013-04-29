@@ -22,7 +22,7 @@ default[:radioedit][:image][:repo] = "git@github.com:iheartradio/radioedit-img.g
 default[:radioedit][:image][:branch] = "deploy"
 
 default[:radioedit][:cms][:repo] = "git@github.com:iheartradio/featcontent.git"
-default[:radioedit][:cms][:branch] = "deploy"
+default[:radioedit][:cms][:branch] = node.run_list.include?('role[radioedit_server_a]') ? 'deploy_a_release' : 'deploy'
 
 # Requirements
 default[:radioedit][:image][:packages] = %w{ python-imaging python-psycopg2 postgresql-libs }
