@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html>
+
+<head></head>
+<body>
+    <div id="debug"></div>
+
+
+    <script>
+        var debugElement = document.getElementById('debug'),
+            popup = window.open("/static/popup_page1.html", "popup_page", "width=300,height=200");
+
+        function debug(str) {
+            debugElement.innerHTML += '<p>' + str + '</p>';
+        }
+
+        debug(window.location);
+
+        window.addEventListener("message", function(event) {
+            console.log(event);
+            debug("message=" + JSON.stringify(event.data) + " origin=" + event.origin);
+            parent.postMessage(event.data, "*");
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+
+<title></title>
+<body>
+    <div id="debug"></div>
+
+    <script>
+        var debugElement = document.getElementById('debug');
+
+        function debug(str) {
+            debugElement.innerHTML += '<p>' + str + '</p>';
+        }
+
+        debug(window.location);
+
+        setTimeout(function() {
+            window.location = "popup_page2.html";
+        }, 2000);
+
+        debug('refreshing in 2 seconds');
+
+
+    </script>
+
+</body>
+
+</html>
