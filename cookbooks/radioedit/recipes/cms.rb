@@ -22,6 +22,10 @@ directory "#{node[:radioedit][:cms][:path]}" do
   group node[:radioedit][:group]
 end
 
+directory "/var/run" do
+  mode 0777
+end
+
 node[:radioedit][:cms][:packages].each do |p|
   package p
 end
@@ -61,6 +65,12 @@ service "nginx"
     owner "nginx"
     group "nginx"
   end
+end
+
+bash "remove_default_confs" do
+  cwd "/etc/nginx/conf.d"
+  code "rm -f *.conf"
+  not_if { File.exists?("/etc/nginx/conf.d/radioedit-cms.conf") }
 end
 
 template "/etc/nginx/conf.d/radioedit-cms.conf" do
