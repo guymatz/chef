@@ -1,0 +1,6 @@
+port=<%=@mongosd[:port]%>
+configdb=<%@mongosd.configdbs.join(',')%>
+logpath=<%@mongosd[:logpath]%>
+logappend=<%@mongosd[:logappend]%>
+fork=true
+pidfilepath=<%@mongosd[:pidfile_loc]%><%@mongosd[:pidfile_name]%>

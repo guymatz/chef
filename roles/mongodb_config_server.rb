@@ -1,8 +1,7 @@
 name "mongodb"
 description "mongodb"
 all_env = [
-           "recipe[mongodb]",
-	   "recipe[mongodb::server]",
+	   "recipe[mongodb::cfgserver]",
            "recipe[mongodb::ulimits]",
 	  ]
 run_list(all_env)
@@ -14,13 +13,6 @@ env_run_lists(
               )
 default_attributes({
                      "mongodb" => {
-			"logpath" =>	"/var/log/mongo/mongocfg.log",
-			"data_dir" =>	"/data/db/cfgmongo",
-			"port" =>	"57017",
-			"configsvr" =>	"true",
-			"pidfile_loc" =>	"/data/db/cfgmongo",
-			"pidfile_name" =>	"cfgmongod.lock",
-			"config_file_name" =>	"cfgmongod.conf"
                       }
                    })
 override_attributes({

@@ -1,10 +1,12 @@
+include_attribute 'mongodb::mongosd'
+
 template "/etc/init.d/mongosd" do
         source "mongod.erb"
         owner "root"
         group "root"
         mode 0755 
         variables({
-                :mongodb => node[:mongodb]
+                :mongodb => node[:mongosd]
         })
 end
 
@@ -14,6 +16,6 @@ template "/etc/mongosd.conf" do
         group "root"
         mode 0755 
         variables({
-                :mongodb => node[:mongodb]
+                :mongodb => node[:mongosd]
         })
 end
