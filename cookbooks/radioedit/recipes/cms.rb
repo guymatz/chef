@@ -71,7 +71,7 @@ template "/etc/nginx/conf.d/radioedit-cms.conf" do
 end
 
 remote_directory "#{node[:radioedit][:cms][:path]}/current/static" do
-  file_owner node[:radioedit][:user]
-  file_group node[:radioedit][:group]
+  files_owner node[:radioedit][:user]
+  files_group node[:radioedit][:group]
   source "static"
 end
