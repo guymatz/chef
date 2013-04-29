@@ -6,7 +6,7 @@ version          "0.2.5"
 
 recipe "pgbouncer", "Installs and configures pgbouncer"
 
-%w{ ubuntu debian }.each do |os|
+%w{ ubuntu debian centos }.each do |os|
   supports os
 end
 

@@ -28,7 +28,7 @@ case node['platform']
 when "redhat","centos","scientific","fedora","suse"
   package "cronie"
   version = node['postgresql']['version'].split('.').join('')
-  include_recipe "yumrepo::postgresql"
+#  include_recipe "yumrepo::postgresql"
 end
 
 package "pgbouncer" do
@@ -71,7 +71,6 @@ template "/etc/init.d/pgbouncer" do
   notifies :restart, resources(:service => "pgbouncer")
 end
 
-
 service "pgbouncer" do
   action [:enable]
 end
@@ -82,7 +81,7 @@ logrotate_app "pgbouncer" do
   frequency "daily"
   create "644 root root"
   rotate 30
-end 
+end
 
 # add sudoers
 sudo pgb_user do

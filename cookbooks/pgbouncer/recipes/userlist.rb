@@ -19,7 +19,6 @@
 # limitations under the License.
 #
 
-                 
 cookbook_file "/home/postgres/cron_userlist.sh" do
   owner "postgres"
   group "postgres"
