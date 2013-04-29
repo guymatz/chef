@@ -26,10 +26,10 @@ node[:radioedit][:cms][:packages].each do |p|
   package p
 end
 
-deploy_brach = node.run_list.include?('role[radioedit_server_a]') ? 'deploy_a_release' : 'deploy'
+#deploy_brach = node.run_list.include?('role[radioedit_server_a]') ? 'deploy_a_release' : 'deploy'
 application "radioedit-cms" do
   repository node[:radioedit][:cms][:repo]
-  revision deploy_branch
+  revision 'deploy'
   path node[:radioedit][:cms][:path]
   owner node[:radioedit][:user]
   group node[:radioedit][:group]
