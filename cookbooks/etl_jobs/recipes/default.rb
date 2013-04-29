@@ -34,6 +34,7 @@ end
 directory "/data/jobs/playlog"
 directory "/data/log/playlog"
 directory "/data/log/playlog/processed"
+directory "/var/run/playlog"
 remote_file "/data/jobs/playlog/playlog_wrapper.sh" do
   source "http://yum.ihr/files/jobs/playlog/playlog_wrapper.sh"
   mode 0755
