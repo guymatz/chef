@@ -6,6 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+include_recipe "users::deployer"
 
 remote_file "/etc/yum.repos.d/zeromq.repo" do
   source "http://download.opensuse.org/repositories/home:/fengshuo:/zeromq/CentOS_CentOS-6/home:fengshuo:zeromq.repo"
