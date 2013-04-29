@@ -77,3 +77,11 @@ remote_directory "#{node[:radioedit][:cms][:path]}/current/static" do
   source "static"
   not_if { File.exists?('#{node[:radioedit][:cms][:path]}/current/static') }
 end
+
+template "/etc/sysconfig/varnish" do
+  source "varnish_sysconfig"
+end
+
+template "/etc/varnish/default.vcl" do
+  source "varnish.vcl"
+end
