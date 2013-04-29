@@ -34,6 +34,9 @@ end
 directory "/data/jobs/playlog"
 directory "/data/log/playlog"
 directory "/data/log/playlog/processed"
+remote_file "/data/jobs/playlog/playlog_wrapper.sh" do
+  source "http://yum.ihr/files/jobs/playlog/playlog_wrapper.sh"
+end
 remote_file "/data/jobs/playlog/playlog.jar" do
   source "http://yum.ihr/files/jobs/playlog/playlog_job.jar"
 end
@@ -44,7 +47,7 @@ remote_file "/data/jobs/playlog/batch.properties" do
   source "http://yum.ihr/files/jobs/playlog/batch.properties"
 end
 cron_d "playlog_job" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Playlog-ETL-Job \"/usr/bin/java -jar /data/jobs/playlog/playlog.jar launch-context.xml playlogJob rundate=`/bin/date +\\%s`\""
+  command "/usr/bin/cronwrap iad-jobserver101.ihr Playlog-ETL-Job \"/data/jobs/playlog/playlog_wrapper.sh\""
   minute 22
 end
 
