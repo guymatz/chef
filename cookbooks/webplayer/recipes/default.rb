@@ -68,7 +68,7 @@ res.each do |s|
   memcached_servers << s[:hostname] + "-v200.ihr:11212"
 end
 
-unless tagged?("webplayer-deployed")
+if not tagged?("webplayer-deployed")
   application "webplayer" do
     path node[:webplayer][:deploy_path]
     owner "root"
@@ -114,9 +114,9 @@ unless tagged?("webplayer-deployed")
       autostart true
       workers 16
     end
-
-    tag("webplayer-deployed")
   end
+
+  tag("webplayer-deployed")
 end
 
 service "httpd-apache2" do
