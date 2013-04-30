@@ -68,55 +68,55 @@ res.each do |s|
   memcached_servers << s[:hostname] + "-v200.ihr:11212"
 end
 
-application "webplayer" do
-  path node[:webplayer][:deploy_path]
-  owner "root"
-  group node[:webplayer][:group]
-  repository node[:webplayer][:repo]
-  revision node[:webplayer][:rev]
-  migrate false
-  action :deploy
+unless tagged?("webplayer-deployed")
+  application "webplayer" do
+    path node[:webplayer][:deploy_path]
+    owner "root"
+    group node[:webplayer][:group]
+    repository node[:webplayer][:repo]
+    revision node[:webplayer][:rev]
+    migrate false
+    action :deploy
 
-  # Callbacks
-  # before_restart "tusiq/config/local/manage.py assets build --settings=tusiq.config.prod.settings"
+    django do
+      interpreter "python27"
+      settings({
+                 :secrets => app_secrets,
+                 :url => node[:webplayer][:settings][:url],
+                 :rpc => node[:webplayer][:settings][:rpc],
+                 :statsd_conn => node[:webplayer][:settings][:statsd_conn],
+                 :jinja => node[:webplayer][:settings][:jinja],
+                 :memcached => memcached_servers
+               })
+      requirements "requirements.txt"
+      debug true
+      settings_template "settings.py.erb"
+    end
 
-  django do
-    interpreter "python27"
-    settings({
-               :secrets => app_secrets,
-               :url => node[:webplayer][:settings][:url],
-               :rpc => node[:webplayer][:settings][:rpc],
-               :statsd_conn => node[:webplayer][:settings][:statsd_conn],
-               :jinja => node[:webplayer][:settings][:jinja],
-               :memcached => memcached_servers
-             })
-    requirements "requirements.txt"
-    debug true
-    settings_template "settings.py.erb"
-  end
-
-  before_restart do
-    bash "Webplayers: Build Static Resources" do
-      user "root"
-      cwd "#{node[:webplayer][:deploy_path]}"
-      code <<-EOH
+    before_restart do
+      bash "Webplayers: Build Static Resources" do
+        user "root"
+        cwd "#{node[:webplayer][:deploy_path]}"
+        code <<-EOH
       source shared/env/bin/activate
       cd current
       python27 tusiq/config/local/manage.py assets build --settings=tusiq.config.prod2.settings
       EOH
+      end
     end
-  end
 
-  gunicorn do
-    app_module :django
-    command "tusiq.config.prod2.wsgi"
-    worker_class "gevent"
-    Chef::Log.info("Starting up Gunicorn on port 8080 for Basejump")
-    port 8080
-    autostart true
-    workers 12
-  end
+    gunicorn do
+      app_module :django
+      command "tusiq.config.prod2.wsgi"
+      worker_class "gevent"
+      Chef::Log.info("Starting up Gunicorn on port 8080 for Basejump")
+      port 8080
+      autostart true
+      workers 16
+    end
 
+    tag("webplayer-deployed")
+  end
 end
 
 service "httpd-apache2" do
