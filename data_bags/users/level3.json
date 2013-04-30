@@ -1,0 +1,11 @@
+{
+    "id": "level3",
+    "name": "Level3",
+    "email":    "aaronclements@clearchannel.com",
+    "groups":   ["level3"],
+    "shell":    "/sbin/nologin",
+    "uid": 5026,
+    "ssh_keys": [
+        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDD6pAfeuwkgtbSCj21pnMFYiIDSyV6GfvK/Dal5na8ce8KXz919k81lSRe+X2jfB0YMGhzkNkCpMnDyqQXgSog61JDK6EULdnMAFGVpJ56M2IjsXmgQmMaXp8Z7uoh7iXGSKUNE/WHm6VmedxNd7xago72ShmApOLyqrH1zDF8oWWQneLPe/NBtKUTtCCNhl8l0XKAekXikH0engndegJaPCC3qMQUX2IRu/z8wygrFtA3jRVofEUI0qhccK4xp7lxfVW51zRtK62h4GAbaHxnvw2t5b1VFhzDxI1j1IcFLIKpEr+6tBztIYp5mKP1FdyaHEsATiY8PedV5BdWCm6n aclements@CCCNYC01CAC.local"
+    ]
+}
