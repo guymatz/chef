@@ -22,8 +22,9 @@ directory "#{node[:radioedit][:cms][:path]}" do
   group node[:radioedit][:group]
 end
 
-directory "/var/run" do
-  mode 0777
+directory "/var/run/radioedit" do
+  owner node[:radioedit][:user]
+  group node[:radioedit][:group]
 end
 
 node[:radioedit][:cms][:packages].each do |p|
@@ -52,7 +53,7 @@ application "radioedit-cms" do
     port node[:radioedit][:cms][:port]
     workers 10
     host node[:radioedit][:cms][:host]
-    pidfile "/var/run/radioedit-cms.pid"
+    pidfile "/var/run/radioedit/radioedit-cms.pid"
   end
 
 end
