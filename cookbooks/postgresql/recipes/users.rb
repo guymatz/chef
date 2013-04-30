@@ -12,6 +12,27 @@ include_recipe "users::dba"
 #   end
 # end
 
+group "postgres" do
+  gid 26
+end
+
+directory "/home/postgres" do
+  owner "postgres"
+  group "postgres"
+  mode 0700
+  action :create
+end
+
+user "postgres" do
+  shell "/bin/bash"
+  comment "PostgreSQL Server"
+  home "/home/postgres"
+  gid "postgres"
+  system true
+  uid 26
+  supports :manage_home => false
+end
+
 sudo "postgresql-dba" do
   group "dba"
   commands ["ALL"]

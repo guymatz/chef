@@ -19,7 +19,13 @@
 # limitations under the License.
 #
 
-include_recipe "logrotate"
+node[:pgbouncer][:packages].each do |pkg|
+  package pkg
+end
+
+%w{ logrotate postgresql }.each do |prereq|
+  include_recipe prereq
+end
 
 pgb_user = node['pgbouncer']['user']
 
@@ -31,8 +37,22 @@ when "redhat","centos","scientific","fedora","suse"
 #  include_recipe "yumrepo::postgresql"
 end
 
-package "pgbouncer" do
-  action :upgrade
+remote_file "#{Chef::Config[:file_cache_path]}/pgbouncer-1-5-4.tar.gz" do
+  source "http://yum.ihr/files/pgbouncer-1.5.4.tar.gz"
+  owner "root"
+  group "root"
+  action :create_if_missing
+end
+
+bash "compile pgbouncer" do
+  cwd Chef::Config[:file_cache_path]
+  code <<-EOH
+cd #{Chef::Config[:file_cache_path]}
+tar zxvf pgbouncer-1-5-4.tar.gz
+cd pgbouncer-1.5.4
+./configure
+make && make install
+EOH
 end
 
 service "pgbouncer" do

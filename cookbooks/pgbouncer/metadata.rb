@@ -10,6 +10,10 @@ recipe "pgbouncer", "Installs and configures pgbouncer"
   supports os
 end
 
+%w{ logrotate postgresql }.each do |dep|
+  depends dep
+end
+
 attribute "pgbouncer/databases",
   :display_name => "PgBouncer databases",
   :description => "Dictionary consisting of database names with connection info.",
