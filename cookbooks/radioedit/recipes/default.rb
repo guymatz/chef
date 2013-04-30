@@ -8,11 +8,6 @@
 #
 include_recipe "users::deployer"
 
-remote_file "/etc/yum.repos.d/zeromq.repo" do
-  source "http://download.opensuse.org/repositories/home:/fengshuo:/zeromq/CentOS_CentOS-6/home:fengshuo:zeromq.repo"
-  action :create_if_missing
-end
-
 node[:radioedit][:core][:packages].each do |p|
   package p
 end
