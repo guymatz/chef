@@ -1,7 +1,7 @@
 # mongo.conf
 
 #where to log
-logpath=<%@arbmongodb[:logpath]%>
+logpath=<%=@arbmongodb[:arblogpath]%>
 
 logappend=true
 
@@ -76,11 +76,9 @@ fork = true
 # or
 #master = true2
 #source = slaveo.example.com
-dbpath=<%=@arbmongodb[:data_dir]%>
-replSet=<%=@arbmongodb[:replset]%>
-port=<%=@arbmongodb[:port]%>
-rest=<%=@arbmongodb[:rest]%>
-configsvr=<%=@arbmongodb[:configsvr]%>
-arbiter=<%=@arbmongodb[:arbiter]%>
-journal=<%=@arbmongodb[:journal]%>
-pidfilepath=<%=@arbmongodb[:pidfile_loc]%><%=@arbmongodb[:pidfile_name]%>
+dbpath=<%=@arbmongodb[:arbdata_dir]%>
+replSet=<%=@arbmongodb[:arbreplset]%>
+port=<%=@arbmongodb[:arbport]%>
+rest=<%=@arbmongodb[:arbrest]%>
+journal=<%=@arbmongodb[:arbjournal]%>
+pidfilepath=<%=@arbmongodb[:arbpidfile_loc]%>/<%=@arbmongodb[:arbpidfile_name]%>

@@ -15,14 +15,14 @@
 
 # NOTE: if you change any OPTIONS here, you get what you pay for:
 # this script assumes all options are in the config file.
-CONFIGFILE="<%=@mongodb[:config_file_dir]%><%=@mongodb[:config_file_name]%>"
+CONFIGFILE="<%=@mongodb[:config_file_dir]%>/<%=@mongodb[:config_file_name]%>"
 OPTIONS=" -f $CONFIGFILE"
 SYSCONFIG="/etc/sysconfig/mongod"
 
 # FIXME: 1.9.x has a --shutdown flag that parses the config file and
 # shuts down the correct running pid, but that's unavailable in 1.8
 # for now.  This can go away when this script stops supporting 1.8.
-PIDFILE=<%=@mongodb[:pidfile_loc]%><%=@mongodb[:pidfile_name]%>
+PIDFILE=<%=@mongodb[:pidfile_loc]%>/<%=@mongodb[:pidfile_name]%>
 mongod=${MONGOD-/usr/bin/mongod}
 
 MONGO_USER=<%=@mongodb[:user]%>

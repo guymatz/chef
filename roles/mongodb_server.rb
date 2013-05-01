@@ -1,5 +1,5 @@
-name "mongodb"
-description "mongodb"
+name "mongodb_server"
+description "mongodb_server"
 all_env = [
            "recipe[mongodb]",
 	   "recipe[mongodb::server]",

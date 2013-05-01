@@ -1,4 +1,4 @@
-directory "#{node[:arbmongodb][:arbdata_dir]}" do
+directory "#{node[:mongosd][:mongosdata_dir]}" do
   owner "mongod"
   group "mongod"
   mode 0755
@@ -6,25 +6,24 @@ directory "#{node[:arbmongodb][:arbdata_dir]}" do
   action :create
 end
 
-
-template "/etc/init.d/arbmongod" do
-        source "arbmongod.erb"
+template "/etc/init.d/mongosd" do
+        source "mongosd.erb"
         owner "root"
         group "root"
         mode 0755 
         variables({
 		:mongodb => node[:mongodb],
-                :arbmongodb => node[:arbmongodb]
+                :mongosd => node[:mongosd]
         })
 end
 
-template "/etc/arbmongod.conf" do
-	source "arbmongod.conf.erb"
+template "/etc/mongosd.conf" do
+	source "mongosd.conf.erb"
 	owner "root"
         group "root"
         mode 0755 
         variables({
 		:mongodb => node[:mongodb],
-                :arbmongodb => node[:arbmongodb]
+                :mongosd => node[:mongosd]
         })
 end

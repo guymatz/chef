@@ -15,18 +15,18 @@
 
 # NOTE: if you change any OPTIONS here, you get what you pay for:
 # this script assumes all options are in the config file.
-CONFIGFILE="<%=@arbmongob[:config_file_dir]%><%=@arbmongob[:config_file_name]%>"
+CONFIGFILE="<%=@arbmongodb[:arbconfig_file_dir]%>/<%=@arbmongodb[:arbconfig_file_name]%>"
 OPTIONS=" -f $CONFIGFILE"
 SYSCONFIG="/etc/sysconfig/mongod"
 
 # FIXME: 1.9.x has a --shutdown flag that parses the config file and
 # shuts down the correct running pid, but that's unavailable in 1.8
 # for now.  This can go away when this script stops supporting 1.8.
-PIDFILE=<%=@arbmongob[:pidfile_loc]%><%=@arbmongob[:pidfile_name]%>
+PIDFILE=<%=@arbmongodb[:arbpidfile_loc]%>/<%=@arbmongodb[:arbpidfile_name]%>
 mongod=${MONGOD-/usr/bin/mongod}
 
-MONGO_USER=<%=@arbmongob[:user]%>
-MONGO_GROUP=<%=@arbmongob[:group]%>
+MONGO_USER=<%=@mongodb[:user]%>
+MONGO_GROUP=<%=@mongodb[:group]%>
 
 if [ -f "$SYSCONFIG" ]; then
     . "$SYSCONFIG"
@@ -48,7 +48,7 @@ start()
   daemon --user "$MONGO_USER" $NUMACTL $mongod $OPTIONS
   RETVAL=$?
   echo
-  [ $RETVAL -eq 0 ] && touch <%=@arbmongob[:lock_file]%>
+  [ $RETVAL -eq 0 ] && touch <%=@arbmongodb[:arblock_file]%>
 }
 
 stop()
@@ -57,7 +57,7 @@ stop()
   killproc -p "$PIDFILE" -d 300 /usr/bin/mongod
   RETVAL=$?
   echo
-  [ $RETVAL -eq 0 ] && rm -f <%=@arbmongob[:lock_file]%>
+  [ $RETVAL -eq 0 ] && rm -f <%=@arbmongodb[:arblock_file]%>
 }
 
 restart () {
@@ -79,7 +79,7 @@ case "$1" in
     restart
     ;;
   condrestart)
-    [ -f <%=@arbmongob[:lock_file]%> ] && restart || :
+    [ -f <%=@arbmongodb[:arblock_file]%> ] && restart || :
     ;;
   status)
     status $mongod

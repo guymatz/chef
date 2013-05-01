@@ -1,6 +1,11 @@
 #Default MongoDB Configuration elements
 
-default[:mongodb][:packages] = %w{mongo-10gen.x86_64 mongo-10gen-server.x86_64}
+include_attribute 'mongodb::arbmongod'
+include_attribute 'mongodb::mongosd'
+include_attribute 'mongodb::cfgserver'
+
+
+default[:mongodb][:packages] = %w{mongo-10gen mongo-10gen-server numactl}
 
 #/etc/init.d/mongod startup file elements
 default[:mongodb][:user]		='mongod'
@@ -23,3 +28,15 @@ default[:mongodb][:rest]		='true'
 default[:mongodb][:journal]		='true'
 default[:mongodb][:configsvr]		='false'
 default[:mongodb][:arbiter]		='false'
+
+default[:mongodb][:ulimits] = [ {  
+                                   "type" => "soft",
+                                   "item" => "nofile",
+                                   "value" => "65535"
+                                 },
+                                 {
+                                   "type" => "hard",
+                                   "item" => "nofile",
+                                   "value" => "65535"
+                                 }
+                                ]

@@ -1,5 +1,5 @@
-name "mongodb"
-description "mongodb"
+name "mongodb_config_server"
+description "mongodb_config_server"
 all_env = [
 	   "recipe[mongodb::cfgserver]",
            "recipe[mongodb::ulimits]",

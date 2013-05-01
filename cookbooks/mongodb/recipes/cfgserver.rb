@@ -1,4 +1,10 @@
-include_attribute 'mongodb::cfgserver'
+directory "#{node[:cfgmongodb][:cfgdata_dir]}" do
+  owner "mongod"
+  group "mongod"
+  mode 0755
+  recursive true
+  action :create
+end
 
 template "/etc/init.d/cfgmongod" do
         source "cfgmongod.erb"
@@ -6,7 +12,8 @@ template "/etc/init.d/cfgmongod" do
         group "root"
         mode 0755 
         variables({
-                :mongodb => node[:mongodb]
+		:mongodb => node[:mongodb],
+                :cfgmongodb => node[:cfgmongodb]
         })
 end
 
@@ -16,6 +23,7 @@ template "/etc/cfgmongod.conf" do
         group "root"
         mode 0755 
         variables({
-                :mongodb => node[:cfgmongodb]
+		:mongodb => node[:mongodb],
+                :cfgmongodb => node[:cfgmongodb]
         })
 end
