@@ -23,3 +23,17 @@ EOH
   not_if "test -f #{node[:mongodb][:source][:install_path]}/mongos"
 end
 
+template "/etc/init.d/mongosd" do
+  source "mongosd.init.erb"
+  mode "0700"
+end
+
+directory "/var/log/mongo" do
+  owner node[:mongodb][:user]
+  group node[:mongodb][:group]
+end
+
+service "mongosd" do
+  supports :stop => true, :start => true, :restart => true, :status => true
+  action [:enable, :start]
+end
