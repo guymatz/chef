@@ -103,14 +103,3 @@ logrotate_app "pgbouncer" do
   create "644 root root"
   rotate 30
 end
-
-# add sudoers
-sudo pgb_user do
-  template "sudo.erb"
-  variables(
-            {
-              "name" => pgb_user,
-              "service" => "pgbouncer"
-            }
-            )
-end
