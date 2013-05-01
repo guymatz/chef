@@ -43,12 +43,12 @@ end
 
 begin
   puts "entered begin block"
-  unless node[:amp][:deployed] == node[:amp][:version]
+  unless tagged?("amp-deployed")
     service "tomcat" do
       action :stop
     end
 
-    remote_file "#{node[:tomcat7][:webapp_dir]}/amp-rest.war" do
+    remote_file "#{node[:tomcat7][:webapp_dir]}/api.war" do
       source "#{node[:amp][:url]}/#{node[:amp][:version]}/amp-rest-#{node[:amp][:version]}.war"
       owner node[:tomcat7][:user]
       group node[:tomcat7][:group]
@@ -69,21 +69,80 @@ begin
       mode "0755"
     end
 
-    template "/etc/mongosd.conf" do
-      source "mongosd.conf.erb"
-      owner node[:mongodb][:user]
-      group node[:mongodb][:group]
+    remote_file "#{Chef::Config[:file_cache_path]}/amplib.tgz" do
+      source "#{node[:amp][:url]}/amplib.tgz"
     end
 
-    service "tomcat" do
-      action [:enable, :start]
+    bash "Extract AMP Libs" do
+      code "tar -xf #{Chef::Config[:file_cache_path]}/amplib.tgz -C #{node[:tomcat7][:install_path]}/conf"
     end
 
-    node.set[:amp][:deployed] = node[:amp][:version]
-    node.save
+    tag("amp-deployed")
   end
 rescue
-  node.set[:amp][:deployed] = "false"
+  untag("amp-deployed")
+end
+
+template "#{node[:tomcat7][:install_path]}/bin/setenv.sh" do
+  source "setenv.sh.erb"
+  owner node[:tomcat7][:user]
+  group node[:tomcat7][:group]
+end
+
+template "/etc/mongosd.conf" do
+  source "mongosd.conf.erb"
+  owner node[:mongodb][:user]
+  group node[:mongodb][:group]
+  notifies :restart, "service[mongosd]", :delayed
+end
+
+app_secrets = Chef::EncryptedDataBagItem.load("secrets", "amp")
+
+template "/etc/pgbouncer_userlist" do
+  source "userlist.txt.erb"
+  owner node[:postgresql][:user]
+  group node[:postgresql][:group]
+  variables({
+              :pass => app_secrets["appuser"]
+            })
+  notifies :restart, "service[pgbouncer]", :delayed
+end
+
+dbconn = Hash.new
+dbconn[:user] = app_secrets["db"]["user"]
+dbconn[:pass] = app_secrets["db"]["pass"]
+dbconn[:host] = node[:amp][:authdb][:host]
+dbconn[:port] = node[:amp][:pgbouncer][:port]
+
+template "/etc/pgbouncer.ini"do
+  source "pgbouncer.ini.erb"
+  owner node[:postgresql][:user]
+  group node[:postgresql][:group]
+  variables({
+              :db => dbconn
+            })
+  notifies :restart, "service[pgbouncer]", :immediately
+end
+
+service "pgbouncer" do
+  supports :stop => true, :start => true, :restart => true, :status => true
+  action [:enable, :start]
+end
+
+service "mongosd" do
+  supports :stop => true, :start => true, :restart => true, :status => true
+  action [:enable, :start]
+end
+
+%w{ catalina.policy catalina.properties context.xml server.xml tomcat-users.xml web.xml }.each do |conf|
+  template "#{node[:tomcat7][:install_path]}/conf/#{conf}" do
+    source "#{conf}.erb"
+    owner node[:tomcat7][:user]
+    group node[:tomcat7][:group]
+    variables({
+                :db => dbconn
+              })
+  end
 end
 
 service "tomcat" do
