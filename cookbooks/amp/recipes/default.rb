@@ -74,7 +74,11 @@ begin
     end
 
     bash "Extract AMP Libs" do
-      code "tar -xf #{Chef::Config[:file_cache_path]}/amplib.tgz -C #{node[:tomcat7][:install_path]}/conf"
+      code "tar -xf #{Chef::Config[:file_cache_path]}/amplib.tgz -C #{node[:tomcat7][:install_path]}/lib"
+    end
+
+    service "tomcat" do
+      action :start
     end
 
     tag("amp-deployed")
