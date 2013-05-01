@@ -16,6 +16,8 @@ directory "/data/log"
 
 directory "/data/jobs/event"
 directory "/data/log/event"
+directory "/data/log/event/input"
+directory "/data/log/event/processed"
 remote_file "/data/jobs/event/event_job.jar" do
   source "http://yum.ihr/files/jobs/event/event_job.jar"
 end
@@ -136,6 +138,8 @@ end
 
 directory "/data/jobs/sysinfo"
 directory "/data/log/sysinfo"
+directory "/data/log/sysinfo/input"
+directory "/data/log/sysinfo/processed"
 remote_file "/data/jobs/sysinfo/sysinfo_job.jar" do
   source "http://yum.ihr/files/jobs/sysinfo/sysinfo_job.jar"
 end
