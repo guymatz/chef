@@ -7,18 +7,23 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe "users::amp"
-include_recipe "tomcat7"
-
 node.set[:java][:oracle][:accept_oracle_download_terms] = true
 node.save
-include_recipe "java"
+%w{ users::amp java tomcat7 }.each do |r|
+  include_recipe r
+end
 
 hosts = Hash.new
 hosts["mongodb-fac1b01"] = "10.90.47.182"
 hosts["mongodb-fac1b02"] = "10.90.47.183"
 hosts["mongodb-fac1b03"] = "10.90.47.184"
 hosts["mongodb-fac1b04"] = "10.90.47.185"
+hosts["mongodb-usr1a01"] = "10.90.47.186"
+hosts["mongodb-usr1a02"] = "10.90.47.187"
+hosts["mongodb-usr1a03"] = "10.90.47.188"
+hosts["mongodb-usr1a04"] = "10.90.47.189"
+hosts["mongodb-usr1a05"] = "10.90.47.190"
+hosts["mongodb-usr1a06"] = "10.90.47.191"
 hosts["cassandra1a01"] = "10.90.49.240"
 hosts["cassandra1a02"] = "10.90.49.241"
 hosts["cassandra1a03"] = "10.90.49.242"
@@ -39,7 +44,6 @@ end
 begin
   puts "entered begin block"
   unless node[:amp][:deployed] == node[:amp][:version]
-    puts "INSTALLING AMP DERP DERP"
     service "tomcat" do
       action :stop
     end
@@ -63,6 +67,12 @@ begin
       owner node[:tomcat7][:user]
       group node[:tomcat7][:group]
       mode "0755"
+    end
+
+    template "/etc/mongosd.conf" do
+      source "mongosd.conf.erb"
+      owner node[:mongodb][:user]
+      group node[:mongodb][:group]
     end
 
     service "tomcat" do
