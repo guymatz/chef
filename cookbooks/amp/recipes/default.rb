@@ -149,6 +149,8 @@ end
   end
 end
 
+include_recipe "amp::xbox"
+
 service "tomcat" do
   action [:enable, :start]
 end
