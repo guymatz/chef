@@ -34,7 +34,6 @@ case node['platform']
 when "redhat","centos","scientific","fedora","suse"
   package "cronie"
   version = node['postgresql']['version'].split('.').join('')
-#  include_recipe "yumrepo::postgresql"
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/pgbouncer-1-5-4.tar.gz" do
@@ -53,6 +52,7 @@ cd pgbouncer-1.5.4
 ./configure
 make && make install
 EOH
+  not_if "test -f /usr/local/bin/pgbouncer"
 end
 
 service "pgbouncer" do
@@ -73,6 +73,7 @@ template node[:pgbouncer][:initfile] do
   group pgb_user
   mode "664"
   notifies :reload, resources(:service => "pgbouncer")
+  not_if "test -f #{node[:pgbouncer][:initfile]}"
 end
 
 template node[:pgbouncer][:additional_config_file] do
