@@ -41,6 +41,12 @@ directory "#{node[:tomcat7][:install_path]}" do
   recursive true
 end
 
+directory "/var/run/tomcat/" do
+  owner node[:tomcat7][:user]
+  group node[:tomcat7][:group]
+  recursive true
+end
+
 execute "Untar Apache Tomcat 7 binary file" do
   user "root"
   cwd Chef::Config[:file_cache_path]
