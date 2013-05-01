@@ -53,6 +53,7 @@ template "#{node[:tomcat7][:install_path]}/conf/server.xml" do
   source "server7.xml.erb"
   owner "root"
   mode "0644"
+  not_if "test -f #{node[:tomcat7][:install_path]}/conf/server.xml"
 end
 
 bash "tomcat perms" do
