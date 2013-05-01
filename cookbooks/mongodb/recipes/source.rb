@@ -9,7 +9,7 @@
 
 include_recipe "users::mongo"
 
-remote_file "Chef::Config[:file_cache_path]/mongodb-#{node[:mongodb][:source][:version]}.tgz" do
+remote_file "#{Chef::Config[:file_cache_path]}/mongodb-#{node[:mongodb][:source][:version]}.tgz" do
   source "#{node[:mongodb][:source][:url]}-#{node[:mongodb][:source][:version]}.tgz"
   action :create_if_missing
 end

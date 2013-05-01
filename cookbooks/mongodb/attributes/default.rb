@@ -42,6 +42,6 @@ default[:mongodb][:ulimits] = [ {
                                 ]
 
 
-default[:mongodb][:source][:url] = "http://downloads.mongodb.org/linux/mongodb-linux-x86_64-"
+default[:mongodb][:source][:url] = "http://downloads.mongodb.org/linux/mongodb-linux-x86_64"
 default[:mongodb][:source][:version] = "2.0.2"
 default[:mongodb][:source][:install_path] = "/usr/bin"
