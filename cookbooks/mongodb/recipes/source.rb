@@ -8,6 +8,7 @@
 #
 
 include_recipe "users::mongo"
+include_recipe "mongodb::nagios"
 
 remote_file "#{Chef::Config[:file_cache_path]}/mongodb-#{node[:mongodb][:source][:version]}.tgz" do
   source "#{node[:mongodb][:source][:url]}-#{node[:mongodb][:source][:version]}.tgz"
