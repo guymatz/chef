@@ -54,7 +54,7 @@
   WSGIDaemonProcess <%= @params[:wsgi_daemon] %>
   WSGIScriptAlias <%= @params[:wsgi_alias] %>
 
-  <Location <%= @params[:location] %> >
+  <Location <%= @params[:wsgi_location] %> >
     WSGIProcessGroup <%= @params[:wsgi_proc] %>
   </Location>
 

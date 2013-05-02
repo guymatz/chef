@@ -11,8 +11,6 @@ include_recipe "users::deployer"
 git "/data/apps/www/custom_talk" do
   repository "git@github.com:iheartradio/tool-talk.git"
   reference "deploy_custom_talk"
-  user "ihr-deployer"
-  group "ihr-deployer"
 end
 
 # Enable WSGI Module
@@ -29,5 +27,6 @@ web_app "custom_talk" do
   app_alias aliases
   wsgi_daemon 'customtalk_prod user=apache threads=15'
   wsgi_alias '/customtalk /data/apps/www/customtalk/customtalk.wsgi'
-  wsgi_proc 'customtalk_prod'
+  wsgi_location '/customtalk'
+  wsgi_proc 'yomomma'
 end
