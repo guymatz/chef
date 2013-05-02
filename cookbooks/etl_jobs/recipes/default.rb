@@ -16,6 +16,8 @@ directory "/data/log"
 
 directory "/data/jobs/event"
 directory "/data/log/event"
+directory "/data/log/event/input"
+directory "/data/log/event/processed"
 remote_file "/data/jobs/event/event_job.jar" do
   source "http://yum.ihr/files/jobs/event/event_job.jar"
 end
@@ -48,10 +50,10 @@ end
 remote_file "/data/jobs/playlog/batch.properties" do
   source "http://yum.ihr/files/jobs/playlog/batch.properties"
 end
-cron_d "playlog_job" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Playlog-ETL-Job \"/data/jobs/playlog/playlog_wrapper.sh\""
-  minute 22
-end
+#cron_d "playlog_job" do
+#  command "/usr/bin/cronwrap iad-jobserver101.ihr Playlog-ETL-Job \"/data/jobs/playlog/playlog_wrapper.sh\""
+#  minute 22
+#end
 
 directory "/data/jobs/profile"
 directory "/data/log/profile"
@@ -109,10 +111,10 @@ end
 remote_file "/data/jobs/skiplog/skipbatch.properties" do
   source "http://yum.ihr/files/jobs/skiplog/skipbatch.properties"
 end
-cron_d "skiplog_job" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Skiplog-ETL-Job \"/usr/bin/java -jar /data/jobs/skiplog/skiplog_job.jar launch-context.xml skiplogJob rundate=`/bin/date +\\%s`\""
-  minute 17
-end
+#cron_d "skiplog_job" do
+#  command "/usr/bin/cronwrap iad-jobserver101.ihr Skiplog-ETL-Job \"/usr/bin/java -jar /data/jobs/skiplog/skiplog_job.jar launch-context.xml skiplogJob rundate=`/bin/date +\\%s`\""
+#  minute 17
+#end
 
 directory "/data/jobs/talklog"
 directory "/data/log/talkplaylog"
@@ -129,13 +131,15 @@ end
 remote_file "/data/jobs/talklog/talkbatch.properties" do
   source "http://yum.ihr/files/jobs/talklog/talkbatch.properties"
 end
-cron_d "talklog_job" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Talklog-ETL-Job \"/usr/bin/java -jar /data/jobs/talklog/talklog_job.jar launch-context.xml talkJob rundate=`/bin/date +\\%s`\""
-  minute 21
-end
+#cron_d "talklog_job" do
+#  command "/usr/bin/cronwrap iad-jobserver101.ihr Talklog-ETL-Job \"/usr/bin/java -jar /data/jobs/talklog/talklog_job.jar launch-context.xml talkJob rundate=`/bin/date +\\%s`\""
+#  minute 21
+#end
 
 directory "/data/jobs/sysinfo"
 directory "/data/log/sysinfo"
+directory "/data/log/sysinfo/input"
+directory "/data/log/sysinfo/processed"
 remote_file "/data/jobs/sysinfo/sysinfo_job.jar" do
   source "http://yum.ihr/files/jobs/sysinfo/sysinfo_job.jar"
 end

@@ -19,7 +19,13 @@
 # limitations under the License.
 #
 
-include_recipe "logrotate"
+node[:pgbouncer][:packages].each do |pkg|
+  package pkg
+end
+
+%w{ logrotate postgresql }.each do |prereq|
+  include_recipe prereq
+end
 
 pgb_user = node['pgbouncer']['user']
 
@@ -28,11 +34,25 @@ case node['platform']
 when "redhat","centos","scientific","fedora","suse"
   package "cronie"
   version = node['postgresql']['version'].split('.').join('')
-#  include_recipe "yumrepo::postgresql"
 end
 
-package "pgbouncer" do
-  action :upgrade
+remote_file "#{Chef::Config[:file_cache_path]}/pgbouncer-1-5-4.tar.gz" do
+  source "http://yum.ihr/files/pgbouncer-1.5.4.tar.gz"
+  owner "root"
+  group "root"
+  action :create_if_missing
+end
+
+bash "compile pgbouncer" do
+  cwd Chef::Config[:file_cache_path]
+  code <<-EOH
+cd #{Chef::Config[:file_cache_path]}
+tar zxvf pgbouncer-1-5-4.tar.gz
+cd pgbouncer-1.5.4
+./configure
+make && make install
+EOH
+  not_if "test -f /usr/local/bin/pgbouncer"
 end
 
 service "pgbouncer" do
@@ -53,6 +73,7 @@ template node[:pgbouncer][:initfile] do
   group pgb_user
   mode "664"
   notifies :reload, resources(:service => "pgbouncer")
+  not_if "test -f #{node[:pgbouncer][:initfile]}"
 end
 
 template node[:pgbouncer][:additional_config_file] do
@@ -81,15 +102,4 @@ logrotate_app "pgbouncer" do
   frequency "daily"
   create "644 root root"
   rotate 30
-end
-
-# add sudoers
-sudo pgb_user do
-  template "sudo.erb"
-  variables(
-            {
-              "name" => pgb_user,
-              "service" => "pgbouncer"
-            }
-            )
 end

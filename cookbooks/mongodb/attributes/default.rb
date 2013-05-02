@@ -29,7 +29,7 @@ default[:mongodb][:journal]		='true'
 default[:mongodb][:configsvr]		='false'
 default[:mongodb][:arbiter]		='false'
 
-default[:mongodb][:ulimits] = [ {  
+default[:mongodb][:ulimits] = [ {
                                    "type" => "soft",
                                    "item" => "nofile",
                                    "value" => "65535"
@@ -40,3 +40,8 @@ default[:mongodb][:ulimits] = [ {
                                    "value" => "65535"
                                  }
                                 ]
+
+
+default[:mongodb][:source][:url] = "http://downloads.mongodb.org/linux/mongodb-linux-x86_64"
+default[:mongodb][:source][:version] = "2.0.2"
+default[:mongodb][:source][:install_path] = "/usr/bin"

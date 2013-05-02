@@ -1,4 +1,7 @@
 
+
+default[:pgbouncer][:packages] = %w{ libevent-devel }
+
 default[:pgbouncer][:user] = "postgres"
 default[:pgbouncer][:databases] = {"*" => "host=#{node.name} port=5432"}
 default[:pgbouncer][:userlist] = {}

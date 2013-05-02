@@ -23,27 +23,7 @@ include_recipe "postgresql::client"
 
 # Create a group and user like the package will.
 # Otherwise the templates fail.
-
-group "postgres" do
-  gid 26
-end
-
-directory "/home/postgres" do
-  owner "postgres"
-  group "postgres"
-  mode 0700
-  action :create
-end
-
-user "postgres" do
-  shell "/bin/bash"
-  comment "PostgreSQL Server"
-  home "/home/postgres"
-  gid "postgres"
-  system true
-  uid 26
-  supports :manage_home => false
-end
+include_recipe "postgresql::users"
 
 node['postgresql']['server']['packages'].each do |pg_pack|
 
