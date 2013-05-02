@@ -47,7 +47,7 @@
 
   # Options for our WSGI Apps
 
-  <% @params[:app_alias].each do |k, v| if @params[:alias] -%>
+  <% @params[:app_alias].each do |k, v| -%>
   Alias <%= k %> <%= v %>
   <% end -%>
 
