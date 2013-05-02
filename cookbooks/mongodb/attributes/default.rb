@@ -14,7 +14,7 @@ default[:mongodb][:pidfile_name]	='mongod.lock'
 default[:mongodb][:pidfile_loc]		='/data/db/mongo'
 default[:mongodb][:lock_file]		='/var/lock/subsys/mongod'
 default[:mongodb][:data_dir]		='/data/db/mongo'
-default[:mongodb][:data_device]		='/dev/sdb'
+default[:mongodb][:data_device]		='/dev/sdb1'
 default[:mongodb][:data_mount_point]	='/data'
 
 #mongod.conf config elements

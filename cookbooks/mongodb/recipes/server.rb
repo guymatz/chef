@@ -1,8 +1,8 @@
-#mount node[:mongodb][:data_dir] do
-#  device node[:mongodb][:data_device]
-#  fstype "ext4"
-#  action [:mount, :enable]
-#end
+mount node[:mongodb][:data_mount_point] do
+  device node[:mongodb][:data_device]
+  fstype "ext4"
+  action [:mount, :enable]
+end
 
 template "/etc/init.d/mongod" do
         source "mongod.erb"
