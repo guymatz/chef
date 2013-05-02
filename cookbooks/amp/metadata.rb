@@ -10,6 +10,6 @@ version          '0.1.0'
   supports os
 end
 
-%w{ users tomcat7 java hostsfile mongodb }.each do |dep|
+%w{ users tomcat7 java hostsfile mongodb nagios }.each do |dep|
   depends dep
 end
