@@ -16,7 +16,9 @@ directory "/data/log"
 
 directory "/data/jobs/event"
 directory "/data/log/event"
-directory "/data/log/event/input"
+directory "/data/log/event/input" do
+  mode 0777
+end
 directory "/data/log/event/processed"
 remote_file "/data/jobs/event/event_job.jar" do
   source "http://yum.ihr/files/jobs/event/event_job.jar"
@@ -138,7 +140,9 @@ end
 
 directory "/data/jobs/sysinfo"
 directory "/data/log/sysinfo"
-directory "/data/log/sysinfo/input"
+directory "/data/log/sysinfo/input" do
+  mode 0777
+end
 directory "/data/log/sysinfo/processed"
 remote_file "/data/jobs/sysinfo/sysinfo_job.jar" do
   source "http://yum.ihr/files/jobs/sysinfo/sysinfo_job.jar"
@@ -286,6 +290,29 @@ end
 cron_d "archive_logs" do
   command "/usr/bin/cronwrap iad-jobserver101.ihr Archive-Logs \"/data/jobs/log-archive.sh 2>&1 >> /dev/null\""
   minute 15
+end
+
+apis = search(:node, "role:amp AND chef_environment:#{node.chef_environment}")
+apis.each do |x|
+  ruby_block x.name do
+    block do
+      file = Chef::Util::FileEdit.new('/data/jobs/api_servers')
+      file.insert_line_if_no_match("/#{x.name}/m", "#{x.name}")
+      file.write_file
+    end
+  end
+end
+
+cron_d "pull_event_logs" do
+  command "/usr/bin/cronwrap iad-jobserver101.ihr Pull-Event-Logs \"for i in `/bin/cat /data/jobs/api_servers`; do /usr/bin/scp $i:/data/apps/tomcat7/logs/event.log.`/bin/date --date='1 day ago' +\%Y-\%m-\%d` /data/log/event/input/$i.event.log.`/bin/date --date='1 day ago' +\%Y-\%m-\%d`; done\""
+  minute 27
+  hour 1
+  user 'ihr-deployer'
+end
+cron_d "pull_sysinfo_logs" do
+  command "/usr/bin/cronwrap iad-jobserver101.ihr Pull-Sysinfo-Logs \"for i in `/bin/cat /data/jobs/api_servers`; do /usr/bin/scp $i:/data/apps/tomcat7/logs/sysinfo.log.`/bin/date --date='1 hour ago' +\%Y-\%m-\%d-\%H` /data/log/sysinfo/input/$i.sysinfo.log.`/bin/date --date='1 hour ago' +\%Y-\%m-\%d-\%H`; done\""
+  minute '*/15'
+  user 'ihr-deployer'
 end
 
 #directory "/usr/local/radiomigrations"
