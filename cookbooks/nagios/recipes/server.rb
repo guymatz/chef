@@ -44,7 +44,7 @@ end
 # Install nagios either from source of package
 include_recipe "nagios::server_#{node['nagios']['server']['install_method']}"
 
-sysadmins = search(:users, 'groups:sysadmin')
+sysadmins = search(:users, 'groups:sysadmin OR groups:nagios')
 allcontacts = search(:users, 'groups:sysadmin')
 
 case node['nagios']['server_auth_method']
