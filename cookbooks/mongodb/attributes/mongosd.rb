@@ -1,8 +1,8 @@
 #Default mongosd Configuration elements
 
 #/etc/init.d/mongosd startup file elements
-default[:mongosd][:mongospidfile_name]        ='mongosd.lock'
-default[:mongosd][:mongospidfile_loc]         ='/data/db/mongos'
+default[:mongosd][:mongospidfile_name]        ='mongosd.pid'
+default[:mongosd][:mongospidfile_loc]         ='/var/run/mongosd'
 default[:mongosd][:mongoslock_file]           ='/var/lock/subsys/mongosd'
 default[:mongosd][:mongosdata_dir]            ='/data/db/mongos'
 

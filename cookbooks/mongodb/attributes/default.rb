@@ -10,8 +10,8 @@ default[:mongodb][:packages] = %w{mongo-10gen mongo-10gen-server numactl}
 #/etc/init.d/mongod startup file elements
 default[:mongodb][:user]		='mongod'
 default[:mongodb][:group]		='mongod'
-default[:mongodb][:pidfile_name]	='mongod.lock'
-default[:mongodb][:pidfile_loc]		='/data/db/mongo'
+default[:mongodb][:pidfile_name]	='mongod.pid'
+default[:mongodb][:pidfile_loc]		='/var/run/mongod'
 default[:mongodb][:lock_file]		='/var/lock/subsys/mongod'
 default[:mongodb][:data_dir]		='/data/db/mongo'
 default[:mongodb][:data_device]		='/dev/sdb1'

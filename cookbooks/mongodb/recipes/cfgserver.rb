@@ -6,6 +6,14 @@ directory "#{node[:cfgmongodb][:cfgdata_dir]}" do
   action :create
 end
 
+directory "#{node[:cfgmongodb][:cfgpidfile_loc]}" do
+  owner "mongod"
+  group "mongod"
+  mode 0755
+  recursive true
+  action :create
+end
+
 template "/etc/init.d/cfgmongod" do
         source "cfgmongod.erb"
         owner "root"

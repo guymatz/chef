@@ -41,7 +41,7 @@ default[:cassandra][:pid_dir]           = '/var/run/cassandra'
 default[:cassandra][:data_root_mount]	= ["/data"]
 default[:cassandra][:data_device]	= ["/dev/sdb1"]
 default[:cassandra][:data_dirs]         = ["/data/db/cassandra"]
-default[:cassandra][:commitlog_dir]     = "/mnt/cassandra/commitlog"
+default[:cassandra][:commitlog_dir]     = "/var/lib/cassandra/commitlog"
 default[:cassandra][:saved_caches_dir]  = "/var/lib/cassandra/saved_caches"
 
 default[:cassandra][:user]              = 'cassandra'
@@ -173,8 +173,18 @@ default[:cassandra][:ulimits] = [ {
                                    "type" => "hard",
                                    "item" => "memlock",
                                    "value" => "unlimited"
+                                 },
+			         {
+                                   "type" => "soft",
+                                   "item" => "nofile",
+                                   "value" => "65535"
+                                 },
+                                 { 
+                                   "type" => "hard",
+                                   "item" => "nofile",
+                                   "value" => "65535"
                                  }
-                               ]
+				]
 default[:cassandra][:root_ulimits] = [ {
                                    "type" => "soft",
                                    "item" => "nofile",

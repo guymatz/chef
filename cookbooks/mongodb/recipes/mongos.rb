@@ -1,5 +1,13 @@
 include_attribute 'mongodb::mongosd'
 
+directory "#{node[:mongosd][:mongospidfile_loc]}" do
+  owner "mongod"
+  group "mongod"
+  mode 0755
+  recursive true
+  action :create
+end
+
 template "/etc/init.d/mongosd" do
         source "mongod.erb"
         owner "root"

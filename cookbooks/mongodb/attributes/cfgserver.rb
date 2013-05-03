@@ -3,8 +3,8 @@
 #/etc/init.d/mongod startup file elements
 default[:cfgmongodb][:cfguser]		='mongod'
 default[:cfgmongodb][:cfggroup]		='mongod'
-default[:cfgmongodb][:cfgpidfile_name]	='cfgmongod.lock'
-default[:cfgmongodb][:cfgpidfile_loc]		='/data/db/cfgmongo'
+default[:cfgmongodb][:cfgpidfile_name]	='cfgmongod.pid'
+default[:cfgmongodb][:cfgpidfile_loc]		='/var/run/cfgmongo'
 default[:cfgmongodb][:cfglock_file]		='/var/lock/subsys/cfgmongod'
 default[:cfgmongodb][:cfgdata_dir]		='/data/db/cfgmongo'
 

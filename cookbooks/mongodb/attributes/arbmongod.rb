@@ -1,6 +1,6 @@
 #/etc/init.d/arbmongod startup file elements
-default[:arbmongodb][:arbpidfile_name]        ='arbmongod.lock'
-default[:arbmongodb][:arbpidfile_loc]         ='/data/db/arbmongo'
+default[:arbmongodb][:arbpidfile_name]        ='arbmongo.pid'
+default[:arbmongodb][:arbpidfile_loc]         ='/var/run/arbmongo'
 default[:arbmongodb][:arblock_file]           ='/var/lock/subsys/arbmongod'
 default[:arbmongodb][:arbdata_dir]            ='/data/db/arbmongo'
 

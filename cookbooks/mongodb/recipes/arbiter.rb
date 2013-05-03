@@ -6,6 +6,13 @@ directory "#{node[:arbmongodb][:arbdata_dir]}" do
   action :create
 end
 
+directory "#{node[:arbmongodb][:arbpidfile_loc]}" do
+  owner "mongod"
+  group "mongod"
+  mode 0755
+  recursive true
+  action :create
+end
 
 template "/etc/init.d/arbmongod" do
         source "arbmongod.erb"
