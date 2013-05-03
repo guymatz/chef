@@ -17,16 +17,21 @@ end
 include_recipe "apache2"
 include_recipe "apache2::mod_wsgi"
 
-aliases = {'/customtalk/public/tp_shared' => '/data/aps/www/customtalk/tp_shared/public',
-           '/customtalk/public' => '/data/apps/www/customtalk/public'}
+aliases = {'/custom_talk/public/tp_shared' => '/data/aps/www/custom_talk/tp_shared/public',
+           '/custom_talk/public' => '/data/apps/www/custom_talk/public'}
 
 web_app "custom_talk" do
+  cookbook 'custom_talk'
   server_name node['hostname']
   server_aliases [node['fqdn']]
   docroot "/data/apps/www/custom_talk"
   app_alias aliases
   wsgi_daemon 'customtalk_prod user=apache threads=15'
-  wsgi_alias '/customtalk /data/apps/www/customtalk/customtalk.wsgi'
-  wsgi_location '/customtalk'
-  wsgi_proc 'yomomma'
+  wsgi_alias '/custom_talk /data/apps/www/custom_talk/customtalk.wsgi'
+  wsgi_location '/custom_talk'
+  wsgi_proc 'customtalk_prod'
+end
+
+bash "set_perms" do
+  code "chown -R apache. /data/apps/www/custom_talk"
 end

@@ -47,7 +47,7 @@
 
   # Options for our WSGI Apps
 
-  <% @params[:app_alias].each do |k, v| -%>
+  <% @params[:app_alias].sort_by {|k,v| k }.each do |k, v| -%>
   Alias <%= k %> <%= v %>
   <% end -%>
 
@@ -57,13 +57,4 @@
   <Location <%= @params[:wsgi_location] %> >
     WSGIProcessGroup <%= @params[:wsgi_proc] %>
   </Location>
-
-  # Site rooted at /customtalk/
-  # Alias /customtalk/public/tp_shared /var/www/apps/customtalk/tp_shared/public
-  # Alias /customtalk/public /var/www/apps/customtalk/public
-  # WSGIDaemonProcess customtalk_prod user=apache threads=15
-  # WSGIScriptAlias /customtalk /var/www/apps/customtalk/customtalk.wsgi
-  # <Location /customtalk>
-  # WSGIProcessGroup customtalk_prod
-  # </Location>
 </VirtualHost>
