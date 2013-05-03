@@ -36,7 +36,7 @@ end
 
 pkgs = value_for_platform(
     ["redhat","centos","fedora","scientific","amazon"] =>
-        {"default" => %w{ openssl-devel gd-devel }},
+        {"default" => %w{ openssl-devel gd-devel pymongo }},
     [ "debian", "ubuntu" ] =>
         {"default" => %w{ libssl-dev libgd2-xpm-dev bsd-mailx}},
     "default" => %w{ libssl-dev libgd2-xpm-dev bsd-mailx }
