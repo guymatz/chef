@@ -227,6 +227,58 @@ remote_file "/etc/init.d/facebook-consumer" do
   mode 0755
 end
 
+directory "/home/amqp-consumer/responsys-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+directory "/data/log/responsys-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+directory "/var/run/responsys-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+remote_file "/home/amqp-consumer/responsys-consumer/responsys.tar.gz" do
+  source "http://yum.ihr/files/jobs/responsys-consumer/responsys.tar.gz"
+  action :create_if_missing
+end
+bash "extract-consumer" do
+  cwd "/home/amqp-consumer/responsys-consumer"
+  code "tar xpf responsys.tar.gz;chown -R amqp-consumer. *"
+  not_if { File.exists?('/home/amqp-consumer/responsys-consumer/responsys_consumer.jar') }
+end
+remote_file "/etc/init.d/responsys-consumer" do
+  source "http://yum.ihr/files/jobs/responsys-consumer/responsys.init"
+  mode 0755
+end
+
+directory "/home/amqp-consumer/enrichment-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+directory "/data/log/enrichment-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+directory "/var/run/enrichment-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+remote_file "/home/amqp-consumer/enrichment-consumer/enrichment.tar.gz" do
+  source "http://yum.ihr/files/jobs/enrichment-consumer/enrichment.tar.gz"
+  action :create_if_missing
+end
+bash "extract-enrichment-consumer" do
+  cwd "/home/amqp-consumer/enrichment-consumer"
+  code "tar xpf enrichment.tar.gz;chown -R amqp-consumer. *"
+  not_if { File.exists?('/home/amqp-consumer/enrichment-consumer/enrichment_consumer.jar') }
+end
+remote_file "/etc/init.d/enrichment-consumer" do
+  source "http://yum.ihr/files/jobs/enrichment-consumer/enrichment.init"
+  mode 0755
+end
+
 cookbook_file "/data/jobs/log-archive.sh" do
   source "log-archive.sh"
   mode 0755
