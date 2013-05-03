@@ -1,0 +1,5 @@
+{
+    "id": "Amp-Custom-Station",
+    "hostgroup_name": "amp",
+    "command_line": "$USER1$/check_http -v -H $HOSTADDRESS$ -p 8080  -u '/api/v1/radio/14/all?f1_profileId=14&profileId=14&sessionId=5ZoG30F8ugU3S35lot7z%2BA%3D%3D&orderBy=NAME'"
+}

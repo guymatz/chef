@@ -12,6 +12,8 @@ node[:webplayer][:packages].each do |p|
   package p
 end
 
+node.set[:apache][:binary]  = "/usr/sbin/httpd.worker"
+node.save
 include_recipe "apache2::mod_proxy"
 include_recipe "apache2::mod_rewrite"
 include_recipe "apache2::mod_status"

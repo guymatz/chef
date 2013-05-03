@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+include_recipe "tomcat7::nagios"
+
 group node[:tomcat7][:group] do
   gid 91
   action [:create]

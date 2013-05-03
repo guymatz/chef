@@ -1,0 +1,55 @@
+#!/bin/bash
+WARNING_THRESHOLD=4
+CRITICAL_THRESHOLD=5
+path="/api/"
+DEFAULT_STATE="UNKNOWN"
+host=`hostname`
+while getopts w:H:c:p:q o
+do	case "$o" in
+	w)	WARNING_THRESHOLD=$OPTARG;;
+	H)	host=$OPTARG;;
+	c)	CRITICAL_THRESHOLD=$OPTARG;; 
+	p)	path=$OPTARG;; 
+	[?])	echo "Usage: $0 -H <host> -w <warning_threshold> -c <critical_threshold>"
+		exit 1;;
+	esac
+done
+
+if [ "$host" == "" ]
+then
+	echo "Host parameter required"; exit 1; 
+fi
+
+
+scratchpath=`echo ${path} | sed 's/\//\./g'`
+if [ $path == "/api/" ]
+then
+	scratchpath="."
+else
+	scratchpath=d${scratchpath}
+fi
+
+scratchdir=/dev/shm/${host}/d.api./${host}/${scratchpath}/
+if [ ! -f ${scratchdir}/total ] 
+then 
+	echo ${DEFAULT_STATE} && exit 3
+fi
+
+goods=`cat ${scratchdir}/2* ${scratchdir}/3* 2>/dev/null|wc -c |cut -d' ' -f 1`
+sumtotal=`cat ${scratchdir}/total|wc -c |cut -d' ' -f 1`
+goodpct=`echo "scale=4;(${goods} / ${sumtotal})*100"|bc |sed 's/\..*//'`
+badpct=`echo "scale=4;100 - ${goodpct}"|bc |sed 's/\..*//'` 
+
+if [[ $badpct -gt ${CRITICAL_THRESHOLD} ]]
+then
+	echo "CRITICAL - ${badpct}%"
+	exit 2
+elif [[ $badpct -gt ${WARNING_THRESHOLD} ]]
+then
+	echo "WARNING - ${badpct}%"
+	exit 1
+else
+	echo "OK - ${badpct}%"
+	exit 0
+fi
+

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+interval=5
+BASEDIR=<%= @tomcat_dir %>/logs
+host=""
+export TZ=UTC
+
+while getopts i:h:p:q o
+do	case "$o" in
+	i)	interval=$OPTARG;;
+	h)	host=$OPTARG;;
+	p)	opath=$OPTARG;;
+	[?])	echo "Usage: $0 [-i] interval_in_minutes -h hostname -p path"
+		exit 1;;
+	esac
+done
+
+if [ "$host" == "" ]
+then
+	echo "Host parameter required"; exit 1;
+fi
+if [ $interval -lt 1 ]
+then
+	echo "Interval must be an integer greater than 0"; exit 1;
+fi
+
+find $BASEDIR/ -maxdepth 1 -name "*extended*" -mmin -5 | sort -r |head -3 | xargs -r <%= @script_dir %>/api-logs.py

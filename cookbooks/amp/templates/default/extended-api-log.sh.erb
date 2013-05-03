@@ -1,0 +1,6 @@
+#!/bin/sh
+
+SCRIPT_DIR="<%= @script_dir %>"
+LOG_DIR="<%= @log_dir %>"
+
+$SCRIPT_DIR/extended-log.sh -h `hostname` -i 5 2>&1 > $LOG_DIR/`hostname`-`date '+%Y-%m-%d-%H-%M'`.log 

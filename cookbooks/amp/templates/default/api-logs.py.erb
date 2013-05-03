@@ -1,0 +1,213 @@
+#!/usr/bin/env python
+
+# copyright 2004 Michael D. Stenner <mstenner@ece.arizona.edu>
+# license: LGPL
+
+class xreverse:
+    def __init__(self, file_object, buf_size=1024*8):
+        self.fo = fo = file_object
+        fo.seek(0, 2)        # go to the end of the file
+        self.pos = fo.tell() # where we are
+        self.buffer = ''     # data buffer
+        self.lbuf = []       # buffer for parsed lines
+        self.done = 0        # we've read the last line
+        self.jump = -1 * buf_size
+
+        while 1:
+            try:            fo.seek(self.jump, 1)
+            except IOError: fo.seek(0)
+            new_position = fo.tell()
+            new = fo.read(self.pos - new_position)
+            fo.seek(new_position)
+            self.pos = new_position
+
+            self.buffer = new + self.buffer
+            if '\n' in new: break
+            if self.pos == 0: return self.buffer
+        nl = self.buffer.split('\n')
+        nlb = [ i + '\n' for i in nl[1:-1] ]
+        if not self.buffer[-1] == '\n': nlb.append(nl[-1])
+        self.buffer = nl[0]
+        self.lbuf = nlb
+
+    def __iter__(self): return self
+
+    def next(self):
+        try:
+            return self.lbuf.pop()
+        except IndexError:
+            fo = self.fo
+            while 1:
+                #get the next chunk of data
+                try:            fo.seek(self.jump, 1)
+                except IOError: fo.seek(0)
+                new_position = fo.tell()
+                new = fo.read(self.pos - new_position)
+                fo.seek(new_position)
+                self.pos = new_position
+
+                nl = (new + self.buffer).split('\n')
+                self.buffer = nl.pop(0)
+                self.lbuf = [ i + '\n' for i in nl ]
+
+                if self.lbuf: return self.lbuf.pop()
+                elif self.pos == 0:
+                    if self.done:
+                        raise StopIteration
+                    else:
+                        self.done = 1
+                        return self.buffer + '\n'
+
+
+if __name__ == '__main__':
+
+	import time
+	import sys
+	import os
+	import calendar
+	from pprint import pprint
+	from collections import defaultdict
+	from decimal import *
+	import re
+	import json as simplejson
+	import math
+	import csv
+	import StringIO
+
+	interval=300
+	marker  = time.time() - interval
+	dlatency = {}
+	dstatus = defaultdict(lambda: defaultdict(int))
+	dstatusall = defaultdict(int)
+	lcounter=0
+	#timing stats for debugging
+	#forstart=time.time()
+	marker_done=0
+
+	for sysa in sys.argv[1:]:
+		fn = sysa
+
+		# file must be larger then 0 bytes or xreverse barfs
+		statinfo = os.stat(sysa)
+		if statinfo.st_size <= 0:
+			continue
+
+		fo = file(sysa)
+		xreverse(fo)
+
+		for lines in xreverse(fo):
+			if marker_done == 0 and "/api/" in lines and "/api/health" not in lines:
+
+				columns = ''
+				latency = 0
+				status = ''
+				urlpath = ''
+				itemdate = ''
+				logdate = ''
+				#timing stats for debugging
+				#varstart = time.time()
+
+				f = StringIO.StringIO(lines)
+				try:
+					reader = list(csv.reader(f,delimiter=' ', quotechar="'"))
+				except:
+					continue
+				for columns in reader:
+					#timing stats for debugging
+					#varstop = time.time() - varstart
+					#print "varstart took this long to complete %1.40f" % varstop
+
+					try:
+						logdate =  columns[1] + " " + columns[2]
+					except:
+						continue
+					#timing stats for debugging
+					#rstart=time.time()
+					itemdate = calendar.timegm(time.strptime(logdate,"%Y-%m-%d %H:%M:%S"))
+					if ( itemdate - marker < 0 ):
+						marker_done=1
+						break
+					else:
+						try:
+							status=columns[5]
+						except:
+							continue
+						try:
+							latency =  Decimal(columns[17])
+						except:
+							pass
+
+						urlpath=columns[4].strip()
+						urlpath=re.sub("(\?.*|\/[0-9a-f]{24})","",urlpath)
+						urlpath=re.sub("\/[0-9\/]*","/",urlpath)
+						urlpath=re.sub("\;.*","",urlpath)
+						urlpath=re.sub("\/",".",urlpath)
+						urlpath=re.sub("\.api","api",urlpath)
+						#timing stats for debugging
+						#rstop = time.time() - rstart
+						#print "regex took this logn to complete %1.40f" % rstop
+						#ustart = time.time()
+						if urlpath in dlatency:
+							if latency > 0:
+								dlatency[urlpath].append(str(latency))
+								dstatus[urlpath]['mean'] = Decimal(dstatus[urlpath]['mean']) + latency
+								dstatusall['mean'] = Decimal(dstatusall['mean']) + latency
+								lcounter += 1
+								dstatus[urlpath]['counter'] += 1
+						else:
+							if latency > 0:
+								dlatency[urlpath] = [str(latency)]
+								dstatus[urlpath]['mean'] = Decimal(dstatus[urlpath]['mean']) + latency
+								dstatusall['mean'] = Decimal(dstatusall['mean']) + latency
+								lcounter+=1
+								dstatus[urlpath]['counter'] += 1
+					dstatus[urlpath][status] += 1
+					dstatus[urlpath]['total'] += 1
+					dstatusall[status] += 1
+					dstatusall['total'] += 1
+					#timing stats for debugging
+					#ustop = time.time() - ustart
+					#print "urlpath took this long to complete %1.40f" % ustop
+				else:
+					continue
+		fo.close()
+
+	#timing stats for debugging
+	#forstop = time.time() - forstart
+	#print "for took this logn to complete %1.40f" % forstop
+	#pprint(dstatus)
+	#t = simplejson.dumps(str(dstatus.items()))
+	#print t
+	#pprint(lcounter)
+
+	dstatusall['mean'] = str(Decimal(dstatusall['mean']) / Decimal(lcounter))
+	for k,v in dstatus.items():
+		try:
+			dstatus[k]['mean'] = str(dstatus[k]['mean'] / dstatus[k]['counter'])
+		except:
+			dstatus[k]['mean'] = 0
+
+	def average(s,l): return  sum(s) * 1.0 / l
+	tlatency=[]
+	for k,v in dlatency.iteritems():
+		s=[float(x.strip(' "')) for x in v]
+		avg = average(s,len(s))
+		variance = map(lambda x: (x - avg)**2, s)
+		standard_deviation = math.sqrt(average(variance,len(variance)))
+		dstatus[k]['sd'] = str(standard_deviation)
+
+		for a in dlatency[k]:
+			tlatency += [a]
+
+	s=[float(x.strip(' "')) for x in tlatency]
+	avg = average(s,len(s))
+	variance = map(lambda x: (x - avg)**2, s)
+	standard_deviation = math.sqrt(average(variance,len(variance)))
+	dstatusall['sd'] = str(standard_deviation)
+
+	#print len(tlatency)
+	""" combine the two dictionary items between URL specific and global into one dictionary """
+	fstatus = dict(dstatusall.items() + dstatus.items())
+	t=simplejson.dumps(fstatus)
+	print t
+
