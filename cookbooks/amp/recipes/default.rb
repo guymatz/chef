@@ -29,6 +29,11 @@ hosts["cassandra1a02"] = "10.90.49.241"
 hosts["cassandra1a03"] = "10.90.49.242"
 hosts["cassandra1a04"] = "10.90.49.243"
 hosts["cassandra1a05"] = "10.90.49.251"
+hosts["rabbitmq-1b-http-vip"] = "10.90.46.252"
+hosts["apimemcache1a01"] = "10.90.46.208"
+hosts["apimemcache1a02"] = "10.90.46.209"
+hosts["apimemcache1a03"] = "10.90.46.210"
+hosts["apimemcache1a04"] = "10.90.46.211"
 
 hosts.each do |host,ip|
   hostsfile_entry ip do
