@@ -1,0 +1,16 @@
+#!/bin/bash
+
+logs="<%= @log_dir %>"
+
+file=`find ${logs}/ -type f -type f -mmin -10 -name "*.log" -not -empty | sort  | tail -1`
+if [[ ! -e ${file} ]]
+then
+        echo "UNKNOWN: Extended Log File does not exist!"
+        exit 3
+fi
+
+for i in `/bin/cat $file | /usr/bin/python -mjson.tool | grep mean | cut -d':' -f2 | sed -e 's/[\"\, ]//g'`; do f=`echo "$i < 1" | /usr/bin/bc`; if [ $f -lt 1 ]; then echo "Mean response time for an API call is over one second!"; exit 2; fi; done
+
+echo "OK"
+exit 0
+x
