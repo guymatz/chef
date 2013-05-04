@@ -51,9 +51,7 @@ def main(argv):
     test = test.lower()
     if test not in ("requests", "logins"):
         usage()
-    print "TEST: %s\nTHRESHOLD: %s" % (test, threshold)
     if input_file is None:
-        print "ddd"
         input_file = argv[1]
     data = []
     try:
