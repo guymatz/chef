@@ -25,7 +25,7 @@ def CheckRequestRatio(stats, threshold):
 
 def CheckLogins(stats, threshold):
     print "not implemented yet"
-    sys.exit(0)
+    sys.exit(EXIT_OK)
 
 def main(argv):
     input_file=None
