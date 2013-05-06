@@ -174,15 +174,15 @@ default[:cassandra][:ulimits] = [ {
                                    "item" => "memlock",
                                    "value" => "unlimited"
                                  },
-			         {
-                                   "type" => "soft",
-                                   "item" => "nofile",
-                                   "value" => "65535"
-                                 },
+				 {
+				  "type" => "soft",
+				  "item" => "as",
+				  "value" => "unlimited"
+				 },
                                  { 
                                    "type" => "hard",
-                                   "item" => "nofile",
-                                   "value" => "65535"
+                                   "item" => "as",
+                                   "value" => "unlimited"
                                  }
 				]
 default[:cassandra][:root_ulimits] = [ {
