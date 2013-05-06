@@ -24,8 +24,13 @@ def CheckRequestRatio(stats, threshold):
         sys.exit(EXIT_OK)
 
 def CheckLogins(stats, threshold):
-    print "not implemented yet"
-    sys.exit(EXIT_OK)
+    threshold = int(threshold)
+    if stats['LOGIN200'] < threshold:
+        print "Fewer than %i logins!" % threshold
+        sys.exit(EXIT_CRITICAL)
+    else:
+        print "Logins OK (%i)" % stats['LOGIN200']
+        sys.exit(EXIT_OK)
 
 def main(argv):
     input_file=None
@@ -56,7 +61,6 @@ def main(argv):
     data = []
     try:
         with open(input_file) as json_data:
-            print "Reading from %s" % input_file
             for line in json_data:
                 data.append(json.loads(line))
     except IOError:
@@ -64,6 +68,7 @@ def main(argv):
     stats = {}
     stats['200'] = data[0]['200']
     stats['500'] = data[0]['500']
+    stats['LOGIN200'] = data[0]['api.v1.account.login']['200']
     if test == "requests":
         CheckRequestRatio(stats, threshold)
     elif test == "logins":
