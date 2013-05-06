@@ -54,3 +54,14 @@ nagios_nrpecheck "Amp-Extended-Mean-Response" do
   notifies :restart, resources(:service => "nagios-nrpe-server")
 end
 
+nagios_nrpecheck "Amp-Extended-500-Rate" do
+  command "#{node[:amp][:logging][:script_path]}/apiparse.py -i #{node[:amp][:logging][:log_path]}/$(ls -ltr #{node[:amp][:logging][:log_path]} | grep -v error | tail -1 | awk '{print $9}') -t requests -c 4"
+  action :add
+  notifies :restart, resources(:service => "nagios-nrpe-server")
+end
+
+nagios_nrpecheck "Amp-Extended-Logins" do
+  command "#{node[:amp][:logging][:script_path]}/apiparse.py -i #{node[:amp][:logging][:log_path]}/$(ls -ltr #{node[:amp][:logging][:log_path]} | grep -v error | tail -1 | awk '{print $9}') -t logins -c 5"
+  action :add
+  notifies :restart, resources(:service => "nagios-nrpe-server")
+end

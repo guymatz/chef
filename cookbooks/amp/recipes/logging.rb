@@ -49,6 +49,13 @@ template "#{node[:amp][:logging][:script_path]}/api-logs.py" do
   mode "0755"
 end
 
+template "#{node[:amp][:logging][:script_path]}/apiparse.py" do
+  source "apiparse.py"
+  owner node[:amp][:logging][:user]
+  group node[:amp][:logging][:group]
+  mode "0755"
+end
+
 cron_d "amp-extended-log" do
   minute "*/5"
   command "cronwrap #{node[:hostname]} amp-extended-log \"#{node[:amp][:logging][:script_path]}/extended-api-log.sh\" 2>&1 >> #{node[:amp][:logging][:log_path]}/api-errors.log"

@@ -16,6 +16,9 @@ def usage():
 def CheckRequestRatio(stats, threshold):
     threshold = int(threshold)
     total_reqs = stats['200'] + stats['500']
+    if total_reqs < 1:
+        print "No requests found in log"
+        sys.exit(EXIT_WARNING)
     if (stats['500'] / total_reqs) * 100 > threshold:
         print "500 Ratio > %i%%" % threshold
         sys.exit(EXIT_CRITICAL)
@@ -65,10 +68,20 @@ def main(argv):
                 data.append(json.loads(line))
     except IOError:
         print "Cannot read %s" % input_file
+        sys.exit(EXIT_CRITICAL)
     stats = {}
-    stats['200'] = data[0]['200']
-    stats['500'] = data[0]['500']
-    stats['LOGIN200'] = data[0]['api.v1.account.login']['200']
+    try:
+        stats['200'] = data[0]['200']
+    except:
+        stats['200'] = 0
+    try:
+        stats['500'] = data[0]['500']
+    except:
+        stats['500'] = 0
+    try:
+        stats['LOGIN200'] = data[0]['api.v1.account.login']['200']
+    except:
+        stats["LOGIN200"] = 0
     if test == "requests":
         CheckRequestRatio(stats, threshold)
     elif test == "logins":
