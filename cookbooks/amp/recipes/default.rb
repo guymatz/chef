@@ -53,6 +53,18 @@ begin
       action :stop
     end
 
+    bash "clear webapps/ROOT" do
+      code "rm -rf #{node[:tomcat7][:webapp_dir]}/ROOT/*"
+      user "root"
+    end
+
+    remote_file "#{node[:tomcat7][:webapp_dir]}/ROOT/crossdomain.xml" do
+      source "#{node[:amp][:url]}/crossdomain.xml"
+      owner node[:tomcat7][:user]
+      group node[:tomcat7][:group]
+      mode "0755"
+    end
+
     remote_file "#{node[:tomcat7][:webapp_dir]}/api.war" do
       source "#{node[:amp][:url]}/#{node[:amp][:version]}/amp-rest-#{node[:amp][:version]}.war"
       owner node[:tomcat7][:user]
