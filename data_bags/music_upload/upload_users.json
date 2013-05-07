@@ -1,93 +1,27 @@
 {
-  "orchard": {
-    "iv": "ZCQ8gYhIaDdxrXeU+EbMEA==\n",
-    "cipher": "aes-256-cbc",
-    "version": 1,
-    "encrypted_data": "uuqGHn9xF34P+c1LHLysn3t2pUZW0meZGB38D6rGkl75/n55zhJJfxRJIDoh\nNDiJ\n"
-  },
-  "believe": {
-    "iv": "cun2onyLHxF9JlebJ7XODw==\n",
-    "cipher": "aes-256-cbc",
-    "version": 1,
-    "encrypted_data": "44JNqr2CdWHXBgXSfIDjAvAwmylUR3sJIAQ7nP1u4QYB/pW4lhDAiK/9wrAF\n/HIE\n"
-  },
-  "onerpm": {
-    "iv": "TmYgHIGio1iAfHkI6Co+Dw==\n",
-    "cipher": "aes-256-cbc",
-    "version": 1,
-    "encrypted_data": "6N5gNv7l630kl2WCWvVSe9Xhn7fNYtYjAJbkAjDTQbfIAzqpF2NKA0YkoDNJ\nTNwt\n"
-  },
-  "contentftp": {
-    "iv": "Q+EsFeDsY6hbfNeoFPYCxg==\n",
-    "cipher": "aes-256-cbc",
-    "version": 1,
-    "encrypted_data": "JVGR2rhrP0XSR9V+Tc6Ry7dgMW3OiZPQX87pX4bAxhmxElEUeUZtMs2VUT+9\ngI7o\n"
-  },
-  "cdbaby": {
-    "iv": "GYxM8SVqPnQPKPAhB/frVg==\n",
-    "cipher": "aes-256-cbc",
-    "version": 1,
-    "encrypted_data": "4ynvimFF5/+twKpfcC1Y4jl9ycbOiB52+/1XNR+umpaOaHWnbUOImRkt1aLK\nH6fn\n"
-  },
-  "fuga": {
-    "iv": "o+bUjdCqKynUhEwyV23wGg==\n",
-    "cipher": "aes-256-cbc",
-    "version": 1,
-    "encrypted_data": "xWGv/M/SegI463r4XSjDSSp0eLVRub8rLuXSs/LhfbvrbrRP7mNgpk8GZyBj\nEyE7\n"
-  },
-  "sundesire": {
-    "iv": "U0ydqaGJEsGwWHhEhqdn3A==\n",
-    "cipher": "aes-256-cbc",
-    "version": 1,
-    "encrypted_data": "ZMYQ+VN0tfPesJZbfwrMt3999M/qLYlXWt6Hh0CK8u1zcFxknMLZFmeWnSeg\nTAZq\n"
-  },
-  "catapult": {
-    "iv": "kaBD5Zrxwi1xMd4Qw+IdHQ==\n",
-    "cipher": "aes-256-cbc",
-    "version": 1,
-    "encrypted_data": "a9Z3cvtOiejgYGKSgGxUp0t5EKLc8SqeQ5ESdI9xq/y/vA0dxQcbAiJBxBbc\njaTu\n"
-  },
-  "independent": {
-    "iv": "g3JofFiqh9IZWbbm596x1A==\n",
-    "cipher": "aes-256-cbc",
-    "version": 1,
-    "encrypted_data": "blkMIgDgorClKwBSsFMBJRZGG2I2GoMloedPYgDCinw56j4XuXsWi9mTNf4B\nPctS\n"
-  },
-  "consolidated": {
-    "iv": "MRXjtd6/bp4JsDYdcXS3Kg==\n",
-    "cipher": "aes-256-cbc",
-    "version": 1,
-    "encrypted_data": "Alxvsd2ClsffUDPOEXdoqQuwm67h9Vf7dF9hDtAt/1YcaF4XG2IYk35N9R9A\nMIwU\n"
-  },
-  "nextplateau": {
-    "iv": "ZT9NZbLpmobndChm2xe/Kw==\n",
-    "cipher": "aes-256-cbc",
-    "version": 1,
-    "encrypted_data": "M0L8u1mvIz/bbKbWOzUgKZJjsqgyee2upE0mM8iUQFh5Gew/RsUDukcQbl0R\n6GRh\n"
-  },
+  "orchard": "+6aFvUd3ytM6XtY3gZ8mk4UPhKAnaP9GEEH+wFKFVek=\n",
+  "believe": "dQ0Vp2GhYlmdIYJyhS9xJ96AilaqwOG3bbLQtxqspl8=\n",
+  "onerpm": "lSVNQ0jhBlI7nQGkp/bkyHv9kS4VwHoKVQ/kmDKFWXA=\n",
+  "E1": "LJ/4u3Irsdw1hk8tCgwYTCJnlU4Lmck+8Q1wK4T+nGE=\n",
+  "cdbaby": "XmMlGCPvsdrn3C2apbjCPcMvlve0aSWMxFz2eRuAGtY=\n",
+  "Rebeat": "Xn2os3gVkcauXTMOzktDgD4q6m93Imvxr8oolUDqdvI=\n",
+  "EPM": "Xn2os3gVkcauXTMOzktDgI/3+6T8/3/HVj9zEhZW8Wo=\n",
+  "fuga": "zrnNYmk/kveGi9vmxtrfiYJXEDAsOZyWZYuQ4shDiIY=\n",
+  "Finetunes": "Xn2os3gVkcauXTMOzktDgOjVqpHYDrkfIqd9nuBYCgY=\n",
+  "DigDis": "tCPltKsxtq7Zq8gMnLyTOukjaIQrsDQcg3G76CjhsFs=\n",
+  "House_Planet": "XsG2wltdlp07pf1BFw7rt0eFBQ/QDo9/BizSYwG9DPc=\n",
+  "contentenc": "Zb/1sW3isda5AV919j61PM8ei4PRBEhdUureyF4uLpk=\n",
+  "Symphonic": "NpLXh4ryQqHUTJsQWq+Q3caTrqXV++vXkbn8Do7vqK8=\n",
+  "sundesire": "XmMlGCPvsdrn3C2apbjCPd7HnNOkxLKD2emoU7KbjiQ=\n",
+  "catapult": "XsG2wltdlp07pf1BFw7rt6zwGWBbXT2HYt1TW9iaNz0=\n",
+  "independent": "WCl0LK5h/Mk591fpywcesJC2Qge7ehEdGQZhET2aR8c=\n",
   "id": "upload_users",
-  "wmg": {
-    "iv": "ASSVmM6w0JlhDNw78uM4OA==\n",
-    "cipher": "aes-256-cbc",
-    "version": 1,
-    "encrypted_data": "zx+klFfvpF3Y3yHd4gpNG1od1iDWNk93R6tFEkC68lRj9NvDpNZLUY0hdRkP\n/hA2\n"
-  },
-  "alienprod": {
-    "iv": "IaRLH3RusB/RWhNFvC7L+A==\n",
-    "cipher": "aes-256-cbc",
-    "version": 1,
-    "encrypted_data": "nEgzSJ2zqBMHK3y/n1ME9ubaov+hAQcALd5tbUdNeuecNKcJLgvCYoiwKeKi\nmOoE\n"
-  },
-  "naxos": {
-    "iv": "nCnpS8H8F8+38QQAXc6PDg==\n",
-    "cipher": "aes-256-cbc",
-    "version": 1,
-    "encrypted_data": "TjcjW88jC2Pb8QcnUpb5Px9FxHtInnJq57eupwdjSKIAzK6OGiuZfln9SRsk\nnkJl\n"
-  },
-  "dashgo": {
-    "iv": "CWLpHrrda7/BA0Qu7fEedQ==\n",
-    "cipher": "aes-256-cbc",
-    "version": 1,
-    "encrypted_data": "cAp/do3E5AeBBCFWfEdSu0uiVrJYOf3/8RHNlYzV+mOy21de/Law7XEuSIiI\nDSAM\n"
-  }
+  "Tunecore": "Xn2os3gVkcauXTMOzktDgKwQNQhvkZFFaXb/NK4MyLE=\n",
+  "consolidated": "/y3RfczIs+1NP5kBBUFp61AMi3eERD84JDkJgpXj+aw=\n",
+  "nextplateau": "LJ/4u3Irsdw1hk8tCgwYTATSp0psdfvTSXx19ph8CBY=\n",
+  "wmg": "MtuqWrWk3R35hcpijCFm4egwAke0ODk7oFXSSrTE7Rc=\n",
+  "alienprod": "YNti9IZu6UzfbdLKw2cEFnCNem38QtHf+0tb+vPRuw4=\n",
+  "naxos": "zrnNYmk/kveGi9vmxtrfiQsk34KfZMlcMUMErfteiuI=\n",
+  "IRIS": "Xn2os3gVkcauXTMOzktDgDVCrOj/e4H4IPGD6Z6kOvQ=\n",
+  "dashgo": "igh1eC5LYPFGOyx98v0Z33ZJsbNpfsEI3DoOJhbdccg=\n"
 }
