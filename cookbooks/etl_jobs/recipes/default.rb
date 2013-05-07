@@ -16,6 +16,10 @@ directory "/data/log"
 
 directory "/data/jobs/event"
 directory "/data/log/event"
+directory "/data/log/event/input" do
+  mode 0777
+end
+directory "/data/log/event/processed"
 remote_file "/data/jobs/event/event_job.jar" do
   source "http://yum.ihr/files/jobs/event/event_job.jar"
 end
@@ -34,6 +38,11 @@ end
 directory "/data/jobs/playlog"
 directory "/data/log/playlog"
 directory "/data/log/playlog/processed"
+directory "/var/run/playlog"
+remote_file "/data/jobs/playlog/playlog_wrapper.sh" do
+  source "http://yum.ihr/files/jobs/playlog/playlog_wrapper.sh"
+  mode 0755
+end
 remote_file "/data/jobs/playlog/playlog.jar" do
   source "http://yum.ihr/files/jobs/playlog/playlog_job.jar"
 end
@@ -44,7 +53,7 @@ remote_file "/data/jobs/playlog/batch.properties" do
   source "http://yum.ihr/files/jobs/playlog/batch.properties"
 end
 cron_d "playlog_job" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Playlog-ETL-Job \"/usr/bin/java -jar /data/jobs/playlog/playlog.jar launch-context.xml playlogJob rundate=`/bin/date +\\%s`\""
+  command "/usr/bin/cronwrap iad-jobserver101.ihr Playlog-ETL-Job \"/data/jobs/playlog/playlog_wrapper.sh\""
   minute 22
 end
 
@@ -131,6 +140,10 @@ end
 
 directory "/data/jobs/sysinfo"
 directory "/data/log/sysinfo"
+directory "/data/log/sysinfo/input" do
+  mode 0777
+end
+directory "/data/log/sysinfo/processed"
 remote_file "/data/jobs/sysinfo/sysinfo_job.jar" do
   source "http://yum.ihr/files/jobs/sysinfo/sysinfo_job.jar"
 end
@@ -218,6 +231,58 @@ remote_file "/etc/init.d/facebook-consumer" do
   mode 0755
 end
 
+directory "/home/amqp-consumer/responsys-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+directory "/data/log/responsys-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+directory "/var/run/responsys-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+remote_file "/home/amqp-consumer/responsys-consumer/responsys.tar.gz" do
+  source "http://yum.ihr/files/jobs/responsys-consumer/responsys.tar.gz"
+  action :create_if_missing
+end
+bash "extract-consumer" do
+  cwd "/home/amqp-consumer/responsys-consumer"
+  code "tar xpf responsys.tar.gz;chown -R amqp-consumer. *"
+  not_if { File.exists?('/home/amqp-consumer/responsys-consumer/responsys_consumer.jar') }
+end
+remote_file "/etc/init.d/responsys-consumer" do
+  source "http://yum.ihr/files/jobs/responsys-consumer/responsys.init"
+  mode 0755
+end
+
+directory "/home/amqp-consumer/enrichment-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+directory "/data/log/enrichment-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+directory "/var/run/enrichment-consumer" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+remote_file "/home/amqp-consumer/enrichment-consumer/enrichment.tar.gz" do
+  source "http://yum.ihr/files/jobs/enrichment-consumer/enrichment.tar.gz"
+  action :create_if_missing
+end
+bash "extract-enrichment-consumer" do
+  cwd "/home/amqp-consumer/enrichment-consumer"
+  code "tar xpf enrichment.tar.gz;chown -R amqp-consumer. *"
+  not_if { File.exists?('/home/amqp-consumer/enrichment-consumer/enrichment_consumer.jar') }
+end
+remote_file "/etc/init.d/enrichment-consumer" do
+  source "http://yum.ihr/files/jobs/enrichment-consumer/enrichment.init"
+  mode 0755
+end
+
 cookbook_file "/data/jobs/log-archive.sh" do
   source "log-archive.sh"
   mode 0755
@@ -225,6 +290,29 @@ end
 cron_d "archive_logs" do
   command "/usr/bin/cronwrap iad-jobserver101.ihr Archive-Logs \"/data/jobs/log-archive.sh 2>&1 >> /dev/null\""
   minute 15
+end
+
+apis = search(:node, "role:amp AND chef_environment:#{node.chef_environment}")
+apis.each do |x|
+  ruby_block x.name do
+    block do
+      file = Chef::Util::FileEdit.new('/data/jobs/api_servers')
+      file.insert_line_if_no_match("/#{x.name}/m", "#{x.name}")
+      file.write_file
+    end
+  end
+end
+
+cron_d "pull_event_logs" do
+  command "/usr/bin/cronwrap iad-jobserver101.ihr Pull-Event-Logs \"for i in `/bin/cat /data/jobs/api_servers`; do /usr/bin/scp $i:/data/apps/tomcat7/logs/event.log.`/bin/date --date='1 day ago' +\%Y-\%m-\%d` /data/log/event/input/$i.event.log.`/bin/date --date='1 day ago' +\%Y-\%m-\%d`; done\""
+  minute 27
+  hour 1
+  user 'ihr-deployer'
+end
+cron_d "pull_sysinfo_logs" do
+  command "/usr/bin/cronwrap iad-jobserver101.ihr Pull-Sysinfo-Logs \"for i in `/bin/cat /data/jobs/api_servers`; do /usr/bin/scp $i:/data/apps/tomcat7/logs/sysinfo.log.`/bin/date --date='1 hour ago' +\%Y-\%m-\%d-\%H` /data/log/sysinfo/input/$i.sysinfo.log.`/bin/date --date='1 hour ago' +\%Y-\%m-\%d-\%H`; done\""
+  minute '*/15'
+  user 'ihr-deployer'
 end
 
 #directory "/usr/local/radiomigrations"

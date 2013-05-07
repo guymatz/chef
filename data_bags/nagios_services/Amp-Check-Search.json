@@ -1,0 +1,5 @@
+{
+    "id": "Amp-Check-Search",
+    "hostgroup_name": "amp",
+    "command_line": "$USER1$/check_http -v -H $HOSTADDRESS$ -p 8080  -u '/api/v1/catalog/searchTrack?keywords=free&host=mobile.app.thumbplay.com&maxRows=1' -s artistId -w 5 -c 7"
+}

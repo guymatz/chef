@@ -295,6 +295,10 @@ define command {
 	command_line    $USER1$/check_nrpe -H $HOSTADDRESS$ -c check_$ARG1$_solr_index -t 20
 }
 
+define command {
+    command_name    check_mongodb
+    command_line    $USER1$/check_mongodb.py -H $HOSTADDRESS$ -A $ARG1$ -P $ARG2$ -W $ARG3$ -C $ARG4$
+}
 # dummy commands for passive checks
 
 define command {

@@ -3,10 +3,11 @@
     "uid": 5007,
     "name": "Jeremy Braff",
     "email": "jeremybraff@clearchannel.com",
-    "groups": ["dev", "attivio", "etl", "jobserver", "amp"],
+    "groups": ["dev", "attivio", "etl", "jobserver", "amp", "nagios", "membase"],
     "nagios": {
         "email": "jeremybraff@clearchannel.com"
     },
+    "htpasswd": "{SHA}4Da0TyoBNIOMshZi3FJIAU+2bAw=",
     "ssh_keys": [
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDdWChjn9fi7cDaRD3j3TC80MvrJ1SrhNCuKTCMssgj9zYhNcabMQl/4Ude6OG0SLpjuFasE7W+SQV5rSoIaErJWZ6jokJst5b3xaCAMTZRoEkqoBXPYtFpP/t6tA8t4Kz/5HxWhG3jR4bJdrJuoi7RHknW/DLBkrAYzcEHxywThjbkCj0faMliqqlXmOnYC2N9FXUQpX+wmG12dup/PWfcoHN3Q4tI8nn9SeheGOx0WiWOMLuuh+xx93Q1Rv32EsW+v4xx0bTlPXmKwcxG2YMUwBzcALeE66kXbkvFSEd7LYRa9ydXp40wajsMpOLjne2Q4iqDWnNgidWk1JwEU0X9 JeremyBraff@clearchannel.com",
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDJWLVvOGZ6kqqqyJYygifoW/Xl+FQ3qRvPSR+OMRv0qJlObEgD15LrSHkxAHXqlgWvzXdijfCVIqnhGq6qax5YqjkCXAY4ETfOL3fRI+O/2R2VFxNt4AsN1KbbC1fkBBtqpiHkQUOpR9ZaP+Ey7D0ZyzIqNswo5RZJOXVcz7sy5+e184gB8a4pspuKjKxzivIlTifJA+m49OsSZIQh/ksVGEiP+e1Cxida7f4wHiFlO6efQ6POc3yCM8QZPIt8PCg+mOf70aqbmK2clcFrgYSzVk2JXYU4VGhAQ3AA5ipSxD/k1JipbGro3gmTAPwyRSIzshVZfO14UfO5alrtNYHv /Users/jbraff/.ssh/id_rsa"

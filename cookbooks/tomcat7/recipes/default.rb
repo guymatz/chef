@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+include_recipe "tomcat7::nagios"
+
 group node[:tomcat7][:group] do
   gid 91
   action [:create]
@@ -41,6 +43,12 @@ directory "#{node[:tomcat7][:install_path]}" do
   recursive true
 end
 
+directory "/var/run/tomcat/" do
+  owner node[:tomcat7][:user]
+  group node[:tomcat7][:group]
+  recursive true
+end
+
 execute "Untar Apache Tomcat 7 binary file" do
   user "root"
   cwd Chef::Config[:file_cache_path]
@@ -53,6 +61,7 @@ template "#{node[:tomcat7][:install_path]}/conf/server.xml" do
   source "server7.xml.erb"
   owner "root"
   mode "0644"
+  not_if "test -f #{node[:tomcat7][:install_path]}/conf/server.xml"
 end
 
 bash "tomcat perms" do

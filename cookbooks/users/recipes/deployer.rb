@@ -20,6 +20,9 @@ file "/home/ihr-deployer/.ssh/id_rsa" do
   :create_if_missing
 end
 
+directory "/root/.ssh" do
+  mode 0600
+end
 file "/root/.ssh/config" do
   owner "root"
   group "root"

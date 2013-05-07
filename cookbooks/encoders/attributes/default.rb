@@ -66,4 +66,5 @@ default[:encoders][:ftp_mount] = "/data/encoder-ftp"
 default[:encoders][:encoder_mount] = "/data/encoder"
 
 default[:encoders][:user] = "converter"
+default[:encoders][:ftpuser] = "ftp"
 default[:encoders][:group] = "converter"

@@ -41,7 +41,7 @@ default[:cassandra][:pid_dir]           = '/var/run/cassandra'
 default[:cassandra][:data_root_mount]	= ["/data"]
 default[:cassandra][:data_device]	= ["/dev/sdb1"]
 default[:cassandra][:data_dirs]         = ["/data/db/cassandra"]
-default[:cassandra][:commitlog_dir]     = "/mnt/cassandra/commitlog"
+default[:cassandra][:commitlog_dir]     = "/var/lib/cassandra/commitlog"
 default[:cassandra][:saved_caches_dir]  = "/var/lib/cassandra/saved_caches"
 
 default[:cassandra][:user]              = 'cassandra'
@@ -93,9 +93,8 @@ default[:cassandra][:mx4j_release_url]  = "http://downloads.sourceforge.net/proj
 default[:cassandra][:authenticator]     = "org.apache.cassandra.auth.AllowAllAuthenticator"
 default[:cassandra][:authorizer]         = "org.apache.cassandra.auth.AllowAllAuthorizer"
 default[:cassandra][:permissions_validity_in_ms] = 2000
-default[:cassandra][:partitioner]       = "org.apache.cassandra.dht.RandomPartitioner"       # "org.apache.cassandra.dht.OrderPreservingPartitioner"
+default[:cassandra][:partitioner]       = "org.apache.cassandra.dht.Murmur3Partitioner"       # "org.apache.cassandra.dht.OrderPreservingPartitioner"
 default[:cassandra][:endpoint_snitch]   = "org.apache.cassandra.locator.SimpleSnitch"
-default[:cassandra][:initial_token]     = ""
 default[:cassandra][:hinted_handoff_enabled]       = "true"
 default[:cassandra][:max_hint_window_in_ms]        = 10800000
 default[:cassandra][:max_hints_delivery_threads]   = 2
@@ -174,8 +173,18 @@ default[:cassandra][:ulimits] = [ {
                                    "type" => "hard",
                                    "item" => "memlock",
                                    "value" => "unlimited"
+                                 },
+				 {
+				  "type" => "soft",
+				  "item" => "as",
+				  "value" => "unlimited"
+				 },
+                                 { 
+                                   "type" => "hard",
+                                   "item" => "as",
+                                   "value" => "unlimited"
                                  }
-                               ]
+				]
 default[:cassandra][:root_ulimits] = [ {
                                    "type" => "soft",
                                    "item" => "nofile",

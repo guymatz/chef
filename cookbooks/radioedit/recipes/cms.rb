@@ -22,13 +22,18 @@ directory "#{node[:radioedit][:cms][:path]}" do
   group node[:radioedit][:group]
 end
 
+directory "/var/run/radioedit" do
+  owner node[:radioedit][:user]
+  group node[:radioedit][:group]
+end
+
 node[:radioedit][:cms][:packages].each do |p|
   package p
 end
 
 application "radioedit-cms" do
   repository node[:radioedit][:cms][:repo]
-  revision node[:radioedit][:image][:branch]
+  revision node[:radioedit][:cms][:branch]
   path node[:radioedit][:cms][:path]
   owner node[:radioedit][:user]
   group node[:radioedit][:group]
@@ -48,7 +53,7 @@ application "radioedit-cms" do
     port node[:radioedit][:cms][:port]
     workers 10
     host node[:radioedit][:cms][:host]
-    pidfile "/var/run/radioedit-cms.pid"
+    pidfile "/var/run/radioedit/radioedit-cms.pid"
   end
 
 end
@@ -63,6 +68,12 @@ service "nginx"
   end
 end
 
+bash "remove_default_confs" do
+  cwd "/etc/nginx/conf.d"
+  code "rm -f *.conf"
+  not_if { File.exists?("/etc/nginx/conf.d/radioedit-cms.conf") }
+end
+
 template "/etc/nginx/conf.d/radioedit-cms.conf" do
   source "nginx_cms.conf"
   owner "nginx"
@@ -75,4 +86,12 @@ remote_directory "#{node[:radioedit][:cms][:path]}/current/static" do
   files_group node[:radioedit][:group]
   source "static"
   not_if { File.exists?('#{node[:radioedit][:cms][:path]}/current/static') }
+end
+
+template "/etc/sysconfig/varnish" do
+  source "varnish_sysconfig"
+end
+
+template "/etc/varnish/default.vcl" do
+  source "varnish.vcl"
 end

@@ -1,7 +1,6 @@
-name "mongodb"
-description "mongodb"
+name "mongodb_arbiter"
+description "mongodb_arbiter"
 all_env = [
-           "recipe[mongodb]",
 	   "recipe[mongodb::arbiter]",
            "recipe[mongodb::ulimits]",
 	  ]
@@ -14,16 +13,6 @@ env_run_lists(
               )
 default_attributes({
                      "mongodb" => {
-			"arbiter" =>	"true",
-			"lock_file" =>	"/var/lock/subsys/arbmongod",
-			"data_dir" =>	"/data/db/arbmongod",
-			"pidfile_loc" =>	"/data/db/arbmongod",
-			"pidfile_name"	=>	"arbmongod.lock",
-			"config_file_name" =>	"arbmongod.conf",
-			"logpath"	=>	"/var/log/arbmongo/mongod.log",
-			"logdir"	=>	"/var/log/arbmongo",
-			"journal"	=>	"false",
-			"port" =>	"47017",
 		     }
                    })
 override_attributes({

@@ -1,0 +1,5 @@
+{
+  "id": "Mongodb-Connect",
+  "hostgroup_name": "mongodb",
+  "command_line": "$USER1$/check_mongodb -H $HOSTADDRESS$ -A replication_lag -p 37017 -w 15 -c 30"
+}

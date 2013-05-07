@@ -73,6 +73,12 @@ bash "install_tomcat_service" do
   not_if { node.normal.attribute?("imgscaler_deployed") }
 end
 
+bash "delete_old_logs" do
+  user "tomcat"
+  cwd "/usr/local/tomcat7/logs"
+  code "find . -mtime +3 -exec rm {} \\;"
+end
+
 # Not working :-(
 #service "tomcat" do
 #  action :start

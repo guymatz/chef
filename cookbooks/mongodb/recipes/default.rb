@@ -8,7 +8,9 @@
 #
 
 node[:mongodb][:packages].each do |mongo_pkg|
-  package mongo_pkg
+  yum_package mongo_pkg do
+    arch nil
+  end
 end
 
 directory "#{node[:mongodb][:logdir]}" do

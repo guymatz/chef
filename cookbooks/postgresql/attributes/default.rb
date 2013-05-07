@@ -17,6 +17,9 @@
 # limitations under the License.
 #
 
+default[:postgresql][:user] = "postgres"
+default[:postgresql][:group] = "postgres"
+
 case node['platform']
 when "debian"
 
