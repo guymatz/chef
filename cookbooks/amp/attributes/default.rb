@@ -10,6 +10,8 @@ default[:amp][:pgbouncer][:port] = "5432"
 default[:amp][:logging][:script_path] = "/data/apps/amp/logging"
 default[:amp][:logging][:log_path] = "/var/log/amp"
 
+default[:amp][:logger][:url] = "http://yum.ihr/files/amp/logger.war"
+
 default[:amp][:logging][:user] = "nobody"
 case node[:platform_family]
 when "rhel"

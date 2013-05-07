@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+include_recipe "java"
 include_recipe "tomcat7::nagios"
 
 group node[:tomcat7][:group] do
