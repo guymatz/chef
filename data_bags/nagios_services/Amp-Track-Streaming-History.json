@@ -1,5 +1,5 @@
 {
     "id": "Amp-Track-Streaming-History",
     "hostgroup_name": "amp",
-    "command_line": "$USER1$/check_http -v -H $HOSTADDRESS$ -p 8080  -u '/api/v1/history/14/getTrackEvents?f1_profileId=14&profileId=14&sessionId=Qf4%2F%2BAocFHbp7tXH2fVGYQ%3D%3D&numResults=10&startTime=0' --onredirect=follow -e 'HTTP/1.1 200'"
+    "command_line": "$USER1$/check_http -v -H $HOSTADDRESS$ -p 8080  -u '/api/v1/history/14/getTrackEvents?f1_profileId=14&profileId=14&sessionId=5%2FGut8kCK1%2Bj9ifGMj%2BsaA%3D%3D&numResults=10&startTime=0' --onredirect=follow -e 'HTTP/1.1 200'"
 }
