@@ -5,6 +5,6 @@ default["statsd"]["log_file"]                     = "/var/log/statsd.log"
 default["statsd"]["flush_interval"]               = 10000
 default["statsd"]["address"]                      = "0.0.0.0"
 default["statsd"]["port"]                         = 8125
-default["statsd"]["graphite_host"]                = "localhost"
+default["statsd"]["graphite_host"]                = "iad-graphite101.ihr"
 default["statsd"]["graphite_port"]                = 2003
 default["statsd"]["graphite"]["legacy_namespace"] = true
