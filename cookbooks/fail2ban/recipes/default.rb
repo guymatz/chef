@@ -16,9 +16,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+include_recipe "logrotate"
 
 package "fail2ban" do
   action :upgrade
+end
+
+
+logrotate_app "fail2ban" do
+    cookbook "logrotate"
+    path node['fail2ban']['logtarget']
+    frequency "daily"
+    rotate 7
+    compress true
+    create "644 root root"
 end
 
 %w{ fail2ban jail }.each do |cfg|

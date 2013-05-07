@@ -8,6 +8,7 @@ version           "1.2.1"
 recipe "fail2ban", "Installs and configures fail2ban"
 
 depends "yum"
+depends "logrotate"
 
 %w{ debian ubuntu redhat centos fedora scientific amazon oracle}.each do |os|
   supports os

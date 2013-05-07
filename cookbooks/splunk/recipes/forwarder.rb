@@ -147,6 +147,14 @@ template "Moving inputs file for role: #{node['splunk']['forwarder_role']}" do
   notifies :restart, resources(:service => "splunk")
 end
 
+logrotate_app "splunkforwarder" do
+    cookbook "logrotate"
+    path "/opt/splunkforwarder/var/log/splunk/"
+    frequency "daily"
+    rotate 7
+    compress true
+    create "644 root root"
+end
 
 
 template "/etc/init.d/splunk" do
