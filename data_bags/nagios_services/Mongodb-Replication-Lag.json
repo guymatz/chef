@@ -1,5 +1,5 @@
 {
-  "id": "Mongodb-Connect",
-  "hostgroup_name": "mongodb",
-  "command_line": "$USER1$/check_mongodb -H $HOSTADDRESS$ -A replication_lag -p 37017 -w 15 -c 30"
+  "id": "Mongodb-Replication-Lag",
+  "hostgroup_name": "mongodb_server",
+  "command_line": "$USER1$/check_mongodb.py -H $HOSTADDRESS$-v240.ihr -A replication_lag -P 37017 -W 15 -C 30"
 }
