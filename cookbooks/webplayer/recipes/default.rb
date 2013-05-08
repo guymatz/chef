@@ -53,6 +53,16 @@ file "/root/.ssh/config" do
 EOH
 end
 
+directory "#{node[:webplayer][:deploy_path]}/logs" do
+  owner node[:webplayer][:user]
+  group node[:webplayer][:group]
+  mode "0755"
+end
+
+link node[:supervisor][:log_dir] do
+  to "#{node[:webplayer][:deploy_path]}/logs"
+end
+
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", "webplayers")
 
 begin
@@ -141,6 +151,17 @@ end
 apache_site "iheart.com" do
   enable true
   notifies :reload, "service[httpd-apache2]"
+end
+
+template "/etc/security/limits.d/webplayer.conf" do
+  source "limits.conf.erb"
+  owner "root"
+  group "root"
+  mode "0644"
+  variables ({
+               :domain => node[:webplayer][:user],
+               :ulimits => node[:webplayer][:ulimits]
+             })
 end
 
 logrotate_app "webplayer" do

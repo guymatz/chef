@@ -1,6 +1,6 @@
 # Deployment Settings
 default[:webplayer][:repo] = "git@github.com:iheartradio/web.git"
-default[:webplayer][:rev] = "release-4.11.1-zombie"
+default[:webplayer][:rev] = "release-4.11.1-zombie-uat1.1"
 default[:webplayer][:deploy_path] = "/data/www/webplayer"
 
 default[:webplayer][:packages] = %w{ libxslt-devel python27-debuginfo python27-libs python27-tools python27-devel python27 python27-test }
@@ -34,3 +34,25 @@ default[:webplayer][:settings][:url][:site_host] = "www.iheart.com"
 default[:webplayer][:settings][:jinja][:cache_size] = "1000"
 default[:webplayer][:settings][:jinja][:auto_reload] = "False"
 default[:webplayer][:settings][:jinja][:bytecode_cache] = "None # MAGIC: look in common/settings"
+
+# ulimits
+default[:webplayer][:ulimits] = [{
+                                 "type" => "hard",
+                                 "item" => "nproc",
+                                 "value" => "4096"
+                               },
+                               {
+                                 "type" => "soft",
+                                 "item" => "nproc",
+                                 "value" => "4096"
+                               },
+                               {
+                                 "type" => "hard",
+                                 "item" => "nofile",
+                                 "value" => "65535"
+                               },
+                               {
+                                 "type" => "soft",
+                                 "item" => "nofile",
+                                 "value" => "65535"
+                               }]

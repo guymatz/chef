@@ -9,7 +9,6 @@ all_env = [
            "recipe[chef-client]",
            "recipe[zsh]",
            "recipe[users::sysadmins]",
-           "recipe[users::qa]",
            "recipe[sudo]",
            "recipe[emacs]",
            "recipe[vim]",
