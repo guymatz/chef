@@ -38,3 +38,7 @@ nagios_nrpecheck "Dell-Performance-Profile" do
   action :add
   notifies :restart, resources(:service => "nagios-nrpe-server")
 end
+
+unless node.run_list.include?("role[dell]")
+  node.run_list << "role[dell]"
+end
