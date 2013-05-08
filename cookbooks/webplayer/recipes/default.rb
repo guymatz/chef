@@ -142,3 +142,14 @@ apache_site "iheart.com" do
   enable true
   notifies :reload, "service[httpd-apache2]"
 end
+
+logrotate_app "webplayer" do
+  cookbook "logrotate"
+  path "/var/log/supervisor/*.log"
+  options ["missingok", "delaycompress", "notifempty"]
+  frequency "daily"
+  enable true
+  postrotate "find /var/log/supervisor -mtime +7 -exec rm -rf {} \;"
+  create "0644 nobody root"
+  rotate 7
+end
