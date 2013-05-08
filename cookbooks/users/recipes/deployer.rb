@@ -20,6 +20,12 @@ file "/home/ihr-deployer/.ssh/id_rsa" do
   :create_if_missing
 end
 
+file "/home/ihr-deployer/.hushlogin" do
+  owner "ihr-deployer"
+  group "ihr-deployer"
+  :create_if_missing
+end
+
 directory "/root/.ssh" do
   mode 0600
 end
