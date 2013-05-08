@@ -15,3 +15,12 @@ case node['platform_family']
 when "rhel"
   package "srvadmin-all"
 end
+
+link "/etc/init.d/dell-omsa" do
+  to "/opt/dell/srvadmin/sbin/srvadmin-services.sh"
+end
+
+service "dell-omsa" do
+  supports :start => true
+  action :start
+end
