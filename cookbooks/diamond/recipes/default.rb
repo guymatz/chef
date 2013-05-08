@@ -13,6 +13,9 @@ template ::File.join(node['diamond']['diamond_configuration_path'], "diamond.con
   mode 00644
   owner "root"
   group "root"
+  variables ({ 
+      :splay => node['ipaddress'].split('.').last.to_i % 2
+  })
   notifies :restart, "service[diamond]"
 end
 

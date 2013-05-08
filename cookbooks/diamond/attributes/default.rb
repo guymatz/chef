@@ -22,7 +22,8 @@ default['diamond']['collectors_reload_interval'] = 3600
 default['diamond']['archive_handler'] = { "log_file" => "/var/log/diamond/diamond.log", "days" => 7 }
 default['diamond']['graphite_handler'] = { "host" => "iad-graphite101.ihr", "port" => 2003, "batch" => 256, "timeout" => 15 }
 default['diamond']['graphite_picklehandler'] = { "host" => "iad-graphite101.ihr", "port" => 2004, "batch" => 256, "timeout" => 15 }
-default['diamond']['statsdhandler'] = { "host" => "iad-statsd101.ihr", "port" => 8125 }
+default['diamond']['statsdhandler'][0] = { "host" => "iad-statsd101.ihr", "port" => 8125 }
+default['diamond']['statsdhandler'][1] = { "host" => "iad-statsd102.ihr", "port" => 8125 }
 default['diamond']['tsdbhandler'] = { "host" => "127.0.0.1", "port" => 4242, "timeout" => 15 }
 default['diamond']['mysqlhandler'] = { "host" => "127.0.0.1", "port" => 3306, "username" => nil, "password" => nil, "database" => "diamond", "table" => "metrics", "col_time" => "timestamp", "col_metric" => "metric", "col_value" => "value" }
 default['diamond']['collectors'] = { "hostname_method" => "smart", "hostname" => nil, "path_prefix" => nil, "path_suffix" => nil, "interval" => 120 }

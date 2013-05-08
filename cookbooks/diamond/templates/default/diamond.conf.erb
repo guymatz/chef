@@ -58,6 +58,7 @@ days = <%= node['diamond']['archive_handler']['days'] %>
 ### Options for GraphiteHandler
 
 # Graphite server host
+
 host = <%= node['diamond']['graphite_handler']["host"] %>
 
 # Port to send metrics to
@@ -102,8 +103,8 @@ col_metric  = <%= node['diamond']['mysqlhandler']["col_metric"] %>
 col_value   = <%= node['diamond']['mysqlhandler']["col_value"] %>
 
 [[StatsdHandler]]
-host = <%= node['diamond']['statsdhandler']["host"] %>
-port = <%= node['diamond']['statsdhandler']["port"] %>
+host = <%= node['diamond']['statsdhandler'][@splay]["host"] %>
+port = <%= node['diamond']['statsdhandler'][@splay]["port"] %>
 
 [[TSDBHandler]]
 host = <%= node['diamond']['tsdbhandler']["host"] %>

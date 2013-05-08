@@ -6,6 +6,8 @@ description      "Installs/Configures diamond"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "2.0.22"
 
+depends          'ohai'
+
 supports         'ubuntu'
 supports         'debian'
 supports         'centos'
