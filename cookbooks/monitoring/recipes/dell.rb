@@ -27,8 +27,14 @@ end
 
 omreport = "#{node[:dell][:omsa][:path]}/bin/omreport"
 
+sudo "nagios" do
+  user "nagios"
+  commands [ "#{omreport}" ]
+  nopasswd true
+end
+
 nagios_nrpecheck "Dell-Performance-Profile" do
-  command "#{omreport} chassis biossetup | grep 'System Profile' | grep 'Performance$'"
+  command "sudo #{omreport} chassis biossetup | grep 'System Profile' | grep 'Performance$' && echo $?"
   action :add
   notifies :restart, resources(:service => "nagios-nrpe-server")
 end

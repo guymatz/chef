@@ -6,6 +6,6 @@ description      'Installs/Configures monitoring'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.1.0'
 
-%w{ vmware-tools nagios }.each do |d|
+%w{ vmware-tools nagios sudo }.each do |d|
   depends d
 end
