@@ -59,14 +59,14 @@ end
 cron_d "amp-extended-log" do
   minute "*/5"
   command "cronwrap #{node[:hostname]} amp-extended-log \"#{node[:amp][:logging][:script_path]}/extended-api-log.sh\" 2>&1 >> #{node[:amp][:logging][:log_path]}/api-errors.log"
-  user node[:amp][:logging][:user]
+  #user node[:amp][:logging][:user]
 end
 
 cron_d "amp-log-purger" do
   minute "35"
   hour "4"
   command "find #{node[:amp][:logging][:log_path]} -name 'api*.log' -mtime +30 -exec rm -rf {} \;"
-  user node[:amp][:logging][:user]
+  #user node[:amp][:logging][:user]
 end
 
 template "#{node[:amp][:logging][:script_path]}/tomcat-rotate.sh" do
@@ -82,5 +82,5 @@ end
 cron_d "amp-rotate-tomcat-logs" do
   hour "2"
   command "#{node[:amp][:logging][:script_path]}/tomcat-rotate.sh"
-  user node[:amp][:logging][:user]
+  #user node[:amp][:logging][:user]
 end

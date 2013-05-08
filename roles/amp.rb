@@ -4,6 +4,7 @@ run_list(
          "role[auto-bonded]",
          "recipe[amp]",
          "recipe[pgbouncer]",
+         "role[sendmail-smart-host]",
          "recipe[users::deployer]"
 
 )

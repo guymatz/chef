@@ -60,3 +60,9 @@ default['graphite']['carbon']['amqp_exchange'] = "graphite"
 default['graphite']['carbon']['amqp_metric_name_in_body'] = false
 
 default['graphite']['encrypted_data_bag']['name'] = "secrets"
+
+
+### IHR Specific
+default[:graphite][:repo] = "git@github.com:iheartradio/status.git"
+default[:graphite][:rev] = "deploy"
+default[:graphite][:web_install_path] = "/data/graphite/webapp/content/status/"
