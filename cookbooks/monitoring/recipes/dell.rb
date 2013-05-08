@@ -17,10 +17,18 @@ when "rhel"
 end
 
 link "/etc/init.d/dell-omsa" do
-  to "/opt/dell/srvadmin/sbin/srvadmin-services.sh"
+  to "#{node[:dell][:omsa][:path]}/sbin/srvadmin-services.sh"
 end
 
 service "dell-omsa" do
   supports :start => true
   action :start
+end
+
+omreport = "#{node[:dell][:omsa][:path]}/bin/omreport"
+
+nagios_nrpecheck "Dell-Performance-Profile" do
+  command "#{omreport} chassis biossetup | grep 'System Profile' | grep 'Performance$'"
+  action :add
+  notifies :restart, resources(:service => "nagios-nrpe-server")
 end
