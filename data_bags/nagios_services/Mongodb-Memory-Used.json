@@ -1,5 +1,5 @@
 {
-  "id": "Mongodb-Connect",
-  "hostgroup_name": "mongodb",
-  "command_line": "$USER1$/check_mongodb -H $HOSTADDRESS$ -A memory -p 37017 -w 100 -c 120"
+  "id": "Mongodb-Memory-Used",
+  "hostgroup_name": "mongodb_server",
+  "command_line": "$USER1$/check_mongodb.py -H $HOSTADDRESS$ -A memory -P 37017 -W 100 -C 120"
 }

@@ -1,5 +1,5 @@
 {
-  "id": "Mongodb-Connect",
-  "host_name": "iad-mongo-usr102.ihr,iad-mongo-usr104.ihr,iad-mongo-usr106.ihr",
-  "command_line": "$USER1$/check_mongodb -H $HOSTADDRESS$ -A connect -p 47017 -w 2 -c 4"
+  "id": "Mongodb-Arbiter-Connect",
+  "hostgroup_name": "mongodb_arbiter", 
+  "command_line": "$USER1$/check_mongodb.py -H $HOSTADDRESS$ -A connect -P 47017 -W 2 -C 4"
 }

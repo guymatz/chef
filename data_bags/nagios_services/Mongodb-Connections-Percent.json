@@ -1,5 +1,5 @@
 {
-  "id": "Mongodb-Connect",
-  "hostgroup_name": "mongodb",
-  "command_line": "$USER1$/check_mongodb -H $HOSTADDRESS$ -A connections -p 37017 -w 70 -c 80"
+  "id": "Mongodb-Connects-Percent",
+  "hostgroup_name": "mongodb_server",
+  "command_line": "$USER1$/check_mongodb.py -H $HOSTADDRESS$ -A connections -P 37017 -W 70 -C 80"
 }

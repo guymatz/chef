@@ -1,5 +1,5 @@
 {
-  "id": "Mongodb-Connect",
-  "host_name": "iad-mongo-usr101.ihr,iad-mongo-usr103.ihr,iad-mongo-usr105.ihr",
-  "command_line": "$USER1$/check_mongodb -H $HOSTADDRESS$ -A connect -p 57017-w 2 -c 4"
+  "id": "Mongodb-Cfg-Connect",
+  "host_name": "mongodb_config_server",
+  "command_line": "$USER1$/check_mongodb.py -H $HOSTADDRESS$ -A connect -P 57017 -W 2 -C 4"
 }
