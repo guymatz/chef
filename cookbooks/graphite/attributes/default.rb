@@ -69,4 +69,4 @@ default[:graphite][:web_install_path] = "/data/graphite/webapp/content/status/"
 
 default[:graphite][:amprepo] = "git@github.com:iheartradio/monitoring.git"
 default[:graphite][:amprev] = "deploy"
-default[:graphite][:amp_install_path] = "/data/"
+default[:graphite][:amp_install_path] = "/data/monitoring"

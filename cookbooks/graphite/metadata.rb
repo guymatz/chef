@@ -19,6 +19,7 @@ depends  "python"
 depends  "apache2"
 depends  "runit", "~> 1.0"
 depends  "memcached"
+depends  "logster"
 
 suggests "systemd"
 suggests "s6"

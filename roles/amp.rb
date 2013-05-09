@@ -5,6 +5,8 @@ run_list(
          "recipe[amp]",
          "recipe[pgbouncer]",
          "role[sendmail-smart-host]",
-         "recipe[users::deployer]"
+         "recipe[users::deployer]",
+         "recipe[diamond]",
+         "recipe[graphite::amp]"
 
 )
