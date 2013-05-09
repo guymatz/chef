@@ -1,6 +1,6 @@
 # Deployment Settings
 default[:webplayer][:repo] = "git@github.com:iheartradio/web.git"
-default[:webplayer][:rev] = "release-4.11.1-zombie-uat1.1"
+default[:webplayer][:rev] = "release-4.11.1-zombie-uat1.2",
 default[:webplayer][:deploy_path] = "/data/www/webplayer"
 
 default[:webplayer][:packages] = %w{ libxslt-devel python27-debuginfo python27-libs python27-tools python27-devel python27 python27-test }

@@ -159,7 +159,7 @@ template "/etc/security/limits.d/webplayer.conf" do
   group "root"
   mode "0644"
   variables ({
-               :domain => node[:webplayer][:user],
+               :domain => "*",
                :ulimits => node[:webplayer][:ulimits]
              })
 end
