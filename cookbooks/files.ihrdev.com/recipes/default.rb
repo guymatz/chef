@@ -12,7 +12,7 @@ include_recipe "apache2"
 directory "/data/www/files.ihrdev.com" do
   owner node[:apache][:user]
   group "ihr-deployer"
-  mode 0770
+  mode 0775
   recursive true
 end
 
@@ -20,4 +20,5 @@ web_app "files.ihrdev.com" do
   server_name "files.ihrdev.com"
   server_aliases "files.ihr"
   docroot node[:files_ihrdev_com][:path]
+  directory_options ["Indexes", " FollowSymLinks"]
 end
