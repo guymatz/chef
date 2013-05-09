@@ -258,9 +258,9 @@ nagios_conf "services" do
             )
 end
 
-allcontacts = allcontacts.uniq { |c| c['id'] }
+allcontacts.uniq! { |c| c['id'] }
 nagios_conf "contacts" do
-  variables :admins => sysadmins, :members => members, :allcontacts => allcontacts.uniq! { |c| c['id'] }, :contact_groups => contactgroups
+  variables :admins => sysadmins, :members => members, :allcontacts => allcontacts, :contact_groups => contactgroups
 end
 
 nagios_conf "hostgroups" do
