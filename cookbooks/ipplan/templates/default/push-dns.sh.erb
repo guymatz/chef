@@ -8,7 +8,7 @@ fi
 
 sudo -v
 
-IPPLAN_HOST="<%= @ipplan_host %>"
+IPPLAN_HOST="use1b-ss-web001.ihrdev.com" #"<%= @ipplan_host %>"
 DNS_SERVERS="<%= @dns_servers.join(" ") %>"
 HOSTNAME=$(hostname -f)
 if [ "$IPPLAN_HOST" == "$HOSTNAME" ] ; then
