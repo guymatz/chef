@@ -6,3 +6,35 @@
 <%= k %> = <%= v %>
 <% end %>
 <% end %>
+
+[stats]
+pattern = ^stats.*
+retentions = 10:2160,60:10080,600:262974
+
+[carbon]
+pattern = ^carbon\.
+retentions = 60:90d
+
+[apilogins]
+pattern = ^api\.*
+retentions = 300:2160,60:10080,600:262974
+
+[ando]
+pattern = ^ando\.*
+retentions = 300:2160,60:10080,600:262974
+
+[twitter]
+pattern = ^twitter.*
+retentions = 60:43200,900:350400
+
+[dns]
+pattern = ^dns.*
+retentions = 300s:12h,10min:5y
+
+[qio]
+pattern = ^qio.*
+retentions = 10s:12h,1min:1w,10min:5y
+
+[default]
+pattern = .*
+retentions = 1min:12h,10min:1w,30min:1y,1h:5y

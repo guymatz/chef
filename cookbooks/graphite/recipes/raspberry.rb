@@ -30,5 +30,8 @@ git node[:graphite][:web_install_path] do
     repository node[:graphite][:repo]
     revision "HEAD"
     action :sync
-    not_if "test -d #{node[:graphite][:web_install_path]}/.git"
+end
+
+execute "make" do
+    command "cd  #{node[:graphite][:web_install_path]}; make"
 end
