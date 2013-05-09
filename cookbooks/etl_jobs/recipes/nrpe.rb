@@ -45,3 +45,11 @@ end
 nagios_nrpecheck "check_livethumbslog_exit_code" do
   command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /data/log/liveradiothumbslog/exitCode"
 end
+
+nagios_nrpecheck "check_sysinfo_exit_code" do
+  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /data/log/sysinfo/exitCode"
+end
+
+nagios_nrpecheck "check_event_exit_code" do
+  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /data/log/event/exitCode"
+end
