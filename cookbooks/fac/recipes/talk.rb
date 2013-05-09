@@ -51,3 +51,11 @@ if node.has_key? 'heartbeat'
   node.save
 end
 
+nagios_nrpecheck "Fac-Process-Talk" do
+  command "#{node['nagios']['plugin_dir']}/check_procs"
+  warning_condition "1:1"
+  critical_condition "1:1"
+  parameters "-C java -a '-Xmx4G -jar /data/jobs/fac/talk/fac-talk.jar initialOverlap=200'"
+  action :add
+  notifies :restart, resources(:service => "nagios-nrpe-server")
+end

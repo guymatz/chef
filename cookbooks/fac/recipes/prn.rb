@@ -52,3 +52,12 @@ if node.has_key? 'heartbeat'
   node.set[:heartbeat][:ha_resources]["fac-PRN"] = "fac-PRN"
   node.save
 end
+
+nagios_nrpecheck "Fac-Process-PRN" do
+  command "#{node['nagios']['plugin_dir']}/check_procs"
+  warning_condition "1:1"
+  critical_condition "1:1"
+  parameters "-C java -a '-Xmx4G -jar /data/jobs/fac/PRN/fac-PRN.jar initialOverlap=200'"
+  action :add
+  notifies :restart, resources(:service => "nagios-nrpe-server")
+end
