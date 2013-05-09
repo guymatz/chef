@@ -258,7 +258,12 @@ nagios_conf "services" do
             )
 end
 
-allcontacts.uniq! { |c| c['id'] }
+ruby_block "remove-dupes" do
+  block do
+    allcontacts.uniq! { |c| c['id'] }
+  end
+end
+
 nagios_conf "contacts" do
   variables :admins => sysadmins, :members => members, :allcontacts => allcontacts, :contact_groups => contactgroups
 end
