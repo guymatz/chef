@@ -2,7 +2,8 @@ name "db_master"
 description "db master"
 all_env = [
            "recipe[mysql]",
-           "recipe[mysql::server]"
+           "recipe[mysql::server]",
+           "recipe[users::deployer]"
 
 ]
 run_list(all_env)
