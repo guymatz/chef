@@ -201,12 +201,14 @@ template "#{node['apache']['dir']}/ports.conf" do
   notifies :restart, "service[apache2]"
 end
 
-template "#{node['apache']['dir']}/sites-available/default" do
-  source "default-site.erb"
-  owner "root"
-  group node['apache']['root_group']
-  mode 00644
-  notifies :restart, "service[apache2]"
+unless node[:apache][:default_site_enabled] == true
+  template "#{node['apache']['dir']}/sites-available/default" do
+    source "default-site.erb"
+    owner "root"
+    group node['apache']['root_group']
+    mode 00644
+    notifies :restart, "service[apache2]"
+  end
 end
 
 node['apache']['default_modules'].each do |mod|
