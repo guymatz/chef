@@ -8,30 +8,48 @@ nagios_nrpecheck "check_app_proc_playlogconsumer" do
   critical_condition "1:1"
 end
 
+nagios_nrpecheck "check_app_proc_enrichmentconsumer" do
+  command "#{node['nagios']['plugin_dir']}/check_procs -a '/home/amqp-consumer/enrichment-consumer'"
+  critical_condition "1:1"
+end
+
+nagios_nrpecheck "check_app_proc_responsyconsumer" do
+  command "#{node['nagios']['plugin_dir']}/check_procs -a '/home/amqp-consumer/responsys-consumer'"
+  critical_condition "1:1"
+end
+
 nagios_nrpecheck "check_playlog_exit_code" do
-  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /var/log/playlog/exitCode"
+  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /data/log/playlog/exitCode"
 end
 
 nagios_nrpecheck "check_skiplog_exit_code" do
-  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /var/log/skiplog/exitCode"
+  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /data/log/skiplog/exitCode"
 end
 
 nagios_nrpecheck "check_sysinfo_exit_code" do
-  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /var/log/sysinfo/exitCode"
+  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /data/log/sysinfo/exitCode"
 end
 
 nagios_nrpecheck "check_talkplaylog_exit_code" do
-  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /var/log/talkplaylog/exitCode"
+  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /data/log/talkplaylog/exitCode"
 end
 
 nagios_nrpecheck "check_talkthumbslog_exit_code" do
-  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /var/log/talkthumbslog/exitCode"
+  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /data/log/talkthumbslog/exitCode"
 end
 
 nagios_nrpecheck "check_customthumbslog_exit_code" do
-  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /var/log/customradiothumbslog/exitCode"
+  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /data/log/customradiothumbslog/exitCode"
 end
 
 nagios_nrpecheck "check_livethumbslog_exit_code" do
-  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /var/log/liveradiothumbslog/exitCode"
+  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /data/log/liveradiothumbslog/exitCode"
+end
+
+nagios_nrpecheck "check_sysinfo_exit_code" do
+  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /data/log/sysinfo/exitCode"
+end
+
+nagios_nrpecheck "check_event_exit_code" do
+  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /data/log/event/exitCode"
 end

@@ -1,0 +1,5 @@
+{
+  "id": "Responsys-Consumer-Running",
+  "host_name": "iad-jobserver101.ihr",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c check_app_proc_responsysconsumer -t 20"
+}

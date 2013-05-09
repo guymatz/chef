@@ -231,6 +231,38 @@ remote_file "/etc/init.d/facebook-consumer" do
   mode 0755
 end
 
+directory "/home/amqp-consumer/facebook-consumer-2" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+directory "/data/log/facebook-consumer-2" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+directory "/var/run/facebook-consumer-2" do
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+remote_file "/home/amqp-consumer/facebook-consumer-2/facebook_consumer.jar" do
+  source "http://yum.ihr/files/jobs/facebook-consumer-2/facebook_consumer.jar"
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+remote_file "/home/amqp-consumer/facebook-consumer-2/env.properties" do
+  source "http://yum.ihr/files/jobs/facebook-consumer-2/env.properties"
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+remote_file "/home/amqp-consumer/facebook-consumer-2/log4j.xml" do
+  source "http://yum.ihr/files/jobs/facebook-consumer-2/log4j.xml"
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+remote_file "/etc/init.d/facebook-consumer-2" do
+  source "http://yum.ihr/files/jobs/facebook-consumer-2/facebook.init"
+  mode 0755
+end
+
 directory "/home/amqp-consumer/responsys-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"
