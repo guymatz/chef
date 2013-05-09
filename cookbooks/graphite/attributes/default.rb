@@ -66,3 +66,7 @@ default['graphite']['encrypted_data_bag']['name'] = "secrets"
 default[:graphite][:repo] = "git@github.com:iheartradio/status.git"
 default[:graphite][:rev] = "deploy"
 default[:graphite][:web_install_path] = "/data/graphite/webapp/content/status/"
+
+default[:graphite][:amprepo] = "git@github.com:iheartradio/monitoring.git"
+default[:graphite][:amprev] = "deploy"
+default[:graphite][:amp_install_path] = "/data/"

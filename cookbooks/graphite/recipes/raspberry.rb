@@ -11,6 +11,8 @@ directory "/root/.ssh" do
     mode "0700"
 end
 
+package "gnu-free-sans-fonts"
+
 file "/root/.ssh/deploy" do
     mode "0400"
     content deploy_keys['private_key']
@@ -32,6 +34,3 @@ git node[:graphite][:web_install_path] do
     action :sync
 end
 
-execute "make" do
-    command "cd  #{node[:graphite][:web_install_path]}; make"
-end

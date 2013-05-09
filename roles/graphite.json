@@ -1,0 +1,26 @@
+{
+  "name": "graphite",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+    "splunk": {
+    }
+  },
+  "chef_environment": "development",
+  "chef_type": "role",
+  "run_list": [
+  ],
+  "env_run_lists": {
+  },
+  "authorization": {
+    "sudo": {
+        "users":  [
+           "astone",
+           "alevasseur"
+        ],
+        "passwordless": true
+    }
+  }
+}
