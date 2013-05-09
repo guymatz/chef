@@ -262,9 +262,6 @@ ruby_block "remove-dupes" do
   block do
     allcontacts.map! { |c| c.to_hash } 
     allcontacts.uniq! { |c| c['id'] }
-    allcontacts.each do |x|
-      Chef::Log.info("allcontacts value = #{x}")
-    end
   end
 end
 
