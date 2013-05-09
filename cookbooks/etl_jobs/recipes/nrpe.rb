@@ -13,7 +13,7 @@ nagios_nrpecheck "check_app_proc_enrichmentconsumer" do
   critical_condition "1:1"
 end
 
-nagios_nrpecheck "check_app_proc_responsyconsumer" do
+nagios_nrpecheck "check_app_proc_responsysconsumer" do
   command "#{node['nagios']['plugin_dir']}/check_procs -a '/home/amqp-consumer/responsys-consumer'"
   critical_condition "1:1"
 end
