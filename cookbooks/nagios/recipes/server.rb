@@ -260,11 +260,16 @@ end
 
 ruby_block "remove-dupes" do
   block do
+    allcontacts.map! { |c| c.to_hash } 
     allcontacts.uniq! { |c| c['id'] }
+    allcontacts.each do |x|
+      Chef::Log.info("allcontacts value = #{x}")
+    end
   end
 end
 
 nagios_conf "contacts" do
+  Chef::Log.info("allcontacts value = #{allcontacts}")
   variables :admins => sysadmins, :members => members, :allcontacts => allcontacts, :contact_groups => contactgroups
 end
 
