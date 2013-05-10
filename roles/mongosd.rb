@@ -3,6 +3,7 @@ description "mongosd"
 all_env = [
 	   "recipe[mongodb::mongosd]",
 	   "recipe[mongodb::ulimits]",
+           "recipe[mongodb::nagios]"
 	  ]
 run_list(all_env)
 env_run_lists(
