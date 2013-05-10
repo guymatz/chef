@@ -33,13 +33,7 @@ default['graphite']['carbon']['max_creates_per_second'] = "inf"
 default['graphite']['carbon']['max_updates_per_second'] = "1000"
 
 default['graphite']['storage_aggregation'] = nil
-default['graphite']['storage_schemas'] = [
-  {
-    'name' => 'catchall', 
-    'pattern' => '^.*', 
-    'retentions' => '60:100800,900:63000'
-  }
-]
+default['graphite']['storage_schemas'] = []
 
 case node['platform_family']
 when "debian"
