@@ -351,11 +351,11 @@ end
 python_pip "pytz" do
   action :install
 end
-directory "/data/log/radiomigration" do
-  owner "ihr-deployer"
-  group "ihr-deployer"
+git "/data/jobs/radiomigration" do
+  repository "git@github.com:iheartradio/radio-migration.git"
+  reference "master"
 end
-directory "/data/jobs/radiomigration" do
+directory "/data/log/radiomigration" do
   owner "ihr-deployer"
   group "ihr-deployer"
 end
@@ -363,12 +363,13 @@ directory "/data/jobs/radiomigration/data" do
   owner "ihr-deployer"
   group "ihr-deployer"
 end
-git "/data/jobs/radiomigration" do
-  user "ihr-deployer"
-  group "ihr-deployer"
-  repository "git@github.com:iheartradio/radio-migration.git"
-  reference "master"
-end
 bash "set-migration-perms" do
   code 'chown -R ihr-deployer. /data/jobs/radiomigration'
+end
+db_user = Chef::EncryptedDataBagItem.load("sqlserver", "users")
+cron_d "radiomigration" do
+  command "/usr/bin/cronwrap iad-jobserver101.ihr Radiomigration \"/data/jobs/radiomigration/ImportToDBFromCSV.sh localhost radio processed 10.10.182.175 appBatch #{db_user['appBatch']}\""
+  minute 50
+  hour 21
+  user 'ihr-deployer'
 end
