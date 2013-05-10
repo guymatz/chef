@@ -9,6 +9,7 @@
 include_recipe "users::amqp-consumer"
 
 package "jdk"
+package "freetds"
 
 directory "/data"
 directory "/data/jobs"
@@ -347,15 +348,13 @@ cron_d "pull_sysinfo_logs" do
   user 'ihr-deployer'
 end
 
-#directory "/usr/local/radiomigrations"
-#%w{ FileProcess_Live.py FileProcess.py FileProcessTalk.py ImportToDBFromCSV.sh RenameTables_Live.py RenameTables.py TruncateData.py }.each do |file|
-#  remote_file "/usr/local/radiomigrations/#{file}" do
-#    source "radiomigrations/#{file}"
-#  end
-#end
-#db_creds = Chef::EncryptedDataBagItem.load("mssqlserver", "radiomigration")
-#cron_d "radiomigration" do
-#  command "/usr/bin/cronwrap iad-jobserver101.ihr \"/usr/local/radiomigrations/ImportToDBFromCSV.sh 10.90.40.5 radio processed 10.10.182.175 #{db_creds['user']} #{db_creds['pass']}\""
-#  minute 50
-#  hour 21
-#end
+python_pip "pytz" do
+  action :install
+end
+directory "/data/log/radiomigration"
+directory "/data/jobs/radiomigration"
+directory "/data/jobs/radiomigration/data"
+git "/data/jobs/radiomigration" do
+  repository "git@github.com:iheartradio/radio-migration.git"
+  reference "master"
+end
