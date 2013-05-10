@@ -26,7 +26,7 @@ default['diamond']['statsdhandler'][0] = { "host" => "iad-statsd101.ihr", "port"
 default['diamond']['statsdhandler'][1] = { "host" => "iad-statsd102.ihr", "port" => 8125 }
 default['diamond']['tsdbhandler'] = { "host" => "127.0.0.1", "port" => 4242, "timeout" => 15 }
 default['diamond']['mysqlhandler'] = { "host" => "127.0.0.1", "port" => 3306, "username" => nil, "password" => nil, "database" => "diamond", "table" => "metrics", "col_time" => "timestamp", "col_metric" => "metric", "col_value" => "value" }
-default['diamond']['collectors'] = { "hostname_method" => "smart", "hostname" => nil, "path_prefix" => nil, "path_suffix" => nil, "interval" => 120 }
+default['diamond']['collectors'] = { "hostname_method" => "smart", "hostname" => nil, "path_prefix" => nil, "path_suffix" => nil, "interval" => 60 }
 
 default['diamond']['force_install'] = false
 default['diamond']['add_collectors'] = ['cpu', 'diskspace', 'diskusage', 'loadavg', 'memory', 'sockstat', 'vmstat', 'network']
