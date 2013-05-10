@@ -351,10 +351,24 @@ end
 python_pip "pytz" do
   action :install
 end
-directory "/data/log/radiomigration"
-directory "/data/jobs/radiomigration"
-directory "/data/jobs/radiomigration/data"
+directory "/data/log/radiomigration" do
+  owner "ihr-deployer"
+  group "ihr-deployer"
+end
+directory "/data/jobs/radiomigration" do
+  owner "ihr-deployer"
+  group "ihr-deployer"
+end
+directory "/data/jobs/radiomigration/data" do
+  owner "ihr-deployer"
+  group "ihr-deployer"
+end
 git "/data/jobs/radiomigration" do
+  user "ihr-deployer"
+  group "ihr-deployer"
   repository "git@github.com:iheartradio/radio-migration.git"
   reference "master"
+end
+bash "set-migration-perms" do
+  code 'chown -R ihr-deployer. /data/jobs/radiomigration'
 end
