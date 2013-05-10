@@ -325,16 +325,16 @@ cron_d "archive_logs" do
   minute 15
 end
 
-apis = search(:node, "role:amp AND chef_environment:#{node.chef_environment}")
-apis.each do |x|
-  ruby_block x.name do
-    block do
-      file = Chef::Util::FileEdit.new('/data/jobs/api_servers')
-      file.insert_line_if_no_match("/#{x.name}/m", "#{x.name}")
-      file.write_file
-    end
-  end
-end
+#apis = search(:node, "role:amp AND chef_environment:#{node.chef_environment}")
+#apis.each do |x|
+#  ruby_block x.name do
+#    block do
+#      file = Chef::Util::FileEdit.new('/data/jobs/api_servers')
+#      file.insert_line_if_no_match("/#{x.name}/m", "#{x.name}")
+#      file.write_file
+#    end
+#  end
+#end
 
 cron_d "pull_event_logs" do
   command "/usr/bin/cronwrap iad-jobserver101.ihr Pull-Event-Logs \"for i in `/bin/cat /data/jobs/api_servers`; do /usr/bin/scp $i:/data/apps/tomcat7/logs/event.log.`/bin/date --date='1 day ago' +\%Y-\%m-\%d` /data/log/event/input/$i.event.log.`/bin/date --date='1 day ago' +\%Y-\%m-\%d`; done\""
