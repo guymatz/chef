@@ -27,7 +27,7 @@ default[:radioedit][:cms][:branch] = node.run_list.include?('role[radioedit_serv
 # Requirements
 default[:radioedit][:image][:packages] = %w{ python-imaging python-psycopg2 postgresql-libs }
 
-default[:radioedit][:cms][:packages] = %w{ python-psycopg2 postgresql-libs }
+default[:radioedit][:cms][:packages] = %w{ python-psycopg2 postgresql-libs libjpeg-devel }
 
 default[:radioedit][:core][:packages] = %w{ python27 python27-libs python27-devel python27-test python27-tools nginx zlib-devel libjpeg zlib gcc python-devel git libevent-devel libevent zeromq-devel zeromq python-setuptools python-ldap postgresql-devel openldap-devel varnish readline-devel patch libjpeg-devel }
 default[:radioedit][:core][:pips] = %w{ supervisor pymongo python-memcached gunicorn greenlet statsd pyzmq }
