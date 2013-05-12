@@ -164,13 +164,37 @@ template "/etc/security/limits.d/webplayer.conf" do
              })
 end
 
+logrotate_app "apache2" do
+  cookbook "logrotate"
+  path "#{node[:apache][:log_dir]}/*log*"
+  options ["missingok", "copytruncate", "compress", "notifempty"]
+  frequency "hourly"
+  enable true
+  create "0644 nobody root"
+  rotate 1
+  size (1024**2)*2 # 2MB
+  postrotate "find #{node[:apache][:log_dir]} -name '*.gz*' -exec rm -rf {} \\;"
+end
+
 logrotate_app "webplayer" do
   cookbook "logrotate"
   path "/var/log/supervisor/*.log"
   options ["missingok", "delaycompress", "notifempty"]
   frequency "daily"
   enable true
-  postrotate "find /var/log/supervisor -mtime +7 -exec rm -rf {} \;"
+  postrotate "find /var/log/supervisor -mtime +1 -exec rm -rf {} \\;"
   create "0644 nobody root"
-  rotate 7
+  rotate 1
+end
+
+logrotate_app "mail" do
+  cookbook "logrotate"
+  path "/var/log/mail.*"
+  options ["missingok", "copytruncate", "compress", "notifempty"]
+  frequency "hourly"
+  enable true
+  create "0644 nobody root"
+  rotate 1
+  size (1024**2)*2 # 2MB
+  postrotate "find /var/log/ -name '*.gz*' -mtime +1 -exec rm -rf {} \\;"
 end
