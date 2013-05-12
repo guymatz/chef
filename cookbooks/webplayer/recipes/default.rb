@@ -168,7 +168,7 @@ logrotate_app "apache2" do
   cookbook "logrotate"
   path "#{node[:apache][:log_dir]}/*log*"
   options ["missingok", "copytruncate", "compress", "notifempty"]
-  frequency "hourly"
+  frequency "daily"
   enable true
   create "0644 nobody root"
   rotate 1
@@ -191,10 +191,16 @@ logrotate_app "mail" do
   cookbook "logrotate"
   path "/var/log/mail.*"
   options ["missingok", "copytruncate", "compress", "notifempty"]
-  frequency "hourly"
+  frequency "daily"
   enable true
   create "0644 nobody root"
   rotate 1
   size (1024**2)*2 # 2MB
   postrotate "find /var/log/ -name '*.gz*' -mtime +1 -exec rm -rf {} \\;"
+end
+
+cron_d "Logrotate" do
+  minute 0
+  command "/usr/sbin/logrotate -f /etc/logrotate.conf"
+  user "root"
 end
