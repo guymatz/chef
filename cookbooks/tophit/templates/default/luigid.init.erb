@@ -1,0 +1,95 @@
+#!/bin/env bash
+set -e
+
+### BEGIN INIT INFO
+# chkconfig: 2345 95 20
+# processname: luigid
+# description: luigi daemon
+### END INIT INFO
+
+pidfile=/var/run/luigid.pid
+
+check_status() {
+
+
+    if [[ -s $pidfile ]] ; then
+        echo 1
+    else
+        echo 0
+    fi
+}
+
+# Starts the application
+start() {
+
+    # At first checks if the application is already started calling the check_status
+    # function
+    running=`check_status`
+
+    if [ $running -ne 0 ] ; then
+        echo "The application (luigid) already started"
+        exit 1
+    fi
+
+    # If the application isn't running, starts it
+    echo -n "Starting application (luigid): "
+
+    source /data/apps/tophit/shared/env/bin/activate
+    sudo -u nobody luigid --background --pidfile=$pidfile --logfile=/var/log/luigid.log
+    echo "OK"
+}
+
+# Stops the application
+stop() {
+
+    # Like as the start function, checks the application status
+    running=`check_status`
+
+    if [ $running -eq 0 ] ; then
+        echo "Application (luigid) is already stopped"
+        exit 1
+    fi
+
+    # Kills the application process
+    echo -n "Stopping application (luigid): "
+    kill -SIGTERM `cat /var/run/luigid.pid` &
+    echo -n > /var/run/luigid.pid
+    echo "OK"
+}
+
+# Show the application status
+status() {
+
+    # The check_status function, again...
+    running=`check_status`
+
+    # If the PID was returned means the application is running
+    if [ $running -ne 0 ] ; then
+        echo "Application (luigid) is started"
+    else
+        echo "Application (luigid) is stopped"
+    fi
+
+}
+
+# Main logic, a simple case to call functions
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status
+        ;;
+    restart|reload)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|reload|status}"
+        exit 1
+esac
+
+exit 0
