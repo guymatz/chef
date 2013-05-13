@@ -57,6 +57,7 @@ directory "#{node[:webplayer][:deploy_path]}/logs" do
   owner node[:webplayer][:user]
   group node[:webplayer][:group]
   mode "0755"
+  recursive true
 end
 
 link node[:supervisor][:log_dir] do
