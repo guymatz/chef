@@ -28,3 +28,4 @@ end
 #### so we can track them easily.
 
 include_recipe "jobserver::fac"
+include_recipe "jobserver::tophit"
