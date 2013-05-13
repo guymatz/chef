@@ -53,3 +53,11 @@ end
 nagios_nrpecheck "check_event_exit_code" do
   command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /data/log/event/exitCode"
 end
+
+nagios_nrpecheck "check_profile_exit_code" do
+  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /data/log/profile/exitCode"
+end
+
+nagios_nrpecheck "check_radiomigration_exit_code" do
+  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /data/jobs/radiomigration/exitCode"
+end
