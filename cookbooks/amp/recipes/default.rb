@@ -9,7 +9,7 @@
 
 node.set[:java][:oracle][:accept_oracle_download_terms] = true
 node.save
-%w{ users::amp java tomcat7 mongosd amp::logging amp::nagios }.each do |r|
+%w{ users::amp java tomcat7 amp::logging amp::nagios }.each do |r|
   include_recipe r
 end
 
@@ -111,12 +111,12 @@ template "#{node[:tomcat7][:install_path]}/bin/setenv.sh" do
   mode "0755"
 end
 
-template "/etc/mongosd.conf" do
-  source "mongosd.conf.erb"
-  owner node[:mongodb][:user]
-  group node[:mongodb][:group]
-  notifies :restart, "service[mongosd]", :delayed
-end
+#template "/etc/mongosd.conf" do
+#  source "mongosd.conf.erb"
+#  owner node[:mongodb][:user]
+#  group node[:mongodb][:group]
+#  notifies :restart, "service[mongosd]", :delayed
+#end
 
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", "amp")
 
@@ -151,10 +151,10 @@ service "pgbouncer" do
   action [:enable, :start]
 end
 
-service "mongosd" do
-  supports :stop => true, :start => true, :restart => true, :status => true
-  action [:enable, :start]
-end
+#service "mongosd" do
+#  supports :stop => true, :start => true, :restart => true, :status => true
+#  action [:enable, :start]
+#end
 
 %w{ catalina.policy catalina.properties context.xml server.xml tomcat-users.xml web.xml }.each do |conf|
   template "#{node[:tomcat7][:install_path]}/conf/#{conf}" do

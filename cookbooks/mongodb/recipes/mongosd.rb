@@ -1,3 +1,10 @@
+node[:mongodb][:packages].each do |mongo_pkg|
+  yum_package mongo_pkg do
+    arch nil
+  end
+end
+
+
 directory "#{node[:mongosd][:mongosdata_dir]}" do
   owner "mongod"
   group "mongod"
