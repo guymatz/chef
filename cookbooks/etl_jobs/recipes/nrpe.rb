@@ -1,20 +1,20 @@
 nagios_nrpecheck "check_app_proc_facebookconsumer" do
-  command "#{node['nagios']['plugin_dir']}/check_procs -a '/home/amqp-consumer/facebook-consumer'"
+  command "#{node['nagios']['plugin_dir']}/check_procs -C java -a '/home/amqp-consumer/facebook-consumer'"
   critical_condition "2:2"
 end
 
 nagios_nrpecheck "check_app_proc_playlogconsumer" do
-  command "#{node['nagios']['plugin_dir']}/check_procs -a '/home/amqp-consumer/playlog-consumer'"
+  command "#{node['nagios']['plugin_dir']}/check_procs -C java -a '/home/amqp-consumer/playlog-consumer'"
   critical_condition "1:1"
 end
 
 nagios_nrpecheck "check_app_proc_enrichmentconsumer" do
-  command "#{node['nagios']['plugin_dir']}/check_procs -a '/home/amqp-consumer/enrichment-consumer'"
+  command "#{node['nagios']['plugin_dir']}/check_procs -C java -a '/home/amqp-consumer/enrichment-consumer'"
   critical_condition "1:1"
 end
 
 nagios_nrpecheck "check_app_proc_responsysconsumer" do
-  command "#{node['nagios']['plugin_dir']}/check_procs -a '/home/amqp-consumer/responsys-consumer'"
+  command "#{node['nagios']['plugin_dir']}/check_procs -C java -a '/home/amqp-consumer/responsys-consumer'"
   critical_condition "1:1"
 end
 
