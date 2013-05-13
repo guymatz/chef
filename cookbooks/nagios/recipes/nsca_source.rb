@@ -69,7 +69,7 @@ template "/etc/nagios/send_nsca.conf" do
   source "send_nsca.cfg.erb"
   owner "root"
   group "root"
-  mode "0600"
+  mode "0644"
   variables ({
                :encryption => node[:nsca][:encryption],
                :authkey => authkey
