@@ -61,3 +61,7 @@ end
 nagios_nrpecheck "check_radiomigration_exit_code" do
   command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /data/jobs/radiomigration/exitCode"
 end
+
+nagios_nrpecheck "check_exact_target_email_status" do
+  command "#{node['nagios']['plugin_dir']}/check_exact_target_statuses.py"
+end
