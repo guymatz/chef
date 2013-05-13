@@ -6,7 +6,7 @@ default[:webplayer][:deploy_path] = "/data/www/webplayer"
 default[:webplayer][:packages] = %w{ libxslt-devel python27-debuginfo python27-libs python27-tools python27-devel python27 python27-test }
 
 default[:webplayer][:user] = "nobody"
-case node['platform']
+case node[:platform]
 when "debian"
   default[:webplayer][:group] = "nogroup"
 when "centos"
