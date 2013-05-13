@@ -1,7 +1,7 @@
 {
     "id": "aclements",
     "name": "Aaron Clements",
-    "email":    "aaronclements@clearchannel.com",
+    "email":    "",
     "groups":   ["sysadmin"],
     "ssh_keys": [
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7AAxqhXOM0nV8p3IAnq5CgcpdPA6IzoqGDVo8eNSdVrt96J8z9cfUyfl079nDsc5KyNqJzz7EottKlIhdntOn597A8hzfOtZ+kgqMishWtowGp7uZK0Y2kewDFhc55AdPBUaFVDbE4sXG2l+kcZVVTmNv5FleIJ98Kldth7NQbE+Ow3L4+I4uVa1PLbguB5wWXFaikwqaipCiUCGgkjY18wJw+FMguSSw3AZDe/HXXzpzmd8dYr1av5bu+xC7ITHDjHtgD8TRCJsW/XgHpaW1lxykBM2i3cI4rUxE/qhxT2y7nZt1AmsM8P06hblpRPIGxJt0/viyRzGaRrBR8T5j aclements@CCCNYC01CAC.local",
