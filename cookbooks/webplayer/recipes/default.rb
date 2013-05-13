@@ -65,11 +65,16 @@ end
 
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", "webplayers")
 
-begin
-  res = search(:node, "chef_environment:#{node.chef_environment} AND recipes:webplayer\\:\\:memcached")
-rescue  Net::HTTPServerException
-  Chef::Log.info("Could not search for memcached servers, bailing out!")
-  exit
+
+if Chef::Config[:solo]
+    Chef::Log.warn("This recipe uses search. Chef Solo does not support search.")
+else
+  begin
+    res = search(:node, "chef_environment:#{node.chef_environment} AND recipes:webplayer\\:\\:memcached")
+  rescue  Net::HTTPServerException
+    Chef::Log.info("Could not search for memcached servers, bailing out!")
+    exit
+  end
 end
 
 # data bucket = 11212
@@ -108,7 +113,7 @@ if not tagged?("webplayer-deployed")
     before_restart do
       bash "Webplayers: Build Static Resources" do
         user "root"
-        cwd "#{node[:webplayer][:deploy_path]}"
+        cwd node[:webplayer][:deploy_path]
         code <<-EOH
       source shared/env/bin/activate
       cd current
