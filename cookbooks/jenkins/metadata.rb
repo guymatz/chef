@@ -1,9 +1,15 @@
- maintainer       "AJ Christensen"
-maintainer_email "aj@junglist.gen.nz"
+name             "jenkins"
+maintainer       "Opscode, Inc."
+maintainer_email "cookbooks@opscode.com"
 license          "Apache 2.0"
 description      "Installs and configures Jenkins CI server & slaves"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.6.3"
+version          "0.8.0"
 
-%w(runit java).each { |cb| depends cb }
-%w(iptables yum apt).each { |cb| recommends cb }
+depends "java"
+depends "runit", ">= 1.0.0"
+depends "apt"
+
+depends "apache2"
+depends "nginx"
+depends "iptables"
