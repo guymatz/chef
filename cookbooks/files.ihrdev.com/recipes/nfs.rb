@@ -1,5 +1,5 @@
 
-unless node.run_list.include?("role[dell]")
+unless node.run_list.include?("recipe[files.ihrdev.com::nfs]")
   node.run_list << 'recipe[files.ihrdev.com::nfs]'
 end
 
