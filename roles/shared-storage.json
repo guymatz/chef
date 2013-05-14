@@ -6,7 +6,8 @@
   "env_run_lists": {
   },
   "run_list": [
-
+"recipe[auto-bonded]",
+      "recipe[shared-storage]"
   ],
   "description": "",
   "chef_type": "role",
