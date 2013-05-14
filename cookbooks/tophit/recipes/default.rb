@@ -11,6 +11,8 @@ node[:tophit][:packages].each do |p|
   package p
 end
 
+include_recipe "rsyslog::client_mount"
+
 directory node[:tophit][:deploy_path] do
   owner "ihr-deployer"
   group "ihr-deployer"

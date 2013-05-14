@@ -28,7 +28,7 @@ start() {
 
     if [ $running -ne 0 ] ; then
         echo "The application (luigid) already started"
-        exit 1
+        exit 0
     fi
 
     # If the application isn't running, starts it
@@ -48,7 +48,7 @@ stop() {
 
     if [ $running -eq 0 ] ; then
         echo "Application (luigid) is already stopped"
-        exit 1
+        exit 0
     fi
 
     # Kills the application process
@@ -91,7 +91,7 @@ case "$1" in
         ;;
     *)
         echo "Usage: $0 {start|stop|restart|reload|status}"
-        exit 1
+        exit 0
 esac
 
 exit 0
