@@ -25,7 +25,7 @@
 
 import time
 import re
-from socket import hostname
+from socket import gethostname
 
 from logster.logster_helper import MetricObject, LogsterParser
 from logster.logster_helper import LogsterParsingException
