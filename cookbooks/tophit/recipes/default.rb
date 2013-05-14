@@ -11,7 +11,7 @@ node[:tophit][:packages].each do |p|
   package p
 end
 
-directory "#{node[:tophit][:deploy_path]}" do
+directory node[:tophit][:deploy_path] do
   owner "ihr-deployer"
   group "ihr-deployer"
   mode "0775"
@@ -26,7 +26,7 @@ python_virtualenv "#{node[:tophit][:deploy_path]}/shared/env" do
   action :create
 end
 
-deploy_revision "#{node[:tophit][:deploy_path]}" do
+deploy_revision node[:tophit][:deploy_path] do
   repo node[:tophit][:repo]
   branch node[:tophit][:rev]
   migrate false
