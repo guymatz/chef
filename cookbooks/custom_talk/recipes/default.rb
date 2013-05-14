@@ -7,6 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 include_recipe "users::deployer"
+#include_recipe "python::virtualenv"
 
 git "/data/apps/www/custom_talk" do
   repository "git@github.com:iheartradio/tool-talk.git"
@@ -25,19 +26,20 @@ pkgs.each do |p|
   package p
 end
 
-python_virtualenv '/data/apps/www/custom_talk' do
-  owner 'ihr-deployer'
-  group 'ihr-deployer'
+python_virtualenv "/data/apps/www/custom_talk" do
+  owner 'apache'
+  group 'apache'
+  action :create
 end
 
 pips = %w{ pyodbc lxml mako jinja2 pymongo python-ldap psycopg2 django }
 
-pips.each do |p|
-  python_pip p do
-    virtualenv '/data/apps/www/custom_talk'
-    action :install
-  end
-end
+#pips.each do |p|
+#  python_pip p do
+#    virtualenv '/data/apps/www/custom_talk'
+#    action :install
+#  end
+#end
 
 web_app "custom_talk" do
   cookbook 'custom_talk'
