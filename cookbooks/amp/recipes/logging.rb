@@ -37,7 +37,6 @@ template "#{node[:amp][:logging][:script_path]}/extended-log.sh" do
   mode "755"
   variables({
               :script_dir => node[:amp][:logging][:script_path],
-              :log_dir => node[:amp][:logging][:log_path],
               :tomcat_dir => node[:tomcat7][:install_path]
             })
 end
@@ -50,7 +49,7 @@ template "#{node[:amp][:logging][:script_path]}/api-logs.py" do
 end
 
 template "#{node[:amp][:logging][:script_path]}/apiparse.py" do
-  source "apiparse.py"
+  source "apiparse.py.erb"
   owner node[:amp][:logging][:user]
   group node[:amp][:logging][:group]
   mode "0755"

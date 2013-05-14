@@ -7,7 +7,7 @@ export CATALINA_PID=/var/run/tomcat/tomcat.pid
 
 CATALINA_OPTS="-server -Djava.rmi.server.hostname=${HOST} -Dcom.sun.management.jmxremote.port=8999 -Dcom.sun.management.jmxremote.ssl=false  -Dcom.sun.management.jmxremote.authenticate=false"
 
-JAVA_OPTS="-Xms512M -Xmx7G -XX:MaxPermSize=512m -XX:ThreadStackSize=256 -XX:+UseParallelGC -XX:+UseParallelOldGC -XX:+UseAdaptiveSizePolicy -Dnetworkaddress.cache.ttl=30 -Dnetworkaddress.cache.negative.ttl=1 -Duser.timezone=US/Eastern -XX:+PrintGCDetails -Xloggc:/data/apps/tomcat7/logs/gc.log -Dsun.net.client.defaultConnectTimeout=20000 -Dsun.net.client.defaultReadTimeout=20000 $JAVA_OPTS"
+JAVA_OPTS="-Xms512M -Xmx7G -XX:MaxPermSize=512m -XX:ThreadStackSize=256 -XX:+UseParallelGC -XX:+UseParallelOldGC -XX:+UseAdaptiveSizePolicy -Dnetworkaddress.cache.ttl=30 -Dnetworkaddress.cache.negative.ttl=1 -Duser.timezone=US/Eastern -XX:+PrintGCDetails -Xloggc:<%= @tomcat_dir %>/logs/gc.log -Dsun.net.client.defaultConnectTimeout=20000 -Dsun.net.client.defaultReadTimeout=20000 $JAVA_OPTS"
 
 export CATALINA_OPTS JAVA_OPTS
 

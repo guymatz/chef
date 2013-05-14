@@ -109,6 +109,9 @@ template "#{node[:tomcat7][:install_path]}/bin/setenv.sh" do
   owner node[:tomcat7][:user]
   group node[:tomcat7][:group]
   mode "0755"
+  variables({
+              :tomcat_dir => node[:tomcat7][:install_path]
+            })
 end
 
 #template "/etc/mongosd.conf" do
