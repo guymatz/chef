@@ -22,6 +22,12 @@
 # limitations under the License.
 #
 
+node.set[:java][:oracle][:accept_oracle_download_terms] = true
+node.save
+%w{ java }.each do |r|
+  include_recipe r
+end
+
 pkey = "#{node[:jenkins][:server][:home]}/.ssh/id_rsa"
 tmp = "/tmp"
 

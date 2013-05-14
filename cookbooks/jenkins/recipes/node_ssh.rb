@@ -21,12 +21,18 @@
 # limitations under the License.
 #
 
+node.set[:java][:oracle][:accept_oracle_download_terms] = true
+node.save
+%w{ java  groovy }.each do |r|
+  include_recipe r
+end
+
 unless node[:jenkins][:server][:pubkey]
   host = node[:jenkins][:server][:host]
   if host == node[:fqdn]
     host = URI.parse(node[:jenkins][:server][:url]).host
   end
-  jenkins_node = search(:node, "fqdn:#{host}").first
+  jenkins_node = search(:node, "roles:build-master AND chef_environment:#{node.chef_environment}").first
   node.set[:jenkins][:server][:pubkey] = jenkins_node[:jenkins][:server][:pubkey]
 end
 
