@@ -3,6 +3,8 @@ unless node.run_list.include?("role[dell]")
   node.run_list << 'recipe[files.ihrdev.com::nfs]'
 end
 
+include_recipe "users::deployer"
+
 hosts = search(:node, "recipes:files.ihrdev.com AND chef_environment:#{node.chef_environment}")
 ips = Array.new
 hosts.each do |h|
