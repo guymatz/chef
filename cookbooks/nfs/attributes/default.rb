@@ -34,7 +34,7 @@ default['nfs']['config']['server_template'] = "/etc/sysconfig/nfs"
 
 case node['platform_family']
 when "rhel"
-  # RHEL6 edge case package set and portmap name 
+  # RHEL6 edge case package set and portmap name
   if node['platform_version'].to_i >= 6
     default['nfs']['packages'] = %w{ nfs-utils rpcbind }
     default['nfs']['service']['portmap'] = "rpcbind"
@@ -52,7 +52,7 @@ when "debian"
     default['nfs']['service']['portmap'] = "rpcbind"
     default['nfs']['packages'] = %w{ nfs-common rpcbind }
   # Ubuntu 11.10 edge case package set and portmap name
-  elsif node['platform_version'].to_f >= 11.10 
+  elsif node['platform_version'].to_f >= 11.10
     default['nfs']['service']['portmap'] = "rpcbind-boot"
     default['nfs']['packages'] = %w{ nfs-common rpcbind }
   end
