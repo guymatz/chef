@@ -37,6 +37,7 @@ start() {
     source /data/apps/tophit/shared/env/bin/activate
     sudo -u nobody luigid --background --pidfile=$pidfile --logfile=/var/log/luigid.log
     echo "OK"
+    exit 0
 }
 
 # Stops the application
@@ -55,6 +56,7 @@ stop() {
     kill -SIGTERM `cat /var/run/luigid.pid` &
     echo -n > /var/run/luigid.pid
     echo "OK"
+    exit 0
 }
 
 # Show the application status
