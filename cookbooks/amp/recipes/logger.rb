@@ -45,3 +45,20 @@ template "#{node[:tomcat7][:install_path]}/bin/setenv.sh" do
               :tomcat_dir => node[:tomcat7][:install_path]
             })
 end
+
+file "/etc/rsyslog.d/05-search-exit.conf" do
+  action :create_if_missing
+  owner "root"
+  group "root"
+  mode "0755"
+  content <<-EOH
+  $ModLoad imfile
+  $ModLoad imuxsock
+
+  # Watch #{node[:tomcat7][:install_path]}/logs/search-exit.log
+  $InputFileName #{node[:tomcat7][:install_path]}/logs/search-exit.log
+  $InputFileStateFile state-search-exit
+  $InputFileTag search-exit:
+EOH
+  only_if "test -d /etc/rsyslog.d"
+end

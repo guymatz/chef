@@ -13,3 +13,7 @@ end
 %w{ users tomcat7 java hostsfile mongodb nagios cron }.each do |dep|
   depends dep
 end
+
+%w{ rsyslog }.each do |sug|
+  suggests sug
+end
