@@ -23,7 +23,7 @@ nagios_nrpecheck "Amp-Extended-Logs" do
   warning_condition "5"
   critical_condition "10"
   action :add
-  notifies :restart, service["nagios-nrpe-server"], :delayed
+  notifies :restart, "service[nagios-nrpe-server]", :delayed
 end
 
 template "#{node[:nagios][:plugin_dir]}/extended-alert-500.sh" do
@@ -38,7 +38,7 @@ nagios_nrpecheck "Amp-Extended-500-Logs" do
   warning_condition "5"
   critical_condition "10"
   action :add
-  notifies :restart, service["nagios-nrpe-server"], :delayed
+  notifies :restart, "service[nagios-nrpe-server]", :delayed
 end
 
 template "#{node[:nagios][:plugin_dir]}/extended-alert-mean-response.sh" do
@@ -51,17 +51,17 @@ end
 nagios_nrpecheck "Amp-Extended-Mean-Response" do
   command "#{node[:nagios][:plugin_dir]}/extended-alert-mean-response.sh"
   action :add
-  notifies :restart, service["nagios-nrpe-server"], :delayed
+  notifies :restart, "service[nagios-nrpe-server]", :delayed
 end
 
 nagios_nrpecheck "Amp-Extended-500-Rate" do
   command "#{node[:amp][:logging][:script_path]}/apiparse.py -i #{node[:amp][:logging][:log_path]}/$(ls -ltr #{node[:amp][:logging][:log_path]} | grep -v error | tail -1 | awk '{print $9}') -t requests -c 4"
   action :add
-  notifies :restart, service["nagios-nrpe-server"], :delayed
+  notifies :restart, "service[nagios-nrpe-server]", :delayed
 end
 
 nagios_nrpecheck "Amp-Extended-Logins" do
   command "#{node[:amp][:logging][:script_path]}/apiparse.py -i #{node[:amp][:logging][:log_path]}/$(ls -ltr #{node[:amp][:logging][:log_path]} | grep -v error | tail -1 | awk '{print $9}') -t logins -c 5"
   action :add
-  notifies :restart, service["nagios-nrpe-server"]
+  notifies :restart, "service[nagios-nrpe-server]"
 end
