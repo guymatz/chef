@@ -4,6 +4,8 @@ mount node[:mongodb][:data_mount_point] do
   action [:mount, :enable]
 end
 
+include_recipe "users::mongodb"
+
 directory "#{node[:mongodb][:pidfile_loc]}" do
   owner "mongod"
   group "mongod"

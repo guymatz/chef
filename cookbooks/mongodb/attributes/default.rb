@@ -5,7 +5,7 @@ include_attribute 'mongodb::mongosd'
 include_attribute 'mongodb::cfgserver'
 
 
-default[:mongodb][:packages] = %w{mongo-10gen mongo-10gen-server numactl pymongo}
+default[:mongodb][:packages] = %w{mongo-10gen mongo-10gen-server numactl pymongo munin-node}
 
 #/etc/init.d/mongod startup file elements
 default[:mongodb][:user]		='mongod'
