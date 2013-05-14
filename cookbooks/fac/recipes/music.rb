@@ -79,5 +79,4 @@ cron_d "fac-music" do
   weekday "2" # tuesday
   command "/usr/bin/cronwrap iad-jobserver101 fac-music \"#{script_dir}/fac-incremental-runner.sh\""
   user "root"
-  action :delete
 end
