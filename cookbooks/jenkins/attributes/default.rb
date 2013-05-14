@@ -37,8 +37,7 @@ end
 
 default[:jenkins][:server][:port] = 8080
 default[:jenkins][:server][:host] = node[:fqdn]
-default[:jenkins][:server][:url]  = "http://build.ihrdev.com:#{node[:jenkins][:server][:port]}"
-#default[:jenkins][:server][:url]  = "http://#{node[:jenkins][:server][:host]}:#{node[:jenkins][:server][:port]}"
+default[:jenkins][:server][:url]  = "http://#{node[:jenkins][:server][:host]}:#{node[:jenkins][:server][:port]}"
 
 default[:jenkins][:iptables_allow] = "disable"
 
