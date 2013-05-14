@@ -20,13 +20,32 @@ include_recipe "apache2::mod_wsgi"
 aliases = {'/custom_talk/public/tp_shared' => '/data/aps/www/custom_talk/tp_shared/public',
            '/custom_talk/public' => '/data/apps/www/custom_talk/public'}
 
+pkgs = %w{ openldap-devel freetds unixODBC-devel }
+pkgs.each do |p|
+  package p
+end
+
+python_virtualenv '/data/apps/www/custom_talk' do
+  owner 'ihr-deployer'
+  group 'ihr-deployer'
+end
+
+pips = %w{ pyodbc lxml mako jinja2 pymongo python-ldap psycopg2 django }
+
+pips.each do |p|
+  python_pip p do
+    virtualenv '/data/apps/www/custom_talk'
+    action :install
+  end
+end
+
 web_app "custom_talk" do
   cookbook 'custom_talk'
   server_name node['hostname']
   server_aliases [node['fqdn']]
   docroot "/data/apps/www/custom_talk"
   app_alias aliases
-  wsgi_daemon 'customtalk_prod user=apache threads=15'
+  wsgi_daemon 'customtalk_prod user=apache threads=15 python-path=/data/apps/www/custom_talk:/data/apps/www/custom_talk/env/lib/python2.7/site-packages'
   wsgi_alias '/custom_talk /data/apps/www/custom_talk/customtalk.wsgi'
   wsgi_location '/custom_talk'
   wsgi_proc 'customtalk_prod'
