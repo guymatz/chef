@@ -7,6 +7,6 @@ nfs_export node[:rsyslog][:log_dir] do
   network "10.0.0.0/8"
   writeable false
   sync true
-  options ["no_root_squash"]
+  options ["no_root_squash","insecure"]
 end
 

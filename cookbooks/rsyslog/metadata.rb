@@ -10,7 +10,7 @@ recipe            "rsyslog", "Installs rsyslog"
 recipe            "rsyslog::client", "Sets up a client to log to a remote rsyslog server"
 recipe            "rsyslog::server", "Sets up an rsyslog server"
 
-%w{ amp }.each do |dep|
+%w{ amp nfs }.each do |dep|
   depends dep
 end
 

@@ -1,9 +1,9 @@
 
 
 
-default[:fac][:PRN][:version] = "3.4.10"
-default[:fac][:talk][:version] = "3.4.10"
-default[:fac][:music][:version] = "3.4.6"
+default[:fac][:PRN][:version] = "3.4.14"
+default[:fac][:talk][:version] = "3.4.14"
+default[:fac][:music][:version] = "3.4.14"
 default[:fac][:radiobuild][:version] = "1.0.12"
 
 default[:fac][:script_path] = "/data/jobs/fac"
