@@ -6,3 +6,4 @@ description      'Installs/Configures custom_talk'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.1.1'
 depends          'apache2'
+depends          'python'
