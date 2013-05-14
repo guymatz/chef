@@ -157,10 +157,21 @@ when "centos"
         not_if { node.normal.has_key?('whipped') }
         notifies :restart, "service[network]", :immediately
       end
+    elsif intf[:vlan] == "600" && !node.normal.attribute?("whipped")
+      Chef::Log.info("Adjusting Default GW to SAN")
+      ruby_block "Setup SAN Default GW" do
+        block do
+          file = Chef::Util::FileEdit.new("/etc/sysconfig/network")
+          file.search_file_delete_line("/GATEWAY=10\.5\.40\.1/")
+          file.insert_line_if_no_match("/GATEWAY=10.5.37.1/", "GATEWAY=10.5.37.1")
+          file.write_file
+        end
+        not_if { node.normal.has_key?('whipped') }
+        notifies :restart, "service[network]", :immediately
+      end
     end
-
   end
-
+  
   ruby_block "set whipped tag" do
     block do
       node.set['whipped'] = true
