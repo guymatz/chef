@@ -69,7 +69,19 @@ template "/etc/init.d/luigid" do
   mode "0755"
 end
 
-service "luigid" do
-  supports :start => true, :stop => true, :status => true
-  action [:enable, :start]
+if node[:tophit][:init_style] == "heartbeat"
+  service "luigid" do
+    supports :start => true, :stop => true, :status => true
+    action [:disable]
+  end
+  if node.has_key? 'heartbeat'
+    Chef::Log.info("Creating Heartbeat Config: tophit")
+    node.set[:heartbeat][:ha_resources]["tophit"] = "luigid"
+    node.save
+  end
+else
+  service "luigid" do
+    supports :start => true, :stop => true, :status => true
+    action [:enable, :start]
+  end
 end
