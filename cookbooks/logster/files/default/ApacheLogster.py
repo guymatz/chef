@@ -25,9 +25,14 @@
 
 import time
 import re
+from socket import hostname
 
 from logster.logster_helper import MetricObject, LogsterParser
 from logster.logster_helper import LogsterParsingException
+
+# IHR Modifications
+FULL_HOSTNAME=gethostname()
+SHORT_HOSTNAME=FULL_HOSTNAME.split('.')[0]
 
 class ApacheLogster(LogsterParser):
 
@@ -82,9 +87,9 @@ class ApacheLogster(LogsterParser):
 
         # Return a list of metrics objects
         return [
-            MetricObject("webplayer.webplayer1a07.http_1xx", (self.http_1xx / self.duration), "Responses per sec"),
-            MetricObject("webplayer.webplayer1a07.http_2xx", (self.http_2xx / self.duration), "Responses per sec"),
-            MetricObject("webplayer.webplayer1a07.http_3xx", (self.http_3xx / self.duration), "Responses per sec"),
-            MetricObject("webplayer.webplayer1a07.http_4xx", (self.http_4xx / self.duration), "Responses per sec"),
-            MetricObject("webplayer.webplayer1a07.http_5xx", (self.http_5xx / self.duration), "Responses per sec"),
+            MetricObject("webplayer." + SHORT_HOSTNAME + ".http_1xx", (self.http_1xx / self.duration), "Responses per sec"),
+            MetricObject("webplayer." + SHORT_HOSTNAME + ".http_2xx", (self.http_2xx / self.duration), "Responses per sec"),
+            MetricObject("webplayer." + SHORT_HOSTNAME + ".http_3xx", (self.http_3xx / self.duration), "Responses per sec"),
+            MetricObject("webplayer." + SHORT_HOSTNAME + ".http_4xx", (self.http_4xx / self.duration), "Responses per sec"),
+            MetricObject("webplayer." + SHORT_HOSTNAME + ".http_5xx", (self.http_5xx / self.duration), "Responses per sec"),
         ]
