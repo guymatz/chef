@@ -47,6 +47,7 @@ bash "install" do
         cd /var/tmp/logster;
         python setup.py install
     EOF
+  only_if "test -d /var/tmp/logster"
 end
 
 node[:logster][:static_files].each do |dest,src|
