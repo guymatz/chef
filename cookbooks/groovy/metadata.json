@@ -1,0 +1,31 @@
+{
+  "name": "groovy",
+  "description": "Installs/Configures groovy",
+  "long_description": "# groovy cookbook\n\n# Requirements\n\nPlatform:\n\nCentOS\n\nThe following cookbooks are dependencies:\n\n* Java - Groovy requires the JVM to work.\n* ark - Used to unpack and install the Groovy tarball.\n\n# Usage\n\nSimply include the recipe where you want Groovy to be installed\n\n# Attributes\n\n* default[:groovy][:version] defaults to 2.0.1\n* default[:groovy][:home] defaults to /usr/local/groovy\n* default[:groovy][:url] the download url for the groovy binary zip\n* default[:groovy][:checksum] the checksum for the groovy binary zip downloaded in the url\n\n# Recipes\n\ndefault\n\n# Author\n\nAuthor:: Kyle Allan (<kallan@riotgames.com>)\n",
+  "maintainer": "Kyle Allan",
+  "maintainer_email": "kallan@riotgames.com",
+  "license": "Apache 2.0",
+  "platforms": {
+  },
+  "dependencies": {
+    "java": ">= 0.0.0",
+    "ark": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.0.1"
+}
