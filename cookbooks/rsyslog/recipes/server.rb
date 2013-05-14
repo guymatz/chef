@@ -48,9 +48,8 @@ template "/etc/rsyslog.d/35-server-per-host.conf" do
   notifies :restart, "service[rsyslog]"
 end
 
-%w{ amp::rsyslog }.each do |src|
+%w{ rsyslog::nfs }.each do |src|
   include_recipe src
-  notifies :reload, "service[rsyslog]", :delayed
 end
 
 file "/etc/rsyslog.d/remote.conf" do
