@@ -78,8 +78,8 @@ if node[:tophit][:init_style] == "heartbeat"
   end
   if node.has_key? 'heartbeat'
     Chef::Log.info("Creating Heartbeat Config: tophit")
-    node.set[:heartbeat][:ha_resources]["tophit"] = "luigid"
-    node.save
+    # node.set[:heartbeat][:ha_resources]["tophit"] = "luigid"
+    # node.save
   end
 else
   service "luigid" do

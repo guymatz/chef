@@ -35,25 +35,16 @@ start() {
 
   # Redirects default and error output to a log file
   java -Xmx4G -jar <%= @jarfile %> initialOverlap='200' >> /dev/null 2>&1 &
-  pgrep -f 'java -Xmx4G -jar <%= @jarfile %> initialOverlap=200' > /var/run/fac/<%= @fac_app %>.pid
+  echo $! > /var/run/fac/<%= @fac_app %>.pid
   echo "OK"
 }
 
 # Stops the application
 stop() {
-
-  # Like as the start function, checks the application status
-  running=`check_status`
-
-  if [ $running -eq 0 ] ; then
-    echo "Application (<%= @fac_app %>) is already stopped"
-    exit 0
-  fi
-
-  # Kills the application process
+   # Kills the application process
   echo -n "Stopping application (<%= @fac_app %>): "
-  kill -SIGTERM `cat /var/run/fac/<%= @fac_app %>.pid` &
-  echo -n > /var/run/fac/<%= @fac_app %>.pid
+  kill -9 $(cat /var/run/fac/<%= @fac_app %>.pid)
+  rm -f /var/run/fac/<%= @fac_app %>.pid
   echo "OK"
 }
 
