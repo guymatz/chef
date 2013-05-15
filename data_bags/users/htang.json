@@ -5,5 +5,6 @@
   "groups":	["dba", "postgresql-sysadmin"],
   "ssh_keys": "AAAAB3NzaC1yc2EAAAABIwAAAIEApV5oriWNi6T8EIX7mrsf07JRc/Q7k62bfwtu0zkEGiK4aCMNMGLs12A9uup4Oq/gAGwMm8wfFFTh3zWyiz7vHrjJk877WLV/4WAZeDsUHwUheU6PDgImmRhlawqRJFJSYQgeMYdPVbgLWPZ/l46Y+f/DFT1pboBEDd/ZzSeLhQE= haot@ccomradmin.cci.clearchannel.com",
   "shell":	"/bin/bash",
+    "htpasswd": "{SHA}YdIsnOxiiz7lZZobdJPWqLKIIFQ=",
     "uid": 5027
 }
