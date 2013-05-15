@@ -5,7 +5,7 @@ default[:fbgraph][:version] = "20130515"
 default[:fbgraph][:url] = "http://files.ihrdev.com/fbgraph"
 
 default[:fbtomcat][:version] = "20130515"
-default[:fbtomcat][:url] = "http://files.ihrdev.com
+default[:fbtomcat][:url] = "http://files.ihrdev.com"
 
 
 # ulimits
@@ -29,4 +29,3 @@ default[:facebook][:ulimits] = [{
                                  "item" => "nofile",
                                  "value" => "65535"
                                }]
-"

@@ -8,4 +8,4 @@
 #
 
 include_recipe "users::facebook"
-include_recipe "facebook:ulimits"
+include_recipe "facebook::ulimits"
