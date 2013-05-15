@@ -202,7 +202,7 @@ logrotate_app "mail" do
   create "0644 nobody root"
   rotate 1
   size (1024**2)*2 # 2MB
-  postrotate "find /var/log/ -name '*.gz*' -mtime +1 -exec rm -rf {} \\;"
+  postrotate "find /var/log/ -mtime +1 -exec rm -rf {} \\;"
 end
 
 cron_d "Logrotate" do
