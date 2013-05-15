@@ -2,5 +2,7 @@
   "id": "Radiomigration-Exit-Code",
   "host_name": "iad-jobserver101.ihr",
   "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c check_radiomigration_exit_code -t 20",
+  "max_check_attempts": "1",
+  "check_interval": "43200",
   "contact_groups": ["etl"]
 }
