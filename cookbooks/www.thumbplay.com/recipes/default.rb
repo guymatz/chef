@@ -24,7 +24,7 @@ git node[:thumbplay][:path] do
 end
 
 web_app "www.thumbplay.com" do
-  server_name "www.thumbplay.com"
+  server_name "test.thumbplay.com"
   server_aliases "*.thumbplay.com, thumbplaymusic.com, *.thumbplaymusic.com"
   docroot node[:thumbplay][:path]
 end
