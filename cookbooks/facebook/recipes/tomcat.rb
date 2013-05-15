@@ -13,6 +13,13 @@ remote_file "#{node[:tomcat7][:webapp_dir]}/fbtomcat.war" do
   notifies :restart, "service[tomcat]", :immediately
 end
 
+template "#{node[:tomcat7][:install_path]}/lib/env.properties" do
+  source "env.properties.erb"
+  owner node[:tomcat7][:user]
+  group node[:tomcat7][:group]
+  mode "0755"
+end
+
 directory "/var/run/tomcat" do
   owner node[:tomcat7][:user]
   group node[:tomcat7][:group]
