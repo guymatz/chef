@@ -58,3 +58,5 @@ file "/etc/rsyslog.d/remote.conf" do
   notifies :reload, "service[rsyslog]"
   only_if do ::File.exists?("/etc/rsyslog.d/remote.conf") end
 end
+
+include_recipe "rsyslog::linker"
