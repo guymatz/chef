@@ -18,6 +18,14 @@ directory "#{script_dir}" do
   recursive true
 end
 
+%w{ attivio/add/artist attivio/add/bundle attivio/add/track
+attivio/delete/artist attivio/delete/bundle /attivio/delete/track
+fac_music }.each do |dir|
+  directory "#{script_dir}/#{dir}" do
+    recursive true
+  end
+end
+
 remote_file "#{script_dir}/fac-#{app}.jar" do
   Chef::Log.info("Downloading fac-#{app} from #{download_url}")
   source "#{download_url}"
