@@ -135,6 +135,9 @@ define service {
   hostgroup_name <%= service['hostgroup_name'] %>
   host_name <%= service['host_name'] %>
   check_command check_<%= service['id'] %>
+  <%= 'check_interval ' + service['check_interval'] unless service['check_interval'].nil? %>
+  <%= 'retry_interval ' + service['retry_interval'] unless service['retry_interval'].nil? %>
+  <%= 'max_check_attempts ' + service['max_check_attempts'] unless service['max_check_attempts'].nil? %>
   use default-service
   <%= 'contact_groups ' + service['contact_groups'].join(',') unless service['contact_groups'].nil? %>
 }
