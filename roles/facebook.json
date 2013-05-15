@@ -7,7 +7,8 @@
   },
   "run_list": [
     "recipe[facebook]",
-    "recipe[facebook::graph]"
+    "recipe[facebook::graph]",
+      "recipe[facebook::tomcat]"
   ],
   "description": "",
   "chef_type": "role",

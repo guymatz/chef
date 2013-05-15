@@ -4,8 +4,8 @@ include_recipe "java"
 include_recipe "tomcat7"
 
 remote_file "#{node[:tomcat7][:webapp_dir]}/fbtomcat.war" do
-  Chef::Log.info("Installing fbgraph.war from #{node[:fbgraph][:url]}")
-  source node[:fbgraph][:url]
+  Chef::Log.info("Installing fbtomcat.war from #{node[:fbtomcat][:url]}/facebook-1.0.0.war-#{node[:fbtomcat][:version]}")
+  source "#{node[:fbtomcat][:url]}/facebook-1.0.0.war-#{node[:fbtomcat][:version]}"
   owner node[:tomcat7][:user]
   group node[:tomcat7][:group]
   action :create_if_missing
