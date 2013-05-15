@@ -3,7 +3,7 @@
     "uid": 5020,
     "name": "Brian Bennett",
     "email": "brianbennett@clearchanndl.com",
-    "groups": ["converter"],
+    "groups": ["dev", "qa", "converter"],
     "ssh_keys": [
      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3rVXriQd9H2SuJKVSqkJotpKWzVgDPxDfyMUCOlTvXChyR0hU30SemJn3eYjVJGMyCnTWM3+yXuA0raTIChz19Y+ZSCjFY71doxWiWfNcnBL2++EMp8n3pmkNmlr5G9dxtwm9TfjZJpmCDij1l1Odt6V+OmwGZaQTCN/AKZipRCcmeOALCtKfHylBC1uxkiIaEQl46I8fFBIyRQHF08WXThbPoDMzei2hbt+TE1ix1RtQIUDjbUNtTQUYPIfvpW6ftTwdbt5dD4OwO3JUtcXMk+ob1/ks8tyhu58zxr/OfJH3FJNBSz2pTasCcW8RSLOVvYuWzqfCD/8AY11e7LEh bbennett@clearchannel.com"
     ]
