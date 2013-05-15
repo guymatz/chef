@@ -1,0 +1,59 @@
+{
+  "normal": {
+    "mysql": {
+      "conf_dir": "/etc",
+      "grants_path": "/etc/mysql_grants.sql",
+      "old_passwords": 1,
+      "confd_dir": "/etc/mysql/conf.d",
+      "tunable": {
+        "innodb_adaptive_flushing": false
+      },
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "socket": "/var/lib/mysql/mysql.sock"
+    },
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    },
+    "java": {
+      "oracle": {
+        "accept_oracle_download_terms": true
+      }
+    },
+    "whipped": true,
+    "tags": [
+
+    ],
+    "mongosd": {
+      "mongosconfigdbs": [
+        "iad-mongo-usr101-v240.ihr:57017",
+        "iad-mongo-usr103-v240.ihr:57017",
+        "iad-mongo-usr105-v240.ihr:57017"
+      ]
+    },
+    "heartbeat": {
+      "config": {
+        "authkeys": "enaunYG_Usr6jdf_VjYJ"
+      },
+      "ha_resources": {
+        "facebook-consumer": "facebook-consumer",
+        "eth1_200": "IPaddr::10.5.41.10/255.255.254.0/eth1.200",
+        "enrichment-consumer": "enrichment-consumer",
+        "facebook-consumer-2": "facebook-consumer-2",
+        "playlog-consumer": "playlog-consumer",
+        "responsys-consumer": "responsys-consumer",
+        "fac-PRN": "fac-PRN",
+        "fac-talk": "fac-talk"
+      }
+    }
+  },
+  "name": "iad-jobserver101b.ihr",
+  "chef_environment": "prod",
+  "run_list": [
+    "role[base]",
+    "role[jobserver]",
+    "role[etljob_server]",
+    "role[mongosd]"
+  ]
+}
