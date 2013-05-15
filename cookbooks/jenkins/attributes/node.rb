@@ -30,7 +30,7 @@ when "mac_os_x"
   default['jenkins']['node']['home'] = "/Users/jenkins"
   default['jenkins']['node']['log_dir']  = "/var/log/jenkins"
 else
-  default['jenkins']['node']['home'] = "/home/jenkins"
+  default['jenkins']['node']['home'] = "/data/jenkins"
   default['jenkins']['node']['log_dir']  = "/var/log/jenkins"
 end
 
@@ -60,7 +60,7 @@ default['jenkins']['node']['mode'] = "normal"
 default['jenkins']['node']['availability'] = "always"
 
 # SSH options
-default['jenkins']['node']['ssh_host'] = node['fqdn']
+default['jenkins']['node']['ssh_host'] = node['hostname'] + "-v200.ihr"
 default['jenkins']['node']['ssh_port'] = 22
 default['jenkins']['node']['ssh_user'] = default['jenkins']['node']['user']
 default['jenkins']['node']['ssh_pass'] = nil

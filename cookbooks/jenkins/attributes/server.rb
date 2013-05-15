@@ -23,7 +23,7 @@
 #
 
 default['jenkins']['server']['home']     = "/var/lib/jenkins"
-default['jenkins']['server']['data_dir'] = File.join(node['jenkins']['server']['home'], "jenkins-data")
+default['jenkins']['server']['data_dir'] = "/data/jenkins/jenkins-data" #File.join(node['jenkins']['server']['home'], "jenkins-data")
 default['jenkins']['server']['log_dir']  = "/var/log/jenkins"
 
 default['jenkins']['server']['user'] = "jenkins"
@@ -42,14 +42,15 @@ default['jenkins']['server']['host'] = node['fqdn']
 default['jenkins']['server']['url']  = "http://build.ihrdev.com:#{node[:jenkins][:server][:port]}"
 #default['jenkins']['server']['url']  = "http://#{node['jenkins']['server']['host']}:#{node['jenkins']['server']['port']}"
 
-default['jenkins']['server']['plugins'] = []
+default['jenkins']['server']['plugins'] = %w{ publish-over-ssh scp crowd2 github-oauth gravatar instant-messaging blame-upstream-commiters
+skype-notifier rubyMetrics python rake vagrant release ws-cleanup libvirt-slave vsphere-cloud ec2 jira beer job-import-plugin }
 default['jenkins']['server']['jvm_options'] = nil
 default['jenkins']['server']['pubkey'] = nil
 
-default['jenkins']['http_proxy']['variant']              = nil
+default['jenkins']['http_proxy']['variant']              = "nginx"
 default['jenkins']['http_proxy']['www_redirect']         = "disable"
 default['jenkins']['http_proxy']['listen_ports']         = [ 80 ]
-default['jenkins']['http_proxy']['host_name']            = nil
+default['jenkins']['http_proxy']['host_name']            = "build.ihrdev.com"
 default['jenkins']['http_proxy']['host_aliases']         = []
 default['jenkins']['http_proxy']['client_max_body_size'] = "1024m"
 default['jenkins']['http_proxy']['basic_auth_username'] = "jenkins"
