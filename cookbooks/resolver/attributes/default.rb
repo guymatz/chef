@@ -18,9 +18,9 @@
 
 
 default['resolver']['search'] = "ihr"
-default['resolver']['nameservers'] = ["10.5.32.21"]
+default['resolver']['nameservers'] = ["10.5.32.21", "10.5.33.16"]
 default['resolver']['options'] = {
   "timeout" => 2,
-  "rotate" => nil
+  "rotate" => true
 }
 default['resolver']['server_role'] = 'nameserver'
