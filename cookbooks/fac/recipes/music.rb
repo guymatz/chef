@@ -69,7 +69,7 @@ template "#{script_dir}/fac-incremental-runner.sh" do
 end
 
 master = search(:node, "recipes:attivio\\:\\:clustermaster AND chef_environment:prod")
-
+puts "DEBUG: MASTER: " + master[0].inspect
 template "#{script_dir}/shipFAC2attivio.sh" do
   source "shipFAC2attivio.sh.erb"
   owner node[:attivio][:user]
