@@ -1,10 +1,11 @@
 name "mongodb_server"
 description "mongodb_server"
 all_env = [
-           "recipe[mongodb]",
-	   "recipe[mongodb::server]",
-           "recipe[mongodb::ulimits]",
-	  ]
+  "recipe[mongodb]",
+  "recipe[mongodb::server]",
+  "recipe[mongodb::ulimits]",
+  "recipe[diamond::mongo]",
+]
 run_list(all_env)
 env_run_lists(
               "_default" => all_env,
@@ -13,8 +14,15 @@ env_run_lists(
               "ec2" => all_env
               )
 default_attributes({
-                     "mongodb" => {
+                    "mongodb" => {
+                    },
+                    "diamond" => {
+                      "collectors" => {
+                        "MongoDBCollector" => {
+                          "host" => "localhost:37017"
+                        }
                       }
+                    }
                    })
 override_attributes({
                     })
