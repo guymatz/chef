@@ -9,6 +9,10 @@
 include_recipe "nfs"
 
 nfs_server = search(:node, "roles:loghost AND chef_environment:#{node.chef_environment}")[0]
+if nfs_server.nil? or nfs_server.empty?
+  Chef::Log.info("No shared-storage found in #{node.chef_environment}")
+  return
+end
 
 directory "/data/#{nfs_server[:hostname]}/logs" do
   action :create
