@@ -14,6 +14,6 @@ end
   supports os
 end
 
-%w{ ops.ihrdev.com files.ihrdev.com ipplan www.thumbplay.com }.each do |site|
+%w{ ops.ihrdev.com files.ihrdev.com ipplan www.thumbplay.com roku.iheart.com }.each do |site|
   depends site
 end

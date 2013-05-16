@@ -9,6 +9,16 @@
 
 include_recipe "users::deployer"
 include_recipe "apache2"
+include_recipe "python::pip"
+
+package 'python26-mod_wsgi' do
+end
+
+node[:roku][:pips].each do |pip|
+    python_pip pip do
+        action :install
+    end
+end
 
 directory "/data/www/roku.iheart.com" do
   owner node[:apache][:user]

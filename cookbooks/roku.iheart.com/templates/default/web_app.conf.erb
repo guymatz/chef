@@ -1,6 +1,6 @@
 WSGIPythonHome /usr/bin/python26
-<VirtualHost *:8004>
-  WSGIScriptAlias / /var/www/iheartstreams_project/iheartstreams/wsgi.py
+<VirtualHost *:80>
+  WSGIScriptAlias / /data/www/roku.iheart.com/iheartstreams_project/iheartstreams/wsgi.py
   WSGIDaemonProcess iheartstreams user=apache processes=10 threads=1 python-path=/usr/lib64/python2.6
   ServerName <%= @params[:server_name] %>
   ServerAlias <% @params[:server_aliases].each do |a| %><%= a %> <% end %>
