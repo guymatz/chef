@@ -68,7 +68,7 @@ template "#{script_dir}/fac-incremental-runner.sh" do
             })
 end
 
-master = search(:node, "recipes:attivio\\:\\:clustermaster AND chef_environment:#{node.chef_environment}")
+master = search(:node, "recipes:attivio\\:\\:clustermaster AND chef_environment:prod")
 
 template "#{script_dir}/shipFAC2attivio.sh" do
   source "shipFAC2attivio.sh.erb"
