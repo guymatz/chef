@@ -14,7 +14,7 @@ end
 
 node.set[:apache][:default_site_enabled] = false
 
-%w{ ops.ihrdev.com files.ihrdev.com ipplan }.each do |site|
+%w{ ops.ihrdev.com files.ihrdev.com ipplan www.thumbplay.com }.each do |site|
   # we install the recipes and add it to the runlist so it is searchable
   include_recipe site
   unless node.run_list.include?("recipe[#{site}]")
