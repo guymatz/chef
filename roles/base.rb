@@ -29,7 +29,7 @@ env_run_lists(
               "qa2" => all_env,
               "dev" => all_env,
               "prod" => all_env + ["role[monitored]"],
-              "ec2-prod" => all_env + ["recipe[users::data-team]"],
+              "ec2-prod" => all_env + ["role[monitored]"],
               "ec2" => all_env
               )
 
