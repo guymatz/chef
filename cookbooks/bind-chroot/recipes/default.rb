@@ -2,6 +2,9 @@
 # Cookbook Name:: bind_chroot
 # Recipe:: default
 #
+
+include_recipe "users::deployer"
+
 node['bind_chroot']['packages'].each do |pkg|
   package pkg do
     action :install
