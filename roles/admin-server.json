@@ -6,7 +6,7 @@
   "env_run_lists": {
   },
   "run_list": [
-
+      "role[dns-server]"
   ],
   "description": "admin-server",
   "chef_type": "role",
