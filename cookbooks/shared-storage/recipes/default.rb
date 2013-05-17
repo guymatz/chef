@@ -13,6 +13,9 @@ directory node[:sto][:base_path] do
   recursive true
 end
 
+node.set[:openssh][:server][:Subsystem] = "sftp internal-sftp"
+node.save
+
 %w{ files.ihrdev.com::nfs }.each do |share|
   include_recipe share
 end
