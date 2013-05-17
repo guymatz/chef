@@ -29,6 +29,8 @@ default[:mongodb][:journal]		='true'
 default[:mongodb][:configsvr]		='false'
 default[:mongodb][:arbiter]		='false'
 
+default[:mongodb][:backupdir]		='/data/db/backup'
+
 default[:mongodb][:ulimits] = [ {
                                    "type" => "soft",
                                    "item" => "nofile",

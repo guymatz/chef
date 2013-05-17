@@ -1,5 +1,5 @@
 {
   "id": "Mongodb-Last-Flush-Time",
   "hostgroup_name": "mongodb_server",
-  "command_line": "$USER1$/check_mongodb.py -H $HOSTADDRESS$ -A last_flush_time -P 37017 -W 400 -C 600"
+  "command_line": "$USER1$/check_mongodb.py -H $HOSTADDRESS$ -A last_flush_time -P 37017 -W 1000 -C 1500"
 }

@@ -1,5 +1,5 @@
 {
   "id": "Mongodb-Average-Flush-Time",
   "hostgroup_name": "mongodb_server",
-  "command_line": "$USER1$/check_mongodb.py -H $HOSTADDRESS$ -A flushing -P 37017 -W 100 -C 200"
+  "command_line": "$USER1$/check_mongodb.py -H $HOSTADDRESS$ -A flushing -P 37017 -W 1000 -C 1500"
 }
