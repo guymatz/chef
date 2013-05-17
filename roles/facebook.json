@@ -1,17 +1,18 @@
 {
-  "name": "facebook",
-  "default_attributes": {
-  },
-  "json_class": "Chef::Role",
-  "env_run_lists": {
-  },
-  "run_list": [
-    "recipe[facebook]",
-    "recipe[facebook::graph]",
-      "recipe[facebook::tomcat]"
-  ],
-  "description": "",
-  "chef_type": "role",
-  "override_attributes": {
-  }
+    "name": "facebook",
+    "default_attributes": {
+    },
+    "json_class": "Chef::Role",
+    "env_run_lists": {
+    },
+    "run_list": [
+        "role[mongosd]",
+        "recipe[facebook]",
+        "recipe[facebook::graph]",
+        "recipe[facebook::tomcat]"
+    ],
+    "description": "",
+    "chef_type": "role",
+    "override_attributes": {
+    }
 }
