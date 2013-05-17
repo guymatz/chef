@@ -27,5 +27,7 @@ end
 #### When adding jobs, include the JIRA ticket number in the comments
 #### so we can track them easily.
 
-include_recipe "jobserver::fac"
-include_recipe "jobserver::tophit"
+if node.chef_environment == "prod"
+  include_recipe "jobserver::fac"
+  include_recipe "jobserver::tophit"
+end
