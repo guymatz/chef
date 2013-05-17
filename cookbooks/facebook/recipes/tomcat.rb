@@ -3,9 +3,11 @@ node.save
 include_recipe "java"
 include_recipe "tomcat7"
 
+download_url = "#{node[:fbtomcat][:url]}/facebook-1.0.0-#{node[:fbtomcat][:version]}.war"
+
 remote_file "#{node[:tomcat7][:webapp_dir]}/face.war" do
-  Chef::Log.info("Installing fbtomcat.war from #{node[:fbtomcat][:url]}/facebook-1.0.0.war-#{node[:fbtomcat][:version]}")
-  source "#{node[:fbtomcat][:url]}/facebook-1.0.0.war-#{node[:fbtomcat][:version]}"
+  Chef::Log.info("Installing fbtomcat.war from #{download_url}")
+  source download_url
   owner node[:tomcat7][:user]
   group node[:tomcat7][:group]
   action :create_if_missing

@@ -4,8 +4,8 @@ default[:fbgraph][:deploy_path] = "/data/apps/fbgraph"
 default[:fbgraph][:version] = "20130515"
 default[:fbgraph][:url] = "http://files.ihrdev.com/fbgraph"
 
-default[:fbtomcat][:version] = "20130515"
-default[:fbtomcat][:url] = "http://files.ihrdev.com"
+default[:fbtomcat][:version] = "2013-05-17_15-39-59"
+default[:fbtomcat][:url] = "http://files.ihrdev.com/Facebook-Tomcat"
 
 
 # ulimits
