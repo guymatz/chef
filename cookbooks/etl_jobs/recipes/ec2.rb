@@ -63,11 +63,11 @@ directory "/data/log/profile"
 remote_file "/data/jobs/profile/profile_job.jar" do
   source "http://yum.ihr/files/jobs/profile/profile_job.jar"
 end
-cron_d "profile_job" do
-  command "/usr/bin/cronwrap use1b-jobserver101a profile-job \"/usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\\%s`\""
-  minute 30
-  hour 3
-end
+#cron_d "profile_job" do
+#  command "/usr/bin/cronwrap use1b-jobserver101a profile-job \"/usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\\%s`\""
+#  minute 30
+#  hour 3
+#end
 
 directory "/data/jobs/live_thumbs"
 directory "/data/log/liveradiothumbslog"
@@ -367,9 +367,9 @@ bash "set-migration-perms" do
   code 'chown -R ihr-deployer. /data/jobs/radiomigration'
 end
 db_user = Chef::EncryptedDataBagItem.load("sqlserver", "users")
-cron_d "radiomigration" do
-  command "/usr/bin/cronwrap use1b-jobserver101a Radiomigration \"/data/jobs/radiomigration/ImportToDBFromCSV.sh localhost radio processed 10.10.182.175 appBatch #{db_user['appBatch']}\""
-  minute 50
-  hour 21
-  user 'ihr-deployer'
-end
+#cron_d "radiomigration" do
+#  command "/usr/bin/cronwrap use1b-jobserver101a Radiomigration \"/data/jobs/radiomigration/ImportToDBFromCSV.sh localhost radio processed 10.10.182.175 appBatch #{db_user['appBatch']}\""
+#  minute 50
+#  hour 21
+#  user 'ihr-deployer'
+#end
