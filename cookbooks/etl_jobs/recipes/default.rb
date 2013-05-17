@@ -30,11 +30,6 @@ end
 remote_file "/data/jobs/event/log4j.properties" do
   source "http://yum.ihr/files/jobs/event/log4j.properties"
 end
-cron_d "event_job" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr event-job \"/usr/bin/java -jar /data/jobs/event/event_job.jar launch-context.xml eventJob rundate=`/bin/date +\\%s`\""
-  minute 30
-  hour 5
-end
 
 directory "/data/jobs/playlog"
 directory "/data/log/playlog"
@@ -52,10 +47,6 @@ remote_file "/data/jobs/playlog/log4j.properties" do
 end
 remote_file "/data/jobs/playlog/batch.properties" do
   source "http://yum.ihr/files/jobs/playlog/batch.properties"
-end
-cron_d "playlog_job" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Playlog-ETL-Job \"/data/jobs/playlog/playlog_wrapper.sh\""
-  minute 22
 end
 
 directory "/data/jobs/profile"
@@ -75,10 +66,6 @@ directory "/data/log/liveradiothumbslog/processed"
 remote_file "/data/jobs/live_thumbs/live_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/live_thumbs/live_thumbs_job.jar"
 end
-cron_d "live_thumbs_job" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Liveradio-Thumb-ETL-Job \"/usr/bin/java -jar /data/jobs/live_thumbs/live_thumbs_job.jar launch-context.xml liveradiothumbslogJob rundate=`/bin/date +\\%s`\""
-  minute 51
-end
 
 directory "/data/jobs/custom_thumbs"
 directory "/data/log/customradiothumbslog"
@@ -86,20 +73,12 @@ directory "/data/log/customradiothumbslog/processed"
 remote_file "/data/jobs/custom_thumbs/custom_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/custom_thumbs/custom_thumbs_job.jar"
 end
-cron_d "custom_thumbs_job" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Customradio-Thumb-ETL-Job \"/usr/bin/java -jar /data/jobs/custom_thumbs/custom_thumbs_job.jar launch-context.xml customradiothumbslogJob rundate=`/bin/date +\\%s`\""
-  minute 38
-end
 
 directory "/data/jobs/talk_thumbs"
 directory "/data/log/talkthumbslog"
 directory "/data/log/talkthumbslog/processed"
 remote_file "/data/jobs/talk_thumbs/talk_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/talk_thumbs/talk_thumbs_job.jar"
-end
-cron_d "talk_thumbs_job" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Talk-Thumb-Radio-ETL-Job \"/usr/bin/java -jar /data/jobs/talk_thumbs/talk_thumbs_job.jar launch-context.xml talkthumbslogJob rundate=`/bin/date +\\%s`\""
-  minute 41
 end
 
 directory "/data/jobs/skiplog"
@@ -113,10 +92,6 @@ remote_file "/data/jobs/skiplog/log4j.properties" do
 end
 remote_file "/data/jobs/skiplog/skipbatch.properties" do
   source "http://yum.ihr/files/jobs/skiplog/skipbatch.properties"
-end
-cron_d "skiplog_job" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Skiplog-ETL-Job \"/usr/bin/java -jar /data/jobs/skiplog/skiplog_job.jar launch-context.xml skiplogJob rundate=`/bin/date +\\%s`\""
-  minute 17
 end
 
 directory "/data/jobs/talklog"
@@ -134,10 +109,6 @@ end
 remote_file "/data/jobs/talklog/talkbatch.properties" do
   source "http://yum.ihr/files/jobs/talklog/talkbatch.properties"
 end
-cron_d "talklog_job" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Talklog-ETL-Job \"/usr/bin/java -jar /data/jobs/talklog/talklog_job.jar launch-context.xml talkJob rundate=`/bin/date +\\%s`\""
-  minute 21
-end
 
 directory "/data/jobs/sysinfo"
 directory "/data/log/sysinfo"
@@ -153,11 +124,6 @@ remote_file "/data/jobs/sysinfo/batch.properties" do
 end
 remote_file "/data/jobs/sysinfo/log4j.properties" do
   source "http://yum.ihr/files/jobs/sysinfo/log4j.properties"
-end
-cron_d "sysinfo_job" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr sysinfo-job \"/usr/bin/java -jar /data/jobs/sysinfo/sysinfo_job.jar launch-context.xml sysInfoJob rundate=`/bin/date +\\%s`\""
-  minute 30
-  hour 5
 end
 
 directory "/home/amqp-consumer/playlog-consumer" do
@@ -336,18 +302,6 @@ end
 #  end
 #end
 
-cron_d "pull_event_logs" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Pull-Event-Logs \"for i in `/bin/cat /data/jobs/api_servers`; do /usr/bin/scp $i:/data/apps/tomcat7/logs/event.log.`/bin/date --date='1 day ago' +\%Y-\%m-\%d` /data/log/event/input/$i.event.log.`/bin/date --date='1 day ago' +\%Y-\%m-\%d`; done\""
-  minute 27
-  hour 1
-  user 'ihr-deployer'
-end
-cron_d "pull_sysinfo_logs" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Pull-Sysinfo-Logs \"for i in `/bin/cat /data/jobs/api_servers`; do /usr/bin/scp $i:/data/apps/tomcat7/logs/sysinfo.log.`/bin/date --date='1 hour ago' +\%Y-\%m-\%d-\%H` /data/log/sysinfo/input/$i.sysinfo.log.`/bin/date --date='1 hour ago' +\%Y-\%m-\%d-\%H`; done\""
-  minute '*/15'
-  user 'ihr-deployer'
-end
-
 python_pip "pytz" do
   action :install
 end
@@ -367,9 +321,3 @@ bash "set-migration-perms" do
   code 'chown -R ihr-deployer. /data/jobs/radiomigration'
 end
 db_user = Chef::EncryptedDataBagItem.load("sqlserver", "users")
-cron_d "radiomigration" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Radiomigration \"/data/jobs/radiomigration/ImportToDBFromCSV.sh localhost radio processed 10.10.182.175 appBatch #{db_user['appBatch']}\""
-  minute 50
-  hour 21
-  user 'ihr-deployer'
-end

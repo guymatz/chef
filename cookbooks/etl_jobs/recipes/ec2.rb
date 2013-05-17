@@ -20,13 +20,16 @@ directory "/data/log/event"
 directory "/data/log/event/input" do
   mode 0777
 end
+
 directory "/data/log/event/processed"
 remote_file "/data/jobs/event/event_job.jar" do
   source "http://yum.ihr/files/jobs/event/event_job.jar"
 end
+
 remote_file "/data/jobs/event/batch.properties" do
   source "http://yum.ihr/files/jobs/event/batch.properties"
 end
+
 remote_file "/data/jobs/event/log4j.properties" do
   source "http://yum.ihr/files/jobs/event/log4j.properties"
 end
@@ -252,6 +255,7 @@ directory "/data/log/radiomigration" do
   owner "ihr-deployer"
   group "ihr-deployer"
 end
+
 directory "/data/jobs/radiomigration/data" do
   owner "ihr-deployer"
   group "ihr-deployer"
