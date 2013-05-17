@@ -4,7 +4,8 @@
   "email":	"HaoTang@clearchannel.com",
   "groups":	["dba", "postgresql-sysadmin"],
     "ssh_keys": [
-        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDYaK35RZZ3Ot9ykrL6AZl03PzMTvDDYjE9Mv0JYwsFwc0i09fS5xCgCEe8Adxg2NSjw3UYKDLuWlrCza81DNQaf4UVOJFtsXlEiyMR/xIZq8JplCmwzqBrvU1eDROsRhEdMc2MZdlygXed3ZIicbvcDkXUY/tZg/auNMaTDtBm1S+aPfNEt3/qTgPh1uJMPMwkYrZVEeKmAr69kGajlKxas3dPeqoxUfKmXFvNrzzxeDhhNhEQOQi+zkA81qc4fGwT8RAqIq58G7jL0hR/sHdzCM+OVIg870c8UdWRgUukn2Ni45Ky7oORWpO9j4yljtHaFFt6azQtwmg5+SZbNRtB htang@CCONYC01HXT",
+        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDIAgEhyWHPI/VUZVcDwYf0FuxEiPvixCqxhJbLWxuiMyVjvbXZZx4/kSmfxUahVMSek8Zp71RMpekUG4bpeqmyyTE+knN+DhdlhnblCu6F7lIySv9xxF5LjpL4NDIGnj7XcBsrE+kXNDzmy8dOEJCN4hefRwoUbicVkFYwpqYPOySzKfB/ySqEtTwq3dwsY4OKBemeplAOCIp2czTYs5JC2zj/0KU3KxcX6IreAOOaIKpc8Eptn0VcgrGfLAig2chbZ70S6Ia6qK11/t/8qV7omVI8ThQ5zRYQxR/8rEo1oHTQwzl1skvJuy0GQ/60zGjbVRTU4tLMxeBjp7dN3Z9v htang@CCCNYC01CAC.local",
+	"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDYaK35RZZ3Ot9ykrL6AZl03PzMTvDDYjE9Mv0JYwsFwc0i09fS5xCgCEe8Adxg2NSjw3UYKDLuWlrCza81DNQaf4UVOJFtsXlEiyMR/xIZq8JplCmwzqBrvU1eDROsRhEdMc2MZdlygXed3ZIicbvcDkXUY/tZg/auNMaTDtBm1S+aPfNEt3/qTgPh1uJMPMwkYrZVEeKmAr69kGajlKxas3dPeqoxUfKmXFvNrzzxeDhhNhEQOQi+zkA81qc4fGwT8RAqIq58G7jL0hR/sHdzCM+OVIg870c8UdWRgUukn2Ni45Ky7oORWpO9j4yljtHaFFt6azQtwmg5+SZbNRtB htang@CCONYC01HXT",
         "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEApV5oriWNi6T8EIX7mrsf07JRc/Q7k62bfwtu0zkEGiK4aCMNMGLs12A9uup4Oq/gAGwMm8wfFFTh3zWyiz7vHrjJk877WLV/4WAZeDsUHwUheU6PDgImmRhlawqRJFJSYQgeMYdPVbgLWPZ/l46Y+f/DFT1pboBEDd/ZzSeLhQE= haot@ccomradmin.cci.clearchannel.com"
     ],
 "shell":	"/bin/bash",
