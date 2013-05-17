@@ -52,7 +52,7 @@ remote_file "/data/jobs/playlog/batch.properties" do
   source "http://yum.ihr/files/jobs/playlog/batch.properties"
 end
 cron_d "playlog_job" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Playlog-ETL-Job \"/data/jobs/playlog/playlog_wrapper.sh\""
+  command "/usr/bin/cronwrap use1b-jobserver101a Playlog-ETL-Job \"/data/jobs/playlog/playlog_wrapper.sh\""
   minute 22
 end
 
@@ -217,7 +217,7 @@ cookbook_file "/data/jobs/log-archive.sh" do
   mode 0755
 end
 cron_d "archive_logs" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Archive-Logs \"/data/jobs/log-archive.sh 2>&1 >> /dev/null\""
+  command "/usr/bin/cronwrap use1b-jobserver101a Archive-Logs \"/data/jobs/log-archive.sh 2>&1 >> /dev/null\""
   minute "*/15"
 end
 
@@ -233,13 +233,13 @@ end
 #end
 
 cron_d "pull_event_logs" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Pull-Event-Logs \"for i in `/bin/cat /data/jobs/api_servers`; do /usr/bin/scp $i:/data/apps/tomcat7/logs/event.log.`/bin/date --date='1 day ago' +\%Y-\%m-\%d` /data/log/event/input/$i.event.log.`/bin/date --date='1 day ago' +\%Y-\%m-\%d`; done\""
+  command "/usr/bin/cronwrap use1b-jobserver101a Pull-Event-Logs \"for i in `/bin/cat /data/jobs/api_servers`; do /usr/bin/scp $i:/data/apps/tomcat7/logs/event.log.`/bin/date --date='1 day ago' +\%Y-\%m-\%d` /data/log/event/input/$i.event.log.`/bin/date --date='1 day ago' +\%Y-\%m-\%d`; done\""
   minute 27
   hour 1
   user 'ihr-deployer'
 end
 cron_d "pull_sysinfo_logs" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Pull-Sysinfo-Logs \"for i in `/bin/cat /data/jobs/api_servers`; do /usr/bin/scp $i:/data/apps/tomcat7/logs/sysinfo.log.`/bin/date --date='1 hour ago' +\%Y-\%m-\%d-\%H` /data/log/sysinfo/input/$i.sysinfo.log.`/bin/date --date='1 hour ago' +\%Y-\%m-\%d-\%H`; done\""
+  command "/usr/bin/cronwrap use1b-jobserver101a Pull-Sysinfo-Logs \"for i in `/bin/cat /data/jobs/api_servers`; do /usr/bin/scp $i:/data/apps/tomcat7/logs/sysinfo.log.`/bin/date --date='1 hour ago' +\%Y-\%m-\%d-\%H` /data/log/sysinfo/input/$i.sysinfo.log.`/bin/date --date='1 hour ago' +\%Y-\%m-\%d-\%H`; done\""
   minute '*/15'
   user 'ihr-deployer'
 end
@@ -265,7 +265,7 @@ bash "set-migration-perms" do
 end
 db_user = Chef::EncryptedDataBagItem.load("sqlserver", "users")
 cron_d "radiomigration" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Radiomigration \"/data/jobs/radiomigration/ImportToDBFromCSV.sh localhost radio processed 10.10.182.175 appBatch #{db_user['appBatch']}\""
+  command "/usr/bin/cronwrap use1b-jobserver101a Radiomigration \"/data/jobs/radiomigration/ImportToDBFromCSV.sh localhost radio processed 10.10.182.175 appBatch #{db_user['appBatch']}\""
   minute 50
   hour 21
   user 'ihr-deployer'
