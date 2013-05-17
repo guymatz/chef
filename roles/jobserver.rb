@@ -2,7 +2,9 @@ name "jobserver"
 description "Job Server: Cron, ETL, Etc."
 all_env = [
            "recipe[jobserver]",
-           "recipe[splunk::forwarder]"
+           "recipe[splunk::forwarder]",
+           "role[etljob_server]",
+           "role[mongosd]"
           ]
 run_list(all_env)
 
