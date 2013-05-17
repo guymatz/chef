@@ -172,7 +172,7 @@ end
 
 logrotate_app "apache2" do
   cookbook "logrotate"
-  path "#{node[:apache][:log_dir]}/*log*"
+  path "#{node[:apache][:log_dir]}/"
   options ["missingok", "copytruncate", "compress", "notifempty"]
   frequency "daily"
   enable true
@@ -195,14 +195,13 @@ end
 
 logrotate_app "mail" do
   cookbook "logrotate"
-  path "/var/log/mail.*"
+  path "/var/log/mail.log /var/log/mail.err /var/log/mail.warn"
   options ["missingok", "copytruncate", "compress", "notifempty"]
   frequency "daily"
   enable true
   create "0644 nobody root"
   rotate 1
   size (1024**2)*2 # 2MB
-  postrotate "find /var/log/ -mtime +1 -exec rm -rf {} \\;"
 end
 
 cron_d "Logrotate" do
