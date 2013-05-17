@@ -14,23 +14,23 @@ directory "#{node[:mongosd][:mongosdata_dir]}" do
 end
 
 template "/etc/init.d/mongosd" do
-        source "mongosd.erb"
-        owner "root"
-        group "root"
-        mode 0755 
-        variables({
-		:mongodb => node[:mongodb],
-                :mongosd => node[:mongosd]
-        })
+  source "mongosd.erb"
+  owner "root"
+  group "root"
+  mode 0755
+  variables({
+              :mongodb => node[:mongodb],
+              :mongosd => node[:mongosd]
+            })
 end
 
 template "/etc/mongosd.conf" do
-	source "mongosd.conf.erb"
-	owner "root"
-        group "root"
-        mode 0755 
-        variables({
-		:mongodb => node[:mongodb],
-                :mongosd => node[:mongosd]
-        })
+  source "mongosd.conf.erb"
+  owner "root"
+  group "root"
+  mode 0755
+  variables({
+              :mongodb => node[:mongodb],
+              :mongosd => node[:mongosd]
+            })
 end
