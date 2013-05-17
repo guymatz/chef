@@ -63,11 +63,11 @@ directory "/data/log/profile"
 remote_file "/data/jobs/profile/profile_job.jar" do
   source "http://yum.ihr/files/jobs/profile/profile_job.jar"
 end
-cron_d "profile_job" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr profile-job \"/usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\\%s`\""
-  minute 30
-  hour 3
-end
+#cron_d "profile_job" do
+#  command "/usr/bin/cronwrap iad-jobserver101.ihr profile-job \"/usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\\%s`\""
+#  minute 30
+#  hour 3
+#end
 
 directory "/data/jobs/live_thumbs"
 directory "/data/log/liveradiothumbslog"
