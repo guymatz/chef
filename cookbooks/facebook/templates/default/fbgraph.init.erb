@@ -6,6 +6,9 @@ set -e
 # Check the application status
 #
 # This function checks if the application is running
+
+PIDFILE=/var/run/fbgraph/<%= @app %>.pid
+
 check_status() {
 
     pidfile=/var/run/fbgraph/<%= @app %>.pid
@@ -36,10 +39,7 @@ start() {
     # Redirects default and error output to a log file
     HOST=`ifconfig | grep 10.5.40 | awk '{print $2}' | cut -d: -f2`
     BASEDIR="<%= @basedir %>"
-    java -Xmx1024M -Dlog4j.configuration=file:///$BASEDIR/log4j.xml -Djava.rmi.server.hostname=$HOST -Dcom.sun.management.jmxremote.port=8995 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -cp $BASEDIR/amqp-fbgraph-1.0.0.jar com.ccrd.amqp.FBGraphConsumer $BASEDIR/env.properties &
-
-    >> /dev/null 2>&1 &
-    echo $! > /var/run/fbgraph/<%= @app %>.pid
+    nohup java -Xmx1024M -Dpidfile=$PIDFILE -Dlog4j.configuration=file:///$BASEDIR/log4j.xml -Djava.rmi.server.hostname=$HOST -Dcom.sun.management.jmxremote.port=8995 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -cp $BASEDIR/amqp-fbgraph-1.0.0.jar com.ccrd.amqp.FBGraphConsumer $BASEDIR/env.properties 2>&1 /dev/null
     echo "OK"
 }
 
@@ -47,8 +47,8 @@ start() {
 stop() {
     # Kills the application process
     echo -n "Stopping application (<%= @app %>): "
-    kill -9 $(cat /var/run/fbgraph/<%= @app %>.pid)
-    rm -f /var/run/fbgraph/<%= @app %>.pid
+    kill -9 $(cat $PIDFILE)
+    rm -f $PIDFILE
     echo "OK"
 }
 
@@ -56,15 +56,14 @@ stop() {
 status() {
 
     # The check_status function, again...
-    running=`check_status`
+
 
     # If the PID was returned means the application is running
-    if [ $running -ne 0 ] ; then
+    if [ -f $PIDFILE ] ; then
         echo "Application (<%= @app %>) is started"
     else
         echo "Application (<%= @app %>) is stopped"
     fi
-
 }
 
 # Main logic, a simple case to call functions
