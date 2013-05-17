@@ -51,7 +51,7 @@ default['nagios']['nrpe']['checksum'] = '7e8d093abef7d7ffc7219ad334823bdb612121d
 default['nagios']['nrpe']['mon_host_ips'] = [ '10.5.36.11',
                                               '10.5.40.12',
                                               '10.5.43.20',
-                                              '10.5.36.21'
+                                              '10.5.32.21'
                                             ]
 
 # for nsca from source installation
