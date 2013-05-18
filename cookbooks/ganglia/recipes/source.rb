@@ -43,8 +43,3 @@ link "/usr/lib/ganglia" do
       platform?( "redhat", "centos", "fedora" )
   end
 end
-
-directory "/usr/lib64/ganglia/python_modules" do
-  owner "ganglia"
-  group "ganglia"
-end
