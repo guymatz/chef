@@ -8,6 +8,10 @@ version          "0.1.1"
 %w{ debian ubuntu redhat centos fedora }.each do |os|
   supports os
 end
+%w{ apache2 php users nagios }.each do |dep|
+  depends dep
+end
+
 
 recommends "graphite"
 suggests "iptables"

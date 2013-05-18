@@ -5,17 +5,21 @@ if platform?( "redhat", "centos", "fedora" )
   package "rrdtool-devel"
 end
 
-remote_file "/usr/src/ganglia-#{node[:ganglia][:version]}.tar.gz" do
-  source node[:ganglia][:uri]
-  checksum node[:ganglia][:checksum]
+node[:ganglia][:packages].each do |p|
+  package p
+end
+
+git "/usr/src/ganglia-#{node[:ganglia][:version]}" do
+  repo node[:ganglia][:repo]
+  action :sync
 end
 
 src_path = "/usr/src/ganglia-#{node[:ganglia][:version]}"
 
-execute "untar ganglia" do
-  command "tar xzf ganglia-#{node[:ganglia][:version]}.tar.gz"
-  creates src_path
-  cwd "/usr/src"
+execute "bootstrap ganglia build" do
+  command "./bootstrap"
+  creates "#{src_path}/config.log"
+  cwd src_path
 end
 
 execute "configure ganglia build" do
@@ -42,9 +46,4 @@ link "/usr/lib/ganglia" do
     node[:kernel][:machine] == "x86_64" and
       platform?( "redhat", "centos", "fedora" )
   end
-end
-
-directory "/usr/lib64/ganglia/python_modules" do
-  owner "ganglia"
-  group "ganglia"
 end

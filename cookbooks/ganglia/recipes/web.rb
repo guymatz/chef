@@ -10,16 +10,30 @@ when "ubuntu", "debian"
   end
 
 when "redhat", "centos", "fedora"
-  package "httpd"
-  package "php"
+  include_recipe "apache2"
+  include_recipe "php"
   include_recipe "ganglia::source"
   include_recipe "ganglia::gmetad"
 
+  directory node[:ganglia][:web_dir] do
+    owner node[:apache][:user]
+    group node[:apache][:group]
+    recursive true
+  end
+
   execute "copy web directory" do
-    command "cp -r web /var/www/html/ganglia"
-    creates "/var/www/html/ganglia"
+    puts "executing: cp -r /usr/src/ganglia-#{node[:ganglia][:version]}/web #{node[:ganglia][:web_dir]}"
+    command "cp -r /usr/src/ganglia-#{node[:ganglia][:version]}/web #{node[:ganglia][:web_dir]}"
+    creates "#{node[:ganglia][:web_dir]}"
     cwd "/usr/src/ganglia-#{node[:ganglia][:version]}"
   end
+
+  web_app "ganglia" do
+    server_name "ganglia.ihrdev.com"
+    server_aliases [node['fqdn'], "ganglia.ihrdev.com"]
+    docroot node[:ganglia][:web_dir]
+  end
+
 end
 
 service "apache2" do
