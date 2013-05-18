@@ -8,7 +8,6 @@ run_list(
          "recipe[openssh::iptables]",
          "recipe[iptables]",
          "recipe[ntp]",
-         "recipe[selinux::permissive]",
          "recipe[chef-client]",
          "recipe[operations]",
          "recipe[timezone]",
