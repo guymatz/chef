@@ -28,11 +28,25 @@ when true
     include_recipe "ganglia::iptables"
   end
 when false
+  clusters = search(:ganglia, "*:*")
+  cluster_config = Hash.new
+  clusters.each do |c|
+    name = c[:id]
+    nodes = search(:node, "role:#{name}")
+    cluster_nodes = Array.new
+    nodes.each do |n|
+      cluster_nodes << "#{n[:hostname]}:#{c[:gmond_port]}"
+    end
+    cluster_config[name] = cluster_nodes
+  end
   ips = search(:node, "*:*").map {|node| node.ipaddress}
   template "/etc/ganglia/gmetad.conf" do
     source "gmetad.conf.erb"
-    variables( :hosts => ips.join(" "),
-               :cluster_name => node[:ganglia][:cluster_name])
+    variables({
+                :hosts => ips.join(" "),
+                :cluster_name => node[:ganglia][:cluster_name],
+                :cluster_config => cluster_config
+                })
     notifies :restart, "service[gmetad]"
   end
 end

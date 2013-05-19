@@ -48,9 +48,16 @@ when true
     notifies :restart, "service[ganglia-monitor]"
   end
 when false
+  cluster_name = node[:ganglia][:cluster_name].downcase
+  puts "constructing gannglia cluster #{cluster_name}"
+  cluster = search(:ganglia, "id:#{cluster_name}")
+  puts "#{cluster_name}: " + cluster.inspect
   template "/etc/ganglia/gmond.conf" do
     source "gmond.conf.erb"
-    variables( :cluster_name => node[:ganglia][:cluster_name] )
+    variables({
+                :cluster_name => cluster_name,
+                :cluster => cluster.first
+              })
     notifies :restart, "service[ganglia-monitor]"
   end
 end
