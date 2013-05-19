@@ -1,6 +1,10 @@
 {
   "name": "webplayers",
   "default_attributes": {
+      "ganglia": {
+          "gmond_port": "8650",
+          "cluster_name":"webplayers"
+      }
   },
   "json_class": "Chef::Role",
   "env_run_lists": {
