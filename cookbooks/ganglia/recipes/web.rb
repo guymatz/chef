@@ -26,6 +26,7 @@ when "redhat", "centos", "fedora"
     command "cp -r /usr/src/ganglia-#{node[:ganglia][:version]}/web #{node[:ganglia][:web_dir]}"
     creates "#{node[:ganglia][:web_dir]}"
     cwd "/usr/src/ganglia-#{node[:ganglia][:version]}"
+    not_if "test -f #{node[:ganglia][:web_dir]}/ganglia.php"
   end
 
   web_app "ganglia" do

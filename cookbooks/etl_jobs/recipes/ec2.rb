@@ -63,11 +63,11 @@ directory "/data/log/profile"
 remote_file "/data/jobs/profile/profile_job.jar" do
   source "http://yum.ihr/files/jobs/profile/profile_job.jar"
 end
-#cron_d "profile_job" do
-#  command "/usr/bin/cronwrap use1b-jobserver101a profile-job \"/usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\\%s`\""
-#  minute 30
-#  hour 3
-#end
+cron_d "profile_job" do
+  command "/usr/bin/cronwrap use1b-jobserver101a profile-job \"/usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\\%s`\""
+  minute 30
+  hour 3
+end
 
 directory "/data/jobs/live_thumbs"
 directory "/data/log/liveradiothumbslog"
@@ -337,13 +337,13 @@ end
 #end
 
 cron_d "pull_event_logs" do
-  command "/usr/bin/cronwrap use1b-jobserver101a Pull-Event-Logs \"for i in `/bin/cat /data/jobs/api_servers`; do /usr/bin/scp $i:/data/apps/tomcat7/logs/event.log.`/bin/date --date='1 day ago' +\%Y-\%m-\%d` /data/log/event/input/$i.event.log.`/bin/date --date='1 day ago' +\%Y-\%m-\%d`; done\""
+  command "/usr/bin/cronwrap use1b-jobserver101a Pull-Event-Logs \"/home/ihr-deployer/event.sh\""
   minute 27
   hour 1
   user 'ihr-deployer'
 end
 cron_d "pull_sysinfo_logs" do
-  command "/usr/bin/cronwrap use1b-jobserver101a Pull-Sysinfo-Logs \"for i in `/bin/cat /data/jobs/api_servers`; do /usr/bin/scp $i:/data/apps/tomcat7/logs/sysinfo.log.`/bin/date --date='1 hour ago' +\%Y-\%m-\%d-\%H` /data/log/sysinfo/input/$i.sysinfo.log.`/bin/date --date='1 hour ago' +\%Y-\%m-\%d-\%H`; done\""
+  command "/usr/bin/cronwrap use1b-jobserver101a Pull-Sysinfo-Logs \"/home/ihr-deployer/sysinfo.sh\""
   minute '*/15'
   user 'ihr-deployer'
 end
@@ -367,9 +367,9 @@ bash "set-migration-perms" do
   code 'chown -R ihr-deployer. /data/jobs/radiomigration'
 end
 db_user = Chef::EncryptedDataBagItem.load("sqlserver", "users")
-#cron_d "radiomigration" do
-#  command "/usr/bin/cronwrap use1b-jobserver101a Radiomigration \"/data/jobs/radiomigration/ImportToDBFromCSV.sh localhost radio processed 10.10.182.175 appBatch #{db_user['appBatch']}\""
-#  minute 50
-#  hour 21
-#  user 'ihr-deployer'
-#end
+cron_d "radiomigration" do
+  command "/usr/bin/cronwrap use1b-jobserver101a Radiomigration \"/data/jobs/radiomigration/ImportToDBFromCSV.sh localhost radio processed 10.10.182.175 appBatch #{db_user['appBatch']}\""
+  minute 50
+  hour 21
+  user 'ihr-deployer'
+end
