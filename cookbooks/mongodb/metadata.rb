@@ -14,3 +14,4 @@ end
   supports os
 end
 
+depends "lvm"
