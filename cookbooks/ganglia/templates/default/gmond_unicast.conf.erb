@@ -33,7 +33,7 @@ host {
   used to only support having a single channel */
 udp_send_channel {
   host = <%= @host %>
-  port = 8649
+  port = <%= @cluster[:gmond_port] %>
   ttl = 1
 }
 

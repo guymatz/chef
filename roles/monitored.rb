@@ -5,5 +5,6 @@ run_list(
          "recipe[rsyslog::client]",
          "recipe[diamond]",
          "recipe[monitoring]",
-                  "role[ganglia-monitored]"
+         "role[ganglia-monitored]",
+         "recipe[snmp]"
 )

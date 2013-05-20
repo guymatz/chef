@@ -34,7 +34,10 @@ env_run_lists(
               )
 
 default_attributes ({
-      "ntp" => {
-        "servers" => ["ntp101.ihrdev.com", "ntp102.ihrdev.com"],
-      }
-})
+                      "ntp" => {
+                        "servers" => ["ntp101.ihrdev.com", "ntp102.ihrdev.com"],
+                      },
+                      "snmp" => {
+                        "community" => "37cd175ce59c39f191"
+                      }
+                    })
