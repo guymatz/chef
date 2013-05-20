@@ -49,7 +49,7 @@ when true
   end
 when false
   cluster_name = node[:ganglia][:cluster_name].downcase
-  puts "constructing gannglia cluster #{cluster_name}"
+  puts "constructing ganglia cluster #{cluster_name}"
   cluster = search(:ganglia, "id:#{cluster_name}")
   puts "#{cluster_name}: " + cluster.inspect
   template "/etc/ganglia/gmond.conf" do

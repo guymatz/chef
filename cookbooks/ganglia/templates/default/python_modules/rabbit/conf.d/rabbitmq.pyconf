@@ -1,0 +1,43 @@
+#
+
+modules {
+  module {
+    name = "rabbitmq"
+    language = "python"
+    
+    param metric_group {
+      value = "rabbitmq"
+    }
+    param host {
+      value = "localhost"
+    }
+
+    param vhost {
+      value = "/,vhost1,vhost2"
+    }
+    param username {
+      value = "guest"
+    }
+    param password {
+      value = "guest"
+    }
+    param port {
+      value = "15672"
+    }
+
+    param metric_group {
+      value = "rmq"
+    }
+
+  }
+}
+
+collection_group {
+  collect_every = 30
+  time_threshold = 60
+
+  metric {
+    name_match = "rmq_(.+)"
+  }
+}
+

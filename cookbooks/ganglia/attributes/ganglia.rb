@@ -8,3 +8,7 @@ default[:ganglia][:server_role] = "ganglia-server"
 
 default[:ganglia][:packages] = %w{ libtool }
 default[:ganglia][:web_dir] = "/data/www/ganglia"
+default[:ganglia][:python_mods] = "/usr/lib/ganglia/python_modules"
+default[:ganglia][:conf_d] = "/etc/ganglia/conf.d"
+default[:ganglia][:user] = "ganglia"
+default[:ganglia][:group] = "ganglia"

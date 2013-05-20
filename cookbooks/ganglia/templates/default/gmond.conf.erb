@@ -50,6 +50,13 @@ tcp_accept_channel {
   port = <%= @cluster[:gmond_port] %>
 }
 
+/* channel to receive sFlow */
+/* 6343 is the default sFlow port, an explicit sFlow    */
+/* configuration section is needed to override default  */
+udp_recv_channel {
+  port = 6343
+}
+
 <% if node[:recipes].include? "ganglia::gmetad" && "ganglia::graphite" -%>
 /* Additional receive channel for graphite integration */
 udp_recv_channel {
