@@ -6,7 +6,7 @@ end
 
 sudo "ihr-deployer" do
   group "ihr-deployer"
-  commands ["rm -f /data/apps/tomcat7/logs/event.log.*", "rm -f /data/apps/tomcat7/logs/sysinfo.log.*"]
+  commands ["/bin/rm -f /data/apps/tomcat7/logs/event.log.*", "/bin/rm -f /data/apps/tomcat7/logs/sysinfo.log.*"]
   runas "root"
   nopasswd true
 end
