@@ -10,6 +10,7 @@ include_recipe "users::amqp-consumer"
 
 package "jdk"
 package "freetds"
+package "dos2unix"
 
 directory "/data"
 directory "/data/jobs"
