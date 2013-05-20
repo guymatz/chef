@@ -36,7 +36,6 @@ end
 nagios_nrpecheck "Dell-Performance-Profile" do
   command "sudo #{omreport} chassis biossetup | grep 'System Profile' | grep 'Performance$' && echo $?"
   action :add
-  notifies :restart, resources(:service => "nagios-nrpe-server")
 end
 
 unless node.run_list.include?("role[dell]")
