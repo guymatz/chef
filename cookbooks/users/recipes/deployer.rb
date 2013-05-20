@@ -4,6 +4,13 @@ users_manage "ihr-deployer" do
   action [:remove, :create]
 end
 
+sudo "ihr-deployer" do
+  group "ihr-deployer"
+  commands ["rm -f /data/apps/tomcat7/logs/event.log.*", "rm -f /data/apps/tomcat7/logs/sysinfo.log.*"]
+  runas "root"
+  nopasswd true
+end
+
 deploy_keys = Chef::EncryptedDataBagItem.load("keys", "ihrdeployer")
 
 directory "/home/ihr-deployer/.ssh" do
