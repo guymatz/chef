@@ -337,13 +337,13 @@ end
 #end
 
 cron_d "pull_event_logs" do
-  command "/usr/bin/cronwrap use1b-jobserver101a Pull-Event-Logs \"for i in `/bin/cat /data/jobs/api_servers`; do /usr/bin/scp $i:/data/apps/tomcat7/logs/event.log.`/bin/date --date='1 day ago' +\%Y-\%m-\%d` /data/log/event/input/$i.event.log.`/bin/date --date='1 day ago' +\%Y-\%m-\%d`; done\""
+  command "/usr/bin/cronwrap use1b-jobserver101a Pull-Event-Logs \"for i in `/bin/cat /data/jobs/api_servers`; do for x in `ssh $i 'cd /data/apps/tomcat7/logs/; ls event.log.*'`; do /usr/bin/scp $i:/data/apps/tomcat7/logs/$x /data/log/event/input/$i.$x; ssh $i \"sudo rm -f /data/apps/tomcat7/logs/$x\"; done; done\""
   minute 27
   hour 1
   user 'ihr-deployer'
 end
 cron_d "pull_sysinfo_logs" do
-  command "/usr/bin/cronwrap use1b-jobserver101a Pull-Sysinfo-Logs \"for i in `/bin/cat /data/jobs/api_servers`; do /usr/bin/scp $i:/data/apps/tomcat7/logs/sysinfo.log.`/bin/date --date='1 hour ago' +\%Y-\%m-\%d-\%H` /data/log/sysinfo/input/$i.sysinfo.log.`/bin/date --date='1 hour ago' +\%Y-\%m-\%d-\%H`; done\""
+  command "/usr/bin/cronwrap use1b-jobserver101a Pull-Sysinfo-Logs \"for i in `/bin/cat /data/jobs/api_servers`; do for x in `ssh $i 'cd /data/apps/tomcat7/logs/; ls sysinfo.log.*'`; do /usr/bin/scp $i:/data/apps/tomcat7/logs/$x /data/log/sysinfo/input/$i.$x; ssh $i \"sudo rm -f /data/apps/tomcat7/logs/$x\"; done; done\""
   minute '*/15'
   user 'ihr-deployer'
 end
