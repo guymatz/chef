@@ -22,16 +22,6 @@ directory "/var/log/logster" do
     mode "0755"
 end
 
-#execute "create logster" do
-#    command "/usr/bin/install -m 0755 -t /usr/sbin /var/tmp/logster/logster"
-#    creates "/usr/sbin/logster"
-#end
-#
-#execute "create logster_helper" do
-#    command "/usr/bin/install -m 0644 -t /usr/share/logster /var/tmp/logster/logster_helper.py"
-#    creates "/usr/share/logster/logster_helper.py"
-#end
-
 # remove shitty logcheck cron that is broken on centos
 if File.exists?("/etc/cron.d/logcheck") then
     bash "delete" do
@@ -54,7 +44,7 @@ node[:logster][:static_files].each do |dest,src|
 cookbook_file "#{dest}" do
     source "#{src}"
     mode 0555
-#    not_if { node.normal.attribute?("logster_deployed") }
+    not_if { node.normal.attribute?("logster_deployed") }
     end
 end
 
