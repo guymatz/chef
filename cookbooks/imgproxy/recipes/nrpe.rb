@@ -8,7 +8,7 @@ end
 
 nagios_nrpecheck "check_app_proc_varnishd" do
   command "#{node['nagios']['plugin_dir']}/check_procs -a 'varnish'"
-  critical_condition "2:2"
+  critical_condition "2:3"
 end
 
 nagios_nrpecheck "check_app_proc_nginx" do
