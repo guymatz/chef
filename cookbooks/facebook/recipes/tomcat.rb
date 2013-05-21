@@ -25,3 +25,12 @@ service "tomcat" do
   supports :start => true, :stop => true, :status => true
   action [:enable, :start]
 end
+
+logrotate_app "tomcat-fbtomcat" do
+  cookbook "logrotate"
+  path ["#{node[:tomcat7][:install_path]}/logs/catalina.out", "#{node[:tomcat7][:install_path]}/logs/face.log"]
+  frequency "daily"
+  options ["missingok", "notifempty"]
+  rotate 5
+  create "644 root root"
+end
