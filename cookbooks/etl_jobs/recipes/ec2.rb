@@ -398,6 +398,7 @@ end
 python_pip "requests" do
   action :install
 end
+package "ncftp"
 directory "/data/jobs/prn"
 directory "/data/log/prn"
 bash "extract-prn" do
