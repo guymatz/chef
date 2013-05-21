@@ -187,7 +187,7 @@ class = handlers.TimedRotatingFileHandler
 level = DEBUG
 formatter = default
 # rotate at midnight, each day and keep 7 days
-args = ('<%= node['diamond']['archive_handler']["log_file"] %>', 'midnight', 1, 7)
+args = ('<%= node['diamond']['archive_handler']["log_file"] %>', 'midnight', 1, 2)
 
 [formatter_default]
 
