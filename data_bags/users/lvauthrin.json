@@ -3,7 +3,7 @@
     "uid": 5016,
     "name": "Laurent Vauthrin",
     "email": "laurentvauthrin@clearchannel.com",
-    "groups": ["dev", "amp", "rabbit"],
+    "groups": ["attivio", "etl", "jobserver", "nagios", "membase", "mongodb", "facebook", "dev", "amp", "rabbit"],
     "nagios": {
         "email": "laurentvauthrin@clearchannel.com"
     },
