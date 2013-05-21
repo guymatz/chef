@@ -24,6 +24,7 @@ when "debian"
   package "pcre-dev"
 when "rhel", "fedora", "arch"
   package "pcre-devel"
+  package "httpd-devel"
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/mod-sflow-1.0.3.tar.gz" do
