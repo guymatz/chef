@@ -18,10 +18,22 @@ begin
         mode "0755"
     end
 
+    directory "/var/run/logster-state" do
+        owner "root"
+        group "root"
+        mode "0755"
+    end
+
     directory "/var/log/logster" do
         owner "root"
         group "root"
         mode "0755"
+    end
+
+    cron_d "logster-state" do
+        minute  "1"
+        hour    "0"
+        command "find /var/run/logster-state -mtime +1 -exec rm -f {} \\;"
     end
 
     # remove shitty logcheck cron that is broken on centos
@@ -54,11 +66,4 @@ begin
 rescue
     untag("logster-deployed")
 end
-
-#    ruby_block "deployed_flag" do
-#        block do
-#          node.set['logster_deployed'] = true
-#          node.save
-#        end
-#    end
 
