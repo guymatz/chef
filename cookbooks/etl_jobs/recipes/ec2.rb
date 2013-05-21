@@ -374,3 +374,19 @@ cron_d "radiomigration" do
   hour 21
   user 'ihr-deployer'
 end
+
+directory "/data/jobs/stationlikes"
+directory "/data/log/stationlikes"
+bash "extract-stationlikes" do
+  cwd "/data/jobs/stationlikes"
+  code "tar xpf stationlikes.tar.gz"
+  action :nothing
+end
+remote_file "/data/jobs/stationlikes/stationlikes.tar.gz" do
+  action :create_if_missing
+  notifies :run, 'bash[extract-stationlikes]', :immediately
+end
+cron_d "stationlikes" do
+  command "/data/jobs/stationlikes/ReadFBData.sh"
+  minute 3
+end
