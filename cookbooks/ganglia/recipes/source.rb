@@ -19,7 +19,7 @@ execute "untar ganglia" do
 end
 
 execute "configure ganglia build" do
-  command "./configure --with-gmetad --with-libpcre=no --sysconfdir=/etc/ganglia"
+  command "./configure --with-gmetad  --sysconfdir=/etc/ganglia"
   creates "#{src_path}/config.log"
   cwd src_path
 end
@@ -32,7 +32,7 @@ end
 
 execute "install ganglia" do
   command "make install"
-  creates "/usr/sbin/gmond"
+  creates "/usr/local/sbin/gmond"
   cwd src_path
 end
 
