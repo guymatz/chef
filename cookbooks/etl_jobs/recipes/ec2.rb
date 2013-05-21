@@ -391,3 +391,24 @@ cron_d "stationlikes" do
   command "/data/jobs/stationlikes/ReadFBData.sh"
   minute 3
 end
+
+python_pip "simplejson" do
+  action :install
+end
+directory "/data/jobs/prn"
+directory "/data/log/prn"
+bash "extract-prn" do
+  cwd '/data/jobs/prn'
+  code 'tar xpf prn.tar.gz'
+  action :nothing
+end
+remote_file "/data/jobs/prn/prn.tar.gz" do
+  source "http://yum.ihr/files/jobs/prn/prn.tar.gz"
+  action :creat_if_missing
+  notifies :run, 'bash[extract-prn]', :immediately
+end
+cron_d "prn_dater" do
+  command 'cd /data/jobs/prn;/data/jobs/prn/dater.sh 2>&1 >> /data/log/prn/dater.log'
+  minute 30
+  hour '*/1'
+end
