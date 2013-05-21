@@ -383,6 +383,7 @@ bash "extract-stationlikes" do
   action :nothing
 end
 remote_file "/data/jobs/stationlikes/stationlikes.tar.gz" do
+  source "http://yum.ihr/files/jobs/stationlikes/stationlikes.tar.gz"
   action :create_if_missing
   notifies :run, 'bash[extract-stationlikes]', :immediately
 end
