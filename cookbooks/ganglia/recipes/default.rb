@@ -21,13 +21,14 @@ case node[:platform]
 when "ubuntu", "debian"
   package "ganglia-monitor"
 when "redhat", "centos", "fedora"
+  include_recipe "host-sflow"
   include_recipe "ganglia::source"
 
-  execute "copy ganglia-monitor init script" do
-    command "cp " +
-      "/usr/src/ganglia-#{node[:ganglia][:version]}/gmond/gmond.init " +
-      "/etc/init.d/ganglia-monitor"
-    not_if "test -f /etc/init.d/ganglia-monitor"
+  template "/etc/init.d/ganglia-monitor" do
+    source "ganglia-monitor.init.erb"
+    owner "root"
+    group "root"
+    mode "0755"
   end
 
   user "ganglia"

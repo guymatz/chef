@@ -3,6 +3,7 @@ if platform?( "redhat", "centos", "fedora" )
   package "libconfuse-devel"
   package "expat-devel"
   package "rrdtool-devel"
+  package "pcre-devel"
 end
 
 remote_file "/usr/src/ganglia-#{node[:ganglia][:version]}.tar.gz" do

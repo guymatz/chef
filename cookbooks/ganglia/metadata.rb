@@ -8,7 +8,7 @@ version          "0.1.1"
 %w{ debian ubuntu redhat centos fedora }.each do |os|
   supports os
 end
-%w{ apache2 php users nagios }.each do |dep|
+%w{ apache2 php users nagios host-sflow }.each do |dep|
   depends dep
 end
 
