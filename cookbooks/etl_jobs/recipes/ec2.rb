@@ -404,7 +404,7 @@ bash "extract-prn" do
 end
 remote_file "/data/jobs/prn/prn.tar.gz" do
   source "http://yum.ihr/files/jobs/prn/prn.tar.gz"
-  action :creat_if_missing
+  action :create_if_missing
   notifies :run, 'bash[extract-prn]', :immediately
 end
 cron_d "prn_dater" do
