@@ -37,6 +37,12 @@ execute "install ganglia" do
   cwd src_path
 end
 
+directory "/usr/local/lib64/ganglia/python_modules" do
+  owner node[:ganglia][:user]
+  group node[:ganglia][:group]
+  recursive true
+end
+
 link "/usr/lib/ganglia" do
   to "/usr/lib64/ganglia"
   only_if do

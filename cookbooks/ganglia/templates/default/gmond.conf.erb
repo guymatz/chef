@@ -54,7 +54,7 @@ tcp_accept_channel {
 /* 6343 is the default sFlow port, an explicit sFlow    */
 /* configuration section is needed to override default  */
 udp_recv_channel {
-  bind = 127.0.0.1
+  bind = localhost
   port = 6343
 }
 
@@ -66,5 +66,17 @@ udp_recv_channel {
 }
 <% end -%>
 
-include ('/etc/ganglia/conf.d/*.conf')
+/* Optional sFlow settings */
+sflow {
+  udp_port = 6343
+  accept_vm_metrics = yes
+  accept_jvm_metrics = yes
+# multiple_jvm_instances = no
+  accept_http_metrics = yes
+# multiple_http_instances = no
+  accept_memcache_metrics = yes
+# multiple_memcache_instances = no
+}
+
+
 
