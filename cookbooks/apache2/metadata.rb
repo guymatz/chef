@@ -51,6 +51,10 @@ recipe            "apache2::mod_xsendfile", "Apache module 'xsendfile'"
   supports os
 end
 
+%w{ host-sflow }.each do |dep|
+  depends dep
+end
+
 attribute "apache",
   :display_name => "Apache Hash",
   :description => "Hash of Apache attributes",
