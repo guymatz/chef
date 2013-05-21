@@ -9,12 +9,6 @@
 
 include_recipe "logster::default"
 
-deploy_keys = Chef::EncryptedDataBagItem.load("keys", "monitoring-deploy")
-directory "/root/.ssh" do
-    recursive true
-    mode "0700"
-end
-
 
 template "/etc/init.d/ampstats" do
     mode "0755"
@@ -22,23 +16,6 @@ template "/etc/init.d/ampstats" do
         variables(
         )
 end
-
-
-file "/root/.ssh/monitoring-deploy" do
-    mode "0400"
-    content deploy_keys['private_key']
-    :create_if_missing
-end
-
-#file "/root/.ssh/config" do
-#    mode "0755"
-#    content <<-EOH
-#        Host *github.com *.ihr iad-search*
-#        IdentityFile "/root/.ssh/monitoring-deploy"
-#        StrictHostKeyChecking no
-#    EOH
-#    :create_if_missing
-#end
 
 package "nc" do
     action :install
