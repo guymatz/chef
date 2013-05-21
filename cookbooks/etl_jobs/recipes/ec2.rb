@@ -395,6 +395,9 @@ end
 python_pip "simplejson" do
   action :install
 end
+python_pip "requests" do
+  action :install
+end
 directory "/data/jobs/prn"
 directory "/data/log/prn"
 bash "extract-prn" do
