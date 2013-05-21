@@ -2,6 +2,8 @@ include_recipe "git"
 
 package "logcheck"
 
+include_recipe "logster::logrotate"
+
 
 begin
   unless tagged?("logster-deployed")

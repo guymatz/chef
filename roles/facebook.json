@@ -9,8 +9,7 @@
         "role[mongosd]",
         "recipe[facebook]",
         "recipe[facebook::graph]",
-        "recipe[facebook::tomcat]",
-        "role[ganglia-monitored]"
+        "recipe[facebook::tomcat]"
     ],
     "description": "",
     "chef_type": "role",

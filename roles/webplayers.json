@@ -11,8 +11,7 @@
   },
   "run_list": [
     "recipe[webplayer]",
-      "recipe[bondage::dns]",
-      "role[ganglia-monitored]"
+      "recipe[bondage::dns]"
   ],
   "description": "",
   "chef_type": "role",

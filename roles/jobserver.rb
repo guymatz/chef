@@ -4,8 +4,7 @@ all_env = [
            "recipe[jobserver]",
            "recipe[splunk::forwarder]",
            "role[etljob_server]",
-           "role[mongosd]",
-           "role[ganglia-monitored]"
+           "role[mongosd]"
           ]
 run_list(all_env)
 
