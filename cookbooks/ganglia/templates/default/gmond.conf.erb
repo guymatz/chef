@@ -50,13 +50,13 @@ tcp_accept_channel {
   port = <%= @cluster[:gmond_port] %>
 }
 
-/* channel to receive sFlow */
-/* 6343 is the default sFlow port, an explicit sFlow    */
-/* configuration section is needed to override default  */
-udp_recv_channel {
-  bind = localhost
-  port = 6343
-}
+# /* channel to receive sFlow */
+# /* 6343 is the default sFlow port, an explicit sFlow    */
+# /* configuration section is needed to override default  */
+# udp_recv_channel {
+#   bind = localhost
+#   port = 6343
+# }
 
 <% if node[:recipes].include? "ganglia::gmetad" && "ganglia::graphite" -%>
 /* Additional receive channel for graphite integration */
@@ -66,17 +66,17 @@ udp_recv_channel {
 }
 <% end -%>
 
-/* Optional sFlow settings */
-sflow {
-  udp_port = 6343
-  accept_vm_metrics = yes
-  accept_jvm_metrics = yes
-# multiple_jvm_instances = no
-  accept_http_metrics = yes
-# multiple_http_instances = no
-  accept_memcache_metrics = yes
-# multiple_memcache_instances = no
-}
+# /* Optional sFlow settings */
+# sflow {
+#   udp_port = 6343
+#   accept_vm_metrics = yes
+#   accept_jvm_metrics = yes
+# # multiple_jvm_instances = no
+#   accept_http_metrics = yes
+# # multiple_http_instances = no
+#   accept_memcache_metrics = yes
+# # multiple_memcache_instances = no
+# }
 
 
 

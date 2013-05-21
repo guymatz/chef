@@ -22,36 +22,12 @@ include_recipe "apache2::mod_expires"
 include_recipe "apache2::mod_headers"
 include_recipe "apache2::mod_log_config"
 include_recipe "apache2::mod_proxy_http"
+include_recipe "apache2::mod_sflow"
 include_recipe "java"
 include_recipe "users::webplayer"
+include_recipe "users::deployer"
 
 node.set[:java][:oracle][:accept_oracle_download_terms] = true
-
-# drop a github private deploy key for ops-auto
-deploy_keys = Chef::EncryptedDataBagItem.load("keys", "webplayer-deploy")
-file "/etc/chef/deploy" do
-  owner "root"
-  group "root"
-  mode "0400"
-  content deploy_keys['private_key']
-  :create_if_missing
-end
-
-directory "/root/.ssh" do
-  owner "root"
-  group "root"
-end
-
-file "/root/.ssh/config" do
-  owner "root"
-  group "root"
-  mode "0755"
-  content <<-EOH
-  Host github.com
-    IdentityFile /etc/chef/deploy
-    StrictHostKeyChecking no
-EOH
-end
 
 directory "#{node[:webplayer][:deploy_path]}/logs" do
   owner node[:webplayer][:user]

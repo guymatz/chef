@@ -1,4 +1,6 @@
 
+include_recipe "users::deployer"
+
 node[:ipplan][:scripts][:packages].each do |p|
   package p
 end
@@ -64,27 +66,6 @@ template "#{node[:ipplan][:scripts_dir]}/bin/ipplan-updatedns.sh" do
   variables({
               :scripts_dir => node[:ipplan][:scripts_dir]
             })
-end
-
-# drop a github private deploy key for ops-auto
-deploy_keys = Chef::EncryptedDataBagItem.load("keys", "ops-auto")
-file "/etc/chef/ops-auto" do
-  owner "root"
-  group "root"
-  mode "0400"
-  content deploy_keys['private_key']
-  :create_if_missing
-end
-
-file "/root/.ssh/config" do
-  owner "root"
-  group "root"
-  mode "0755"
-  content <<-EOH
-  Host github.com
-    IdentityFile /etc/chef/ops-auto
-    StrictHostKeyChecking no
-EOH
 end
 
 results = search(:node, "roles:dns-server")

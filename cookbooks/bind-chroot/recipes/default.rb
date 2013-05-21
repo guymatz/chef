@@ -183,35 +183,6 @@ cookbook_file "#{node['bind_chroot']['chroot_dir']}/var/named/named.root" do
   mode "0644"
 end
 
-# drop a github private deploy key for ops-auto
-deploy_keys = Chef::EncryptedDataBagItem.load("keys", "ops-auto")
-file "/etc/chef/ops-auto" do
-  owner "root"
-  group "root"
-  mode "0400"
-  content deploy_keys['private_key']
-  :create_if_missing
-end
-
-directory "/root/.ssh" do
-  owner "root"
-  group "root"
-  mode "0700"
-end
-
-# file "/root/.ssh/config" do
-#   owner "root"
-#   group "root"
-#   mode "0755"
-#   content <<-EOH
-#   Host github.com
-#     IdentityFile /etc/chef/ops-auto
-#     StrictHostKeyChecking no
-#     UserKnownHostsFile=/dev/null
-# EOH
-# end
-
-
 directory "/staging_bind" do
   owner "root"
   group "root"
