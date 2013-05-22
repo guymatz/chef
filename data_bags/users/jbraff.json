@@ -3,7 +3,7 @@
     "uid": 5007,
     "name": "Jeremy Braff",
     "email": "jeremybraff@clearchannel.com",
-    "groups": ["dev", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook"],
+    "groups": ["dev", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch"],
     "nagios": {
         "email": "jeremybraff@clearchannel.com"
     },
