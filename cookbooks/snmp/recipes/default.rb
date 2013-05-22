@@ -17,6 +17,11 @@
 # limitations under the License.
 #
 
+if node.run_list.include?("role[zeus]")
+  Chef::Log.info("SNMPD does not work on zeus, bailing")
+  return
+end
+
 node['snmp']['packages'].each do |snmppkg|
   package snmppkg
 end
@@ -31,13 +36,13 @@ if not node['snmp']['cookbook_files'].empty?
   end
 end
 
-service node['snmp']['service'] do
-  action [ :start, :enable ]
-end
-
 template "/etc/snmp/snmpd.conf" do
   mode 0644
   owner "root"
   group "root"
   notifies :restart, "service[#{node['snmp']['service']}]"
+end
+
+service node['snmp']['service'] do
+  action [ :start, :enable ]
 end
