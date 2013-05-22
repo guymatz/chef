@@ -3,11 +3,11 @@ autorestart=true
 stopasgroup=true
 redirect_stderr=true
 stdout_logfile=/var/log/supervisor/%(program_name)s.log
-<% node[:supervisor][:app][@name].each do |k,v| %>
+<% node[:supervisor][:app][@name].sort_by { |k,v| k }.each do |k,v| %>
 <%= k %>=<%= v %>
 <% end %>
 <% if node[:supervisor][:directives] %>
-<% node[:supervisor][:directives].each do |k,v| %>
+<% node[:supervisor][:directives].sort_by { |k,v| k }.each do |k,v| %>
 <%= k %>=<%= v %>
 <% end %>
 <% end %>
