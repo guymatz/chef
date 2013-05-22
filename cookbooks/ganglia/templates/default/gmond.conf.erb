@@ -78,5 +78,47 @@ sflow {
 # multiple_memcache_instances = no
 }
 
+/* Each metrics module that is referenced by gmond must be specified and
+  loaded. If the module has been statically linked with gmond, it does not
+  a load path. However all dynamically loadable modules must include load path. */
+modules {
+  module {
+    name = "core_metrics"
+  }
+  module {
+    name = "cpu_module"
+    path = "/usr/lib64/ganglia/modcpu.so"
+  }
+  module {
+    name = "disk_module"
+    path = "/usr/lib64/ganglia/moddisk.so"
+  }
+  module {
+    name = "load_module"
+    path = "/usr/lib64/ganglia/modload.so"
+  }
+  module {
+    name = "mem_module"
+    path = "/usr/lib64/ganglia/modmem.so"
+  }
+  module {
+    name = "net_module"
+    path = "/usr/lib64/ganglia/modnet.so"
+  }
+  module {
+    name = "proc_module"
+    path = "/usr/lib64/ganglia/modproc.so"
+  }
+  module {
+    name = "sys_module"
+    path = "/usr/lib64/ganglia/modsys.so"
+  }
+}
 
-
+collection_group {
+  collect_once = yes
+  time_threshold = 20
+  metric {
+    name = "heartbeat"
+  }
+}
