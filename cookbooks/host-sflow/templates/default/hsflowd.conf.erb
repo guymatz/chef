@@ -1,0 +1,15 @@
+sflow {
+  DNSSD = off
+  polling = 20
+  sampling = 512
+  <% @collectors.each do |c| -%>
+  collector{
+    ip = <%= c %>
+    udpport = 6343
+  }
+  <% end -%>
+  collector{
+    ip = localhost
+    udpport = 6343
+  }
+}

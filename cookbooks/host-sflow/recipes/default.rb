@@ -11,11 +11,16 @@ node[:hsflow][:packages].each do |pkg|
   package pkg
 end
 
+collectors = node[:hsflow][:collectors]
+
 template "/etc/hsflowd.conf" do
-  source "hsflowd.conf"
+  source "hsflowd.conf.erb"
   owner "root"
   group "root"
   mode "0755"
+  variables({
+              :collectors => collectors
+            })
   notifies :restart, "service[hsflowd]"
 end
 
