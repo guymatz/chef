@@ -33,7 +33,7 @@ default['splunk']['dynamic_server_configs']    = ["inputs","props"]
 default['splunk']['receiver_port']             = "9997"
 
 #Change the default admin password (Username::Password)
-default['splunk']['auth']                      = "admin:SomePassword123"
+default['splunk']['auth']                      = "admin:11"
 
 # Set the role of your splunk server/dedicated search head
 default['splunk']['server_role']               = "splunk-server"
