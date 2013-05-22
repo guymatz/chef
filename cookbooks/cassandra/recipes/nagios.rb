@@ -10,5 +10,5 @@ end
 
 nagios_nrpecheck "check_app_proc_cassandra" do
   command "#{node['nagios']['plugin_dir']}/check_procs -a 'org.apache.cassandra.service.CassandraDaemon'"
-  critical_condition "1:1"
+  critical_condition "1:2"
 end
