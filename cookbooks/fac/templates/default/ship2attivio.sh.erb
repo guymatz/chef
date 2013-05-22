@@ -18,7 +18,6 @@ if [ -f $SRC_FILE ] ; then
     scp -i /home/$SCP_USER/.ssh/deploy $SRC_FILE $SCP_USER@$ATTIVIO_MASTER:$DST_FILE
     if [ $? -ne 0 ] ; then
         echo "An error occured shipping streams_list_attivio_ready.xml to $ATTIVIO_MASTER"
-        exit $?
     fi
     mv $SRC_FILE $SRC_FILE.$(date +%Y%m%d).shipped
 else
