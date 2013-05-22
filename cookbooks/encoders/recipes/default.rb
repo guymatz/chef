@@ -81,6 +81,11 @@ execute "mkdirs2" do
     not_if { ::File.exists?("#{node[:encoders][:encoder_mount]}")}
 end
 
+execute "logdir" do
+    command "mkdir -p #{node[:encoders][:logdir]}"
+    not_if { ::File.exists?("#{node[:encoders][:logdir]}")}
+end
+
 execute "mounts" do
     command "/bin/mount -a"
     action :run

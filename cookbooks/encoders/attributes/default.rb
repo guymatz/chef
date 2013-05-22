@@ -68,3 +68,5 @@ default[:encoders][:encoder_mount] = "/data/encoder"
 default[:encoders][:user] = "converter"
 default[:encoders][:ftpuser] = "ftp"
 default[:encoders][:group] = "converter"
+
+default[:encoders][:logdir] = "/data/logs/manager"
