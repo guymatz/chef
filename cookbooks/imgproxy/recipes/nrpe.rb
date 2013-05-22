@@ -7,7 +7,7 @@ nagios_nrpecheck "check_varnish_ratio" do
 end
 
 nagios_nrpecheck "check_app_proc_varnishd" do
-  command "#{node['nagios']['plugin_dir']}/check_procs -C varnish -a default.vcl"
+  command "#{node['nagios']['plugin_dir']}/check_procs -C varnishd -a default.vcl"
   critical_condition "2:3"
 end
 
