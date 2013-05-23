@@ -67,6 +67,7 @@ template "/etc/init.d/elasticsearch" do
   owner "root"
   group "root"
   mode "0755"
+  notifies :restart, "service[elasticsearch]"
 end
 
 service "elasticsearch" do
