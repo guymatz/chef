@@ -13,6 +13,7 @@ if node.chef_environment == 'prod'
   include_recipe "jobserver::ha"
 end
 
+service "nagios-nrpe-server"
 nagios_nrpecheck "Process-Cron" do
   command "#{node['nagios']['plugin_dir']}/check_procs"
   critical_condition "1:"
