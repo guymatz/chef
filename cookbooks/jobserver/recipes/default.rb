@@ -19,7 +19,7 @@ nagios_nrpecheck "Process-Cron" do
   critical_condition "1:"
   parameters "-C crond"
   action :add
-  notifies :restart, resources(:service => "nagios-nrpe-server")
+# notifies :restart, resources(:service => "nagios-nrpe-server")
 end
 
 
