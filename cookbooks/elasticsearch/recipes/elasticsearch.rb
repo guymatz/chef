@@ -1,5 +1,7 @@
 
 directory node[:elasticsearch][:base_path] do
+  owner node[:elasticsearch][:user]
+  group node[:elasticsearch][:group]
   recursive true
 end
 

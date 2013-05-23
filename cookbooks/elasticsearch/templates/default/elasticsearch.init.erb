@@ -1,0 +1,25 @@
+#!/bin/bash
+# description: ElasticSearch Start Stop
+# chkconfig: 345 99 05
+# description: elastic search process
+
+IHR_SEARCH_HOME=<%= node[:elasticsearch][:ihrsearch_path] %>
+ES_HOME=$IHR_SEARCH_HOME/../elasticsearch
+
+case $1 in
+    start)
+        sh $ES_HOME/bin/elasticsearch -Xms8G -Xmx8G  -Des.path.conf=$IHR_SEARCH_HOME/configs  -Des.path.logs=$IHR_SEARCH_HOME/logs/ -Des.path.data=$IHR_SEARCH_HOME/data/
+        ;;
+    stop)
+        curl -XPOST 'http://localhost:9200/_cluster/nodes/_local/_shutdown'
+        ;;
+    restart)
+        curl -XPOST 'http://localhost:9200/_cluster/nodes/_local/_shutdown'
+        sh $ES_HOME/bin/elasticsearch -Xms8G -Xmx8G  -Des.path.conf=$IHR_SEARCH_HOME/configs  -Des.path.logs=$IHR_SEARCH_HOME/logs/ -Des.path.data=$IHR_SEARCH_HOME/data/
+        ;;
+    *)
+        echo "Usage: run.sh {start|stop}"
+        exit 1
+        ;;
+esac
+exit 0
