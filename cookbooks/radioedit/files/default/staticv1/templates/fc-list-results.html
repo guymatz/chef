@@ -1,0 +1,44 @@
+<table width="100%" class="list-content">
+    <tbody>
+    {{#each collection.models}}
+    <tr data-callback="navigateTo" data-args="#target/{{ attributes.name }}/{{ attributes._id }}">
+        <td class="editor">
+            <a href="#target/{{ attributes.name }}/{{ attributes._id }}">{{ attributes.owner_id }}</a>
+        </td>
+        <td>
+            <ul class="thumbnails pull-right">
+                {{#../items_list}}
+                {{#each this }}
+                <li class="">
+                    <a href="#" class="thumbnail">
+                        <img src="{{image_url}}?ops=fit(60,50)" width="60" height="50" alt="">
+                    </a>
+                </li>
+                {{/each}}
+                {{/../items_list}}
+            </ul>
+            <div class="" style="">
+                <p>
+                    <span style="color: black;">{{ attributes.namespace }}</span>:<strong>{{ attributes.name }}</strong>
+                    &mdash; {{../paragraph}}
+                </p>
+                {{^attributes.enabled}}
+                <span class="label label-inverse">Disabled</span>
+                {{/attributes.enabled}}
+                {{#attributes.meta.deleted}}
+                <a href="#" rel="tooltip" title="This target is marked for deletion and will be purged from the system soon">
+                    <span class="label label-important"><i class="icon-warning-sign icon-white"></i> Pending Delete</span>
+                </a>
+                {{/attributes.meta.deleted}}
+            </div>
+        </td>
+        <td class="mtime">
+            {{../format_date}}
+        </td>
+        <td class="count">
+            <a href="#" rel="tooltip" title="There are {{attributes.items.length}} content items in this target"><span class="badge">{{attributes.items.length}}</span></a>
+        </td>
+    </tr>
+    {{/each}}
+    </tbody>
+</table>

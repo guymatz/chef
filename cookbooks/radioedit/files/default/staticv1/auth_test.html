@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+
+<html>
+
+<head>
+    <title>Auth Test</title>
+    <script src="http://localhost:8337/static/js/auth.js"></script>
+</head>
+<body>
+    <div id="ihr-root"></div>
+
+    <div id="debug"></div>
+
+    <script>
+        var debugElement = document.getElementById("debug"),
+            debug = function (str) {
+                debugElement.innerHTML += '<p>' + str + '</p>';
+            };
+
+        debug(window.location);
+
+        IHR.init("http://localhost:8000/");
+        IHR.login('featuredcontent', function(result) {
+            console.log("auth_test login(featuredcontent) result=", result);
+            debug(JSON.stringify(result));
+        });
+    </script>
+</body>
+
+</html>

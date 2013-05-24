@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html>
+
+<title></title>
+<body>
+    <div id="debug"></div>
+
+    <script>
+        var debugElement = document.getElementById('debug');
+
+        function debug(str) {
+            debugElement.innerHTML += '<p>' + str + '</p>';
+        }
+
+        debug(window.location);
+
+        window.opener.postMessage("message from popup2", "*");
+        debug("message from popup2");
+    </script>
+
+</body>
+
+</html>

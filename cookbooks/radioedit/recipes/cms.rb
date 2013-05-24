@@ -84,7 +84,7 @@ end
 remote_directory "#{node[:radioedit][:cms][:path]}/current/static" do
   files_owner node[:radioedit][:user]
   files_group node[:radioedit][:group]
-  source "static"
+  source node[:radioedit][:cms][:static]
   not_if { File.exists?('#{node[:radioedit][:cms][:path]}/current/static') }
 end
 

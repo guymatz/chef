@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Host Page</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <div id="debug"></div>
+
+    <script>
+        var root = document.getElementById('root'),
+            debugElement = document.getElementById('debug'),
+            iframe = document.createElement('iframe');
+
+        function debug(str) {
+            debugElement.innerHTML += '<p>' + str + '</p>';
+        }
+
+        debug(window.location);
+
+        window.addEventListener("message", function(event) {
+            console.log(event);
+            debug("message=" + JSON.stringify(event.data) + " origin=" + event.origin);
+        });
+
+        // load iframe
+        iframe.src = "http://localhost:8337/static/iframe_page.html";
+        iframe.id = "iframe_page";
+        root.appendChild(iframe);
+    </script>
+</body>
+
+</html>

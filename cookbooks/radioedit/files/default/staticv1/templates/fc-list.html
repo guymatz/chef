@@ -1,0 +1,91 @@
+<h1>Featured Content Directory</h1>
+
+<!--
+s<div class="btn-toolbar clearfix">
+    <div class="btn-group">
+        <a class="btn show-new-well" href="#"><i class="icon-plus"></i> New</a>
+    </div>
+
+    <div class="btn-group pull-right">
+        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+            Action
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" id="action-drop">
+            <li><a href="#">Push</a></li>
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+        </ul>
+    </div>
+
+</div>
+-->
+
+<div class="btn-toolbar clearfix">
+    <div class="btn-group">
+        <a class="btn show-new-well" href="#"><i class="icon-plus"></i> New</a>
+    </div>
+
+    <div id="listfilt" class="btn-group" data-toggle="filter">
+        <a class="btn" data-func="reset"><i class="icon-remove"></i></a>
+        <a class="btn" data-name="enabled">Enabled</a>
+    </div>
+
+    <div class="btn-group pull-right">
+        <div class="input-append">
+            <input class="span3" id="search" size="16" type="text" placeholder="Target"><button class="btn" type="button" id="mytargets">My Targets</button><button class="btn" type="button" id="testtargets">Testing</button>
+        </div>
+    </div>
+</div>
+
+<!--
+<div class="clearfix">
+    <div class="btn-group pull-right">
+        <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">
+            Sort Results By
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" id="action-drop">
+            <li><a href="#">Last Modified</a></li>
+            <li><a href="#">Author</a></li>
+        </ul>
+    </div>
+</div>
+-->
+
+<form class="well hide" id="new-target">
+    <label>Enter the name of this target.</label>
+    <input type="text" id="name" name="name" class="span5" placeholder="featured.target.name">
+    <span class="help-block">Most users are encouraged not to created new targets unless you know specifically what you are doing.</span>
+    <label class="checkbox">
+        <input type="checkbox" id="editImmediately" name="editImmediately" checked="checked"> Edit target immediately
+    </label>
+
+    <div class="btn-toolbar">
+        <button type="submit" class="btn btn-primary">Create Target</button>
+        <a class="cancel show-new-well" href="#">Nevermind</a>
+    </div>
+</form>
+
+
+<hr/>
+
+<div id="results">
+    <div style="text-align: center;">
+        <img src="/static/img/spinner.gif" alt="Loading..."/>
+    </div>
+</div>
+
+<div class="pagination pagination-centered">
+</div>
+
+
+
+<!--<div class="btn-toolbar">
+    <div class="btn-group pull-right">
+        <a class="btn" href="#"><i class="icon-plus"></i> Create a New Target</a>
+    </div>
+</div>-->

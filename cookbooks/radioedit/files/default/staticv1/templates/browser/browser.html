@@ -1,0 +1,168 @@
+<div class="clearfix" style="padding-bottom: 15px;">
+    <span class="menu pull-right">
+        <a href="#" data-callback="showAll">Show All</a> |
+        <a href="#" data-callback="hideAll">Hide All</a> |
+        <a href="#" data-callback="expandAll">Expand All</a>
+    </span>
+</div>
+
+<ul class="browser unstyled">
+    {{#each endpoints}}
+    {{#with attributes}}
+    <li>
+        <div class="endpoint clearfix">
+            <span class="menu pull-right"><a href="#" data-callback="showHide">Show/Hide</a> | <a href="#" data-callback="listOps">List Methods</a> | <a href="#" data-callback="expandOps">Expand Operations</a></span>
+            <h2><a href="#" data-callback="toggleOps">{{ endpoint }}</a></h2>
+        </div>
+
+        <div class="operations ">
+            {{{ description.short }}}
+            {{{ description.long }}}
+
+            <h3>Methods</h3>
+            <ul class="unstyled">
+                {{#each methods.models}}
+                    {{#with attributes}}
+                        <li class="{{ verb }}">
+                            <form id="{{ verb }}.{{ ../../endpoint }}" onsubmit="tryit(this); return false;">
+                                <div data-callback="toggleImp">
+                                    <span class="synopsis pull-right">{{{ description.short }}}</span>
+                                    <h3>{{ verb }}</h3>
+                                </div>
+                                <div class="implementation" style="display:none">
+                                    {{#if description.long}}
+                                        <h4>Implementation Notes</h4>
+                                        {{{ description.long }}}
+                                    {{/if}}
+
+                                    <h4>URL Parameters</h4>
+                                    <table class="table url-parameters">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Value</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {{#each ../../params}}
+                                            <tr>
+                                                <td>{{ name }}</td>
+                                                <td><input type="text" name="{{ name }}"></td>
+                                                <td>{{ description }}</td>
+                                            </tr>
+                                        {{/each}}
+                                        </tbody>
+                                    </table>
+
+                                    {{#if querystring}}
+                                    <h4>Querystring Format</h4>
+                                    <table class="table querystring-parameters">
+                                        <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Value</th>
+                                            <th>Type</th>
+                                            <th>Required</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {{#each querystring}}
+                                        <tr class="{{#if required }}required{{/if}}">
+                                            <td>{{ name }}</td>
+                                            <td><input type="text" name="{{ name }}" /></td>
+                                            <td>{{ type }}</td>
+                                            <td>{{#if required }}Yes{{else}}No{{/if}}</td>
+                                            <td>{{{ description }}}</td>
+                                        </tr>
+                                        {{/each}}
+                                        </tbody>
+                                    </table>
+                                    {{/if}}
+
+                                    {{#if body}}
+                                    <h4>Body Format</h4>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Attribute</th>
+                                            <th>Type</th>
+                                            <th>Required</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {{#each body}}
+                                        <tr class="{{#if required }}required{{/if}}">
+                                            <td>{{ name }}</td>
+                                            <td>{{ type }}</td>
+                                            <td>{{#if required }}Yes{{else}}No{{/if}}</td>
+                                            <td>{{{ description }}}</td>
+                                        </tr>
+                                        {{/each}}
+                                        </tbody>
+                                    </table>
+                                    {{/if}}
+
+                                    {{#if files}}
+                                    <h4>Posted Files</h4>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Attribute</th>
+                                            <th>Required</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {{#each files}}
+                                        <tr class="{{#if required }}required{{/if}}">
+                                            <td>{{ name }}</td>
+                                            <td>{{#if required }}Yes{{else}}No{{/if}}</td>
+                                            <td>{{{ description }}}</td>
+                                        </tr>
+                                        {{/each}}
+                                        </tbody>
+                                    </table>
+                                    {{/if}}
+
+                                    {{#if response}}
+                                    <h4>Response Format</h4>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Attribute</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {{#each response}}
+                                        <tr>
+                                            <td>{{ name }}</td>
+                                            <td>{{ type }}</td>
+                                            <td>{{{ description }}}</td>
+                                        </tr>
+                                        {{/each}}
+                                        </tbody>
+                                    </table>
+                                    {{/if}}
+                                    <input type="hidden" name="endpoint-verb" value="{{ verb }}">
+                                    <input type="hidden" name="endpoint-url" value="{{ ../../endpoint }}">
+                                    <input type="submit" value="Try It">
+                                    <div class="ajax-output">
+                                    </div>
+                                </div>
+
+                            </form>
+                        </li> <!-- method -->
+                    {{/with}}
+                {{/each}}
+            </ul>
+        </div>
+
+    </li>
+    {{/with}}
+    {{/each}}
+</ul>

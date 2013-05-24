@@ -1,0 +1,20 @@
+<table class="table-condensed">
+    <thead>
+    <tr>
+        <th colspan="7" class="switch">{{ yearRange }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td colspan="7">
+            {{#dateIterator startDate endDate increment=1 unit="years" outputFormat="{yyyy}" }}
+                {{#dateBetween this.currentDate start=../activeDateStart end=../activeDateEnd}}
+                    <span class="year active">{{this.currentValue}}</span>
+                {{else}}
+                    <span class="year">{{this.currentValue}}</span>
+                {{/dateBetween}}
+            {{/dateIterator }}
+        </td>
+    </tr>
+    </tbody>
+</table>

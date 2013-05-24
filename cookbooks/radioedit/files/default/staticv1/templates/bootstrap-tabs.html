@@ -1,0 +1,19 @@
+<ul class="nav nav-tabs">
+    {{#each tabs}}
+        {{#if active}}
+            <li class="active"><a href="#{{name}}" data-name="{{name}}" data-toggle="tab">{{capitalize name}}</a></li>
+        {{else}}
+            <li><a href="#{{name}}" data-toggle="tab" data-name="{{name}}">{{capitalize name}}</a></li>
+        {{/if}}
+    {{/each}}
+</ul>
+<div class="tab-content">
+    {{#each tabs}}
+        {{#if active}}
+            <div class="tab-pane active" id="{{name}}"></div>
+        {{else}}
+            <div class="tab-pane" id="{{name}}"></div>
+        {{/if}}
+
+    {{/each}}
+</div>
