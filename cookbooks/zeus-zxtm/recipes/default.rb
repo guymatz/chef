@@ -91,3 +91,32 @@ end
       node.save
     end
  end
+
+directory "/root/scripts" do
+  owner "root"
+  group "root"
+  mode  0755
+end
+
+cookbook_file "failover_check.py" do
+  path "/root/scripts/failover_check.py"
+  owner "root"
+  group "root"
+  mode  0755
+end
+
+cookbook_file "vips" do
+  path "/root/scripts/vips"
+  owner "root"
+  group "root"
+  mode  0755
+end
+
+cron "failover_check.py" do
+  command "/usr/bin/python check_failover.py"
+  minute  "*"
+  hour    "*"
+  day     "*"
+  month   "*"
+  weekday "*"
+end
