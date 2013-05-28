@@ -1,6 +1,6 @@
 
 default[:amp][:version] = "2.16.1"
-default[:amp][:url] = "http://yum.ihr/files/amp"
+default[:amp][:url] = "http://files.ihrdev.com/amp"
 
 default[:amp][:packages] = %w{ mongo-10gen-server mongo-10gen }
 
@@ -10,7 +10,7 @@ default[:amp][:pgbouncer][:port] = "5432"
 default[:amp][:logging][:script_path] = "/data/apps/amp/logging"
 default[:amp][:logging][:log_path] = "/var/log/amp"
 
-default[:amp][:logger][:url] = "http://yum.ihr/files/amp/logger.war"
+default[:amp][:logger][:url] = "http://files.ihrdev.com/amp/logger.war"
 
 default[:amp][:logging][:user] = "nobody"
 case node[:platform_family]
