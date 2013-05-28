@@ -406,6 +406,9 @@ end
 python_pip "egenix-mx-base" do
   action :install
 end
+python_pip "python-dateutil" do
+  action :install
+end
 package "ncftp"
 directory "/data/jobs/prn"
 directory "/data/log/prn"
