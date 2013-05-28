@@ -9,7 +9,8 @@
         "role[mongosd]",
         "recipe[facebook]",
         "recipe[facebook::graph]",
-        "recipe[facebook::tomcat]"
+        "recipe[facebook::tomcat]",
+	"recipe[facebook::log_cleanup]"
     ],
     "description": "",
     "chef_type": "role",
