@@ -20,6 +20,7 @@ unless tagged?("es-plugins-installed")
   execute "install-ihrsearch-indexer-plugin" do
     command "#{ES_HOME}/bin/plugin -url #{node[:elasticsearch][:url]}/es-plugins/es-indexer-plugin-1.0.zip -install ihr-index"
     cwd Chef::Config[:file_cache_path]
+    notifies :restart, "service[elasticsearch]"
   end
 
   tag("es-plugins-installed")
