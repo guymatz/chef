@@ -13,32 +13,16 @@ node.save
   include_recipe r
 end
 
-hosts = Hash.new
-hosts["mongodb-fac1b01"] = "10.90.47.182"
-hosts["mongodb-fac1b02"] = "10.90.47.183"
-hosts["mongodb-fac1b03"] = "10.90.47.184"
-hosts["mongodb-fac1b04"] = "10.90.47.185"
-hosts["mongodb-usr1a01"] = "10.90.47.186"
-hosts["mongodb-usr1a02"] = "10.90.47.187"
-hosts["mongodb-usr1a03"] = "10.90.47.188"
-hosts["mongodb-usr1a04"] = "10.90.47.189"
-hosts["mongodb-usr1a05"] = "10.90.47.190"
-hosts["mongodb-usr1a06"] = "10.90.47.191"
-hosts["cassandra1a01"] = "10.90.49.240"
-hosts["cassandra1a02"] = "10.90.49.241"
-hosts["cassandra1a03"] = "10.90.49.242"
-hosts["cassandra1a04"] = "10.90.49.243"
-hosts["cassandra1a05"] = "10.90.49.251"
-hosts["rabbitmq-1b-http-vip"] = "10.90.46.252"
-hosts["apimemcache1a01"] = "10.90.46.208"
-hosts["apimemcache1a02"] = "10.90.46.209"
-hosts["apimemcache1a03"] = "10.90.46.210"
-hosts["apimemcache1a04"] = "10.90.46.211"
+remote_file "#{node[:java][:java_home]}/jre/lib/security/US_export_policy.jar" do
+  source "#{node[:amp][:url]}/jce/US_export_policy.jar"
+  checksum "b800fef6edc0"
+  mode "0755"
+end
 
-hosts.each do |host,ip|
-  hostsfile_entry ip do
-    hostname host
-  end
+remote_file "#{node[:java][:java_home]}/jre/lib/security/local_policy.jar" do
+  source "#{node[:amp][:url]}/jce/local_policy.jar"
+  checksum "4a5c8f64107c"
+  mode "0755"
 end
 
 service "tomcat" do
