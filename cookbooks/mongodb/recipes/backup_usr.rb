@@ -43,7 +43,7 @@ directory "#{node[:mongodb][:backupdir]}" do
   action :create
 end
 
-directory "#{node[:mongodb][:backupdir]}/compressed" do
+directory "#{node[:mongodb][:backupdir]}/uncompressed" do
   owner "mongod"
   group "mongod"
   mode 0755

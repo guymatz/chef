@@ -4,13 +4,13 @@
 program=`basename $0`
 machine=`hostname -a`
 BASEDIR=/data/db/backup
-BKPFOLDER=compressed
+BKPFOLDER=uncompressed
 BKPDIR=$BASEDIR/$BKPFOLDER
 sdate=`date +'%Y-%m-%d:%H:%M'`
 FILE="$BASEDIR/backup-$sdate.tarz"
 DUMP_LOG1="$BASEDIR/backup-$sdate.log"
 AGE=5
-dba_email="CCRDDatabaseOperations@clearchannel.com,JosephHammerman@clearchannel.com,MichaelMoss@clearchannel.com,JeremyBraff@clearchannel.com"
+dba_email="CCRDDatabaseOperations@clearchannel.com,JosephHammerman@clearchannel.com,JeremyBraff@clearchannel.com"
 #dba_email="DimitriyRoyzenberg@clearchannel.com"
 
 echo " " > $DUMP_LOG1
@@ -34,6 +34,8 @@ echo tar zcvf $FILE $BKPFOLDER >> $DUMP_LOG1
 tar zcvf $FILE $BKPFOLDER >> $DUMP_LOG1 2>&1
 res2=$?
 echo $res2
+
+/usr/bin/find $BKPDIR -name '*.tgz' -mtime +10 -exec rm -f {} \;
 
 egrep -i 'mongodump:|fatal|failed|does not exist|error|not found|unrecognized' $DUMP_LOG1
 res3=$?

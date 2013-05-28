@@ -39,6 +39,8 @@ egrep -i 'mongodump:|fatal|failed|does not exist|error|not found|unrecognized' $
 res3=$?
 echo $res3
 
+/usr/bin/find $BKPDIR -name '*.tgz' -mtime +30 -exec rm -f {} \;
+
 STATUS_FILE="$BASEDIR/backup.status"
 if [ $res1 -ne 0 ] || [ $res2 -ne 0 ] || [ $res3 -eq 0 ]; then
    echo "Errors occurred during backup"
