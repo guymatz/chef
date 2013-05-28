@@ -3,7 +3,7 @@
 include_recipe "diamond::install"
 
 service "diamond" do
-  provider Chef::Provider::Service::Upstart
+#  provider Chef::Provider::Service::Upstart
   action [:enable]
 end
 
