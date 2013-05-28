@@ -40,8 +40,8 @@ link node[:supervisor][:log_dir] do
   to "#{node[:webplayer][:deploy_path]}/logs"
 end
 
-app_secrets = Chef::EncryptedDataBagItem.load("secrets", "webplayers")
-
+app_secrets_all_env = Chef::EncryptedDataBagItem.load("secrets", "webplayers")
+app_secrets = app_secrets_all_env["#{node.chef_environment}"]
 
 if Chef::Config[:solo]
     Chef::Log.warn("This recipe uses search. Chef Solo does not support search.")
@@ -94,14 +94,14 @@ if not tagged?("webplayer-deployed")
         code <<-EOH
       source shared/env/bin/activate
       cd current
-      python27 tusiq/config/local/manage.py assets build --settings=tusiq.config.prod2.settings
+      python27 tusiq/config/local/manage.py assets build --settings=tusiq.config.#{node.chef_environment}.settings
       EOH
       end
     end
 
     gunicorn do
       app_module :django
-      command "tusiq.config.prod2.wsgi"
+      command "tusiq.config.#{node.chef_environment}.wsgi"
       worker_class "gevent"
       Chef::Log.info("Starting up Gunicorn on port 8080 for Basejump")
       port 8080
