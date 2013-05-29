@@ -113,7 +113,7 @@ cookbook_file "vips" do
 end
 
 cron "failover_check.py" do
-  command "/usr/bin/python check_failover.py"
+  command "/usr/bin/python failover_check.py"
   minute  "*"
   hour    "*"
   day     "*"

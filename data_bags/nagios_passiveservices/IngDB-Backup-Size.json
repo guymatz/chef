@@ -1,0 +1,6 @@
+{
+  "host_name": "iad-ing101",
+  "id": "INGDB_Backup_Size",
+  "freshness_threshold": "259200",
+  "contact_groups": ["dba"]
+}
