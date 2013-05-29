@@ -1,0 +1,8 @@
+$ModLoad imfile
+$ModLoad imuxsock
+
+# Watch <%= @tomcat_dir %>/logs/extended_access_log.log
+$InputFileName <%= @tomcat_dir %>/logs/server.log
+$InputFileStateFile state-amp-access-log
+$InputFileTag amp-access-log:
+$InputRunFileMonitor

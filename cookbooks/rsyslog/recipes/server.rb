@@ -60,3 +60,7 @@ file "/etc/rsyslog.d/remote.conf" do
 end
 
 include_recipe "rsyslog::linker"
+
+%w{ amp::rsyslog }.each do |r|
+  include_recipe r
+end

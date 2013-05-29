@@ -9,7 +9,7 @@
 
 node.set[:java][:oracle][:accept_oracle_download_terms] = true
 node.save
-%w{ users::amp java tomcat7 amp::logging amp::nagios }.each do |r|
+%w{ users::amp java tomcat7 amp::logging amp::nagios amp::rsyslog }.each do |r|
   include_recipe r
 end
 

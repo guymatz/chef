@@ -1,0 +1,8 @@
+$ModLoad imfile
+$ModLoad imuxsock
+
+# Watch <%= @tomcat_dir %>/logs/search-exit.log
+$InputFileName <%= @tomcat_dir %>/logs/search-exit.log
+$InputFileStateFile state-search-exit
+$InputFileTag search-exit:
+$InputRunFileMonitor
