@@ -1,5 +1,5 @@
 
-default[:amp][:version] = "2.16.1"
+default[:amp][:version] = "q-tip-rc5"
 default[:amp][:url] = "http://files.ihrdev.com/amp"
 
 default[:amp][:packages] = %w{ mongo-10gen-server mongo-10gen }

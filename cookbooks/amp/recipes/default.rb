@@ -50,7 +50,7 @@ begin
     end
 
     remote_file "#{node[:tomcat7][:webapp_dir]}/api.war" do
-      source "#{node[:amp][:url]}/#{node[:amp][:version]}/amp-rest-#{node[:amp][:version]}.war"
+      source "#{node[:amp][:url]}/#{node[:amp][:version]}/amp-rest.war"
       owner node[:tomcat7][:user]
       group node[:tomcat7][:group]
       mode "0755"
@@ -72,6 +72,7 @@ begin
 
     remote_file "#{Chef::Config[:file_cache_path]}/amplib.tgz" do
       source "#{node[:amp][:url]}/amplib.tgz"
+      checksum "e3b0c44298fc"
     end
 
     bash "Extract AMP Libs" do
