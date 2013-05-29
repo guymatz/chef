@@ -1,8 +1,9 @@
 #!/bin/bash
 
-COUNT=`find /data/backups/authdb1a-ha -type f -ctime -5 -name "*_data.tar.gz"| wc -l`
+SHORTNAME=`hostname -s`
+COUNT=`find /data/backups/$SHORTNAME -type f -ctime -5 -name "*_data.tar.gz"| wc -l`
 
-if /sbin/ip addr | grep -v '10.5.43.23';
+if /sbin/ip addr | grep -q '10.5.43.23';
 then 
   if [ "$COUNT" -lt 1 ]; 
   then

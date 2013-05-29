@@ -11,7 +11,7 @@ cookbook_file "/root/scripts/check_ingdb_data_backup_corruption.sh" do
 end
 
 cron "check_ingdb_data_backup_corruption" do
-  command "/root/scripts/check_ingdb_backup_corruption.sh"
+  command "/root/scripts/check_ingdb_data_backup_corruption.sh"
   minute  "45"
   hour	  "0"
   month	  "*"
@@ -25,7 +25,7 @@ cookbook_file "/root/scripts/check_ingdb_index_backup_corruption.sh" do
 end
 
 cron "check_ingdb_index_backup_corruption" do
-  command "/root/scripts/check_ingdb_backup_corruption.sh"
+  command "/root/scripts/check_ingdb_index_backup_corruption.sh"
   minute  "45"
   hour    "1"
   month   "*"
