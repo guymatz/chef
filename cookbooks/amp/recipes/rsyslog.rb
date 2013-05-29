@@ -1,7 +1,5 @@
 
-puts "WHATTHEFUCK"
 if node.run_list.include?("role[loghost]")
-  puts "DURKADURKA"
   file "/etc/rsyslog.d/05-search-exit.conf" do
     action :create_if_missing
     owner "root"
@@ -34,7 +32,6 @@ elsif node.run_list.include?("role[amp-logger]")
     notifies :restart, "service[rsyslog]"
   end
 elsif node.run_list.include?("role[amp]")
-  puts "IMANAMP"
   template "/etc/rsyslog.d/amp-access-logs.conf" do
     source "access-logs.conf.client.erb"
     owner "root"
@@ -46,7 +43,6 @@ elsif node.run_list.include?("role[amp]")
     notifies :restart, "service[rsyslog]"
   end
 else
-  puts "TOTALFUCKUP"
   puts node.run_list.inspect
 end
 
