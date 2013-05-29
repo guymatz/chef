@@ -31,8 +31,8 @@ end
 node.default[:languages][:ruby][:ruby_bin] = find_ruby
 
 gem_package "chef" do
-  gem_binary "/usr/local/rvm/bin/rvm-gem.sh"
-  only_if "test -e /usr/local/rvm/bin/rvm-gem.sh"
+  gem_binary "/usr/bin/gem"
+  only_if "test -e /usr/bin/gem"
   # re-install the chef gem into rvm to enable subsequent chef-client run
 end
 

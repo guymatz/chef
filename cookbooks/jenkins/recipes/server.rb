@@ -26,6 +26,14 @@
 include_recipe "java"
 include_recipe "runit"
 
+node[:jenkins][:packages].each do |pkg|
+  package pkg
+end
+
+node[:jenkins][:recipes].each do |r|
+  include_recipe r
+end
+
 user node['jenkins']['server']['user'] do
   home node['jenkins']['server']['home']
 end

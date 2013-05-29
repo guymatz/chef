@@ -22,6 +22,14 @@
 
 include_recipe "java"
 
+node[:jenkins][:packages].each do |pkg|
+  package pkg
+end
+
+node[:jenkins][:recipes].each do |r|
+  include_recipe r
+end
+
 unless Chef::Config[:solo]
   unless node['jenkins']['server']['pubkey']
     host = node['jenkins']['server']['host']
