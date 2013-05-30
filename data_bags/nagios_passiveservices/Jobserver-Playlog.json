@@ -1,6 +1,6 @@
 {
     "id": "Jobserver-Playlog",
-    "host_name": "iad-jobserver101.ihr",
+    "host_name": "use1b-jobserver101a.ihr",
     "freshness_threshold": "7500",
     "contact_groups": ["etl"]
 }
