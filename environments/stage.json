@@ -7,7 +7,7 @@
                     "site_host": "stage.iheart.com"
                 }
             },
-            "rev": "release-4.12.0-absinthe-rc3"
+            "rev": "release-4.12.0-absinthe-rc3.1"
         }
     },
     "json_class": "Chef::Environment",
