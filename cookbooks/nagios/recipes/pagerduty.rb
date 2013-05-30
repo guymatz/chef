@@ -52,7 +52,7 @@ remote_file "#{node['nagios']['plugin_dir']}/pagerduty_nagios.pl" do
   owner "root"
   group "root"
   mode 00755
-  source "https://raw.github.com/PagerDuty/pagerduty-nagios-pl/master/pagerduty_nagios.pl"
+  source "https://gist.github.com/baskarp/3149686/raw/3002d603f7e798ea749ffd133158849efef86de9/pagerduty_nagios.pl"
   action :create_if_missing
 end
 
