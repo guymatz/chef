@@ -65,7 +65,8 @@ bash "link_jdk" do
     code <<-EOF
         ln -s /usr/java/jdk1.6.0_26/ /usr/bin/jdk
     EOF
-    not_if { node.normal.attribute?("encoder_deployed") }
+    not_if { ::File.exists?("/usr/java/jdk1.6.0_26") } 
+#    not_if { node.normal.attribute?("encoder_deployed") }
 end
 
 ftp_mount_line = "#{node[:encoders][:nfsserver]}:/nfs#{node[:encoders][:ftp_mount]} #{node[:encoders][:ftp_mount]}       nfs   rw,vers=3,bg,soft,tcp,intr  0   0"

@@ -64,9 +64,20 @@ default[:encoders][:converter_user] = "converter"
 default[:encoders][:nfsserver] = "10.5.40.2"
 default[:encoders][:ftp_mount] = "/data/encoder-ftp"
 default[:encoders][:encoder_mount] = "/data/encoder"
+default[:encoders][:aladdin_mount_dir] = "/data/aladdin"
+default[:encoders][:aladdin_export_dir] = "/radioutils/aladdin"
 
 default[:encoders][:user] = "converter"
 default[:encoders][:ftpuser] = "ftp"
 default[:encoders][:group] = "converter"
 
 default[:encoders][:logdir] = "/data/logs/manager"
+
+default[:encoders][:filemonitor][:logdir] = "/var/log/filemonitor"
+
+# ingestion variables
+default[:encoders][:filemonitor][:ingester_war] = "ingester.war"
+
+default[:encoders][:filemonitor][:static_files] = { 
+    "/data/apps/filemonitor" => "filemonitor"
+}
