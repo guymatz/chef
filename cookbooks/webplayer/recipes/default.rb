@@ -75,6 +75,7 @@ if not tagged?("webplayer-deployed")
     repository node[:webplayer][:repo]
     revision node[:webplayer][:rev]
     migrate false
+    shallow_clone false if node.chef_environment == 'stage'
     action :deploy
 
     django do
