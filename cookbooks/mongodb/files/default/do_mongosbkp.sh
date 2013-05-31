@@ -3,7 +3,7 @@
 
 program=`basename $0`
 machine=`hostname -a`
-BASEDIR=/data/db/backup
+BASEDIR=/data/db/backups
 BKPFOLDER=uncompressed
 BKPDIR=$BASEDIR/$BKPFOLDER
 sdate=`date +'%Y-%m-%d:%H:%M'`

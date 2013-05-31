@@ -15,3 +15,4 @@ end
 end
 
 depends "lvm"
+depends "cron"

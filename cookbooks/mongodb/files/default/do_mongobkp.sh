@@ -3,8 +3,8 @@
 
 program=`basename $0`
 machine=`hostname -a`
-BASEDIR=/data/db/backup
-BKPFOLDER=compressed
+BASEDIR=/data/db/backups
+BKPFOLDER=uncompressed
 BKPDIR=$BASEDIR/$BKPFOLDER
 sdate=`date +'%Y-%m-%d:%H:%M'`
 FILE="$BASEDIR/backup-$sdate.tarz"
