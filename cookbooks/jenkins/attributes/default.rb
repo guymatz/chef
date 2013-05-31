@@ -28,3 +28,4 @@ default['jenkins']['iptables_allow'] = "disable"
 
 default['jenkins']['packages'] = %w{ }
 default['jenkins']['recipes'] = %w{ rvm::ruby_192 }
+default[:jenkins][:gems] = %w{ foodcritic }
