@@ -26,6 +26,12 @@ default['jenkins']['mirror'] = "http://mirrors.jenkins-ci.org"
 default['jenkins']['java_home'] = ENV['JAVA_HOME']
 default['jenkins']['iptables_allow'] = "disable"
 
-default['jenkins']['packages'] = %w{ }
+case node[:platform_family]
+when "debian"
+  default['jenkins']['packages'] = %w{ libglib2.0-dev libssl-dev check libevent-dev }
+when "rhel"
+  default['jenkins']['packages'] = %w{ }
+end
+
 default['jenkins']['recipes'] = %w{ rvm::ruby_192 }
 default[:jenkins][:gems] = %w{ foodcritic }
