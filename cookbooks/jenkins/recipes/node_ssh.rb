@@ -30,6 +30,10 @@ node[:jenkins][:recipes].each do |r|
   include_recipe r
 end
 
+node[:jenkins][:gems].each do |g|
+  gem_package g
+end
+
 unless Chef::Config[:solo]
   unless node['jenkins']['server']['pubkey']
     host = node['jenkins']['server']['host']

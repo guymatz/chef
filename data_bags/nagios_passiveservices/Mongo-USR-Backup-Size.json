@@ -1,0 +1,6 @@
+{
+  "host_name": "iad-mongo-restore101",
+  "id": "Mongo_USR_Backup_Size",
+  "freshness_threshold": "259200",
+  "contact_groups": ["dba"]
+}

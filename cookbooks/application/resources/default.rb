@@ -43,6 +43,7 @@ attribute :enable_submodules, :kind_of => [TrueClass, FalseClass], :default => f
 attribute :environment, :kind_of => Hash, :default => {}
 attribute :deploy_key, :kind_of => [String, NilClass], :default => nil
 attribute :force, :kind_of => [TrueClass, FalseClass], :default => false
+attribute :shallow_clone, :kind_of => [TrueClass, FalseClass], :default => true
 attribute :rollback_on_error, :kind_of => [TrueClass, FalseClass], :default => true
 attribute :purge_before_symlink, :kind_of => Array, :default => []
 attribute :create_dirs_before_symlink, :kind_of => Array, :default => []

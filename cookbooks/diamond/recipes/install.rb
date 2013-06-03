@@ -68,12 +68,10 @@ case node['diamond']['install_type']
 
       if installed_diamond_version
         service "diamond" do
-          provider Chef::Provider::Service::Upstart
           action :restart
         end
       else
         service "diamond" do
-          provider Chef::Provider::Service::Upstart
           action :start
         end
       end
