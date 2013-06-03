@@ -69,7 +69,7 @@ MENU BEGIN
         MENU LABEL Debian 7 (Wheezy) (amd64)
         MENU INDENT 4
         KERNEL distros/debian/wheezy/amd64/linux
-        APPEND vga =normal initrd=distros/debian/wheezy/amd64/initrd.img auto=true interface=eth0 priority=critical url=http://10.5.32.21:8080/kickstarter/seedme/debian/wheezy/amd64 DEBCONF_DEBUG=5
+        APPEND initrd=distros/debian/wheezy/amd64/initrd.gz auto=true interface=eth0 priority=critical url=http://10.5.32.21:8080/kickstarter/seedme/debian/wheezy/amd64 DEBCONF_DEBUG=5
         IPADDEND 2
 
 MENU END
