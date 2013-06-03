@@ -70,7 +70,6 @@ MENU BEGIN
         MENU INDENT 4
         KERNEL distros/debian/wheezy/amd64/linux
         APPEND initrd=distros/debian/wheezy/amd64/initrd.gz auto=true interface=eth0 priority=critical url=http://10.5.32.21:8080/kickstarter/seedme/debian/wheezy/amd64 DEBCONF_DEBUG=5
-        IPAPPEND 1
 
 MENU END
 MENU BEGIN
