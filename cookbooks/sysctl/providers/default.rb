@@ -62,7 +62,7 @@ action :set do
   # heavy handed type enforcement only wnat to write if they are different  ignore inner whitespace
   if @current_value.to_s.strip.split != @new_resource.value.to_s.strip.split
     # run it
-    run_command( { :command => "#{@sysctl} #{@sysctl_args} -w #{@new_resource.name}=#{@new_resource.value}" }  )
+    run_command( { :command => "#{@sysctl} #{@sysctl_args} -w #{@new_resource.name}=\"#{@new_resource.value}\"" }  )
     save_to_node
     # let chef know its done
     @new_resource.updated_by_last_action  true
