@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 
 include_recipe "users::amqp-consumer"
+include_recipe "users::deployer"
+include_recipe "etl_jobs::enrichment"
 
 package "jdk"
 package "freetds"

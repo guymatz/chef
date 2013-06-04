@@ -53,7 +53,7 @@ file "/home/ihr-deployer/.ssh/config" do
   group "ihr-deployer"
   mode "0755"
   content <<-EOH
-  Host *github.com
+  Host *
     IdentityFile "/home/ihr-deployer/.ssh/id_rsa"
     StrictHostKeyChecking no
 EOH
