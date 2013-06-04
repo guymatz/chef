@@ -6,7 +6,7 @@ USER="<%= node[:enrichment][:log][:user] %>"
 RETENTION="<%= node[:enrichment][:log][:retention] %>"
 
 cd $SOURCE
-for i in $(ls enrichmentMisses.txt.*)
+for i in $(ls enrichmentMisses.txt.* | grep -v tgz)
 do
   tar zcvf $i.tgz $i
 done
