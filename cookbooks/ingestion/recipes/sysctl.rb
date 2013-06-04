@@ -118,3 +118,6 @@ end
 sysctl "vm.pagecache" do
     value 90
 end
+sysctl "kernel.sem" do
+    value "250 64000 32 256"
+end
