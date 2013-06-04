@@ -77,6 +77,7 @@ default[:encoders][:filemonitor][:logdir] = "/var/log/filemonitor"
 
 # ingestion variables
 default[:encoders][:filemonitor][:ingester_war] = "ingester.war"
+default[:encoders][:filemonitor][:postgres_jar] = "postgresql-9.0-801.jdbc4.jar"
 
 default[:encoders][:filemonitor][:static_files] = { 
     "/data/apps/filemonitor" => "filemonitor"
