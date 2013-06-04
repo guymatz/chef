@@ -60,6 +60,17 @@ MENU BEGIN
         KERNEL distros/centos/6.3/x86_64/vmlinuz
         APPEND ks=http://10.5.32.21:8080/kickstarter/kickme/centos/6.3/x86_64 initrd=distros/centos/6.3/x86_64/initrd.img skipddc text noipv6 kssendmac ksdevice=bootif
 
+# Debian
+    LABEL -
+        MENU LABEL Install Debian
+        MENU disable
+
+    LABEL Debian 7 (Wheezy) (amd64)
+        MENU LABEL Debian 7 (Wheezy) (amd64)
+        MENU INDENT 4
+        KERNEL distros/debian/wheezy/amd64/linux
+        APPEND initrd=distros/debian/wheezy/amd64/initrd.gz auto=true interface=eth0 priority=critical url=http://10.5.32.21:8080/kickstarter/seedme/debian/wheezy/amd64 DEBCONF_DEBUG=5
+
 MENU END
 MENU BEGIN
     MENU TITLE Run Utility

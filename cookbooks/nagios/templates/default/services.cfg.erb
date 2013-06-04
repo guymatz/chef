@@ -43,13 +43,6 @@ define service {
 }
 
 define service {
-    service_description Free Memory
-    hostgroup_name      linux
-    check_command       check_mem
-    use                 default-service
-}
-
-define service {
     service_description SSH
     hostgroup_name      linux
     check_command       check_ssh

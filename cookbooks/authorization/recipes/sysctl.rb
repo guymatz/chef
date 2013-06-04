@@ -121,3 +121,6 @@ end
 sysctl "net.ipv4.icmp_echo_ignore_broadcasts" do
     value 0
 end
+sysctl "kernel.sem" do
+    value "250 64000 32 256"
+end
