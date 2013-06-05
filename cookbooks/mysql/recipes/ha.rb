@@ -80,7 +80,7 @@ puts "Settings up replication with: " + cluster_slaves.inspect
 ruby_block "create-replication-users" do
   block do
     cluster_slaves.each do |slave|
-      %x{mysql -u root -p#{node[:mysql][:server_root_password]} -e "GRANT REPLICATION SLAVE ON *.* to 'repl'@'#{slave[:ipaddress]}' IDENTIFIED BY '#{slave[:mysql][:server_repl_password]}';"}
+      %x{mysql -u root -p#{node[:mysql][:server_root_password]} -e "GRANT REPLICATION SLAVE ON *.* to 'repl'@'#{slave[:ipaddress]}' IDENTIFIED BY '#{node[:mysql][:server_repl_password]}';"}
     end
   end
   action :create
