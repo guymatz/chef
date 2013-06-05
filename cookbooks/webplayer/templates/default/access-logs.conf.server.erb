@@ -1,0 +1,3 @@
+$template DynaFile,"/data/logs/%$YEAR%/%$MONTH%/%$DAY%/%HOSTNAME%/%PROGRAMNAME%.log"
+if $programname startswith 'amp-access-log' then -?DynaFile
+&~

@@ -34,6 +34,9 @@ attribute :worker_timeout, :kind_of => Integer, :default => 60
 attribute :worker_keepalive, :kind_of => Integer, :default => 2
 attribute :worker_max_requests, :kind_of => Integer, :default => 0
 
+attribute :stderr_logfile, :kind_of => String, :default => "AUTO"
+attribute :stdout_logfile, :kind_of => String, :default => "AUTO"
+
 attribute :server_hooks, :kind_of => Hash, :default => {}, \
     :callbacks => { 
       "should contain a valid gunicorn server hook name" => lambda { |hooks| Chef::Resource::GunicornConfig.validate_server_hook_hash_keys(hooks)}

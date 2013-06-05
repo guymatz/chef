@@ -113,6 +113,8 @@ if not tagged?("webplayer-deployed")
       port 8080
       autostart true
       workers 16
+      stdout_logfile "/var/log/supervisor/webplayer-stdout"
+      stderr_logfile "/var/log/supervisor/webplayer-stderr"
     end
   end
 
