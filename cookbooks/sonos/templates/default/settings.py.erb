@@ -1,0 +1,12 @@
+DEBUG = <%= @debug ? "True" : "False" %>
+TEMPLATE_DEBUG = DEBUG
+DATABASES = {
+    'default': {
+	'NAME': '<%= @database[:settings][:database] %>',
+        'ENGINE': 'django.db.backends.<%= @database[:settings][:engine] %>',
+        'USER': '<%= @database[:settings][:username] %>',
+        'PASSWORD': '<%= @database[:settings][:password] %>',
+        'HOST': '<%= @database[:host] %>',
+        'PORT': '<%= @database[:settings][:port]  %>',
+    }
+}
