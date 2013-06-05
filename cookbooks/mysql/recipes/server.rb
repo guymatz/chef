@@ -122,6 +122,19 @@ unless platform?(%w{mac_os_x})
     false
   end
 
+  if node.run_list.include?("role[mysql-ha]")
+    node[:fqdn] =~ /([a-z0-9-]+)([a|b])(\.ihr)?/i
+    cluster_name = $1
+    cluster_member = $2
+    cluster_ip = IPSocket::getaddress(cluster_name)
+    case cluster_member
+    when "a"
+      cluster_node = 1
+    when "b"
+      cluster_node = 2
+    end
+  end
+  
   template "#{node['mysql']['conf_dir']}/my.cnf" do
     source "my.cnf.erb"
     owner "root" unless platform? 'windows'
@@ -135,7 +148,10 @@ unless platform?(%w{mac_os_x})
     else
       Chef::Log.info "my.cnf updated but mysql.reload_action is #{node['mysql']['reload_action']}. No action taken."
     end
-    variables :skip_federated => skip_federated
+    variables({
+                :skip_federated => skip_federated,
+                :cluster_node => cluster_node
+              })
   end
 end
 

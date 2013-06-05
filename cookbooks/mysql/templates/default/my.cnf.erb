@@ -110,7 +110,10 @@ log-queries-not-using-indexes
 # The following can be used as easy to replay backup logs or for replication.
 # note: if you are setting up a replication slave, see README.Debian about
 #       other settings you may need to change.
-#server-id              = 1
+<%- if @cluster_node %>
+server-id              = <%= @cluster_node %>
+log-bin=mysql-bin
+<%- end %>
 <%- if node['mysql']['tunable']['log_bin'] %>
 log_bin = <%= node['mysql']['tunable']['log_bin'] %>
 log_slave_updates       = <%= node['mysql']['tunable']['log_slave_updates'] %>
