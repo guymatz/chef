@@ -14,10 +14,9 @@ recipe            "mysql::server_ec2", "Performs EC2-specific mountpoint manipul
   supports os
 end
 
-depends "openssl"
-depends "build-essential"
-suggests "homebrew"
-suggests "windows"
+%w{ nagios users heartbeat openssl build-essential homebrew windows }.each do |cb|
+  depends cb
+end
 
 attribute "mysql/server_root_password",
   :display_name => "MySQL Server Root Password",
