@@ -14,17 +14,16 @@
 case node['platform_family']
 when "rhel"
   package "srvadmin-all"
-end
 
-link "/etc/init.d/dell-omsa" do
-  to "#{node[:dell][:omsa][:path]}/sbin/srvadmin-services.sh"
-end
+  link "/etc/init.d/dell-omsa" do
+    to "#{node[:dell][:omsa][:path]}/sbin/srvadmin-services.sh"
+  end
 
-service "dell-omsa" do
-  supports :start => true
-  action :start
+  service "dell-omsa" do
+    supports :start => true
+    action :start
+  end
 end
-
 omreport = "#{node[:dell][:omsa][:path]}/bin/omreport"
 
 sudo "nagios" do
@@ -41,7 +40,6 @@ end
 unless node.run_list.include?("role[dell]")
   node.run_list << "role[dell]"
 end
-
 
 ruby_block "allow dell snmp" do
   block do
