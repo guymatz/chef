@@ -10,3 +10,6 @@ DATABASES = {
         'PORT': '<%= @database[:settings][:port]  %>',
     }
 }
+<%- if node.chef_environment == "prod" or node.chef_environment == "ec2-prod" %>
+ENV="prod"
+<%- end %>
