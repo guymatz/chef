@@ -23,6 +23,10 @@
 
 web_srv = node['nagios']['server']['web_server'].to_sym
 
+node[:nagios][:pips].each do |p|
+  python_pip p
+end
+
 case web_srv
 when :nginx
   Chef::Log.info "Setting up Nagios server via NGINX"
