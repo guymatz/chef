@@ -9,8 +9,12 @@
 
 node.set[:java][:oracle][:accept_oracle_download_terms] = true
 node.save
-%w{ users::amp java tomcat7 amp::logging amp::nagios amp::rsyslog }.each do |r|
+%w{ users::amp java tomcat7 amp::logging amp::rsyslog }.each do |r|
   include_recipe r
+end
+
+if node.chef_environment == "prod" or node.chef_environment == "ec2-prod"
+  include_recipe "amp::nagios"
 end
 
 remote_file "#{node[:java][:java_home]}/jre/lib/security/US_export_policy.jar" do

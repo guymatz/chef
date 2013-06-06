@@ -65,6 +65,8 @@ action :before_deploy do
     #logfile
     #loglevel
     #proc_name
+    stderr_logfile new_resource.stderr_logfile
+    stdout_logfile new_resource.stdout_logfile
   end
 
   supervisor_service new_resource.application.name do

@@ -1,0 +1,12 @@
+$ModLoad imfile
+$ModLoad imuxsock
+
+# Watch <%= @tomcat_dir %>/logs/extended_access_log.log
+$template AccessLogTemplate,"%msg%\n"
+$InputFileName <%= @tomcat_dir %>/logs/server.log
+$InputFileStateFile state-amp-access-log
+$InputFileTag amp-access-log:
+$InputRunFileMonitor
+
+if $programname == 'amp-access-log' then @@<%= @server %>:<%= node['rsyslog']['port'] %>;AccessLogTemplate
+& ~

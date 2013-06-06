@@ -21,11 +21,22 @@ application "sonos" do
   revision node[:sonos][:rev]
   action :deploy
 
+  all_secrets = Chef::EncryptedDataBagItem.load("secrets", "sonos")
+  app_secrets = all_secrets[node.chef_environment]
+  db_user = app_secrets['db_user']
+  db_name = "sonos_#{node.chef_environment}".gsub('-', '_')
   django do
     interpreter "python27"
     requirements "requirements.txt"
     debug true
     settings_template "settings.py.erb"
+    database_master_role "sonos-database"
+    database do
+      database db_name
+      username db_user
+      password app_secrets['db_pass']
+      engine "mysql"
+    end
   end
 
   gunicorn do

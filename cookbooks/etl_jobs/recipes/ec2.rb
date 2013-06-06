@@ -372,7 +372,7 @@ directory "/data/jobs/radiomigration/data" do
   group "ihr-deployer"
 end
 bash "set-migration-perms" do
-  code 'chown -R ihr-deployer. /data/jobs/radiomigration'
+  code 'chown -R ihr-deployer. /data/jobs/radiomigration;chown -R ihr-deployer. /data/log/radiomigration'
 end
 db_user = Chef::EncryptedDataBagItem.load("sqlserver", "users")
 cron_d "radiomigration" do

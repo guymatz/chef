@@ -39,6 +39,8 @@ else
   default['nagios']['server']['mail_command']   = '/bin/mail'
 end
 
+default[:nagios][:pips] = %w{ requests }
+
 default['nagios']['home']       = "/usr/lib/nagios3"
 default['nagios']['conf_dir']   = "/etc/nagios3"
 default['nagios']['config_dir'] = "/etc/nagios3/conf.d"

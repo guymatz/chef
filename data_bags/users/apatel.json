@@ -3,7 +3,7 @@
     "uid": 5013,
     "name": "Amit Patel",
     "email": "amitpatel@clearchannel.com",
-    "groups": ["nagios", "membase", "mongodb", "facebook", "dev", "attivio", "vast", "etl", "jobserver", "amp", "rabbit", "elasticsearch"],
+    "groups": ["dev", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch", "facebook", "rabbit"],
     "nagios": {
         "email": "amitpatel@clearchannel.com"
     },
