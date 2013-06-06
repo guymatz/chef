@@ -11,5 +11,5 @@ nagios_nrpecheck "Mongo_Process_Mongos" do
   critical_condition "1:1"
   parameters '-C mongos -a mongosd.conf'
   action :add
-  notifies :restart, resources(:service => "nagios-nrpe-server")
+  notifies :restart, "service[nagios-nrpe-server]"
 end
