@@ -1,0 +1,5 @@
+{
+  "hostgroup_name": "amp",
+  "id": "Amp-Extended-Logins",
+  "command_line": "$USER1$/check_http_json.py 'http://$HOSTADDRESS$:9200/_query/liveStations?keywords=ktu' 200 30 'hits.hits.0._id' 'LSLS1473'"
+}
