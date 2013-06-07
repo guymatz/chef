@@ -165,7 +165,7 @@ end
 cron_d "sysinfo_job" do
   command "/usr/bin/cronwrap use1b-jobserver101a sysinfo-job \"/usr/bin/java -jar /data/jobs/sysinfo/sysinfo_job.jar launch-context.xml sysInfoJob rundate=`/bin/date +\\%s`\""
   minute 30
-  hour 5
+  hour 6
 end
 
 directory "/home/amqp-consumer/playlog-consumer" do

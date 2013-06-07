@@ -12,7 +12,7 @@ end
 
 depends "nagios"
 
-%{ centos }.each do |os|
+%w{ centos }.each do |os|
   supports os
 end
 
