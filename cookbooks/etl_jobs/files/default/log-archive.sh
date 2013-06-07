@@ -32,6 +32,10 @@ tar czf /data/log/liveradiothumbslog/processed/processed_livethumbslogs_10.90.40
 rm -rf $FILES
 echo -ne "Done with playlog at $(date)"
 
+echo -ne "Deleting older files"
+/usr/bin/find data/log/*/processed/ -mtime +10 -delete
+echo -ne "Done deleting older files at $(date)"
+
 #nice -n 19 find /data/log/talkplaylog/processed -name '*.tar.gz' -mtime +1 -exec mv {} /isilon/talkplaylog/processed/ \;
 #nice -n 19 find /data/log/playlog/processed -name '*.tar.gz' -mtime +1 -exec mv {} /isilon/playlog/processed/ \;
 

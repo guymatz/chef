@@ -1,0 +1,128 @@
+[quick.io]
+# The address the main server should listen on
+# Use 0.0.0.0 to listen everywhere.
+# Leave blank to listen on no plain text port.
+#
+# type - string
+bind-address = 0.0.0.0
+
+# The SSL adress to listen on.
+# Use 0.0.0.0 to listen everywhere.
+# Leave blank not to use SSL.
+#
+# type - string
+bind-address-ssl =
+
+# The port that the server processes will start listening on.
+#
+# type - int
+bind-port = 80
+bind-port-ssl = 4433
+
+# The hostname for the QIO node. This should be resolvable on the network. If not provided,
+# will use the machine's hostname; if that fails, it falls back to bind-address.
+#
+# It's typically safe to leave this blank and use default behavior.
+#
+# type - string
+hostname =
+
+# The location of the log file.  This file MUST be owned by `user`.
+# If no location is given, then all messages go to stderr.
+#
+# This log can be rotated by sending the server SIGUSR1
+#
+# type - string
+log-file = <%= node[:quickio][:log_file] %>
+
+# The maximum number of clients allowed to be connected
+#
+# type - uint64
+max-clients = 4194304
+
+# The maximum length of a message from a client
+# This number should be a power of 2 for maximum efficiency.
+#
+# type - uint64
+max-message-len = <%= node[:quickio][:max_message_len] %>
+
+# The maximum number of subscriptions a single client may have
+#
+# type - uint64
+max-subs = <%= node[:quickio][:max_subs] %>
+
+# The location of the SSL Private key
+#
+# type - string
+ssl-private-key =
+
+# The location to the certificate chain (in PEM)
+#
+# type - string
+ssl-cert-chain =
+
+# The graphite server's address
+#
+# type - string
+stats-graphite-address = <%= @graphite_addr %>
+
+# The graphite server's TCP port for text lines
+#
+# type - int
+stats-graphite-port = 2003
+
+# The prefix for all stats sent from this server to graphite.
+# The trailing dot is not necessary.
+#
+# Graphite keys are constructed as (for example): qio.HOSTNAME.clients, where HOSTNAME is
+# the hostname of the system.  Run `hostname` to see what it will be.
+#
+# type - string
+stats-graphite-prefix = qio
+
+# Enable flash support policy file support on port 843.
+# If this fails, only a warning is emitted. The server will still run.
+#
+# type - int
+support-flash = true
+
+# The number of threads to run to service clients
+#
+# type - uint64
+threads = <%= node[:quickio][:threads] %>
+
+# The time a misbehaving client has to finish a request before he is killed
+#
+# Note: this is not exact: a few hundred milliseconds might elapse before the
+# client is actually closed.  This is just a MINIMUM value.
+#
+# Max value: 127
+#
+# type - int
+timeout = 5
+
+# The user the server should be run as
+#
+# type - string
+user = <%= node[:quickio][:user] %>
+
+[quick.io-apps]
+# Entries in this section follow in the following pattern:
+#   appName = /path/to/library
+#   appName:prefix = /some/prefix (optional)
+#
+# Path: the path may be as simple as "appName" is the appName.so is in the apps directory
+# of the distribution.  If it is not, an absolute path is required.  Keep in mind that ".so"
+# is not required.
+#
+# Keep in mind that the app name here directly references the settings section for the
+# specified application.  For example, if the app is named "appName", then there should
+# be a configuration section [appName] specifying all the config options for the app.
+# As such, the application names MUST be unique.
+
+# Cluster MAY NOT have a prefix applied to it: it prefixes itself, and it relies on its
+# own prefixed events.
+
+<% @node[:quickio]['apps'].each do |a| -%>
+<%= a["name"] %> = <%= a["path"] %>
+<% end -%>
