@@ -28,7 +28,7 @@ end
 
 
 # drop a github private deploy key for converter
-deploy_keys = Chef::EncryptedDataBagItem.load("keys", "encoder")
+deploy_keys = Chef::EncryptedDataBagItem.load("keys", "encoder-deploy")
 
 directory "/home/converter/.ssh" do
     owner node[:encoders][:user]
@@ -37,7 +37,7 @@ directory "/home/converter/.ssh" do
     mode "0700"
 end
 
-file "/home/converter/.ssh/deploy" do
+file "/home/converter/.ssh/id_deploy" do
     owner node[:encoders][:user]
     group node[:encoders][:group]
     mode "0400"
@@ -51,7 +51,7 @@ file "/home/converter/.ssh/config" do
     mode "0755"
     content <<-EOH
         Host *github.com
-        IdentityFile "/home/converter/.ssh/deploy"
+        IdentityFile "/home/converter/.ssh/id_deploy"
         StrictHostKeyChecking no
     EOH
 end
