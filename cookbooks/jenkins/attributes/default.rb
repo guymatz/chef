@@ -28,7 +28,14 @@ default['jenkins']['iptables_allow'] = "disable"
 
 case node[:platform_family]
 when "debian"
-  default['jenkins']['packages'] = %w{ libglib2.0-dev libssl-dev check libevent-dev }
+  default['jenkins']['packages'] = %w{
+  	libglib2.0-dev
+  	libssl-dev
+  	check
+  	libevent-dev
+  	libmemcached-dev
+  	libjson0-dev
+  }
 when "rhel"
   default['jenkins']['packages'] = %w{ }
 end

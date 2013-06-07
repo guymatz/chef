@@ -60,6 +60,8 @@ default[:encoders][:static_files] = {
 
 default[:encoders][:deploy_path] = "/data/apps/converter" 
 default[:encoders][:github_url] = "git@github.com:iheartradio/converter"
+default[:encoders][:deploy_key] = "/home/converter/.ssh/encoder-deploy"
+default[:encoders][:wrapper_script] = "encoder-wrap-ssh.sh"
 default[:encoders][:converter_user] = "converter"
 default[:encoders][:nfsserver] = "10.5.40.2"
 default[:encoders][:ftp_mount] = "/data/encoder-ftp"
@@ -81,4 +83,12 @@ default[:encoders][:filemonitor][:postgres_jar] = "postgresql-9.0-801.jdbc4.jar"
 
 default[:encoders][:filemonitor][:static_files] = { 
     "/data/apps/filemonitor" => "filemonitor"
+}
+
+# talk ingestion links
+default[:encoders][:filemonitor][:ingestion_links] = { 
+    "/talk" => "/data/encoder/tmp-ingestion/talk/prod",
+    "/Talk" => "/data/encoder/tmp-ingestion/Talk",
+    "/Talk_Audio" => "/data/encoder/tmp-ingestion/Talk_Audio",
+    "/Utility" => "/data/encoder/tmp-ingestion/Utility"
 }
