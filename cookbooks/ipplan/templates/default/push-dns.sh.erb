@@ -6,17 +6,11 @@ if [[ $EUID -eq 0 ]]; then
     exit 1
 fi
 
-sudo -v
 
-IPPLAN_HOST="use1b-ss-web001.ihrdev.com" #"<%= @ipplan_host %>"
+IPPLAN_HOST="<%= @ipplan_host %>"
 DNS_SERVERS="<%= @dns_servers.join(" ") %>"
 HOSTNAME=$(hostname -f)
-if [ "$IPPLAN_HOST" == "$HOSTNAME" ] ; then
-    <%= @scripts_dir %>/bin/ipplan-updatedns.sh
-else
-    ssh "$IPPLAN_HOST" "sudo push-dns"
-fi
-
+ssh "$IPPLAN_HOST" "<%= @scripts_dir %>/bin/ipplan-updatedns.sh"
 for i in $DNS_SERVERS ; do
     ssh $i "sudo chef-client"
 done

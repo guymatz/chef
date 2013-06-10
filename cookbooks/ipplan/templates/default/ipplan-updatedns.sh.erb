@@ -31,9 +31,12 @@ echo "Cleaning up possible xml turds"
 rm -f $WORKDIR/*.{xml,zone,fake}
 for ZONE in $ZONES; do
     echo "Exporting FWD-DNS from IPplan for zone: $ZONE"
+    # we need to do this 2 times since we are active-active and dont know where this will drop the xmls
+    $EXPORTDNS 121 "$ZONE"
     $EXPORTDNS 121 "$ZONE"
 done
 echo "Exporting REV-DNS from IPplan"
+$EXPORTDNS 131
 $EXPORTDNS 131
 
 
