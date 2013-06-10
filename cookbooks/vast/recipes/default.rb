@@ -43,7 +43,7 @@ template "#{node[:tomcat7][:install_path]}/bin/setenv.sh" do
             })
 end
 
-cookbook_file "/data/apps/tomcat7/logs/archive_logs.sh"
+cookbook_file "/data/apps/tomcat7/logs/archive_logs.sh" do
   source "archive_logs.sh"
 end
 
