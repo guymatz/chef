@@ -4,9 +4,7 @@ default[:basejump][:app_name] = "basejump"
 default[:basejump][:db_user] = "basejump"
 default[:basejump][:tools_user] = "basejumper"
 
-#default[:basejump][:repo] = "https://github.com/iheartradio/basejump.git"
-# save me time merging downstream until I get this right
-default[:basejump][:repo] = "https://github.com/kplimack/basejump.git"
+default[:basejump][:repo] = "git@github.com:iheartradio/basejump.git"
 default[:basejump][:rev] = "HEAD"
 
 default[:basejump][:kickstarter][:tftp_root] = '/data/tftpboot'
