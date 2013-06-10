@@ -43,9 +43,13 @@ template "#{node[:tomcat7][:install_path]}/bin/setenv.sh" do
             })
 end
 
+cookbook_file "/data/apps/tomcat7/logs/archive_logs.sh"
+  source "archive_logs.sh"
+end
+
 cron_d "archive_logs" do
-  command "cd /data/apps/tomcat7/logs; find /data/apps/tomcat7/logs -name localhost_access_log* -mtime +1 -exec 
-           tar czpf localhost.access.log.archive.$(date +%s).tar.gz {} \\; -exec rm {} \\; \;find /data/apps/tomcat7/logs -name localhost_access_log* -mtime +10 -exec rm {} \\;"
+  command "/data/apps/tomcat7/logs/archive_logs.sh"
   minute 0
   hour 23
+  user "tomcat"
 end
