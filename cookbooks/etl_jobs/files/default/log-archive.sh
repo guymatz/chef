@@ -32,6 +32,12 @@ tar czf /data/log/liveradiothumbslog/processed/processed_livethumbslogs_10.90.40
 rm -rf $FILES
 echo -ne "Done with playlog at $(date)"
 
+echo -ne "Begining sysinfo at $(date)"
+FILES=$(/usr/bin/find /data/log/sysinfo/processed/)
+tar czf /data/log/sysinfo/processed/processed_sysinfologs_10.90.40.6_$(/bin/date +%H-%M-%d-%m-%Y) $FILES
+rm -rf $FILES
+echo -ne "Done with sysinfo at $(date)"
+
 echo -ne "Deleting older files"
 /usr/bin/find data/log/*/processed/ -mtime +10 -exec rm {} \;
 echo -ne "Done deleting older files at $(date)"
