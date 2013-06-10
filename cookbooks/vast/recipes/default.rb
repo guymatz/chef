@@ -45,6 +45,7 @@ end
 
 cookbook_file "/data/apps/tomcat7/logs/archive_logs.sh" do
   source "archive_logs.sh"
+  mode 775
 end
 
 cron_d "archive_logs" do
