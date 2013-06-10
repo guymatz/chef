@@ -1,0 +1,11 @@
+[ihr-nowplaying]
+#
+# If this is the nowplaying parent server
+#
+is-server = <%= node[:quickio][:ihrnowplaying][:is_server] %>
+
+#
+# If this is not a server, the following specify where to connect to the server
+#
+server-port = <%= node[:quickio][:port] %>
+server-addr = <%= @master_addr %>

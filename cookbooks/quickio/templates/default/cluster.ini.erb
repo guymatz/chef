@@ -1,0 +1,65 @@
+[cluster]
+# Determines if this host should serve as the cluster management node
+#
+# type - bool
+is-server = <%= node[:quickio][:cluster][:is_server] %>
+
+# The host name / IP address of where we can find the cluster server
+#
+# Only used when is-server == false
+#
+# type - string
+cluster-host = <%= @master_addr %>
+
+# The port the cluster server is running on
+#
+# Only used when is-server == false
+#
+# type - int
+cluster-port = <%= node[:quickio][:port] %>
+
+# The public address of this server
+#
+# Only used when is-server == false
+#
+# type - string
+public-address =
+
+# How long to wait once after a balance before considering doing another balance.
+#
+# Only used when is-server == true
+#
+# type - int
+balance-cooldown = <%= node[:quickio][:cluster][:balance_cooldown] %>
+
+# How often the cluster should be checked for imbalances and balanced if necessary.
+#
+# Only used when is-server == true
+#
+# type - int
+balance-interval = <%= node[:quickio][:cluster][:balance_interval] %>
+
+# The minimum number of clients that must be connected to the cluster before any
+# balancing will occur. This prevents the case, for example, where one node has 10
+# clients and another 200. There's not much load at this point, so rebalancing would
+# be more an inconvenience than a help.
+#
+# Only used when is-server == true
+#
+# type - int
+balance-min-clients = <%= node[:quickio][:cluster][:balance_min_clients] %>
+
+# Measured in percent: once a node is `balance-threshold` percent over the number of
+# clients it should have in relation to the rest of the clients in the cluster, it will
+# be balanced.  For example: say there are 2,000 clients in total connected to the
+# cluster, and there are two nodes running, one holding 800 clients, the other holding
+# 1200 clients.  If this is set to "20" (read: 20%), a rebalance will be
+# triggered at this point as the second node has 20% more clients than it should have.
+#
+# This should be in the form of percent: 100 = 100%, 50 = 50%.
+# That means that ".5" IS INVALID.
+#
+# Only used when is-server == true
+#
+# type - int
+balance-threshold = <%= node[:quickio][:cluster][:balance_threshold] %>

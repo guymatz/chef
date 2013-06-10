@@ -1,8 +1,8 @@
-name "quickio"
-description "quickio"
+name "quickio-master"
+description "quickio master server"
 all_env = [
            "recipe[users::quickio]",
-           "recipe[quickio]",
+           "recipe[quickio::master]",
 ]
 run_list(all_env)
 

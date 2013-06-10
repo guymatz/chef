@@ -5,10 +5,12 @@
 # Copyright 2013, iHeartRadio
 #
 
-res = search(:node, "chef_environment:#{node.chef_environment} AND roles:graphite")
+graphite = search(:node, "chef_environment:#{node.chef_environment} AND roles:graphite")
+qio_master = search(:node, "chef_environment:#{node.chef_environment} AND roles:quickio-master")
 
 debs = [
   "quickio_#{node['quickio']['version']}_amd64.deb",
+  "quickio-cluster_#{node['quickio']['cluster_version']}_amd64.deb"
   "quickio-ihr-nowplaying_#{node['quickio']['ihr_nowplaying_version']}_amd64.deb"
 ]
 
@@ -37,7 +39,27 @@ template "/etc/quickio/quickio.ini" do
   source "quickio.ini.erb"
 
   variables({
-    :graphite_addr => res[0][:FQDN]
+    :graphite_addr => graphite[0][:FQDN]
+  })
+end
+
+template "/etc/quickio/apps/ihr-nowplaying.ini" do
+  owner "root"
+  group "root"
+  source "ihr-nowplaying.ini.erb"
+
+  variables({
+    :master_addr => qio_master[0][:FQDN]
+  })
+end
+
+template "/etc/quickio/apps/cluster.ini" do
+  owner "root"
+  group "root"
+  source "cluster.ini.erb"
+
+  variables({
+    :master_addr => qio_master[0][:FQDN]
   })
 end
 

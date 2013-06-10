@@ -16,8 +16,8 @@ bind-address-ssl =
 # The port that the server processes will start listening on.
 #
 # type - int
-bind-port = 80
-bind-port-ssl = 4433
+bind-port = <%= node[:quickio][:port] %>
+bind-port-ssl =
 
 # The hostname for the QIO node. This should be resolvable on the network. If not provided,
 # will use the machine's hostname; if that fails, it falls back to bind-address.
