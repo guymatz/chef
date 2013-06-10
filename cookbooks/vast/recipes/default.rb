@@ -45,11 +45,11 @@ end
 
 cookbook_file "/data/apps/tomcat7/logs/archive_logs.sh" do
   source "archive_logs.sh"
-  mode 775
+  mode '0775'
 end
 
 cron_d "archive_logs" do
-  command "/data/apps/tomcat7/logs/archive_logs.sh"
+  command "/bin/bash /data/apps/tomcat7/logs/archive_logs.sh > /dev/null 2>&1"
   minute 0
   hour 23
   user "tomcat"
