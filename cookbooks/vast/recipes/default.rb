@@ -44,7 +44,7 @@ template "#{node[:tomcat7][:install_path]}/bin/setenv.sh" do
 end
 
 cron_d "archive_logs" do
-  command "find /data/apps/tomcat7/logs -name localhost_access_log* -mtime +1 -exec tar czpf localhost_access_log$(date +%s).tar.gz {} \\; -exec rm {} \\; \;
+  command "find /data/apps/tomcat7/logs -name localhost_access_log* -mtime +1 -exec tar czpf localhost.access.log.archive.$(date +%s).tar.gz {} \\; -exec rm {} \\; \;
            find /data/apps/tomcat7/logs -name localhost_access_log* -mtime +10 -exec rm {} \\;"
   minute 0
   hour 23
