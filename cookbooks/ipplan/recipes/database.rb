@@ -2,8 +2,8 @@
 
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", node[:ipplan][:app_name])
 
-results = search(:node, "recipes:ipplan\\:\\:database AND chef_environment:#{node.chef_environment}")
-db_server = results[0]
+results = search(:node, "role:ipplan-database")
+db_server = results.first
 
 if not db_server
   Chef::Log.info("No server found with recipe(ipplan::database) within env: " + node.chef_environment)
@@ -27,7 +27,7 @@ ruby_block "create_#{node[:ipplan][:app_name]}_db" do
 end
 
 # get a list of webservers hosting ipplan
-webservers = search(:node, "recipe:ipplan")
+webservers = search(:node, "role:ipplan-database")
 
 # grant mysql privs to each ipplan-webserver
 webservers.each do |webserver|

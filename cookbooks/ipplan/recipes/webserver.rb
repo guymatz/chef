@@ -44,8 +44,8 @@ end
 if node[:roles].include?('db_master')
   db_server = 'localhost'
 else
-  results = search(:node, "recipes:ipplan\\:\\:database")
-  db_server = results[0][:fqdn]
+  results = search(:node, "role:ipplan-database")
+  db_server = results.first[:fqdn]
 end
 
 
