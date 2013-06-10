@@ -23,7 +23,7 @@ cluster-port = <%= node[:quickio][:port] %>
 # Only used when is-server == false
 #
 # type - string
-public-address =
+public-address = <%= @public_addr %>
 
 # How long to wait once after a balance before considering doing another balance.
 #
