@@ -1,5 +1,5 @@
 {
-    "id": "chef",
+    "id": "chef-dev",
     "cookie": "SERVERID insert nocache indirect",
     "vhosts": [ "chef-dev.ihrdev.com" ],
     "check": "True",
