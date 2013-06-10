@@ -22,7 +22,7 @@ pool_members = search("node", "role:#{node['haproxy']['app_server_role']} AND ch
 # load balancer may be in the pool
 pool_members << node if node.run_list.roles.include?(node['haproxy']['app_server_role'])
 
-# we prefer connecting via local_ipv4 if 
+# we prefer connecting via local_ipv4 if
 # pool members are in the same cloud
 # TODO refactor this logic into library...see COOK-494
 pool_members.map! do |member|
@@ -49,11 +49,14 @@ results = search(:loadbalancer, "NOT id:common")
 backends = Array.new
 results.each do |svc|
   svc['backends'].each do |be|
-    Chef::Log.info("Searching for: " + "name:#{be['server']}")
-    servers = search(:node, "name:#{be['server']}")
+    be['server'] =~ /([a-z-]+)(\d+)(-v\d+)?(\.ihr)/i
+    host = $1+$2+$4
+    Chef::Log.info("Searching for: " + "name:#{host}")
+    servers = search(:node, "name:#{host}")
     servers.each do |s|
-      Chef::Log.info(JSON::dump(s))
+      Chef::Log.info("Adding Backend: " + s.inspect)
       be['ipaddress'] = s['ipaddress']
+      Chef::Log.info("ip address is: " + s['ipaddress'])
     end
   end
   backends << svc
