@@ -1,15 +1,5 @@
 name "bastion"
 description "Secured SSH Bastion Server"
 run_list(
-         "recipe[users]",
-	 "recipe[users::dev]",
-         "recipe[sudo]",
-         "role[monitored]",
-         "recipe[openssh::iptables]",
-         "recipe[iptables]",
-         "recipe[ntp]",
-         "recipe[chef-client]",
-         "recipe[operations]",
-         "recipe[timezone]",
-         "recipe[zsh]"
+         "recipe[bastion]"
          )
