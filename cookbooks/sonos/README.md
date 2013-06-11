@@ -1,6 +1,6 @@
 Sonos Cookbook
 ==============
-deployed sonos from git repo.  sonos is a django application which provides a SOAP interface for sonos clients.  Sonos used mysql for "cacheing".  For this purpose, there is an HA-mysql pair running in EC2 named use1b-ss-db101 (VIP).  Further instructions on setting up sonos can be found in the sonos repo [https://github.com/iheartradio/sonos](here).
+deployed sonos from git repo.  sonos is a django application which provides a SOAP interface for sonos clients.  Sonos used mysql for "cacheing".  For this purpose, there is an HA-mysql pair running in EC2 named use1b-ss-db101 (VIP).  Further instructions on setting up sonos can be found in the sonos repo [https://github.com/iheartradio/sonos].
 
 Requirements
 ------------
