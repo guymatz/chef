@@ -4,6 +4,7 @@
     "vhosts": [ "chef-dev.ihrdev.com" ],
     "check": "True",
     "listen": "8000",
+    "protocol": "tcp",
     "backends": [
 	{
             "server": "use1b-dev-chef101.ihr",
