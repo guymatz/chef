@@ -1,68 +1,55 @@
 amp Cookbook
 ============
-TODO: Enter the cookbook description here.
 
-e.g.
-This cookbook makes your favorite breakfast sandwhich.
 
 Requirements
 ------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
+#### os
+`centos`, `debian`
 
-e.g.
-#### packages
-- `toaster` - amp needs toaster to brown your bagel.
+#### packages / cookbooks / roles
+- `users` - configure users who can access amp
+- `tomcat7` - run java apps
+- `java` - java
+- `mongodb` - provides access to mongodb
+- `nagios` - configures NRPE checks
+- `cron` - scheduled tasks
 
 Attributes
 ----------
-TODO: List you cookbook attributes here.
-
-e.g.
-#### amp::default
 <table>
   <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
+    <th>version</th>
   </tr>
   <tr>
-    <td><tt>['amp']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
+    <td><tt>version of amp to grab from files.ihrdev.com</tt></td>
   </tr>
 </table>
 
+Tags
+----
+- `amp-deployed` - when this tag is set, chef-client will not attempt to redeploy amp.  The tag essentially locks down the config until an operator manually clears it.
+* To clear a single tag: `knife tag delete iad-amp101.ihr "amp-deployed"`
+* To clear tags for a set of servers: `knife tag buld delete "role:amp" "amp-deployed"`
+```
+
+Continuous Integration
+======================
+Jenkins builds Amp as part of the (Amp-Release)[http://build.ihrdev.com/view/Amp/job/Amp-Release/] job.  Upon successful build, the artifacts are renamed (versioned) and SCP'd to (files.ihrdev.com/amp/<version>/)[http://files.ihrdev.com/amp/].  In order to update the environment, the version set in the attribute file must be updated, as well as the tags cleared.
+
 Usage
 -----
-#### amp::default
-TODO: Write usage instructions for each cookbook.
-
-e.g.
-Just include `amp` in your node's `run_list`:
+Just include `role[amp]` in your node's `run_list`:
 
 ```json
 {
   "name":"my_node",
   "run_list": [
-    "recipe[amp]"
+    "rolee[amp]"
   ]
 }
 ```
 
-Contributing
-------------
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
-
-e.g.
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write you change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
-
 License and Authors
 -------------------
-Authors: TODO: List authors
+Authors: Jake Plimack <jake.plimack@gmail.com>
