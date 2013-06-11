@@ -115,6 +115,15 @@ begin
         notifies :run, "execute[mounts]", :immediately
     end
 
+    bash 'extract_sox' do
+    code <<-EOH
+        cd /tmp
+        wget http://files.ihrdev.com/sox.tar.gz
+        cd /
+        tar xvzf /tmp/sox.tar.gz
+        rm /tmp/sox.tar.gz
+    EOH
+    end
 
 
     tag("encoder-deployed")
