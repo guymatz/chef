@@ -7,7 +7,8 @@
 require 'socket'
 
 node[:fqdn] =~ /iad-([a-z0-9-]+)(\.ihr)?/i
-hostname = $1
+hostname = $1 + ".iheart.com"
+public_ip = IPSocket::getaddress(hostname)
 
 graphite = search(:node, "chef_environment:#{node.chef_environment} AND roles:graphite")
 qio_master = search(:node, "chef_environment:#{node.chef_environment} AND roles:quickio-master")
@@ -65,7 +66,7 @@ if not tagged?("quickio-deployed")
 
     variables({
       :master_addr => qio_master[0][:fqdn],
-      :public_addr => hostname + ".iheart.com"
+      :public_addr => hostname
     })
   end
 
@@ -75,4 +76,21 @@ if not tagged?("quickio-deployed")
   end
 
   tag("quickio-deployed")
+end
+
+ifconfig "#{public_ip}/28" do
+  device "eth1"
+  action :add
+end
+
+# To ensure the interface survives reboots
+template "/etc/rc.local" do
+  source "rc.local.erb"
+  owner "root"
+  group "root"
+  mode 0755
+
+  variables({
+    :public_ip => public_ip,
+  })
 end
