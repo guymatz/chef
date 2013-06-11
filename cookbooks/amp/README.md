@@ -35,7 +35,7 @@ Tags
 
 Continuous Integration
 ======================
-Jenkins builds Amp as part of the (Amp-Release)[http://build.ihrdev.com/view/Amp/job/Amp-Release/] job.  Upon successful build, the artifacts are renamed (versioned) and SCP'd to (files.ihrdev.com/amp/&gt;version&lt;/)[http://files.ihrdev.com/amp/].  In order to update the environment, the version set in the attribute file must be updated, as well as the tags cleared.
+Jenkins builds Amp as part of the (Amp-Release)[http://build.ihrdev.com/view/Amp/job/Amp-Release/] job.  Upon successful build, the artifacts are renamed (versioned) and SCP'd to (files.ihrdev.com/amp/&lt;version&gt;/)[http://files.ihrdev.com/amp/].  In order to update the environment, the version set in the attribute file must be updated, as well as the tags cleared.
 
 Usage
 -----
