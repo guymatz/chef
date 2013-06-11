@@ -6,7 +6,8 @@
     "backends": [
 	{
             "server": "use1b-dev-chef101.ihr",
-            "port": "8000"
+            "port": "8000",
+            "listen": "8000"
 	}
     ]
 }
