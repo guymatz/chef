@@ -1,68 +1,46 @@
 elasticsearch Cookbook
 ======================
-TODO: Enter the cookbook description here.
+Installs elasticsearch with plugins, sets ulimits, enables the service.
 
-e.g.
-This cookbook makes your favorite breakfast sandwhich.
+Continuous Integration
+======================
+Elasticsearch is build by Jenkins (Here)[http://build.ihrdev.com/job/ElasticSearch/]
+
+#### process
+Jenkins builds are kicked off manually by a developer and source from (the github repo)[https://github.com/iheartradio/iheart-chef/tree/master/cookbooks/elasticsearch].  Upon a succesful build,
+the build artifacts are tarballed and then SCP'd to (files.ihrdev.com/elasticsearch)[http://files.ihrdev.com/elasticsearch]
+
+When chef-client runs, it will download the tarball and expand it to the appropriate location.  In order for chef to replace files that already exist, the `checksum` of the tarball must be updated.
+
+If any files are updated by the chef-client, it will restart the `elasticsearch` process, as well/
 
 Requirements
 ------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
-
-e.g.
 #### packages
-- `toaster` - elasticsearch needs toaster to brown your bagel.
+- `nagios` - for NRPE checks
+- `users` - to grant access
 
 Attributes
 ----------
-TODO: List you cookbook attributes here.
-
-e.g.
-#### elasticsearch::default
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['elasticsearch']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
+- `ulmits` - sets process and file handle limits
+- `shards` - search database shard count
+- `replicas` - search database replica count
+- `mlockadd` - true/false
 
 Usage
 -----
-#### elasticsearch::default
-TODO: Write usage instructions for each cookbook.
-
-e.g.
-Just include `elasticsearch` in your node's `run_list`:
+Just include `role[elasticsearch]` in your node's `run_list`:
 
 ```json
 {
   "name":"my_node",
   "run_list": [
-    "recipe[elasticsearch]"
+    "role[elasticsearch]"
   ]
 }
 ```
 
-Contributing
-------------
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
-
-e.g.
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write you change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
-
 License and Authors
 -------------------
-Authors: TODO: List authors
+Authors: Jake Plimack <jake.plimack@gmail.com>
+         Amit Patel <amitpatel@clearchannel.com>
