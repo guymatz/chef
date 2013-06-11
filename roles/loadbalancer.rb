@@ -3,7 +3,7 @@ description "HA Proxy Soft-Loadbalancer"
 run_list(
          "role[base]",
          "role[monitored]",
-         "recipe[haproxy::app_lb2]"
+         "recipe[haproxy::app_static]"
 )
 
 override_attributes(
