@@ -8,7 +8,7 @@ version          '0.1.0'
 
 
 
-%w{ users sudo monitored openssh iptables ntp chef-client operations timezone zsh }.each do |dep|
+%w{ users sudo nagios rsyslog openssh iptables ntp chef-client operations timezone zsh }.each do |dep|
   depends dep
 end
 
