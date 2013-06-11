@@ -53,7 +53,7 @@ cookbook_file "/root/scripts/check_mongo_fac_backup_corruption.sh" do
 end
 
 cron_d "check_mongo_fac_backup_corruption" do
-  command "/root/scripts/check_mongodb_fac_backup_corruption.sh"
+  command "/root/scripts/check_mongo_fac_backup_corruption.sh"
   minute  "45"
   hour	  "0"
   month	  "*"
