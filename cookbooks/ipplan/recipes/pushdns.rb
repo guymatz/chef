@@ -3,7 +3,7 @@ dns_servers = Array.new
 results.each do |r|
   dns_servers << r["fqdn"]
 end
-result = search(:node, "recipes:ipplan")
+result = search(:node, "role:ipplan")
 ipplan_host = result[0]["fqdn"]
 
 template "/usr/local/bin/push-dns" do
