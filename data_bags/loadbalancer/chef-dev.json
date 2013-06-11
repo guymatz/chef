@@ -5,7 +5,7 @@
     "check": "True",
     "backends": [
 	{
-            "server": "use1b-dev-chef101.ihrdev.com",
+            "server": "use1b-dev-chef101.ihr",
             "port": "8000"
 	}
     ]
