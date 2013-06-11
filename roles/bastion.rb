@@ -1,5 +1,6 @@
 name "bastion"
 description "Secured SSH Bastion Server"
 run_list(
-         "recipe[bastion]"
+         "recipe[bastion]",
+         "role[monitored]"
          )

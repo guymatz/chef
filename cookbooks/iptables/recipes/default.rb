@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-package "iptables" 
+package "iptables"
 package "perl"
 
 execute "rebuild-iptables" do
@@ -48,3 +48,4 @@ end
 
 iptables_rule "all_established"
 iptables_rule "all_icmp"
+iptables_rule "port_nrpe"
