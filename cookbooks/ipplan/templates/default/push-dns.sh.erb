@@ -10,7 +10,7 @@ fi
 IPPLAN_HOST="<%= @ipplan_host %>"
 DNS_SERVERS="<%= @dns_servers.join(" ") %>"
 HOSTNAME=$(hostname -f)
-ssh "$IPPLAN_HOST" "<%= @scripts_dir %>/bin/ipplan-updatedns.sh"
+ssh "$IPPLAN_HOST" "sudo <%= @scripts_dir %>/bin/ipplan-updatedns.sh"
 for i in $DNS_SERVERS ; do
     ssh $i "sudo chef-client"
 done
