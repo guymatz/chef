@@ -30,7 +30,6 @@ service "xinetd" do
 end
 
 remote_file "#{node[:basejump][:kickstarter][:tftp_root]}/syslinux-5.01.tar.gz" do
-  puts "Downloading SYSLINUX from #{node[:basejump][:kickstarter][:syslinux_url]}"
   source node[:basejump][:kickstarter][:syslinux_url]
   action :create_if_missing
 end

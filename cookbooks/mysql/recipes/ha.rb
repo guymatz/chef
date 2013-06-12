@@ -98,12 +98,15 @@ ruby_block "master-log" do
   action :create
 end
 
-ruby_block "import-master-log" do
-  block do
-    master_log_file = cluster_slaves.first[:mysql][:server][:logfile]
-    master_log_pos = cluster_slaves.first[:mysql][:server][:log_pos]
-    %x{mysql -u root -p#{node[:mysql][:server_root_password]} -e "CHANGE MASTER TO master_host='#{cluster_slaves.first[:ipaddress]}', master_port=3306, master_user='repl', master_password='#{cluster_slaves.first[:mysql][:server_repl_password]}', master_log_file='#{master_log_file}', master_log_pos=#{master_log_pos};"}
-    %x{mysql -u root -p#{node[:mysql][:server_root_password]} -e "START SLAVE;"}
+unless tagged?("replication-configured")
+  ruby_block "import-master-log" do
+    block do
+      master_log_file = cluster_slaves.first[:mysql][:server][:logfile]
+      master_log_pos = cluster_slaves.first[:mysql][:server][:log_pos]
+      %x{mysql -u root -p#{node[:mysql][:server_root_password]} -e "CHANGE MASTER TO master_host='#{cluster_slaves.first[:ipaddress]}', master_port=3306, master_user='repl', master_password='#{cluster_slaves.first[:mysql][:server_repl_password]}', master_log_file='#{master_log_file}', master_log_pos=#{master_log_pos};"}
+      %x{mysql -u root -p#{node[:mysql][:server_root_password]} -e "START SLAVE;"}
+    end
+    action :create
   end
-  action :create
+  tag("replication-configured")
 end

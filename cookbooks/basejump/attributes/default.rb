@@ -33,10 +33,10 @@ default[:basejump][:kickstarter][:mirrors] = ({
                                                 "centos" => "http://mirror.stanford.edu/yum/pub/"
                                               })
 
-default[:basejump][:user] = "nobody"
+default[:basejump][:user] = "ihr-deployer"
 case node['platform']
 when "debian"
-  default[:basejump][:group] = "nogroup"
+  default[:basejump][:group] = "ihr-deployer"
 when "centos"
-  default[:basejump][:group] = "nobody"
+  default[:basejump][:group] = "ihr-deployer"
 end
