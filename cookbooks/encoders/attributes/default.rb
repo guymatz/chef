@@ -55,7 +55,7 @@ default[:gems] = {
 default[:encoders][:static_files] = { 
     "/usr/local/bin/lame" => "lame",
     "/usr/local/bin/aacPlusEnc" => "aacPlusEnc",
-    "/usr/local/bin/aacPlusDec" => "aacPlusDnc",
+    "/usr/local/bin/aacPlusDec" => "aacPlusDec",
     "/usr/local/bin/ffmpeg" => "ffmpeg"
 }
 
