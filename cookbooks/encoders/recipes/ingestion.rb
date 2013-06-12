@@ -3,7 +3,7 @@ include_recipe "logrotate"
 include_recipe "tomcat7"
 
 begin
-  unless tagged?("amp-deployed")
+  unless tagged?("ingestion-deployed")
 
     template "#{node[:tomcat7][:install_path]}/bin/setenv.sh" do
           source "setenv.sh.erb"

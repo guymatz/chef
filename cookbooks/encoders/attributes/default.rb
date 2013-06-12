@@ -7,6 +7,10 @@ default[:pkgsx64] = [ 'libxml2', 'zlib', 'zlib-devel', 'libxml2-devel', 'libxslt
 default[:iheart_pkg] = [ 'jdk', 'mpg123',  'lame-libs', 'libmad-devel', 'libmad'  ]
 default[:ftpserver] = [ 'vsftpd' ]
 
+default[:vantrix] = [ 'spotxde-trx' ]
+
+
+
 
 default[:jruby_gems] =  {
      "ruby-mp3info" => "0.7.1",
@@ -70,6 +74,8 @@ default[:encoders][:ftp_mount] = "/data/encoder-ftp"
 default[:encoders][:encoder_mount] = "/data/encoder"
 default[:encoders][:aladdin_mount_dir] = "/data/aladdin"
 default[:encoders][:aladdin_export_dir] = "/radioutils/aladdin"
+default[:encoders][:prn_mount_dir] = "/data/prn"
+default[:encoders][:prn_export_dir] = "/prn"
 
 default[:encoders][:user] = "converter"
 default[:encoders][:ftpuser] = "ftp"
@@ -86,8 +92,12 @@ default[:encoders][:filemonitor][:postgres_jar] = "postgresql-9.0-801.jdbc4.jar"
 default[:encoders][:filemonitor][:static_files] = { 
     "/data/apps/filemonitor" => "filemonitor"
 }
+# talk links
+default[:encoders][:filemonitor][:talk_links] = { 
+    "/PRN" => "/data/prn"
+}
 
-# talk ingestion links
+# ingestion links
 default[:encoders][:filemonitor][:ingestion_links] = { 
     "/talk" => "/data/encoder/tmp-ingestion/talk/prod",
     "/Talk" => "/data/encoder/tmp-ingestion/Talk",
