@@ -30,7 +30,7 @@ define contactgroup {
 define contactgroup {
   contactgroup_name <%= cg['id'] %>
   <%= "alias " + cg['id'] + "-email" %>
-  <%= "members " + cg['members'].join (',') unless cg['members'].nil? %>
+  <%= "members " + cg['members'].join(',') unless cg['members'].nil? %>
 }
 <% end -%>
 
