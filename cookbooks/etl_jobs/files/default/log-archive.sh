@@ -45,7 +45,7 @@ rm -f $FILES
 echo -ne "Done with event at $(date)"
 
 echo -ne "Deleting older files"
-/usr/bin/find data/log/*/processed/ -mtime +10 -exec rm {} \;
+/usr/bin/find /data/log/*/processed/ -mtime +10 -exec rm {} \;
 echo -ne "Done deleting older files at $(date)"
 
 #nice -n 19 find /data/log/talkplaylog/processed -name '*.tar.gz' -mtime +1 -exec mv {} /isilon/talkplaylog/processed/ \;
