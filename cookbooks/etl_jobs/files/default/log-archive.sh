@@ -16,25 +16,25 @@ echo -ne "Done with playlog at $(date)"
 
 echo -ne "Begining talkplaylog at $(date)"
 FILES=$(/usr/bin/find /data/log/talkplaylog/processed/ -name 'stream*')
-tar czf /data/log/talkplaylog/processed/processed_talkplaylogs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y) $FILES
+tar czf /data/log/talkplaylog/processed/processed_talkplaylogs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y).tar.gz $FILES
 rm -f $FILES
 echo -ne "Done with playlog at $(date)"
 
 echo -ne "Begining customradio at $(date)"
 FILES=$(/usr/bin/find /data/log/customradiothumbslog/processed/)
-tar czf /data/log/customradiothumbslog/processed/processed_customthumbslogs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y) $FILES
+tar czf /data/log/customradiothumbslog/processed/processed_customthumbslogs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y).tar.gz $FILES
 rm -f $FILES
 echo -ne "Done with playlog at $(date)"
 
 echo -ne "Begining liveradio at $(date)"
 FILES=$(/usr/bin/find /data/log/liveradiothumbslog/processed/)
-tar czf /data/log/liveradiothumbslog/processed/processed_livethumbslogs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y) $FILES
+tar czf /data/log/liveradiothumbslog/processed/processed_livethumbslogs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y).tar.gz $FILES
 rm -f $FILES
 echo -ne "Done with playlog at $(date)"
 
 echo -ne "Begining sysinfo at $(date)"
 FILES=$(/usr/bin/find /data/log/sysinfo/processed/)
-tar czf /data/log/sysinfo/processed/processed_sysinfologs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y) $FILES
+tar czf /data/log/sysinfo/processed/processed_sysinfologs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y).tar.gz $FILES
 rm -f $FILES
 echo -ne "Done with sysinfo at $(date)"
 
