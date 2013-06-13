@@ -10,37 +10,37 @@ echo $$ > $PIDFILE
 
 echo -ne "Begining playlog at $(date)"
 FILES=$(/usr/bin/find /data/log/playlog/processed/ -name 'stream*')
-tar czf /data/log/playlog/processed/processed_playlogs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y).tar.gz $FILES
+nice -n 19 tar czf /data/log/playlog/processed/processed_playlogs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y).tar.gz $FILES
 rm -f $FILES
 echo -ne "Done with playlog at $(date)"
 
 echo -ne "Begining talkplaylog at $(date)"
 FILES=$(/usr/bin/find /data/log/talkplaylog/processed/ -name 'stream*')
-tar czf /data/log/talkplaylog/processed/processed_talkplaylogs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y).tar.gz $FILES
+nice -n 19 tar czf /data/log/talkplaylog/processed/processed_talkplaylogs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y).tar.gz $FILES
 rm -f $FILES
 echo -ne "Done with playlog at $(date)"
 
 echo -ne "Begining customradio at $(date)"
 FILES=$(/usr/bin/find /data/log/customradiothumbslog/processed/ -name 'customradioevent*')
-tar czf /data/log/customradiothumbslog/processed/processed_customthumbslogs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y).tar.gz $FILES
+nice -n 19 tar czf /data/log/customradiothumbslog/processed/processed_customthumbslogs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y).tar.gz $FILES
 rm -f $FILES
 echo -ne "Done with playlog at $(date)"
 
 echo -ne "Begining liveradio at $(date)"
 FILES=$(/usr/bin/find /data/log/liveradiothumbslog/processed/ -name 'liveradioevent*')
-tar czf /data/log/liveradiothumbslog/processed/processed_livethumbslogs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y).tar.gz $FILES
+nice -n 19 tar czf /data/log/liveradiothumbslog/processed/processed_livethumbslogs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y).tar.gz $FILES
 rm -f $FILES
 echo -ne "Done with playlog at $(date)"
 
 echo -ne "Begining sysinfo at $(date)"
 FILES=$(/usr/bin/find /data/log/sysinfo/processed/ -name 'iad*')
-tar czf /data/log/sysinfo/processed/processed_sysinfologs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y).tar.gz $FILES
+nice -n 19 tar czf /data/log/sysinfo/processed/processed_sysinfologs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y).tar.gz $FILES
 rm -f $FILES
 echo -ne "Done with sysinfo at $(date)"
 
 echo -ne "Begining event at $(date)"
 FILES=$(/usr/bin/find /data/log/event/processed/ -name 'iad*')
-tar czf /data/log/event/processed/processed_eventlogs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y).tar.gz $FILES
+nice -n 19 tar czf /data/log/event/processed/processed_eventlogs_10.5.1.36_$(/bin/date +%H-%M-%d-%m-%Y).tar.gz $FILES
 rm -f $FILES
 echo -ne "Done with event at $(date)"
 
