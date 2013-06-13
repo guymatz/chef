@@ -1,0 +1,12 @@
+{
+    "id": "grubino",
+    "uid": 5033,
+    "name": "Greg Rubino",
+    "email": "GregRubino@clearchannel.com",
+    "groups": ["dev", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch"],
+    "nagios": {
+        "email": "GregRubino@clearchannel.com"
+    },
+    "htpasswd": "{SHA}___",
+    "ssh_keys": ["__"]
+}
