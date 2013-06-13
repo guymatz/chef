@@ -124,6 +124,11 @@ begin
         rm /tmp/sox.tar.gz
     EOH
     end
+    node[:encoders][:filemonitor][:ingestion_links].each do |target,src|
+    link "#{target}" do
+        to "#{src}"
+    end
+    end
 
 
     tag("encoder-deployed")
@@ -132,8 +137,3 @@ rescue
     untag("encoder-deployed")
 end
 
-node[:encoders][:filemonitor][:ingestion_links].each do |target,src|
-    link "#{target}" do
-        to "#{src}"
-    end
-end

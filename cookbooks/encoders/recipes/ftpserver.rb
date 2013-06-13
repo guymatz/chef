@@ -20,7 +20,6 @@ begin
 
     execute "mkdirs" do
         command "mkdir -p #{node[:encoders][:ftp_mount]}"
-        ##not_if { ::File.exists?("#{node[:encoders][:ftp_mount]}")}
     end
 
     execute "mounts" do
@@ -38,7 +37,6 @@ begin
     node[:ftpserver].each do |pkg|
         yum_package pkg do
               arch "x86_64"
-              #not_if { node.normal.attribute?("encoder_deployed") }
         end
     end
 

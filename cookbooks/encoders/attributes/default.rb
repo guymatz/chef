@@ -96,6 +96,10 @@ default[:encoders][:filemonitor][:static_files] = {
 default[:encoders][:filemonitor][:talk_links] = { 
     "/PRN" => "/data/prn"
 }
+# mixins links
+default[:encoders][:filemonitor][:mixins_links] = { 
+    "/Mixins" => "/data/encoder/tmp-ingestion/Mixins"
+}
 
 # ingestion links
 default[:encoders][:filemonitor][:ingestion_links] = { 

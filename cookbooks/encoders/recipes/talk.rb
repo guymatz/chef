@@ -8,7 +8,7 @@ begin
             to "#{src}"
         end
     end
-    prn_mount_line = "#{node[:encoders][:nfsserver]}:/nfs#{node[:encoders][:prn_export_dir]} #{node[:encoders][:prn_mount_dir]}       nfs   rw,vers=3,bg,soft,tcp,intr  0   0"
+    mixins_mount_line = "#{node[:encoders][:nfsserver]}:/nfs#{node[:encoders][:prn_export_dir]} #{node[:encoders][:prn_mount_dir]}       nfs   rw,vers=3,bg,soft,tcp,intr  0   0"
 
     execute "prn_dir" do
         command "mkdir -p #{node[:encoders][:prn_mount_dir]}"
