@@ -17,6 +17,7 @@
     "recipe[encoders]",
     "recipe[users::converter]",
     "recipe[splunk::forwarder]",
+    "role[sendmail-smart-host]",
     "recipe[nfs]"
   ],
   "env_run_lists": {

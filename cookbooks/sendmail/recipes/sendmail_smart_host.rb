@@ -1,3 +1,5 @@
+package 'mutt'
+
 cookbook_file "/etc/mail/sendmail.mc" do
   source "sendmail_smart_host"
   mode 0644

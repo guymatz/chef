@@ -1,0 +1,25 @@
+[default]
+host = <%= node['hostname'] %>
+
+[monitor://<%= node['splunk']['forwarder_home']%>/var/log/splunk]
+    disabled = 1
+
+[monitor:///var/log/secure]
+    blacklist = \.(gz|bz2)$
+    disabled = 0
+
+[monitor:///var/log/syslog]
+    blacklist = \.(gz|bz2)$
+    disabled = 0
+
+[monitor:///var/log/messages]
+    blacklist = \.(gz|bz2)$
+    disabled = 0
+
+[monitor:///var/log/auth.log]
+    blacklist = \.(gz|bz2)$
+    disabled = 0
+
+[monitor:///data/www/webplayer/current/logs/]
+    blacklist = \.(gz|bz2)$
+    disabled = 0
