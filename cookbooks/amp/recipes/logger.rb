@@ -62,3 +62,10 @@ file "/etc/rsyslog.d/05-search-exit.conf" do
 EOH
   only_if "test -d /etc/rsyslog.d"
 end
+
+cron_d "amp-log-purger" do
+  minute "35"
+  hour "4"
+  command "find #{node[:amp][:logging][:log_path]} -name '*.log*' -mtime +14 -exec rm -rf {} \\;"
+  #user node[:amp][:logging][:user]
+end
