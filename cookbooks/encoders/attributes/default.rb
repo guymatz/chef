@@ -5,7 +5,7 @@ default[:pkgs686] = [  'libtool-ltdl-devel', 'alsa-lib',  'ncurses-libs', 'ncurs
 default[:pkgsx64] = [ 'libxml2', 'zlib', 'zlib-devel', 'libxml2-devel', 'libxslt', 'libxslt-devel' ]
 # Iheart RPMS
 default[:iheart_pkg] = [ 'jdk', 'mpg123',  'lame-libs', 'libmad-devel', 'libmad'  ]
-default[:ftpserver] = [ 'vsftpd' ]
+default[:ftpserver] = [ 'vsftpd', 'inotify-tools', 'inotify-tools-devel']
 
 default[:vantrix] = [ 'spotxde-trx' ]
 
@@ -18,7 +18,7 @@ default[:jruby_gems] =  {
      "jdbc-postgres" => "9.1.901",
      "activerecord-jdbcpostgresql-adapter" => "1.2.2",
      "tmail" => "1.2.7.1",
-     "nokogiri" => "1.5.0",
+     "nokogiri" => "1.4.0",
      "rake" => "0.8.7",
      "uits" => "0.0.0",
      "bouncy-castle-java" => "1.5.0146.1",
@@ -28,18 +28,17 @@ default[:jruby_gems] =  {
 }
 
 default[:gems] = {
-    "akami" => "1.2.0",
+    "akamai" => "0.2.0",
     "ffi" => "1.2.0",
     "postgres-pr" => "0.6.3",
     "nori" => "2.0.4",
     "rack" => "1.5.2",
     "rails" => "3.2.13",
     "httpi" => "2.0.2",
-    "wasabi" => "3.0.0",
+    "wasabi" => "2.5.0",
     "builder" => "3.2.0",
     "gyoku" => "1.0.0",
-    "akami" => "1.2.0",
-    "savon" => "2.1.0",
+    "savon" => "1.2.0",
     "libxml-ruby" => "2.6.0",
     "uits" => "0.0.0",
     "activerecord-jdbc-adapter" => "1.2.2",
@@ -48,7 +47,7 @@ default[:gems] = {
     "bundler" => "1.1.5",
     "jdbc-postgres" => "9.1.901",
     "jruby-openssl" => "0.7.7",
-    "nokogiri" => "1.5.0",
+    "nokogiri" => "1.4.0",
     "rake" => "0.8.7",
     "ruby-mp3info" => "0.7.1",
     "sources" => "0.0.1",
@@ -98,7 +97,8 @@ default[:encoders][:filemonitor][:talk_links] = {
 }
 # mixins links
 default[:encoders][:filemonitor][:mixins_links] = { 
-    "/Mixins" => "/data/encoder/tmp-ingestion/Mixins"
+    "/Mixins" => "/data/encoder/tmp-ingestion/Mixins",
+    "/Mixins_Watch_Folder" => "/data/encoder/tmp-ingestion/Mixins_Watch_Folder"
 }
 
 # ingestion links
