@@ -5,7 +5,7 @@ default[:pkgs686] = [  'libtool-ltdl-devel', 'alsa-lib',  'ncurses-libs', 'ncurs
 default[:pkgsx64] = [ 'libxml2', 'zlib', 'zlib-devel', 'libxml2-devel', 'libxslt', 'libxslt-devel' ]
 # Iheart RPMS
 default[:iheart_pkg] = [ 'jdk', 'mpg123',  'lame-libs', 'libmad-devel', 'libmad'  ]
-default[:ftpserver] = [ 'vsftpd', 'inotify-tools', 'inotify-tools-devel']
+default[:ftpserver] = [ 'vsftpd', 'inotify-tools', 'inotify-tools-devel', 'incron' ]
 
 default[:vantrix] = [ 'spotxde-trx' ]
 

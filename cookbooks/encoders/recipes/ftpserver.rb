@@ -89,7 +89,11 @@ begin
     end
 
     service "vsftpd" do
-       action :start
+       action [:enable, :start ]
+    end
+
+    service "incrond" do
+            action [:enable, :start]
     end
 
     tag("encoder-ftp-deployed")
