@@ -63,9 +63,8 @@ EOH
   only_if "test -d /etc/rsyslog.d"
 end
 
-cron_d "amp-log-purger" do
-  minute "35"
-  hour "4"
-  command "find #{node[:amp][:logging][:log_path]} -name '*.log*' -mtime +14 -exec rm -rf {} \\;"
+cron_d "logger-rotate-tomcat-logs" do
+  hour "2"
+  command "/usr/bin/find #{node[:amp][:logger][:log_path]} -mtime +14 -delete"
   #user node[:amp][:logging][:user]
 end

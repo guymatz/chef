@@ -9,6 +9,7 @@ default[:amp][:pgbouncer][:port] = "5432"
 
 default[:amp][:logging][:script_path] = "/data/apps/amp/logging"
 default[:amp][:logging][:log_path] = "/var/log/amp"
+default[:amp][:logger][:log_path] = "/data/apps/tomcat7/logs"
 
 default[:amp][:logger][:url] = "http://files.ihrdev.com/amp/logger.war"
 

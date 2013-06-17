@@ -64,7 +64,7 @@ end
 cron_d "amp-log-purger" do
   minute "35"
   hour "4"
-  command "find #{node[:amp][:logging][:log_path]} -name '*.log*' -mtime +14 -exec rm -rf {} \\;"
+  command "find #{node[:amp][:logging][:log_path]} -name '*.log' -mtime +14 -exec rm -rf {} \\;"
   #user node[:amp][:logging][:user]
 end
 
