@@ -168,11 +168,10 @@ end
 
 logrotate_app "webplayer" do
   cookbook "logrotate"
-  path "/var/log/supervisor/*.log"
-  options ["missingok", "delaycompress", "notifempty"]
+  path "/var/log/supervisor/*.log /data/www/webplayer/current/logs/*.log"
+  options ["missingok", "delaycompress", "notifempty", "copytruncate"]
   frequency "daily"
   enable true
-  postrotate "find /var/log/supervisor -mtime +1 -exec rm -rf {} \\;"
   create "0644 nobody root"
   rotate 1
 end
