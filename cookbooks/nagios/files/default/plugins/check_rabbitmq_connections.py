@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import sys
-import simplejson as json
 import requests
 import argparse
 
