@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: sudo
-# Attribute File:: default
+# Cookbook Name:: sudo_test
+# Minitest:: cook-2119
 #
-# Copyright 2008-2011, Opscode, Inc.
+# Copyright 2012-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,9 +17,13 @@
 # limitations under the License.
 #
 
-default['authorization']['sudo']['groups']            = []
-default['authorization']['sudo']['users']             = []
-default['authorization']['sudo']['passwordless']      = false
-default['authorization']['sudo']['include_sudoers_d'] = false
-default['authorization']['sudo']['agent_forwarding']  = false
-default['authorization']['sudo']['sudoers_defaults']  = ['!lecture,tty_tickets,!fqdn']
+require File.expand_path('../support/helpers', __FILE__)
+
+describe "sudo_test::cook-2119" do
+  include Helpers::SudoTest
+
+  it 'contains each command on a separate line' do
+    file('/etc/sudoers.d/vagrant').must_include 'vagrant  ALL=(root) /bin/du'
+    file('/etc/sudoers.d/vagrant').must_include 'vagrant  ALL=(root) /bin/ls'
+  end
+end
