@@ -1,12 +1,8 @@
 #!/bin/sh
 tomcat_dir=<%= @tomcat_dir %>/logs/
 
-find ${tomcat_dir} -type f -mtime +7  -name "*event*" -o -name "*server*"  -o -name "*stream*" -o -name "*localhost_access*" -o -name "*manager*" -o -name "*hibernate*" -o -name "*xbox*" -o -name "*catalina*" -o -name "*localhost*" -exec rm -rf {} \;
+find ${tomcat_dir} -type f -mtime +7 -name "*bz2*" -exec rm -f {} \;
 
-find ${tomcat_dir} -type f -mtime +30 -name "*user*" -exec rm -rf {} \;
-
-find ${tomcat_dir} -type f  -mtime +1 -name "*server*"  -o -name "*event*" -o -name "*stream*" -o -name "*localhost_access*" -o -name "*manager*" -o -name "*hibernate*" -o -name "*xbox*" -o -name "*catalina*" -o -name "*localhost*"  -o -name "*user*" -and -not -name "*.bz2" -exec bzip2 -9 {} \;
-
-find ${tomcat_dir} -type f -mtime +7   -name "*extended*" -exec rm -rf {} \;
+find ${tomcat_dir} -type f  -mtime +1 -name "*log*" -and -not -name "*.bz2" -exec bzip2 -9 {} \;
 
 find ${tomcat_dir} -type f  -mmin +120  -name "*extended*" -and -not -name "*.bz2" -exec bzip2 -v9 {} \;
