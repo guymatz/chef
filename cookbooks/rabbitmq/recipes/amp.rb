@@ -28,6 +28,7 @@ users.each do |k,v|
     action :add
   end
   rabbitmq_user k do
+    next if k == "nagios"
     vhost "/amp"
     permissions "\".*\" \".*\" \".*\""
     action :set_permissions
