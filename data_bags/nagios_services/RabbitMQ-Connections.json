@@ -1,6 +1,6 @@
 {
   "id": "RabbitMQ-Connections",
   "hostgroup_name": "amp_rabbit_server",
-  "command_line": "$USER1$/check_rabbitmq_connections.py --url $HOSTADDRESS$:15672 --user nagios --pass inrabbitmqdatabag",
+  "command_line": "$USER1$/check_rabbitmq_connections.py --url 'http://$HOSTADDRESS$:15672/api/connections' --user nagios --pass inrabbitmqdatabag",
   "contact_groups": ["admins","rabbit"]
 }
