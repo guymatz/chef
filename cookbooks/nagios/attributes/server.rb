@@ -39,7 +39,7 @@ else
   default['nagios']['server']['mail_command']   = '/bin/mail'
 end
 
-default[:nagios][:pips] = %w{ requests }
+default[:nagios][:pips] = %w{ simplejson requests argparse }
 
 default['nagios']['home']       = "/usr/lib/nagios3"
 default['nagios']['conf_dir']   = "/etc/nagios3"
