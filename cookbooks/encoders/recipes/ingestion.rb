@@ -26,8 +26,8 @@ begin
 
 
     node[:encoders][:filemonitor][:static_files].each do |dest,src|
-        remote_directory "#{dest}" do
-            source "#{src}"
+        remote_directory dest do
+            source src
             mode 0755
     end
 
@@ -37,13 +37,13 @@ begin
 #    end
 
     cookbook_file "#{node[:tomcat7][:install_path]}/webapps/ingester.war" do
-        source "#{node[:encoders][:filemonitor][:ingester_war]}"
+        source node[:encoders][:filemonitor][:ingester_war]
         mode 0555
         action :create_if_missing
     end
 
     cookbook_file "#{node[:tomcat7][:install_path]}/lib/postgresql-9.0-801.jdbc4.jar" do
-        source "#{node[:encoders][:filemonitor][:postgres_jar]}"
+        source node[:encoders][:filemonitor][:postgres_jar]
         mode 0644
         action :create_if_missing
     end
@@ -53,7 +53,7 @@ begin
         group "tomcat"
         mode 0644
         action :create
-        not_if { ::File.exists?("#{node[:encoders][:filemonitor][:logdir]}")} 
+        not_if { ::File.exists?(node[:encoders][:filemonitor][:logdir])} 
     end
 
     template "/etc/init.d/fileMonitorService" do

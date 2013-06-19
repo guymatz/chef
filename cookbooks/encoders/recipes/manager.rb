@@ -3,7 +3,7 @@ aladdin_mount_line = "#{node[:encoders][:nfsserver]}:/nfs#{node[:encoders][:alad
 
 execute "aladdin_dir" do
     command "mkdir -p #{node[:encoders][:aladdin_mount_dir]}"
-        not_if { ::File.exists?("#{node[:encoders][:aladdin_mount_dir]}")}
+        not_if { ::File.exists?(node[:encoders][:aladdin_mount_dir])}
 end
 append_if_no_line "aladdin_mount" do
     path "/etc/fstab"
