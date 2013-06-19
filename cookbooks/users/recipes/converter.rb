@@ -22,7 +22,7 @@ end
 sudo "converter" do
   group "converter"
   commands ["ALL"]
-  runas "converter"
+  runas "root"
   nopasswd true
 end
 
