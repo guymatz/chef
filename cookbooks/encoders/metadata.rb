@@ -5,8 +5,8 @@ license          'All rights reserved'
 description      'Installs/Configures encoder'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.1.4'
-depends          'yum'
-depends          'java'
-depends          'line'
-depends          'application_ruby'
-depends          'tomcat7'
+
+
+%w{ yum java line application_ruby tomcat7 }.each do |dep|
+    depends dep
+end
