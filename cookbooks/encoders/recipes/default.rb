@@ -14,35 +14,30 @@ end
 begin 
   unless tagged?("encoder-deployed")
 
-    #enc_data = Chef::EncryptedDataBagItem.load("secrets", "github")
 
     node[:pkgs686].each do |pkg|
       yum_package pkg do
         arch "i686"
-#        not_if { node.normal.attribute?("encoder_deployed") }
       end
     end
 
     node[:pkgsx64].each do |pkg|
       yum_package pkg do
         arch "x86_64"
-#        not_if { node.normal.attribute?("encoder_deployed") }
       end
     end
 
     node[:iheart_pkg].each do |ihr_pkg|
       package ihr_pkg do
         action :install
-#        not_if { node.normal.attribute?("encoder_deployed") }
       end
     end
 
     node[:gems].each do |gem,ver|
-      gem_package "#{gem}" do
+      gem_package gem do
         action :install
         options "--no-ri --no-rdoc"
-        version "#{ver}"
-#    not_if { node.normal.attribute?("encoder_deployed") }
+        version ver
       end
     end
 
@@ -51,20 +46,18 @@ begin
          code <<-EOF
              jruby -S gem install #{gem} -v #{ver} 
          EOF
-#         not_if { node.normal.attribute?("encoder_deployed") }
       end
     end
 
     node[:encoders][:static_files].each do |dest,src|
-      cookbook_file "#{dest}" do
-        source "#{src}"
+      cookbook_file dest do
+        source src
         mode 0555
-#        not_if { node.normal.attribute?("encoder_deployed") }
         end
     end
 
     cookbook_file "/home/converter/encoder-wrap-ssh.sh" do
-        source "#{node[:encoders][:wrapper_script]}"
+        source node[:encoders][:wrapper_script]
         mode 0755
         action :create_if_missing
     end
@@ -77,7 +70,6 @@ begin
             ln -s /usr/java/jdk1.6.0_26/ /usr/bin/jdk
         EOF
         not_if { ::File.exists?("/usr/java/jdk1.6.0_26") } 
-#    not_if { node.normal.attribute?("encoder_deployed") }
     end
 
     ftp_mount_line = "#{node[:encoders][:nfsserver]}:/nfs#{node[:encoders][:ftp_mount]} #{node[:encoders][:ftp_mount]}       nfs   rw,vers=3,bg,soft,tcp,intr  0   0"
@@ -85,17 +77,17 @@ begin
 
     execute "mkdirs" do
         command "mkdir -p #{node[:encoders][:ftp_mount]}"
-        not_if { ::File.exists?("#{node[:encoders][:ftp_mount]}")}
+        not_if { ::File.exists?(node[:encoders][:ftp_mount])}
     end
 
     execute "mkdirs2" do
         command "mkdir -p #{node[:encoders][:encoder_mount]}"
-        not_if { ::File.exists?("#{node[:encoders][:encoder_mount]}")}
+        not_if { ::File.exists?(node[:encoders][:encoder_mount])}
     end
 
     execute "logdir" do
         command "mkdir -p #{node[:encoders][:logdir]}"
-        not_if { ::File.exists?("#{node[:encoders][:logdir]}")}
+        not_if { ::File.exists?(node[:encoders][:logdir])}
     end
 
     execute "mounts" do
@@ -127,8 +119,8 @@ begin
     EOH
     end
     node[:encoders][:filemonitor][:ingestion_links].each do |target,src|
-    link "#{target}" do
-        to "#{src}"
+    link target do
+        to src
     end
     end
 

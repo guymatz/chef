@@ -10,7 +10,7 @@ begin
 
     execute "prn_dir" do
         command "mkdir -p #{node[:encoders][:prn_mount_dir]}"
-        not_if { ::File.exists?{node[:encoders][:prn_mount_dir])}
+        not_if { ::File.exists?node[:encoders][:prn_mount_dir] }
     end
 
     append_if_no_line "prn_mount" do
