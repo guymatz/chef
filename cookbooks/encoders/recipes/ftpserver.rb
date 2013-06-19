@@ -40,12 +40,12 @@ begin
         end
     end
 
-    template "/etc/vsftpd/vuser/music_users.txt" do
-        source "music_users.txt"
-        owner "root"
-        group "root"
-        mode 0400
-    end
+    #template "/etc/vsftpd/vuser/music_users.txt" do
+    #    source "music_users.txt"
+    #    owner "root"
+    #    group "root"
+    #    mode 0400
+    #end
 
 
 ##

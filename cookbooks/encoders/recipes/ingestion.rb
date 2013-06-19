@@ -1,6 +1,3 @@
-include_recipe "logrotate"
-
-include_recipe "tomcat7"
 
 begin
   unless tagged?("ingestion-deployed")

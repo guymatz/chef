@@ -1,5 +1,3 @@
-include_recipe "logrotate"
-
 
 aladdin_mount_line = "#{node[:encoders][:nfsserver]}:/nfs#{node[:encoders][:aladdin_export_dir]} #{node[:encoders][:aladdin_mount_dir]}       nfs   rw,vers=3,bg,soft,tcp,intr  0   0"
 

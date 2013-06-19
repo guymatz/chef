@@ -7,8 +7,10 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe "yum::epel"
-include_recipe "users::converter"
+%w{ users::converter }.each do |r|
+  include_recipe r
+end
+
 begin 
   unless tagged?("encoder-deployed")
 
