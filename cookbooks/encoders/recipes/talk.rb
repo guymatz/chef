@@ -1,5 +1,3 @@
-include_recipe "logrotate"
-
 begin
   unless tagged?("talk-deployed")
 

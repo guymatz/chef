@@ -1,4 +1,3 @@
-include_recipe "logrotate"
 
 begin
   unless tagged?("mixins-deployed")
