@@ -120,7 +120,7 @@ template "inspircd.conf" do
     :description        => node[:inspircd][:server_description],
     :network            => node[:inspircd][:server_network],
     :server_listen      => node[:inspircd][:listen],
-    :server_admin       => search(:ircd_admin, "*:*").first,
+    :server_admin       => search(:ircd_admin, "*:*").first
   )
   notifies :reload, 'service[inspircd]', :immediately
 end
@@ -147,7 +147,7 @@ template "opers.conf" do
     :server_admin_nick  => node[:inspircd][:server_admin_nick],
     :server_admin_email => node[:inspircd][:server_admin_email],
     :server_listen      => node[:inspircd][:listen],
-    :opers              => search(:ircd_opers, "*:*"),
+    :opers              => search(:ircd_opers, "*:*")
   )
   notifies :reload, 'service[inspircd]', :immediately
 end
