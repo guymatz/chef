@@ -3,7 +3,7 @@
     "uid": 5034,
     "name": "Nate Tobin",
     "email": "natetobin@clearchanndl.com",
-    "groups": ["converter"],
+    "groups": ["converter","dev","qa"],
     "ssh_keys": [
      "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAxlZxwv1xOaJ6Zd3u+uqIWOm3MVgj2sAwt32H1TTNCpe1UWdaYlOYVM25icSonZVlbmKuOVcflLHn/+hGUIvdW9EdjuBNKTuHvWE90hyXcGZU/XrLh2lqCOH8bRYWyWxmjqC7Y84gDvJ97kQuhtFYUrCU15kLXUVReSmNhxPY/GLK1j8hoIYngFNIcSon/meNWAcSwT4E1eLVnl0bUzZagEb5rP53MMpXNS8hnSR6X7wmLHV3VjtXauG/ufaAd+M6fzYVMHA+87vjIB6S6y8SWa7UaPtQDw5x0gaStue/cPqUwOH6nTMJLBtT96cTknrbD0KHqRgQY0GmFk4/3Dc2fQ== ntobin@iad-encftp101.ihr"
     ],
