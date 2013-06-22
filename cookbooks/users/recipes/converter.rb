@@ -4,21 +4,6 @@ users_manage "converter" do
   action [ :remove, :create ]
 end
 
-users_manage "prn-transcoding" do
-  group_id 700
-  action [ :remove, :create ]
-end
-
-users_manage "mixins-transcoding" do
-  group_id 705
-  action [ :remove, :create ]
-end
-
-users_manage "talk-transcoding" do
-  group_id 702
-  action [ :remove, :create ]
-end
-
 sudo "converter" do
   group "converter"
   commands ["ALL"]

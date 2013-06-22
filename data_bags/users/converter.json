@@ -2,7 +2,7 @@
     "id": "converter",
     "name": "Converter Service",
     "email":    "ccd-sa@clearchannel.com",
-    "groups":   ["converter", "prn-transcoding", "mixins-transcoding", "talk-transcoding" ],
+    "groups":   [ "converter" ],
     "shell":    "/bin/bash",
     "uid": 4002
 }
