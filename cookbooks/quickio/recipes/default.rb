@@ -4,11 +4,11 @@
 #
 # Copyright 2013, iHeartRadio
 #
-require 'socket'
+include_recipe "iptables"
+iptables_rule "port_quickio"
 
 node[:fqdn] =~ /iad-([a-z0-9-]+)(\.ihr)?/i
 hostname = $1 + ".iheart.com"
-public_ip = IPSocket::getaddress(hostname)
 
 graphite = search(:node, "chef_environment:#{node.chef_environment} AND roles:graphite")
 qio_master = search(:node, "chef_environment:#{node.chef_environment} AND roles:quickio-master")
@@ -16,7 +16,7 @@ qio_master = search(:node, "chef_environment:#{node.chef_environment} AND roles:
 debs = [
   "quickio_#{node['quickio']['version']}_amd64.deb",
   "quickio-cluster_#{node['quickio']['cluster_version']}_amd64.deb",
-  "quickio-ihr-nowplaying_#{node['quickio']['ihr_nowplaying_version']}_amd64.deb",
+  "quickio-ihr_#{node['quickio']['ihr_version']}_amd64.deb",
 ]
 
 if not tagged?("quickio-deployed")
@@ -24,7 +24,6 @@ if not tagged?("quickio-deployed")
     remote_file "#{Chef::Config[:file_cache_path]}/#{d}" do
       source node[:quickio][:ihr_files] + d
       mode "0644"
-      action :create_if_missing
     end
 
     dpkg_package d do
@@ -49,10 +48,10 @@ if not tagged?("quickio-deployed")
     })
   end
 
-  template "/etc/quickio/apps/ihr-nowplaying.ini" do
+  template "/etc/quickio/apps/ihr-now-playing.ini" do
     owner "root"
     group "root"
-    source "ihr-nowplaying.ini.erb"
+    source "ihr-now-playing.ini.erb"
 
     variables({
       :master_addr => qio_master[0][:fqdn],
@@ -76,21 +75,4 @@ if not tagged?("quickio-deployed")
   end
 
   tag("quickio-deployed")
-end
-
-ifconfig "#{public_ip}/28" do
-  device "eth1"
-  action :add
-end
-
-# To ensure the interface survives reboots
-template "/etc/rc.local" do
-  source "rc.local.erb"
-  owner "root"
-  group "root"
-  mode 0755
-
-  variables({
-    :public_ip => public_ip,
-  })
 end

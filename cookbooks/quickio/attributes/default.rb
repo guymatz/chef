@@ -1,6 +1,6 @@
 default[:quickio][:version] = '1.0.0'
 default[:quickio][:cluster_version] = '1.0.0'
-default[:quickio][:ihr_nowplaying_version] = '1.0.0'
+default[:quickio][:ihr_version] = '1.0.0'
 default[:quickio][:ihr_files] = "http://files.ihrdev.com/Quick.IO/"
 
 default[:quickio][:log_file] = "/var/log/quickio.log"
@@ -19,7 +19,7 @@ default[:quickio][:apps] = [
 		"path" => "cluster",
 	},
 	{
-		"name" => "nowplaying",
-		"path" => "ihr-nowplaying",
+		"name" => "ihr-now-playing",
+		"path" => "ihr-now-playing",
 	},
 ]

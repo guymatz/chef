@@ -2,7 +2,8 @@ name "quickio-master"
 description "quickio master server"
 all_env = [
            "recipe[users::quickio]",
-           "recipe[quickio::master]",
+           "recipe[quickio]",
+           "recipe[openssh::iptables]",
 ]
 run_list(all_env)
 

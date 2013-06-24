@@ -1,0 +1,4 @@
+-i bond0 -A FWR -m state --state NEW,ESTABLISHED -p tcp --dport 80 -j ACCEPT
+-i bond0 -A FWR -m state --state NEW,ESTABLISHED -p tcp --dport 843 -j ACCEPT
+-i bond0 -A FWR -p tcp --dport 22 -j DROP
+-i bond0 -A INPUT -j DROP
