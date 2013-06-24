@@ -4,7 +4,7 @@ maintainer_email 'ccd-sa@clearchannel.com'
 license          'All rights reserved'
 description      'Installs/Configures encoder'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.1.4'
+version          '0.1.5'
 
 
 %w{ yum java line application_ruby tomcat7 }.each do |dep|

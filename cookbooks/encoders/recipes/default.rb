@@ -122,8 +122,8 @@ begin
     link target do
         to src
     end
-    end
 
+    end
 
     tag("encoder-deployed")
     end

@@ -108,3 +108,11 @@ default[:encoders][:filemonitor][:ingestion_links] = {
     "/Talk_Audio" => "/data/encoder/tmp-ingestion/Talk_Audio",
     "/Utility" => "/data/encoder/tmp-ingestion/Utility"
 }
+
+
+# permanent isilon mounts
+default[:encoders][:ftp_mount_export] = "/ifs/inbound-ftp"
+default[:encoders][:ftp_mount_dir] = "/data/inbound-ftp"
+default[:encoders][:p_content_export] = "/ifs/content"
+default[:encoders][:p_content_dir] = "/data/content"
+default[:encoders][:isilon_server] = "iad-isilon101.ihr"

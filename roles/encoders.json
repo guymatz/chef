@@ -19,7 +19,8 @@
     "recipe[splunk::forwarder]",
     "role[sendmail-smart-host]",
     "role[dell]",
-    "recipe[nfs]"
+    "recipe[nfs]",
+    "recipe[encoders::mounts]"
   ],
   "env_run_lists": {
   },
