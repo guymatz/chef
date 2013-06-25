@@ -4,8 +4,11 @@
 #
 # Copyright 2013, iHeartRadio
 #
-include_recipe "iptables"
-iptables_rule "port_quickio"
+
+if not node[:roles].include?('quickio-master')
+  include_recipe "iptables"
+  iptables_rule "port_quickio"
+end
 
 node[:fqdn] =~ /iad-([a-z0-9-]+)(\.ihr)?/i
 hostname = $1 + ".iheart.com"
