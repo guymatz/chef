@@ -1,0 +1,40 @@
+{
+  "name": "ingestion",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+    "splunk": {
+        "forwarder_config_folder": "prod",
+        "forwarder_role": "encoders"
+    }
+    "tomcat": {
+      "user" : "converter",
+      "group" : "converter"
+    }
+  },
+  "chef_environment": "_default",
+  "chef_type": "role",
+  "run_list": [
+    "recipe[jruby]",
+    "recipe[splunk::forwarder]",
+    "role[sendmail-smart-host]",
+    "role[dell]",
+    "recipe[nfs]",
+    "recipe[users::converter]",
+    "recipe[tomcat7]",
+    "recipe[encoders::mounts]"
+  ],
+  "env_run_lists": {
+  },
+  "authorization": {
+    "sudo": {
+        "users":  [
+           "lbedner",
+           "jjohnson"
+        ],
+        "passwordless": true
+    }
+  }
+}
