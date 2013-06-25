@@ -86,5 +86,5 @@ cron "chef-client" do
   checksum = Digest::MD5.hexdigest node['fqdn']
   sleep_time = checksum.to_s.hex % 90
 
-  command "/bin/sleep #{sleep_time}; #{client_bin} &> /dev/null"
+  command "/bin/sleep #{sleep_time}; #{client_bin} &>> /var/log/chef/client.log"
 end
