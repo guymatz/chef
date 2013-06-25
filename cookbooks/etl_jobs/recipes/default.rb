@@ -49,11 +49,20 @@ remote_file "/data/jobs/playlog/batch.properties" do
   source "http://yum.ihr/files/jobs/playlog/batch.properties"
 end
 
+directory "/data/jobs/playlog2"
+
+git "/data/jobs/playlog2" do
+  repository "https://github.com/iheartradio/playlog.git"
+  reference "AMP-1058"
+  action :sync
+end
+
 directory "/data/jobs/profile"
 directory "/data/log/profile"
 remote_file "/data/jobs/profile/profile_job.jar" do
   source "http://yum.ihr/files/jobs/profile/profile_job.jar"
 end
+
 #cron_d "profile_job" do
 #  command "/usr/bin/cronwrap iad-jobserver101.ihr profile-job \"/usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\\%s`\""
 #  minute 30

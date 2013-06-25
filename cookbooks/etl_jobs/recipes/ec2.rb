@@ -43,18 +43,15 @@ directory "/data/jobs/playlog"
 directory "/data/log/playlog"
 directory "/data/log/playlog/processed"
 directory "/var/run/playlog"
+directory "/var/log/playlog"
+git "#{node[:playlog][:deploy_path]}" do
+  repository "#{node[:playlog][:repo]}"
+  reference "#{node[:playlog][:reference]}"
+  action :sync
+end
 remote_file "/data/jobs/playlog/playlog_wrapper.sh" do
   source "http://yum.ihr/files/jobs/playlog/playlog_wrapper.sh"
   mode 0755
-end
-remote_file "/data/jobs/playlog/playlog.jar" do
-  source "http://yum.ihr/files/jobs/playlog/playlog_job.jar"
-end
-remote_file "/data/jobs/playlog/log4j.properties" do
-  source "http://yum.ihr/files/jobs/playlog/log4j.properties"
-end
-remote_file "/data/jobs/playlog/batch.properties" do
-  source "http://yum.ihr/files/jobs/playlog/batch.properties"
 end
 cron_d "playlog_job" do
   command "/usr/bin/cronwrap use1b-jobserver101a Playlog-ETL-Job \"/data/jobs/playlog/playlog_wrapper.sh\""
