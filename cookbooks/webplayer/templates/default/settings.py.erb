@@ -1,9 +1,5 @@
 
 
-CCRD_API_KEY = '<%= @secrets['ccrd_api_key'] %>'
-
-AMAZON_AWS_SECRET = '<%= @secrets['amazon_aws_secret'] %>'
-
 CACHES = {
   'default': {
     'BACKEND': 'ihr.cache.backends.memcached.IhrMemcachedCache',
@@ -13,6 +9,3 @@ CACHES = {
     'KEY_PREFIX': 'W'
   }
 }
-
-FACEBOOK_APP_ID = '<%= @secrets['facebook_app_id'] %>' # Only works for iheart.com
-FACEBOOK_APP_SECRET = '<%= @secrets['facebook_app_secret'] %>'

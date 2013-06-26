@@ -82,10 +82,6 @@ if not tagged?("webplayer-deployed")
       interpreter "python27"
       settings({
                  :secrets => app_secrets,
-                 :url => node[:webplayer][:settings][:url],
-                 :rpc => node[:webplayer][:settings][:rpc],
-                 :statsd_conn => node[:webplayer][:settings][:statsd_conn],
-                 :jinja => node[:webplayer][:settings][:jinja],
                  :memcached => memcached_servers
                })
       requirements "requirements.txt"
