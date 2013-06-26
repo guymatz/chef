@@ -18,7 +18,7 @@ default[:ipplan][:server_name] = "ipplan.ihrdev.com"
 default[:ipplan][:server_aliases] = "ipplan ipplan.ihr"
 case node['platform']
 when "centos", "redhat", "suse", "fedora", "scientific", "amazon"
-  default[:ipplan][:packages] = %w{ php-snmp zlib zlib-devel }
+  default[:ipplan][:packages] = %w{ php-snmp zlib zlib-devel php-mysql }
   default[:ipplan][:scripts][:packages] = %w{ perl-DBI perl-DBD-MySQL libxslt }
 when "debian"
   default[:ipplan][:packages] = %w{ php5-snmp zlib1g zlib1g-dev }
