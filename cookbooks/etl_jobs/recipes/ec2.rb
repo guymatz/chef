@@ -426,3 +426,31 @@ cron_d "prn_dater" do
   minute 30
   hour '*/1'
 end
+
+python_pip "pymongo" do
+  version "2.5.1"
+  action :install
+end
+python_pip "psycopg2" do
+  action :install
+end
+directory "#{node[:db_sync_tools][:deploy_path]}"
+directory "/var/log/name-fill"
+#git "#{node[:db_sync_tools][:deploy_path]}" do
+#  repository "#{node[:db_sync_tools][:repo]}"
+#  reference "#{node[:db_sync_tools][:reference]}"
+#  action :sync
+#end
+
+directory "/data/jobs/fac-recs"
+remote_file "/data/jobs/fac-recs/fac-recs.jar" do
+  source "http://yum.ihr/files/jobs/fac-recs/fac-recs.jar"
+end
+remote_file "/data/jobs/fac-recs/env.properties" do
+  source "http://yum.ihr/files/jobs/fac-recs/env.properties"
+end
+cron_d "fac_recs" do
+  command "/usr/bin/cronwrap use1b-jobserver101a Fac-Recs \"java -jar /data/jobs/fac-recs/fac-recs.jar jobPropertyFile=/data/jobs/fac-recs/env.properties\""
+  minute 0
+  hour 0
+end
