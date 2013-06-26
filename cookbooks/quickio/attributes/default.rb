@@ -22,4 +22,8 @@ default[:quickio][:apps] = [
 		"name" => "ihr-now-playing",
 		"path" => "ihr-now-playing",
 	},
+	{
+		"name" => "ihr-listening",
+		"path" => "ihr-listening",
+	},
 ]
