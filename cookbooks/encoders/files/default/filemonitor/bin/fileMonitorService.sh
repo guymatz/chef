@@ -4,9 +4,9 @@
 # SEE http://blog.widenhome.com/2011/06/28/how-to-install-jsvc-on-linux/
 
 # Setup variables
-EXEC=/opt/apps/commons-daemon/jsvc
+EXEC=/usr/bin/jsvc
 JAVA_HOME=/usr/java/jdk
-PROJECT_HOME=/home/tomcat/filemonitor
+PROJECT_HOME=/data/apps/filemonitor
 CLASS_PATH=$PROJECT_HOME/lib/commons-daemon-1.0.3.jar:$(echo $PROJECT_HOME/lib/*.jar | tr ' ' ':')
 CLASS=com.clearchannel.customtalk.ingester.util.FileMonitor
 USER=tomcat
