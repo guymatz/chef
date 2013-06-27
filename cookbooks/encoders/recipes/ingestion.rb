@@ -67,6 +67,10 @@ begin
         action [:enable, :start]
     end
 
+    file node[:encoder][:filemonitor][:monitor_script] do
+          mode "775"
+    end
+
     end
 
    tag("ingestion-manager-deployed")
@@ -75,6 +79,3 @@ rescue
     untag("ingestion-manager-deployed")
 end
 
- file node[:encoder][:filemonitor][:monitor_script] do
-      mode "775"
- end
