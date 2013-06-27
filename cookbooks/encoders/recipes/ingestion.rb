@@ -28,8 +28,9 @@ begin
     node[:encoders][:filemonitor][:static_files].each do |dest,src|
         remote_directory dest do
             source src
-            mode 0755
+            mode 0775
     end
+
 
 #    execute "webapp_dir" do
 #        command "mkdir -p #{node[:tomcat7][:install_path]}/webapps/"
@@ -73,3 +74,7 @@ begin
 rescue
     untag("ingestion-manager-deployed")
 end
+
+ file node[:encoder][:filemonitor][:monitor_script] do
+      mode "775"
+ end
