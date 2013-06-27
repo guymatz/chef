@@ -427,21 +427,6 @@ cron_d "prn_dater" do
   hour '*/1'
 end
 
-python_pip "pymongo" do
-  version "2.5.1"
-  action :install
-end
-python_pip "psycopg2" do
-  action :install
-end
-directory "#{node[:db_sync_tools][:deploy_path]}"
-directory "/var/log/name-fill"
-#git "#{node[:db_sync_tools][:deploy_path]}" do
-#  repository "#{node[:db_sync_tools][:repo]}"
-#  reference "#{node[:db_sync_tools][:reference]}"
-#  action :sync
-#end
-
 directory "/data/jobs/fac-recs"
 remote_file "/data/jobs/fac-recs/fac-recs.jar" do
   source "http://yum.ihr/files/jobs/fac-recs/fac-recs.jar"

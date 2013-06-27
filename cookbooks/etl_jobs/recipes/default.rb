@@ -323,3 +323,28 @@ bash "set-migration-perms" do
   code 'chown -R ihr-deployer. /data/jobs/radiomigration'
 end
 db_user = Chef::EncryptedDataBagItem.load("sqlserver", "users")
+
+python_pip "pymongo" do
+  version "2.5.1"
+  action :install
+end
+python_pip "psycopg2" do
+  action :install
+end
+directory "#{node[:db_sync_tools][:deploy_path]}"
+directory "/data/log/name-fill"
+git "#{node[:db_sync_tools][:deploy_path]}" do
+  repository "#{node[:db_sync_tools][:repo]}"
+  reference "#{node[:db_sync_tools][:reference]}"
+  action :sync
+end
+remote_file "#{node[:db_sync_tools][:deploy_path]}/db_sync_tools_wrapper.sh" do
+  source "http://yum.ihr/files/jobs//data/yum.repos/files/jobs/db-sync-tools/db_sync_tools_wrapper.sh"
+  owner "amqp-consumer"
+  group "amqp-consumer"
+end
+cron_d "db-sync-tools" do
+  command "/usr/bin/cronwrap iad-jobserver101a DB-Sync-Tools \"/data/jobs/db-sync-tools/db_sync_tools_wrapper.sh 2>&1 >> /dev/null\""
+  minute 15
+  hour 2
+end
