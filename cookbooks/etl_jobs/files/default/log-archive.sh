@@ -4,6 +4,7 @@ export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 PIDFILE=/var/run/log-archive.pid
 if [ -f $PIDFILE ] ; then
     echo "Already running: $PIDFILE"
+    exit 0
 fi
 
 echo $$ > $PIDFILE
