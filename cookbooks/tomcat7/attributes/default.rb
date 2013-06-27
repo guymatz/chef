@@ -20,7 +20,7 @@ default[:tomcat7][:user] = "tomcat"
 default[:tomcat7][:group] = "tomcat"
 default[:tomcat7][:version] = "7.0.39"
 #http://mirrors.ibiblio.org/apache/tomcat/tomcat-7/v7.0.39/bin/apache-tomcat-7.0.39.tar.gz
-default[:tomcat7][:url] = "http://mirrors.ibiblio.org/apache/tomcat/tomcat-7"
+default[:tomcat7][:url] = "http://archive.apache.org/dist/tomcat/tomcat-7"
 default[:tomcat7][:install_path] = "/data/apps/tomcat7"
 
 default[:tomcat7][:port] = 8080
