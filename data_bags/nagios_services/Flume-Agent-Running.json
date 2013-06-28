@@ -1,0 +1,5 @@
+{
+  "id": "Flume-Agent-Running",
+  "hostgroup_name": "flume_client",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c check_app_proc_flumeagent -t 20"
+}
