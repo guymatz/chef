@@ -1,0 +1,6 @@
+{
+  "host_name": "iad-jobserver101a",
+  "id": "DB-Sync-Tools",
+  "freshness_threshold": "7500",
+  "contact_groups": ["etl"]
+}

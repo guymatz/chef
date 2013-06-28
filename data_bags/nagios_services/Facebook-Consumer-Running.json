@@ -1,5 +1,5 @@
 {
   "id": "Facebook-Consumer-Running",
-  "host_name": "use1b-jobserver101a.ihr",
+  "host_name": "iad-jobserver101a",
   "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c check_app_proc_facebookconsumer -t 20"
 }

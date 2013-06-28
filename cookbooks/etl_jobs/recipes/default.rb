@@ -10,6 +10,8 @@ include_recipe "users::amqp-consumer"
 
 package "jdk"
 package "freetds"
+package "dos2unix"
+package "postgresql-devel"
 
 directory "/data"
 directory "/data/jobs"
@@ -339,9 +341,8 @@ git "#{node[:db_sync_tools][:deploy_path]}" do
   action :sync
 end
 remote_file "#{node[:db_sync_tools][:deploy_path]}/db_sync_tools_wrapper.sh" do
-  source "http://yum.ihr/files/jobs//data/yum.repos/files/jobs/db-sync-tools/db_sync_tools_wrapper.sh"
-  owner "amqp-consumer"
-  group "amqp-consumer"
+  source "http://yum.ihr/files/jobs/db-sync-tools/db_sync_tools_wrapper.sh"
+  mode 0755
 end
 cron_d "db-sync-tools" do
   command "/usr/bin/cronwrap iad-jobserver101a DB-Sync-Tools \"/data/jobs/db-sync-tools/db_sync_tools_wrapper.sh 2>&1 >> /dev/null\""
