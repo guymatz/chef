@@ -19,7 +19,7 @@ nagios_nrpecheck "check_app_proc_responsysconsumer" do
 end
 
 nagios_nrpecheck "check_playlog_exit_code" do
-  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /data/log/playlog/exitCode"
+  command "#{node['nagios']['plugin_dir']}/check_exitcode.sh /var/log/playlog/exitCode"
 end
 
 nagios_nrpecheck "check_skiplog_exit_code" do
