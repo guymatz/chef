@@ -1,5 +1,5 @@
 {
   "id": "Mongodb-Cfg-Connect",
-  "host_name": "mongodb_config_server",
+  "hostgroup_name": "mongodb_config_server",
   "command_line": "$USER1$/check_mongodb.py -H $HOSTADDRESS$ -A connect -P 57017 -W 2 -C 4"
 }
