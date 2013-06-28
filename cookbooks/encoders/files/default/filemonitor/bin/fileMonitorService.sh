@@ -9,7 +9,7 @@ JAVA_HOME=/usr/java/jdk
 PROJECT_HOME=/data/apps/filemonitor
 CLASS_PATH=$PROJECT_HOME/lib/commons-daemon-1.0.3.jar:$(echo $PROJECT_HOME/lib/*.jar | tr ' ' ':')
 CLASS=com.clearchannel.customtalk.ingester.util.FileMonitor
-USER=tomcat
+USER=converter
 PID=/tmp/filemonitor.pid
 CONFIG=-DconfigFile=/Utility/Config/filemonitors.cfg
 LOG_OUT=/var/log/filemonitor/filemonitor.log
