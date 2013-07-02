@@ -1,5 +1,6 @@
 logrotate_app "syslog" do
   path  <<-eos
+          /var/log/syslog
           /var/log/cron 
           /var/log/maillog
           /var/log/messages
@@ -10,4 +11,6 @@ logrotate_app "syslog" do
         eos
   options ["sharedscripts"]
   postrotate "/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true"
+  frequency "daily"
+  roate 5
 end
