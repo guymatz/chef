@@ -1,5 +1,5 @@
 default[:sonos][:repo] = "git@github.com:iheartradio/sonos.git"
-default[:sonos][:rev] = "20130612-01"
+default[:sonos][:rev] = "88cfcc1"
 default[:sonos][:deploy_path] = "/data/apps/sonos"
 
 case node[:platform_family]

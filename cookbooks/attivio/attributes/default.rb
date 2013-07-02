@@ -35,6 +35,9 @@ default[:attivio][:indexer_port] = "19100"
 default[:attivio][:searcher_port] = "19000"
 default[:attivio][:zookeeper_port] = "15000"
 
+default[:attivio][:backup_dir] = "/data/apps/backups"
+default[:attivio][:backup_source] = "/data/apps/attivio31/iheartradio3/data1"
+
 # ARTIST XML INDEXING
 # These paths are appended to default[:attivio][:install_path]
 default[:attivio][:directory][:xml_ingest] = "/input"

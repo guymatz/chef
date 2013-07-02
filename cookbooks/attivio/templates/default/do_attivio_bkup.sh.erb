@@ -1,0 +1,8 @@
+BACKUP_TARGET=<%= @backupdir %>
+BACKUP_SOURCE=<%= @backupsource %>
+
+/usr/bin/find $BACKUP_TARGET/compressed -mtime +8 -delete
+
+/usr/bin/rsync -cr --inplace --delete $BACKUP_SOURCE $BACKUP_TARGET/uncompressed
+
+/bin/tar czvf $BACKUP_TARGET/compressed/`/bin/date +'\%d-\%m-\%Y'`.attivio_data_dir.bak.tgz $BACKUP_TARGET/uncompressed/* > /dev/null 2>&1

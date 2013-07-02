@@ -49,7 +49,7 @@ remote_file "/data/jobs/playlog/playlog_wrapper.sh" do
 end
 cron_d "playlog_job" do
   command "/usr/bin/cronwrap iad-jobserver101a Playlog-ETL-Job \"/data/jobs/playlog/playlog_wrapper.sh\""
-  minute 30
+  minute "22,52"
 end
 
 directory "/data/jobs/profile"
