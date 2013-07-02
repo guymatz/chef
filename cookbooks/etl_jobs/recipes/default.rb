@@ -291,7 +291,7 @@ cookbook_file "/data/jobs/log-archive.sh" do
   mode 0755
 end
 cron_d "archive_logs" do
-  command "/usr/bin/cronwrap iad-jobserver101.ihr Archive-Logs \"/data/jobs/log-archive.sh 2>&1 >> /dev/null\""
+  command "/usr/bin/cronwrap iad-jobserver101a.ihr Archive-Logs \"/data/jobs/log-archive.sh 2>&1 >> /dev/null\""
   minute "*/15"
 end
 
