@@ -183,6 +183,14 @@ logrotate_app "mail" do
   size (1024**2)*2 # 2MB
 end
 
+logrotate_app "httpd" do
+  cookbook "logrotate"
+  path "/var/log/httpd/*log"
+  options ["missingok", "notifempty", "sharedscripts", "delaycompress"]
+  frequency "daily"
+  postrotate "/sbin/service httpd graceful > /dev/null 2>/dev/null || true"
+end
+
 cron_d "Logrotate" do
   minute 0
   command "/usr/sbin/logrotate -f /etc/logrotate.conf"
