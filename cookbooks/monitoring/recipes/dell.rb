@@ -33,7 +33,7 @@ sudo "nagios" do
 end
 
 nagios_nrpecheck "Dell-Performance-Profile" do
-  command "sudo #{omreport} chassis biossetup | grep 'System Profile' | egrep 'Performance$||Custom$' && echo $?"
+  command "sudo #{omreport} chassis biossetup | grep 'System Profile' | egrep 'Performance$|Custom$' && echo $?"
   action :add
 end
 
