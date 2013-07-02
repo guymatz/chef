@@ -2,7 +2,7 @@
     "id": "alertsuser",
     "name": "Alerts User",
     "email":    "aaronclements@clearchannel.com",
-    "groups":   ["nagios"],
+    "groups":   ["webplayer","nagios"],
     "shell":    "/sbin/nologin",
     "nagios": {
         "email": "aaronclements@clearchannel.com",
