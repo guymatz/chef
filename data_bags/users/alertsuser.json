@@ -1,0 +1,12 @@
+{
+    "id": "alertsuser",
+    "name": "Alerts User",
+    "email":    "aaronclements@clearchannel.com",
+    "groups":   ["nagios"],
+    "shell":    "/bin/bash",
+    "nagios": {
+        "email": "aaronclements@clearchannel.com",
+        "pager": "aaronclements@clearchannel.com"
+    },
+    "uid": 7777
+}
