@@ -8,9 +8,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-%w{ java users::flume }.each do |dep|
-  include_recipe dep
-end
+include_recipe java
 
 deploy_tag = "flume-deployed"
 
