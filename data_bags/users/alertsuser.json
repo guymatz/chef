@@ -3,7 +3,7 @@
     "name": "Alerts User",
     "email":    "aaronclements@clearchannel.com",
     "groups":   ["nagios"],
-    "shell":    "/bin/bash",
+    "shell":    "/sbin/nologin",
     "nagios": {
         "email": "aaronclements@clearchannel.com",
         "pager": "aaronclements@clearchannel.com"
