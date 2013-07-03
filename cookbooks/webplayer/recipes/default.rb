@@ -188,7 +188,7 @@ logrotate_app "httpd" do
   path "/var/log/httpd/*log"
   options ["missingok", "notifempty", "sharedscripts", "delaycompress"]
   frequency "daily"
-  postrotate "/sbin/service httpd graceful > /dev/null 2>/dev/null || true"
+  postrotate "/sbin/service httpd reload > /dev/null 2>/dev/null || true"
 end
 
 cron_d "Logrotate" do
