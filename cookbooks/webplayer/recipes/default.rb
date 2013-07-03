@@ -187,7 +187,7 @@ logrotate_app "httpd" do
   path "/var/log/httpd/*log"
   options ["missingok", "notifempty", "sharedscripts", "delaycompress"]
   frequency "daily"
-  postrotate "/bin/sleep #{(node.name.scan(/\d+/))[0].to_i % 10}m; /sbin/service httpd graceful > /dev/null 2>/dev/null || true"
+  postrotate "/bin/sleep #{(node.name.scan(/\d+/))[0].to_i % 10}m; /usr/sbin/apachectl graceful"
 end
 
 cron_d "Logrotate" do
