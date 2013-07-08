@@ -184,7 +184,7 @@ end
 
 logrotate_app "httpd" do
   cookbook "logrotate"
-  path "/var/log/httpd/*log"
+  path "/var/log/httpd/*.log"
   options ["missingok", "notifempty", "sharedscripts", "compress", "create"]
   frequency "daily"
   postrotate "/bin/sleep #{(node.name.scan(/\d+/))[0].to_i % 10}m; /usr/sbin/apachectl graceful"
