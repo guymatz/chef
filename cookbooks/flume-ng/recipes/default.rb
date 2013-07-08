@@ -8,7 +8,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe java
+include_recipe "java"
 
 deploy_tag = "flume-deployed"
 
