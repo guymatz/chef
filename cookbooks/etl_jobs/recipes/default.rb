@@ -64,18 +64,36 @@ end
 #  hour 3
 #end
 
+#
+#ALTERED PER OPS-4694
+#
 directory "/data/jobs/live_thumbs"
 directory "/data/log/liveradiothumbslog"
 directory "/data/log/liveradiothumbslog/processed"
 remote_file "/data/jobs/live_thumbs/live_thumbs_job.jar" do
-  source "http://yum.ihr/files/jobs/live_thumbs/live_thumbs_job.jar"
+source "http://yum.ihr/files/jobs/live_thumbs/live_thumbs_job.jar"
+end
+cron_d "live_thumbs_job" do
+command "/usr/bin/cronwrap iad-jobserver101a Liveradio-Thumb-ETL-Job \"/usr/bin/java -jar /data/jobs/live_thumbs/live_thumbs_job.jar launch-context.xml liveradiothumbslogJob rundate=`/bin/date +\\%s`\""
+minute 51
 end
 
+#
+#ALTERED PER OPS-4694
+#
 directory "/data/jobs/custom_thumbs"
 directory "/data/log/customradiothumbslog"
 directory "/data/log/customradiothumbslog/processed"
 remote_file "/data/jobs/custom_thumbs/custom_thumbs_job.jar" do
-  source "http://yum.ihr/files/jobs/custom_thumbs/custom_thumbs_job.jar"
+source "http://yum.ihr/files/jobs/custom_thumbs/custom_thumbs_job.jar"
+end
+remote_file "/data/jobs/custom_thumbs/custom_thumbs_wrapper.sh" do
+source "http://yum.ihr/files/jobs/custom_thumbs/custom_thumbs_wrapper.sh"
+mode 0755
+end
+cron_d "custom_thumbs_job" do
+command "/usr/bin/cronwrap iad-jobserver101a Customradio-Thumb-ETL-Job \"/data/jobs/custom_thumbs/custom_thumbs_wrapper.sh\""
+minute 38
 end
 
 directory "/data/jobs/talk_thumbs"
