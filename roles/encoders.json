@@ -27,7 +27,8 @@
   "authorization": {
     "sudo": {
         "users":  [
-           "lbedner"
+           "lbedner",
+           "jjohnson"
         ],
         "passwordless": true
     }
