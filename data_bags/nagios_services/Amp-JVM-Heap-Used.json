@@ -1,5 +1,5 @@
 {
     "id": "Amp-JVM-Heap-Used",
     "hostgroup_name": "amp",
-    "command_line": "$USER1$/check_jmx -U service:jmx:rmi:///jndi/rmi://$HOSTADDRESS$:8999/jmxrmi -O java.lang:type=Memory -A HeapMemoryUsage -K used -I HeapMemoryUsage -J used -vvvv -w 6442450944 -c 6979321856"
+    "command_line": "$USER1$/check_jmx -U service:jmx:rmi:///jndi/rmi://$HOSTADDRESS$:8999/jmxrmi -O java.lang:type=Memory -A HeapMemoryUsage -K used -I HeapMemoryUsage -J used -vvvv -w 8589934592 -c 9126805504"
 }

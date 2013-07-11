@@ -51,7 +51,10 @@ ProxyPass /server-status !
       Header set X-IHR-Edge-Control "!no-store, max-age=31536000s"
     </LocationMatch>
 
-    RewriteRule ^/_/[\w]+/(.*)$ /$1
+    ### temp fix by Long on 7-1-2013
+    ### RewriteRule ^/_/[\w]+/(.*)$ /$1
+
+    RewriteRule ^/_/[\w]+/(.*)$ /data/www/webplayer/current/tusiq/static/$1
     <Location />
 	   Order Deny,Allow
 	   Allow from all

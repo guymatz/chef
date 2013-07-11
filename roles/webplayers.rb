@@ -7,7 +7,7 @@ run_list(all_env)
 env_run_lists(
               "_default" => all_env,
               "qa2" => all_env,
-              "prod" => all_env + ["role[auto-bonded]"] + ["recipe[splunk::forwarder]"],
+              "prod" => all_env + ["role[auto-bonded]"] + ["recipe[splunk::forwarder]"] + ["recipe[graphiate::webplayer]"],
               "ec2" => all_env,
               "ec2-prod" => all_env
               )

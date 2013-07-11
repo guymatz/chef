@@ -1,0 +1,5 @@
+{
+  "host_name": "iad-search101",
+  "id": "Attivio_Backup_Freshness",
+  "freshness_threshold": "259200"
+}

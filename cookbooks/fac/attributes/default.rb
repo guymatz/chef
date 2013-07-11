@@ -2,7 +2,7 @@
 
 
 default[:fac][:PRN][:version] = "3.4.22"
-default[:fac][:talk][:version] = "3.4.24"
+default[:fac][:talk][:version] = "3.4.35"
 default[:fac][:music][:version] = "3.4.30"
 default[:fac][:radiobuild][:version] = "1.0.12"
 

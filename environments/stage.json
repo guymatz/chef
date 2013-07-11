@@ -1,20 +1,20 @@
 {
-    "name": "stage",
-    "default_attributes": {
-        "webplayer": {
-            "settings": {
-                "url": {
-                    "site_host": "stage.iheart.com"
-                }
-            },
-            "rev": "release-4.12.0-absinthe-rc3.1"
+  "name": "stage",
+  "default_attributes": {
+    "webplayer": {
+      "rev": "release-4.14.0-chartreuse-uat7",
+      "settings": {
+        "url": {
+          "site_host": "stage.iheart.com"
         }
-    },
-    "json_class": "Chef::Environment",
-    "description": "",
-    "cookbook_versions": {
-    },
-    "override_attributes": {
-    },
-    "chef_type": "environment"
+      }
+    }
+  },
+  "json_class": "Chef::Environment",
+  "description": "",
+  "cookbook_versions": {
+  },
+  "override_attributes": {
+  },
+  "chef_type": "environment"
 }

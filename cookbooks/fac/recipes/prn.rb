@@ -47,11 +47,11 @@ template "/etc/init.d/fac-#{app}" do
             })
 end
 
-if node.has_key? 'heartbeat'
-  Chef::Log.info("Creating Heartbeat Config: fac-PRN")
-  node.set[:heartbeat][:ha_resources]["fac-PRN"] = "fac-PRN"
-  node.save
-end
+#if node.has_key? 'heartbeat'
+#  Chef::Log.info("Creating Heartbeat Config: fac-PRN")
+#  node.set[:heartbeat][:ha_resources]["fac-PRN"] = "fac-PRN"
+#  node.save
+#end
 
 nagios_nrpecheck "Fac-Process-PRN" do
   command "#{node['nagios']['plugin_dir']}/check_procs"

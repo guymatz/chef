@@ -1,6 +1,7 @@
 include_recipe "attivio::clustered"
 include_recipe "attivio::indexer"
 include_recipe "attivio::connector"
+include_recipe "attivio::backups"
 
 template "#{node[:attivio][:bin_path]}/#{node.chef_environment}/deploy_config.sh" do
   source "deploy_config.sh.erb"

@@ -22,7 +22,6 @@ include_recipe "apache2::mod_expires"
 include_recipe "apache2::mod_headers"
 include_recipe "apache2::mod_log_config"
 include_recipe "apache2::mod_proxy_http"
-include_recipe "apache2::mod_sflow"
 include_recipe "java"
 include_recipe "users::webplayer"
 include_recipe "users::deployer"
@@ -181,6 +180,14 @@ logrotate_app "mail" do
   create "0644 nobody root"
   rotate 1
   size (1024**2)*2 # 2MB
+end
+
+logrotate_app "httpd" do
+  cookbook "logrotate"
+  path "/var/log/httpd/*.log"
+  options ["missingok", "notifempty", "sharedscripts", "compress", "create"]
+  frequency "daily"
+  postrotate "/bin/sleep #{(node.name.scan(/\d+/))[0].to_i % 10}m; /usr/sbin/apachectl graceful"
 end
 
 cron_d "Logrotate" do

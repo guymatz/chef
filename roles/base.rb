@@ -20,7 +20,8 @@ all_env = [
            "recipe[nscd]",
            "recipe[openssh]",
            "recipe[motd-tail]",
-           "recipe[operations]"
+           "recipe[operations]",
+           "recipe[logrotate::syslog]"
           ]
 run_list(all_env)
 
