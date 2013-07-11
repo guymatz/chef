@@ -43,6 +43,13 @@ directory "#{node[:tomcat7][:install_path]}" do
   recursive true
 end
 
+directory "#{node[:tomcat7][:install_path]}/logs" do
+  owner node[:tomcat7][:user]
+  group node[:tomcat7][:group]
+  mode "0775"
+  recursive true
+end
+
 directory "/var/run/tomcat/" do
   owner node[:tomcat7][:user]
   group node[:tomcat7][:group]
