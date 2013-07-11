@@ -113,22 +113,25 @@ cron_d "talk_thumbs_job" do
   minute 41
 end
 
-directory "/data/jobs/skiplog"
-directory "/data/log/skiplog"
-directory "/data/log/skiplog/processed"
-remote_file "/data/jobs/skiplog/skiplog_job.jar" do
-  source "http://yum.ihr/files/jobs/skiplog/skiplog_job.jar"
-end
-remote_file "/data/jobs/skiplog/log4j.properties" do
-  source "http://yum.ihr/files/jobs/skiplog/log4j.properties"
-end
-remote_file "/data/jobs/skiplog/skipbatch.properties" do
-  source "http://yum.ihr/files/jobs/skiplog/skipbatch.properties"
-end
-cron_d "skiplog_job" do
-  command "/usr/bin/cronwrap use1b-jobserver101a Skiplog-ETL-Job \"/usr/bin/java -jar /data/jobs/skiplog/skiplog_job.jar launch-context.xml skiplogJob rundate=`/bin/date +\\%s`\""
-  minute 17
-end
+#
+#ALTERED PER OPS-4723
+#
+#directory "/data/jobs/skiplog"
+#directory "/data/log/skiplog"
+#directory "/data/log/skiplog/processed"
+#remote_file "/data/jobs/skiplog/skiplog_job.jar" do
+#  source "http://yum.ihr/files/jobs/skiplog/skiplog_job.jar"
+#end
+#remote_file "/data/jobs/skiplog/log4j.properties" do
+#  source "http://yum.ihr/files/jobs/skiplog/log4j.properties"
+#end
+#remote_file "/data/jobs/skiplog/skipbatch.properties" do
+#  source "http://yum.ihr/files/jobs/skiplog/skipbatch.properties"
+#end
+#cron_d "skiplog_job" do
+#  command "/usr/bin/cronwrap use1b-jobserver101a Skiplog-ETL-Job \"/usr/bin/java -jar /data/jobs/skiplog/skiplog_job.jar launch-context.xml skiplogJob rundate=`/bin/date +\\%s`\""
+#  minute 17
+#end
 
 directory "/data/jobs/talklog"
 directory "/data/log/talkplaylog"
