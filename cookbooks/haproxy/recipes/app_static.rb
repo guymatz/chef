@@ -27,15 +27,15 @@ cookbook_file "/etc/haproxy/haproxy.cfg" do
   mode 0644
 end
 
-cookbook_file "/etc/rsyslog.d/haproxy.conf" do
-  source "haproxy.conf"
-  mode "0644"
-  owner "root"
-  group "root"
-  action :create_if_missing
-  only_if "test -d /etc/rsyslog.d"
-  notifies :restart, "service[rsyslog]"
-end
+#cookbook_file "/etc/rsyslog.d/haproxy.conf" do
+#  source "haproxy.conf"
+#  mode "0644"
+#  owner "root"
+#  group "root"
+#  action :create_if_missing
+#  only_if "test -d /etc/rsyslog.d"
+#  notifies :restart, "service[rsyslog]"
+#end
 
 service "haproxy" do
   supports :restart => true, :status => true, :reload => true
