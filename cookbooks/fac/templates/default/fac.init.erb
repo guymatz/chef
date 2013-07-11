@@ -34,7 +34,7 @@ start() {
   echo -n "Starting application (<%= @fac_app %>): "
 
   # Redirects default and error output to a log file
-  java -Xmx4G -jar <%= @jarfile %> initialOverlap='200' >> /dev/null 2>&1 &
+  /usr/lib/jvm/jre-1.7.0-openjdk.x86_64/bin/java -Xmx4G -jar <%= @jarfile %> initialOverlap='200' >> /dev/null 2>&1 &
   echo $! > /var/run/fac/<%= @fac_app %>.pid
   echo "OK"
 }
