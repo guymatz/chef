@@ -43,13 +43,6 @@ directory "#{node[:tomcat7][:install_path]}" do
   recursive true
 end
 
-directory "#{node[:tomcat7][:install_path]}/logs" do
-  owner node[:tomcat7][:user]
-  group node[:tomcat7][:group]
-  mode "0775"
-  recursive true
-end
-
 directory "/var/run/tomcat/" do
   owner node[:tomcat7][:user]
   group node[:tomcat7][:group]
@@ -72,7 +65,8 @@ template "#{node[:tomcat7][:install_path]}/conf/server.xml" do
 end
 
 bash "tomcat perms" do
-  code "chown -R #{node[:tomcat7][:user]}.#{node[:tomcat7][:group]} #{node[:tomcat7][:install_path]}"
+  code "chown -R #{node[:tomcat7][:user]}.#{node[:tomcat7][:group]} #{node[:tomcat7][:install_path]};"\
+       "chmod -R 775 #{node[:tomcat7][:install_path]}/logs"
 end
 
 template "/etc/init.d/tomcat" do
