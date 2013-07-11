@@ -1,0 +1,68 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+# agent
+agent1.sources  = extended_access_log_spooldir
+agent1.sinks    = avro_sink
+agent1.channels = memory_channel
+
+# memory channel
+agent1.channels.memory_channel.type                 = memory
+agent1.channels.memory_channel.capacity             = 1000
+agent1.channels.memory_channel.transactionCapacity  = 100
+
+# extended access logs spool dir source
+agent1.sources.extended_access_log_spooldir.type            = spooldir
+agent1.sources.extended_access_log_spooldir.channels        = memory_channel
+agent1.sources.extended_access_log_spooldir.spoolDir        = <%= @node[:tomcat7][:install_path] %>/logs
+# The key and element characters #, !, =, and : are written with a preceding backslash to ensure that they are properly loaded.
+agent1.sources.extended_access_log_spooldir.ignorePattern   = ^(?\!extended_localhost_access_log\\.\\d{4}-\\d{2}-\\d{2}\\.log$).*$
+agent1.sources.extended_access_log_spooldir.interceptors    = comment_filter timestamp_parser host log_type
+
+# host interceptor
+agent1.sources.extended_access_log_spooldir.interceptors.host.type          = host
+agent1.sources.extended_access_log_spooldir.interceptors.host.hostHeader    = hostname
+agent1.sources.extended_access_log_spooldir.interceptors.host.useIP         = false
+
+# type interceptor
+agent1.sources.extended_access_log_spooldir.interceptors.log_type.type  = static
+agent1.sources.extended_access_log_spooldir.interceptors.log_type.key   = log_type
+agent1.sources.extended_access_log_spooldir.interceptors.log_type.value = extended_access
+
+# filter interceptor to skip header comments
+agent1.sources.extended_access_log_spooldir.interceptors.comment_filter.type            = regex_filter
+agent1.sources.extended_access_log_spooldir.interceptors.comment_filter.regex           = ^\#.*$
+agent1.sources.extended_access_log_spooldir.interceptors.comment_filter.excludeEvents   = true
+
+# source interceptor for timestamp parsing
+agent1.sources.extended_access_log_spooldir.interceptors.timestamp_parser.type = regex_extractor
+agent1.sources.extended_access_log_spooldir.interceptors.timestamp_parser.regex = (\\d{4}-\\d{2}-\\d{2}\\s\\d{2}\:\\d{2}\:\\d{2})
+agent1.sources.extended_access_log_spooldir.interceptors.timestamp_parser.serializers = milser
+agent1.sources.extended_access_log_spooldir.interceptors.timestamp_parser.serializers.milser.type = org.apache.flume.interceptor.RegexExtractorInterceptorMillisSerializer
+agent1.sources.extended_access_log_spooldir.interceptors.timestamp_parser.serializers.milser.name = timestamp
+agent1.sources.extended_access_log_spooldir.interceptors.timestamp_parser.serializers.milser.pattern = yyyy-MM-dd HH\:mm\:ss
+
+# avro sink
+agent1.sinks.avro_sink.type       = avro
+agent1.sinks.avro_sink.channel    = memory_channel
+agent1.sinks.avro_sink.hostname   = <%= @node[:flume_ng][:hadoop][:namenode][:host] %>
+agent1.sinks.avro_sink.port       = <%= @node[:flume_ng][:hadoop][:namenode][:avro_port] %>
+agent1.sinks.avro_sink.batch-size = 100
+
+# logger sink (debugging)
+agent1.sinks.logger_sink.type    = logger
+agent1.sinks.logger_sink.channel = memory_channel
