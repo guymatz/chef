@@ -1,5 +1,5 @@
 {
   "id": "Fac-Process-Talk",
-  "host_name": "iad-jobserver101a.ihr",
+  "host_name": "iad-jobserver101a",
   "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Fac-Process-Talk -t 45"
 }
