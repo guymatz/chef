@@ -34,7 +34,7 @@ lockfile=<%= @node[:flume_ng][:lockfile] %>
 logfile=${FLUME_LOGDIR}/${FLUME_AGENT_NAME}.init.log
 
 user=<%= @node[:flume_ng][:user] %>
-group=<%= @node[:flume_ng][:group] %>
+group=<%= @node[:tomcat7][:group] %>
 
 desc="Flume NG agent daemon"
 
