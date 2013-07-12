@@ -19,17 +19,19 @@
 include_recipe "java"
 include_recipe "tomcat7::nagios"
 
-group node[:tomcat7][:group] do
-  gid 91
-  action [:create]
-end
+if File.readlines('/etc/passwd').grep(/#{node[:tomcat7][:user]}/).size == 0
+  group node[:tomcat7][:group] do
+    gid 91
+    action [:create]
+  end
 
-user node[:tomcat7][:user] do
-  comment "Tomcat Service User"
-  shell "/sbin/nologin"
-  uid 91
-  gid 91
-  action [:create]
+  user node[:tomcat7][:user] do
+    comment "Tomcat Service User"
+    shell "/sbin/nologin"
+    uid 91
+    gid 91
+    action [:create]
+  end
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/tomcat7.tar.gz" do
