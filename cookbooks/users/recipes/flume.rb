@@ -1,6 +1,5 @@
 users_manage "flume" do
-  group_name "tomcat"
-  group_id 91
+  group_id 4020
   action [ :remove, :create ]
 end
 
