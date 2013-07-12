@@ -2,6 +2,7 @@
   "id": "jplimack",
   "name":	"Jake Plimack",
   "email":	"",
+  "action": "remove",
   "groups":	["disabled"],
   "shell":	"/bin/zsh",
     "nagios": {
