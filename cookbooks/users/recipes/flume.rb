@@ -1,6 +1,6 @@
 users_manage "flume" do
   group_id 4020
-  action [ :remove, :create ]
+  action :create
 end
 
 sudo "flume" do
