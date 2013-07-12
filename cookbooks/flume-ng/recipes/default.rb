@@ -14,6 +14,12 @@ deploy_tag = "flume-deployed"
 
 if not tagged?(deploy_tag)
 
+  # =================== user/group settings =========
+
+  bash "add-to-tomcat-group" do
+    code "usermod -a -G #{node[:tomcat7][:group]} #{node[:flume_ng][:user]}"
+  end
+
   # =================== packages ====================
 
   directory node[:flume_ng][:base_path] do
