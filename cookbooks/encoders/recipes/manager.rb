@@ -26,3 +26,12 @@ logrotate_app "jboss" do
     create "644 root root"
 end
 
+logrotate_app "encmanager" do
+    cookbook "logrotate"
+    path "/var/log/manager/*.log"
+    frequency "daily"
+    rotate 4
+    compress true
+    options ["missingok"]
+    create "644 root root"
+end
