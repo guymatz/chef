@@ -31,7 +31,11 @@ agent1.sources.search_exit_log_spooldir.channels            = memory_channel
 agent1.sources.search_exit_log_spooldir.spoolDir            = <%= @node[:tomcat7][:install_path] %>/logs
 # The key and element characters #, !, =, and : are written with a preceding backslash to ensure that they are properly loaded.
 agent1.sources.search_exit_log_spooldir.ignorePattern       = ^(?\!search-exit\\.log\\.\\d{4}-\\d{2}-\\d{2}$).*$
-agent1.sources.search_exit_log_spooldir.interceptors    = timestamp_parser host log_type
+agent1.sources.search_exit_log_spooldir.interceptors        = timestamp_parser host log_type filter
+
+# regex filter interceptor
+agent1.sources.search_exit_log_spooldir.interceptors.filter.type = regex_filter
+agent1.sources.search_exit_log_spooldir.interceptors.filter.regex = ^(Mon|Tue|Wed|Thu|Fri|Sun|Sat).*$
 
 # host interceptor
 agent1.sources.search_exit_log_spooldir.interceptors.host.type          = host
