@@ -13,8 +13,8 @@ end
 node[:fqdn] =~ /iad-([a-z0-9-]+)(\.ihr)?/i
 hostname = $1 + ".iheart.com"
 
-graphite = search(:node, "chef_environment:#{node.chef_environment} AND roles:graphite")
-qio_master = search(:node, "chef_environment:#{node.chef_environment} AND roles:quickio-master")
+graphite = search(:node, "chef_environment:#{node.chef_environment} AND role:graphite")
+qio_master = search(:node, "chef_environment:#{node.chef_environment} AND role:quickio-master")
 
 debs = [
   "quickio_#{node['quickio']['version']}_amd64.deb",
@@ -47,7 +47,7 @@ if not tagged?("quickio-deployed")
     source "quickio.ini.erb"
 
     variables({
-      :graphite_addr => graphite[0][:fqdn],
+      :graphite_addr => graphite.nil? ? graphite[0][:fqdn] : "",
     })
   end
 

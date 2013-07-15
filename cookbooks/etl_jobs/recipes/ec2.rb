@@ -102,16 +102,19 @@ end
 #  minute 38
 #end
 
-directory "/data/jobs/talk_thumbs"
-directory "/data/log/talkthumbslog"
-directory "/data/log/talkthumbslog/processed"
-remote_file "/data/jobs/talk_thumbs/talk_thumbs_job.jar" do
-  source "http://yum.ihr/files/jobs/talk_thumbs/talk_thumbs_job.jar"
-end
-cron_d "talk_thumbs_job" do
-  command "/usr/bin/cronwrap use1b-jobserver101a Talk-Thumb-Radio-ETL-Job \"/usr/bin/java -jar /data/jobs/talk_thumbs/talk_thumbs_job.jar launch-context.xml talkthumbslogJob rundate=`/bin/date +\\%s`\""
-  minute 41
-end
+#
+#ALTERED PER OPS-4760
+#
+#directory "/data/jobs/talk_thumbs"
+#directory "/data/log/talkthumbslog"
+#directory "/data/log/talkthumbslog/processed"
+#remote_file "/data/jobs/talk_thumbs/talk_thumbs_job.jar" do
+#  source "http://yum.ihr/files/jobs/talk_thumbs/talk_thumbs_job.jar"
+#end
+#cron_d "talk_thumbs_job" do
+#  command "/usr/bin/cronwrap use1b-jobserver101a Talk-Thumb-Radio-ETL-Job \"/usr/bin/java -jar /data/jobs/talk_thumbs/talk_thumbs_job.jar launch-context.xml talkthumbslogJob rundate=`/bin/date +\\%s`\""
+#  minute 41
+#end
 
 #
 #ALTERED PER OPS-4723

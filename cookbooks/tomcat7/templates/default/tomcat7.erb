@@ -3,7 +3,6 @@
 #     written hastily by Jake Plimack
 #
 # chkconfig: 2345 90 20
-
 case "$1" in
     start)
         <%= node[:tomcat7][:install_path] %>/bin/startup.sh
