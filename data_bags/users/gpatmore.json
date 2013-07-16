@@ -1,0 +1,13 @@
+{
+  "id": "gpatmore",
+  "uid": 5036,
+  "name":	"Gregory Patmore",
+  "email":	"gregorypatmore@clearchannel.com",
+  "groups":	["sysadmin"],
+  "ssh_keys":	[
+  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCo1Tgp1Ba27yB8e0rkzJFwMkQa49XQYjK6KBTP0GXdP9XcVya9LWpcKdRaxrHrXl7t4gKY+4OMq7+M2HVwyItFM9kz/x3K9p/jSlkT+jPhx4JWUWEgAnlbWClOf+lZIRMmhKIKyyQw6aLGDFhTQh0BQIgdc3+EmAjIDvMzyctqNpOCwK3wOlgYR6bG874q8a5xVATAZKKmHdQM0+VNyLEvby/RFsqU8DtEQ2rXTsC6tXHsoXzDde49OM355qGDIrkyOsHKZ2fxE9QgMyTu/TnlBOhIAx/ES4j7LI22Kg3zCxdktJlIEqtv+f31FSjR0TVgzaxuuIABuW/xL9io2Xmp gregorypatmore@clearchannel.com"
+  ],
+  "shell":	"/bin/bash",
+  "nagios": {
+  }
+}
