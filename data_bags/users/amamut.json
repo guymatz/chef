@@ -1,6 +1,6 @@
 {
     "id": "amamut",
-    "name": "Alex Mamut	",
+    "name": "Alex Mamut",
     "email": "alexmamut@clearchannel.com",
     "groups": ["dev"],
     "ssh_keys": [
