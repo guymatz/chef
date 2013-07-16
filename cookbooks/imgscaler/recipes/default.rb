@@ -56,6 +56,13 @@ bash "extract_tomcat" do
   not_if { node.normal.attribute?("imgscaler_deployed") }
 end
 
+template "/usr/local/tomcat7/lib/imgscale-env.properties" do
+  owner "tomcat"
+  group "tomcat"
+  source "imgscale-env.properties"
+  not_if { node.normal.attribute?("imgscaler_deployed") }
+end
+
 cookbook_file "/etc/init.d/tomcat" do
   source "tomcat"
   mode 0755
