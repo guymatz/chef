@@ -77,6 +77,7 @@ if not tagged?(deploy_tag)
     notifies :restart, "service[flume-ng-agent]"
     owner node[:flume_ng][:user]
     group node[:flume_ng][:group]
+    mode 0644
   end
 
   template "#{conf_dir}/flume-env.sh" do
