@@ -31,7 +31,7 @@ agent1.sources.search_exit_log_spooldir.channels            = memory_channel
 agent1.sources.search_exit_log_spooldir.spoolDir            = <%= @node[:tomcat7][:install_path] %>/logs
 # The key and element characters #, !, =, and : are written with a preceding backslash to ensure that they are properly loaded.
 agent1.sources.search_exit_log_spooldir.ignorePattern       = ^(?\!search-exit\\.log\\.\\d{4}-\\d{2}-\\d{2}$).*$
-agent1.sources.search_exit_log_spooldir.interceptors        = timestamp_parser host log_type filter
+agent1.sources.search_exit_log_spooldir.interceptors        = filter host timestamp log_type
 
 # regex filter interceptor
 agent1.sources.search_exit_log_spooldir.interceptors.filter.type = regex_filter
@@ -42,18 +42,18 @@ agent1.sources.search_exit_log_spooldir.interceptors.host.type          = host
 agent1.sources.search_exit_log_spooldir.interceptors.host.hostHeader    = hostname
 agent1.sources.search_exit_log_spooldir.interceptors.host.useIP         = false
 
+# source interceptor for timestamping
+agent1.sources.search_exit_log_spooldir.interceptors.timestamp.type = regex_extractor
+agent1.sources.search_exit_log_spooldir.interceptors.timestamp.regex = ^(?\:\\n)?(\\w{3}\\s\\w{3}\\s\\d{2}\\s\\d{2}\:\\d{2}\:\\d{2}\\s\\w{3}\\s\\d{4})
+agent1.sources.search_exit_log_spooldir.interceptors.timestamp.serializers = milser
+agent1.sources.search_exit_log_spooldir.interceptors.timestamp.serializers.milser.type = org.apache.flume.interceptor.RegexExtractorInterceptorMillisSerializerNonJoda
+agent1.sources.search_exit_log_spooldir.interceptors.timestamp.serializers.milser.name = timestamp
+agent1.sources.search_exit_log_spooldir.interceptors.timestamp.serializers.milser.pattern = EEE MMM dd HH\:mm\:ss zzz yyyy
+
 # type interceptor
 agent1.sources.search_exit_log_spooldir.interceptors.log_type.type  = static
 agent1.sources.search_exit_log_spooldir.interceptors.log_type.key   = log_type
 agent1.sources.search_exit_log_spooldir.interceptors.log_type.value = search_exit
-
-# source interceptor for timestamping
-agent1.sources.search_exit_log_spooldir.interceptors.timestamp_parser.type = regex_extractor
-agent1.sources.search_exit_log_spooldir.interceptors.timestamp_parser.regex = ^(?\:\\n)?(\\w{3}\\s\\w{3}\\s\\d{2}\\s\\d{2}\:\\d{2}\:\\d{2}\\s\\w{3}\\s\\d{4})
-agent1.sources.search_exit_log_spooldir.interceptors.timestamp_parser.serializers = milser
-agent1.sources.search_exit_log_spooldir.interceptors.timestamp_parser.serializers.milser.type = org.apache.flume.interceptor.RegexExtractorInterceptorMillisSerializerNonJoda
-agent1.sources.search_exit_log_spooldir.interceptors.timestamp_parser.serializers.milser.name = timestamp
-agent1.sources.search_exit_log_spooldir.interceptors.timestamp_parser.serializers.milser.pattern = EEE MMM dd HH\:mm\:ss zzz yyyy
 
 # avro sink
 agent1.sinks.avro_sink.type       = avro
