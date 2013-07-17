@@ -3,6 +3,7 @@ description "Flume-NG"
 all_env = [
            "recipe[users::flume]",
            "recipe[flume-ng]",
+           "recipe[flume-ng::nrpe]"
 ]
 run_list(all_env)
 

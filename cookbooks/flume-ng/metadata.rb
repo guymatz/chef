@@ -10,6 +10,6 @@ version          '0.1.0'
   supports os
 end
 
-%w{ users tomcat7 java }.each do |dep|
+%w{ users tomcat7 java nagios }.each do |dep|
   depends dep
 end
