@@ -3,7 +3,7 @@
     "uid": 5015,
     "name": "Thomas Drapeau",
     "email": "thomasdrapeau@clearchannel.com",
-    "groups": ["converter", "amp", "nagios" ],
+    "groups": ["dev", "converter", "amp", "nagios" ],
     "nagios": {
         "email": "thomasdrapeau@clearchannel.com"
     },
