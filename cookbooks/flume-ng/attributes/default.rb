@@ -7,7 +7,7 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-default[:flume_ng][:version] = "1.4.0-SNAPSHOT"
+default[:flume_ng][:version] = "1.4.0"
 default[:flume_ng][:package] = "apache-flume-#{default[:flume_ng][:version]}-bin"
 default[:flume_ng][:base_url] = "http://files.ihrdev.com/flume"
 default[:flume_ng][:checksum] = "5f85b82c3c80"
