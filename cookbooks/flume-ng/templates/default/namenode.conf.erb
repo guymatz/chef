@@ -16,29 +16,38 @@
 # under the License.
 
 # agent
-agent1.sources   = avro_src
-agent1.channels  = mem_channel
-agent1.sinks     = hdfs_sink
+tier1.sources   = avro_src
+tier1.channels  = mem_channel
+tier1.sinks     = hdfs_sink
 
 # memory channel
-agent1.channels.mem_channel.type                 = memory
-agent1.channels.mem_channel.capacity             = 5000
-agent1.channels.mem_channel.transactionCapacity  = 100
+tier1.channels.mem_channel.type                 = memory
+tier1.channels.mem_channel.capacity             = 10000000
+## transactionCapacity should be set to the value of the largest batch size
+## that will be used to store or remove events the channel.
+tier1.channels.mem_channel.transactionCapacity  = 1000
 
 # avro source
-agent1.sources.avro_src.type     = avro
-agent1.sources.avro_src.bind     = 0.0.0.0
-agent1.sources.avro_src.port     = <%= @node[:flume_ng][:hadoop][:namenode][:avro_port] %>
-agent1.sources.avro_src.threads  = 5
-agent1.sources.avro_src.channels = mem_channel
+tier1.sources.avro_src.type     = avro
+tier1.sources.avro_src.bind     = 0.0.0.0
+tier1.sources.avro_src.port     = <%= @node[:flume_ng][:hadoop][:namenode][:avro_port] %>
+tier1.sources.avro_src.threads  = 5
+tier1.sources.avro_src.channels = mem_channel
+
+# debug sink
+tier1.sinks.debug.type    = logger
+tier1.sinks.debug.channel = mem_channel
 
 # hdfs sink
-agent1.sinks.hdfs_sink.type               = hdfs
-agent1.sinks.hdfs_sink.hdfs.path          = /data/logs/%{log_type}/%Y/%m/%d
-agent1.sinks.hdfs_sink.hdfs.timeZone      = EST5EDT
-agent1.sinks.hdfs_sink.hdfs.filePrefix    = log-
-agent1.sinks.hdfs_sink.hdfs.rollInterval  = 0
-agent1.sinks.hdfs_sink.hdfs.rollSize      = 0
-agent1.sinks.hdfs_sink.hdfs.rollCount     = 100000
-agent1.sinks.hdfs_sink.hdfs.fileType      = DataStream
-agent1.sinks.hdfs_sink.channel            = mem_channel
+tier1.sinks.hdfs_sink.type               = hdfs
+tier1.sinks.hdfs_sink.hdfs.path          = /data/logs/%{log_type}/%Y/%m/%d/%{hostname}
+tier1.sinks.hdfs_sink.hdfs.timeZone      = EST5EDT
+tier1.sinks.hdfs_sink.hdfs.filePrefix    = log-
+## roll at 32mb
+tier1.sinks.hdfs_sink.hdfs.rollSize      = 33554432
+tier1.sinks.hdfs_sink.hdfs.rollInterval  = 0
+tier1.sinks.hdfs_sink.hdfs.rollCount     = 0
+tier1.sinks.hdfs_sink.hdfs.fileType      = DataStream
+## 1000 is typical for hdfs_sink
+tier1.sinks.hdfs_sink.hdfs.batchSize     = 1000
+tier1.sinks.hdfs_sink.channel            = mem_channel
