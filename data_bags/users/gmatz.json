@@ -1,0 +1,16 @@
+{
+  "id": "gmatz",
+"uid": 5038,
+  "name":	"Guy Matz",
+  "email":	"guymatz@clearchannel.com",
+  "groups":	["sysadmin"],
+  "ssh_keys":	[
+  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCxn2aC1EbLoKi7IHk2HJErKvFuthE666nx5KjS8T5lnIVN8APuIfiMeVM+k1hJKRSJVWFKYfHHjXuUlKV85Tazga3VbJqDi02+809ym/y9G3Gc55c5OZv7ip5xvTpndEMnUoCtOjtKhwLywCF6yeCg+/Db1TYxRg6WDmhpVnU8RpFBUgW1y5Nlh9zGXGANvxkfGYod4N//k0xvzf6yM0wPgZ9uhOkJAUkmR/KCJtwJtyWGh5i6xTZAsG9T18PZT5DC4chYf8ooJNXOsMPuA5lSWhEsxrLtchDZGpHFMG9sIsTRYj4lJypqanOct66eyKP+H8p1yB1u/vHShw7rHG+T con-ccrnyc1gxm@CCCNYC06FLT"
+  ],
+  "shell":	"/bin/bash",
+    "nagios": {
+	"email": "guymatz@clearchannel.com",
+	"pager": "guymatz@clearchannel.com"
+    },
+    "htpasswd": "{SHA}r6415j4LEV5AycrqHwjfHEZVhuI="
+}
