@@ -7,9 +7,10 @@ default[:elasticsearch][:url] = "http://files.ihrdev.com/elasticsearch"
 default[:elasticsearch][:base_path] = "/data/apps"
 default[:elasticsearch][:deploy_path] = "/data/apps/elasticsearch"
 default[:elasticsearch][:ihrsearch_path] = "/data/apps/ihr-search"
+default[:elasticsearch][:input_path] = "/data/apps/ihr-search/input"
 default[:elasticsearch][:ihrsearch][:files] = "configs.tar.gz"
-default[:elasticsearch][:user] = "nobody"
-default[:elasticsearch][:group] = "nobody"
+default[:elasticsearch][:user] = "elasticsearch"
+default[:elasticsearch][:group] = "elasticsearch"
 
 # elasticsearch.yml
 default[:elasticsearch][:shards] = "2"

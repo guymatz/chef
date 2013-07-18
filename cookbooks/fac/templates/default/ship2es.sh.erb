@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+ES_MASTER="<%= @es_master %>"
+
+SRC_FILE="<%= @updatestream %>/output/streams_list_attivio_ready.xml"
+DST_FILE="<%= @es_dropbox %>/streams_list_attivio_ready.xml"
+SCP_USER=elasticsearch
+
+if [ -f $SRC_FILE ] ; then
+
+    # check that this file is not being written to
+    FH=$(lsof $SRC_FILE | wc -l)
+    until [ $(lsof $SRC_FILE | wc -l) -eq 0  ] ; do
+        echo "This file is being written to, sleeping for 5 mins"
+        sleep 300
+    done
+
+    scp -i /home/$SCP_USER/.ssh/deploy $SRC_FILE $SCP_USER@$ES_MASTER:$DST_FILE
+    if [ $? -ne 0 ] ; then
+        echo "An error occured shipping streams_list_attivio_ready.xml to $ES_MASTER"
+    fi
+    mv $SRC_FILE $SRC_FILE.$(date +%Y%m%d).shipped
+else
+    echo "Error: No xml file available to ship"
+    exit 1
+fi
