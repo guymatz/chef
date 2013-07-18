@@ -29,8 +29,8 @@ default['graphite']['carbon']['pickle_receiver_port'] = 2004
 default['graphite']['carbon']['cache_query_interface'] =     "0.0.0.0"
 default['graphite']['carbon']['cache_query_port'] = 7002
 default['graphite']['carbon']['max_cache_size'] = "inf"
-default['graphite']['carbon']['max_creates_per_second'] = "inf"
-default['graphite']['carbon']['max_updates_per_second'] = "1000"
+default['graphite']['carbon']['max_creates_per_second'] = "500"
+default['graphite']['carbon']['max_updates_per_second'] = "500"
 
 default['graphite']['storage_aggregation'] = nil
 default['graphite']['storage_schemas'] = []
