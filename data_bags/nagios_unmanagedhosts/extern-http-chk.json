@@ -1,0 +1,5 @@
+{
+  "address": "localhost",
+  "hostgroups": "ExternalChecks",
+  "id": "extern-http-chk"
+}

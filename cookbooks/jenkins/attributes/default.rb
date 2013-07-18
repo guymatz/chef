@@ -36,9 +36,10 @@ when "debian"
     libevent-dev
     libmemcached-dev
     libjson0-dev
+    sshpass
   }
 when "rhel"
-  default['jenkins']['packages'] = %w{ }
+  default['jenkins']['packages'] = %w{ sshpass }
 end
 
 default['jenkins']['recipes'] = %w{ rvm::ruby_192 }

@@ -1,0 +1,5 @@
+{
+  "host_name": "extern-http-chk",
+  "id": "Extern-http-KIISFM",
+  "command_line": "$USER1$/check_http -H www.kiisfm.com -u http://www.kiisfm.com/main.html"
+}
