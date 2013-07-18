@@ -49,12 +49,12 @@ start() {
     exit 0
   fi
 
-  umask 077
+  umask 002
 
   echo -n $"Starting $desc (flume-ng-agent): "
   # TODO look into getting something more formal like daemon to work
   # daemon --user="flume" --pidfile="$pidfile" $FLUME_EXEC agent -n $FLUME_AGENT_NAME -c $FLUME_CONF_DIR -f $FLUME_CONF_FILE &
-  runuser -l $user -g $group -s /bin/bash -c "/bin/bash -c 'echo \$\$ >$pidfile && exec nice -n $FLUME_NICENESS $FLUME_EXEC agent --conf $FLUME_CONF_DIR --conf-file $FLUME_CONF_FILE --name $FLUME_AGENT_NAME >>$logfile 2>&1' &"
+  runuser -l $user -g $group -s /bin/bash -c "/bin/bash -c 'echo \$\$ >$pidfile && exec nice -n $FLUME_NICENESS $FLUME_EXEC agent --conf $FLUME_CONF_DIR --conf-file $FLUME_CONF_FILE --name $FLUME_AGENT_NAME -Dflume.monitoring.type=<%= @node[:flume_ng][:monitoring][:type] %> -Dflume.monitoring.port=<%= @node[:flume_ng][:monitoring][:port] %> >>$logfile 2>&1' &"
   RETVAL=$?;
   [ $RETVAL -eq 0 ] && touch $lockfile; success || failure
   echo

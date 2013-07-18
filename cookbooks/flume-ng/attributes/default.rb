@@ -24,6 +24,9 @@ default[:flume_ng][:log_dir] = "/var/log/flume-ng"
 default[:flume_ng][:run_dir] = "/var/run/flume-ng"
 default[:flume_ng][:log_file] = "flume.log"
 
+default[:flume_ng][:monitoring][:type] = "http"
+default[:flume_ng][:monitoring][:port] = "34545"
+
 default[:flume_ng][:conf_dir] = "conf"
 default[:flume_ng][:conf_file] = "flume-conf.properties"
 default[:flume_ng][:agent_name] = "agent1"
