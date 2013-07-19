@@ -149,7 +149,7 @@ end
 
 logrotate_app "splunkforwarder" do
     cookbook "logrotate"
-    path "/opt/splunkforwarder/var/log/splunk/"
+    path "/opt/splunkforwarder/var/log/splunk/*.log"
     frequency "daily"
     rotate 7
     compress true
