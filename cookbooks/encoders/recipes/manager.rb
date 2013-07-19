@@ -31,7 +31,6 @@ logrotate_app "encmanager" do
     path "/var/log/manager/*.log"
     frequency "daily"
     rotate 4
-    compress true
-    options ["missingok"]
+    options ["missingok", "compress", "copytruncate", "notifempty"]
     create "644 root root"
 end
