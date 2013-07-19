@@ -1,10 +1,5 @@
 include_recipe "users::attivio"
 
-user node[:attivio][:user] do
-  comment "Attivio Service Account"
-  shell "/bin/bash"
-end
-
 # drop a github private deploy key for attivio
 deploy_keys = Chef::EncryptedDataBagItem.load("keys", "attivio")
 directory "/home/attivio/.ssh" do

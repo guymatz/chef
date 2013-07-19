@@ -7,7 +7,7 @@
 
 IHR_SEARCH_HOME=<%= node[:elasticsearch][:ihrsearch_path] %>
 ES_HOME=$IHR_SEARCH_HOME/../elasticsearch
-ES_USER=<% node[:elasticsearch][:user] %>
+ES_USER=<%= node[:elasticsearch][:user] %>
 
 export HOST=`/sbin/ifconfig | grep 10.5.1 | awk '{print $2}' | cut -d: -f2`
 ES_HEAP_SIZE="8g"

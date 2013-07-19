@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe "elastic_search::users"
+include_recipe "elasticsearch::users"
 app = "updatestream"
 script_dir = "#{node[:fac][:script_path]}/#{app}"
 
@@ -81,7 +81,7 @@ cron_d "fac-updatestream" do
   user "nobody"
 end
 
-master = search(:node, "tags:es_master AND chef_environment:#{node.chef_environment}")
+master = search(:node, "tags:es_master")
 
 template "#{script_dir}/streaminfo/ship2es.sh" do
   source "ship2es.sh.erb"
@@ -90,7 +90,7 @@ template "#{script_dir}/streaminfo/ship2es.sh" do
   mode "0755"
   variables({
               :updatestream => "#{script_dir}/streaminfo",
-              :es_master => master[0],
+              :es_master => "#{master[0][:hostname]}",
               :es_dropbox => "#{node[:elasticsearch][:input_path]}/livestations"
             })
 end

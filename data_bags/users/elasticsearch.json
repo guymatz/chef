@@ -3,7 +3,7 @@
     "name": "Elastic Search Service",
     "email":    "ccd-sa@clearchannel.com",
     "groups":   ["elasticsearch"],
-    "shell":    "/sbin/nologin",
+    "shell":    "/bin/bash",
     "uid": 4021,
     "ssh_keys": [
         "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAtqjCZIQW0E6v/ICMHzEiVOENbhruhNwITMFUn86YTxjAjtz6cZp8PI7PI8no7N2MJmVEMe2NdDeIOOx51xICAYiORnEcOHL1nhlvBf5fXaXtTKw/iPgqTFEzJOD6SPWQMiKbzYHp0bDIaRCGEUxOyA2lpvImgUbu3+w1CWw7tHQuwjoJLvBRUb+ohJLA5bnPxCrCtgiDKMm6+pgTSMWUK25Nc6Jl4ghzG2U7YIepOy3UegFfPqlPbKMF3GvFTu+YALedIHwPiDwxYsppVOmI7OJSfEnUdI1F7VFzLy57IsHVccTvYosAPFvIxKLgklKdu2SntMqI7fP4NHxUT5fc/w== elasticsearch@use1b-search201.ihr"
