@@ -1,6 +1,6 @@
 
 users_manage "elasticsearch" do
-  group_id 2312
+  group_id 4021
   action [ :remove, :create ]
 end
 

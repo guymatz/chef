@@ -1,8 +1,3 @@
-user node[:elasticsearch][:user] do
-  comment "Elastic Search Service Account"
-  shell "/sbin/nologin"
-end
-
 deploy_keys = Chef::EncryptedDataBagItem.load("keys", "elasticsearch")
 directory "/home/elasticsearch/.ssh" do
   owner node[:elasticsearch][:user]

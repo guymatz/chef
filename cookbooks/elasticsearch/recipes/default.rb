@@ -7,9 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe "elasticsearch::users"
-
-%w{ users::elasticsearch users::deployer elasticsearch::elasticsearch elasticsearch::ulimits elasticsearch::plugins }.each do |cb|
+%w{ users::elasticsearch elasticsearch::users users::deployer elasticsearch::elasticsearch elasticsearch::ulimits elasticsearch::plugins }.each do |cb|
   include_recipe cb
 end
 
