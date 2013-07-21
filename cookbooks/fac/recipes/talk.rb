@@ -57,5 +57,4 @@ nagios_nrpecheck "Fac-Process-Talk" do
   critical_condition "1:1"
   parameters "-C java -a '-Xmx4G -jar /data/jobs/fac/talk/fac-talk.jar initialOverlap=200'"
   action :add
-  notifies :restart, resources(:service => "nagios-nrpe-server")
 end

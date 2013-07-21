@@ -38,6 +38,5 @@ nagios_nrpecheck "Attivio_Process_Connector" do
   critical_condition "1:1"
   parameters "-C attivio-java -a connector1"
   action :add
-  notifies :restart, resources(:service => "nagios-nrpe-server")
 end
 

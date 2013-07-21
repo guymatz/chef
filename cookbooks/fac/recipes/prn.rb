@@ -59,5 +59,4 @@ nagios_nrpecheck "Fac-Process-PRN" do
   critical_condition "1:1"
   parameters "-C java -a '-Xmx4G -jar /data/jobs/fac/PRN/fac-PRN.jar initialOverlap=200'"
   action :add
-  notifies :restart, resources(:service => "nagios-nrpe-server")
 end

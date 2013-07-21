@@ -38,5 +38,4 @@ nagios_nrpecheck "Attivio_Process_Indexer" do
   critical_condition "1:1"
   parameters "-C attivio-java -a indexer1"
   action :add
-  notifies :restart, resources(:service => "nagios-nrpe-server")
 end

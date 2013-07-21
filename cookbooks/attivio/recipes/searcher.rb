@@ -38,5 +38,4 @@ nagios_nrpecheck "Attivio_Process_Searcher" do
   critical_condition "1:1"
   parameters "-C attivio-java -a searcher"
   action :add
-  notifies :restart, resources(:service => "nagios-nrpe-server")
 end

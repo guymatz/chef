@@ -56,5 +56,4 @@ nagios_nrpecheck "Facebook-Process-FBgraph" do
   critical_condition "1:1"
   parameters "-C java -a '-Xmx4G -jar /data/apps/fbgraph/fbgraph.jar'"
   action :add
-  notifies :restart, resources(:service => "nagios-nrpe-server")
 end
