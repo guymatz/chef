@@ -24,12 +24,14 @@ action :add do
   file_contents += " -w #{new_resource.warning_condition}" unless new_resource.warning_condition.nil?
   file_contents += " -c #{new_resource.critical_condition}" unless new_resource.critical_condition.nil?
   file_contents += " #{new_resource.parameters}" unless new_resource.parameters.nil?
+  nrpe_file = "#{node['nagios']['nrpe']['conf_dir']}/nrpe.d/#{new_resource.command_name}.cfg"
   file "#{node['nagios']['nrpe']['conf_dir']}/nrpe.d/#{new_resource.command_name}.cfg" do
     owner "root"
     group "root"
     mode 00644
     content file_contents
     notifies :restart, resources(:service => "nagios-nrpe-server")
+    not_if ::File.exists?(nrpe_file) && (::File.readlines(nrpe_file) == file_contents)
   end
   new_resource.updated_by_last_action(true)
 end
