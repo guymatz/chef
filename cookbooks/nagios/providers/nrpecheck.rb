@@ -31,7 +31,7 @@ action :add do
     mode 00644
     content file_contents
     notifies :restart, resources(:service => "nagios-nrpe-server")
-    not_if ::File.exists?(nrpe_file) && (::File.readlines(nrpe_file) == file_contents)
+    not_if { ::File.exists?(nrpe_file) && (::File.read(nrpe_file) == file_contents) }
   end
   new_resource.updated_by_last_action(true)
 end
