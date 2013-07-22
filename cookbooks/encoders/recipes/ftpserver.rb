@@ -63,13 +63,13 @@ begin
                 code <<-EOF
                     echo "#{k}" >> /etc/vsftpd/vuser/music_users.txt
                     echo "#{pw}" >> /etc/vsftpd/vuser/music_users.txt
-#                    if [ ! -d #{node[:encoders][:ftp_mount]}/#{k} ]
-#                    then
-#                        mkdir #{node[:encoders][:ftp_mount]}/#{k}
-#                        chmod 2775 #{node[:encoders][:ftp_mount]}/#{k}
-#                        chown #{node[:encoders][:ftpuser]} #{node[:encoders][:ftp_mount]}/#{k}
-#                        chgrp #{node[:encoders][:group]} #{node[:encoders][:ftp_mount]}/#{k}
-#                    fi
+                    if [ ! -d #{node[:encoders][:ftp_mount]}/#{k} ]
+                    then
+                        mkdir #{node[:encoders][:ftp_mount]}/#{k}
+                        chmod 2775 #{node[:encoders][:ftp_mount]}/#{k}
+                        chown #{node[:encoders][:ftpuser]} #{node[:encoders][:ftp_mount]}/#{k}
+                        chgrp #{node[:encoders][:group]} #{node[:encoders][:ftp_mount]}/#{k}
+                    fi
                 EOF
             end
         end
