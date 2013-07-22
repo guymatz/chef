@@ -2,7 +2,7 @@
   "name": "stage",
   "default_attributes": {
     "webplayer": {
-      "rev": "release-4.14.0-chartreuse-rc2",
+      "rev": "release-4.14.0-chartreuse-rc3",
       "settings": {
         "url": {
           "site_host": "stage.iheart.com"
