@@ -22,10 +22,10 @@ begin
         command "mkdir -p #{node[:encoders][:ftp_mount]}"
     end
 
-    execute "mounts" do
-        command "/bin/mount -a"
-        action :run
-    end
+#    execute "mounts" do
+#        command "/bin/mount -a"
+#        action :run
+#    end
 
     append_if_no_line "encoder_ftp" do
         path "/etc/fstab"
