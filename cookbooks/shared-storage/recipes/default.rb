@@ -23,4 +23,5 @@ end
 cron_d "remove_old_logs" do
   commmand "find /data/logs -mtime +4 -delete > /dev/null 2>&1"
   hour 1
+  minute 0
 end
