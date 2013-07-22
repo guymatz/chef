@@ -116,6 +116,18 @@ if not tagged?("webplayer-deployed")
   tag("webplayer-deployed")
 end
 
+execute "create_geo_path" do
+  command "mdkir -p #{node[:webplayer][:geo_path]}"
+  user node[:webplayer][:user]
+  group node[:webplayer][:group]
+  not_if { ::File.exists?(node[:webplayer][:geo_path]) }
+end
+
+remote_file "#{node[:webplayer][:geo_path]}/#{node[:webplayer][:geo_file_name]}" do
+  source "http://files.ihrdev.com/geo/GeoIPCity.dat"
+  not_if "test `find #{node[:webplayer][:geo_path]}/#{node[:webplayer][:geo_file_name]} -mtime +#{node[:webplayer][:geo_freshness]}`"
+end
+
 service "httpd-apache2" do
   case node[:platform_family]
   when "rhel"
