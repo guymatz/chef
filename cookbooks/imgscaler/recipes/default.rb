@@ -90,7 +90,7 @@ end
 bash "delete_old_logs" do
   user "tomcat"
   cwd "/usr/local/tomcat7/logs"
-  code "find . -mtime +3 -exec rm {} \\;"
+  code "find . -mtime +1 -exec rm {} \\;"
 end
 
 # Not working :-(
