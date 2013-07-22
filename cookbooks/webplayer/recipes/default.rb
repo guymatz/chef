@@ -117,7 +117,7 @@ if not tagged?("webplayer-deployed")
 end
 
 execute "create_geo_path" do
-  command "mdkir -p #{node[:webplayer][:geo_path]}"
+  command "mkdir -p #{node[:webplayer][:geo_path]}"
   user node[:webplayer][:user]
   group node[:webplayer][:group]
   not_if { ::File.exists?(node[:webplayer][:geo_path]) }
