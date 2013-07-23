@@ -9,7 +9,7 @@ BKPDIR=$BASEDIR/$BKPFOLDER
 sdate=`date +'%Y-%m-%d:%H:%M'`
 FILE="$BASEDIR/backup-$sdate.tarz"
 DUMP_LOG1="$BASEDIR/backup-$sdate.log"
-AGE=5
+AGE=4
 dba_email="CCRDDatabaseOperations@clearchannel.com,JosephHammerman@clearchannel.com,JeremyBraff@clearchannel.com"
 #dba_email="DimitriyRoyzenberg@clearchannel.com"
 
