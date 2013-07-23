@@ -3,7 +3,7 @@
     "uid": 50223,
     "name": "Andy Dirnberger",
     "email": "AndrewDirnberger@clearchannel.com",
-    "groups": ["dev", "attivio"],
+    "groups": ["dev", "converter"],
     "ssh_keys": [
     	"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDn0hfgZdt74idOrilvI3fQdmWXIloJpO+C7t1zjXQX6GfoCsD9fn0/Y9QTcEOMghFDoq/8/4n1KO6t78a8OczW7OwSMNKVDzwi+E6Dnx2WfGjSw0jj6/ZhPMu6SQausnDSvNJJ+j2Rn1C2kE5oAFLhq8sX9k+CEpBWyeQdfh2HTNScEKy5oy/+KlRDViGVqrUzZmLpDg69dFmjcffeM222BiD/qy+An4iBrCLeQzO2Bcucgx639xOYtUw4lFr1IoSRkhHxD/KM4OtdddTgbyIiNqpAXNKckfvNyS6QWZok942qkMESCFk9u0UxIIVHMGwHsw4/JGiRO+5TbmItDjn/ andrewdirnberger@clearchannel.com"
     ]
