@@ -10,5 +10,7 @@
   "shell":	"/bin/bash",
   "htpasswd": "{SHA}tRVRaXn4WuNEH2E9/Ny7OjII0EM=",
   "nagios": {
+    "email": "gregorypatmore@clearchannel.com",
+    "pager": "gregorypatmore@clearchannel.com"
   }
 }
