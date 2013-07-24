@@ -1,0 +1,5 @@
+{
+  "host_name": "iad-encmanager105",
+  "id": "Addins-Stale-Feeds-Percentage",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Addins-Stale-Feeds-Percentage -t 30"
+}
