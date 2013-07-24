@@ -73,7 +73,7 @@ case "$1" in
         	check_status	
             	;;
     	restart)
-		if [ -f "$PID" ]; then
+		if [ -f "$PIDFILE" ]; then
 			echo -n "Stopping Daemon: "
             		do_exec "-stop"
 			echo -n "Starting Daemon: "
