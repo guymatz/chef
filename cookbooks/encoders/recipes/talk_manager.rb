@@ -7,7 +7,7 @@ begin
             owner "root"
             mode "0755"
         end
-        service script do
+        service script.gsub(/\/etc\/init.d\//, "") do
             action [:enable, :start]
         end
     end

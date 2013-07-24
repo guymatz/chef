@@ -113,15 +113,15 @@ default[:encoders][:filemonitor][:ingestion_links] = {
 
 
 # talk startup scripts
-default[:encoders][:talk][:manager][:startup_scripts] = [
-     "talk_scanner",
-     "talk_add_new",
-     "talk_manager"
-    ]
+default[:encoders][:talk][:manager][:startup_scripts] = {
+     "/etc/init.d/talk_scanner" => "talk_scanner.erb",
+     "/etc/init.d/talk_add_new" => "talk_add_new.erb",
+     "/etc/init.d/talk_manager" => "talk_manager.erb"
+    }
 
-default[:encoders][:talk][:converter][:startup_scripts] = [
-    "talk_converter"
-    ]
+default[:encoders][:talk][:converter][:startup_scripts] = {
+    "/etc/init.d/talk_converter" => "talk_converter.erb"
+    }
 
 
 
