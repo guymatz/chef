@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-WARNING_THRESHOLD=75
+WARNING_THRESHOLD=65
 CRITICAL_THRESHOLD=50
 path="/api/"
 DEFAULT_STATE="UNKNOWN"
@@ -59,7 +59,6 @@ done
 
 badpct=`echo "scale=2;((${EXPIRED} - ${ACTIVE}) / ${ACTIVE})*100"|bc`
 pct=${badpct#-}
-echo $pct
 cg=`echo "$pct < ${CRITICAL_THRESHOLD}" | bc`
 wg=`echo "$pct < ${WARNING_THRESHOLD}" | bc`
 #
