@@ -113,8 +113,9 @@ default[:encoders][:filemonitor][:ingestion_links] = {
 default[:encoder][:filemonitor][:monitor_script] = "/data/apps/filemonitor/bin/fileMonitorService.sh"
 
 # permanent isilon mounts
-default[:encoders][:ftp_mount_export] = "/ifs/inbound-ftp"
-default[:encoders][:ftp_mount_dir] = "/data/inbound-ftp"
-default[:encoders][:p_content_export] = "/ifs/content"
-default[:encoders][:p_content_dir] = "/data/content"
-default[:encoders][:isilon_server] = "iad-isilon101.ihr"
+#default[:encoders][:isilon_server] = "iad-isilon101.ihr"
+default[:encoders][:isilon_server] = "10.5.32.164"
+default[:encoders][:p_ftp_export] = "/ifs/inbound-ftp"
+default[:encoders][:p_ftp_mount] = "/data/inbound-ftp"
+default[:encoders][:p_encoder_export] = "/ifs/encoder"
+default[:encoders][:p_encoder_mount] = "/data/isi-encoder"
