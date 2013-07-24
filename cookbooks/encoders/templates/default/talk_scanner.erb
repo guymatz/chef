@@ -1,0 +1,211 @@
+#!/bin/bash
+#
+# chkconfig: 345 99 05
+# description: Jruby deamon script
+# Needs Gems: spoon bundler
+
+. /etc/init.d/functions
+
+# ---------------------------------------------------
+DIR=/data/apps/converter/current/bin
+APP_NAME=talk_scanner
+APP_PATH=${DIR}/${APP_NAME}.rb
+
+LOGFILE=/var/log/manager/$APP_NAME.log
+ERRFILE=/var/log/manager/$APP_NAME-error.log
+USER=converter
+ARG="--server -J-Djruby.jit.threshold=0"
+# ---------------------------------------------------
+# needed so root files on startup are 664 to allow for group write
+umask 0002
+
+load_jruby()
+{
+    JRUBY_HOME=/usr/local/lib/jruby
+    JRUBY=$JRUBY_HOME/bin/jruby
+    GEM=$JRUBY_HOME/bin/gem
+    unset  GEM_PATH GEM_HOME
+    export GEM_PATH=$($JRUBY $GEM environment gempath)
+    export GEM_HOME=$($JRUBY $GEM environment gemhome)
+    WRAPPER='
+        require "rubygems";
+        require "spoon";
+        pid = Spoon.spawnp(*ARGV[1..-1]);
+        File.open(ARGV[0], "w") { |f| f << pid };
+        '
+    # cd into working path
+    cd ${DIR}
+}
+
+start_daemon() {
+    echo -n "Starting ${APP_NAME} ${1}: "
+    check_pid $1
+    sudo -u ${USER} -E -s eval $COMMAND >> $LOGFILE 2>> $ERRFILE
+    sleep 1
+    check_status $1
+}
+
+stop_daemon() {
+    echo -n "Stopping $APP_NAME $1: "
+        if [ -e "$PIDFILE" ]; then
+                PID=`cat $PIDFILE`
+
+                while [ 1 ]; do
+                sudo -u ${USER} -E -s kill -TERM $PID 2> /dev/null
+                sleep 1
+                [ `ps $PID 2> /dev/null | grep $PID | wc -l` -eq 0 ] && break
+                done
+        ret=$?
+        [ $ret -eq 0 ] && success || failure
+                echo
+
+                rm $PIDFILE
+        else
+                echo -n "PID file not found for ${APP_NAME} ${1}"
+        failure
+        echo
+                #exit 1
+        fi
+}
+
+check_pid() {
+    if [ -r ${PIDFILE} ] ; then
+        PID=`cat $PIDFILE`
+        ps -p $PID 2>&1 > /dev/null
+
+        if [ $? -ne 0 ]; then
+            echo "Stale PID file. Deleting"
+            rm $PIDFILE
+        else
+            echo -n " PIDFILE Exists and is running with PID ${PID}"
+                        failure
+                        echo
+                        exit 1
+        fi
+    else
+        PID_APP=`pgrep -f "${APP_PATH} ${1}"`
+                if [ $? -eq 0 ]; then
+                    echo -n " PIDFILE Does not exist but is running ${APP_NAME} ${1} ${PID_APP}"
+            failure
+            echo
+            exit 1
+        fi
+    fi
+}
+
+check_status() {
+        id=$1
+    fail=0
+    if [ -r ${PIDFILE} ]; then
+        PID=`cat $PIDFILE`
+        PID_TEST=`ps -p $PID 2>&1 > /dev/null`
+        if [ $? -ne 0 ]; then
+            fail=1
+            echo "Stale PID file."
+            failure
+            echo
+        else
+            echo -n "PID exists running ${APP_NAME} ${id} Under PID ${PID}"
+            success
+                        echo
+        fi
+    else
+        PID_APP=`pgrep -f "${APP_PATH} ${id}"`
+            if [ $? -eq 0 ]; then
+                            echo -n "PIDFILE Does not exist but Running for ${APP_NAME} ${id} PID ${PID_APP}"
+                            failure
+                            echo
+        else
+            fail=1
+            echo -n "${APP_NAME} ${id} is not running."
+            failure
+            echo
+            fi
+    fi
+}
+
+watchdog()
+{
+    if [ $# -ne 2 ]; then
+        echo "must have id variable set. varcount is $#"
+        exit 1
+    fi
+
+    id=$2
+
+    if [[  ${id} -lt 100 || ${id} -gt 102 ]]; then
+        echo "Range of ids is 100-102"
+        exit 1
+    fi
+
+    PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
+        check_status ${id}
+
+    if [ ${fail} -eq 1 ]; then
+        load_jruby
+        COMMAND="$JRUBY -e '$WRAPPER' '$PIDFILE' '$JRUBY' $ARG '${APP_PATH}' ${id}"
+        start_daemon ${id}
+    fi
+
+    # make sure it started up fine
+    if [ ${fail} -eq 1 ]; then
+        exit 1
+        fi
+}
+
+help()
+{
+
+        echo "Usage: service ${APP_NAME} {start|stop|restart|status|watchdog}"
+}
+
+case $1 in
+        start)
+        for id in {100..102}
+        do
+            load_jruby
+            PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
+            COMMAND="$JRUBY -e '$WRAPPER' '$PIDFILE' '$JRUBY' $ARG '${APP_PATH}' ${id}"
+                    start_daemon ${id}
+        done
+        ;;
+        stop)
+        for id in {100..102}
+        do
+            PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
+                    stop_daemon ${id}
+        done
+        ;;
+    status)
+        for id in {100..102}
+        do
+            PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
+                    check_status ${id}
+        done
+        ;;
+        restart)
+        for id in {100..102}
+                do
+            PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
+                        stop_daemon ${id}
+                done
+
+                sleep 1
+
+        for id in {100..102}
+                do
+            load_jruby
+            PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
+            COMMAND="$JRUBY -e '$WRAPPER' '$PIDFILE' '$JRUBY' $ARG '${APP_PATH}' ${id}"
+                        start_daemon ${id}
+                done
+    ;;
+    watchdog)
+        watchdog $@
+        ;;
+    *)
+        help
+        exit 1
+    ;;
+esac
+exit 0

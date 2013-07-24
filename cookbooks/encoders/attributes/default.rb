@@ -91,10 +91,12 @@ default[:encoders][:filemonitor][:postgres_jar] = "postgresql-9.0-801.jdbc4.jar"
 default[:encoders][:filemonitor][:static_files] = { 
     "/data/apps/filemonitor" => "filemonitor"
 }
+
 # talk links
 default[:encoders][:filemonitor][:talk_links] = { 
     "/PRN" => "/data/prn"
 }
+
 # mixins links
 default[:encoders][:filemonitor][:mixins_links] = { 
     "/Mixins" => "/data/encoder/tmp-ingestion/Mixins",
@@ -108,6 +110,19 @@ default[:encoders][:filemonitor][:ingestion_links] = {
     "/Talk_Audio" => "/data/encoder/tmp-ingestion/Talk_Audio",
     "/Utility" => "/data/encoder/tmp-ingestion/Utility"
 }
+
+
+# talk startup scripts
+default[:encoders][:talk][:manager][:startup_scripts] = [
+     "talk_scanner",
+     "talk_add_new",
+     "talk_manager"
+    ]
+
+default[:encoders][:talk][:converter][:startup_scripts] = [
+    "talk_converter"
+    ]
+
 
 
 default[:encoder][:filemonitor][:monitor_script] = "/data/apps/filemonitor/bin/fileMonitorService.sh"
