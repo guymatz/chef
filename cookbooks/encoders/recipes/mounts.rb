@@ -26,6 +26,12 @@ begin
         options "rw,vers=3,bg,soft,tcp,intr"
         action [:mount, :enable]
     end
+# legacy links
+    node[:encoders][:filemonitor][:ingestion_links].each do |target,src|
+        link target do
+            to src
+        end
+    end
 
     tag("encoder-mounts")
     end
