@@ -1,6 +1,6 @@
 # Deployment Settings
 default[:webplayer][:repo] = "git@github.com:iheartradio/web.git"
-default[:webplayer][:rev] = "release-4.14.0-chartreuse-rc4"
+default[:webplayer][:rev] = "release-4.14.1-chartreuse-rc1"
 default[:webplayer][:deploy_path] = "/data/www/webplayer"
 default[:webplayer][:geo_path] = "/data/www/webplayer/current/ihr/utils/data/geo"
 default[:webplayer][:geo_file_name] = "GeoIPCity.dat"
