@@ -10,7 +10,19 @@
 
 begin
   unless tagged?("encoder-ftp-deployed")
-#    ftp_mount_line = "#{node[:encoders][:nfsserver]}:/nfs#{node[:encoders][:ftp_mount]} #{node[:encoders][:ftp_mount]}       nfs   rw,vers=3,bg,soft,tcp,intr  0   0"
+
+    directory node[:encoders][:p_ftp_mount] do
+        owner "converter"
+        group "converter"
+        not_if do FileTest.directory?(node[:encoders][:p_ftp_mount]) end
+    end
+
+    mount node[:encoders][:p_ftp_mount] do
+        device "#{node[:encoders][:isilon_server]}:#{node[:encoders][:p_ftp_export]}"
+        fstype "nfs"
+        options "rw,vers=3,bg,soft,tcp,intr"
+        action [:mount, :enable]
+    end
 
 
     service "vsftpd" do
@@ -18,34 +30,11 @@ begin
         supports :status => true, :start => true, :stop => true, :restart => true
     end
 
-#    execute "mkdirs" do
-#        command "mkdir -p #{node[:encoders][:ftp_mount]}"
-#    end
-##
-#    execute "mounts" do
-#        command "/bin/mount -a"
-#        action :run
-#    end
-
-#    append_if_no_line "encoder_ftp" do
-#        path "/etc/fstab"
-#        line ftp_mount_line
-#        notifies :run, "execute[mkdirs]", :immediately
-#        notifies :run, "execute[mounts]", :immediately
-#    end
-
     node[:ftpserver].each do |pkg|
         yum_package pkg do
               arch "x86_64"
         end
     end
-
-   template "/etc/vsftpd/vuser/music_users.txt" do
-       source "music_users.txt"
-       owner "root"
-       group "root"
-       mode 0400
-   end
 
 
 ##
@@ -78,7 +67,7 @@ begin
     bash "createdb" do
         code <<-EOF
             /usr/bin/db_load -T -t hash -f /etc/vsftpd/vuser/music_users.txt /etc/vsftpd/vuser/music_vusers.db
-            #rm -f /etc/vsftpd/vuser/music_users.txt
+            rm -f /etc/vsftpd/vuser/music_users.txt
         EOF
     end
 
