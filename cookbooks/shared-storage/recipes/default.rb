@@ -21,7 +21,7 @@ node.save
 end
 
 cron_d "remove_old_logs" do
-  command "find /data/logs/*/*/* -maxdepth 0 -type d -mtime +3 -exec rm -rf {} \; > /dev/null 2>&1"
+  command "find /data/logs/*/*/* -maxdepth 0 -type d -mtime +3 -exec rm -rf {} \\; > /dev/null 2>&1"
   hour 1
   minute 0
 end
