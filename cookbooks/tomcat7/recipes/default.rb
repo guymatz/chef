@@ -17,7 +17,6 @@
 # limitations under the License.
 #
 include_recipe "java"
-include_recipe "tomcat7::nagios"
 
 if File.readlines('/etc/passwd').grep(/#{node[:tomcat7][:user]}/).size == 0
   group node[:tomcat7][:group] do
