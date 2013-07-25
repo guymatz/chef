@@ -123,7 +123,17 @@ default[:encoders][:talk][:encoder][:startup_scripts] = {
     "/etc/init.d/talk_converter" => "talk_converter.erb"
     }
 
+# mixins startups scripts
+default[:encoders][:mixins][:manager][:startup_scripts] = {
+    "/etc/init.d/mixin_converte" => "mixin_converter.erb",
+    "/etc/init.d/mixin_manager" => "mixin_manager.erb"
+}
 
+# mixin crons
+default[:encoders][:mixins][:manager][:crons] = [
+    "/data/apps/converter/current/bin/cron/mixin_converter_check.sh",
+    "/data/apps/converter/current/bin/cron/mixins_manager_check.sh"
+]
 
 default[:encoder][:filemonitor][:monitor_script] = "/data/apps/filemonitor/bin/fileMonitorService.sh"
 
