@@ -119,7 +119,7 @@ default[:encoders][:talk][:manager][:startup_scripts] = {
      "/etc/init.d/talk_manager" => "talk_manager.erb"
     }
 
-default[:encoders][:talk][:converter][:startup_scripts] = {
+default[:encoders][:talk][:encoder][:startup_scripts] = {
     "/etc/init.d/talk_converter" => "talk_converter.erb"
     }
 
