@@ -1,15 +1,18 @@
 #!/bin/bash
 
+# Source files
 SOURCE="<%= node[:enrichment][:log][:source] %>"
 DEST="<%= node[:enrichment][:log][:dest] %>"
 USER="<%= node[:enrichment][:log][:user] %>"
 RETENTION="<%= node[:enrichment][:log][:retention] %>"
 
-cd $SOURCE
+# Source directory
+cd ${SOURCE%/*}
 for i in $(ls enrichmentMisses.txt.* | grep -v tgz)
 do
   tar zcvf $i.tgz $i
 done
 
-sudo -iu $USER rsync -i /home/ihr-deployer/.ssh/id_rsa  -avrpP --ignore-existing --delete $SOURCE $USER@$DEST
+# Runs as ihr-deployer
+/usr/bin/rsync -avrpP --ignore-existing --delete $SOURCE $USER@$DEST
 find . -name 'enrichmentMisses.txt.*' -mtime +$RETENTION -exec rm -f {} \;
