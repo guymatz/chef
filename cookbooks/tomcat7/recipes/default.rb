@@ -68,8 +68,12 @@ end
 
 bash "tomcat perms" do
   code "chown -R #{node[:tomcat7][:user]}.#{node[:tomcat7][:group]} #{node[:tomcat7][:install_path]};"\
-       "chmod 0775 #{node[:tomcat7][:install_path]}/logs;"\
-       "chmod 664 #{node[:tomcat7][:install_path]}/logs/*.log*"
+       "chmod 0775 #{node[:tomcat7][:install_path]}/logs"
+end
+
+bash "tomcat log perms" do
+  code "chmod 664 #{node[:tomcat7][:install_path]}/logs/*.log*"
+  only_if "test `find #{node[:tomcat7][:install_path]}/logs/* -name *.log`"
 end
 
 template "/etc/init.d/tomcat" do
