@@ -35,7 +35,7 @@ begin
     cron_d "logster-state" do
         minute  "1"
         hour    "0"
-        command "find /var/run/logster-state -mtime +1 -exec rm -f {} \\;"
+        command "find /var/run/logster-state -type f -mtime +1 -exec rm -f {} \\;"
     end
 
     # remove shitty logcheck cron that is broken on centos
