@@ -1,11 +1,11 @@
 default[:enrichment][:appdir] = "/data/apps/enrichment"
-default[:enrichment][:log][:source] = "/data/log/enrichment-consumer/enrichmentMisses.txt.*.tgz"
+default[:enrichment][:log][:source] = "/data/log/enrichment-consumer/"
 default[:enrichment][:log][:dest] = "iad-ss-nfs101-v600.ihr:/data/exports/files.ihrdev.com/Enrichment"
 default[:enrichment][:log][:retention] = "14" # days
 default[:enrichment][:log][:user] = "ihr-deployer"
 default[:playlog][:deploy_path] = "/data/jobs/playlog"
 default[:playlog][:repo] = "git@github.com:iheartradio/playlog.git"
-default[:playlog][:reference] = "8fe005b45432526ac2f36b3efe25e64984461e38"
+default[:playlog][:reference] = "6bcb3a7ca546f243681bae1c01b3ebdd34f9f4b3"
 default[:db_sync_tools][:deploy_path] = "/data/jobs/db-sync-tools"
 default[:db_sync_tools][:repo] = "git@github.com:iheartradio/amp-tools"
 default[:db_sync_tools][:reference] = "d74b373c8b76f0a6994a1bb8427b045d891e7add"
