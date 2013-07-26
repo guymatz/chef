@@ -204,6 +204,7 @@ end
 
 cron_d "Logrotate" do
   minute 0
+  hour 0
   command "/usr/sbin/logrotate -f /etc/logrotate.conf"
   user "root"
 end
