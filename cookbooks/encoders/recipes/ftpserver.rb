@@ -67,7 +67,7 @@ begin
     bash "createdb" do
         code <<-EOF
             /usr/bin/db_load -T -t hash -f /etc/vsftpd/vuser/music_users.txt /etc/vsftpd/vuser/music_vusers.db
-            rm -f /etc/vsftpd/vuser/music_users.txt
+            #rm -f /etc/vsftpd/vuser/music_users.txt
         EOF
     end
 
