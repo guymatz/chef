@@ -48,7 +48,7 @@ remote_file "/data/jobs/playlog/playlog_wrapper.sh" do
   mode 0755
 end
 cron_d "playlog_job" do
-  command "#/usr/bin/cronwrap iad-jobserver101a Playlog-ETL-Job \"/data/jobs/playlog/playlog_wrapper.sh\""
+  command "/usr/bin/cronwrap iad-jobserver101a Playlog-ETL-Job \"/data/jobs/playlog/playlog_wrapper.sh\""
   minute "22,52"
 end
 
@@ -74,7 +74,7 @@ remote_file "/data/jobs/talk_thumbs/talk_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/talk_thumbs/talk_thumbs_job.jar"
 end
 cron_d "talk_thumbs_job" do
-  command "#/usr/bin/cronwrap iad-jobserver101a Talk-Thumb-Radio-ETL-Job \"/usr/bin/java -jar /data/jobs/talk_thumbs/talk_thumbs_job.jar launch-context.xml talkthumbslogJob rundate=`/bin/date +\\%s`\""
+  command "/usr/bin/cronwrap iad-jobserver101a Talk-Thumb-Radio-ETL-Job \"/usr/bin/java -jar /data/jobs/talk_thumbs/talk_thumbs_job.jar launch-context.xml talkthumbslogJob rundate=`/bin/date +\\%s`\""
   minute 41
 end
 
@@ -98,7 +98,7 @@ remote_file "/data/jobs/talklog/talkbatch.properties" do
   source "http://yum.ihr/files/jobs/talklog/talkbatch.properties"
 end
 cron_d "talklog_job" do
-  command "#/usr/bin/cronwrap iad-jobserver101a Talklog-ETL-Job \"/usr/bin/java -jar /data/jobs/talklog/talklog_job.jar launch-context.xml talkJob rundate=`/bin/date +\\%s`\""
+  command "/usr/bin/cronwrap iad-jobserver101a Talklog-ETL-Job \"/usr/bin/java -jar /data/jobs/talklog/talklog_job.jar launch-context.xml talkJob rundate=`/bin/date +\\%s`\""
   minute 21
 end
 
@@ -132,7 +132,7 @@ remote_file "/data/jobs/live_thumbs/live_thumbs_job.jar" do
 source "http://yum.ihr/files/jobs/live_thumbs/live_thumbs_job.jar"
 end
 cron_d "live_thumbs_job" do
-command "#/usr/bin/cronwrap iad-jobserver101a Liveradio-Thumb-ETL-Job \"/usr/bin/java -jar /data/jobs/live_thumbs/live_thumbs_job.jar launch-context.xml liveradiothumbslogJob rundate=`/bin/date +\\%s`\""
+command "/usr/bin/cronwrap iad-jobserver101a Liveradio-Thumb-ETL-Job \"/usr/bin/java -jar /data/jobs/live_thumbs/live_thumbs_job.jar launch-context.xml liveradiothumbslogJob rundate=`/bin/date +\\%s`\""
 minute 51
 end
 
@@ -401,6 +401,12 @@ bash "set-migration-perms" do
   code 'chown -R ihr-deployer. /data/jobs/radiomigration'
 end
 db_user = Chef::EncryptedDataBagItem.load("sqlserver", "users")
+cron_d "radiomigration" do
+  command "/usr/bin/cronwrap iad-jobserver101a.ihr Radiomigration \"/data/jobs/radiomigration/ImportToDBFromCSV.sh localhost radio processed iad-dwh.prod.ihr appBatch #{db_user['appBatch']}\""
+  minute 50
+  hour 21
+  user 'ihr-deployer'
+end
 
 python_pip "pymongo" do
   version "2.5.1"
