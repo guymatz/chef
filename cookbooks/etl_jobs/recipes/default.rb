@@ -343,6 +343,7 @@ end
 directory "/data/log/enrichment-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"
+  mode 0775
 end
 directory "/var/run/enrichment-consumer" do
   owner "amqp-consumer"
