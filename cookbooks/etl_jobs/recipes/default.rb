@@ -150,7 +150,7 @@ source "http://yum.ihr/files/jobs/custom_thumbs/custom_thumbs_wrapper.sh"
 mode 0755
 end
 cron_d "custom_thumbs_job" do
-command "#/usr/bin/cronwrap iad-jobserver101a Customradio-Thumb-ETL-Job \"/data/jobs/custom_thumbs/custom_thumbs_wrapper.sh\""
+command "/usr/bin/cronwrap iad-jobserver101a Customradio-Thumb-ETL-Job \"/data/jobs/custom_thumbs/custom_thumbs_wrapper.sh\""
 minute 38
 end
 
