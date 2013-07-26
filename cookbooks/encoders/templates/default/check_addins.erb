@@ -24,8 +24,7 @@ then
     echo "Host parameter required"; exit 1;
 fi
 
-EMAIL_TO="thomasdrapeau@clearchannel.com"
-#EMAIL_TO="jakeplimack@clearchannel.com"
+EMAIL_TO="thomasdrapeau@clearchannel.com, leonardbedner@clearchannel.com"
 
 PROD='localhost'
 
@@ -46,9 +45,8 @@ do
       echo "STUCK - Emailing $EMAIL_TO"
       echo "Content-Type: text/html" > /tmp/prod.mixins.html
       if [[ $e == "$PROD" ]] ; then
-      /usr/bin/curl -s $URL >> /tmp/prod.mixins.html
-      SUBJECT="Add Ins Production is Stuck! Active Feeds ($ACTIVE) | Expired Feeds ($EXPIRED)"
-      /bin/mail -s "$SUBJECT\nContent-Type: text/html" $EMAIL_TO < /tmp/prod.mixins.html
+          SUBJECT="Add Ins Production is Stuck! Active Feeds ($ACTIVE) | Expired Feeds ($EXPIRED)"
+          /bin/mail -s "$SUBJECT\nContent-Type: text/html" $EMAIL_TO < /dev/null
       fi
   fi
 done
