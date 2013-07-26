@@ -91,10 +91,12 @@ default[:encoders][:filemonitor][:postgres_jar] = "postgresql-9.0-801.jdbc4.jar"
 default[:encoders][:filemonitor][:static_files] = { 
     "/data/apps/filemonitor" => "filemonitor"
 }
+
 # talk links
 default[:encoders][:filemonitor][:talk_links] = { 
     "/PRN" => "/data/prn"
 }
+
 # mixins links
 default[:encoders][:filemonitor][:mixins_links] = { 
     "/Mixins" => "/data/encoder/tmp-ingestion/Mixins",
@@ -110,11 +112,35 @@ default[:encoders][:filemonitor][:ingestion_links] = {
 }
 
 
+# talk startup scripts
+default[:encoders][:talk][:manager][:startup_scripts] = {
+     "/etc/init.d/talk_scanner" => "talk_scanner.erb",
+     "/etc/init.d/talk_add_new" => "talk_add_new.erb",
+     "/etc/init.d/talk_manager" => "talk_manager.erb"
+    }
+
+default[:encoders][:talk][:encoder][:startup_scripts] = {
+    "/etc/init.d/talk_converter" => "talk_converter.erb"
+    }
+
+# mixins startups scripts
+default[:encoders][:mixins][:manager][:startup_scripts] = {
+    "/etc/init.d/mixin_converte" => "mixin_converter.erb",
+    "/etc/init.d/mixin_manager" => "mixin_manager.erb"
+}
+
+# mixin crons
+default[:encoders][:mixins][:manager][:crons] = [
+    "/data/apps/converter/current/bin/cron/mixin_converter_check.sh",
+    "/data/apps/converter/current/bin/cron/mixins_manager_check.sh"
+]
+
 default[:encoder][:filemonitor][:monitor_script] = "/data/apps/filemonitor/bin/fileMonitorService.sh"
 
 # permanent isilon mounts
-default[:encoders][:ftp_mount_export] = "/ifs/inbound-ftp"
-default[:encoders][:ftp_mount_dir] = "/data/inbound-ftp"
-default[:encoders][:p_content_export] = "/ifs/content"
-default[:encoders][:p_content_dir] = "/data/content"
-default[:encoders][:isilon_server] = "iad-isilon101.ihr"
+#default[:encoders][:isilon_server] = "iad-isilon101.ihr"
+default[:encoders][:isilon_server] = "10.5.32.164"
+default[:encoders][:p_ftp_export] = "/ifs/inbound-ftp"
+default[:encoders][:p_ftp_mount] = "/data/inbound-ftp"
+default[:encoders][:p_encoder_export] = "/ifs/encoder"
+default[:encoders][:p_encoder_mount] = "/data/isi-encoder"

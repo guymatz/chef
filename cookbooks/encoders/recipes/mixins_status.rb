@@ -1,17 +1,32 @@
 begin
-  unless tagged?("mixins-deployed")
+  unless tagged?("mixins-status-deployed")
+    service "nagios-nrpe-server" do
+        supports :start => true, :stop => true, :status => true
+    end
 
-      cron "mixin_status" do
+    cron "mixin_status" do
         command "/data/apps/converter/status/mixin.sh > /dev/null 2>&1"
-        minute  "3"
+        minute  "*/3"
         hour    "*"
         day     "*"
         month   "*"
         weekday "*"
     end
 
-   tag("mixins-deployed")
+    template "#{node[:nagios][:plugin_dir]}/check_addins.sh" do
+        source "check_addins.erb"
+        owner node[:nagios][:user]
+        group node[:nagios][:group]
+        mode "755"
+    end
+
+    nagios_nrpecheck "Addins-Stale-Feeds-Percentage" do
+      command "#{node[:nagios][:plugin_dir]}/check_addins.sh"
+        action :add
+    end
+
+   tag("mixins-status-deployed")
    end
 rescue
-    untag("talk-deployed")
+    untag("mixins-status-deployed")
 end

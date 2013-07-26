@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+WARNING_THRESHOLD=55
+CRITICAL_THRESHOLD=45
+path="/api/"
+DEFAULT_STATE="UNKNOWN"
+host=`hostname`
+while getopts w:H:c:p:q o
+do  case "$o" in
+    w)  WARNING_THRESHOLD=$OPTARG;;
+    H)  host=$OPTARG;;
+    c)  CRITICAL_THRESHOLD=$OPTARG;;
+    p)  path=$OPTARG;;
+    [?])    echo "Usage: $0 -H <host> -w <warning_threshold> -c <critical_threshold>"
+        exit 1;;
+    esac
+done
+
+if [ -z $DEBUG ] ; then
+    DEBUG=0
+fi
+
+if [ "$host" == "" ]
+then
+    echo "Host parameter required"; exit 1;
+fi
+
+EMAIL_TO="thomasdrapeau@clearchannel.com, leonardbedner@clearchannel.com"
+
+PROD='localhost'
+
+for e in $PROD
+do
+  URL="http://$e/talkstatus/mixins.html"
+
+  res=$(/usr/bin/curl -s $URL | /bin/grep -i 'active feeds' | grep -Po '(?<=\()(\d+)')
+  ACTIVE=$(echo $res | awk '{print $1}')
+  EXPIRED=$(echo $res | awk '{print $2}')
+
+  if [ $DEBUG -gt 0 ] ; then
+      echo "ACTIVE: $ACTIVE"
+      echo "EXPIRED: $EXPIRED"
+  fi
+
+  if [ $ACTIVE -lt $EXPIRED ] ; then
+      echo "STUCK - Emailing $EMAIL_TO"
+      echo "Content-Type: text/html" > /tmp/prod.mixins.html
+      if [[ $e == "$PROD" ]] ; then
+          SUBJECT="Add Ins Production is Stuck! Active Feeds ($ACTIVE) | Expired Feeds ($EXPIRED)"
+          /bin/mail -s "$SUBJECT\nContent-Type: text/html" $EMAIL_TO < /dev/null
+      fi
+  fi
+done
+
+
+
+
+badpct=`echo "scale=2;((${EXPIRED} - ${ACTIVE}) / ${ACTIVE})*100"|bc`
+pct=${badpct#-}
+cg=`echo "$pct < ${CRITICAL_THRESHOLD}" | bc`
+wg=`echo "$pct < ${WARNING_THRESHOLD}" | bc`
+#
+if [[ ${cg} -eq 1  ]]
+then
+    echo "CRITICAL - ${pct}%"
+    exit 2
+elif [[ ${wg} -eq 1  ]]
+then
+    echo "WARNING - ${pct}%"
+    exit 1
+else
+    echo "OK - ${pct}%"
+    exit 0
+fi

@@ -6,7 +6,7 @@ logrotate_app "syslog" do
        '/var/log/secure '\
        '/var/log/spooler '\
        '/var/log/daemon.log '\
-       '/var/log/mail.*'
+       '/var/log/mail.log'
   options ["sharedscripts", "compress"]
   postrotate "/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true"
   frequency "daily"

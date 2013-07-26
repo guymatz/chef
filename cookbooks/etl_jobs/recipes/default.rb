@@ -48,7 +48,7 @@ remote_file "/data/jobs/playlog/playlog_wrapper.sh" do
   mode 0755
 end
 cron_d "playlog_job" do
-  command "/usr/bin/cronwrap iad-jobserver101a Playlog-ETL-Job \"/data/jobs/playlog/playlog_wrapper.sh\""
+  command "#/usr/bin/cronwrap iad-jobserver101a Playlog-ETL-Job \"/data/jobs/playlog/playlog_wrapper.sh\""
   minute "22,52"
 end
 
@@ -74,7 +74,7 @@ remote_file "/data/jobs/talk_thumbs/talk_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/talk_thumbs/talk_thumbs_job.jar"
 end
 cron_d "talk_thumbs_job" do
-  command "/usr/bin/cronwrap iad-jobserver101a Talk-Thumb-Radio-ETL-Job \"/usr/bin/java -jar /data/jobs/talk_thumbs/talk_thumbs_job.jar launch-context.xml talkthumbslogJob rundate=`/bin/date +\\%s`\""
+  command "#/usr/bin/cronwrap iad-jobserver101a Talk-Thumb-Radio-ETL-Job \"/usr/bin/java -jar /data/jobs/talk_thumbs/talk_thumbs_job.jar launch-context.xml talkthumbslogJob rundate=`/bin/date +\\%s`\""
   minute 41
 end
 
@@ -98,7 +98,7 @@ remote_file "/data/jobs/talklog/talkbatch.properties" do
   source "http://yum.ihr/files/jobs/talklog/talkbatch.properties"
 end
 cron_d "talklog_job" do
-  command "/usr/bin/cronwrap iad-jobserver101a Talklog-ETL-Job \"/usr/bin/java -jar /data/jobs/talklog/talklog_job.jar launch-context.xml talkJob rundate=`/bin/date +\\%s`\""
+  command "#/usr/bin/cronwrap iad-jobserver101a Talklog-ETL-Job \"/usr/bin/java -jar /data/jobs/talklog/talklog_job.jar launch-context.xml talkJob rundate=`/bin/date +\\%s`\""
   minute 21
 end
 
@@ -118,7 +118,7 @@ remote_file "/data/jobs/skiplog/skipbatch.properties" do
   source "http://yum.ihr/files/jobs/skiplog/skipbatch.properties"
 end
 cron_d "skiplog_job" do
-  command "/usr/bin/cronwrap iad-jobserver101a Skiplog-ETL-Job \"/usr/bin/java -jar /data/jobs/skiplog/skiplog_job.jar launch-context.xml skiplogJob rundate=`/bin/date +\\%s`\""
+  command "#/usr/bin/cronwrap iad-jobserver101a Skiplog-ETL-Job \"/usr/bin/java -jar /data/jobs/skiplog/skiplog_job.jar launch-context.xml skiplogJob rundate=`/bin/date +\\%s`\""
   minute 17
 end
 
@@ -132,7 +132,7 @@ remote_file "/data/jobs/live_thumbs/live_thumbs_job.jar" do
 source "http://yum.ihr/files/jobs/live_thumbs/live_thumbs_job.jar"
 end
 cron_d "live_thumbs_job" do
-command "/usr/bin/cronwrap iad-jobserver101a Liveradio-Thumb-ETL-Job \"/usr/bin/java -jar /data/jobs/live_thumbs/live_thumbs_job.jar launch-context.xml liveradiothumbslogJob rundate=`/bin/date +\\%s`\""
+command "#/usr/bin/cronwrap iad-jobserver101a Liveradio-Thumb-ETL-Job \"/usr/bin/java -jar /data/jobs/live_thumbs/live_thumbs_job.jar launch-context.xml liveradiothumbslogJob rundate=`/bin/date +\\%s`\""
 minute 51
 end
 
@@ -150,7 +150,7 @@ source "http://yum.ihr/files/jobs/custom_thumbs/custom_thumbs_wrapper.sh"
 mode 0755
 end
 cron_d "custom_thumbs_job" do
-command "/usr/bin/cronwrap iad-jobserver101a Customradio-Thumb-ETL-Job \"/data/jobs/custom_thumbs/custom_thumbs_wrapper.sh\""
+command "#/usr/bin/cronwrap iad-jobserver101a Customradio-Thumb-ETL-Job \"/data/jobs/custom_thumbs/custom_thumbs_wrapper.sh\""
 minute 38
 end
 

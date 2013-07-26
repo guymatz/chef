@@ -1,4 +1,11 @@
 #!/bin/bash
+# #########################################
+# 
+# @Changelog:
+# GP - 7/22/13 - Implemented the -i switch the rest of the way
+# 			   - Adjusted some of the conditionals
+# @TODO - Add Better logging to show run times -GP
+# #########################################
 
 interval=5
 BASEDIR=<%= @tomcat_dir %>/logs
@@ -15,13 +22,12 @@ do	case "$o" in
 	esac
 done
 
-if [ "$host" == "" ]
-then
-	echo "Host parameter required"; exit 1;
-fi
-if [ $interval -lt 1 ]
-then
-	echo "Interval must be an integer greater than 0"; exit 1;
-fi
+[[ "$host" == "" ]] \
+	&& echo "Host parameter required" \
+	&& exit 1;
 
-find $BASEDIR/ -maxdepth 1 -name "*extended*" -mmin -5 | sort -r |head -3 | xargs -r <%= @script_dir %>/api-logs.py
+[[ $interval -lt 1 ]] \
+	&& echo "Interval must be an integer greater than 0" \
+	&&  exit 1;
+
+find $BASEDIR/ -maxdepth 1 -name "extended*" -mmin -${interval} | sort -r | head -3 | xargs -r <%= @script_dir %>/api-logs.py
