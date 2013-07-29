@@ -1,1 +1,8 @@
-Response: Cannot load data bag users item splunk
+{
+    "id": "splunk",
+    "uid": 4000,
+    "name": "Splunk User",
+    "email": "ccd-sa@clearchannel.com",
+    "groups": ["logclient"], 
+    "ssh_keys": []
+}
