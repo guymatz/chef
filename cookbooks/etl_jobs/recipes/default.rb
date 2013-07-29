@@ -119,7 +119,7 @@ remote_file "/data/jobs/skiplog/skipbatch.properties" do
   source "http://yum.ihr/files/jobs/skiplog/skipbatch.properties"
 end
 cron_d "skiplog_job" do
-  command "#/usr/bin/cronwrap iad-jobserver101a Skiplog-ETL-Job \"/usr/bin/java -jar /data/jobs/skiplog/skiplog_job.jar launch-context.xml skiplogJob rundate=`/bin/date +\\%s`\""
+  command "/usr/bin/cronwrap iad-jobserver101a Skiplog-ETL-Job \"/usr/bin/java -jar /data/jobs/skiplog/skiplog_job.jar launch-context.xml skiplogJob rundate=`/bin/date +\\%s`\""
   minute 17
 end
 
