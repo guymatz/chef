@@ -5,6 +5,10 @@ description      "Installs/Configures a Splunk Server, Forwarders, and Apps"
 version          "0.1.1"
 
 depends "logrotate"
+#GP edit 7/29/13 - added to create the splunk user/group used by forwarder
+depends "users"
+
+
 %w{redhat centos fedora debian ubuntu}.each do |os|
   supports os
 end
