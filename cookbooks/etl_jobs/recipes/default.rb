@@ -409,6 +409,10 @@ cron_d "radiomigration" do
   user 'ihr-deployer'
 end
 
+template "/etc/odbcinst.ini" do
+  source "odbcinst.ini"
+end
+
 python_pip "pymongo" do
   version "2.5.1"
   action :install
