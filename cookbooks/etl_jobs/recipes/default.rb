@@ -12,6 +12,7 @@ package "jdk"
 package "freetds"
 package "dos2unix"
 package "postgresql-devel"
+package "unixODBC-devel"
 
 directory "/data"
 directory "/data/jobs"
@@ -413,6 +414,9 @@ python_pip "pymongo" do
   action :install
 end
 python_pip "psycopg2" do
+  action :install
+end
+python_pip "pyodbc" do
   action :install
 end
 directory "#{node[:db_sync_tools][:deploy_path]}"
