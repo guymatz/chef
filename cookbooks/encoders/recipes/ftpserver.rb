@@ -94,6 +94,16 @@ begin
         weekday "*"
     end
 
+    #GP Edit - 7/30/13 Log rotation for all *.log files in /var/log/manager REF:OPS-4768
+    logrotate_app "enc_manager_logs" do
+        cookbook "logrotate"
+        path "/var/log/manager/*.log"
+        frequency "daily"
+        rotate 4
+        options ["missingok", "compress", "copytruncate", "notifempty"]
+        create "644 root root"
+    end
+
     tag("encoder-ftp-deployed")
     end
 rescue
