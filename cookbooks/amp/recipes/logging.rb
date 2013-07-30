@@ -79,7 +79,7 @@ template "#{node[:amp][:logging][:script_path]}/tomcat-rotate.sh" do
 end
 
 cron_d "amp-rotate-tomcat-logs" do
-  min "0"
+  minute "0"
   hour "2"
   command "#{node[:amp][:logging][:script_path]}/tomcat-rotate.sh"
   #user node[:amp][:logging][:user]
