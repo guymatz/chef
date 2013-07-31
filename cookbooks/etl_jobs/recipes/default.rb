@@ -447,7 +447,7 @@ git "/data/jobs/amp-tools" do
   reference "master"
 end
 cron_d "ampstationsdata" do
-  command "/usr/bin/cronwrap iad-jobserver101a.ihr Ampstationsdata-Job \"/data/jobs/amp-tools/amp-scripts/AmpStationsData/AmpStationsData.sh\""
+  command "#/usr/bin/cronwrap iad-jobserver101a.ihr Ampstationsdata-Job \"/data/jobs/amp-tools/amp-scripts/AmpStationsData/AmpStationsData.sh\""
   minute 0
   hour 2
 end

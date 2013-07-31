@@ -1,5 +1,5 @@
 {
   "id": "FileWatcher-jsvc",
-  "host_name": "iad-encingestion101.ihr",
+  "host_name": "iad-encingestion101",
   "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c FileWatcher-jsvc -t 20"
 }
