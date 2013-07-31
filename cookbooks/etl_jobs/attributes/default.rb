@@ -3,6 +3,7 @@ default[:enrichment][:log][:source] = "/data/log/enrichment-consumer/"
 default[:enrichment][:log][:dest] = "iad-ss-nfs101-v600.ihr:/data/exports/files.ihrdev.com/Enrichment"
 default[:enrichment][:log][:retention] = "14" # days
 default[:enrichment][:log][:user] = "ihr-deployer"
+default[:enrichment][:log][:sudo_user] = "amqp-consumer"
 default[:playlog][:deploy_path] = "/data/jobs/playlog"
 default[:playlog][:repo] = "git@github.com:iheartradio/playlog.git"
 default[:playlog][:reference] = "6bcb3a7ca546f243681bae1c01b3ebdd34f9f4b3"

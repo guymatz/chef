@@ -4,15 +4,16 @@
 SOURCE="<%= node[:enrichment][:log][:source] %>"
 DEST="<%= node[:enrichment][:log][:dest] %>"
 USER="<%= node[:enrichment][:log][:user] %>"
+SUDO_USER="<%= node[:enrichment][:log][:sudo_user] %>"
 RETENTION="<%= node[:enrichment][:log][:retention] %>"
 
 # Source directory
 cd ${SOURCE}
 for i in $(ls enrichmentMisses.txt.* | grep -v tgz)
 do
-  tar zcvf $i.tgz $i
+  sudo -u $SUDO_USER tar zcvPf ${SOURCE}/$i.tgz ${SOURCE}/$i
 done
 
 # Runs as ihr-deployer
 /usr/bin/rsync -avrpP --ignore-existing --delete $SOURCE $USER@$DEST
-find . -name 'enrichmentMisses.txt.*' -mtime +$RETENTION -exec rm -f {} \;
+find ${SOURCE} -name 'enrichmentMisses.txt.*' -mtime +$RETENTION | xargs sudo -u $SUDO_USER rm

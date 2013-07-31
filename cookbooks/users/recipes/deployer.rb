@@ -6,8 +6,20 @@ end
 
 sudo "ihr-deployer" do
   group "ihr-deployer"
-  commands ["/bin/rm -f /data/apps/tomcat7/logs/event.log.*", "/bin/rm -f /data/apps/tomcat7/logs/sysinfo.log.*"]
+  commands [
+             "/bin/rm -f /data/apps/tomcat7/logs/event.log.*",
+             "/bin/rm -f /data/apps/tomcat7/logs/sysinfo.log.*",
+           ]
   runas "root"
+  nopasswd true
+end
+
+sudo "amqp-consumer" do
+  group "ihr-deployer"
+  commands [
+             "/bin/tar zcvPf /data/log/enrichment-consumer/enrichmentMisses.txt.* *",
+	     "/bin/rm /data/log/enrichment-consumer/enrichmentMisses.txt.*"
+  runas "amqp-consumer"
   nopasswd true
 end
 

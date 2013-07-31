@@ -40,5 +40,6 @@ default_attributes ({
                       },
                       "snmp" => {
                         "community" => "37cd175ce59c39f191"
-                      }
+                      },
+                      "admin_email" => "ccd-sa@clearchannel.com"
                     })
