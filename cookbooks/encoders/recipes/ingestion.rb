@@ -71,8 +71,6 @@ begin
           mode "775"
     end
 
-    end
-
     # Two processes here, since a java proc spawns a child with the same name
     nagios_nrpecheck "FileWatcher-jsvc" do
       command "#{node['nagios']['plugin_dir']}/check_procs"
