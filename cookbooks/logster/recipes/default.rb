@@ -35,6 +35,7 @@ begin
     cron_d "logster-state" do
         minute  "1"
         hour    "0"
+        mailto node['admin_email']
         command "find /var/run/logster-state -type f -mtime +1 -exec rm -f {} \\;"
     end
 
