@@ -439,3 +439,15 @@ cron_d "db-sync-tools" do
   minute 15
   hour 2
 end
+
+# Added per OPS-4937
+directory "/data/log/ampstationsdata"
+git "/data/jobs/amp-tools" do
+  repository "git@github.com:iheartradio/amp-tools.git"
+  reference "master"
+end
+cron_d "ampstationsdata" do
+  command "/usr/bin/cronwrap iad-jobserver101a.ihr ampstationsdata \"/data/jobs/amp-tools/amp-scripts/AmpStationsData/AmpStationsData.sh\""
+  minute 0
+  hour 2
+end
