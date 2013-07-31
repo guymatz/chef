@@ -1,6 +1,6 @@
 
 begin
-  unless tagged?("ingestion-deployed")
+  unless tagged?("ingestion-manager-deployed")
 
     template "#{node[:tomcat7][:install_path]}/bin/setenv.sh" do
           source "setenv.sh.erb"
@@ -69,8 +69,6 @@ begin
 
     file node[:encoder][:filemonitor][:monitor_script] do
           mode "775"
-    end
-
     end
 
     # Two processes here, since a java proc spawns a child with the same name
