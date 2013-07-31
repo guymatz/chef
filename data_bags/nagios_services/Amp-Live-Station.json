@@ -1,5 +1,5 @@
 {
     "id": "Amp-Live-Station",
     "hostgroup_name": "amp",
-    "command_line": "$USER1$/check_http -v -H $HOSTADDRESS$ -p 8080  -u '/api/v1/liveRadio/14/all?f1_ownerProfileId=14&profileId=14&sessionId=ZL6NN8ziKk6IQp7cC9f23A%3D%3D&lastModifiedDate=0&orderBy=NAME' --onredirect=follow -e 'HTTP/1.1 200'"
+    "command_line": "$USER1$/check_http -v -H $HOSTADDRESS$ -p 8080  -u '/api/v1/liveRadio/14/all?f1_ownerProfileId=14&profileId=14&sessionId=Rws66e2K84PpwiE5uCaH6w%3D%3D&lastModifiedDate=0&orderBy=NAME' --onredirect=follow -e 'HTTP/1.1 200'"
 }

@@ -17,6 +17,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+# GP Edit 7/29/13 - added users recipe to add splunk user/group
+include_recipe "users::splunk"
+
 directory "/opt" do
   mode "0755"
   owner "root"

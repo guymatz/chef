@@ -1,0 +1,11 @@
+{
+    "id": "jisles",
+    "uid": 50224,
+    "name": "Jack Isles",
+    "email": "JackIsles@clearchannel.com",
+    "groups": ["cnpuser"],
+    "shell":    "/bin/bash",
+    "ssh_keys": [
+       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDg4Zu7NRXvbShl0y4uKKv38Y6yIEl1HJuPBet7VCS+drTxYZ8ExtL+PD+vZ0DqdC7R6zmpZ468W8GD1vxGLNX0sA1NHSbKkUBdCZJhly6IgKjvspiNSy4ijYQc4LG4G+B/i+aU+/eWJpITj4y8OEi0Lflkyhnxoe5aJNRVf1IMltDByHy5PesGIcLSGunXxyj5rm51sQIFW5n17T7Hf66RCJGjDl7ZY7cBTywXRi+8Icp2vX1HePduNzyV+VsDsZg5AOtvOqZWd1tvJ3VzATBfp2oave/6k5WVbbINpCKMyYUhOT5SSGa1kIhVquEAHIq57+dKSqP3vUAuJpLyDLc3 lisles@lisles-mb"
+    ]
+}

@@ -16,7 +16,7 @@ end
 cron_d "etl-enrichment-rsync-logs" do
   user node[:enrichment][:log][:user]
   mailto node[:admin_email]
-  min "0"
+  minute "0"
   hour "5"
   command "/usr/bin/cronwrap use1b-jobserver101a sync-enrichment \"#{node[:enrichment][:appdir]}/sync-enrichment-logs.sh\""
 end

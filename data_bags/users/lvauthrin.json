@@ -7,6 +7,7 @@
     "nagios": {
         "email": "laurentvauthrin@clearchannel.com"
     },
+    "htpasswd": "{SHA}UMSgGIz+mv9Fd7TcOKM+7ICLbHQ=",
     "ssh_keys": [
 "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKGxW+AzJBSVdGauKgyJnV8dyifd5QQpUzVobEXDTvyZNHNXx9U4SJyUO8Op0gFp+6WxqLAHFaepufUbFrAUep+k8aP+hlDP3SS75fuOiIReHHRBH1DHLbwYfU1gnjUp1QgWhKginfNiec2XjnCMhFNI/xse+/e+hOXieH6fJIcwCPNcLC8GbJ7y0bNF6sP2b8go3aJD6cG/5/TSBLDGH+a3fFkDKAL0g0D+Uddpf5gZSGs3mSQ4nDvZ/YKsPnkAfHAEV7oKRpkpWlZ61KE+1/DM6T4YAnhloM7W8kgUk9+rajzrsn1cOKWdY1xlBAx59765i8QJBUT64GpqcZ4nUl laurentvauthrin@clearchannel.com"
     ]
