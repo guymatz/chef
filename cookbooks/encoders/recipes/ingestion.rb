@@ -1,6 +1,6 @@
 
 begin
-  unless tagged?("ingestion-deployed")
+  unless tagged?("ingestion-manager-deployed")
 
     template "#{node[:tomcat7][:install_path]}/bin/setenv.sh" do
           source "setenv.sh.erb"
