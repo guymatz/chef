@@ -1,0 +1,20 @@
+{
+  "name": "dev",
+  "description": "",
+  "cookbook_versions": {
+  },
+  "json_class": "Chef::Environment",
+  "chef_type": "environment",
+  "default_attributes": {
+    "webplayer": {
+      "rev": "release-4.14.2-chartreuse-uat1",
+      "settings": {
+        "url": {
+          "site_host": "iad-devweb101.ihr"
+        }
+      }
+    }
+  },
+  "override_attributes": {
+  }
+}
