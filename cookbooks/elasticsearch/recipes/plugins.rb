@@ -14,11 +14,11 @@ unless tagged?("es-plugins-installed")
   end
 
   execute "install-ihrsearch-query-plugin" do
-    command "#{ES_HOME}/bin/plugin -url #{node[:elasticsearch][:url]}/es-plugins/es-query-plugin-1.0.zip -install ihr-query"
+    command "#{ES_HOME}/bin/plugin --url #{node[:elasticsearch][:url]}/es-plugins/es-query-plugin-1.0.zip --install ihr-query"
     cwd Chef::Config[:file_cache_path]
   end
   execute "install-ihrsearch-indexer-plugin" do
-    command "#{ES_HOME}/bin/plugin -url #{node[:elasticsearch][:url]}/es-plugins/es-indexer-plugin-1.0.zip -install ihr-index"
+    command "#{ES_HOME}/bin/plugin --url #{node[:elasticsearch][:url]}/es-plugins/es-indexer-plugin-1.0.zip --install ihr-index"
     cwd Chef::Config[:file_cache_path]
     notifies :restart, "service[elasticsearch]"
   end
