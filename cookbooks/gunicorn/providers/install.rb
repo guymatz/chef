@@ -22,6 +22,7 @@ action :install do
   python_virtualenv new_resource.virtualenv do
     interpreter new_resource.interpreter
     action :create
+    not_if { ::File.exists?(new_resource.virtualenv) }
   end if new_resource.virtualenv
 
   python_pip "gunicorn" do
