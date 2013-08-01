@@ -1,6 +1,6 @@
 [submodule "cookbooks/application"]
 	path = cookbooks/application
-	url = git@github.com:opscode-cookbooks/application.git
+	url = git@github.com:iheartradio/application.git
 [submodule "cookbooks/application_python"]
 	path = cookbooks/application_python
-	url = git@github.com:opscode-cookbooks/application_python.git
+	url = git@github.com:iheartradio/application_python.git
