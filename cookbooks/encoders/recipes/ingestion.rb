@@ -29,6 +29,7 @@ begin
         remote_directory dest do
             source src
             mode 0775
+        end
     end
 
 
