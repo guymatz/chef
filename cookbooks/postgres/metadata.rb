@@ -1,0 +1,15 @@
+name             'postgres'
+maintainer       'Wanelo, Inc'
+maintainer_email 'ops@wanelo.com'
+license          'Apache 2.0'
+description      'Installs/Configures postgres from sources, optimized for SmartOS, and ready for streaming replication'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version          '0.0.10'
+
+supports 'smartos'
+
+depends 'resource-control'
+depends 'rbac'
+depends 'smf', '>= 0.6.8'
+
+depends "psql"
