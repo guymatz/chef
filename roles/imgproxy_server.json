@@ -1,0 +1,20 @@
+{
+  "name": "imgproxy_server",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "ganglia": {
+      "cluster_name": "iad-imgproxy"
+    }
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "role[iad-imgproxy]",
+    "recipe[imgproxy]",
+    "recipe[imgproxy::nrpe]"
+  ],
+  "env_run_lists": {
+  }
+}

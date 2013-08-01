@@ -1,0 +1,16 @@
+{
+  "name": "amp_rabbit_server",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[rabbitmq::amp]",
+    "recipe[rabbitmq::amp_nrpe]"
+  ],
+  "env_run_lists": {
+  }
+}

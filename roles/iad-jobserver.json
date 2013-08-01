@@ -1,0 +1,18 @@
+{
+  "name": "iad-jobserver",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "ganglia": {
+      "cluster_name": "iad-jobserver"
+    }
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+
+  ],
+  "env_run_lists": {
+  }
+}

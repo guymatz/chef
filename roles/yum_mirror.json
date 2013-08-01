@@ -1,0 +1,16 @@
+{
+  "name": "yum_mirror",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[yumrepo::mirror]",
+    "recipe[yumrepo::local_repo]"
+  ],
+  "env_run_lists": {
+  }
+}
