@@ -2,6 +2,7 @@ name "attivio"
 description "Attivio Search"
 all_env = [
            "recipe[attivio]",
+           "recipe[attivio::cleanup]",
            "recipe[splunk::forwarder]"
           ]
 run_list(all_env)
