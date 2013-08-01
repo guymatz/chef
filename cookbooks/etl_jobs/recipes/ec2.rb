@@ -52,10 +52,10 @@ remote_file "/data/jobs/playlog/playlog_wrapper.sh" do
   source "http://yum.ihr/files/jobs/playlog/playlog_wrapper.sh"
   mode 0755
 end
-#cron_d "playlog_job" do
-#  command "/usr/bin/cronwrap use1b-jobserver101a Playlog-ETL-Job \"/data/jobs/playlog/playlog_wrapper.sh\""
-#  minute 22
-#end
+cron_d "playlog_job" do
+  command "/usr/bin/cronwrap use1b-jobserver101a Playlog-ETL-Job \"/data/jobs/playlog/playlog_wrapper.sh\""
+  minute 22
+end
 
 directory "/data/jobs/profile"
 directory "/data/log/profile"
