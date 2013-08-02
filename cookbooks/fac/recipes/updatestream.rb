@@ -77,7 +77,7 @@ end
 cron_d "fac-updatestream" do
   minute "0"
   hour "*/4"
-  command "cronwrap iad-jobserver101 fac-updatestream \"#{script_dir}/streaminfo/updateStream.sh\" 2>&1 > /var/log/fac-#{app}"
+  command "/usr/bin/cronwrap iad-jobserver101 fac-updatestream \"#{script_dir}/streaminfo/updateStream.sh\" 2>&1 > /var/log/fac-#{app}"
   user "nobody"
 end
 

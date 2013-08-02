@@ -19,6 +19,7 @@ sudo "amqp-consumer" do
   commands [
              "/bin/tar zcvPf /data/log/enrichment-consumer/enrichmentMisses.txt.* *",
 	     "/bin/rm /data/log/enrichment-consumer/enrichmentMisses.txt.*"
+  ]
   runas "amqp-consumer"
   nopasswd true
 end

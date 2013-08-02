@@ -1,0 +1,6 @@
+default[:news][:user]		='news'
+default[:news][:group]		='news'
+default[:news][:deployer]	='ihr-deployer'
+default[:news][:news_path]	='/data/apps/newsletter'
+default[:news][:repo]		='git@github.com:iheartradio/dfpemail.git'
+default[:news][:rev]		='8d16a5eb14d7292fd48d2e16ace09a263b4d648e'
