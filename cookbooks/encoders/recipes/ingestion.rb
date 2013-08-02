@@ -29,6 +29,7 @@ begin
         remote_directory dest do
             source src
             mode 0775
+        end
     end
 
 
@@ -73,7 +74,7 @@ begin
 
     # Two processes here, since a java proc spawns a child with the same name
     nagios_nrpecheck "FileWatcher-jsvc" do
-      command node[:nagios][:plugin_dir]/check_procs
+      command "#{node[:nagios][:plugin_dir]}/check_procs"
       warning_condition "2:2"
       critical_condition "2:2"
       parameters "-C jsvc"
