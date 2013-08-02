@@ -85,6 +85,6 @@ cron_d "fac-music" do
  minute "2"
  hour "0"
  weekday "2" # tuesday
- command "/usr/bin/cronwrap use1b-jobserver101a fac-music \"#{script_dir}/fac-incremental-runner.sh\""
+ command "/usr/bin/cronwrap iad-jobserver101a fac-music \"#{script_dir}/fac-incremental-runner.sh\""
  user "root"
 end
