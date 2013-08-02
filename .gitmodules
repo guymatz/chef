@@ -13,3 +13,6 @@
 [submodule "cookbooks/application_nginx"]
 	path = cookbooks/application_nginx
 	url = git@github.com:iheartradio/application_nginx.git
+[submodule "cookbooks/application_java"]
+	path = cookbooks/application_java
+	url = git@github.com:iheartradio/application_java.git
