@@ -8,7 +8,7 @@
     "splunk": {
         "forwarder_config_folder": "prod",
         "forwarder_role": "encoders"
-    }
+    },
     "tomcat": {
       "user" : "converter",
       "group" : "converter"
