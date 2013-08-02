@@ -77,7 +77,7 @@ end
 cron_d "fac-updatestream" do
   minute "0"
   hour "*/4"
-  command "/usr/bin/cronwrap iad-jobserver101 fac-updatestream \"#{script_dir}/streaminfo/updateStream.sh\" 2>&1 > /var/log/fac-#{app}"
+  command "/usr/bin/cronwrap iad-jobserver101a fac-updatestream \"#{script_dir}/streaminfo/updateStream.sh\" 2>&1 > /var/log/fac-#{app}"
   user "nobody"
 end
 
@@ -100,5 +100,5 @@ cron_d "fac-updatestream-t3dump" do
   hour "3"
   weekday "4"
   user "nobody"
-  command "/usr/bin/cronwrap iad-jobserver101 fac-updatestream-t3dump \"#{script_dir}/streaminfo/zip/t3_dump_zip.py"
+  command "/usr/bin/cronwrap iad-jobserver101a fac-updatestream-t3dump \"#{script_dir}/streaminfo/zip/t3_dump_zip.py"
 end
