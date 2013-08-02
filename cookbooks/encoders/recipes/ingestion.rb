@@ -76,7 +76,7 @@ begin
       command node[:nagios][:plugin_dir]/check_procs
       warning_condition "2:2"
       critical_condition "2:2"
-      parameters '-C jsvc'
+      parameters "-C jsvc"
       action :add
     end
 
