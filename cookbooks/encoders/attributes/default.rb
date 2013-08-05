@@ -123,6 +123,13 @@ default[:encoders][:talk][:encoder][:startup_scripts] = {
     "/etc/init.d/talk_converter" => "talk_converter.erb"
     }
 
+# number of converter procs to start:
+default ["talk_converters"]["num_processors"] = 5
+
+default[:encoders][:talk][:encoder][:monitor_scripts] = {
+    "/usr/local/bin/talk_converter_check.sh" => "talk_converter_check.erb"
+    }
+
 # mixins startups scripts
 default[:encoders][:mixins][:manager][:startup_scripts] = {
     "/etc/init.d/mixin_converte" => "mixin_converter.erb",
