@@ -46,7 +46,7 @@ elif [ $CWARN -gt 0 ]; then #if warning level reported
 
 else # all levels ok
 	#report ok to nags
-	echo "ALL OK: ${CNTSTR}" && exit 0;
 	#kill the temp file since all is well
-	rm -f $TFILE;
+	echo "ALL OK: ${CNTSTR}" && rm -f $TFILE && exit 0;
+	
 fi
