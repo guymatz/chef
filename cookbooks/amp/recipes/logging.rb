@@ -6,6 +6,9 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+# @CHANGELOG: 
+# - 8/5/13 GP Added in another amp extended log 500 rate check
+# ################################################
 
 directory node[:amp][:logging][:script_path] do
   owner node[:amp][:logging][:user]
@@ -55,11 +58,28 @@ template "#{node[:amp][:logging][:script_path]}/apiparse.py" do
   mode "0755"
 end
 
+
+# gp edit 8/5/13 ref JIRA:OPS-4922
+template "#{node[:amp][:logging][:script_path]}/amp-extended-log-chk.sh" do
+  source "amp-extended-log-chk.erb"
+  owner node[:amp][:logging][:user]
+  group node[:amp][:logging][:group]
+  mode "0755"
+end
+
+cron_d "amp-extended-log-chk" do
+  minute "*/5"
+  command "cronwrap #{node[:hostname]} amp-extended-log-chk \"#{node[:amp][:logging][:script_path]}/amp-extended-log-chk.sh\" 2>&1 >> #{node[:amp][:logging][:log_path]}/amp-extended-log-chk.log"
+end
+#END gp edit
+
+
 cron_d "amp-extended-log" do
   minute "*/5"
   command "cronwrap #{node[:hostname]} amp-extended-log \"#{node[:amp][:logging][:script_path]}/extended-api-log.sh\" 2>&1 >> #{node[:amp][:logging][:log_path]}/api-errors.log"
   #user node[:amp][:logging][:user]
 end
+
 
 cron_d "amp-log-purger" do
   minute "35"
