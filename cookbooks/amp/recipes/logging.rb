@@ -61,7 +61,7 @@ end
 
 # gp edit 8/5/13 ref JIRA:OPS-4922
 template "#{node[:amp][:logging][:script_path]}/amp-extended-log-chk.sh" do
-  source "amp-extended-log-chk.erb"
+  source "amp-extended-log-chk.sh.erb"
   owner node[:amp][:logging][:user]
   group node[:amp][:logging][:group]
   mode "0755"
