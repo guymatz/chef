@@ -7,6 +7,6 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.1.5'
 
 
-%w{ yum java line application_ruby tomcat7 logrotate nagios }.each do |dep|
+%w{ yum java line application_ruby tomcat7 logrotate nagios sudo }.each do |dep|
     depends dep
 end
