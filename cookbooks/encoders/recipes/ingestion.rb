@@ -74,10 +74,10 @@ begin
 
     # Two processes here, since a java proc spawns a child with the same name
     nagios_nrpecheck "FileWatcher-jsvc" do
-      command node[:nagios][:plugin_dir]/check_procs
+      command "#{node[:nagios][:plugin_dir]}/check_procs"
       warning_condition "2:2"
       critical_condition "2:2"
-      parameters '-C jsvc'
+      parameters "-C jsvc"
       action :add
     end
 
