@@ -49,7 +49,7 @@ template "#{script_dir}/#{start_script}" do
   owner "root"
   group "root"
   variables({
-    :envfile => "#{script_dir}/env.properties"
+    :envfile => "#{script_dir}/env.properties",
     :jarfile => "#{script_dir}/#{node['fac']['sherpa']['jarfile']}-#{node['fac']['sherpa']['version']}.jar"
   })
 end
