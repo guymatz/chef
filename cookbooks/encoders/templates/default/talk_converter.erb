@@ -135,8 +135,8 @@ watchdog()
 
     id=$2
 
-    if [[  ${id} -lt 100 || ${id} -gt <%= @num_converters %> ]]; then
-        echo "Range of ids is 100-<%= @num_converters %>"
+    if [[  ${id} -lt 100 || ${id} -gt 10<%= @num_converters %> ]]; then
+        echo "Range of ids is 100-10<%= @num_converters %>"
         exit 1
     fi
 
@@ -163,7 +163,7 @@ help()
 
 case $1 in
         start)
-        for id in {100..<%= @num_converters %>}
+        for id in {100..10<%= @num_converters %>}
         do
             load_jruby
             PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
@@ -172,21 +172,21 @@ case $1 in
         done
         ;;
         stop)
-        for id in {100..<%= @num_converters %>}
+        for id in {100..10<%= @num_converters %>}
         do
             PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
                     stop_daemon ${id}
         done
         ;;
     status)
-        for id in {100..<%= @num_converters %>}
+        for id in {100..10<%= @num_converters %>}
         do
             PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
                     check_status ${id}
         done
         ;;
         restart)
-        for id in {100..<%= @num_converters %>}
+        for id in {100..10<%= @num_converters %>}
                 do
             PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
                         stop_daemon ${id}
@@ -194,7 +194,7 @@ case $1 in
 
                 sleep 1
 
-        for id in {100..<%= @num_converters %>}
+        for id in {100..10<%= @num_converters %>}
                 do
             load_jruby
             PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid

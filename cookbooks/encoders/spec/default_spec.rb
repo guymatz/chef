@@ -1,10 +1,10 @@
-#require 'spec_helper'
-#
-#describe 'myface::default' do
-#  let(:chef_run) do
-#    run = ChefSpec::ChefRunner.new(platform: 'ubuntu', version: '12.04')
-#    run.converge('myface::default')
-#  end
+require 'spec_helper'
+
+describe 'encoders::talk_encoder' do
+  let(:chef_run) do
+    run = ChefSpec::ChefRunner.new()
+    run.converge('encoders::talk_encoder')
+  end
 #
 #  it 'installs apache2' do
 #    expect(chef_run).to install_package('apache2')
@@ -27,4 +27,4 @@
 #    expect(template.owner).to eq('root')
 #    expect(template.group).to eq('root')
 #  end
-#end
+end

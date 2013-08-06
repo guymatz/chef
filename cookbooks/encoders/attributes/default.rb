@@ -124,11 +124,9 @@ default[:encoders][:talk][:encoder][:startup_scripts] = {
     }
 
 # number of converter procs to start:
-default ["talk_converters"]["num_processors"] = 5
+default[:talk_converters][:num_processors] = "5"
 
-default[:encoders][:talk][:encoder][:monitor_scripts] = {
-    "/usr/local/bin/talk_converter_check.sh" => "talk_converter_check.erb"
-    }
+default[:encoders][:talk][:encoder][:monitor_scripts] = "talk_converter_check.erb"
 
 # mixins startups scripts
 default[:encoders][:mixins][:manager][:startup_scripts] = {
