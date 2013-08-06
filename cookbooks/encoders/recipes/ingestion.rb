@@ -33,11 +33,6 @@ begin
     end
 
 
-#    execute "webapp_dir" do
-#        command "mkdir -p #{node[:tomcat7][:install_path]}/webapps/"
-#        not_if { ::File.exists?("#{node[:tomcat7][:install_path]}/webapps/ingester")} 
-#    end
-
     cookbook_file "#{node[:tomcat7][:install_path]}/webapps/ingester.war" do
         source node[:encoders][:filemonitor][:ingester_war]
         mode 0555
@@ -58,11 +53,29 @@ begin
         not_if { ::File.exists?(node[:encoders][:filemonitor][:logdir])} 
     end
 
+
     template "/etc/init.d/fileMonitorService" do
         source "fileMonitorService.erb"
         owner "root"
         mode "0755"
     end
+
+    logrotate_app "filemonitor" do
+        path "/var/log/filemonitor/"
+        options ["missingok", "copytruncate", "compress", "notifempty"]
+        postrotate "/etc/init.d/fileMonitorService restart"
+        frequency "daily"
+        enable true
+        create "0644 nobody root"
+        rotate 2
+    end
+
+
+    remote_file "/data/apps/filemonitor/lib/filemonitor-1.0.jar" do
+          source "#{node[:encoders][:filemonitor][:ingestion_jar]}"
+          mode "0755"
+    end
+
 
     service "fileMonitorService" do
         action [:enable, :start]
