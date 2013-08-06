@@ -18,7 +18,7 @@
 TFILE=$(mktemp --suffix .$(date +%Y%m%d-%H-%I).amp_log.rpt)
 
 # craft a similar filename (s/rpt/err/) and redir stderr to it for any error output.
-2>${TFILE/rpt/err};
+ # 2>${TFILE/rpt/err};
 
 # see 'pipe flow' section in file header
 awk -v d=$(date -u -d '5 minutes ago' +%H%I%M) '/^[^#]/{gsub(/:/,"",$3);if($3 >= d)print $6,$5}' $(ls -rt /data/apps/tomcat7/logs/extended_localhost_access_log.*-*-*-*.log | tail -2) \
@@ -38,10 +38,10 @@ CNTSTR="#CRIT:${CCRIT},#WARN:${CWARN},#OK:${COK}";
 NAGMSG="Report:($(uname -n):${TFILE} RESULTS:(${CNTSTR})";
 
 # check to see if there were any 'not OK' levels, if so, fire most fear inspiring one present to nagios
-if [ $CCRIT -gt 0 ]; then #if critical level reported
+if [ $CCRIT -ne 0 ]; then #if critical level reported
 	echo "CRITICAL: ${NAGMSG}" && exit 2;
 
-elif [ $CWARN -gt 0 ]; then #if warning level reported
+elif [ $CWARN -ne 0 ]; then #if warning level reported
 	echo "WARNING: ${NAGMSG}" && exit 1;
 
 else # all levels ok
