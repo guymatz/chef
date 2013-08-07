@@ -19,7 +19,6 @@ for f in ${FILES}; do
 		&& ( [[ -f $f.tar.gz ]] && rm -fv $f ) \
 		|| echo "Error: [$(date)] $0 : Failed to compress file ($f)" >&2;
 done;
-popd #/data/apps/tomcat7/logs
 
 REMOVE=$(find /data/apps/tomcat7/logs -name 'localhost_access_log.*-*-*.txt*.gz' -mtime +10);
 echo "INFO: [$(date)] $0 : Targetting (${#REMOVE[@]}) compressed files for deletion";
@@ -27,3 +26,5 @@ echo "INFO: [$(date)] $0 : Targetting (${#REMOVE[@]}) compressed files for delet
 for f in ${REMOVE}; do
 	rm -fv $f
 done;
+
+popd #/data/apps/tomcat7/logs
