@@ -1,10 +1,4 @@
 {
-  "": {
-    "iv": "8AGcAbDYHE7TT+XWMXPrCw==\n",
-    "cipher": "aes-256-cbc",
-    "version": 1,
-    "encrypted_data": "AdwpA3KfRzzxyb5KbbGyxWoVWkSDRgnzxKftS+i8wtjFjz/kAs7Nr1WX4tra\n2Rmj\n"
-  },
   "VV": {
     "iv": "BmFzF69NSlJ5hfer8Juijg==\n",
     "cipher": "aes-256-cbc",
