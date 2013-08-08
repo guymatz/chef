@@ -1,0 +1,15 @@
+import datetime
+
+MONGOS = {
+    'default': {
+        'HOST': '<%= @news.mongo.join(',') %>',
+        'DATABASES': {
+            'default': {
+                'COLLECTIONS': ['who'],
+                'NAME': 'dfp',
+            },
+        }
+    },
+}
+SECRET_KEY = '<%=@news.secret_key%>'
+TTL = datetime.timedelta(hours=3)
