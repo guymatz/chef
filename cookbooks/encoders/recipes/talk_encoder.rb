@@ -15,7 +15,6 @@ begin
         end
     end
 
-#    node[:encoders][:talk][:encoder][:monitor_scripts].each do |script,template|
     template "/usr/local/bin/talk_encoder_check.sh" do
         source node[:encoders][:talk][:encoder][:monitor_scripts]
         owner "root"
@@ -24,13 +23,14 @@ begin
             :num_converters => node[:talk_converters][:num_processors]
         })
     end
-    cron "talk_encoder_check" do
+    cron_d "talk_encoder_check" do
         command "/usr/local/bin/talk_encoder_check.sh> /dev/null 2>&1"
         minute  "*/2"
         hour    "*"
         day     "*"
         month   "*"
         weekday "*"
+        user "root"
     end
 
 

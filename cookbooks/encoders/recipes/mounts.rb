@@ -1,7 +1,6 @@
 begin
   unless tagged?("encoder-mounts")
 
-
     directory node[:encoders][:p_encoder_mount] do
         owner "converter"
         group "converter"
@@ -26,6 +25,7 @@ begin
         options "rw,vers=3,bg,soft,tcp,intr"
         action [:mount, :enable]
     end
+
 # legacy links
     node[:encoders][:filemonitor][:ingestion_links].each do |target,src|
         link target do
