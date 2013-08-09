@@ -78,7 +78,7 @@ cron_d "fac-updatestream" do
   minute "0"
   hour "*/4"
   command "/usr/bin/cronwrap iad-jobserver101a fac-updatestream \"#{script_dir}/streaminfo/updateStream.sh\" 2>&1 > /var/log/fac-#{app}"
-  user "nobody"
+  user "root"
 end
 
 master = search(:node, "tags:es_master")

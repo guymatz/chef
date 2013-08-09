@@ -38,9 +38,19 @@ application "newsletter" do
   before_restart do
     bash "setup venv" do
       code <<-EOH
+      chown -R #{node[:news][:deployer]}. #{node[:news][:news_path]}
       . /data/apps/newsletter/shared/venv/bin/activate && \
-      pip install -r "/data/apps/newsletter/shared/cached-copy/requiments.txt"
+      pip install -r "/data/apps/newsletter/shared/cached-copy/requirements.txt"
       EOH
+    end
+    template "/data/apps/newsletter/current/dfp_settings.py" do
+      source "dfp_settings.py.erb"
+      owner node[:news][:user]
+      group node[:news][:group]
+      mode 0644
+      variables({
+              :news => node[:news]
+      })
     end
   end
   gunicorn do
@@ -50,6 +60,16 @@ application "newsletter" do
     workers 9
     virtualenv "/data/apps/newsletter/shared/venv"
   end
+end
+
+template "/data/apps/newsletter/current/dfp_settings.py" do
+     source "dfp_settings.py.erb"
+     owner node[:news][:user]
+     group node[:news][:group]
+     mode 0644
+     variables({
+             :news => node[:news]
+     })
 end
 
 bash "setup venv" do
