@@ -16,6 +16,7 @@ default[:elasticsearch][:group] = "elasticsearch"
 default[:elasticsearch][:shards] = "2"
 default[:elasticsearch][:replicas] = "1"
 default[:elasticsearch][:mlockall] = true
+default[:elasticsearch][:cluster_membership] = ""
 
 # ulimits
 default[:elasticsearch][:ulimits] = [{
