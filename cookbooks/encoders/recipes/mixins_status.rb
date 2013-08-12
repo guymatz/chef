@@ -4,13 +4,14 @@ begin
         supports :start => true, :stop => true, :status => true
     end
 
-    cron "mixin_status" do
+    cron_d "mixin_status" do
         command "/data/apps/converter/status/mixin.sh > /dev/null 2>&1"
         minute  "*/3"
         hour    "*"
         day     "*"
         month   "*"
         weekday "*"
+        user "root"
     end
 
     template "#{node[:nagios][:plugin_dir]}/check_addins.sh" do
