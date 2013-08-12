@@ -3,9 +3,9 @@
   "name":	"Jake Plimack",
   "email":	"",
   "action": "remove",
-  "groups":	["disabled"],
+  "groups":	["disabled","jplimack"],
   "shell":	"/bin/zsh",
-    "nagios": {
-    },
-    "uid": 5001
+  "nagios": {},
+  "uid": 5001,
+  "action" : "remove"
 }
