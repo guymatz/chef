@@ -23,7 +23,7 @@ remote_file "#{script_dir}/fac-#{app}.jar" do
 end
 
 remote_file "#{script_dir}/env.properties" do
-  download_url="#{node[:fac][:files_url]}/#{app}/env.properties"
+  download_url="#{node[:fac][:files_url]}/env.properties"
   source "#{download_url}"
   Chef::Log.info("Downloading fac-#{app} properties file from #{download_url}")
   mode "0755"

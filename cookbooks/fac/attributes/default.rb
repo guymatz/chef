@@ -4,7 +4,7 @@
 default[:fac][:PRN][:version] = "3.4.22"
 default[:fac][:talk][:version] = "3.4.38"
 default[:fac][:music][:version] = "3.4.30"
-default[:fac][:sherpa][:version] = "3.4.38"
+default[:fac][:sherpa][:version] = "3.4.42"
 default[:fac][:sherpa][:jarfile] = "FAC-sherpa"
 default[:fac][:radiobuild][:version] = "1.0.12"
 
