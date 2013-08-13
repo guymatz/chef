@@ -64,7 +64,8 @@ template "#{script_dir}/fac-incremental-runner.sh" do
   mode "0755"
   variables({
               :script_dir => script_dir,
-              :radiobuild_dir => "#{node[:fac][:script_path]}/radiobuild"
+              :radiobuild_dir => "#{node[:fac][:script_path]}/radiobuild",
+              :radiobuild2_dir => "#{node[:fac][:script_path]}/radiobuild2"
             })
 end
 
