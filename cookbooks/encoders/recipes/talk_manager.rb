@@ -11,40 +11,42 @@
 begin
     unless tagged?("talk-manager")
 
-    node[:encoders][:talk][:manager][:startup_scripts].each do |script,template|
+    node[:encoders][:talk][:manager][:startup_scripts].each do |script,tplate|
         template script do
-            source template
+            source tplate
             owner "root"
             mode "0755"
             variables({
                 :num_converters => node[:talk_scanner][:num_processors]
-            )}
+            })
         end
         service script.gsub(/\/etc\/init.d\//, "") do
             action [:enable]
         end
     end
 
-    node[:encoders][:talk][:manager][:monitor_scripts].each do |srpt|
-        template "/usr/local/bin/#{srpt}.sh" do
-            source "#{srpt}.erb"
-            owner "root"
-            mode "0755"
-            variables({
-                :num_scanners => node[:talk_scanners][:num_processors]
-            })
-        end
-
-    cron_d ${srpt} do
-            command "/usr/local/bin/#{srpt}.sh> /dev/null 2>&1"
-            minute  "*/2"
-            hour    "*"
-            day     "*"
-            month   "*"
-            weekday "*"
-            user "root"
+   node[:encoders][:talk][:manager][:monitor_scripts].each do |srpt|
+        log("1-----> looping through #{srpt}.")
+         template "/usr/local/bin/#{srpt}.sh" do
+             log(srpt)
+             source "#{srpt}.sh"
+             owner "root"
+             mode "0755"
+#             variables({
+#                 :num_scanners => node[:talk_scanners][:num_processors]
+#            })
         end
     end
+#        cron_d srpt do
+#            command "/usr/local/bin/#{srpt}.sh > /dev/null 2>&1"
+#            minute  "*/2"
+#            hour    "*"
+#            day     "*"
+#            month   "*"
+#            weekday "*"
+#            user "root"
+#        end
+#    end
 
     cron_d "talk_stagnant_file_check" do
         command "/data/apps/converter/current/bin/talk_stagnant_file_check.sh > /dev/null 2>&1"

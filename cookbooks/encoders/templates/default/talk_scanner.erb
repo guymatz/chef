@@ -24,6 +24,7 @@ load_jruby()
     JRUBY_HOME=/usr/local/lib/jruby
     JRUBY=$JRUBY_HOME/bin/jruby
     GEM=$JRUBY_HOME/bin/gem
+    export PATH=${PATH}:/usr/local/bin
     unset  GEM_PATH GEM_HOME
     export GEM_PATH=$($JRUBY $GEM environment gempath)
     export GEM_HOME=$($JRUBY $GEM environment gemhome)
@@ -133,8 +134,8 @@ watchdog()
 
     id=$2
 
-    if [[  ${id} -lt 100 || ${id} -gt 102 ]]; then
-        echo "Range of ids is 100-102"
+    if [[  ${id} -lt 100 || ${id} -gt 10<%= @num_scanners %> ]]; then
+        echo "Range of ids is 100-10<%= @num_scanners %>"
         exit 1
     fi
 
@@ -161,7 +162,7 @@ help()
 
 case $1 in
         start)
-        for id in {100..102}
+        for id in {100..10<%= @num_scanners %>}
         do
             load_jruby
             PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
@@ -170,37 +171,37 @@ case $1 in
         done
         ;;
         stop)
-        for id in {100..102}
+        for id in {100..10<%= @num_scanners %>}
         do
             PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
                     stop_daemon ${id}
         done
         ;;
     status)
-        for id in {100..102}
+        for id in {100..10<%= @num_scanners %>}
         do
             PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
-                    check_status ${id}
+                check_status ${id}
         done
         ;;
         restart)
-        for id in {100..102}
-                do
+        for id in {100..10<%= @num_scanners %>}
+        do
             PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
-                        stop_daemon ${id}
-                done
+            stop_daemon ${id}
+        done
 
-                sleep 1
+        sleep 1
 
-        for id in {100..102}
-                do
+        for id in {100..10<%= @num_scanners %>}
+        do
             load_jruby
             PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
             COMMAND="$JRUBY -e '$WRAPPER' '$PIDFILE' '$JRUBY' $ARG '${APP_PATH}' ${id}"
-                        start_daemon ${id}
-                done
+            start_daemon ${id}
+        done
     ;;
-    watchdog)
+watchdog)
         watchdog $@
         ;;
     *)
