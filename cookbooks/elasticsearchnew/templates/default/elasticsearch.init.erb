@@ -1,0 +1,37 @@
+#!/bin/bash
+# description: ElasticSearch Start Stop
+# chkconfig: 345 99 05
+# description: elastic search process
+
+. /etc/rc.d/init.d/functions
+
+IHR_SEARCH_HOME=<%= node[:elasticsearchnew][:ihrsearch_path] %>
+ES_HOME=$IHR_SEARCH_HOME/../elasticsearch
+ES_USER=<%= node[:elasticsearchnew][:user] %>
+
+export HOST=`/sbin/ifconfig | grep 10.5.1 | awk '{print $2}' | cut -d: -f2`
+ES_HEAP_SIZE="8g"
+ES_JAVA_OPTS="-server -Djava.rmi.server.hostname=${HOST} -Dcom.sun.management.jmxremote.port=8999 -Dcom.sun.management.jmxremote.ssl=false  -Dcom.sun.management.jmxremote.authenticate=false -Duser.timezone=US/Eastern -Dsun.net.client.defaultConnectTimeout=20000 -Dsun.net.client.defaultReadTimeout=20000"
+
+export ES_HEAP_SIZE ES_JAVA_OPTS
+
+
+case $1 in
+    start)
+        daemon --user "$ES_USER" sh $ES_HOME/bin/elasticsearch -Des.path.conf=$IHR_SEARCH_HOME/configs  -Des.path.logs=$IHR_SEARCH_HOME/logs/ -Des.path.data=$IHR_SEARCH_HOME/data/
+        ;;
+    stop)
+        curl -XPOST 'http://localhost:9200/_cluster/nodes/_local/_shutdown'
+        ;;
+    restart)
+        curl -XPOST 'http://localhost:9200/_cluster/nodes/_local/_shutdown'
+        echo "sleeping for 5 secs"
+        sleep 5
+        daemon --user "$ES_USER" sh $ES_HOME/bin/elasticsearch -Xms8G -Xmx8G  -Des.path.conf=$IHR_SEARCH_HOME/configs  -Des.path.logs=$IHR_SEARCH_HOME/logs/ -Des.path.data=$IHR_SEARCH_HOME/data/
+        ;;
+    *)
+        echo "Usage: run.sh {start|stop}"
+        exit 1
+        ;;
+esac
+exit 0
