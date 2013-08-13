@@ -22,5 +22,5 @@ begin
     tag("aladdin")
     end
 rescue
-    untag("alddin")
+    untag("aladdin")
 end
