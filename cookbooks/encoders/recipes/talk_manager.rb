@@ -31,10 +31,10 @@ begin
         #log(srpt)
         source "#{srpt}.erb"
         owner "root"
-        mode "0755"
-#        variables({
-#          :num_scanners => node[:talk_scanners][:num_processors]
-#        })
+        mode 0755
+        variables({
+            :num_scanners => node[:talk_scanner][:num_processors]
+        })
       end
     end
   #    cron_d srpt do
