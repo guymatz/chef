@@ -50,7 +50,7 @@ if [ $CCRIT -ne 0 ]; then #if critical level reported
 		mutt -s "AMP-LOG-ALERT: ${NAGMSG}" $i < <(
 			echo "REPORT FOR $(date +%Y%m%d-%H-%I)" \
 			&& echo "[endpoint] [#200s] [#500s] [%500s] [STATUS]" \
-			&& grep -v OK CRITICAL /tmp/tmp.6e5E66q0ug.20130814-11-11.amp_log.rpt
+			&& grep -v OK $TFILE
 		)
 	done;
 	echo "CRITICAL: ${NAGMSG}" && exit 2;
@@ -60,7 +60,7 @@ elif [ $CWARN -ne 0 ]; then #if warning level reported
 		mutt -s "AMP-LOG-ALERT: ${NAGMSG}" $i < <(
 			echo "REPORT FOR $(date +%Y%m%d-%H-%I)" \
 			&& echo "[endpoint] [#200s] [#500s] [%500s] [STATUS]" \
-			&& grep -v OK CRITICAL /tmp/tmp.6e5E66q0ug.20130814-11-11.amp_log.rpt
+			&& grep -v OK $TFILE
 		)
 	done;
 	echo "WARNING: ${NAGMSG}" && exit 1;
