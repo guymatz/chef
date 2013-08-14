@@ -11,4 +11,9 @@ default[:avamar][:cmd_backup]		= "#{default[:avamar][:bin_dir]}/avtar";
 default[:avamar][:cmd_backup]		= "#{default[:avamar][:bin_dir]}/avtar";
 
 
-default[:avamar][:default_backup_dir = "/data/backups"
+default[:avamar][:default_dir] = "/data/av_bakup"
+default[:avamar][:default_user] = "root"
+default[:avamar][:default_group] = "root"
+
+default[:avamar][:tag_initialized] = "avamar_initialized"
+default[:avamar][:tag_registered] = "avamar_registered"

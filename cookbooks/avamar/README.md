@@ -3,8 +3,10 @@ avamar Cookbook
 Installs, configures and registers a new Avamar backup client 
 
 avamar bin tools:
+===============
 
 executable: avscc
+---------------
 Usage: /usr/local/avamar/bin/avscc [OPTION...]
 
 
@@ -35,6 +37,7 @@ Usage: /usr/local/avamar/bin/avscc [OPTION...]
 
 
 executable: avtar
+---------------
 Usage:  avtar <Task> [Options...]
 
 Tasks:
@@ -131,6 +134,7 @@ Options:
 
 
 executable: avupdate
+---------------
 Usage: /usr/local/avamar/bin/avupdate [OPTION...]
 
 
