@@ -57,7 +57,7 @@ cluster_members = search(:node, "cluster_name:#{node[:elasticsearchnew][:cluster
 
 cluster_ips = Array.new
 cluster_members.each do |s|
-  cluster_ips << s[:network][:interfaces][:eth1][:addresses].keys.first
+  cluster_ips << s["network"]["interfaces"]["eth1.200"]["addresses"].to_hash.select {|addr, info| info["family"] == "inet"}.flatten.first
 end
 
 template "#{node[:elasticsearchnew][:ihrsearch_path]}/configs/elasticsearch.yml" do
