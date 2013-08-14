@@ -7,7 +7,7 @@ default[:avamar][:client_domain]	= "iheartradio";
 default[:avamar][:app_dir] 			= "/usr/local/avamar";
 default[:avamar][:bin_dir]			= "#{default[:avamar][:app_dir]}/bin";
 default[:avamar][:etc_dir]			= "#{default[:avamar][:app_dir]}/etc";
-default[:avamar][:cmd_register]		= "#{default[:avamar][:etc_dir]}/avagent.d register #{default[:avamar][:server_ip]} #{default[:avamar][:client_domain]}";
+default[:avamar][:cmd_register]		= "/etc/init.d/avagent register #{default[:avamar][:server_ip]} #{default[:avamar][:client_domain]}";
 default[:avamar][:cmd_backup]		= "#{default[:avamar][:bin_dir]}/avtar";
 
 
