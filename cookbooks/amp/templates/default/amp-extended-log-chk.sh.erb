@@ -19,7 +19,7 @@
 #			- Adjusted math to (#200+#500)*100/#500 as it's a more accurate representation of the percentage
 # #######################################################
 
-NOTIFY_LIST=("gregorypatmore@clearchannel.com")
+NOTIFY_LIST=("gregorypatmore@clearchannel.com" "JeremyBraff@clearchannel.com")
 
 # create an easy to locate temp file
 TFILE=$(mktemp --suffix .$(date +%Y%m%d-%H-%I).amp_log.rpt)
@@ -51,7 +51,7 @@ if [ $CCRIT -ne 0 ]; then #if critical level reported
 			echo "REPORT FOR $(date +%Y%m%d-%H-%I)" \
 			&& echo "[endpoint] [#200s] [#500s] [%500s] [STATUS]" \
 			&& grep CRITICAL /tmp/tmp.6e5E66q0ug.20130814-11-11.amp_log.rpt \
-			&& sudo grep WARNING /tmp/tmp.6e5E66q0ug.20130814-11-11.amp_log.rpt
+			&& grep WARNING /tmp/tmp.6e5E66q0ug.20130814-11-11.amp_log.rpt
 		)
 	done;
 	echo "CRITICAL: ${NAGMSG}" && exit 2;
