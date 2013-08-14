@@ -2,8 +2,9 @@
 
 # initializes a new host for avamar backups
 action :init do 
-	# t=node.tags.select {|i| i =~ /avamar_initialized/}
 	unless node.tags.include? "avamar_initialized"
+		Chef::Log.info("Registering host #{new_resource.name}")
+
 		# install the client rpm
 		yum_package "AvamarClient" do
 			arch "x86_64"
@@ -31,14 +32,33 @@ action :init do
 		end
 
 		node.tags << "avamar_initialized"
-		
+	Chef::Log.info("Initialized host #{new_resource.name}")
+
 	else 
-		Chef::Log.info("Host has already been initialized")
+		Chef::Log.info("Host #{new_resource.name} has already been initialized")
 
 	end
 end
 
 # register a new host with avamar system
 action :register do 
-	puts "REGISTERING! Resource name is #{new_resource.name}"
+	unless node.tags.include? "avamar_registered"
+		Chef::Log.info("Registering host #{new_resource.name}")
+
+		Chef::Log.info("Reg command is: #{node[:avamar][:cmd_register]}")
+
+		execute "register_avamar_node" do
+			command "#{node[:avamar][:cmd_register]}"
+			group "root"
+			user "root"
+			action :run
+		end
+
+		node.tags << "avamar_initialized"
+		Chef::Log.info("Registered host #{new_resource.name}")
+
+	else 
+		Chef::Log.info("Host #{new_resource.name} has already been registered")
+
+	end
 end
