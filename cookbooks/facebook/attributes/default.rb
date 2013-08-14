@@ -1,7 +1,7 @@
 
 
 default[:fbgraph][:deploy_path] = "/data/apps/fbgraph"
-default[:fbgraph][:version] = "20130515"
+default[:fbgraph][:version] = "20130814"
 default[:fbgraph][:url] = "http://files.ihrdev.com/fbgraph"
 
 default[:fbtomcat][:version] = "2013-05-17_15-39-59"

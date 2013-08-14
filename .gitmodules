@@ -1,24 +1,24 @@
 [submodule "cookbooks/application"]
 	path = cookbooks/application
-	url = git@github.com:iheartradio/application.git
+	url = git@github.ihrint.com:OPS/application.git
 	ignore = dirty
 [submodule "cookbooks/application_python"]
 	path = cookbooks/application_python
-	url = git@github.com:iheartradio/application_python.git
+	url = git@github.ihrint.com:OPS/application_python.git
 	ignore = dirty
 [submodule "cookbooks/application_ruby"]
 	path = cookbooks/application_ruby
-	url = git@github.com:iheartradio/application_ruby.git
+	url = git@github.ihrint.com:OPS/application_ruby.git
 	ignore = dirty
 [submodule "cookbooks/application_php"]
 	path = cookbooks/application_php
-	url = git@github.com:iheartradio/application_php.git
+	url = git@github.ihrint.com:OPS/application_php.git
 	ignore = dirty
 [submodule "cookbooks/application_nginx"]
 	path = cookbooks/application_nginx
-	url = git@github.com:iheartradio/application_nginx.git
+	url = git@github.ihrint.com:OPS/application_nginx.git
 	ignore = dirty
 [submodule "cookbooks/application_java"]
 	path = cookbooks/application_java
-	url = git@github.com:iheartradio/application_java.git
+	url = git@github.ihrint.com:OPS/application_java.git
 	ignore = dirty

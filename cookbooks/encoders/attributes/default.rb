@@ -141,12 +141,7 @@ default[:encoders][:talk][:manager][:startup_scripts] = {
 default[:encoders][:talk][:encoder][:monitor_scripts] = "talk_converter_check.erb"
 
 # Checks for manager (iad-encmanager103)
-default[:encoders][:talk][:manager][:monitor_scripts] = [
-    "talk_scanner_check",
-    "talk_add_new_check",
-    "talk_manager_check"
-]
-
+default[:encoders][:talk][:manager][:monitor_scripts] =  %w{talk_scanner_check talk_add_new_check talk_manager_check}
 
 ####
 #### MIXIN SPECIFIC
