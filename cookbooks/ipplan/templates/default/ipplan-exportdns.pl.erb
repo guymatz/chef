@@ -22,21 +22,25 @@ my $DSN = 'dbi:mysql:ipplan:host=<%= @db_server %>:port=3306';
 my $DBUSER = '<%= @db_user %>';
 my $DBPASS = '<%= @db_pass %>';
 
-my ( $event, $arg ) = @ARGV;
+# dir here means direction, as in forward (fwd) or reverse (rev)
+# net is either a domain name or subnet
+my ( $dir, $net ) = @ARGV;
 
 my $customer = 1;
-my @fwd_script = ('curl', "-u <%= @ipplan_user %>:<%= @ipplan_user %>", 'http://<%= @ipplan_url %>/user/modifydns.php?');
+my @fwd_script = ('curl', "-u <%= @ipplan_user %>:<%= @ipplan_user %>",
+                              'http://<%= @ipplan_url %>/user/modifydns.php?');
 my $fwd_query_base = "action=export&cust=$customer";
-my @rev_script = ('curl', "-u <%= @ipplan_user %>:<%= @ipplan_user %>", 'http://<%= @ipplan_url %>/user/modifyzone.php?');
+my @rev_script = ('curl', "-u <%= @ipplan_user %>:<%= @ipplan_user %>",
+                              'http://<%= @ipplan_url %>/user/modifyzone.php?');
 my $rev_query_base = "action=export&cust=$customer";
 
-if ( $event =~ /^12(0|1|2)$/ ) {
+if ( $event eq 'fwd' ) {
     to_syslog( "fwd dns actions for domain $arg" );
-    export_fwd_dns( $arg );
+    export_fwd_dns( $net );
 }
-elsif ( $event =~ /^13(0|1|2)$/ ){
+elsif ( $event eq 'rev' ){
     to_syslog( "rev dns actions for all zones" );
-    export_rev_dns( $arg );
+    export_rev_dns( $net );
     to_syslog("Done exporting rev-dns \n\n\n");
 }
 else {
