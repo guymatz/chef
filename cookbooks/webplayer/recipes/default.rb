@@ -123,10 +123,10 @@ execute "create_geo_path" do
   not_if { ::File.exists?(node[:webplayer][:geo_path]) }
 end
 
-remote_file "#{node[:webplayer][:geo_path]}/#{node[:webplayer][:geo_file_name]}" do
-  source "http://files.ihrdev.com/geo/GeoIPCity.dat"
-  not_if "test `find #{node[:webplayer][:geo_path]}/#{node[:webplayer][:geo_file_name]} -mtime +#{node[:webplayer][:geo_freshness]}`"
-end
+#remote_file "#{node[:webplayer][:geo_path]}/#{node[:webplayer][:geo_file_name]}" do
+#  source "http://files.ihrdev.com/geo/GeoIPCity.dat"
+#  not_if "test `find #{node[:webplayer][:geo_path]}/#{node[:webplayer][:geo_file_name]} -mtime +#{node[:webplayer][:geo_freshness]}`"
+#end
 
 service "httpd-apache2" do
   case node[:platform_family]
