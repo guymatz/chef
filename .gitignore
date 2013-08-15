@@ -25,3 +25,6 @@ tmp
 .yardoc
 _yardoc
 doc/
+
+# Ignore submodules
+cookbooks/application*
