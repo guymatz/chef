@@ -1,0 +1,147 @@
+#!/bin/bash
+#
+# chkconfig: 345 99 05
+# description: Jruby deamon script
+# Needs Gems: spoon bundler
+
+. /etc/init.d/functions
+
+# ---------------------------------------------------
+DIR=/data/apps/converter/current/bin
+APP_NAME=manager
+APP_PATH=${DIR}/${APP_NAME}.rb
+
+LOGFILE=/var/log/manager/$APP_NAME.log
+ERRFILE=/var/log/manager/$APP_NAME-error.log
+PIDFILE=/var/run/manager/$APP_NAME.pid
+USER=root
+ARG="--server -J-Djruby.jit.threshold=0"
+# ---------------------------------------------------
+
+JRUBY_HOME=/usr/local/lib/jruby
+JRUBY=$JRUBY_HOME/bin/jruby
+GEM=$JRUBY_HOME/bin/gem
+
+unset  GEM_PATH GEM_HOME
+export GEM_PATH=$($JRUBY $GEM environment gempath)
+export GEM_HOME=$($JRUBY $GEM environment gemhome)
+# ---------------------------------------------------
+
+WRAPPER='
+        require "rubygems";
+        require "spoon";
+        pid = Spoon.spawnp(*ARGV[1..-1]);
+        File.open(ARGV[0], "w") { |f| f << pid };
+        '
+
+COMMAND="$JRUBY -e '$WRAPPER' '$PIDFILE' '$JRUBY' $ARG '$APP_PATH'"
+
+# needed so root files on startup are 664 to allow for group write
+umask 0002
+
+# cd into working path
+cd ${DIR}
+
+start_daemon() {
+    echo "Starting $APP_NAME: "
+    check_pid
+    sudo -u ${USER} -E -s eval $COMMAND >> $LOGFILE 2>> $ERRFILE
+    sleep 1
+    check_status
+}
+
+stop_daemon() {
+    echo "Stopping $APP_NAME: "
+        if [ -e "$PIDFILE" ]; then
+                PID=`cat $PIDFILE`
+
+                while [ 1 ]; do
+                sudo -u ${USER} -E -s kill -TERM $PID 2> /dev/null
+                sleep 1
+                [ `ps $PID 2> /dev/null | grep $PID | wc -l` -eq 0 ] && break
+                done
+        ret=$?
+        [ $ret -eq 0 ] && success || failure
+                echo
+
+                rm $PIDFILE
+        else
+                echo "PID file not found."
+        failure
+        echo
+                exit 1
+        fi
+}
+
+check_pid() {
+    if [ -r ${PIDFILE} ] ; then
+        PID=`cat $PIDFILE`
+        ps -p $PID 2>&1 > /dev/null
+
+        if [ $? -ne 0 ]; then
+            echo "Stale PID file. Deleting "
+            rm $PIDFILE
+        else
+            echo " PIDFILE Exists and is running with PID ${PID}"
+                        failure
+                        echo
+                        exit 1
+        fi
+    else
+        PID_APP=`pgrep -f "$APP_PATH"`
+                if [ $? -eq 0 ]; then
+                    echo " PIDFILE Does not exist but Running with PID ${PID_APP}"
+            failure
+            echo
+            exit 1
+        fi
+    fi
+}
+
+check_status() {
+    if [ -r ${PIDFILE} ]; then
+        PID=`cat $PIDFILE`
+        PID_TEST=`ps -p $PID 2>&1 > /dev/null`
+        if [ $? -ne 0 ]; then
+            echo "Stale PID file. "
+            failure
+            echo
+            exit 1
+        else
+            echo " PIDFILE exists and is running ${APP_NAME} Under PID ${PID}"
+            success
+            echo
+            exit 0
+        fi
+    else
+        PID_APP=`pgrep -f "$APP_PATH"`
+            if [ $? -eq 0 ]; then
+                            echo " PIDFILE Does not exist but Running with PID ${PID_APP}"
+                            failure
+                            echo
+        else
+            echo "$APP_NAME is not running."
+            failure
+            echo
+            exit 1
+            fi
+    fi
+}
+
+case $1 in
+        start)
+                start_daemon
+        ;;
+        stop)
+                stop_daemon
+        ;;
+    status)
+                check_status
+        ;;
+        restart)
+                stop_daemon
+                sleep 1
+                start_daemon
+        ;;
+esac
+exit 0

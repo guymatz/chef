@@ -110,23 +110,42 @@ default[:encoders][:filemonitor][:static_files] = {
     "/data/apps/filemonitor" => "filemonitor"
 }
 
-#### TALK SPECIFIC 
-# talk links, specific to iad-enc103, iad-encmanager103
+###
+### This section determines how many startup scripts we will start on each set of boxes
+###
+default[:talk_converters][:num_processors] = "5"
+default[:talk_scanner][:num_processors] = "2"
+default[:music_converters][:num_processors] = 22
+default[:music_scanner][:num_processors] = 2
+
+
+
+###
+### music monitoring / startup scripts, iad-enc101, enc102
+###
+### Note:  I tried to originally make these templates that would be the same for all the different
+### hosts, but the script for music is just called scanner.rb, add_new.rb etc.   There is a version 2.0
+### script that exists which is music_scanner.rb, music_add_new.rb that is a non-functional next version
+### which throws the elegance of this script off totally.  boo
+###
+default[:encoders][:music][:encoder][:startup_scripts] = {
+    "/etc/init.d/music_converter" => "music_converter.erb"
+    }
+default[:encoders][:music][:manager][:startup_scripts] = {
+    "/etc/init.d/music_scanner" => "music_scanner.erb",
+    "/etc/init.d/music_add_new" => "music_add_new.erb",
+    "/etc/init.d/music_manager" => "music_manager.erb"
+    }
+
+default[:encoders][:music][:encoder][:monitor_scripts] = "converter_check.erb"
+
+###
+### TALK SPECIFIC 
+### talk links, specific to iad-enc103, iad-encmanager103
+###
 default[:encoders][:filemonitor][:talk_links] = { 
     "/PRN" => "/data/prn"
 }
-
-# talk startup scripts
-default[:encoders][:talk][:manager][:startup_scripts] = {
-     "/etc/init.d/talk_scanner" => "talk_scanner.erb",
-     "/etc/init.d/talk_add_new" => "talk_add_new.erb",
-     "/etc/init.d/talk_manager" => "talk_manager.erb"
-    }
-
-# number of converter procs to start:
-default[:talk_converters][:num_processors] = "5"
-default[:talk_scanner][:num_processors] = "2"
-
 default[:encoders][:talk][:encoder][:startup_scripts] = {
     "/etc/init.d/talk_converter" => "talk_converter.erb"
     }
