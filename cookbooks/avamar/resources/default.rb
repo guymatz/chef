@@ -1,2 +1,2 @@
-actions :init,:register 
+actions :init,:register,:uninstall
 default_action :init
