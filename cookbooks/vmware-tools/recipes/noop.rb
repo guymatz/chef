@@ -9,7 +9,6 @@ if node.attribute?('virtualization') && node[:virtualization][:system] == 'vmwar
       File.open('/boot/grub/menu.lst', 'r') {|f| grub_txt = f.readlines }
       unless grub_txt.to_s.include?('elevator=noop')
         grub_txt.each do |x|
-          puts x
           grub_txt[grub_txt.index(x)] = x.gsub(/\n/, ' elevator=noop') if x.include?('kernel')
         end
         File.open('/boot/grub/menu.lst', 'w') {|f| grub_txt.each { |x| f.puts(x) }}
