@@ -17,10 +17,10 @@ if [ -f $SRC_FILE ] ; then
 
     scp -i /home/$SCP_USER/.ssh/deploy $SRC_FILE $SCP_USER@$ATTIVIO_MASTER:$DST_FILE
     if [ $? -ne 0 ] ; then
-        echo "An error occured shipping streams_list_attivio_ready.xml to $ATTIVIO_MASTER"
+        echo "An error occured shipping streams_list_attivio_ready.xml to $ATTIVIO_MASTER" >&2
     fi
     mv $SRC_FILE $SRC_FILE.$(date +%Y%m%d).shipped
 else
-    echo "Error: No xml file available to ship"
+    echo "Error: No xml file available to ship" >&2
     exit 1
 fi
