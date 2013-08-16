@@ -21,7 +21,8 @@ all_env = [
            "recipe[openssh]",
            "recipe[motd-tail]",
            "recipe[operations]",
-           "recipe[logrotate::syslog]"
+           "recipe[logrotate::syslog]",
+           "recipe[vmware-tools::noop]"
           ]
 run_list(all_env)
 
