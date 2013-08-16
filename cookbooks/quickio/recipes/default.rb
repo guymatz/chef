@@ -5,7 +5,9 @@
 # Copyright 2013, iHeartRadio
 #
 
-if not node[:roles].include?('quickio-master')
+is_master = node[:roles].include?('quickio-master')
+
+if node.chef_environment == 'prod' and not is_master
   include_recipe "iptables"
   iptables_rule "port_quickio"
 end
@@ -18,8 +20,9 @@ qio_master = search(:node, "chef_environment:#{node.chef_environment} AND role:q
 
 debs = [
   "quickio_#{node['quickio']['version']}_amd64.deb",
-  "quickio-cluster_#{node['quickio']['cluster_version']}_amd64.deb",
-  "quickio-ihr_#{node['quickio']['ihr_version']}_amd64.deb",
+  "quickio-app-cluster_#{node['quickio']['cluster_version']}_amd64.deb",
+  "quickio-app-ihr_#{node['quickio']['ihr_version']}_amd64.deb",
+  "libquickio-1.0_#{node['quickio']['libquickio_version']}_amd64.deb",
 ]
 
 if not tagged?("quickio-deployed")
@@ -51,14 +54,16 @@ if not tagged?("quickio-deployed")
     })
   end
 
-  template "/etc/quickio/apps/ihr-now-playing.ini" do
-    owner "root"
-    group "root"
-    source "ihr-now-playing.ini.erb"
+  if not is_master
+    template "/etc/quickio/apps/ihr-now-playing-client.ini" do
+      owner "root"
+      group "root"
+      source "ihr-now-playing-client.ini.erb"
 
-    variables({
-      :master_addr => qio_master[0][:fqdn],
-    })
+      variables({
+        :master_addr => qio_master[0][:fqdn],
+      })
+    end
   end
 
   template "/etc/quickio/apps/cluster.ini" do

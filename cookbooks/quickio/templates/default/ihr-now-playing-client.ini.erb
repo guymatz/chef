@@ -1,0 +1,13 @@
+[ihr-now-playing-client]
+server-port = <%= node[:quickio][:port] %>
+server-addr = <%= @master_addr %>
+
+#
+# Which keys should be included in the search (for artist) payload
+#
+artist-keys = artistId;artist;endTime;trackId;trackTitle;stationId;stationLogo;stationName
+
+#
+# Which keys should be included in the now-playing payload for live
+#
+live-keys = artistId;artist;endTime;trackId;trackTitle
