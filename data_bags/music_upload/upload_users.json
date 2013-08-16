@@ -1,168 +1,58 @@
 {
-  "nextgen": {
-    "password": "djlqj3M@2"
-  },
-  "orchard": {
-    "password": "vzEjfQUL"
-  },
-  "believe": {
-    "password": "aZtE7IJZ"
-  },
-  "onerpm": {
-    "password": "G3:jt}e;"
-  },
-  "ingrooves": {
-    "password": "1ktLq9LT"
-  },
-  "univision": {
-    "password": "Cbv85qJX"
-  },
-  "PremiereNetworks": {
-    "password": "LhQh0Nm5hpL8"
-  },
-  "E1": {
-    "password": "Fj3kam40"
-  },
-  "cdbaby": {
-    "password": "dRQpMQfj"
-  },
-  "clearchannel": {
-    "password": "2eG9%!SY09"
-  },
-  "directtv": {
-    "password": "qna9notrfqkP"
-  },
-  "Rebeat": {
-    "password": "J40saj$A"
-  },
-  "EPM": {
-    "password": "J4lam5p9"
-  },
-  "fuga": {
-    "password": "RNUsV8wq"
-  },
-  "Sleaze": {
-    "password": "aajl3jm22a"
-  },
-  "bleacherreport": {
-    "password": "2Ye4hLzKIjOy"
-  },
-  "collegehumor": {
-    "password": "IKMkfzfRbbv6"
-  },
-  "Finetunes": {
-    "password": "J4jlM3k0"
-  },
-  "DigDis": {
-    "password": "ejl2ms4M"
-  },
-  "House_Planet": {
-    "password": "4908ajlA"
-  },
-  "contentenc": {
-    "password": "Qt314BF!"
-  },
-  "WTFMarcMaron": {
-    "password": "zP3ppcjX3EjE"
-  },
-  "wor": {
-    "password": "644F9A3CAA8F0B42D064"
-  },
-  "theonion": {
-    "password": "zeGexup2"
-  },
-  "Symphonic": {
-    "password": "2hal1m3P"
-  },
-  "sundesire": {
-    "password": "dAU#6"
-  },
-  "catapult": {
-    "password": "4u6FIgat"
-  },
-  "independent": {
-    "password": "0p3195"
-  },
-  "jillianmichaels": {
-    "password": "1qSZl$@L#M"
-  },
-  "fsr": {
-    "password": "pIYWtN2BxMQ2"
-  },
-  "Tunecore": {
-    "password": "J4lwm50M"
-  },
-  "consolidated": {
-    "password": "uzLdfu4d"
-  },
-  "nextplateau": {
-    "password": "F*Yp];j,"
-  },
+  "ingrooves": "Aizug0hk7OmzAk1feN8u5jxsDn8oYHfE8gOdga1EmpQ=\n",
+  "onerpm": "lSVNQ0jhBlI7nQGkp/bkyHv9kS4VwHoKVQ/kmDKFWXA=\n",
+  "believe": "dQ0Vp2GhYlmdIYJyhS9xJ96AilaqwOG3bbLQtxqspl8=\n",
+  "orchard": "+6aFvUd3ytM6XtY3gZ8mk4UPhKAnaP9GEEH+wFKFVek=\n",
+  "nextgen": "XmMlGCPvsdrn3C2apbjCPXMT420PrMSvlXvaOS0iGq8=\n",
+  "cdbaby": "XmMlGCPvsdrn3C2apbjCPcMvlve0aSWMxFz2eRuAGtY=\n",
+  "E1": "LJ/4u3Irsdw1hk8tCgwYTCJnlU4Lmck+8Q1wK4T+nGE=\n",
+  "PremiereNetworks": "38zN1j8UKM8+UHH5b6GW2GCxbsBJOTZ3l9L9SdD6Sl8=\n",
+  "Sleaze": "dQ0Vp2GhYlmdIYJyhS9xJ/Az/Oay9Wn8+f5rNm/uqwQ=\n",
+  "fuga": "zrnNYmk/kveGi9vmxtrfiYJXEDAsOZyWZYuQ4shDiIY=\n",
+  "EPM": "Xn2os3gVkcauXTMOzktDgI/3+6T8/3/HVj9zEhZW8Wo=\n",
+  "Rebeat": "Xn2os3gVkcauXTMOzktDgD4q6m93Imvxr8oolUDqdvI=\n",
+  "directtv": "xA+rVanQ0mU7bup0qUYAotPOvgAGBI1xoTRnT7TWTek=\n",
+  "clearchannel": "NpLXh4ryQqHUTJsQWq+Q3XNWOnqnwIrxJg4ArJiNkBA=\n",
+  "contentenc": "Zb/1sW3isda5AV919j61PM8ei4PRBEhdUureyF4uLpk=\n",
+  "House_Planet": "XsG2wltdlp07pf1BFw7rt0eFBQ/QDo9/BizSYwG9DPc=\n",
+  "DigDis": "tCPltKsxtq7Zq8gMnLyTOukjaIQrsDQcg3G76CjhsFs=\n",
+  "Finetunes": "Xn2os3gVkcauXTMOzktDgOjVqpHYDrkfIqd9nuBYCgY=\n",
+  "collegehumor": "saBMNXfFfdcZ9oZqMjQzKB/TjA8pTNIpF6cPCS47pn4=\n",
+  "bleacherreport": "NpLXh4ryQqHUTJsQWq+Q3STcAT/NqVInivpfNhUgpIw=\n",
+  "independent": "WCl0LK5h/Mk591fpywcesDvA81JCMWf1xdNqZUvWttI=\n",
+  "catapult": "XsG2wltdlp07pf1BFw7rt6zwGWBbXT2HYt1TW9iaNz0=\n",
+  "sundesire": "XmMlGCPvsdrn3C2apbjCPQUxRjKbB/f/f4Ppohvh66o=\n",
+  "Symphonic": "NpLXh4ryQqHUTJsQWq+Q3caTrqXV++vXkbn8Do7vqK8=\n",
+  "theonion": "YKkeHq4y/u5tpKVcYNuzusiDq5//0o/o9eS9bCmqR9g=\n",
+  "wor": "ZjI5qJVjpbhrbRccTsetKeuHjnXukclV37lac4nxy7MB4I9xnBDynHQYaRsf\nyRz/\n",
+  "WTFMarcMaron": "YKkeHq4y/u5tpKVcYNuzuspe7sLP/xmeBGMfowPuPzY=\n",
+  "univision": "iYgMohj670Jx6B0cYg/VjD/StwgX8O3tu/BQtoC/9Xo=\n",
   "id": "upload_users",
-  "blaze": {
-    "password": "Deshgahiv1"
-  },
-  "Envision": {
-    "password": "rawesP7C"
-  },
-  "wmg": {
-    "password": "fQEmS0a1"
-  },
-  "unapologetic": {
-    "password": "ah3kmr9^"
-  },
-  "conan": {
-    "password": "C0n@nr0x!"
-  },
-  "Bloomberg": {
-    "password": "8l1g82pz5UWz"
-  },
-  "Compass": {
-    "password": "dj2l9am1"
-  },
-  "fromscratch": {
-    "password": "djql4jzm2@"
-  },
-  "bob_tom": {
-    "password": "Obe6xqVL"
-  },
-  "alienprod": {
-    "password": "O5MiBW8a"
-  },
-  "jeff_corwin": {
-    "password": "djKm28am"
-  },
-  "CombatJack": {
-    "password": "xiJ3mlkw89f"
-  },
-  "cio": {
-    "password": "61896E0B7F752525EA3DC09C8"
-  },
-  "naxos": {
-    "password": "RaFfL95A63"
-  },
-  "spreaker": {
-    "password": "Y6%fdj*L"
-  },
-  "Steve_Harvey": {
-    "password": "H4jksmr9"
-  },
-  "LearnVest": {
-    "password": "p5uKa8As"
-  },
-  "IRIS": {
-    "password": "J4lm5-am"
-  },
-  "Enision": {
-    "password": "rawesP7C"
-  },
-  "gail_mcwilliams": {
-    "password": "jfhksn3m4^"
-  },
-  "dashgo": {
-    "password": "EfgzAtv9"
-  },
-  "sonybmg": {
-    "password": "D61dJHp!"
-  }
+  "nextplateau": "LJ/4u3Irsdw1hk8tCgwYTATSp0psdfvTSXx19ph8CBY=\n",
+  "consolidated": "/y3RfczIs+1NP5kBBUFp61AMi3eERD84JDkJgpXj+aw=\n",
+  "Tunecore": "Xn2os3gVkcauXTMOzktDgKwQNQhvkZFFaXb/NK4MyLE=\n",
+  "fsr": "Qo9RY0r62ynu/YHi/3mdt0bOPIYYZDvZ/ygPB1mKzrI=\n",
+  "jillianmichaels": "Aizug0hk7OmzAk1feN8u5vQvLZUsYOUqbTNqXvlR/vA=\n",
+  "conan": "iYgMohj670Jx6B0cYg/VjLRKbz+LaN5TQXpU8RkhLLs=\n",
+  "unapologetic": "dQ0Vp2GhYlmdIYJyhS9xJ1EXwKZQVUpIKV12BiwpncI=\n",
+  "wmg": "MtuqWrWk3R35hcpijCFm4egwAke0ODk7oFXSSrTE7Rc=\n",
+  "Envision": "aNdtiFwu2UwcBWirtoUFe2YZGVwFk9FAoKiuxoRrD1I=\n",
+  "blaze": "s7/3A/murvOyzJFX+lytXyhr+fQ0oBviRsvcEFvWfS4=\n",
+  "fromscratch": "XmMlGCPvsdrn3C2apbjCPWfvRCiyoIaJzDWBi/BU+wQ=\n",
+  "Compass": "XmMlGCPvsdrn3C2apbjCPQ2GTNODieFppUMRmJvBwF8=\n",
+  "Bloomberg": "Td699tPFYeZK1Iyb8becKIWURw+Us2GINm/gPZuOMHc=\n",
+  "CombatJack": "++aWYewuQ9qvdocQG5yF0FzjxMX7/q1CFA56yZoehGE=\n",
+  "jeff_corwin": "XmMlGCPvsdrn3C2apbjCPckHZEt/LlNJ7fZSTk7Zg6o=\n",
+  "alienprod": "YNti9IZu6UzfbdLKw2cEFnCNem38QtHf+0tb+vPRuw4=\n",
+  "bob_tom": "YNti9IZu6UzfbdLKw2cEFrw9G4niysjkGyUYPt6Npw4=\n",
+  "LearnVest": "Qo9RY0r62ynu/YHi/3mdtzR+t/Pt/n2wVLH21r4Ra5Y=\n",
+  "Steve_Harvey": "JL7j1j3SqB40VPC/oYXEHuI1eKz0SAt9DOBnQx7lYDs=\n",
+  "spreaker": "VgT3kfdSYQUv5+KcQa9cQPFXV26bBfmOXbr3QqEDg5E=\n",
+  "naxos": "zrnNYmk/kveGi9vmxtrfiQsk34KfZMlcMUMErfteiuI=\n",
+  "cio": "ZjI5qJVjpbhrbRccTsetKYIdEYNnar2dLAWiSaXA5u4iAsvmkYHVTJx1LRA9\nf5/o\n",
+  "sonybmg": "s7/3A/murvOyzJFX+lytX6H/jmuTuSQNjQTiSIdiA58=\n",
+  "dashgo": "igh1eC5LYPFGOyx98v0Z33ZJsbNpfsEI3DoOJhbdccg=\n",
+  "gail_mcwilliams": "Rg1/Hb8tN+XizS9C4pM7RfqUoj8FgHR1JH+m+UNiH4g=\n",
+  "Enision": "aNdtiFwu2UwcBWirtoUFe2YZGVwFk9FAoKiuxoRrD1I=\n",
+  "IRIS": "Xn2os3gVkcauXTMOzktDgDVCrOj/e4H4IPGD6Z6kOvQ=\n"
 }
