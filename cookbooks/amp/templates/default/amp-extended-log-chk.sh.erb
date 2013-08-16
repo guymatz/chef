@@ -19,7 +19,7 @@
 #			- Adjusted math to (#200+#500)*100/#500 as it's a more accurate representation of the percentage
 # #######################################################
 
-NOTIFY_LIST=("gregorypatmore@clearchannel.com")
+NOTIFY_LIST=(gregorypatmore@clearchannel.com jeremybraff@clearchannel.com kengilmer@clearchannel.com)
 
 # create an easy to locate temp file
 TFILE=$(mktemp --suffix .$(date +%Y%m%d-%H-%I).amp_log.rpt)
@@ -34,9 +34,10 @@ awk -v d=$(date -u -d '5 minutes ago' +%H%I%M) '/^[^#]/{gsub(/:/,"",$3);if($3 >=
 	| awk '$4>25{print $0,"CRITICAL"}$4==25{print $0,"WARNING"}{print $0,"OK"}' \
 	> $TFILE 2>/dev/null;
 
-# stash counts 
-CCRIT=$(grep -c CRITICAL $TFILE);
-CWARN=$(grep -c WARNING $TFILE);
+# stash counts  
+#GP Edit 8/16/13 filtered out getTrack endpoint due to a known condition
+CCRIT=$(grep -v getTracks $TFILE | grep -c CRITICAL);
+CWARN=$(grep -v getTracks $TFILE | grep -c WARNING);
 COK=$(grep -c OK $TFILE);
 
 # counts string
