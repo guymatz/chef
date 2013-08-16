@@ -22,3 +22,7 @@ when "debian"
 else
   default[:amp][:logging][:group] = "nobody"
 end
+
+# GP EDIT 8/16/13 Included a list of people to notify when endpoints show alert levels of 500s 
+# Used in ./templates/default/amp-extended-log-chk.sh.erb
+default[:amp][:logging][:notify_list] = %w{gregorypatmore@clearchannel.com jeremybraff@clearchannel.com kengilmer@clearchannel.com LaurentVauthrin@clearchannel.com}

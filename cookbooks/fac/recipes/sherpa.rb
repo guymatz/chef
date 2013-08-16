@@ -7,7 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 app = "sherpa"
-download_url = "#{node[:fac][:url]}/FAC-#{app}/#{node[:fac][app][:version]}/FAC-#{app}-#{node[:fac][app][:version]}.jar"
+jar_file = "FAC-#{app}-#{node[:fac][app][:version]}.jar"
+download_url = "#{node[:fac][:url]}/FAC-#{app}/#{node[:fac][app][:version]}/#{jar_file}"
 script_dir = "#{node[:fac][:script_path]}/#{app}"
 start_script = "fac-#{app}-runner.sh"
 
@@ -15,19 +16,15 @@ directory "#{script_dir}" do
   recursive true
 end
 
-remote_file "#{script_dir}/fac-#{app}.jar" do
-  Chef::Log.info("Downloading fac-#{app} from #{download_url}")
+remote_file "#{script_dir}/#{jar_file}" do
+  Chef::Log.info("Downloading #{download_url}")
   source "#{download_url}"
   mode "0755"
   action :create_if_missing
 end
 
-remote_file "#{script_dir}/env.properties" do
-  download_url="#{node[:fac][:files_url]}/env.properties"
-  source "#{download_url}"
-  Chef::Log.info("Downloading fac-#{app} properties file from #{download_url}")
-  mode "0755"
-  action :create_if_missing
+link "#{script_dir}/fac-#{app}.jar" do
+  to "#{script_dir}/#{jar_file}" 
 end
 
 # init directories
@@ -49,18 +46,8 @@ template "#{script_dir}/#{start_script}" do
   owner "root"
   group "root"
   variables({
-    :envfile => "#{script_dir}/env.properties",
-    :jarfile => "#{script_dir}/#{node['fac']['sherpa']['jarfile']}-#{node['fac']['sherpa']['version']}.jar"
+    :jarfile => "#{script_dir}/#{jar_file}"
   })
-end
-
-nagios_nrpecheck "Fac-Process-Sherpa" do
-  command "#{node['nagios']['plugin_dir']}/check_procs"
-  warning_condition "1:1"
-  critical_condition "1:1"
-  #  This checks for the sherpa jarfile without the version number
-  parameters "-C java -a #{node['fac']['sherpa']['jarfile']}"
-  action :add
 end
 
 cron_d "fac-sherpa" do

@@ -1,0 +1,50 @@
+#!/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+export PATH
+
+#Custom Vars
+LOG=/var/log/manager/<%= @type %>_scanner-error.log
+TAG='<%= @type %>_Scanner_Check_Script'
+SVC='<%= @type %>_scanner'
+APP='scanner.rb'
+# End Custom vars
+
+HOST=`hostname`
+logger='logger'
+writelog="${logger} -t ${TAG}"
+fail=0
+
+check_error()
+{
+    if [ $1 -eq 0 ]; then
+        SUBJECT="$2"
+        BODY="$3"
+                ${writelog} "${SUBJECT} ${BODY}"
+        echo "`date` ${SUBJECT} ${BODY}" >> ${LOG}
+                #exit $1
+        fail=$1
+    else
+        SUBJECT="$2"
+            BODY="$4"
+            ${writelog} "${SUBJECT} ${BODY}"
+        echo "`date` ${SUBJECT} ${BODY}" >> ${LOG}
+            #exit $1
+        fail=$1
+    fi
+}
+
+for id in {100..<%= @num_scanners %>}
+{
+#id=100
+    PID=`/bin/ps -ef | /bin/grep "${APP} $id" | grep -v grep| awk '{print $2}'`
+
+    if [ ! ${PID} ] ; then
+        fail=1
+        /bin/bash service ${SVC} watchdog ${id}  2>&1 >/dev/null
+        ST=$?
+        check_error ${ST} "${TAG} detected failure in service ${SVC} ${id} on Host: ${HOST}." " Started successfully." "FAILED star
+ting service ${SVC} ${id} with exit code ${ST}"
+    fi
+}
+
+exit ${fail}
