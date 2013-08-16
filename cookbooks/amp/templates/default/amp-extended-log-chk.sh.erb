@@ -7,9 +7,9 @@
 # @REF https://jira.ccrd.clearchannel.com/browse/OPS-4992
 # 
 # pipe flow:
-# 1. awk : filter 2 most recent /<path>/<file>.log, filter out commented lines, and print the response code & url
+# 1. awk : filter 2 most recent /path/file.log, filter out commented lines, and print the response code & url
 # 2. perl: normalize urls by removing query string portion, replacing uids/resource ids/etc with '###'
-# 3. awk : filter out only /[25]00/ responses, aggregate the counts by url, and print out '<url> <#200s> <#500s> <%500s>
+# 3. awk : filter out only [25]00 responses, aggregate the counts by url, and print out 'url #200s #500s %500s 
 # 4. awk : analyze the percentage and tack on the nagios threshold (<25% = OK, 25% = WARNING, >25% = CRITICAL)
 # 5. outputs all the data to a temp file with 'YYMMDD-HH-MM.amp_log.rpt' suffix
 #
