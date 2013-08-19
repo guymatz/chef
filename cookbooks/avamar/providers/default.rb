@@ -54,7 +54,7 @@ action :register do
 			action :run
 		end
 
-		node.tags << "avamar_initialized"
+		node.tags << "avamar_registered"
 		Chef::Log.info("Registered host #{new_resource.name}")
 
 	else 
