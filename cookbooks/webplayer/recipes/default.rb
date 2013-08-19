@@ -110,6 +110,7 @@ if not tagged?("webplayer-deployed")
       workers 16
       stdout_logfile "/var/log/supervisor/webplayer-stdout"
       stderr_logfile "/var/log/supervisor/webplayer-stderr"
+      virtualenv "#{node[:webplayer][:deploy_path]}/shared/env"
     end
   end
   execute "create_geo_path" do
