@@ -50,7 +50,7 @@ if not tagged?("quickio-deployed")
     source "quickio.ini.erb"
 
     variables({
-      :graphite_addr => graphite.nil? ? graphite[0][:fqdn] : "",
+      :graphite_addr => graphite.nil? ? "" : graphite[0][:fqdn],
     })
   end
 
