@@ -21,10 +21,10 @@ case $1 in
         daemon --user "$ES_USER" sh $ES_HOME/bin/elasticsearch -Des.path.conf=$IHR_SEARCH_HOME/configs  -Des.path.logs=$IHR_SEARCH_HOME/logs/ -Des.path.data=$IHR_SEARCH_HOME/data/
         ;;
     stop)
-        curl -XPOST 'http://localhost:9200/_cluster/nodes/_local/_shutdown'
+        curl -XPOST 'http://<%= node[:ipaddress] %>:9200/_cluster/nodes/_local/_shutdown'
         ;;
     restart)
-        curl -XPOST 'http://localhost:9200/_cluster/nodes/_local/_shutdown'
+        curl -XPOST 'http://<%= node[:ipaddress] %>:9200/_cluster/nodes/_local/_shutdown'
         echo "sleeping for 5 secs"
         sleep 5
         daemon --user "$ES_USER" sh $ES_HOME/bin/elasticsearch -Xms8G -Xmx8G  -Des.path.conf=$IHR_SEARCH_HOME/configs  -Des.path.logs=$IHR_SEARCH_HOME/logs/ -Des.path.data=$IHR_SEARCH_HOME/data/
