@@ -69,7 +69,7 @@ $template UserInfoLogs,"/home/rsyslog/syslog/%HOSTNAME%/user.info.%$YEAR%-%$MONT
 $template DailyMessages,"/var/log/messages.%$YEAR%-%$MONTH%-%$DAY%"
 
 # #############################################################
-# Adtivity Access logs
+# File Tailers
 # #############################################################
 
 #instance #1
@@ -81,6 +81,10 @@ $template DailyMessages,"/var/log/messages.%$YEAR%-%$MONTH%-%$DAY%"
 #$InputRunFileMonitor
 
 #$InputFilePollInterval 2
+
+# #############################################################
+# Message Trafficking
+# #############################################################
 
 # Log anything (except mail) of level info or higher.
 # Don't log private authentication messages!
@@ -158,8 +162,8 @@ $ActionQueueSaveOnShutdown on # save in-memory data if rsyslog shuts down
 # ###############################################
 # Forwarding rules
 # ###############################################
-user.notice;local0,local1,local2,local3,local4,local5,local6,local7.* @@:514   
-news.* @@:514     
+user.notice;local0,local1,local2,local3,local4,local5,local6,local7.* @@<%= node[:rsyslog][:central_logserver] %>:514   
+news.* @@<%= node[:rsyslog][:central_logserver] %>:514     
         
       
 
