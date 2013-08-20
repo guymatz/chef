@@ -8,6 +8,9 @@
 # Installs requirements for a dev version of an app server
 #
 
+include_recipe "radioedit::default"
+include_recipe "yum::epel"
+
 # make a directory to stash builds in 
 directory "/root/build" do
   owner "root"
@@ -39,22 +42,3 @@ bash "install_libmemcached" do
 end
 
 
-# application "radioedit-cms" do
-#   repository node[:radioedit][:cms][:repo]
-#   revision node[:radioedit][:cms][:branch]
-#   path node[:radioedit][:cms][:path]
-#   owner node[:radioedit][:user]
-#   group node[:radioedit][:group]
-#   migrate false
-#   action :deploy
-
-#   gunicorn do
-#     app_module :django
-#     Chef::Log.info("Starting up Gunicorn on port #{node[:radioedit][:cms][:port]} for Radioedit-CMS")
-#     port node[:radioedit][:cms][:port]
-#     workers 10
-#     host node[:radioedit][:cms][:host]
-#     pidfile "/var/run/radioedit/radioedit-cms.pid"
-#   end
-
-# end
