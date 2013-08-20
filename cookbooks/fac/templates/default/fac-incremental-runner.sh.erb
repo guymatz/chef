@@ -2,7 +2,7 @@
 
 SLEEP_MINUTES=20m
 
-EML_LIST=(<%= node[:fac][:etl_notify].join " " %>)
+EML_LIST=( <%= node[:fac][:etl_notify].join " " %> )
 function onFail {
 	XVAL=$1;PTNM=$2;
 
