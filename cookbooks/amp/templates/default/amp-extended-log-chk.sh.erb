@@ -19,7 +19,7 @@
 #			- Adjusted math to (#200+#500)*100/#500 as it's a more accurate representation of the percentage
 # #######################################################
 
-NOTIFY_LIST=(<%= node[:amp][:logging][:notify_list].join ' ' %>)
+NOTIFY_LIST=( <%= node[:amp][:logging][:notify_list].join ' ' %> )
 
 # create an easy to locate temp file
 TFILE=$(mktemp --suffix .$(date +%Y%m%d-%H-%I).amp_log.rpt)
