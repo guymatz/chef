@@ -81,7 +81,7 @@ cron_d "fac-updatestream" do
   user "root"
 end
 
-master = search(:node, "tags:es_master")
+master = search(:node, "tags:es_master AND role:elasticsearch")
 
 template "#{script_dir}/streaminfo/ship2es.sh" do
   source "ship2es.sh.erb"
