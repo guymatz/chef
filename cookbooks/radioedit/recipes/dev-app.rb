@@ -48,13 +48,6 @@ end
 #   migrate false
 #   action :deploy
 
-#   django do
-#     interpreter "python27"
-#     requirements "requirements.txt"
-#     debug true
-#     settings_template "settings.py.erb"
-#   end
-
 #   gunicorn do
 #     app_module :django
 #     Chef::Log.info("Starting up Gunicorn on port #{node[:radioedit][:cms][:port]} for Radioedit-CMS")
