@@ -8,7 +8,7 @@ function onFail {
 
   echo "[$(date)] $0 : $(uname -n) ${PTNM} exited with nonzero status (${XVAL})" >&2;
   # send email to everyone in the list
-  for i in $EML_LIST; do
+  for i in ${EML_LIST[@]}; do
 		mutt -s "$(uname -n) $0 abort report" $i < <(echo "[$(date)] $0 : ${PTNM} exited with nonzero status (${XVAL}) on host $(uname -n). Job was aborted");
 	done;
 	return 0;

@@ -55,7 +55,7 @@ if [ $CCRIT -ne 0 ]; then #if critical level reported
 	echo "CRITICAL: ${NAGMSG}" && exit 2;
 
 elif [ $CWARN -ne 0 ]; then #if warning level reported
-	for i in $NOTIFY_LIST; do
+	for i in ${NOTIFY_LIST[@]}; do
 		mutt -s "AMP-LOG-ALERT: ${NAGMSG}" $i < <(echo -e "REPORT FOR $(date +%Y%m%d-%H-%I)\n[endpoint] [#200s] [#500s] [%500s] [STATUS]\n$(grep -v OK $TFILE)" )
 	done;
 	echo "WARNING: ${NAGMSG}" && exit 1;
