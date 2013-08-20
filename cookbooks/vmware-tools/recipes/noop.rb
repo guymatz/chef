@@ -1,5 +1,5 @@
 # Set noop as the IO scheduler for vmware guests
-if node.attribute?('virtualization') && node[:virtualization][:system] == 'vmware' && node[:virtualization][:role] == 'guest'
+if node.attribute?('virtualization') && node[:virtualization][:system] == 'vmware' && node[:virtualization][:role] == 'guest' && node[:platform_family] == 'rhel'
   execute 'set-noop' do
     command 'echo noop > /sys/block/sda/queue/scheduler'
   end
