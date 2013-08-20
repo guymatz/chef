@@ -13,7 +13,7 @@ default[:elasticsearchnew][:user] = "elasticsearch"
 default[:elasticsearchnew][:group] = "elasticsearch"
 
 # elasticsearch.yml
-default[:elasticsearchnew][:shards] = "2"
+default[:elasticsearchnew][:shards] = "3"
 default[:elasticsearchnew][:replicas] = "1"
 default[:elasticsearchnew][:mlockall] = true
 default[:elasticsearchnew][:cluster_name] = ""

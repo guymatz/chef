@@ -198,7 +198,7 @@ bootstrap.mlockall: <%= node[:elasticsearchnew][:mlockall] %>
 
 # Set the bind address specifically (IPv4 or IPv6):
 #
-# network.bind_host: 192.168.0.1
+# network.bind_host: <%= node[:ipaddress] %>
 
 # Set the address other nodes will use to communicate with this node. If not
 # set, it is automatically derived. It must point to an actual IP address.
@@ -207,7 +207,7 @@ bootstrap.mlockall: <%= node[:elasticsearchnew][:mlockall] %>
 
 # Set both 'bind_host' and 'publish_host':
 #
-# network.host: 192.168.0.1
+network.host: <%= node[:ipaddress] %>
 
 # Set a custom port for the node to node communication (9300 by default):
 #
@@ -322,7 +322,7 @@ discovery.zen.ping.multicast.enabled: false
 #    to perform discovery when new nodes (master or data) are started:
 #
 # discovery.zen.ping.unicast.hosts: ["host1", "host2:port", "host3[portX-portY]"]
-discovery.zen.ping.unicast.hosts: <%= @cluster_ips %>
+discovery.zen.ping.unicast.hosts: <%= @cluster_ips.join(', ') %>
 
 # EC2 discovery allows to use AWS EC2 API in order to perform discovery.
 #
