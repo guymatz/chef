@@ -33,9 +33,7 @@ check_error()
     fi
 }
 
-#for id in {100}
-#{
-id=100
+for id in {100..<%= @num_converters %>} {
     PID=`/bin/ps -ef | /bin/grep "${APP} $id" | grep -v grep| awk '{print $2}'`
 
     if [ ! ${PID} ] ; then
@@ -44,6 +42,6 @@ id=100
         ST=$?
         check_error ${ST} "${TAG} detected failure in service ${SVC} ${id} on Host: ${HOST}." " Started successfully." "FAILED starting service ${SVC} ${id} with exit code ${ST}"
     fi
-#}
+}
 
 exit ${fail}

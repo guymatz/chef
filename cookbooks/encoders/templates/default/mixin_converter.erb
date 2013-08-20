@@ -134,8 +134,8 @@ watchdog()
 
     id=$2
 
-    if [[  ${id} -lt 100 || ${id} -gt 104 ]]; then
-        echo "Range of ids is 100-104"
+    if [[  ${id} -lt 100 || ${id} -gt <%= @num_converters %> ]]; then
+        echo "Range of ids is 100-<%= @num_converters %>"
         exit 1
     fi
 
@@ -173,7 +173,7 @@ case $1 in
         done
         ;;
         stop)
-        #for id in {100..104}
+        #for id in {100..<%= @num_converters %>}
         for id in 100
         do
             PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid

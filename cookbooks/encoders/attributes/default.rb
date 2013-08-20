@@ -117,6 +117,7 @@ default[:talk_converters][:num_processors] = "5"
 default[:talk_scanner][:num_processors] = "2"
 default[:music_converters][:num_processors] = 22
 default[:music_scanner][:num_processors] = 2
+default[:mixins_converters][:num_processors] = 2
 
 
 
@@ -180,15 +181,18 @@ default[:encoders][:filemonitor][:ingestion_links] = {
 }
 
 # mixins startups scripts
+###
+### mixins is a bit different since the manager and the converter runs on the same box, encmanager105
+###
 default[:encoders][:mixins][:manager][:startup_scripts] = {
-    "/etc/init.d/mixin_converte" => "mixin_converter.erb",
+    "/etc/init.d/mixin_converter" => "mixin_converter.erb",
     "/etc/init.d/mixin_manager" => "mixin_manager.erb"
 }
 
 # mixin crons
 default[:encoders][:mixins][:manager][:crons] = [
     "/data/apps/converter/current/bin/cron/mixin_converter_check.sh",
-    "/data/apps/converter/current/bin/cron/mixins_manager_check.sh"
+    "/data/apps/converter/current/bin/cron/mixin_manager_check.sh"
 ]
 
 
