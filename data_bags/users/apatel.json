@@ -3,6 +3,7 @@
     "uid": 5013,
     "name": "Amit Patel",
     "email": "amitpatel@clearchannel.com",
+    "htpasswd": "{SHA}LOCKED",
     "groups": ["dev", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch", "facebook", "rabbit"],
     "nagios": {
         "email": "amitpatel@clearchannel.com"

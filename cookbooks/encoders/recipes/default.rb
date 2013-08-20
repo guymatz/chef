@@ -55,6 +55,14 @@ begin
         end
     end
 
+    # directory where all the pid files are usually kept
+    directory "/var/run/manager" do
+        owner 'converter'
+        group 'converter'
+        action :create
+        not_if do FileTest.directory?("/var/run/manager") end
+    end
+
     cookbook_file "/home/converter/encoder-wrap-ssh.sh" do
         source node[:encoders][:wrapper_script]
         mode 0755

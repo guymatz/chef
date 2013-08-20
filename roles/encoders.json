@@ -1,36 +1,28 @@
 {
   "name": "encoders",
-  "description": "",
-  "json_class": "Chef::Role",
   "default_attributes": {
   },
-  "override_attributes": {
-    "splunk": {
-        "forwarder_config_folder": "prod",
-        "forwarder_role": "encoders"
-    }
-  },
-  "chef_environment": "prod",
-  "chef_type": "role",
-  "run_list": [
-    "recipe[jruby]",
-    "recipe[encoders]",
-    "recipe[users::converter]",
-    "recipe[splunk::forwarder]",
-    "role[sendmail-smart-host]",
-    "role[dell]",
-    "recipe[nfs]",
-    "recipe[encoders::mounts]"
-  ],
+  "json_class": "Chef::Role",
   "env_run_lists": {
   },
-  "authorization": {
-    "sudo": {
-        "users":  [
-           "lbedner",
-           "jjohnson"
-        ],
-        "passwordless": true
+  "run_list": [
+    "recipe[jruby]",
+    "role[dell]",
+    "recipe[nfs]",
+    "recipe[encoders]",
+    "role[sendmail-smart-host]",
+    "recipe[users::splunk]",
+    "recipe[users::level3]",
+    "recipe[users::converter]",
+    "recipe[encoders::checkout]",
+    "recipe[encoders::mounts]"
+  ],
+  "description": "",
+  "chef_type": "role",
+  "override_attributes": {
+    "splunk": {
+      "forwarder_config_folder": "prod",
+      "forwarder_role": "encoders"
     }
   }
 }
