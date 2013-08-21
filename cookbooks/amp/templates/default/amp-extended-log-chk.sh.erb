@@ -20,6 +20,20 @@
 # #######################################################
 
 NOTIFY_LIST=( <%= node[:amp][:logging][:notify_list].join ' ' %> )
+function onFail {
+	LVL=${1:-Unknown Status}; 
+	shift;
+	MSG=${*:-No additional info};
+
+	# dump to stderr
+  echo "[$(date)] $0 : $(uname -n) ${LVL}: ${MSG}" >&2;
+
+  # send email to everyone in the list
+  for i in ${NOTIFY_LIST[@]}; do
+		mutt -s "$(uname -n) $0 ${LVL}" $i < <(echo -e "[$(date)] $0 : ${LVL}: ${MSG}");
+	done;
+	return 0;
+}
 
 # create an easy to locate temp file
 TFILE=$(mktemp --suffix .$(date +%Y%m%d-%H-%I).amp_log.rpt)
@@ -47,22 +61,23 @@ NAGMSG="Report:($(uname -n):${TFILE} RESULTS:(${CNTSTR})";
 
 # check to see if there were any 'not OK' levels, if so, fire most fear inspiring one present to nagios
 if [ $CCRIT -ne 0 ]; then #if critical level reported
-	EMLMSG="REPORT FOR $(date +%Y%m%d-%H-%I)"
-
-	for i in $NOTIFY_LIST; do
-		mutt -s "AMP-LOG-ALERT: ${NAGMSG}" $i < <(echo -e "REPORT FOR $(date +%Y%m%d-%H-%I)\n[endpoint] [#200s] [#500s] [%500s] [STATUS]\n$(grep -v OK $TFILE)" )
-	done;
-	echo "CRITICAL: ${NAGMSG}" && exit 2;
+	onFail "CRITICAL" "${NAGMSG}";	
+	echo "CRITICAL: ${NAGMSG}" \
+		&& exit 2;
 
 elif [ $CWARN -ne 0 ]; then #if warning level reported
-	for i in ${NOTIFY_LIST[@]}; do
-		mutt -s "AMP-LOG-ALERT: ${NAGMSG}" $i < <(echo -e "REPORT FOR $(date +%Y%m%d-%H-%I)\n[endpoint] [#200s] [#500s] [%500s] [STATUS]\n$(grep -v OK $TFILE)" )
-	done;
-	echo "WARNING: ${NAGMSG}" && exit 1;
+	onFail "WARNING" "${NAGMSG}";	
+	echo "WARNING: ${NAGMSG}" \
+		&& exit 2;
 
 else # all levels ok
 	#report ok to nags
 	#kill the temp file since all is well
-	echo "ALL OK: ${CNTSTR}" && rm -f $TFILE && exit 0;
+	echo "ALL OK: ${CNTSTR}" \
+		&& rm -f $TFILE \
+		&& exit 0;
 	
 fi
+
+
+
