@@ -19,7 +19,9 @@
 #			- Adjusted math to (#200+#500)*100/#500 as it's a more accurate representation of the percentage
 # #######################################################
 
-echo "[$(date)] $0: Starting" >&2;
+echo "[$(date)] $0: Start" >&2;
+
+trap "echo \"[$(date)] $0: End\"" SIGINT SIGTERM EXIT;
 
 NOTIFY_LIST=( <%= node[:amp][:logging][:notify_list].join ' ' %> )
 function onFail {
@@ -80,8 +82,6 @@ else # all levels ok
 		&& exit 0;
 	
 fi
-
-echo "[$(date)] $0: Complete" >&2;
 
 
 
