@@ -30,7 +30,7 @@ function onFail {
 	MSG=${*:-No additional info};
 
 	# dump to stderr
-  echo "[$(date)] $0 : $(uname -n) ${LVL}: ${MSG}" >&2;
+  #echo "[$(date)] $0 : $(uname -n) ${LVL}: ${MSG}" >&2;
 
   # send email to everyone in the list
   for i in ${NOTIFY_LIST[@]}; do
@@ -62,18 +62,18 @@ COK=$(grep -c OK $TFILE);
 CNTSTR="#CRIT:${CCRIT},#WARN:${CWARN},#OK:${COK}";
 # nags string to send with any CRITICAL|WARNING level notice
 NAGMSG="Report:($(uname -n):${TFILE} RESULTS:(${CNTSTR})";
-
+# non-ok endpoint messages
 EPMSG=$(grep -v OK $TFILE);
 
 # check to see if there were any 'not OK' levels, if so, fire most fear inspiring one present to nagios
 if [ $CCRIT -ne 0 ]; then #if critical level reported
 	onFail "CRITICAL" "${NAGMSG}\n${EPMSG}";	
-	echo "CRITICAL: ${NAGMSG}\n${EPMSG}" \
+	echo -e "CRITICAL: ${NAGMSG}\n${EPMSG}" \
 		&& exit 2;
 
 elif [ $CWARN -ne 0 ]; then #if warning level reported
 	onFail "WARNING" "${NAGMSG}\n${EPMSG}";	
-	echo "WARNING: ${NAGMSG}\n${EPMSG}" \
+	echo -e "WARNING: ${NAGMSG}\n${EPMSG}" \
 		&& exit 2;
 
 else # all levels ok
