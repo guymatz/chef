@@ -19,6 +19,8 @@
 #			- Adjusted math to (#200+#500)*100/#500 as it's a more accurate representation of the percentage
 # #######################################################
 
+echo "[$(date)] $0: Starting" >&2;
+
 NOTIFY_LIST=( <%= node[:amp][:logging][:notify_list].join ' ' %> )
 function onFail {
 	LVL=${1:-Unknown Status}; 
@@ -78,6 +80,8 @@ else # all levels ok
 		&& exit 0;
 	
 fi
+
+echo "[$(date)] $0: Complete" >&2;
 
 
 
