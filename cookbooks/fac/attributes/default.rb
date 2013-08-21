@@ -20,4 +20,4 @@ default[:fac][:radiobuild2][:echonest] = "http://yum.ihr/files/ten.915.gz"
 default[:fac][:amptools][:repo] = "git@github.com:iheartradio/amp-tools.git"
 
 # GP EDIT OPS-5083
-default[:fac][:etl_notify] = %w{gregorypatmore@clearchannel.com jeremybraff@clearchannel.com kengilmer@clearchannel.com}
+default[:fac][:etl_notify] = %w{ jeremybraff@clearchannel.com kengilmer@clearchannel.com gregorypatmore@clearchannel.com }
