@@ -63,9 +63,11 @@ CNTSTR="#CRIT:${CCRIT},#WARN:${CWARN},#OK:${COK}";
 # nags string to send with any CRITICAL|WARNING level notice
 NAGMSG="Report:($(uname -n):${TFILE} RESULTS:(${CNTSTR})";
 
+EPMSG=$(grep -v OK $TFILE);
+
 # check to see if there were any 'not OK' levels, if so, fire most fear inspiring one present to nagios
 if [ $CCRIT -ne 0 ]; then #if critical level reported
-	onFail "CRITICAL" "${NAGMSG}";	
+	onFail "CRITICAL" "${NAGMSG} ${EPMSG}";	
 	echo "CRITICAL: ${NAGMSG}" \
 		&& exit 2;
 
