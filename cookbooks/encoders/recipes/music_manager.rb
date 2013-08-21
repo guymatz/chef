@@ -11,6 +11,26 @@
 begin
   unless tagged?("music-manager")
 
+    cron_d "automated_takedown" do
+        command "/data/apps/converter/current/bin/music_automated_takedown.sh > /dev/null 2>&1"
+        minute "*"
+        hour "7"
+        day "*"
+        month "*"
+        weekday "*"
+        user "root"
+    end
+
+    cron_d "performance_report" do
+       command "/data/apps/converter/current/bin/transcoder_performance_report.sh > /dev/null 2>&1"
+       minute "*"
+       hour "7"
+       day "*"
+       month "*"
+       weekday "*"
+       user "root"
+   end
+
     node[:encoders][:music][:manager][:startup_scripts].each do |script,tplate|
       template script do
         source tplate
@@ -21,9 +41,9 @@ begin
           :type => "music"
         })
       end
-      service script.gsub(/\/etc\/init.d\//, "") do
-        action [:enable]
-      end
+#      service script.gsub(/\/etc\/init.d\//, "") do
+#           action [:enable]
+#      end
     end
 
     node[:encoders][:music][:manager][:monitor_scripts].each do |srpt|
@@ -36,6 +56,7 @@ begin
             :type => "music"
         })
       end
+
 #    cron_d srpt do
 #        command "/usr/local/bin/#{srpt}.sh > /dev/null 2>&1"
 #        minute  "*/2"
@@ -47,7 +68,7 @@ begin
 #      end
     end
 
-
+            
     tag("music-manager")
   end
 rescue
