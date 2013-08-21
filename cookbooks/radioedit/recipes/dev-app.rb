@@ -42,3 +42,32 @@ bash "install_libmemcached" do
 end
 
 
+# application "radioedit-cms" do
+#   repository node[:radioedit][:cms][:repo]
+#   revision node[:radioedit][:cms][:branch]
+#   path node[:radioedit][:cms][:path]
+#   owner node[:radioedit][:user]
+#   group node[:radioedit][:group]
+#   migrate false
+#   action :deploy
+
+#   gunicorn do
+#     app_module 'coreapp:app'
+#     Chef::Log.info("Starting up Gunicorn on port #{node[:radioedit][:cms][:port]} for Radioedit-CMS")
+#     port node[:radioedit][:cms][:port]
+#     workers 10
+#     host node[:radioedit][:cms][:host]
+#     pidfile "/var/run/radioedit/radioedit-cms.pid"
+#   end
+
+# end
+
+
+# python_virtualenv "#{node[:ingestion_ng][:deploy_path]}/#{node[:ingestion_ng][:venv]}" do
+#   interpreter "/usr/bin/python27"
+#   owner node[:ingestion_ng][:user]
+#   group node[:ingestion_ng][:group]
+#   options "--no-site-packages --distribute"
+#   action :create
+end
+
