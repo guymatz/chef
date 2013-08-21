@@ -58,7 +58,7 @@ application "radioedit-cms" do
   gunicorn do
     app_module 'coreapp:app'
     Chef::Log.info("Starting up Gunicorn on port #{node[:radioedit][:cms][:port]} for Radioedit-CMS")
-    port node[:radioedit][:cms][:port]
+    port node[:radioedit][:image][:port] 
     workers 10
     host node[:radioedit][:cms][:host]
     pidfile "/var/run/radioedit/radioedit-cms.pid"
