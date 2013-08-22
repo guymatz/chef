@@ -46,7 +46,7 @@ default[:radioedit][:cms][:host] = "unix"
 default[:radioedit][:nginx][:port] = 8000
 
 # epona vars
-default[:radioedit][:epona][:install_path] = "/data/apps/radioedit";
+default[:radioedit][:epona][:path] = "/data/apps/radioedit";
 default[:radioedit][:epona][:repo] = "git@github.ihrint.com:radioedit/core.git"
 default[:radioedit][:epona][:branch] = "deploy"
 default[:radioedit][:epona][:port] = 8000
