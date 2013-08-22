@@ -19,10 +19,12 @@ sudo "tlong" do
 end
 
 # make a directory to stash builds in 
-directory "/root/build" do
-  owner "root"
-  group "root"
-  action :create
+%w{ /data /data/apps /data/apps/radioedit /root/build }.each do |d|
+  directory d do
+    owner "root"
+    group "root"
+    action :create
+  end
 end
 
 # need to install the memcached package as a dep of libmemcached 
