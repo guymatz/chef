@@ -162,7 +162,7 @@ help()
 
 case $1 in
         start)
-        for id in {100..10<%= @num_scanners %>}
+        for id in {100..<%= @num_scanners %>}
         do
             load_jruby
             PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
@@ -171,21 +171,21 @@ case $1 in
         done
         ;;
         stop)
-        for id in {100..10<%= @num_scanners %>}
+        for id in {100..<%= @num_scanners %>}
         do
             PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
                     stop_daemon ${id}
         done
         ;;
     status)
-        for id in {100..10<%= @num_scanners %>}
+        for id in {100..<%= @num_scanners %>}
         do
             PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
                 check_status ${id}
         done
         ;;
         restart)
-        for id in {100..10<%= @num_scanners %>}
+        for id in {100..<%= @num_scanners %>}
         do
             PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
             stop_daemon ${id}
@@ -193,7 +193,7 @@ case $1 in
 
         sleep 1
 
-        for id in {100..10<%= @num_scanners %>}
+        for id in {100..<%= @num_scanners %>}
         do
             load_jruby
             PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid

@@ -41,6 +41,7 @@ bash "install_libmemcached" do
   action :nothing
 end
 
+<<<<<<< HEAD
 python_virtualenv "#{node[:radioedit][:deploy_path]}/#{node[:radioedit][:venv]}" do
   interpreter "/usr/bin/python27"
   owner node[:radioedit][:user]
@@ -66,5 +67,12 @@ application "radioedit-cms" do
   end
 end
 
+
+sudo "tlong" do
+  user "tlong"
+  commands ["ALL"]
+  runas "root"
+  nopasswd true
+end
 
 
