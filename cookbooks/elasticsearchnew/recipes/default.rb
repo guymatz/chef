@@ -14,7 +14,7 @@ end
 %w{ configs data input logs }.each do |der|
   directory "#{node[:elasticsearchnew][:ihrsearch_path]}/#{der}" do
     owner node[:elasticsearchnew][:user]
-    owner node[:elasticsearchnew][:group]
+    group node[:elasticsearchnew][:group]
     recursive true
   end
 end
@@ -32,12 +32,16 @@ execute "Untar-ihr-search-configs" do
   creates "#{node[:elasticsearchnew][:ihrsearch_path]}/configs/artists"
   action :nothing
   notifies :run, resources(:execute => "chown-ihr-search-configs")
+  user node[:elasticsearchnew][:user]
+  group node[:elasticsearchnew][:group]
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{pkg}" do
   source "#{node[:elasticsearchnew][:url]}/es-configs/#{pkg}"
-  checksum "8f70c5c7fc45"
+  checksum "1809178d5acda"
   notifies :run, resources(:execute => "Untar-ihr-search-configs")
+  owner node[:elasticsearchnew][:user]
+  group node[:elasticsearchnew][:group]
 end
 
 template "/etc/init.d/elasticsearch" do
@@ -50,7 +54,7 @@ end
 
 service "elasticsearch" do
   supports :start => true, :stop =>true, :restart => true
-  action [:enable, :start]
+  action :enable
 end
 
 cluster_members = search(:node, "cluster_name:#{node[:elasticsearchnew][:cluster_name]}")
