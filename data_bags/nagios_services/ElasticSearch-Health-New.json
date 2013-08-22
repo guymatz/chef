@@ -1,5 +1,6 @@
 {
   "hostgroup_name": "elasticsearchnew",
   "id": "ElasticSearch-Health-New",
-  "command_line": "$USER1$/check_http_json.py 'http://$HOSTNAME$-v200.ihr:9200/_cluster/health' 200 30 status green"
+  "command_line": "$USER1$/check_http_json.py 'http://$HOSTNAME$-v200.ihr:9200/_cluster/health' 200 30 status green",
+  "contact_groups": ["admins","elasticsearch"]
 }
