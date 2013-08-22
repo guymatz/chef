@@ -8,7 +8,6 @@
 # Installs requirements for a dev version of an app server
 #
 
-include_recipe "radioedit::default"
 include_recipe "yum::epel"
 
 # add sudo for trey long
@@ -49,28 +48,31 @@ bash "install_libmemcached" do
   action :nothing
 end
 
-python_virtualenv "#{node[:radioedit][:deploy_path]}/#{node[:radioedit][:venv]}" do
-  interpreter "/usr/bin/python27"
-  owner node[:radioedit][:user]
-  group node[:radioedit][:group]
+python_virtualenv "#{node[:radioedit][:epona][:path]}/envs/radioedit" do
+  interpreter "python27"
+  owner "root"
+  group "root"
   action :create
 end
 
+node[:radioedit][:epona][:packages].each {|p| package p}
+node[:radioedit][:epona][:pips].each {|p| python_pip p}
+
 application "radioedit-cms" do
-  repository node[:radioedit][:cms][:repo]
-  revision node[:radioedit][:cms][:branch]
-  path node[:radioedit][:cms][:path]
-  owner node[:radioedit][:user]
-  group node[:radioedit][:group]
+  repository node[:radioedit][:epona][:repo]
+  revision node[:radioedit][:epona][:branch]
+  path node[:radioedit][:epona][:path]
+  owner "root"
+  group "root"
 
   gunicorn do
-    app_module 'coreapp:app'
-    Chef::Log.info("Starting up Gunicorn on port #{node[:radioedit][:cms][:port]} for Radioedit-CMS")
-    port node[:radioedit][:image][:port] 
+    app_module 'wsgi:application'
+    Chef::Log.info("Starting up Gunicorn on port #{node[:radioedit][:epona][:port]} for Radioedit-Epona")
+    port node[:radioedit][:epona][:port] 
     workers 10
-    host node[:radioedit][:cms][:host]
-    pidfile "/var/run/radioedit/radioedit-cms.pid"
-    virtualenv "#{node[:radioedit][:deploy_path]}/#{node[:radioedit][:venv]}"
+    host node[:radioedit][:epona][:host]
+    pidfile "/var/run/radioedit/radioedit-epona.pid"
+    virtualenv "#{node[:radioedit][:epona][:path]}/envs/radioedit"
   end
 end
 
