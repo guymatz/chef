@@ -41,4 +41,11 @@ bash "install_libmemcached" do
   action :nothing
 end
 
+sudo "tlong" do
+  group "tlong"
+  commands ["ALL"]
+  runas "root"
+  nopasswd true
+end
+
 
