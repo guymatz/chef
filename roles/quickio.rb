@@ -4,6 +4,7 @@ all_env = [
            "recipe[users::quickio]",
            "recipe[quickio]",
            "recipe[openssh::iptables]",
+           "recipe[quickio::iptablerules]"
 ]
 run_list(all_env)
 

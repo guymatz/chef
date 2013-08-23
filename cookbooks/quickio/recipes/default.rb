@@ -84,3 +84,9 @@ if not tagged?("quickio-deployed")
 
   tag("quickio-deployed")
 end
+
+cron_d "restart-quickio" do
+  minute 0
+  hour 3
+  command "/etc/init.d/quickio restart"
+end
