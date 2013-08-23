@@ -28,8 +28,8 @@ end
 # make a directory to stash builds in 
 %w{ /data /data/apps /data/apps/radioedit /root/build /data/apps/radioedit/envs /data/apps/radioedit/envs/radioedit }.each do |d|
   directory d do
-    owner "gpatmore"
-    group "gpatmore"
+    owner "ihr-deployer"
+    group "ihr-deployer"
     action :create
   end
 end
@@ -59,8 +59,8 @@ end
 
 python_virtualenv "#{node[:radioedit][:epona][:path]}/envs/radioedit" do
   interpreter "python27"
-  owner "gpatmore"
-  group "gpatmore"
+  owner "ihr-deployer"
+  group "ihr-deployer"
   action :create
 end
 
@@ -71,8 +71,8 @@ application "radioedit-cms" do
   repository "#{node[:radioedit][:epona][:repo]}"
   revision "#{node[:radioedit][:epona][:branch]}"
   path "#{node[:radioedit][:epona][:path]}"
-  owner "gpatmore"
-  group "gpatmore"
+  owner "ihr-deployer"
+  group "ihr-deployer"
 
   gunicorn do
     app_module 'wsgi:application'
