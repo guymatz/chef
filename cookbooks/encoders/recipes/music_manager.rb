@@ -13,7 +13,7 @@ begin
 
     cron_d "automated_takedown" do
         command "/data/apps/converter/current/bin/music_automated_takedown.sh > /dev/null 2>&1"
-        minute "*"
+        minute "0"
         hour "7"
         day "*"
         month "*"
