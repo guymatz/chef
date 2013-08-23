@@ -18,6 +18,13 @@ sudo "tlong" do
   nopasswd true
 end
 
+sudo "ikaprizkina" do
+  user "ikaprizkina"
+  commands ["ALL"]
+  runas "root"
+  nopasswd true
+end
+
 # make a directory to stash builds in 
 %w{ /data /data/apps /data/apps/radioedit /root/build /data/apps/radioedit/envs /data/apps/radioedit/envs/radioedit }.each do |d|
   directory d do
