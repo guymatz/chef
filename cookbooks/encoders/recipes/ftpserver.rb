@@ -96,13 +96,14 @@ begin
             action [:enable, :start]
     end
 
-    cron "mixin_status" do
+    cron_d "mixin_status" do
         command "(cd /data/apps/converter/current/bin; ./mixin_traffic_poller.rb) > /dev/null 2>&1"
         minute  "*/15"
         hour    "*"
         day     "*"
         month   "*"
         weekday "*"
+        user "root"
     end
 
     tag("encoder-ftp-deployed")
