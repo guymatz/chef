@@ -21,8 +21,8 @@ end
 # make a directory to stash builds in 
 %w{ /data /data/apps /data/apps/radioedit /root/build /data/apps/radioedit/envs /data/apps/radioedit/envs/radioedit }.each do |d|
   directory d do
-    owner "root"
-    group "root"
+    owner "gpatmore"
+    group "gpatmore"
     action :create
   end
 end
@@ -52,8 +52,8 @@ end
 
 python_virtualenv "#{node[:radioedit][:epona][:path]}/envs/radioedit" do
   interpreter "python27"
-  owner "root"
-  group "root"
+  owner "gpatmore"
+  group "gpatmore"
   action :create
 end
 
