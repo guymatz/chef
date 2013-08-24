@@ -23,7 +23,7 @@ begin
 
     cron_d "performance_report" do
        command "/data/apps/converter/current/bin/transcoder_performance_report.sh > /dev/null 2>&1"
-       minute "*"
+       minute "0"
        hour "7"
        day "*"
        month "*"
