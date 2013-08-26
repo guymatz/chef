@@ -101,6 +101,7 @@ xsltforwardzone()
         if ! $(grep -P "${HOST}-prod\s+IN\s+CNAME\s+${VIP}" $Z 2>&1 > /dev/null) ; then
           echo "${HOST}-prod  IN  CNAME  ${VIP}.${ZONE}." >> $Z
         fi
+      fi
     done # gmatz - CNAME appending.  Back to Jake code ;-)
 
     
