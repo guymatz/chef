@@ -29,25 +29,25 @@ failure_nonfatal()
 
 preflight_check()
 {
-  CURRENTIP=$(/sbin/ip addr show dev eth0 | grep secondary | awk '{print $2}' | awk -F\/ '{print $1}')
+    CURRENTIP=$(/sbin/ip addr show dev eth0 | grep secondary | awk '{print $2}' | awk -F\/ '{print $1}')
 
-  if [ ! $CURRENTIP == $HOSTAUTOGENIP ]; then
-      echo "It appears you're not running this from the"
-      echo "appropriate host. Do not run this on a host"
-      echo "other than CFE ns_bindauto_stage, which is - ${HOSTAUTOGENIP}."
-      echo "preflight_check: Exiting!"
-      failure_fatal "wrong_host"
-  fi
+    if [ ! $CURRENTIP == $HOSTAUTOGENIP ]; then
+        echo "It appears you're not running this from the"
+        echo "appropriate host. Do not run this on a host"
+        echo "other than CFE ns_bindauto_stage, which is - ${HOSTAUTOGENIP}."
+        echo "preflight_check: Exiting!"
+        failure_fatal "wrong_host"
+    fi
 
-  # test all binaries?
-  [ -x $XSLTPROC ] || failure_fatal "missing_command $XSLTPROC"
-  [ -x $GIT ] || failure_fatal "missing_command $GIT"
-  [ -x $RSYNC ] || failure_fatal "missing_command $RSYNC"
-  [ -x $NC ] || failure_fatal "missing_command $NC"
-  [ -x $SUDO ] || failure_fatal "missing_command $SUDO"
-  [ -x $STAT ] || failure_fatal "missing_command $STAT"
-  [ -x $NAMEDCHKZONE ] || failure_fatal "missing command $NAMEDCHKZONE"
-  RETVAL=0
+    # test all binaries?
+    [ -x $XSLTPROC ] || failure_fatal "missing_command $XSLTPROC"
+    [ -x $GIT ] || failure_fatal "missing_command $GIT"
+    [ -x $RSYNC ] || failure_fatal "missing_command $RSYNC"
+    [ -x $NC ] || failure_fatal "missing_command $NC"
+    [ -x $SUDO ] || failure_fatal "missing_command $SUDO"
+    [ -x $STAT ] || failure_fatal "missing_command $STAT"
+    [ -x $NAMEDCHKZONE ] || failure_fatal "missing command $NAMEDCHKZONE"
+    RETVAL=0
 }
 
 xsltforwardzone()
@@ -68,82 +68,42 @@ xsltforwardzone()
     echo >> $WORKDIR/$ZONE.$FILETAG.zone
     echo >> $WORKDIR/$ZONE.$FILETAG.zone
 
-# GMATZ - Right here I need to find the A records in $WORKDIR/$ZONE.$FILETAG.zone and create a CNAME
-# for the record if the interface is the default gateway
-# This may seem like a total hack, but bear with me . . .  I'm going to replace the whole thing one day
-/usr/bin/env ruby <<-EOR
+    # gmatz - 20130826
+    # take a zone file and create CNAMES for prod VLANS, e.g.
+    # iad-vast101-v200     IN      A   
+    # means we create
+    # iad-vast101-prod     IN      CNAME   iad-vast101-v200.ihr.
+    shopt -s lastpipe  # Required so that my hash doesn't get lost in the sub-shell
+    declare -A intf_by_host
+    # Here we get output from knife and use ruby to make it more presentable
+    # We then assign the associative array intf_by_host with host:default_gateway
+    # pairs so that we can tell if a CNAME needs to be created
+    knife search node 'chef_environment:prod' -a network.default_interface  | \ 
+      ruby -pe '$_ = $_.chomp + gets.chomp!.sub!(/.*: /,"") if $_ =~ /:$/' | \
+      awk -F. '{print $1, $3}' | while read H I; do
+      if [ -z $I ]; then
+        continue
+      fi
+      intf_by_host["$H"]="$I"
+    done
 
-require 'chef/rest'
-require 'chef/search/query'
+    # Now open the forward zone file and compare contents against 
+    # intf_by_host array to see if CNAME is required
+    Z=$WORKDIR/$ZONE.$FILETAG.zone
+    grep -P "^\S+\s+IN\s+A\s+[0-9\.]+$" $Z | while read VIP IN A IP; do
+      HOST=$(echo $VIP | sed 's/\(.*\)-v[0-9]*/\1/')
+      INTF=$(echo $VIP | sed 's/.*-v\([0-9]*\)/\1/')
+      # Skip if we don't have any info on this host
+      if [ -z ${intf_by_host[$HOST]} ]; then continue; fi
+      # CNAME Required if ${intf_by_host[$HOST]} == $INTF
+      if [ ${intf_by_host[$HOST]} == $INTF ]; then
+        # Check to see if CNAME already exists
+        if ! $(grep -P "${HOST}-prod\s+IN\s+CNAME\s+${VIP}" $Z 2>&1 > /dev/null) ; then
+          echo "${HOST}-prod  IN  CNAME  ${VIP}.${ZONE}." >> $Z
+        fi
+    done # gmatz - CNAME appending.  Back to Jake code ;-)
 
-# This $ will get expanded by shell
-xfile = "$WORKDIR/$ZONE.$FILETAG.zone" 
-
-# TODO Make path to knife.rb generic
-begin
-  Chef::Config.from_file('/home/' + ENV["LOGNAME"] + '/.chef/knife.rb')
-rescue => e
-  puts "Error configuring chef: #{e.message}"
-  exit 1
-end
- 
-#  Search returns an array of stuff.  Just need first element
-vlan_by_host = {}
-
-begin
-  Chef::Search::Query.new.search('node', 'chef_environment:prod') do |n|
-    # Some machines don't have a default interface defined
-    next unless defined? n[:network][:default_interface]
-    iface = n[:network][:default_interface]
-    # We only want interfaces which have a 3-digit vlan extension
-    next unless iface =~ /\.(\d{3})$/
-    # backslash escape here so shell does not expand
-    vlan = \$1
-    hostname = n[:hostname]
-    vlan_by_host[hostname] = vlan
-  end
-rescue Exception => e
-  puts "Error getting info from chef DB: #{e.message}"
-  exit 1
-end
-
-# Now check the entries of the xfile and see if there are any A records
-# that have a vlan extension (e.g. -v200) that matches the vlan_by_host
-# and create two CNAMEs replacing the VLAN with .prod and -prod
-f_out = xfile + '.' + "$$"
-file_out = File.open(f_out, "w")
-
-File.open(xfile, "r") do |file_in|
-  while line_in = file_in.gets
-    # copying the line into the new file
-    file_out.write(line_in)
-    # Then writing out a CNAME if required
-    # Looking for something ling "hostname-v200 IN A"
-    puts "Just saw: #{line_in}"
-    # Don't want these, i don't think
-    next if line_in =~ /-vip-/
-    # Watch the parens here . . .  it goes vip_hostname, real_hostname, vlan
-    next unless line_in =~ /\A((.*)-v(\d{3}))\s+IN\s+A/
-    puts "Just saw: #{line_in}"
-    # We just captured the hostname & VLAN Id, if it exists (Sorry, Mark)
-    # Again, backslash escaping to shell does not expand
-    # real_hostname is the hostname of the machine, rather than the hostname-v### name
-    vip_hostname = \$1; real_hostname = \$2; vlan = \$3 ;
-    # puts "#{real_hostname} : #{vlan} : #{vip_hostname}"
-    new_cname_rec = real_hostname + "-prod IN CNAME " + vip_hostname
-    # Trying to avoid dupes.  I bet there's a better - ruby - way to do this . . .
-    next if `grep -w "#{new_cname_rec}" xfile`
-    if defined? vlan_by_host[real_hostname] and vlan_by_host[real_hostname] == vlan
-        #file_out.write(real_hostname + ".prod IN CNAME " + vip_hostname + "\n")
-        file_out.write(new_cname_rec + "\n")
-    end
-  end
-end
-
-file_out.close
-# I believe I don't need to close the read files, that the end of the block closes it
-
-EOR
+    
 
     if [ -e $STAGING/$ZONE.$FILETAG.zone ]; then
       PATCHF="/var/tmp/xsltforwardzone-patch.$$"
@@ -171,17 +131,17 @@ EOR
 
     cp -f $STAGING/$ZONE.$FILETAG.zone $STAGING/$ZONE.$FILETAG.zone.fake
     # remember, bind complains if zone file doesn't end with a newline
-  	echo >> $STAGING/$ZONE.$FILETAG.zone
+    echo >> $STAGING/$ZONE.$FILETAG.zone
 
-      # copy new zone to $ROOTDIR (/var/named/chroot-stage/var/named/internal)
-  	[ $DEBUG = 2 ] && echo "DEBUG2: cp -f $STAGING/$ZONE.$FILETAG.zone $ROOTDIR/$ZONE.$FILETAG.zone"
-  	cp -f $STAGING/$ZONE.$FILETAG.zone $ROOTDIR/$ZONE.$FILETAG.zone
+    # copy new zone to $ROOTDIR (/var/named/chroot-stage/var/named/internal)
+    [ $DEBUG = 2 ] && echo "DEBUG2: cp -f $STAGING/$ZONE.$FILETAG.zone $ROOTDIR/$ZONE.$FILETAG.zone"
+    cp -f $STAGING/$ZONE.$FILETAG.zone $ROOTDIR/$ZONE.$FILETAG.zone
 
-  	echo >> $WORKDIR/$ZONE.$FILETAG.zone.fake
-  	[ $DEBUG = 2 ] && echo "DEBUG2: cp -f $STAGING/$ZONE.$FILETAG.zone.fake $ROOTDIR/$ZONE.$FILETAG.zone.fake"
-  	cp -f $STAGING/$ZONE.$FILETAG.zone.fake $ROOTDIR/$ZONE.$FILETAG.zone.fake
+    echo >> $WORKDIR/$ZONE.$FILETAG.zone.fake
+    [ $DEBUG = 2 ] && echo "DEBUG2: cp -f $STAGING/$ZONE.$FILETAG.zone.fake $ROOTDIR/$ZONE.$FILETAG.zone.fake"
+    cp -f $STAGING/$ZONE.$FILETAG.zone.fake $ROOTDIR/$ZONE.$FILETAG.zone.fake
   done
-  
+
   RETVAL=0
 }
 
@@ -190,46 +150,46 @@ xsltreversezone()
     ALL_REV_ZONES=$(find $WORKDIR -name 'revzone_*.xml')
     echo "ALL_REV_ZONES=" $ALL_REV_ZONES
     for ZONE in $ALL_REV_ZONES; do
-	XMLFILE=$ZONE
-	ZONE=$(echo $XMLFILE | cut -f2 -d '_')
-	[ $DEBUG = 2 ] && echo "DEBUG2: $XSLTPROC $SS_BIND9_REV $XMLFILE > $WORKDIR/$ZONE.$FILETAG.zone"
-	$XSLTPROC $SS_BIND9_REV $XMLFILE > $WORKDIR/$ZONE.$FILETAG.zone 2>/dev/null
-	RETVAL=$?
-	if [ $RETVAL -ne 0 ]; then
+  XMLFILE=$ZONE
+  ZONE=$(echo $XMLFILE | cut -f2 -d '_')
+  [ $DEBUG = 2 ] && echo "DEBUG2: $XSLTPROC $SS_BIND9_REV $XMLFILE > $WORKDIR/$ZONE.$FILETAG.zone"
+  $XSLTPROC $SS_BIND9_REV $XMLFILE > $WORKDIR/$ZONE.$FILETAG.zone 2>/dev/null
+  RETVAL=$?
+  if [ $RETVAL -ne 0 ]; then
             [ "$DEBUG" -gt 0 ] && echo "ERROR: xsltproc error in xsltreversezone func"
             [ "$DEBUG" = 2 ] && XSLTPROCMSG=$($XSLTPROC $SS_BIND9_REV $XMLFILE > $WORKDIR/$ZONE.$FILETAG.zone 2>&1)
             failure_fatal "xsltreversezone_error"
-	fi
+  fi
 
         # bind complains if zone file doesn't end with a newline
-	echo >> $WORKDIR/$ZONE.$FILETAG.zone
+  echo >> $WORKDIR/$ZONE.$FILETAG.zone
 
-	if [ -e $STAGING/$ZONE.$FILETAG.zone ]; then
+  if [ -e $STAGING/$ZONE.$FILETAG.zone ]; then
             PATCHF="/var/tmp/xsltreversezone-patch.$$"
             [ "$DEBUG" = 2 ] && echo "DEBUG2: $DIFF -u $STAGING/$ZONE.$FILETAG.zone $WORKDIR/$ZONE.$FILETAG.zone > $PATCHF 2>/dev/null"
             $DIFF -u $STAGING/$ZONE.$FILETAG.zone $WORKDIR/$ZONE.$FILETAG.zone > $PATCHF 2>/dev/null
             RETVAL=$?
             if [ $RETVAL = 2 ]; then  # diff had errors
-		[ "$DEBUG" -gt 0 ] && echo "ERROR: diff error in xsltreversezone func"
-		[ "$DEBUG" = 2 ] && DIFFMSG=$($DIFF -u $STAGING/$ZONE.$FILETAG.zone $WORKDIR/$ZONE.$FILETAG.zone 2>&1 )
-		failure_fatal "xsltreversezone_error"
+    [ "$DEBUG" -gt 0 ] && echo "ERROR: diff error in xsltreversezone func"
+    [ "$DEBUG" = 2 ] && DIFFMSG=$($DIFF -u $STAGING/$ZONE.$FILETAG.zone $WORKDIR/$ZONE.$FILETAG.zone 2>&1 )
+    failure_fatal "xsltreversezone_error"
             elif [ $RETVAL = 1 ]; then  # diff found differences
-		[ $DEBUG = 2 ] && echo "DEBUG2: $PATCH -s $STAGING/$ZONE.$FILETAG.zone $PATCHF 2>/dev/null"
-		$PATCH -s $STAGING/$ZONE.$FILETAG.zone $PATCHF 2>/dev/null
-		RETVAL=$?
-		if [ $RETVAL -ne 0 ]; then
+    [ $DEBUG = 2 ] && echo "DEBUG2: $PATCH -s $STAGING/$ZONE.$FILETAG.zone $PATCHF 2>/dev/null"
+    $PATCH -s $STAGING/$ZONE.$FILETAG.zone $PATCHF 2>/dev/null
+    RETVAL=$?
+    if [ $RETVAL -ne 0 ]; then
                     [ "$DEBUG" -gt 0 ] && echo "ERROR: patch error in xsltreversezone func"
                     [ "$DEBUG" = 2 ] && PATCHMSG=$($PATCH -s $STAGING/$ZONE.$FILETAG.zone $PATCHF 2>&1 )
                     failure_fatal "xsltreversezone_error"
-		fi
+    fi
             fi
             rm -f $PATCHF
-	else
+  else
             cp -f $WORKDIR/$ZONE.$FILETAG.zone $STAGING/$ZONE.$FILETAG.zone
-	fi
+  fi
     # copy new zone to $ROOTDIR (/var/named/chroot-stage/var/named/internal)
-	[ $DEBUG = 2 ] && echo "DEBUG2: cp -f $STAGING/$ZONE.$FILETAG.zone $ROOTDIR/$ZONE.$FILETAG.zone"
-	cp -f $STAGING/$ZONE.$FILETAG.zone $ROOTDIR/$ZONE.$FILETAG.zone
+  [ $DEBUG = 2 ] && echo "DEBUG2: cp -f $STAGING/$ZONE.$FILETAG.zone $ROOTDIR/$ZONE.$FILETAG.zone"
+  cp -f $STAGING/$ZONE.$FILETAG.zone $ROOTDIR/$ZONE.$FILETAG.zone
     done
     RETVAL=0
 }
