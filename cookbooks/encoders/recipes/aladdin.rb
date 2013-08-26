@@ -12,11 +12,31 @@ begin
         #not_if do FileTest.directory?([:aladdin][:aladdin_mount_dir]) end
     end
 
-    mount node[:encoders][:p_encoder_mount] do
-        device "#{node[:encoders][:isilon_server]}:#{node[:encoders][:p_encoder_export]}"
+    mount node[:aladdin][:aladdin_mount_dir] do
+        device "#{node[:aladdin][:nfs_server]}:#{node[:aladdin][:aladdin_export_dir]}"
         fstype "nfs"
         options "rw,vers=3,bg,soft,tcp,intr"
         action [:mount, :enable]
+    end
+
+    cron_d "aladdin_prod_transcoder" do
+        command "/data/aladdin/aladdin_prod_transcoder.sh >> /var/log/aladdin_prod_transcoder.log 2>&1"
+        minute  "*/5"
+        hour  "*"
+        day   "*"
+        month   "*"
+        weekday "*"
+        user "root"
+    end
+
+    cron_d "aladdin_prod_rsync" do
+        command "/root/prod-aladdin-rsync/rsync-prod-aladdin.sh  >/dev/null 2>&1"
+        minute  "*/5"
+        hour  "*"
+        day   "*"
+        month   "*"
+        weekday "*"
+        user "root"
     end
 
     tag("aladdin")
