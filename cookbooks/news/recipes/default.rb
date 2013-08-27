@@ -59,7 +59,7 @@ begin
         app_module "dfp:app"
         host "0.0.0.0"
         port 8080
-        workers 9
+        workers 64
         virtualenv "/data/apps/newsletter/shared/venv"
       end
     end
