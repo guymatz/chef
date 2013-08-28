@@ -51,7 +51,7 @@ end
 node[:radioedit][:epona][:packages].each  { |p| package p }
 node[:radioedit][:epona][:pips].each      { |p| python_pip p }
 
-application "radioedit-cms" do
+application "radioedit-core" do
   repository "#{node[:radioedit][:epona][:repo]}"
   revision "#{node[:radioedit][:epona][:branch]}"
   path "#{node[:radioedit][:epona][:path]}"
