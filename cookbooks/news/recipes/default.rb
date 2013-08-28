@@ -11,7 +11,7 @@
   include_recipe cb
 end
 
-%w{ python27 python27-libs python27-devel python27-test python27-tools }.each do |p|
+%w{ python27 python27-libs python27-devel python27-test python27-tools libevent-devel }.each do |p|
   package p
 end
 
@@ -69,11 +69,11 @@ begin
       end
     end
 
-    directory "/var/log/newsletters" do
+    directory "/var/log/newsletter" do
         owner 'root'
         group 'root'
         action :create
-        not_if { FileTest.directory?("/var/log/newsletters") }
+        not_if { FileTest.directory?("/var/log/newsletter") }
      end
 
     logrotate_app "newsletter" do
