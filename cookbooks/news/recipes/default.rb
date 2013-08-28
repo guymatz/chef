@@ -60,8 +60,24 @@ begin
         host "0.0.0.0"
         port 8080
         workers 64
+        accesslog = '/var/log/newsletters/newsletter-gunicorn-access.log'
         virtualenv "/data/apps/newsletter/shared/venv"
       end
+      directory "/var/log/newsletters/" do
+         owner 'root'
+         group 'root'
+         action :create
+         not_if do FileTest.directory?("/var/log/newsletters") end
+      end
+     logrotate_app "newsletters" do
+        path "/var/log/newletters/*.log"
+        options ["missingok", "copytruncate", "compress", "notifempty"]
+        frequency "daily"
+        enable true
+        create "0644 nobody root"
+        rotate 2
+     end
+
     end
 
 
