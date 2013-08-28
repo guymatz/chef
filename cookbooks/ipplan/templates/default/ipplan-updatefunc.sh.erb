@@ -80,9 +80,9 @@ xsltforwardzone()
     # And weed out the lines that don't look like "hostname VLAN_ID"
     # We then assign the associative array intf_by_host with host:default_gateway
     # pairs so that we can tell if a CNAME needs to be created
-    knife search node 'chef_environment:prod' -a network.default_interface  | \ 
+    knife search node 'chef_environment:prod' -a network.default_interface  | \
       ruby -pe '$_ = $_.chomp + gets.chomp!.sub!(/.*: /,"") if $_ =~ /:$/' | \
-      awk -F. '{print $1, $3}' |\
+      awk -F. '{print $1, $3}' | \
       grep -P "\S+\s\d+" 1> $TMP_FILE 
       if [ $? -ne 0 ]; then failure_fatal "knife error in ${FUNCNAME}"; fi
     # Loop through file of "hostname VLAN" and create associative array
