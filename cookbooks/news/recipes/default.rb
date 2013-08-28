@@ -63,7 +63,7 @@ begin
         port 8080
         workers 64
         virtualenv "/data/apps/newsletter/shared/venv"
-        autostart "true"
+        autostart true
         accesslog "/var/log/newsletter/newsletter-gunicorn-access.log"
       end
     end
