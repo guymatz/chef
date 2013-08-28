@@ -29,7 +29,6 @@ python_virtualenv "/data/apps/newsletter/shared/venv" do
   action :create   
 end
 
-begin
     unless tagged?("newsletter-deployed")
 
     application "newsletter" do
@@ -62,7 +61,7 @@ begin
         host "0.0.0.0"
         port 8080
         workers 9
-        workers_class "gevent"
+        worker_class "gevent"
         virtualenv "/data/apps/newsletter/shared/venv"
         autostart true
         accesslog "/var/log/newsletter/newsletter-gunicorn-access.log"
@@ -98,9 +97,6 @@ begin
     end
     tag("newsletter-deployed")
   end
-rescue
-    untag("newsletter-deployed")
-end
 
 bash "setup venv" do
       code <<-EOH
