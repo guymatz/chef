@@ -55,8 +55,8 @@ application "radioedit-core" do
   repository "#{node[:radioedit][:epona][:repo]}"
   revision "#{node[:radioedit][:epona][:branch]}"
   path "#{node[:radioedit][:epona][:path]}"
-  owner "gpatmore"
-  group "gpatmore"
+  owner "ihr-deployer"
+  group "ihr-deployer"
 
   gunicorn do
     app_module 'wsgi:application'
