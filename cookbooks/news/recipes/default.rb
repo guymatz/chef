@@ -61,7 +61,8 @@ begin
         app_module "dfp:app"
         host "0.0.0.0"
         port 8080
-        workers 64
+        workers 9
+        workers_class "gevent"
         virtualenv "/data/apps/newsletter/shared/venv"
         autostart true
         accesslog "/var/log/newsletter/newsletter-gunicorn-access.log"
