@@ -1,7 +1,7 @@
 {
   "id": "ikaprizkina",
   "name":	"Irena Kaprizkina",
-  "email":	"irenakaprizkina@clearchannel.com",
+  "email":	"irinakaprizkina@clearchannel.com",
   "htpasswd": "{SHA}XC/VlKK3rfxRY7YG30mkIvjm5yw=",
   "nagios": {
           "email": "irinakaprizkina@clearchannel.com"
