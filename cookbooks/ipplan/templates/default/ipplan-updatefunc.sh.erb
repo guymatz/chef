@@ -68,27 +68,33 @@ xsltforwardzone()
     echo >> $WORKDIR/$ZONE.$FILETAG.zone
     echo >> $WORKDIR/$ZONE.$FILETAG.zone
 
-    # gmatz - 20130826
+    # gmatz - CNAME Appending - 20130826
     # take a zone file and create CNAMES for prod VLANS, e.g.
     # iad-vast101-v200     IN      A   
     # means we create
     # iad-vast101-prod     IN      CNAME   iad-vast101-v200.ihr.
-    shopt -s lastpipe  # Required so that my hash doesn't get lost in the sub-shell
+    
     declare -A intf_by_host
+    TMP_FILE=/tmp/.add_cnames.$$
     # Here we get output from knife and use ruby to make it more presentable
+    # And weed out the lines that don't look like "hostname VLAN_ID"
     # We then assign the associative array intf_by_host with host:default_gateway
     # pairs so that we can tell if a CNAME needs to be created
     knife search node 'chef_environment:prod' -a network.default_interface  | \ 
       ruby -pe '$_ = $_.chomp + gets.chomp!.sub!(/.*: /,"") if $_ =~ /:$/' | \
-      awk -F. '{print $1, $3}' | while read H I; do
-      if [ -z $I ]; then
-        continue
-      fi
+      awk -F. '{print $1, $3}' |\
+      grep -P "\S+\s\d+" 1> $TMP_FILE 
+      if [ $? -ne 0 ]; then failure_fatal "knife error in ${FUNCNAME}"; fi
+    # Loop through file of "hostname VLAN" and create associative array
+    while read H I; do
+      if [ -z $I ]; then continue; fi
       intf_by_host["$H"]="$I"
-    done
+    done < $TMP_FILE
 
-    # Now open the forward zone file and compare contents against 
-    # intf_by_host array to see if CNAME is required
+    # Now grep the forward zone file for A records that have VLANs in the hostname,
+    # e.g. iad-cass104-v240, and compare contents against 
+    # intf_by_host array to see if CNAME is required.  We only create a CNAME for
+    # hostnames that have a VLAN interface as their default interface
     Z=$WORKDIR/$ZONE.$FILETAG.zone
     grep -P "^\S+\s+IN\s+A\s+[0-9\.]+$" $Z | while read VIP IN A IP; do
       HOST=$(echo $VIP | sed 's/\(.*\)-v[0-9]*/\1/')
@@ -102,10 +108,10 @@ xsltforwardzone()
           echo "${HOST}-prod  IN  CNAME  ${VIP}.${ZONE}." >> $Z
         fi
       fi
-    done # gmatz - CNAME appending.  Back to Jake code ;-)
-
+    done
+    rm -f $TMP_FILE
+    # gmatz - CNAME appending done.  Back to Jake code ;-)
     
-
     if [ -e $STAGING/$ZONE.$FILETAG.zone ]; then
       PATCHF="/var/tmp/xsltforwardzone-patch.$$"
       [ "$DEBUG" = 2 ] && echo "DEBUG2: $DIFF -u $STAGING/$ZONE.$FILETAG.zone $WORKDIR/$ZONE.$FILETAG.zone > $PATCHF 2>/dev/null"
