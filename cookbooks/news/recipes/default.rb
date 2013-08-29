@@ -70,7 +70,8 @@ end
 
     directory "/var/log/newsletter" do
         owner 'root'
-        group 'root'
+        group 'ihr-deployer'
+        mode "775"
         action :create
         not_if { FileTest.directory?("/var/log/newsletter") }
      end
