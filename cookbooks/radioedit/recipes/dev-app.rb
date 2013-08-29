@@ -57,6 +57,7 @@ application "radioedit-core" do
   path "#{node[:radioedit][:epona][:path]}"
   owner "ihr-deployer"
   group "ihr-deployer"
+  enable_submodules "true"
 
   gunicorn do
     app_module 'wsgi:application'
