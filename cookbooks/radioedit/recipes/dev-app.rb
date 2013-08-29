@@ -26,7 +26,7 @@ sudo "ikaprizkina" do
 end
 
 # make all required directories
-%w{ /data /data/apps /data/apps/radioedit /root/build /data/apps/radioedit/envs /data/apps/radioedit/envs/radioedit /var/run/radioedit }.each do |d|
+%w{ /data /data/apps /data/apps/radioedit /root/build /data/apps/radioedit/envs /data/apps/radioedit/envs/radioedit /var/run/radioedit /var/log/radioedit }.each do |d|
   directory d do
     owner "ihr-deployer"
     group "ihr-deployer"
@@ -66,6 +66,9 @@ application "radioedit-core" do
     host node[:radioedit][:epona][:host]
     pidfile "/var/run/radioedit/radioedit-epona.pid"
     virtualenv "#{node[:radioedit][:epona][:path]}/envs/radioedit"
+    stdout_logfile "/var/log/radioedit/epona.log"
+    stderr_logfile "/var/log/radioedit/epona.err"
+    loglevel "DEBUG"
   end
 end
 
