@@ -71,9 +71,6 @@ default[:encoders][:deploy_path] = "/data/apps/converter"
 default[:encoders][:github_url] = "git@github.com:iheartradio/converter"
 default[:encoders][:deploy_key] = "/home/converter/.ssh/encoder-deploy"
 default[:encoders][:wrapper_script] = "encoder-wrap-ssh.sh"
-### JPD DEL default[:encoders][:converter_user] = "converter"
-### JPD DEL default[:encoders][:nfsserver] = "10.5.40.2"
-### JPD DEL default[:encoders][:ftp_mount] = "/data/encoder-ftp"
 
 ###
 ### IAD-ENC101 SPECIFIC - FOR ALLADIN
@@ -195,6 +192,10 @@ default[:encoders][:mixins][:manager][:crons] = [
     "/data/apps/converter/current/bin/cron/mixin_manager_check.sh"
 ]
 
+###
+### IAD-ENCFTP101 - OPS-5293 INCROND
+###
+default[:encftp][:incrond][:github_url] =  "git@github.com:iheartradio/content-talk.git"
 
 #### IAD-ENCINGESTION SPECIFIC
 default[:encoder][:filemonitor][:monitor_script] = "/data/apps/filemonitor/bin/fileMonitorService.sh"
