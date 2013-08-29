@@ -1,42 +1,52 @@
 #!/bin/bash
+# ####################################################################
+# @FILE cronvisor.sh
+# @AUTHOR Gregory Patmore <gregorypatmore@clearchannel.com>
+# @DESC Script to aid in reorting results to nagios passive 
+# @DEPENDANCIES /usr/bin/nagios_passive.py
+# ####################################################################
 
-PATH=$PATH:/bin:/usr/local/bin:/usr/bin:/sbin
-export PATH
+# tmp files to record output
+TMPFOUT=$(mktemp --suffix cronwrap.log);
+TMPFERR=$(mktemp --suffix cronwrap.err);
+# clean up the tmp files on exit
+trap 'rm -rf $TMPFOUT $TMPFERR' SIGINT SIGTERM EXIT;
+
+NAGSPASV_SCRIPT=/usr/bin/nagios_passive.py;
+SERVICENAME="GENERIC-SERVICE";
+
+function rpt2Nagios() {};
+function showUsage() {};
+function logMsg() {};
+
+# detect if we are sourced or main script
+if [ "$_" == "$0" ]; then
+    # we are the main script
 
 
+else
+    # sourced into another script
+    export -f rpt2Nagios;
 
-
-if [ $# -lt 3 ]; then
-    echo
-    echo "   Usage:"
-    echo "   $0 host service \"quoted command\""
-    echo
-    exit 254
 fi
 
+PATH=$PATH:/bin:/usr/local/bin:/usr/bin:/sbin;
+export PATH;
+SCRIPT=$(basename $0);
 
-# Which host are we supposed to run on?
-BATCH_IP=$(host $1 | awk '/has address/ {print $4}')
 
-# Does that IP even exist?
-# Possibly due to network issues, so don't make noise
-if [ -z $BATCH_IP ]; then
-    # echo "Invalid host to run on -- cannot resolve $1"
-    exit 150
-fi
+# options string
+# -S <servicename> Nagios Passive service name to report to
+OPTSTR='S:'
 
-# IP exists. Do we have it?
-CONCH=$(ip addr show | egrep "${BATCH_IP}" | wc -l)
-if [ "$CONCH" -eq 0 ]; then
-    # Nope, we don't have it
-    exit 0
-fi
 
-TMPFILE="/var/tmp/cronwrap.$$"
-HOST=$1
-SERVICENAME=$2
+
+
+
+
+
 START=$(date +%s)
-/bin/bash -c "$3" >$TMPFILE.out 2>$TMPFILE.err
+/bin/bash -c "$3" >$TMPFOUT 2>$TMPFERR
 RETVAL=$?        # one for our exit value
 NRETVAL=$RETVAL  # for nagios_passive
 END=$(date +%s)
@@ -50,7 +60,7 @@ else
 fi
 
 CMD_ARGS=$(echo -e "$HOST\t$SERVICENAME\t$NRETVAL\t$STATUS")
-/usr/bin/nagios_passive.py $CMD_ARGS
+NAGSPASV_SCRIPT $CMD_ARGS
 
 # send the actual script output to syslog.
 echo "$2 ran in $DURATION seconds (from $START to $END)" | logger -p cron.info -t $2

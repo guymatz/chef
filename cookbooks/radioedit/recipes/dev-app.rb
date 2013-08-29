@@ -25,8 +25,8 @@ sudo "ikaprizkina" do
   nopasswd true
 end
 
-# make a directory to stash builds in 
-%w{ /data /data/apps /data/apps/radioedit /root/build /data/apps/radioedit/envs /data/apps/radioedit/envs/radioedit }.each do |d|
+# make all required directories
+%w{ /data /data/apps /data/apps/radioedit /root/build /data/apps/radioedit/envs /data/apps/radioedit/envs/radioedit /var/run/radioedit }.each do |d|
   directory d do
     owner "ihr-deployer"
     group "ihr-deployer"
