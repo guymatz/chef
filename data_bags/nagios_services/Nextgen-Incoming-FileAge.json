@@ -1,0 +1,6 @@
+{
+  "id": "nextgen-incoming-fileage",
+  "command_line": "$USER1$/check_newest_file_age.py $HOSTADDRESS$",
+  "hostgroup_name": "newsletter",
+  "contact_groups": ["admins", "talk"]
+}
