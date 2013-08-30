@@ -47,9 +47,11 @@ start() {
 stop() {
     # Kills the application process
     echo -n "Stopping application (<%= @app %>): "
-    kill $(cat $PIDFILE)
-    rm -f $PIDFILE
-    sleep 1
+    if [ -f $PIDFILE ] ; then
+        kill $(cat $PIDFILE)
+        rm -f $PIDFILE
+        sleep 1
+    fi
     echo "OK"
 }
 
