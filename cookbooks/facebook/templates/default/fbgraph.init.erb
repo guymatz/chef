@@ -37,9 +37,9 @@ start() {
     echo -n "Starting application (<%= @app %>): "
 
     # Redirects default and error output to a log file
-    HOST=`ifconfig | grep 10.5.40 | awk '{print $2}' | cut -d: -f2`
     BASEDIR="<%= @basedir %>"
-    nohup java -Xmx1024M -Dpidfile=$PIDFILE -Dlog4j.configuration=file:///$BASEDIR/log4j.xml -Djava.rmi.server.hostname=$HOST -Dcom.sun.management.jmxremote.port=8995 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -cp $BASEDIR/amqp-fbgraph-1.0.0.jar com.ccrd.amqp.FBGraphConsumer $BASEDIR/env.properties 2>&1 /dev/null
+    nohup java -Xmx1024M -Dpidfile=$PIDFILE -Dlog4j.configuration=file:///$BASEDIR/log4j.xml -Djava.rmi.server.hostname=<%= node[:ipaddress] %> -Dcom.sun.management.jmxremote.port=8995 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -cp $BASEDIR/amqp-fbgraph-1.0.0.jar com.ccrd.amqp.FBGraphConsumer $BASEDIR/env.properties > /dev/null 2>&1 &
+    echo $! > $PIDFILE
     echo "OK"
 }
 
@@ -47,8 +47,9 @@ start() {
 stop() {
     # Kills the application process
     echo -n "Stopping application (<%= @app %>): "
-    kill -9 $(cat $PIDFILE)
+    kill $(cat $PIDFILE)
     rm -f $PIDFILE
+    sleep 1
     echo "OK"
 }
 
