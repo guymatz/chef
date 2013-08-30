@@ -57,3 +57,9 @@ nagios_nrpecheck "Facebook-Process-FBgraph" do
   parameters "-C java -a '-Xmx4G -jar /data/apps/fbgraph/fbgraph.jar'"
   action :add
 end
+
+cron_d "restart_fbgraph" do
+  minute 0
+  hour 17
+  command "/etc/init.d/fbgraph restart"
+end
