@@ -54,3 +54,10 @@ cron_d "archive_logs" do
   hour 23
   user "tomcat"
 end
+
+cron_d "remove_old_logs" do
+  command 'find /data/apps/tomcat7/logs -mtime +5 -exec rm {} \;'
+  minute 0
+  hour 1
+  user "tomcat"
+end
