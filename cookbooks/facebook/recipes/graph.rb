@@ -58,8 +58,8 @@ nagios_nrpecheck "Facebook-Process-FBgraph" do
   action :add
 end
 
-cron_d "restart_fbgraph" do
-  minute 0
-  hour 17
-  command "/etc/init.d/fbgraph restart"
-end
+#cron_d "restart_fbgraph" do
+#  minute 0
+#  hour 17
+#  command "/etc/init.d/fbgraph restart"
+#end
