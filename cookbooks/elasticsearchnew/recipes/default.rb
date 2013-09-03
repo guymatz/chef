@@ -30,14 +30,14 @@ unless tagged?('elasticsearchnew-deployed')
     command "tar zxf #{pkg} -C #{node[:elasticsearchnew][:ihrsearch_path]}/configs"
     cwd Chef::Config[:file_cache_path]
     action :nothing
-    notifies :run, resources(:execute => "chown-ihr-search-configs")
+    notifies :run, resources(:execute => "chown-ihr-search-configs"), :immediately
     user node[:elasticsearchnew][:user]
     group node[:elasticsearchnew][:group]
   end
   
   remote_file "#{Chef::Config[:file_cache_path]}/#{pkg}" do
     source "#{node[:elasticsearchnew][:url]}/es-configs/#{pkg}"
-    notifies :run, resources(:execute => "Untar-ihr-search-configs")
+    notifies :run, resources(:execute => "Untar-ihr-search-configs"), :immediately
     owner node[:elasticsearchnew][:user]
     group node[:elasticsearchnew][:group]
   end
