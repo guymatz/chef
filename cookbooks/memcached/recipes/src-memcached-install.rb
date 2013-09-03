@@ -2,10 +2,10 @@
 # @TODO: change to rpm install 
 
 directory "/root/build" do
-    owner "root"
-    group "root"
-    action :create
-  end
+  owner "root"
+  group "root"
+  action :create
+end
 
 remote_file "/root/build/libmemcached-0.51.tar.gz" do
   source "https://launchpad.net/libmemcached/1.0/0.51/+download/libmemcached-0.51.tar.gz"

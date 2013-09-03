@@ -53,3 +53,5 @@ default[:radioedit][:epona][:port] = 8000
 default[:radioedit][:epona][:host] = "unix"
 default[:radioedit][:epona][:packages] = %w{ python27 python27-libs python27-devel python27-test python27-tools nginx zlib-devel libjpeg zlib gcc python-devel git libevent-devel libevent zeromq-devel zeromq python-setuptools python-ldap postgresql-devel openldap-devel varnish readline-devel patch libjpeg-devel }
 default[:radioedit][:epona][:pips] = %w{ supervisor pymongo python-memcached gunicorn greenlet statsd pyzmq }
+default[:radioedit][:epona][:env] = "ihr_testing"
+

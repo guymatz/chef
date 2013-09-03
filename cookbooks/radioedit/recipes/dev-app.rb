@@ -10,21 +10,6 @@
 
 include_recipe "yum::epel"
 
-# add sudo for trey long
-sudo "tlong" do
-  user "tlong"
-  commands ["ALL"]
-  runas "root"
-  nopasswd true
-end
-
-sudo "ikaprizkina" do
-  user "ikaprizkina"
-  commands ["ALL"]
-  runas "root"
-  nopasswd true
-end
-
 # make all required directories
 %w{ /data /data/apps /data/apps/radioedit /root/build /data/apps/radioedit/envs /data/apps/radioedit/envs/radioedit /var/run/radioedit /var/log/radioedit }.each do |d|
   directory d do
@@ -33,6 +18,28 @@ end
     action :create
   end
 end
+
+template "/data/apps/radioedit/settings.json" do
+  source "epona-settings.json.erb"
+  owner "ihr-deployer"
+  group "ihr-deployer"
+end
+
+
+
+execute "set-app-env" do
+  command "/data/apps/radioedit/setenv.sh"
+  action :nothing
+end
+
+template "/data/apps/radioedit/setenv.sh" do
+  source "epona-env.sh.erb"
+  owner "ihr-deployer"
+  group "ihr-deployer"
+  mode 0755
+  notifies :run, "execute[set-app-env]", :immediately
+end
+
 
 # need to install the memcached package as a dep of libmemcached 
 yum_package "memcached" do
@@ -57,13 +64,13 @@ application "radioedit-core" do
   path "#{node[:radioedit][:epona][:path]}"
   owner "ihr-deployer"
   group "ihr-deployer"
-  enable_submodules "true"
+  enable_submodules true
 
   gunicorn do
     app_module 'wsgi:application'
     Chef::Log.info("Starting up Gunicorn on port #{node[:radioedit][:epona][:port]} for Radioedit-Epona")
     port node[:radioedit][:epona][:port] 
-    workers 10
+    workers 1
     host node[:radioedit][:epona][:host]
     pidfile "/var/run/radioedit/radioedit-epona.pid"
     virtualenv "#{node[:radioedit][:epona][:path]}/envs/radioedit"
@@ -72,6 +79,8 @@ application "radioedit-core" do
     loglevel "DEBUG"
   end
 end
+
+
 
 
 
