@@ -78,7 +78,7 @@ end
 
     logrotate_app "newsletter" do
         cookbook "logrotate"
-        path "/var/log/newletters/*.log"
+        path "/var/log/newsletter/*.log"
         options ["missingok", "copytruncate", "compress", "notifempty"]
         frequency "daily"
         enable true
