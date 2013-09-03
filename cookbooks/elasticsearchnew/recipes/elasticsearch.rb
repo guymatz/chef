@@ -9,7 +9,6 @@ pkg = "elasticsearch-#{node[:elasticsearchnew][:version]}"
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{pkg}.tar.gz" do
   source "#{node[:elasticsearchnew][:url]}/#{pkg}.tar.gz"
-  checksum "22ebe4cd49015"
   owner node[:elasticsearchnew][:user]
   group node[:elasticsearchnew][:group]
 end

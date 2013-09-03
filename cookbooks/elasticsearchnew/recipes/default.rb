@@ -29,7 +29,6 @@ unless tagged?('elasticsearchnew-deployed')
   execute "Untar-ihr-search-configs" do
     command "tar zxf #{pkg} -C #{node[:elasticsearchnew][:ihrsearch_path]}/configs"
     cwd Chef::Config[:file_cache_path]
-    creates "#{node[:elasticsearchnew][:ihrsearch_path]}/configs/artists"
     action :nothing
     notifies :run, resources(:execute => "chown-ihr-search-configs")
     user node[:elasticsearchnew][:user]
@@ -38,7 +37,6 @@ unless tagged?('elasticsearchnew-deployed')
   
   remote_file "#{Chef::Config[:file_cache_path]}/#{pkg}" do
     source "#{node[:elasticsearchnew][:url]}/es-configs/#{pkg}"
-    checksum "1809178d5acda"
     notifies :run, resources(:execute => "Untar-ihr-search-configs")
     owner node[:elasticsearchnew][:user]
     group node[:elasticsearchnew][:group]
