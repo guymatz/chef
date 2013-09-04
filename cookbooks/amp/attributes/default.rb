@@ -1,5 +1,5 @@
 
-default[:amp][:version] = "rick-james-emr1"
+default[:amp][:version] = "skrillex"
 default[:amp][:url] = "http://files.ihrdev.com/amp"
 
 default[:amp][:packages] = %w{ mongo-10gen-server mongo-10gen }
