@@ -1,6 +1,6 @@
 {
   "id": "nextgen-incoming-fileage",
-  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c check_newest_file_age.sh -d /data/inbound-ftp/nextgen",
-  "hostgroup_name": "newsletter",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c check_newest_file_age",
+  "hostgroup_name": "ftp",
   "contact_groups": ["admins", "talk"]
 }
