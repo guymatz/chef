@@ -1,0 +1,13 @@
+{
+  "id": "asheth",
+  "name":	"Ashish Sheth",
+  "email":	"ashishsheth@clearchannel.com",
+  "htpasswd": "{SHA}qn+82fQhLnDJP4vGhHB+sCNwOFM=",
+  "nagios": {
+          "email": "ashishsheth@clearchannel.com"
+  },
+  "groups":	["dba", "jobserver", "amp", "nagios", "postgresql-sysadmin", "mongodb"],
+  "ssh_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDyrWo4myL/H+vUbMrtKYHvXGqPFF+waxSm9llSEy/mJuxLeJ987PXX6QrwUEMvZwwrv4SNfx3UHczGsW5PwB/4vwm9rDBrhNsOVoi53FKODoBox1NNJNR6tR/wrB+sM8PttwTqtKr6F0Pnv/jLe8yD3+4mjcWgG03eW1ofplKkPACh8sWCo2eX8pe3oMK1A3zVBfuBaQ4kcNbreRvjPW1Z1iX9W1KV2ODOhkPy9MjmjJ0w9U/8F9sH79hdiVNBwU8XabzT4RoIOdZN54KcdwUbSlagAdfUOww8HHgRgIwtuATvDTLC6HKgBU2yPrItkoNkxSQU3/XLOrhq1Mk17ich asheth@CCCNYC01ZXX.local",
+  "shell":	"/bin/bash",
+    "uid": 50225
+}
