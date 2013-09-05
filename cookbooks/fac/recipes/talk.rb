@@ -58,3 +58,9 @@ nagios_nrpecheck "Fac-Process-Talk" do
   parameters "-C java -a '-Xmx4G -jar /data/jobs/fac/talk/fac-talk.jar initialOverlap=200'"
   action :add
 end
+
+cron_d "remove-talk-logs" do
+  minute 0
+  hour 3
+  command "rm -f /var/log/fac-#{app}/*log.*"
+end
