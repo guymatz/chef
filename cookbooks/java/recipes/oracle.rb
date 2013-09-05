@@ -27,15 +27,12 @@ if jdk_version.instance_of? Fixnum
   jdk_version = jdk_version.to_s
 end
 
-case jdk_version
-when "6"
-  tarball_url = node['java']['jdk']['6'][arch]['url']
-  tarball_checksum = node['java']['jdk']['6'][arch]['checksum']
-  bin_cmds = node['java']['jdk']['6']['bin_cmds']
-when "7"
-  tarball_url = node['java']['jdk']['7'][arch]['url']
-  tarball_checksum = node['java']['jdk']['7'][arch]['checksum']
-  bin_cmds = node['java']['jdk']['7']['bin_cmds']
+tarball_url = node['java']['jdk'][jdk_version][arch]['url']
+tarball_checksum = node['java']['jdk'][jdk_version][arch]['checksum']
+bin_cmds = node['java']['jdk'][jdk_version]['bin_cmds']
+alt_priority = node['java']['priority']
+if alt_priority.instance_of? String
+  alt_priority = alt_priority.to_i
 end
 
 if tarball_url =~ /example.com/
@@ -62,7 +59,7 @@ java_ark "jdk" do
   checksum tarball_checksum
   app_home java_home
   bin_cmds bin_cmds
-  alternatives_priority 1062
+  alternatives_priority alt_priority
   action :install
 end
 

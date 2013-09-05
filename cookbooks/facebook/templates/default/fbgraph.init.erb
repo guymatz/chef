@@ -9,6 +9,9 @@ set -e
 
 PIDFILE=/var/run/fbgraph/<%= @app %>.pid
 
+export JAVA_HOME=/usr/lib/jvm/jdk1.7.0_17
+export PATH=$JAVA_HOME/bin:$PATH
+
 check_status() {
 
     pidfile=/var/run/fbgraph/<%= @app %>.pid
