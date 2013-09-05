@@ -88,8 +88,11 @@ begin
       code "tar -xf #{Chef::Config[:file_cache_path]}/amplib.tgz -C #{node[:tomcat7][:install_path]}/lib"
     end
 
-    service "tomcat" do
-      action :start
+#    service "tomcat" do
+#      action :start
+#    end
+    bash "Start Tomcat" do
+      code "/etc/init.d/tomcat start"
     end
 
     tag("amp-deployed")
