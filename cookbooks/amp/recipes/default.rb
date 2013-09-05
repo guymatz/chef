@@ -44,8 +44,8 @@ begin
     bash "clear webapps/ROOT" do
       code <<-EOH
       rm -rf #{node[:tomcat7][:webapp_dir]}/api
-      rm -rf #{node[:tomcat7][:webapp_dir]}/work/*
-      rm -rf #{node[:tomcat7][:webapp_dir]}/temp/*
+      rm -rf #{node[:tomcat7][:install_path]}/work/*
+      rm -rf #{node[:tomcat7][:install_path]}/temp/*
       rm -rf #{node[:tomcat7][:webapp_dir]}/ROOT/*
       EOH
       user "root"
