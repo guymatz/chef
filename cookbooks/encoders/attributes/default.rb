@@ -195,7 +195,7 @@ default[:encoders][:mixins][:manager][:crons] = [
 ###
 ### IAD-ENCFTP101 - OPS-5293 INCROND
 ###
-default[:encftp][:incrond][:github_url] =  "git@github.com:iheartradio/content-talk.git"
+default[:encftp][:incrond][:github_url] =  "git@github.ihrint.com:Ingestion/talk-incrond.git"
 
 #### IAD-ENCINGESTION SPECIFIC
 default[:encoder][:filemonitor][:monitor_script] = "/data/apps/filemonitor/bin/fileMonitorService.sh"
