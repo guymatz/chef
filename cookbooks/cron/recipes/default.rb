@@ -36,6 +36,15 @@ cookbook_file "/usr/bin/cronwrap" do
   action :create
 end
 
+# GP edit 9/6/13 ticket OPS-5206
+cookbook_file "/usr/bin/nsca_relay" do
+  source "nsca_relay.sh"
+  owner "root"
+  group "root"
+  mode "0755"
+  action :create
+end
+
 service "crond" do
   case node['platform']
   when "redhat", "centos", "scientific", "fedora", "amazon"
