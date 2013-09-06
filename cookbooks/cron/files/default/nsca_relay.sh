@@ -18,7 +18,7 @@ declare SVC_NM;
 # hostname of the nagios server to report to
 declare -r NAG_SVR='nagios-iad.ihrdev.com';
 # host name of the server we are running on
-declare -r HOST_NAME=$(uname -n);
+declare -r HOST_NAME=$(uname -n | sed 's/\.ihr//') ;
 # token separating arg to this script vs args to underlying script call
 declare -r CMD_DELIM='--';
 # sentinel to flag when we've hit the end of the script args.
@@ -45,7 +45,7 @@ declare -r NSCA_CMD=/usr/lib/nagios/plugins/send_nsca;
 
 # argument processing 
 #loop through each arg until we hit the command delimiter
-while [ "$1" != "" ] && [ $DELIM -eq 0 ]; do 
+while [[ -n "${1}" && $DELIM_FOUND -eq 0 ]]; do 
     case $1 in 
 
         # nagios passive service name to report to
@@ -92,17 +92,17 @@ export PATH;
 
 
 # tmp files to record output/errput
-TMPF_OUT=$(mktemp --suffix cronwrap.log);
-TMPF_ERR=$(mktemp --suffix cronwrap.err);
+TMPF_OUT=$(mktemp --suffix=.nsca_relay.log);
+TMPF_ERR=$(mktemp --suffix=.nsca_relay.err);
 
 # clean up the tmp files on exit
-trap 'rm -rf $TMPFOUT $TMPFERR' SIGINT SIGTERM EXIT;
+trap 'rm -rf $TMPF_OUT $TMPF_ERR' SIGINT SIGTERM EXIT;
 
 
 # /usr/lib/nagios/plugins/send_nsca nagios-iad.ihrdev.com -c /etc/nagios/send_nsca.conf "msg"
 
 # execute the subcommands
-$* >$TMPFOUT 2>$TMPFERR;
+$* >$TMPF_OUT 2>$TMPF_ERR;
 # save exit status
 SUB_XSTAT=$?;
 
@@ -119,7 +119,7 @@ case $SUB_XSTAT in
 esac
 
 # report to nsca  
-$NSCA_CMD $NAG_SVR -c $NSCA_CONF "${HOST_NAME} ${SVC_NM} ${SUB_XSTAT} ${NAG_STATUS} $(cat $TMPFOUT)"
+$NSCA_CMD -H $NAG_SVR -c $NSCA_CONF < <(echo -e "${HOST_NAME}\t${SVC_NM}\t${SUB_XSTAT}\t${NAG_STATUS}:$(cat $TMPF_OUT)")
 [[ $? -ne 0 ]] \
     && echo "${SCRIPT}: ERROR: Nonzero exit status reported from nsca command" \
     && exit 1;
