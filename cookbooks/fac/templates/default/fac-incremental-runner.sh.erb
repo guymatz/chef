@@ -31,7 +31,7 @@ sleep $SLEEP_MINUTES
 /usr/bin/java -jar -Xmx14g <%= @radiobuild_dir %>/fac-radiobuild.jar
 [[ $? -ne 0 ]] && onFail ${?} "fac-radiobuild.jar@radiobuild_dir" && exit $?;
 
-/usr/bin/java -jar -Xmx14g <%= @radiobuild2_dir %>/fac-radiobuild.jar
+/usr/bin/java -jar -Xmx14g <%= @radiobuild2_dir %>/fac-radiobuild2.jar
 [[ $? -ne 0 ]] && onFail ${?} "fac-radiobuild.jar@radiobuild2_dir" && exit $?;
 
 /data/jobs/fac/music/shipFAC2attivio.sh
