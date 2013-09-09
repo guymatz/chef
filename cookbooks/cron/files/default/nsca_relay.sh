@@ -1,18 +1,16 @@
 #!/bin/bash
 # ####################################################################
-# @FILE cronvisor.sh
+# @FILE nsca_relay.sh
 # @AUTHOR Gregory Patmore <gregorypatmore@clearchannel.com>
 # @DESC Script to aid in reorting results to nagios passive 
-# @DEPENDANCIES /usr/bin/nagios_passive.py
-# @DEPENDANCIES '--' between options and command execution 
+# @DEPENDANCY /etc/nagios/send_nsca.conf
+# @DEPENDANCY /usr/lib/nagios/plugins/send_nsca
+# @DEPENDANCY '--' between options and command execution 
 # ####################################################################
 
 # cronvisor.sh -S|--service-name <servicename> -- <command> <command_args>
 
-# /usr/lib/nagios/plugins/send_nsca nagios-iad.ihrdev.com  -c /etc/nagios/send_nsca.conf "msg"
-
-declare -r START_TIME=$(date +%s)
-
+declare -r START_TIME=$(date +%s);
 # handy handle to the script
 declare -r SCRIPT=$(basename $0);
 # name of the nagios passive service
@@ -20,13 +18,13 @@ declare SVC_NM;
 # hostname of the nagios server to report to
 declare -r NAG_SVR='nagios-iad.ihrdev.com';
 # host name of the server we are running on
-declare -r HOST_NAME=$(uname -n);
+declare -r HOST_NAME=$(uname -n | sed 's/\.ihr//') ;
 # token separating arg to this script vs args to underlying script call
 declare -r CMD_DELIM='--';
 # sentinel to flag when we've hit the end of the script args.
 declare -i DELIM_FOUND=0;
-# handle to the command we need to run
-declare SUB_CMD
+# variable to capture the nagios status (OK|WARNING|CRITIAL)
+declare NAG_STATUS
 
 # declare -r NAGSPASV_SCRIPT=/usr/bin/nagios_passive.py;
 # [[ ! -x $NAGSPASV_SCRIPT ]] \
@@ -40,14 +38,14 @@ declare -r NSCA_CONF=/etc/nagios/send_nsca.conf;
     && exit 1;
 
 # handle to the send_nsca executable
-declare -r SEND_NSCA_CMD=/usr/lib/nagios/plugins/send_nsca;
-[[ ! -x $SEND_NSCA_CMD ]] \
-    && echo "${SCRIPT}: ERROR: send_nsca command not found or not executable (${SEND_NSCA_CMD})" \
+declare -r NSCA_CMD=/usr/lib/nagios/plugins/send_nsca;
+[[ ! -x $NSCA_CMD ]] \
+    && echo "${SCRIPT}: ERROR: send_nsca command not found or not executable (${NSCA_CMD})" \
     && exit 1;
 
 # argument processing 
 #loop through each arg until we hit the command delimiter
-while [ "$1" != "" ] && [ $DELIM -eq 0 ]; do 
+while [[ -n "${1}" && $DELIM_FOUND -eq 0 ]]; do 
     case $1 in 
 
         # nagios passive service name to report to
@@ -87,37 +85,45 @@ done;
     && echo "${SCRIPT}: ERROR: not able to execute command script (${1})" \
     && exit 1;
 
+# ensure we have the paths we need(?)
+# @TODO look into whether or not this is necessary
 PATH=$PATH:/bin:/usr/local/bin:/usr/bin:/sbin;
 export PATH;
 
 
 # tmp files to record output/errput
-TMPF_OUT=$(mktemp --suffix cronwrap.log);
-TMPF_ERR=$(mktemp --suffix cronwrap.err);
+TMPF_OUT=$(mktemp --suffix=.nsca_relay.log);
+TMPF_ERR=$(mktemp --suffix=.nsca_relay.err);
 
 # clean up the tmp files on exit
-trap 'rm -rf $TMPFOUT $TMPFERR' SIGINT SIGTERM EXIT;
-
- >$TMPFOUT 2>$TMPFERR
-RETVAL=$?        # one for our exit value
-NRETVAL=$RETVAL  # for nagios_passive
+trap 'rm -rf $TMPF_OUT $TMPF_ERR' SIGINT SIGTERM EXIT;
 
 
-if [ $NRETVAL -gt 0 ]; then
-    STATUS="An unknown error has occurred (after running for $DURATION seconds)"
-    NRETVAL=1
-else
-    STATUS="OK - $2 ran in $DURATION seconds"
-fi
+# /usr/lib/nagios/plugins/send_nsca nagios-iad.ihrdev.com -c /etc/nagios/send_nsca.conf "msg"
 
-CMD_ARGS=$(echo -e "$HOST\t$SERVICENAME\t$NRETVAL\t$STATUS")
-NAGSPASV_SCRIPT $CMD_ARGS
+# execute the subcommands
+$* >$TMPF_OUT 2>$TMPF_ERR;
+# save exit status
+SUB_XSTAT=$?;
 
+# determine nagios status string
+case $SUB_XSTAT in
+    0) NAG_STATUS='OK'; 
+       ;;
+    1) NAG_STATUS='WARNING'; 
+       ;;
+    2) NAG_STATUS='CRITICAL';
+       ;;
+    *) NAG_STATUS='ERROR: UNKNOWN STATUS LEVEL RETURNED FROM SUB COMMAND';
+       ;;
+esac
 
-cat $TMPFILE.out | logger -p cron.info -t $2
-cat $TMPFILE.err | logger -p cron.error -t $2
+# report to nsca  
+$NSCA_CMD -H $NAG_SVR -c $NSCA_CONF < <(echo -e "${HOST_NAME}\t${SVC_NM}\t${SUB_XSTAT}\t${NAG_STATUS}:$(cat $TMPF_OUT)")
+[[ $? -ne 0 ]] \
+    && echo "${SCRIPT}: ERROR: Nonzero exit status reported from nsca command" \
+    && exit 1;
 
-rm $TMPFILE.out
-rm $TMPFILE.err
+# just relay exit status returned by subcommands 
+exit ${SUB_XSTAT};
 
-exit $RETVAL

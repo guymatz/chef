@@ -1,7 +1,7 @@
 
 
 
-default[:elasticsearch][:version] = "0.90.2"
+default[:elasticsearch][:version] = "0.90.3"
 default[:elasticsearch][:url] = "http://files.ihrdev.com/elasticsearch"
 
 default[:elasticsearch][:base_path] = "/data/apps"

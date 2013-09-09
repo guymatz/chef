@@ -9,3 +9,4 @@ version          '0.1.0'
 supports		 'debian', '>= 7.0'
 
 depends "iptables"
+depends "cron"

@@ -11,7 +11,7 @@
   include_recipe cb
 end
 
-%w{ python27 python27-libs python27-devel python27-test python27-tools }.each do |p|
+%w{ python27 python27-libs python27-devel python27-test python27-tools libevent-devel }.each do |p|
   package p
 end
 
@@ -29,8 +29,8 @@ python_virtualenv "/data/apps/newsletter/shared/venv" do
   action :create   
 end
 
-begin
     unless tagged?("newsletter-deployed")
+
     application "newsletter" do
       path "/data/apps/newsletter/"
       owner node[:news][:deployer]
@@ -55,14 +55,36 @@ begin
           })
         end
       end
+
       gunicorn do
         app_module "dfp:app"
         host "0.0.0.0"
         port 8080
         workers 9
+        worker_class "gevent"
         virtualenv "/data/apps/newsletter/shared/venv"
+        autostart true
+        accesslog "/var/log/newsletter/newsletter-gunicorn-access.log"
       end
     end
+
+    directory "/var/log/newsletter" do
+        owner 'root'
+        group 'ihr-deployer'
+        mode "775"
+        action :create
+        not_if { FileTest.directory?("/var/log/newsletter") }
+     end
+
+    logrotate_app "newsletter" do
+        cookbook "logrotate"
+        path "/var/log/newsletter/*.log"
+        options ["missingok", "copytruncate", "compress", "notifempty"]
+        frequency "daily"
+        enable true
+        create "0644 nobody root"
+        rotate 2
+     end
 
 
     template "/data/apps/newsletter/current/dfp_settings.py" do
@@ -76,9 +98,6 @@ begin
     end
     tag("newsletter-deployed")
   end
-rescue
-    untag("newsletter-deployed")
-end
 
 bash "setup venv" do
       code <<-EOH

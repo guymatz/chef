@@ -22,3 +22,6 @@
 	path = cookbooks/application_java
 	url = git@github.ihrint.com:OPS/application_java.git
 	ignore = dirty
+[submodule "cookbooks/gunicorn"]
+	path = cookbooks/gunicorn
+	url = git@github.ihrint.com:OPS/gunicorn.git

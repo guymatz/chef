@@ -22,6 +22,14 @@ begin
   
   unless tagged?("encoder-ftp-deployed")
 
+    application "content-talk" do
+      path "/data/apps/content-talk/"
+      owner node[:encoder][:users]
+      group node[:encoder][:group]
+      repository node[:encftp][:incrond][:github_url]
+      revision "master"
+   end
+
     directory node[:encoders][:p_ftp_mount] do
         owner "converter"
         group "converter"
@@ -107,6 +115,9 @@ begin
     end
 
     tag("encoder-ftp-deployed")
+    end
+    nagios_nrpecheck "check_newest_file_age" do
+      command "/usr/lib/nagios/plugins/check_newest_file_age.sh -d /data/inbound-ftp/nextgen/"
     end
 rescue
     untag("encoder-ftp-deployed")

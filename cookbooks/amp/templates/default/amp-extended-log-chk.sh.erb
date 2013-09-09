@@ -19,9 +19,9 @@
 #			- Adjusted math to (#200+#500)*100/#500 as it's a more accurate representation of the percentage
 # #######################################################
 
-echo "[$(date)] $0: Start" >&2;
+echo "[$(date)] $(basename $0): Start" >&2;
 
-trap 'echo "[$(date)] $0: End"' SIGINT SIGTERM EXIT;
+trap 'echo "[$(date)] $(basename $0): End"' SIGINT SIGTERM EXIT;
 
 NOTIFY_LIST=( <%= node[:amp][:logging][:notify_list].join ' ' %> )
 function onFail {
@@ -34,7 +34,7 @@ function onFail {
 
   # send email to everyone in the list
   for i in ${NOTIFY_LIST[@]}; do
-		mutt -s "$(uname -n) $0 ${LVL}" $i < <(echo -e "[$(date)] $0 : ${LVL}: ${MSG}");
+		mutt -s "$(uname -n) $(basename $0) ${LVL}" $i < <(echo -e "[$(date)] $(basename $0) : ${LVL}: ${MSG}");
 	done;
 	return 0;
 }
@@ -54,8 +54,8 @@ awk -v d=$(date -u -d '5 minutes ago' +%H%I%M) '/^[^#]/{gsub(/:/,"",$3);if($3 >=
 
 # stash counts  
 #GP Edit 8/16/13 filtered out getTrack endpoint due to a known condition
-CCRIT=$(grep -v getTracks $TFILE | awk '$2+$5 >= 5{print}' | grep -c CRITICAL);
-CWARN=$(grep -v getTracks $TFILE | awk '$2+$5 >= 5{print}' | grep -c WARNING);
+CCRIT=$(awk '$2+$5 >= 5{print}' $TFILE | grep -c CRITICAL);
+CWARN=$(awk '$2+$5 >= 5{print}' $TFILE | grep -c WARNING);
 COK=$(grep -c OK $TFILE);
 
 # counts string
