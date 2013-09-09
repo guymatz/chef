@@ -151,7 +151,7 @@ action :install do
                             %Q[ tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{tmpdir}" ]
                                   ).run_command
          unless cmd.exitstatus == 0
-           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
+           Chef::Application.fatal!("Failed to extract file #{Chef::Config[:file_cache_path]}/#{tarball_name} to #{tmpdir}!")
          end
        end
 
