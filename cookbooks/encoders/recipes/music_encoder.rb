@@ -15,15 +15,6 @@ begin
         end
     end
 
-    template "/usr/local/bin/music_encoder_check.sh" do
-        source node[:encoders][:music][:encoder][:monitor_scripts]
-        owner "root"
-        mode "0755"
-        variables({
-            :num_converters => 100 + node[:music_converters][:num_processors],
-            :type => "music"
-        })
-    end
     cron_d "music_encoder_check" do
         command "/usr/local/bin/music_encoder_check.sh> /dev/null 2>&1"
         minute  "*/2"
@@ -32,6 +23,17 @@ begin
         month   "*"
         weekday "*"
         user "root"
+    end
+
+
+    template "/usr/local/bin/music_encoder_check.sh" do
+        source node[:encoders][:music][:encoder][:monitor_scripts]
+        owner "root"
+        mode "0755"
+        variables({
+            :num_converters => 100 + node[:music_converters][:num_processors],
+            :type => "music"
+        })
     end
 
 

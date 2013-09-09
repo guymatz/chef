@@ -129,13 +129,14 @@ default[:mixins_converters][:num_processors] = 2
 default[:encoders][:music][:encoder][:startup_scripts] = {
     "/etc/init.d/music_converter" => "music_converter.erb"
     }
+
 default[:encoders][:music][:manager][:startup_scripts] = {
     "/etc/init.d/music_scanner" => "music_scanner.erb",
     "/etc/init.d/music_add_new" => "music_add_new.erb",
     "/etc/init.d/music_manager" => "music_manager.erb"
     }
 
-default[:encoders][:music][:encoder][:monitor_scripts] = "converter_check.erb"
+default[:encoders][:music][:encoder][:monitor_scripts] = "music_converter_check.erb"
 
 ###
 ### TALK SPECIFIC 
