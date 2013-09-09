@@ -1,0 +1,12 @@
+{
+    "id": "sspagnola",
+    "name": "Steve Spagnola",
+    "email": "@clearchannel.com",
+    "groups": ["dev", "webplayer"],
+    "ssh_keys": [
+        "key"
+    ],
+    "shell":    "/bin/zsh",
+    "htpasswd": "htpass",
+    "uid": 5050
+}
