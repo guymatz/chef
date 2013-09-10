@@ -26,44 +26,44 @@ $template TraditionalFormat,"%timegenerated% %syslogtag%%msg:::drop-last-lf%\n"
 
 # a new file will ben created daily because of the date in the filename.
 # this template makes one file per host/per day/per hour
-$template DailyPerHostLogs,"/home/rsyslog/syslog/%HOSTNAME%/%HOSTNAME%.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template DailyPerHostLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/%HOSTNAME%.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
 
 # more specific log files
 # local7
-$template Local7ErrLogs,"/home/rsyslog/syslog/%HOSTNAME%/local7.err.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
-$template Local7InfoLogs,"/home/rsyslog/syslog/%HOSTNAME%/local7.info.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template Local7ErrLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/local7.err.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template Local7InfoLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/local7.info.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
 
 #local6 
-$template Local6ErrLogs,"/home/rsyslog/syslog/%HOSTNAME%/local6.err.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
-$template Local6InfoLogs,"/home/rsyslog/syslog/%HOSTNAME%/local6.info.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template Local6ErrLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/local6.err.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template Local6InfoLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/local6.info.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
 
 #local5
-$template Local5ErrLogs,"/home/rsyslog/syslog/%HOSTNAME%/local5.err.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
-$template Local5InfoLogs,"/home/rsyslog/syslog/%HOSTNAME%/local5.info.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template Local5ErrLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/local5.err.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template Local5InfoLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/local5.info.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
 
 #local4
-$template Local4ErrLogs,"/home/rsyslog/syslog/%HOSTNAME%/local4.err.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
-$template Local4InfoLogs,"/home/rsyslog/syslog/%HOSTNAME%/local4.info.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template Local4ErrLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/local4.err.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template Local4InfoLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/local4.info.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
 
 # local3
-$template Local3ErrLogs,"/home/rsyslog/syslog/%HOSTNAME%/local3.err.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
-$template Local3InfoLogs,"/home/rsyslog/syslog/%HOSTNAME%/local3.info.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template Local3ErrLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/local3.err.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template Local3InfoLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/local3.info.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
 
 # local2
-$template Local2ErrLogs,"/home/rsyslog/syslog/%HOSTNAME%/local2.err.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
-$template Local2InfoLogs,"/home/rsyslog/syslog/%HOSTNAME%/local2.info.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template Local2ErrLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/local2.err.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template Local2InfoLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/local2.info.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
 
 # local1
-$template Local1ErrLogs,"/home/rsyslog/syslog/%HOSTNAME%/local1.err.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
-$template Local1InfoLogs,"/home/rsyslog/syslog/%HOSTNAME%/local1.info.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template Local1ErrLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/local1.err.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template Local1InfoLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/local1.info.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
 
 # local0
-$template Local0ErrLogs,"/home/rsyslog/syslog/%HOSTNAME%/local0.err.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
-$template Local0InfoLogs,"/home/rsyslog/syslog/%HOSTNAME%/local0.info.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template Local0ErrLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/local0.err.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template Local0InfoLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/local0.info.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
 
 # user
-$template UserErrLogs,"/home/rsyslog/syslog/%HOSTNAME%/user.err.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
-$template UserInfoLogs,"/home/rsyslog/syslog/%HOSTNAME%/user.info.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template UserErrLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/user.err.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
+$template UserInfoLogs,"<%= node["rsyslog"]["log_dir"] %>/%HOSTNAME%/user.info.%$YEAR%-%$MONTH%-%$DAY%.%$HOUR%.log"
 
 #messages file template
 $template DailyMessages,"/var/log/messages.%$YEAR%-%$MONTH%-%$DAY%"
@@ -162,8 +162,8 @@ $ActionQueueSaveOnShutdown on # save in-memory data if rsyslog shuts down
 # ###############################################
 # Forwarding rules
 # ###############################################
-user.notice;local0,local1,local2,local3,local4,local5,local6,local7.* @@<%= node[:rsyslog][:central_logserver] %>:514   
-news.* @@<%= node[:rsyslog][:central_logserver] %>:514     
+# user.notice;local0,local1,local2,local3,local4,local5,local6,local7.* @@<%= node[:rsyslog][:central_logserver] %>:514   
+# news.* @@<%= node[:rsyslog][:central_logserver] %>:514     
         
       
 
