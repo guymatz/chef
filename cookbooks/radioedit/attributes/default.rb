@@ -46,12 +46,20 @@ default[:radioedit][:cms][:host] = "unix"
 default[:radioedit][:nginx][:port] = 8000
 
 # epona settings
+default[:radioedit][:epona][:req_dirs] = %w{ /data /data/apps /data/apps/radioedit /root/build /data/apps/radioedit/envs /data/apps/radioedit/envs/core /var/run/radioedit /var/log/radioedit }
 default[:radioedit][:epona][:path] = "/data/apps/radioedit";
+default[:radioedit][:epona][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
+default[:radioedit][:epona][:log_dir] = "/var/log/radioedit"
+default[:radioedit][:epona][:out_log] = "#{default[:radioedit][:epona][:log_dir]}/epona.log"
+default[:radioedit][:epona][:err_log] = "#{default[:radioedit][:epona][:log_dir]}/epona.err"
+default[:radioedit][:epona][:venv_path] = "#{default[:radioedit][:epona][:path]}/envs/core";
+default[:radioedit][:epona][:module] = "wsgi:application"
 default[:radioedit][:epona][:repo] = "git@github.ihrint.com:radioedit/core.git"
 default[:radioedit][:epona][:branch] = "master"
-default[:radioedit][:epona][:port] = 8000
+default[:radioedit][:epona][:port] = 80
 default[:radioedit][:epona][:host] = "unix"
 default[:radioedit][:epona][:packages] = %w{ python27 python27-libs python27-devel python27-test python27-tools nginx zlib-devel libjpeg zlib gcc python-devel git libevent-devel libevent zeromq-devel zeromq python-setuptools python-ldap postgresql-devel openldap-devel varnish readline-devel patch libjpeg-devel }
 default[:radioedit][:epona][:pips] = %w{ supervisor pymongo python-memcached gunicorn greenlet statsd pyzmq }
 default[:radioedit][:epona][:env] = "ihr_testing"
+default[:radioedit][:epona][:num_workers] = 1
 

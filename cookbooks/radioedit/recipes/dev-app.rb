@@ -11,7 +11,7 @@
 include_recipe "yum::epel"
 
 # make all required directories
-%w{ /data /data/apps /data/apps/radioedit /root/build /data/apps/radioedit/envs /data/apps/radioedit/envs/radioedit /var/run/radioedit /var/log/radioedit }.each do |d|
+node[:radioedit][:epona][:req_dirs].each do |d|
   directory d do
     owner "ihr-deployer"
     group "ihr-deployer"
@@ -19,13 +19,11 @@ include_recipe "yum::epel"
   end
 end
 
-template "/data/apps/radioedit/settings.json" do
+template "#{node[:radioedit][:epona][:path]}/shared/settings.json" do
   source "epona-settings.json.erb"
   owner "ihr-deployer"
   group "ihr-deployer"
 end
-
-
 
 execute "set-app-env" do
   command "/data/apps/radioedit/setenv.sh"
@@ -56,7 +54,12 @@ python_virtualenv "#{node[:radioedit][:epona][:path]}/envs/radioedit" do
 end
 
 node[:radioedit][:epona][:packages].each  { |p| package p }
-node[:radioedit][:epona][:pips].each      { |p| python_pip p }
+node[:radioedit][:epona][:pips].each { |p| 
+  python_pip p do 
+    virtualenv node[:radioedit][:epona][:venv_path]
+    action :install
+  end
+}
 
 application "radioedit-core" do
   repository "#{node[:radioedit][:epona][:repo]}"
@@ -70,12 +73,12 @@ application "radioedit-core" do
     app_module 'wsgi:application'
     Chef::Log.info("Starting up Gunicorn on port #{node[:radioedit][:epona][:port]} for Radioedit-Epona")
     port node[:radioedit][:epona][:port] 
-    workers 1
+    workers node[:radioedit][:epona][:num_workers]
     host node[:radioedit][:epona][:host]
-    pidfile "/var/run/radioedit/radioedit-epona.pid"
+    pidfile node[:radioedit][:epona][:pid_file]
     virtualenv "#{node[:radioedit][:epona][:path]}/envs/radioedit"
-    stdout_logfile "/var/log/radioedit/epona.log"
-    stderr_logfile "/var/log/radioedit/epona.err"
+    stdout_logfile "#{node[:radioedit][:epona][:log_dir]}epona.log"
+    stderr_logfile "#{node[:radioedit][:epona][:log_dir]}epona.err"
     loglevel "DEBUG"
   end
 end
