@@ -14,24 +14,24 @@ function onFail {
 	return 0;
 }
 
-/usr/bin/java -Xms4G -Xmx4G -jar <%= @script_dir %>/fac-music.jar classpath:/facStartup.xml trackIncremental time=$(date +%s) writeToMongo=true writeToAttivio=true jobType=trackIncremental reloadIds=8872138 doAmgMatch=true intervalOverride= independentJob=true commitSpeed=-1;
+/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/bin/java -Xms4G -Xmx4G -jar <%= @script_dir %>/fac-music.jar classpath:/facStartup.xml trackIncremental time=$(date +%s) writeToMongo=true writeToAttivio=true jobType=trackIncremental reloadIds=8872138 doAmgMatch=true intervalOverride= independentJob=true commitSpeed=-1;
 [[ $? -ne 0 ]] && onFail ${?} "trackIncremental" && exit $?;
 
 sleep $SLEEP_MINUTES
 
-/usr/bin/java -Xms4G -Xmx4G -jar <%= @script_dir %>/fac-music.jar classpath:/facStartup.xml bundleIncremental time=$(date +%s) writeToMongo=true writeToAttivio=true jobType=bundleIncremental reloadIds=8872138 doAmgMatch=true intervalOverride= independentJob=false commitSpeed=-1;
+/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/bin/java -Xms4G -Xmx4G -jar <%= @script_dir %>/fac-music.jar classpath:/facStartup.xml bundleIncremental time=$(date +%s) writeToMongo=true writeToAttivio=true jobType=bundleIncremental reloadIds=8872138 doAmgMatch=true intervalOverride= independentJob=false commitSpeed=-1;
 [[ $? -ne 0 ]] && onFail ${?} "bundleIncremental" && exit $?;
 
-/usr/bin/java -Xms4G -Xmx4G -jar <%= @script_dir %>/fac-music.jar classpath:/facStartup.xml artistIncremental time=$(date +%s) writeToMongo=true writeToAttivio=true jobType=artistIncremental reloadIds=8872138 doAmgMatch=true intervalOverride= independentJob=false commitSpeed=-1;
+/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/bin/java -Xms4G -Xmx4G -jar <%= @script_dir %>/fac-music.jar classpath:/facStartup.xml artistIncremental time=$(date +%s) writeToMongo=true writeToAttivio=true jobType=artistIncremental reloadIds=8872138 doAmgMatch=true intervalOverride= independentJob=false commitSpeed=-1;
 [[ $? -ne 0 ]] && onFail ${?} "artistIncremental" && exit $?;
 
-/usr/bin/java -Xms4G -Xmx4G -jar <%= @script_dir %>/fac-music.jar classpath:/facStartup.xml artistIncrementalDelete time=$(date +%s) writeToMongo=true writeToAttivio=true jobType=artistIncrementalDelete reloadIds=8872138 doAmgMatch=true intervalOverride= independentJob=false commitSpeed=-1;
+/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/bin/java -Xms4G -Xmx4G -jar <%= @script_dir %>/fac-music.jar classpath:/facStartup.xml artistIncrementalDelete time=$(date +%s) writeToMongo=true writeToAttivio=true jobType=artistIncrementalDelete reloadIds=8872138 doAmgMatch=true intervalOverride= independentJob=false commitSpeed=-1;
 [[ $? -ne 0 ]] && onFail ${?} "artistIncrementalDelete" && exit $?;
 
-/usr/bin/java -jar -Xmx14g <%= @radiobuild_dir %>/fac-radiobuild.jar
+/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/bin/java -jar -Xmx14g <%= @radiobuild_dir %>/fac-radiobuild.jar
 [[ $? -ne 0 ]] && onFail ${?} "fac-radiobuild.jar@radiobuild_dir" && exit $?;
 
-/usr/bin/java -jar -Xmx14g <%= @radiobuild2_dir %>/fac-radiobuild2.jar
+/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/bin/java -jar -Xmx14g <%= @radiobuild2_dir %>/fac-radiobuild2.jar
 [[ $? -ne 0 ]] && onFail ${?} "fac-radiobuild.jar@radiobuild2_dir" && exit $?;
 
 /data/jobs/fac/music/shipFAC2attivio.sh
