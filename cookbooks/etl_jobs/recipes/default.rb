@@ -404,7 +404,7 @@ bash "set-migration-perms" do
 end
 db_user = Chef::EncryptedDataBagItem.load("sqlserver", "users")
 cron_d "radiomigration" do
-  command "/usr/bin/cronwrap iad-jobserver101a Radiomigration \"/data/jobs/radiomigration/ImportToDBFromCSV.sh localhost radio processed iad-dwh.prod.ihr appBatch #{db_user['appBatch']}\""
+  command "/usr/bin/nsca_relay -S Radiomigration – /data/jobs/radiomigration/ImportToDBFromCSV.sh localhost radio processed iad-dwh.prod.ihr appBatch i8piZZa4u"
   minute 50
   hour 21
   user 'ihr-deployer'
