@@ -427,22 +427,26 @@ end
 python_pip "pyodbc" do
   action :install
 end
-directory "#{node[:db_sync_tools][:deploy_path]}"
-directory "/data/log/name-fill"
-git "#{node[:db_sync_tools][:deploy_path]}" do
-  repository "#{node[:db_sync_tools][:repo]}"
-  reference "#{node[:db_sync_tools][:reference]}"
-  action :sync
-end
-remote_file "#{node[:db_sync_tools][:deploy_path]}/db_sync_tools_wrapper.sh" do
-  source "http://yum.ihr/files/jobs/db-sync-tools/db_sync_tools_wrapper.sh"
-  mode 0755
-end
-cron_d "db-sync-tools" do
-  command "/usr/bin/cronwrap iad-jobserver101a DB-Sync-Tools \"/data/jobs/db-sync-tools/db_sync_tools_wrapper.sh 2>&1 >> /dev/null\""
-  minute 15
-  hour 2
-end
+
+# # removed per OPS-5311
+# #
+# #directory "#{node[:db_sync_tools][:deploy_path]}"
+# #directory "/data/log/name-fill"
+# #git "#{node[:db_sync_tools][:deploy_path]}" do
+# #  repository "#{node[:db_sync_tools][:repo]}"
+# #  reference "#{node[:db_sync_tools][:reference]}"
+# #  action :sync
+# #end
+# #remote_file "#{node[:db_sync_tools][:deploy_path]}/db_sync_tools_wrapper.sh" do
+# #  source "http://yum.ihr/files/jobs/db-sync-tools/db_sync_tools_wrapper.sh"
+# #  mode 0755
+# #end
+# #cron_d "db-sync-tools" do
+# #  command "/usr/bin/cronwrap iad-jobserver101a DB-Sync-Tools \"/data/jobs/db-sync-tools/db_sync_tools_wrapper.sh 2>&1 >> /dev/null\""
+# #  minute 15
+# #  hour 2
+# #end
+# #end removed per OPS-5311
 
 # Added per OPS-4937
 directory "/data/log/ampstationsdata"
