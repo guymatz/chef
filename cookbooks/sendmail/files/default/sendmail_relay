@@ -23,7 +23,8 @@ dnl #
 dnl # Uncomment and edit the following line if your outgoing mail needs to
 dnl # be sent out through an external mail server:
 dnl #
-define(`SMART_HOST', `[10.10.41.55]')dnl
+dnl # Commented out in favor of using mailertable for specifying relays
+dnl define(`SMART_HOST', `[10.10.41.55]')dnl
 dnl #
 define(`confDEF_USER_ID', ``8:12'')dnl
 dnl define(`confAUTO_REBUILD')dnl
