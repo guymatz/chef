@@ -466,3 +466,15 @@ cron_d "event_job" do
   minute 30
   hour 5
 end
+
+# Added per OPS-5313
+directory "/data/jobs/profile"
+directory "/data/log/profile"
+remote_file "/data/jobs/profile/profile_job.jar" do
+  source "http://yum.ihr/files/jobs/profile/profile_job.jar"
+end
+cron_d "profile_job" do
+  command "/usr/bin/nsca_relay -S profile-job /usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\%s`"
+  minute 30
+  hour 3
+end

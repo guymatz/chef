@@ -33,7 +33,7 @@ remote_file "/data/jobs/event/log4j.properties" do
   source "http://yum.ihr/files/jobs/event/log4j.properties"
 end
 
-# moved to iad-jobserver101a.ihr in response to OPS-5712
+# moved to iad-jobserver101a.ihr in response to OPS-57
 # cron_d "event_job" do
 #   command "/usr/bin/cronwrap use1b-jobserver101a event-job \"/usr/bin/java -jar /data/jobs/event/event_job.jar launch-context.xml eventJob rundate=`/bin/date +\\%s`\""
 #   minute 30
@@ -59,16 +59,16 @@ end
 #  minute 22
 #end
 
-directory "/data/jobs/profile"
-directory "/data/log/profile"
-remote_file "/data/jobs/profile/profile_job.jar" do
-  source "http://yum.ihr/files/jobs/profile/profile_job.jar"
-end
-cron_d "profile_job" do
-  command "/usr/bin/cronwrap use1b-jobserver101a profile-job \"/usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\\%s`\""
-  minute 30
-  hour 3
-end
+# directory "/data/jobs/profile"
+# directory "/data/log/profile"
+# remote_file "/data/jobs/profile/profile_job.jar" do
+#   source "http://yum.ihr/files/jobs/profile/profile_job.jar"
+# end
+# cron_d "profile_job" do
+#   command "/usr/bin/cronwrap use1b-jobserver101a profile-job \"/usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\\%s`\""
+#   minute 30
+#   hour 3
+# end
 
 #
 #ALTERED PER OPS-4694
