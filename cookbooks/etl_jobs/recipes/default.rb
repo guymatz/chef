@@ -459,3 +459,10 @@ cron_d "ampstationsdata" do
   minute 0
   hour 2
 end
+
+# Added per OPS-5172
+cron_d "event_job" do
+  command "/usr/bin/nsca_relay -S event-job /usr/bin/java -jar /data/jobs/event/event_job.jar launch-context.xml eventJob rundate=`/bin/date +\\%s`
+  minute 30
+  hour 5
+end

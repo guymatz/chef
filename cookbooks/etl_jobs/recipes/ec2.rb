@@ -32,11 +32,13 @@ end
 remote_file "/data/jobs/event/log4j.properties" do
   source "http://yum.ihr/files/jobs/event/log4j.properties"
 end
-cron_d "event_job" do
-  command "/usr/bin/cronwrap use1b-jobserver101a event-job \"/usr/bin/java -jar /data/jobs/event/event_job.jar launch-context.xml eventJob rundate=`/bin/date +\\%s`\""
-  minute 30
-  hour 5
-end
+
+# moved to iad-jobserver101a.ihr in response to OPS-5712
+# cron_d "event_job" do
+#   command "/usr/bin/cronwrap use1b-jobserver101a event-job \"/usr/bin/java -jar /data/jobs/event/event_job.jar launch-context.xml eventJob rundate=`/bin/date +\\%s`\""
+#   minute 30
+#   hour 5
+# end
 
 directory "/data/jobs/playlog"
 directory "/data/log/playlog"
