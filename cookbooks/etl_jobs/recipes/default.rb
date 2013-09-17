@@ -75,7 +75,7 @@ remote_file "/data/jobs/talk_thumbs/talk_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/talk_thumbs/talk_thumbs_job.jar"
 end
 cron_d "talk_thumbs_job" do
-  command "/usr/bin/nsca_relay -S Talk-Thumb-Radio-ETL-Job -- /usr/bin/java -jar /data/jobs/talk_thumbs/talk_thumbs_job.jar launch-context.xml talkthumbslogJob rundate=`/bin/date +\%s`"
+  command "/usr/bin/nsca_relay -S Talk-Thumb-Radio-ETL-Job -- /usr/bin/java -jar /data/jobs/talk_thumbs/talk_thumbs_job.jar launch-context.xml talkthumbslogJob rundate=`/bin/date +\\%s`"
   minute 41
 end
 
@@ -99,7 +99,7 @@ remote_file "/data/jobs/talklog/talkbatch.properties" do
   source "http://yum.ihr/files/jobs/talklog/talkbatch.properties"
 end
 cron_d "talklog_job" do
-  command "/usr/bin/nsca_relay Talklog-ETL-Job -- /usr/bin/java -jar /data/jobs/talklog/talklog_job.jar launch-context.xml talkJob rundate=`/bin/date +\%s`"
+  command "/usr/bin/nsca_relay Talklog-ETL-Job -- /usr/bin/java -jar /data/jobs/talklog/talklog_job.jar launch-context.xml talkJob rundate=`/bin/date +\\%s`"
   minute 21
 end
 
@@ -119,7 +119,7 @@ remote_file "/data/jobs/skiplog/skipbatch.properties" do
   source "http://yum.ihr/files/jobs/skiplog/skipbatch.properties"
 end
 cron_d "skiplog_job" do
-  command "/usr/bin/nsca_relay -S Skiplog-ETL-Job -- /usr/bin/java -jar /data/jobs/skiplog/skiplog_job.jar launch-context.xml skiplogJob rundate=`/bin/date +\%s`"
+  command "/usr/bin/nsca_relay -S Skiplog-ETL-Job -- /usr/bin/java -jar /data/jobs/skiplog/skiplog_job.jar launch-context.xml skiplogJob rundate=`/bin/date +\\%s`"
   minute 17
 end
 
@@ -133,7 +133,7 @@ remote_file "/data/jobs/live_thumbs/live_thumbs_job.jar" do
 source "http://yum.ihr/files/jobs/live_thumbs/live_thumbs_job.jar"
 end
 cron_d "live_thumbs_job" do
-command "/usr/bin/nsca_relay -S Liveradio-Thumb-ETL-Job -- /usr/bin/java -jar /data/jobs/live_thumbs/live_thumbs_job.jar launch-context.xml liveradiothumbslogJob rundate=`/bin/date +\%s`"
+command "/usr/bin/nsca_relay -S Liveradio-Thumb-ETL-Job -- /usr/bin/java -jar /data/jobs/live_thumbs/live_thumbs_job.jar launch-context.xml liveradiothumbslogJob rundate=`/bin/date +\\%s`"
 minute 51
 end
 
@@ -462,7 +462,7 @@ end
 
 # Added per OPS-5172
 cron_d "event_job" do
-  command "/usr/bin/nsca_relay -S event-job -- /usr/bin/java -jar /data/jobs/event/event_job.jar launch-context.xml eventJob rundate=`/bin/date +\%s`"
+  command "/usr/bin/nsca_relay -S event-job -- /usr/bin/java -jar /data/jobs/event/event_job.jar launch-context.xml eventJob rundate=`/bin/date +\\%s`"
   minute 30
   hour 5
 end
@@ -474,7 +474,7 @@ remote_file "/data/jobs/profile/profile_job.jar" do
   source "http://yum.ihr/files/jobs/profile/profile_job.jar"
 end
 cron_d "profile_job" do
-  command "/usr/bin/nsca_relay -S profile-job -- /usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\%s`"
+  command "/usr/bin/nsca_relay -S profile-job -- /usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\\%s`"
   minute 30
   hour 3
 end
