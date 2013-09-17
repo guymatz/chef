@@ -49,7 +49,7 @@ remote_file "/data/jobs/playlog/playlog_wrapper.sh" do
   mode 0755
 end
 cron_d "playlog_job" do
-  command "/usr/bin/nsca_relay -S Playlog-ETL-Job /data/jobs/playlog/playlog_wrapper.sh"
+  command "/usr/bin/nsca_relay -S Playlog-ETL-Job -- /data/jobs/playlog/playlog_wrapper.sh"
   minute "22,52"
 end
 
@@ -75,7 +75,7 @@ remote_file "/data/jobs/talk_thumbs/talk_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/talk_thumbs/talk_thumbs_job.jar"
 end
 cron_d "talk_thumbs_job" do
-  command "/usr/bin/nsca_relay -S Talk-Thumb-Radio-ETL-Job /usr/bin/java -jar /data/jobs/talk_thumbs/talk_thumbs_job.jar launch-context.xml talkthumbslogJob rundate=`/bin/date +\%s`"
+  command "/usr/bin/nsca_relay -S Talk-Thumb-Radio-ETL-Job -- /usr/bin/java -jar /data/jobs/talk_thumbs/talk_thumbs_job.jar launch-context.xml talkthumbslogJob rundate=`/bin/date +\%s`"
   minute 41
 end
 
