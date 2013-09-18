@@ -99,7 +99,7 @@ remote_file "/data/jobs/talklog/talkbatch.properties" do
   source "http://yum.ihr/files/jobs/talklog/talkbatch.properties"
 end
 cron_d "talklog_job" do
-  command "/usr/bin/nsca_relay Talklog-ETL-Job -- /usr/bin/java -jar /data/jobs/talklog/talklog_job.jar launch-context.xml talkJob rundate=`/bin/date +\\%s`"
+  command "/usr/bin/nsca_relay -S Talklog-ETL-Job -- /usr/bin/java -jar /data/jobs/talklog/talklog_job.jar launch-context.xml talkJob rundate=`/bin/date +\\%s`"
   minute 21
 end
 
