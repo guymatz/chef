@@ -87,6 +87,7 @@ end
   file "#{storagedir}/log/webapp/#{file}" do
     owner node['apache']['user']
     group node['apache']['group']
+    action :create_if_missing
   end
 end
 

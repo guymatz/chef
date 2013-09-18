@@ -18,7 +18,7 @@
 #
 
 include_recipe "python"
-include_recipe "memcached"
+#include_recipe "memcached"
 include_recipe "apache2"
 
 include_recipe "graphite::whisper"
