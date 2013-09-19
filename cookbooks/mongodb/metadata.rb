@@ -11,6 +11,7 @@ version          '0.1.0'
 end
 
 depends "nagios"
+depends "logrotate"
 
 %w{ centos }.each do |os|
   supports os
