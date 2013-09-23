@@ -7,7 +7,7 @@
           "email": "ashishsheth@clearchannel.com"
   },
   "groups":	["dba", "jobserver", "amp", "nagios", "postgresql-sysadmin", "mongodb"],
-  "ssh_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+aMEXnUHEiIShNKi+nMBmxG7Qrp4dPA+bcYd4g9gNFKD0RZPVNVHIfiKnOcYz0ZZGACC2pOzeDCl8PscqyuJS0I50pnyT7fkDjUnWhsVF398axkPYDeFGYt2aJsip/3RF7VtMDDDyFlN0vb54JFLMaLF7Fl3bnxnPFkMvzBWeaKUzTsVDg6pW3U9Ibn4NZcSv0twPP+Tle+cLeYrHagFQcgdJZshUkys2zZx0yexOO0AJdRZ4dxU9TO0SbaU2Z6fEG+LuC3YG3/GmkbqdAB/746VK8hz0fhnI+ze2jOu6WQHB48v8cjzEdPcTjnJjF4X9fFd/xlLw342iMDxwTcpP asheth@cccnyc03axs.sompa.iheart.com",
+  "ssh_keys": [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+aMEXnUHEiIShNKi+nMBmxG7Qrp4dPA+bcYd4g9gNFKD0RZPVNVHIfiKnOcYz0ZZGACC2pOzeDCl8PscqyuJS0I50pnyT7fkDjUnWhsVF398axkPYDeFGYt2aJsip/3RF7VtMDDDyFlN0vb54JFLMaLF7Fl3bnxnPFkMvzBWeaKUzTsVDg6pW3U9Ibn4NZcSv0twPP+Tle+cLeYrHagFQcgdJZshUkys2zZx0yexOO0AJdRZ4dxU9TO0SbaU2Z6fEG+LuC3YG3/GmkbqdAB/746VK8hz0fhnI+ze2jOu6WQHB48v8cjzEdPcTjnJjF4X9fFd/xlLw342iMDxwTcpP asheth@cccnyc03axs.sompa.iheart.com", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCU2rRanuP2fOdIZ5eihwXONjGgsFty727mBI4hgzg/BcFzz6iw43ramozzqk2DNvjhyqu1uu5FuNT1DY08T4VTFJxh79V2HbiCuv0tfIpGuoRom4uqyxTkR5gWary7TK/3rMYNSeBLDoL0+cLejZRK+/aXJyTIFFVQ9j94LEdPd/PfEf1hG3Z1FOCD3zIJe+m5q1S8KnqGF02QPdbmp406vCRNxu9/ao33XJDNQaZIE7HjB2IxuXXItqdYrmExVvNhChYO5hFFHTH0h4arYf8SDmTDVW4Xkg/0SJzJJjUXqUyLY9a7qVHdCL26toG4uQcrkm/In7R1Fmihaghz2Iap asheth@cccnyc03axs.sompa.iheart.com" ],
   "shell":	"/bin/bash",
     "uid": 50225
 }
