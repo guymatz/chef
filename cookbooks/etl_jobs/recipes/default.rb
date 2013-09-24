@@ -478,3 +478,31 @@ cron_d "profile_job" do
   minute 30
   hour 3
 end
+
+# GP 9/24/13 - Migrated from etl_jobs::ec2 as per OPS-5524
+
+# create a text file with all api server hostnames
+search(:node, "role:amp AND chef_environment:#{node.chef_environment}").each do |x|
+ ruby_block x.name do
+   block do
+     file = Chef::Util::FileEdit.new('/data/jobs/api_servers')
+     file.insert_line_if_no_match("/#{x.name}/m", "#{x.name}")
+     file.write_file
+   end
+ end
+end
+
+remote_file "/data/jobs/event/scp_event_logs.sh" do
+  source "http://yum.ihr/files/jobs/event/scp_event_logs.sh"
+  owner 'ihr-deployer'
+  group 'ihr-deployer'
+end
+
+cron_d "pull_event_logs" do
+  command '/usr/bin/nsca_relay -S Pull-Event-Logs -- /data/jobs/event/scp_event_logs.sh'
+  minute 27
+  hour 1
+  user 'ihr-deployer'
+end
+
+

@@ -358,12 +358,13 @@ end
 #  end
 #end
 
-cron_d "pull_event_logs" do
-  command "/usr/bin/cronwrap use1b-jobserver101a Pull-Event-Logs \"/home/ihr-deployer/event.sh\""
-  minute 27
-  hour 1
-  user 'ihr-deployer'
-end
+# cron_d "pull_event_logs" do
+#   command "/usr/bin/cronwrap use1b-jobserver101a Pull-Event-Logs \"/home/ihr-deployer/event.sh\""
+#   minute 27
+#   hour 1
+#   user 'ihr-deployer'
+# end
+
 cron_d "pull_sysinfo_logs" do
   command "/usr/bin/cronwrap use1b-jobserver101a Pull-Sysinfo-Logs \"/home/ihr-deployer/sysinfo.sh\""
   minute '*/15'
