@@ -496,6 +496,7 @@ remote_file "/data/jobs/event/scp_event_logs.sh" do
   source "http://yum.ihr/files/jobs/event/scp_event_logs.sh"
   owner 'ihr-deployer'
   group 'ihr-deployer'
+  mode 0755
 end
 
 cron_d "pull_event_logs" do
