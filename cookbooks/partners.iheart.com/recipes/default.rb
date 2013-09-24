@@ -11,7 +11,7 @@
 #  include_recipe cb
 #end
 
-%w{ python27 python27-libs python27-devel python27-test python27-tools libevent-devel }.each do |p|
+%w{ python27 python27-libs python27-devel python27-test python27-tools libevent-devel unixODBC-devel }.each do |p|
   package p
 end
 
@@ -40,9 +40,10 @@ end
       before_restart do
         bash "setup venv" do
           code <<-EOH
-          chown -R #{node[:partners][:deployer]}. #{node[:partners][:partners_path]}
+          chown -R #{node[:partners][:deployer]}. #{node[:partners][:deploy_path]}
           . /data/apps/partners/shared/venv/bin/activate && \
           pip install -r "/data/apps/partners/shared/cached-copy/requirements.txt"
+          pip install gevent
           EOH
         end
       end
@@ -83,6 +84,6 @@ end
 
 bash "setup venv" do
       code <<-EOH
-      chown -R #{node[:partners][:user]}. #{node[:partners][:partners_path]}
+      chown -R #{node[:partners][:user]}. #{node[:partners][:deploy_path]}
       EOH
 end

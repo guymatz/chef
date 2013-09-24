@@ -1,5 +1,5 @@
 users_manage "partners" do
-  group_id 4022
+  group_id 4024
   action [ :remove, :create ]
 end
 
