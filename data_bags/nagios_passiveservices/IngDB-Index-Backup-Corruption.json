@@ -1,5 +1,5 @@
 {
-  "host_name": "iad-ing101.ihr",
+  "host_name": "iad-ing101",
   "id": "INGDB_Index_Backup_Corruption",
   "freshness_threshold": "259200",
   "max_check_attempts": "1",
