@@ -53,6 +53,6 @@ end
 cron_d "fac-sherpa" do
  minute "12"
  hour "12"
- command "/usr/bin/cronwrap use1b-jobserver101a fac-sherpa \"#{script_dir}/#{start_script}\""
+ command "/usr/bin/nsca_relay -S fac-sherpa -- #{script_dir}/#{start_script}"
  user "root"
 end

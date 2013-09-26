@@ -32,18 +32,20 @@ rm -f $WORKDIR/*.{xml,zone,fake}
 for ZONE in $ZONES; do
     echo "Exporting FWD-DNS from IPplan for zone: $ZONE"
     # we need to do this 2 times since we are active-active and dont know where this will drop the xmls
-    $EXPORTDNS 121 "$ZONE"
-    $EXPORTDNS 121 "$ZONE"
+    # EXPORTDNS is ipplan-exportdns.pl as defined in  upadte.conf
+    $EXPORTDNS fwd "$ZONE"
+    $EXPORTDNS fwd "$ZONE"
 done
 echo "Exporting REV-DNS from IPplan"
-$EXPORTDNS 131
-$EXPORTDNS 131
+$EXPORTDNS rev
+$EXPORTDNS rev
 
 
 if [ $RETVAL -ne 0 ]; then
     [ "$DEBUG" -gt 0 ] && echo "ERROR: preflight failure. Exiting."
     exit $RETVAL
 fi
+# xslt x-forms are functions defined in ipplan-updatefunc.sh
 [ "$DEBUG" -gt 0 ] && echo "DEBUG: executing xsltforwardzone"
 xsltforwardzone
 [ "$DEBUG" -gt 0 ] && echo "DEBUG: executing xsltreversezone"

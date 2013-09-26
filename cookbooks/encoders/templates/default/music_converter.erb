@@ -163,6 +163,8 @@ help()
 
 case $1 in
         start)
+        # remove tmp files at start
+        rm -f "${DIR}/bin"
         for id in {100..<%= @num_converters %>}
         do
             load_jruby

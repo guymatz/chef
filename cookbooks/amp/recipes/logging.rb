@@ -67,16 +67,17 @@ template "#{node[:amp][:logging][:script_path]}/amp-extended-log-chk.sh" do
   mode "0755"
 end
 
+# GP 9/24/13 - updated. replaced cronwrap command with nsca_relay
 cron_d "amp-extended-log-chk" do
   minute "*/5"
-  command "cronwrap #{node[:hostname]} amp-extended-log-chk \"#{node[:amp][:logging][:script_path]}/amp-extended-log-chk.sh\" 2>&1 >> #{node[:amp][:logging][:log_path]}/amp-extended-log-chk.log"
+  command "/usr/bin/nsca_relay -S amp-extended-log-chk -- #{node[:amp][:logging][:script_path]}/amp-extended-log-chk.sh 2>&1 >> #{node[:amp][:logging][:log_path]}/amp-extended-log-chk.log"
 end
 #END gp edit
 
-
+# GP 9/24/13 - updated. replaced cronwrap command with nsca_relay
 cron_d "amp-extended-log" do
   minute "*/5"
-  command "cronwrap #{node[:hostname]} amp-extended-log \"#{node[:amp][:logging][:script_path]}/extended-api-log.sh\" 2>&1 >> #{node[:amp][:logging][:log_path]}/api-errors.log"
+  command "/usr/bin/nsca_relay -S amp-extended-log -- #{node[:amp][:logging][:script_path]}/extended-api-log.sh 2>&1 >> #{node[:amp][:logging][:log_path]}/api-errors.log"
   #user node[:amp][:logging][:user]
 end
 

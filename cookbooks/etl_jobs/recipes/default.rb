@@ -49,7 +49,7 @@ remote_file "/data/jobs/playlog/playlog_wrapper.sh" do
   mode 0755
 end
 cron_d "playlog_job" do
-  command "/usr/bin/cronwrap iad-jobserver101a Playlog-ETL-Job \"/data/jobs/playlog/playlog_wrapper.sh\""
+  command "/usr/bin/nsca_relay -S Playlog-ETL-Job -- /data/jobs/playlog/playlog_wrapper.sh"
   minute "22,52"
 end
 
@@ -75,7 +75,7 @@ remote_file "/data/jobs/talk_thumbs/talk_thumbs_job.jar" do
   source "http://yum.ihr/files/jobs/talk_thumbs/talk_thumbs_job.jar"
 end
 cron_d "talk_thumbs_job" do
-  command "/usr/bin/cronwrap iad-jobserver101a Talk-Thumb-Radio-ETL-Job \"/usr/bin/java -jar /data/jobs/talk_thumbs/talk_thumbs_job.jar launch-context.xml talkthumbslogJob rundate=`/bin/date +\\%s`\""
+  command "/usr/bin/nsca_relay -S Talk-Thumb-Radio-ETL-Job -- /usr/bin/java -jar /data/jobs/talk_thumbs/talk_thumbs_job.jar launch-context.xml talkthumbslogJob rundate=`/bin/date +\\%s`"
   minute 41
 end
 
@@ -99,7 +99,7 @@ remote_file "/data/jobs/talklog/talkbatch.properties" do
   source "http://yum.ihr/files/jobs/talklog/talkbatch.properties"
 end
 cron_d "talklog_job" do
-  command "/usr/bin/cronwrap iad-jobserver101a Talklog-ETL-Job \"/usr/bin/java -jar /data/jobs/talklog/talklog_job.jar launch-context.xml talkJob rundate=`/bin/date +\\%s`\""
+  command "/usr/bin/nsca_relay -S Talklog-ETL-Job -- /usr/bin/java -jar /data/jobs/talklog/talklog_job.jar launch-context.xml talkJob rundate=`/bin/date +\\%s`"
   minute 21
 end
 
@@ -119,7 +119,7 @@ remote_file "/data/jobs/skiplog/skipbatch.properties" do
   source "http://yum.ihr/files/jobs/skiplog/skipbatch.properties"
 end
 cron_d "skiplog_job" do
-  command "/usr/bin/cronwrap iad-jobserver101a Skiplog-ETL-Job \"/usr/bin/java -jar /data/jobs/skiplog/skiplog_job.jar launch-context.xml skiplogJob rundate=`/bin/date +\\%s`\""
+  command "/usr/bin/nsca_relay -S Skiplog-ETL-Job -- /usr/bin/java -jar /data/jobs/skiplog/skiplog_job.jar launch-context.xml skiplogJob rundate=`/bin/date +\\%s`"
   minute 17
 end
 
@@ -133,7 +133,7 @@ remote_file "/data/jobs/live_thumbs/live_thumbs_job.jar" do
 source "http://yum.ihr/files/jobs/live_thumbs/live_thumbs_job.jar"
 end
 cron_d "live_thumbs_job" do
-command "/usr/bin/cronwrap iad-jobserver101a Liveradio-Thumb-ETL-Job \"/usr/bin/java -jar /data/jobs/live_thumbs/live_thumbs_job.jar launch-context.xml liveradiothumbslogJob rundate=`/bin/date +\\%s`\""
+command "/usr/bin/nsca_relay -S Liveradio-Thumb-ETL-Job -- /usr/bin/java -jar /data/jobs/live_thumbs/live_thumbs_job.jar launch-context.xml liveradiothumbslogJob rundate=`/bin/date +\\%s`"
 minute 51
 end
 
@@ -151,7 +151,7 @@ source "http://yum.ihr/files/jobs/custom_thumbs/custom_thumbs_wrapper.sh"
 mode 0755
 end
 cron_d "custom_thumbs_job" do
-command "/usr/bin/cronwrap iad-jobserver101a Customradio-Thumb-ETL-Job \"/data/jobs/custom_thumbs/custom_thumbs_wrapper.sh\""
+command "/usr/bin/nsca_relay -S Customradio-Thumb-ETL-Job -- /data/jobs/custom_thumbs/custom_thumbs_wrapper.sh"
 minute 38
 end
 
@@ -369,7 +369,7 @@ cookbook_file "/data/jobs/log-archive.sh" do
   mode 0755
 end
 cron_d "archive_logs" do
-  command "/usr/bin/cronwrap iad-jobserver101a.ihr Archive-Logs \"/data/jobs/log-archive.sh 2>&1 >> /dev/null\""
+  command "/usr/bin/nsca_relay -S Archive-Logs -- /data/jobs/log-archive.sh 2>&1 >> /dev/null"
   minute "*/15"
 end
 
@@ -403,11 +403,14 @@ bash "set-migration-perms" do
   code 'chown -R ihr-deployer. /data/jobs/radiomigration'
 end
 db_user = Chef::EncryptedDataBagItem.load("sqlserver", "users")
+
+
+# node[:db_sync_tools][:radiomigration_cmd] = "/usr/bin/nsca_relay -S Radiomigration -– /data/jobs/radiomigration/ImportToDBFromCSV.sh localhost radio processed iad-dwh.prod.ihr appBatch i8piZZa4u"
 cron_d "radiomigration" do
-  command "/usr/bin/cronwrap iad-jobserver101a Radiomigration \"/data/jobs/radiomigration/ImportToDBFromCSV.sh localhost radio processed iad-dwh.prod.ihr appBatch #{db_user['appBatch']}\""
+  command "/usr/bin/nsca_relay -S Radiomigration -- /data/jobs/radiomigration/ImportToDBFromCSV.sh localhost radio processed iad-dwh.prod.ihr appBatch i8piZZa4u"
   minute 50
   hour 21
-  user 'ihr-deployer'
+  user 'root'
 end
 
 template "/etc/odbcinst.ini" do
@@ -424,22 +427,26 @@ end
 python_pip "pyodbc" do
   action :install
 end
-directory "#{node[:db_sync_tools][:deploy_path]}"
-directory "/data/log/name-fill"
-git "#{node[:db_sync_tools][:deploy_path]}" do
-  repository "#{node[:db_sync_tools][:repo]}"
-  reference "#{node[:db_sync_tools][:reference]}"
-  action :sync
-end
-remote_file "#{node[:db_sync_tools][:deploy_path]}/db_sync_tools_wrapper.sh" do
-  source "http://yum.ihr/files/jobs/db-sync-tools/db_sync_tools_wrapper.sh"
-  mode 0755
-end
-cron_d "db-sync-tools" do
-  command "/usr/bin/cronwrap iad-jobserver101a DB-Sync-Tools \"/data/jobs/db-sync-tools/db_sync_tools_wrapper.sh 2>&1 >> /dev/null\""
-  minute 15
-  hour 2
-end
+
+# # removed per OPS-5311
+# #
+# #directory "#{node[:db_sync_tools][:deploy_path]}"
+# #directory "/data/log/name-fill"
+# #git "#{node[:db_sync_tools][:deploy_path]}" do
+# #  repository "#{node[:db_sync_tools][:repo]}"
+# #  reference "#{node[:db_sync_tools][:reference]}"
+# #  action :sync
+# #end
+# #remote_file "#{node[:db_sync_tools][:deploy_path]}/db_sync_tools_wrapper.sh" do
+# #  source "http://yum.ihr/files/jobs/db-sync-tools/db_sync_tools_wrapper.sh"
+# #  mode 0755
+# #end
+# #cron_d "db-sync-tools" do
+# #  command "/usr/bin/cronwrap iad-jobserver101a DB-Sync-Tools \"/data/jobs/db-sync-tools/db_sync_tools_wrapper.sh 2>&1 >> /dev/null\""
+# #  minute 15
+# #  hour 2
+# #end
+# #end removed per OPS-5311
 
 # Added per OPS-4937
 directory "/data/log/ampstationsdata"
@@ -448,7 +455,55 @@ git "/data/jobs/amp-tools" do
   reference "master"
 end
 cron_d "ampstationsdata" do
-  command "#/usr/bin/cronwrap iad-jobserver101a.ihr Ampstationsdata-Job \"/data/jobs/amp-tools/amp-scripts/AmpStationsData/AmpStationsData.sh\""
+  command "/usr/bin/nsca_relay -S Ampstationsdata-Job -- /data/jobs/amp-tools/amp-scripts/AmpStationsData/AmpStationsData.sh"
   minute 0
   hour 2
 end
+
+# Added per OPS-5172
+cron_d "event_job" do
+  command "/usr/bin/nsca_relay -S event-job -- /usr/bin/java -jar /data/jobs/event/event_job.jar launch-context.xml eventJob rundate=`/bin/date +\\%s`"
+  minute 30
+  hour 5
+end
+
+# Added per OPS-5313
+directory "/data/jobs/profile"
+directory "/data/log/profile"
+remote_file "/data/jobs/profile/profile_job.jar" do
+  source "http://yum.ihr/files/jobs/profile/profile_job.jar"
+end
+cron_d "profile_job" do
+  command "/usr/bin/nsca_relay -S profile-job -- /usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\\%s`"
+  minute 30
+  hour 3
+end
+
+# GP 9/24/13 - Migrated from etl_jobs::ec2 as per OPS-5524
+
+# create a text file with all api server hostnames
+search(:node, "role:amp AND chef_environment:#{node.chef_environment}").each do |x|
+ ruby_block x.name do
+   block do
+     file = Chef::Util::FileEdit.new('/data/jobs/api_servers')
+     file.insert_line_if_no_match("/#{x.name}/m", "#{x.name}")
+     file.write_file
+   end
+ end
+end
+
+remote_file "/data/jobs/event/scp_event_logs.sh" do
+  source "http://yum.ihr/files/jobs/event/scp_event_logs.sh"
+  owner 'ihr-deployer'
+  group 'ihr-deployer'
+  mode 0755
+end
+
+cron_d "pull_event_logs" do
+  command '/usr/bin/nsca_relay -S Pull-Event-Logs -- /data/jobs/event/scp_event_logs.sh'
+  minute 27
+  hour 1
+  user 'ihr-deployer'
+end
+
+

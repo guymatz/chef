@@ -51,11 +51,19 @@ template "/etc/init.d/fbgraph" do
 end
 
 nagios_nrpecheck "Facebook-Process-FBgraph" do
-  command "#{node['nagios']['plugin_dir']}/check_procs"
   warning_condition "1:1"
   critical_condition "1:1"
-  parameters "-C java -a '-Xmx4G -jar /data/apps/fbgraph/fbgraph.jar'"
+  parameters "-C  /var/run/fbgraph/fbgraph.pid"
   action :add
+end
+
+
+nagios_nrpecheck "Facebook-Process-Mongos" do
+  command "#{node['nagios']['plugin_dir']}/check_procs"
+    warning_condition "1:1"
+    critical_condition "1:1"
+    parameters "-C mongos"
+    action :add
 end
 
 #cron_d "restart_fbgraph" do

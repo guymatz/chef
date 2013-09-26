@@ -52,59 +52,104 @@ preflight_check()
 
 xsltforwardzone()
 {
-    ALL_FWD_ZONES=$(find "$WORKDIR" -name "zone_*.xml")
-    for ZONE in $ALL_FWD_ZONES; do
-	XMLFILE="$ZONE"
-	ZONE=$(echo $XMLFILE | cut -f2 -d '_')
-	[ "$DEBUG" = 2 ] && echo "DEBUG2: $XSLTPROC $SS_BIND9_FWD $XMLFILE > $WORKDIR/$ZONE.$FILETAG.zone"
+  ALL_FWD_ZONES=$(find "$WORKDIR" -name "zone_*.xml")
+  for ZONE in $ALL_FWD_ZONES; do
+    XMLFILE="$ZONE"
+    ZONE=$(echo $XMLFILE | cut -f2 -d '_')
+    [ "$DEBUG" = 2 ] && echo "DEBUG2: $XSLTPROC $SS_BIND9_FWD $XMLFILE > $WORKDIR/$ZONE.$FILETAG.zone"
 
-        $XSLTPROC $SS_BIND9_FWD $XMLFILE > $WORKDIR/$ZONE.$FILETAG.zone
+    $XSLTPROC $SS_BIND9_FWD $XMLFILE > $WORKDIR/$ZONE.$FILETAG.zone
+    RETVAL=$?
+    if [ $RETVAL -ne 0 ]; then
+      [ "$DEBUG" ] && echo "ERROR: xsltproc error in xsltforwardzone func"
+      [ "$DEBUG" = 2 ] && XSLTPROCMSG=$($XSLTPROC $SS_BIND9_FWD $XMLFILE > $WORKDIR/$ZONE.$FILETAG.zone 2>&1)
+      failure_fatal "xsltforwardzone_error"
+    fi
+    echo >> $WORKDIR/$ZONE.$FILETAG.zone
+    echo >> $WORKDIR/$ZONE.$FILETAG.zone
+
+    # gmatz - CNAME Appending - 20130826
+    # take a zone file and create CNAMES for prod VLANS, e.g.
+    # iad-vast101-v200     IN      A   
+    # means we create
+    # iad-vast101-prod     IN      CNAME   iad-vast101-v200.ihr.
+    
+    declare -A intf_by_host
+    TMP_FILE=/tmp/.add_cnames.$$
+    # Here we get output from knife and use ruby to make it more presentable
+    # And weed out the lines that don't look like "hostname VLAN_ID"
+    # We then assign the associative array intf_by_host with host:default_gateway
+    # pairs so that we can tell if a CNAME needs to be created
+    knife search node 'chef_environment:prod' -a network.default_interface  | \
+      ruby -pe '$_ = $_.chomp + gets.chomp!.sub!(/.*: /,"") if $_ =~ /:$/' | \
+      awk -F. '{print $1, $3}' | \
+      grep -P "\S+\s\d+" 1> $TMP_FILE 
+      if [ $? -ne 0 ]; then failure_fatal "knife error in ${FUNCNAME}"; fi
+    # Loop through file of "hostname VLAN" and create associative array
+    while read H I; do
+      if [ -z $I ]; then continue; fi
+      intf_by_host["$H"]="$I"
+    done < $TMP_FILE
+
+    # Now grep the forward zone file for A records that have VLANs in the hostname,
+    # e.g. iad-cass104-v240, and compare contents against 
+    # intf_by_host array to see if CNAME is required.  We only create a CNAME for
+    # hostnames that have a VLAN interface as their default interface
+    Z=$WORKDIR/$ZONE.$FILETAG.zone
+    grep -P "^\S+\s+IN\s+A\s+[0-9\.]+$" $Z | while read VIP IN A IP; do
+      HOST=$(echo $VIP | sed 's/\(.*\)-v[0-9]*/\1/')
+      INTF=$(echo $VIP | sed 's/.*-v\([0-9]*\)/\1/')
+      # Skip if we don't have any info on this host
+      if [ -z ${intf_by_host[$HOST]} ]; then continue; fi
+      # CNAME Required if ${intf_by_host[$HOST]} == $INTF
+      if [ ${intf_by_host[$HOST]} == $INTF ]; then
+        # Check to see if CNAME already exists
+        if ! $(grep -P "${HOST}-prod\s+IN\s+CNAME\s+${VIP}" $Z 2>&1 > /dev/null) ; then
+          echo "${HOST}-prod  IN  CNAME  ${VIP}.${ZONE}." >> $Z
+        fi
+      fi
+    done
+    rm -f $TMP_FILE
+    # gmatz - CNAME appending done.  Back to Jake code ;-)
+    
+    if [ -e $STAGING/$ZONE.$FILETAG.zone ]; then
+      PATCHF="/var/tmp/xsltforwardzone-patch.$$"
+      [ "$DEBUG" = 2 ] && echo "DEBUG2: $DIFF -u $STAGING/$ZONE.$FILETAG.zone $WORKDIR/$ZONE.$FILETAG.zone > $PATCHF 2>/dev/null"
+      $DIFF -u $STAGING/$ZONE.$FILETAG.zone $WORKDIR/$ZONE.$FILETAG.zone > $PATCHF 2>/dev/null
+      RETVAL=$?
+      if [ $RETVAL = 2 ]; then  # diff had errors
+        [ "$DEBUG" -gt 0 ] && echo "ERROR: diff error in xsltforwardzone func"
+        [ "$DEBUG" = 2 ] && DIFFMSG=$($DIFF -u $STAGING/$ZONE.$FILETAG.zone $WORKDIR/$ZONE.$FILETAG.zone 2>&1)
+        failure_fatal "xsltforwardzone_error"
+      elif [ $RETVAL = 1 ]; then  # diff found differences
+        [ "$DEBUG" = 2 ] && echo "DEBUG2: $PATCH -s $STAGING/$ZONE.$FILETAG.zone $PATCHF 2>/dev/null"
+        $PATCH -s $STAGING/$ZONE.$FILETAG.zone $PATCHF 2>/dev/null
         RETVAL=$?
         if [ $RETVAL -ne 0 ]; then
-	    [ "$DEBUG" ] && echo "ERROR: xsltproc error in xsltforwardzone func"
-	    [ "$DEBUG" = 2 ] && XSLTPROCMSG=$($XSLTPROC $SS_BIND9_FWD $XMLFILE > $WORKDIR/$ZONE.$FILETAG.zone 2>&1)
-	    failure_fatal "xsltforwardzone_error"
+          [ "$DEBUG" -gt 0 ] && echo "ERROR: patch error in xsltforwardzone func"
+          [ "$DEBUG" = 2 ] && PATCHMSG=$($PATCH -s $STAGING/$ZONE.$FILETAG.zone $PATCHF 2>&1 )
+          failure_fatal "xsltforwardzone_error"
         fi
-	echo >> $WORKDIR/$ZONE.$FILETAG.zone
-	echo >> $WORKDIR/$ZONE.$FILETAG.zone
+      fi
+      rm -f $PATCHF
+    else
+      cp -f $WORKDIR/$ZONE.$FILETAG.zone $STAGING/$ZONE.$FILETAG.zone
+    fi
 
-	if [ -e $STAGING/$ZONE.$FILETAG.zone ]; then
-            PATCHF="/var/tmp/xsltforwardzone-patch.$$"
-            [ "$DEBUG" = 2 ] && echo "DEBUG2: $DIFF -u $STAGING/$ZONE.$FILETAG.zone $WORKDIR/$ZONE.$FILETAG.zone > $PATCHF 2>/dev/null"
-            $DIFF -u $STAGING/$ZONE.$FILETAG.zone $WORKDIR/$ZONE.$FILETAG.zone > $PATCHF 2>/dev/null
-            RETVAL=$?
-            if [ $RETVAL = 2 ]; then  # diff had errors
-		[ "$DEBUG" -gt 0 ] && echo "ERROR: diff error in xsltforwardzone func"
-		[ "$DEBUG" = 2 ] && DIFFMSG=$($DIFF -u $STAGING/$ZONE.$FILETAG.zone $WORKDIR/$ZONE.$FILETAG.zone 2>&1)
-		failure_fatal "xsltforwardzone_error"
-            elif [ $RETVAL = 1 ]; then  # diff found differences
-		[ "$DEBUG" = 2 ] && echo "DEBUG2: $PATCH -s $STAGING/$ZONE.$FILETAG.zone $PATCHF 2>/dev/null"
-		$PATCH -s $STAGING/$ZONE.$FILETAG.zone $PATCHF 2>/dev/null
-		RETVAL=$?
-		if [ $RETVAL -ne 0 ]; then
-                    [ "$DEBUG" -gt 0 ] && echo "ERROR: patch error in xsltforwardzone func"
-                    [ "$DEBUG" = 2 ] && PATCHMSG=$($PATCH -s $STAGING/$ZONE.$FILETAG.zone $PATCHF 2>&1 )
-                    failure_fatal "xsltforwardzone_error"
-		fi
-            fi
-            rm -f $PATCHF
-	else
-            cp -f $WORKDIR/$ZONE.$FILETAG.zone $STAGING/$ZONE.$FILETAG.zone
-	fi
+    cp -f $STAGING/$ZONE.$FILETAG.zone $STAGING/$ZONE.$FILETAG.zone.fake
+    # remember, bind complains if zone file doesn't end with a newline
+    echo >> $STAGING/$ZONE.$FILETAG.zone
 
-	cp -f $STAGING/$ZONE.$FILETAG.zone $STAGING/$ZONE.$FILETAG.zone.fake
-        # remember, bind complains if zone file doesn't end with a newline
-	echo >> $STAGING/$ZONE.$FILETAG.zone
+    # copy new zone to $ROOTDIR (/var/named/chroot-stage/var/named/internal)
+    [ $DEBUG = 2 ] && echo "DEBUG2: cp -f $STAGING/$ZONE.$FILETAG.zone $ROOTDIR/$ZONE.$FILETAG.zone"
+    cp -f $STAGING/$ZONE.$FILETAG.zone $ROOTDIR/$ZONE.$FILETAG.zone
 
-        # copy new zone to $ROOTDIR (/var/named/chroot-stage/var/named/internal)
-	[ $DEBUG = 2 ] && echo "DEBUG2: cp -f $STAGING/$ZONE.$FILETAG.zone $ROOTDIR/$ZONE.$FILETAG.zone"
-	cp -f $STAGING/$ZONE.$FILETAG.zone $ROOTDIR/$ZONE.$FILETAG.zone
+    echo >> $WORKDIR/$ZONE.$FILETAG.zone.fake
+    [ $DEBUG = 2 ] && echo "DEBUG2: cp -f $STAGING/$ZONE.$FILETAG.zone.fake $ROOTDIR/$ZONE.$FILETAG.zone.fake"
+    cp -f $STAGING/$ZONE.$FILETAG.zone.fake $ROOTDIR/$ZONE.$FILETAG.zone.fake
+  done
 
-	echo >> $WORKDIR/$ZONE.$FILETAG.zone.fake
-	[ $DEBUG = 2 ] && echo "DEBUG2: cp -f $STAGING/$ZONE.$FILETAG.zone.fake $ROOTDIR/$ZONE.$FILETAG.zone.fake"
-	cp -f $STAGING/$ZONE.$FILETAG.zone.fake $ROOTDIR/$ZONE.$FILETAG.zone.fake
-    done
-    RETVAL=0
+  RETVAL=0
 }
 
 xsltreversezone()
@@ -112,46 +157,46 @@ xsltreversezone()
     ALL_REV_ZONES=$(find $WORKDIR -name 'revzone_*.xml')
     echo "ALL_REV_ZONES=" $ALL_REV_ZONES
     for ZONE in $ALL_REV_ZONES; do
-	XMLFILE=$ZONE
-	ZONE=$(echo $XMLFILE | cut -f2 -d '_')
-	[ $DEBUG = 2 ] && echo "DEBUG2: $XSLTPROC $SS_BIND9_REV $XMLFILE > $WORKDIR/$ZONE.$FILETAG.zone"
-	$XSLTPROC $SS_BIND9_REV $XMLFILE > $WORKDIR/$ZONE.$FILETAG.zone 2>/dev/null
-	RETVAL=$?
-	if [ $RETVAL -ne 0 ]; then
+  XMLFILE=$ZONE
+  ZONE=$(echo $XMLFILE | cut -f2 -d '_')
+  [ $DEBUG = 2 ] && echo "DEBUG2: $XSLTPROC $SS_BIND9_REV $XMLFILE > $WORKDIR/$ZONE.$FILETAG.zone"
+  $XSLTPROC $SS_BIND9_REV $XMLFILE > $WORKDIR/$ZONE.$FILETAG.zone 2>/dev/null
+  RETVAL=$?
+  if [ $RETVAL -ne 0 ]; then
             [ "$DEBUG" -gt 0 ] && echo "ERROR: xsltproc error in xsltreversezone func"
             [ "$DEBUG" = 2 ] && XSLTPROCMSG=$($XSLTPROC $SS_BIND9_REV $XMLFILE > $WORKDIR/$ZONE.$FILETAG.zone 2>&1)
             failure_fatal "xsltreversezone_error"
-	fi
+  fi
 
         # bind complains if zone file doesn't end with a newline
-	echo >> $WORKDIR/$ZONE.$FILETAG.zone
+  echo >> $WORKDIR/$ZONE.$FILETAG.zone
 
-	if [ -e $STAGING/$ZONE.$FILETAG.zone ]; then
+  if [ -e $STAGING/$ZONE.$FILETAG.zone ]; then
             PATCHF="/var/tmp/xsltreversezone-patch.$$"
             [ "$DEBUG" = 2 ] && echo "DEBUG2: $DIFF -u $STAGING/$ZONE.$FILETAG.zone $WORKDIR/$ZONE.$FILETAG.zone > $PATCHF 2>/dev/null"
             $DIFF -u $STAGING/$ZONE.$FILETAG.zone $WORKDIR/$ZONE.$FILETAG.zone > $PATCHF 2>/dev/null
             RETVAL=$?
             if [ $RETVAL = 2 ]; then  # diff had errors
-		[ "$DEBUG" -gt 0 ] && echo "ERROR: diff error in xsltreversezone func"
-		[ "$DEBUG" = 2 ] && DIFFMSG=$($DIFF -u $STAGING/$ZONE.$FILETAG.zone $WORKDIR/$ZONE.$FILETAG.zone 2>&1 )
-		failure_fatal "xsltreversezone_error"
+    [ "$DEBUG" -gt 0 ] && echo "ERROR: diff error in xsltreversezone func"
+    [ "$DEBUG" = 2 ] && DIFFMSG=$($DIFF -u $STAGING/$ZONE.$FILETAG.zone $WORKDIR/$ZONE.$FILETAG.zone 2>&1 )
+    failure_fatal "xsltreversezone_error"
             elif [ $RETVAL = 1 ]; then  # diff found differences
-		[ $DEBUG = 2 ] && echo "DEBUG2: $PATCH -s $STAGING/$ZONE.$FILETAG.zone $PATCHF 2>/dev/null"
-		$PATCH -s $STAGING/$ZONE.$FILETAG.zone $PATCHF 2>/dev/null
-		RETVAL=$?
-		if [ $RETVAL -ne 0 ]; then
+    [ $DEBUG = 2 ] && echo "DEBUG2: $PATCH -s $STAGING/$ZONE.$FILETAG.zone $PATCHF 2>/dev/null"
+    $PATCH -s $STAGING/$ZONE.$FILETAG.zone $PATCHF 2>/dev/null
+    RETVAL=$?
+    if [ $RETVAL -ne 0 ]; then
                     [ "$DEBUG" -gt 0 ] && echo "ERROR: patch error in xsltreversezone func"
                     [ "$DEBUG" = 2 ] && PATCHMSG=$($PATCH -s $STAGING/$ZONE.$FILETAG.zone $PATCHF 2>&1 )
                     failure_fatal "xsltreversezone_error"
-		fi
+    fi
             fi
             rm -f $PATCHF
-	else
+  else
             cp -f $WORKDIR/$ZONE.$FILETAG.zone $STAGING/$ZONE.$FILETAG.zone
-	fi
+  fi
     # copy new zone to $ROOTDIR (/var/named/chroot-stage/var/named/internal)
-	[ $DEBUG = 2 ] && echo "DEBUG2: cp -f $STAGING/$ZONE.$FILETAG.zone $ROOTDIR/$ZONE.$FILETAG.zone"
-	cp -f $STAGING/$ZONE.$FILETAG.zone $ROOTDIR/$ZONE.$FILETAG.zone
+  [ $DEBUG = 2 ] && echo "DEBUG2: cp -f $STAGING/$ZONE.$FILETAG.zone $ROOTDIR/$ZONE.$FILETAG.zone"
+  cp -f $STAGING/$ZONE.$FILETAG.zone $ROOTDIR/$ZONE.$FILETAG.zone
     done
     RETVAL=0
 }

@@ -32,11 +32,13 @@ end
 remote_file "/data/jobs/event/log4j.properties" do
   source "http://yum.ihr/files/jobs/event/log4j.properties"
 end
-cron_d "event_job" do
-  command "/usr/bin/cronwrap use1b-jobserver101a event-job \"/usr/bin/java -jar /data/jobs/event/event_job.jar launch-context.xml eventJob rundate=`/bin/date +\\%s`\""
-  minute 30
-  hour 5
-end
+
+# moved to iad-jobserver101a.ihr in response to OPS-57
+# cron_d "event_job" do
+#   command "/usr/bin/cronwrap use1b-jobserver101a event-job \"/usr/bin/java -jar /data/jobs/event/event_job.jar launch-context.xml eventJob rundate=`/bin/date +\\%s`\""
+#   minute 30
+#   hour 5
+# end
 
 directory "/data/jobs/playlog"
 directory "/data/log/playlog"
@@ -57,16 +59,16 @@ end
 #  minute 22
 #end
 
-directory "/data/jobs/profile"
-directory "/data/log/profile"
-remote_file "/data/jobs/profile/profile_job.jar" do
-  source "http://yum.ihr/files/jobs/profile/profile_job.jar"
-end
-cron_d "profile_job" do
-  command "/usr/bin/cronwrap use1b-jobserver101a profile-job \"/usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\\%s`\""
-  minute 30
-  hour 3
-end
+# directory "/data/jobs/profile"
+# directory "/data/log/profile"
+# remote_file "/data/jobs/profile/profile_job.jar" do
+#   source "http://yum.ihr/files/jobs/profile/profile_job.jar"
+# end
+# cron_d "profile_job" do
+#   command "/usr/bin/cronwrap use1b-jobserver101a profile-job \"/usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\\%s`\""
+#   minute 30
+#   hour 3
+# end
 
 #
 #ALTERED PER OPS-4694
@@ -356,12 +358,13 @@ end
 #  end
 #end
 
-cron_d "pull_event_logs" do
-  command "/usr/bin/cronwrap use1b-jobserver101a Pull-Event-Logs \"/home/ihr-deployer/event.sh\""
-  minute 27
-  hour 1
-  user 'ihr-deployer'
-end
+# cron_d "pull_event_logs" do
+#   command "/usr/bin/cronwrap use1b-jobserver101a Pull-Event-Logs \"/home/ihr-deployer/event.sh\""
+#   minute 27
+#   hour 1
+#   user 'ihr-deployer'
+# end
+
 cron_d "pull_sysinfo_logs" do
   command "/usr/bin/cronwrap use1b-jobserver101a Pull-Sysinfo-Logs \"/home/ihr-deployer/sysinfo.sh\""
   minute '*/15'

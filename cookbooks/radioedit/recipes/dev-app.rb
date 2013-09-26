@@ -46,7 +46,7 @@ yum_package "memcached" do
 end
 
 
-python_virtualenv "#{node[:radioedit][:epona][:path]}/envs/radioedit" do
+python_virtualenv "#{node[:radioedit][:epona][:path]}/envs/core" do
   interpreter "python27"
   owner "ihr-deployer"
   group "ihr-deployer"
