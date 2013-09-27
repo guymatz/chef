@@ -27,7 +27,7 @@ all_env = [
 run_list(all_env)
 
 env_run_lists(
-              "_default" => all_env,
+              "_default" => all_env + ["role[monitored]"],
               "qa2" => all_env,
               "dev" => all_env,
               "prod" => all_env + ["role[monitored]"],
