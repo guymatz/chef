@@ -46,7 +46,7 @@ default[:radioedit][:cms][:host] = "unix"
 default[:radioedit][:nginx][:port] = 8000
 
 # epona settings
-default[:radioedit][:epona][:req_dirs] = %w{ /data /data/apps /data/apps/radioedit /root/build /data/apps/radioedit/envs /data/apps/radioedit/envs/core /var/run/radioedit /var/log/radioedit }
+default[:radioedit][:epona][:req_dirs] = %w{ /data /data/apps /data/apps/radioedit /root/build /data/apps/radioedit/envs /data/apps/radioedit/envs/core /var/run/radioedit /var/log/radioedit /data/apps/radioedit/shared }
 default[:radioedit][:epona][:path] = "/data/apps/radioedit";
 default[:radioedit][:epona][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
 default[:radioedit][:epona][:log_dir] = "/var/log/radioedit"
@@ -59,7 +59,7 @@ default[:radioedit][:epona][:branch] = "release"
 default[:radioedit][:epona][:port] = 80
 default[:radioedit][:epona][:host] = "unix"
 default[:radioedit][:epona][:packages] = %w{ python27 python27-libs python27-devel python27-test python27-tools nginx zlib-devel libjpeg zlib gcc python-devel git libevent-devel libevent zeromq-devel zeromq python-setuptools python-ldap postgresql-devel openldap-devel varnish readline-devel patch libjpeg-devel }
-default[:radioedit][:epona][:pips] = %w{ supervisor pymongo python-memcached gunicorn greenlet statsd pyzmq pillow }
+default[:radioedit][:epona][:pips] = %w{ supervisor pymongo python-memcached gunicorn greenlet statsd pyzmq flask flask-cache flask-pymongo pillow blinker celery colorama docutils gevent-websocket jsonschema mock pql pylibmc pyparsing python-dateutil python-ldap requests simplejson raven pytest }
 default[:radioedit][:epona][:env] = "ihr_testing"
-default[:radioedit][:epona][:num_workers] = 1
+default[:radioedit][:epona][:num_workers] = 5
 

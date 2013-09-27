@@ -56,7 +56,7 @@ end
 node[:radioedit][:epona][:packages].each  { |p| package p }
 node[:radioedit][:epona][:pips].each { |p| 
   python_pip p do 
-    virtualenv node[:radioedit][:epona][:venv_path]
+    virtualenv "#{node[:radioedit][:epona][:venv_path]}"
     action :install
   end
 }
@@ -76,9 +76,9 @@ application "radioedit-core" do
     workers node[:radioedit][:epona][:num_workers]
     host node[:radioedit][:epona][:host]
     pidfile node[:radioedit][:epona][:pid_file]
-    virtualenv "#{node[:radioedit][:epona][:path]}/envs/radioedit"
-    stdout_logfile "#{node[:radioedit][:epona][:log_dir]}epona.log"
-    stderr_logfile "#{node[:radioedit][:epona][:log_dir]}epona.err"
+    virtualenv "#{node[:radioedit][:epona][:venv_path]}"
+    stdout_logfile "#{node[:radioedit][:epona][:out_log]}"
+    stderr_logfile "#{node[:radioedit][:epona][:err_log]}"
     loglevel "DEBUG"
   end
 end
