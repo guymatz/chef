@@ -481,16 +481,17 @@ end
 
 # GP 9/24/13 - Migrated from etl_jobs::ec2 as per OPS-5524
 
+# commented out as this block seems to append a new set of api server entries that are copies of the ones added last run.
 # create a text file with all api server hostnames
-search(:node, "role:amp AND chef_environment:#{node.chef_environment}").each do |x|
- ruby_block x.name do
-   block do
-     file = Chef::Util::FileEdit.new('/data/jobs/api_servers')
-     file.insert_line_if_no_match("/#{x.name}/m", "#{x.name}")
-     file.write_file
-   end
- end
-end
+# search(:node, "role:amp AND chef_environment:#{node.chef_environment}").each do |x|
+#  ruby_block x.name do
+#    block do
+#      file = Chef::Util::FileEdit.new('/data/jobs/api_servers')
+#      file.insert_line_if_no_match("/#{x.name}/m", "#{x.name}")
+#      file.write_file
+#    end
+#  end
+# end
 
 remote_file "/data/jobs/event/scp_event_logs.sh" do
   source "http://yum.ihr/files/jobs/event/scp_event_logs.sh"
