@@ -26,7 +26,7 @@ unless tagged?("partners-deployed")
     shallow_clone false
 
     django do
-      interpreter "python27"
+      interpreter "/usr/bin/python2.7"
       requirements "requirements.txt"
     end
 
@@ -36,7 +36,6 @@ unless tagged?("partners-deployed")
       port 8080
       autostart true
       workers 9
-      virtualenv "#{node[:partners][:deploy_path]}/shared/venv"
     end
   end
 
