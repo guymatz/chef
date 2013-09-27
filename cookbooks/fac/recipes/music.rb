@@ -82,10 +82,16 @@ template "#{script_dir}/shipFAC2attivio.sh" do
             })
 end
 
+# GP 9/24/13 - updated. replaced cronwrap command with nsca_relay
 cron_d "fac-music" do
  minute "2"
  hour "0"
- # weekday "2" # tuesday
+<<<<<<< HEAD
+ #weekday "2" # tuesday
  command "/usr/bin/cronwrap #{node[:hostname]} fac-music \"#{script_dir}/fac-incremental-runner.sh\""
+=======
+ # weekday "2" # tuesday
+ command "/usr/bin/nsca_relay -S fac-music -- #{script_dir}/fac-incremental-runner.sh"
+>>>>>>> master
  user "root"
 end

@@ -74,10 +74,11 @@ file "/var/log/fac-#{app}" do
   mode "0775"
 end
 
+# GP 9/24/13 - updated. replaced cronwrap command with nsca_relay
 cron_d "fac-updatestream" do
   minute "0"
   hour "*/4"
-  command "/usr/bin/cronwrap iad-jobserver101a fac-updatestream \"#{script_dir}/streaminfo/updateStream.sh\" 2>&1 > /var/log/fac-#{app}"
+  command "/usr/bin/nsca_relay -S fac-updatestream -- #{script_dir}/streaminfo/updateStream.sh 2>&1 > /var/log/fac-#{app}"
   user "root"
 end
 
@@ -95,10 +96,11 @@ template "#{script_dir}/streaminfo/ship2es.sh" do
             })
 end
 
+# GP 9/24/13 - updated. replaced cronwrap command with nsca_relay
 cron_d "fac-updatestream-t3dump" do
   minute "35"
   hour "3"
   weekday "4"
   user "nobody"
-  command "/usr/bin/cronwrap iad-jobserver101a fac-updatestream-t3dump \"#{script_dir}/streaminfo/zip/t3_dump_zip.py"
+  command "/usr/bin/nsca_relay -S fac-updatestream-t3dump -- #{script_dir}/streaminfo/zip/t3_dump_zip.py"
 end

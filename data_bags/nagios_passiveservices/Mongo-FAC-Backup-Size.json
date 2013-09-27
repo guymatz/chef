@@ -2,5 +2,6 @@
   "host_name": "iad-mongo-fac104",
   "id": "Mongo_FAC_Backup_Size",
   "freshness_threshold": "259200",
+  "max_check_attempts": "1",
   "contact_groups": ["dba"]
 }

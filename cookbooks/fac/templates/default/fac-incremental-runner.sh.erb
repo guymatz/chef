@@ -29,10 +29,10 @@ sleep $SLEEP_MINUTES
 [[ $? -ne 0 ]] && onFail ${?} "artistIncrementalDelete" && exit $?;
 
 /usr/lib/jvm/jre-1.7.0-openjdk.x86_64/bin/java -jar -Xmx14g <%= @radiobuild_dir %>/fac-radiobuild.jar
-[[ $? -ne 0 ]] && onFail ${?} "fac-radiobuild.jar@radiobuild_dir" && exit $?;
+# [[ $? -ne 0 ]] && onFail ${?} "fac-radiobuild.jar@radiobuild_dir" && exit $?;
 
-/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/bin/java -jar -Xmx14g <%= @radiobuild2_dir %>/fac-radiobuild2.jar
-[[ $? -ne 0 ]] && onFail ${?} "fac-radiobuild2.jar@radiobuild2_dir" && exit $?;
+# /usr/lib/jvm/jre-1.7.0-openjdk.x86_64/bin/java -jar -Xmx14g <%= @radiobuild2_dir %>/fac-radiobuild2.jar
+# [[ $? -ne 0 ]] && onFail ${?} "fac-radiobuild2.jar@radiobuild2_dir" && exit $?;
 
 /data/jobs/fac/music/shipFAC2attivio.sh
 [[ $? -ne 0 ]] && onFail ${?} "shipFAC2attivio.sh" && exit $?;
