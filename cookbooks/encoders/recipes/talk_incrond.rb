@@ -5,11 +5,11 @@ begin
       owner node[:encoder][:user]
       group node[:encoder][:group]
       repository node[:encftp][:incrond][:github_url]
-      restart_command "/usr/sbin/incrontab -u converter /data/apps/content-talk/current/talk-incron/incrontab/filemonitors.incron.tab" 
+      restart_command "/usr/bin/incrontab -u converter /data/apps/content-talk/current/talk-incron/incrontab/filemonitors.incron.tab" 
       revision "master"
    end
 
-    servic "incrond" do
+    service "incrond" do
         action [:enable, :start]
     end
 
