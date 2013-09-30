@@ -67,6 +67,6 @@ end
 
 # Load rabbitmq queue/exchange settings
 bash "install-settings" do
-  code "service rabbitmq-server restart && #{rabbitmq_admin} -u thumbplay -p #{users['thumbplay']} import #{rabbitmq_settings}"
+  code "sleep 10 && #{rabbitmq_admin} -u thumbplay -p #{users['thumbplay']} import #{rabbitmq_settings}"
   action :nothing
 end
