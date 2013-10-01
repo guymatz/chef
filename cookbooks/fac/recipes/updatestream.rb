@@ -75,12 +75,13 @@ file "/var/log/fac-#{app}" do
 end
 
 # GP 9/24/13 - updated. replaced cronwrap command with nsca_relay
-cron_d "fac-updatestream" do
-  minute "0"
-  hour "*/4"
-  command "/usr/bin/nsca_relay -S fac-updatestream -- #{script_dir}/streaminfo/updateStream.sh 2>&1 > /var/log/fac-#{app}"
-  user "root"
-end
+# JPD Tue Oct  1 19:51:09 UTC 2013 -- removed per OPS-5580
+# cron_d "fac-updatestream" do
+#  minute "0"
+#  hour "*/4"
+#  command "/usr/bin/nsca_relay -S fac-updatestream -- #{script_dir}/streaminfo/updateStream.sh 2>&1 > /var/log/fac-#{app}"
+#  user "root"
+#end
 
 master = search(:node, "tags:es_master AND role:elasticsearchnew")
 
@@ -97,10 +98,21 @@ template "#{script_dir}/streaminfo/ship2es.sh" do
 end
 
 # GP 9/24/13 - updated. replaced cronwrap command with nsca_relay
-cron_d "fac-updatestream-t3dump" do
-  minute "35"
-  hour "3"
-  weekday "4"
+# JPD Tue Oct  1 19:51:09 UTC 2013 -- removed per OPS-5580
+#cron_d "fac-updatestream-t3dump" do
+#  minute "35"
+#  hour "3"
+#  weekday "4"
+#  user "nobody"
+#  command "/usr/bin/nsca_relay -S fac-updatestream-t3dump -- #{script_dir}/streaminfo/zip/t3_dump_zip.py"
+#end
+
+
+# JPD Tue Oct  1 19:51:09 UTC 2013 -- added per OPS-5580
+cron_d "fac-updatestream-curl" do
+  minute "0"
+  hour "6,14,22"
+  weekday "*"
   user "nobody"
-  command "/usr/bin/nsca_relay -S fac-updatestream-t3dump -- #{script_dir}/streaminfo/zip/t3_dump_zip.py"
+  command "/usr/bin/curl -XPUT -v 'http://iad-search301-v200.ihr:9200/_ihr/index/liveStations/_induce'"
 end
