@@ -37,6 +37,7 @@ application "ftp_admin" do
 #  group node[:ftp_admin][:group]
   repository node[:ftp_admin][:repo]
   revision node[:ftp_admin][:rev]
+  enable_submodules true
   before_restart do
     bash "setup venv" do
       code <<-EOH
