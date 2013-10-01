@@ -114,5 +114,5 @@ cron_d "fac-updatestream-curl" do
   hour "6,14,22"
   weekday "*"
   user "nobody"
-  command "/usr/bin/curl -XPUT -v 'http://10.5.40.155:9200/_ihr/index/liveStations/_induce'"
+  command "/usr/bin/curl -XPUT -v 'http://iad-search301-v200.ihr:9200/_ihr/index/liveStations/_induce'"
 end
