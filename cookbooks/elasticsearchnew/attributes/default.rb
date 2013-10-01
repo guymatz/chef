@@ -11,6 +11,9 @@ default[:elasticsearchnew][:input_path] = "/data/apps/ihr-search/input"
 default[:elasticsearchnew][:ihrsearch][:files] = "configs.tar.gz"
 default[:elasticsearchnew][:user] = "elasticsearch"
 default[:elasticsearchnew][:group] = "elasticsearch"
+# For NFS server
+default[:elasticsearchnew][:backup_server] = "iad-nfs101.ihr"
+default[:elasticsearchnew][:backup_target] = "/data/backups/elasticsearch"
 
 # elasticsearch.yml
 default[:elasticsearchnew][:shards] = "3"
