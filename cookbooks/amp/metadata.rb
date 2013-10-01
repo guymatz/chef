@@ -10,7 +10,7 @@ version          '0.1.0'
   supports os
 end
 
-%w{ users tomcat7 java mongodb nagios cron }.each do |dep|
+%w{ users tomcat7 java mongodb nagios cron hostsfile }.each do |dep|
   depends dep
 end
 
