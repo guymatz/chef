@@ -86,12 +86,7 @@ end
 cron_d "fac-music" do
  minute "2"
  hour "0"
-<<<<<<< HEAD
- #weekday "2" # tuesday
- command "/usr/bin/cronwrap #{node[:hostname]} fac-music \"#{script_dir}/fac-incremental-runner.sh\""
-=======
  # weekday "2" # tuesday
  command "/usr/bin/nsca_relay -S fac-music -- #{script_dir}/fac-incremental-runner.sh"
->>>>>>> master
  user "root"
 end
