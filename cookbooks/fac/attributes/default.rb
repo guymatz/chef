@@ -4,7 +4,7 @@ default[:fac][:music][:version] = "3.4.56"
 default[:fac][:sherpa][:version] = "3.4.54"
 default[:fac][:sherpa][:jarfile] = "FAC-sherpa"
 default[:fac][:radiobuild][:version] = "1.0.12"
-default[:fac][:radiobuild2][:version] = "1.0.18"
+default[:fac][:radiobuild2][:version] = "1.0.21"
 
 default[:fac][:script_path] = "/data/jobs/fac"
 default[:fac][:url] = "http://archiva.ihrdev.com:8080/archiva/repository/internal/com/ccrd/fac"
