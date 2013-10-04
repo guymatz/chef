@@ -61,6 +61,9 @@ ProxyPass /server-status !
 
     # Proxy all requests to gunicorn except statics
     ProxyRequests Off
+    ProxyPass /mobile/terms http://m.iheart.com/articles/legal-477363/terms-of-use-11584658
+    ProxyPass /mobile/privacy http://m.iheart.com/articles/legal-477363/privacy-and-cookie-notice-11584630
+    ProxyPass /legal/terms-es http://m.iheart.com/articles/legal-477363/trminos-de-uso-de-clear-channel-11584682/
     ProxyPass /favicon.ico !
     ProxyPass /css !
     ProxyPass /js !
