@@ -1,5 +1,5 @@
 {
     "id": "Amp-Stream-Url",
     "hostgroup_name": "amp",
-    "command_line": "$USER1$/check_http -v -H $HOSTADDRESS$ -p 8080  -u /api/v1/subscription/getStreamUrl --onredirect=follow -e 'HTTP/1.1 200' -w 3 -c 6 -P 'host=desktop.app.thumbplay.com&contentType=1&contentId=934750&sessionId=Rws66e2K84PpwiE5uCaH6w%3D%3D&profileId=14&userClicked=true&playedFrom=150&cached=false&returnUserInfo=false'"
+    "command_line": "$USER1$/check_http -v -H $HOSTADDRESS$ -p 8080  -u /api/v1/subscription/getStreamUrl --onredirect=follow -e 'HTTP/1.1 200' -w 3 -c 6 -P 'host=desktop.app.thumbplay.com&contentType=1&contentId=934750&sessionId=C9vQKilCAKVho8QQreMwvw%3D%3D&profileId=14&userClicked=true&playedFrom=150&cached=false&returnUserInfo=false'"
 }
