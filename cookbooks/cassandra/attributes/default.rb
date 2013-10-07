@@ -39,7 +39,7 @@ default[:cassandra][:lib_dir]           = '/var/lib/cassandra'
 default[:cassandra][:pid_dir]           = '/var/run/cassandra'
 
 default[:cassandra][:data_root_mount]	= ["/data"]
-default[:cassandra][:data_device]	= ["/dev/sdb1"]
+default[:cassandra][:data_device]	= ["/dev/mapper/centos-data"]
 default[:cassandra][:data_dirs]         = ["/data/db/cassandra"]
 default[:cassandra][:commitlog_dir]     = "/var/lib/cassandra/commitlog"
 default[:cassandra][:saved_caches_dir]  = "/var/lib/cassandra/saved_caches"
