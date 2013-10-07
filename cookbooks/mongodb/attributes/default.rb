@@ -14,7 +14,7 @@ default[:mongodb][:pidfile_name]	='mongod.pid'
 default[:mongodb][:pidfile_loc]		='/var/run/mongod'
 default[:mongodb][:lock_file]		='/var/lock/subsys/mongod'
 default[:mongodb][:data_dir]		='/data/db/mongo'
-default[:mongodb][:data_device]		='/dev/mapper/centos-data'
+default[:mongodb][:data_device]		='/dev/sdb1'
 default[:mongodb][:data_mount_point]	='/data'
 
 #mongod.conf config elements
