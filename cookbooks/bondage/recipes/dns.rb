@@ -48,7 +48,7 @@ tagged_interfaces = Array.new
 # be careful, this thinks every IP is a /32 address, to_s will strip it
 shortname =~ /(\w*-\w*\d{3})([ab]{0,1})/
 unless $1 == shortname
-  vip_name = $1 + "-v700"
+  vip_name = $1 + "-v200"
   vip_ip = Socket::getaddrinfo(vip_name, 'www', nil, Socket::SOCK_STREAM)[0][3]
 end
 
@@ -146,12 +146,12 @@ when "centos"
       end
     end
 
-    if intf[:vlan] == "700" && !node.normal.attribute?("whipped")
+    if intf[:vlan] == "200" && !node.normal.attribute?("whipped")
       Chef::Log.info("Adjusting Default GW to PROD")
       ruby_block "Setup PROD Default GW" do
         block do
           file = Chef::Util::FileEdit.new("/etc/sysconfig/network")
-          file.insert_line_if_no_match("/GATEWAY=10.5.54.1/", "GATEWAY=10.5.54.1")
+          file.insert_line_if_no_match("/GATEWAY=10.5.40.1/", "GATEWAY=10.5.40.1")
           file.write_file
         end
         not_if { node.normal.has_key?('whipped') }

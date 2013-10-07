@@ -9,6 +9,7 @@
         "recipe[ingestion]",
         "recipe[ingestion::db_mounts]",
         "recipe[ingestion::database]",
+        "recipe[splunk::forwarder]",
         "recipe[ingestion::scripts]",
         "role[postgres-server]"
     ],

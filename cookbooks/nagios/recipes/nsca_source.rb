@@ -37,44 +37,44 @@ end
 # setup send_nsca everywhere
 # setup nsca as xinetd service on nagios-server
 
-#if node[:nagios][:nsca][:authkey].nil?
-#  res = search(:node, "recipes:nagios\\:\\:server")
-#  if res.nil?
-#    Chef::Log.info("No Nagios Servers Found: Bailing on NSCA config")
-#    return
-#  end
-#  nag_srv = res[0]
+if node[:nagios][:nsca][:authkey].nil?
+  res = search(:node, "recipes:nagios\\:\\:server")
+  if res.nil?
+    Chef::Log.info("No Nagios Servers Found: Bailing on NSCA config")
+    return
+  end
+  nag_srv = res[0]
 
-# if nag_srv[:nagios][:nsca][:authkey].nil?
-#    ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
-#    Chef::Log.info("Creating NSCA key on Nagios server")
-#    nag_srv.set_unless[:nagios][:nsca][:authkey] = secure_password
-#    nag_srv.save
-#    authkey = nag_srv[:nagios][:nsca][:authkey]
-#    node.set[:nagios][:nsca][:authkey] = authkey
-#    node.save
-#  else
-#    Chef::Log.info("found NSCA key: " + nag_srv[:fqdn])
-#    Chef::Log.info("setting my key to " + nag_srv[:nagios][:nsca][:authkey])
-#    authkey = nag_srv[:nagios][:nsca][:authkey]
-#    node.set[:nagios][:nsca][:authkey] = authkey
-#    node.save
-#  end
-#else
-#  authkey = node[:nagios][:nsca][:authkey]
-#  Chef::Log.info("I have an NSCA key to use in my nodefile " + node[:fqdn])
-#end
+  if nag_srv[:nagios][:nsca][:authkey].nil?
+    ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+    Chef::Log.info("Creating NSCA key on Nagios server")
+    nag_srv.set_unless[:nagios][:nsca][:authkey] = secure_password
+    nag_srv.save
+    authkey = nag_srv[:nagios][:nsca][:authkey]
+    node.set[:nagios][:nsca][:authkey] = authkey
+    node.save
+  else
+    Chef::Log.info("found NSCA key: " + nag_srv[:fqdn])
+    Chef::Log.info("setting my key to " + nag_srv[:nagios][:nsca][:authkey])
+    authkey = nag_srv[:nagios][:nsca][:authkey]
+    node.set[:nagios][:nsca][:authkey] = authkey
+    node.save
+  end
+else
+  authkey = node[:nagios][:nsca][:authkey]
+  Chef::Log.info("I have an NSCA key to use in my nodefile " + node[:fqdn])
+end
 
-#template "/etc/nagios/send_nsca.conf" do
-#  source "send_nsca.cfg.erb"
-#  owner "root"
-#  group "root"
-#  mode "0644"
-#  variables ({
-#               :encryption => node[:nsca][:encryption],
-#               :authkey => authkey
-#             })
-#end
+template "/etc/nagios/send_nsca.conf" do
+  source "send_nsca.cfg.erb"
+  owner "root"
+  group "root"
+  mode "0644"
+  variables ({
+               :encryption => node[:nsca][:encryption],
+               :authkey => authkey
+             })
+end
 
 # this part is only for servers
 if node[:recipes].include? 'nagios::server'
