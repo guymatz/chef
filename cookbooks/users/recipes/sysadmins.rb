@@ -21,7 +21,10 @@
 # Searches data bag "users" for groups attribute "sysadmin".
 # Places returned users in Unix group "sysadmin" with GID 2300.
 include_recipe "users::root"
-include_recipe "users::ihr-admin"
+# JPD 
+# TEMP REMOVED
+#include_recipe "users::ihr-admin"
+# /JPD
 users_manage "sysadmin" do
   group_id 2300
   action [ :remove, :create ]
