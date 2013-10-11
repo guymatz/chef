@@ -1,7 +1,8 @@
 name "hadoop"
 description "Hadoop"
 all_env = [
-	   "role[sendmail-smart-host]"
+	   "role[sendmail-smart-host]",
+       "recipe[users::hadoop]"
 
           ]
 run_list(all_env)
