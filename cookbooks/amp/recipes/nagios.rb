@@ -60,3 +60,7 @@ nagios_nrpecheck "Amp-Extended-Logins" do
   command "#{node[:amp][:logging][:script_path]}/apiparse.py -i #{node[:amp][:logging][:log_path]}/$(ls -ltr #{node[:amp][:logging][:log_path]} | grep -v error | tail -1 | awk '{print $9}') -t logins -c 5"
   action :add
 end
+
+nagios_nrpecheck "Amp-PGBouncer" do
+  command "#{node['nagios']['plugin_dir']}/check_procs -C pgbouncer"
+end
