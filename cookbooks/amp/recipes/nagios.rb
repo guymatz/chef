@@ -62,5 +62,7 @@ nagios_nrpecheck "Amp-Extended-Logins" do
 end
 
 nagios_nrpecheck "Amp-PGBouncer" do
-  command "#{node['nagios']['plugin_dir']}/check_procs -C pgbouncer"
+  command "#{node['nagios']['plugin_dir']}/check_procs"
+  parameters '-C pgbouncer'
+  action :add
 end
