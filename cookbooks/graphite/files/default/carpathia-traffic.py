@@ -54,4 +54,4 @@ for dev, vs in stats.iteritems():
 	dev = re.sub(r'(iheartradio )|(-?,?fw\d)*', '', dev).lower()
 
 	for stat, val in vs.iteritems():
-		graphite.send('carpthia.%s.%s %f %s\n' % (dev, stat, val, when_stamp))
+		graphite.send('carpathia.%s.%s %f %s\n' % (dev, stat, val, when_stamp))
