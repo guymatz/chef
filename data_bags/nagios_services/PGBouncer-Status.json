@@ -1,5 +1,5 @@
 {
-  "id": "Amp-PGBouncer-Status",
+  "id": "Amp-PGBouncer",
   "hostgroup_name": "amp",
   "command_line": "$USER1$/check_procs -H $HOSTADDRESS$ -c Amp-PGBouncer -t 20"
 }
