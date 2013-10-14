@@ -15,9 +15,7 @@ env_run_lists(
 default_attributes({
                      "mongosd" => {
                        "mongosconfigdbs" => [
-                                             "iad-mongo-usr101-v240.ihr:57017",
-                                             "iad-mongo-usr103-v240.ihr:57017",
-                                             "iad-mongo-usr105-v240.ihr:57017"
+                                             "iad-stg-mongo-usr101-v760.ihr:57017",
                                             ]
                      }
                    })

@@ -19,7 +19,7 @@ env_run_lists(
               )
 default_attributes({
                      "cassandra" => {
-                        "cluster_name" => "iad-cassandra1",
+                        "cluster_name" => "iad-qac1-cassandra1",
                         "concurrent_reads" => "96",
                         "concurrent_writes" => "400",
                         "throttle_limit" => "92",

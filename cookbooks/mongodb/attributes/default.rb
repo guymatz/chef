@@ -28,6 +28,7 @@ default[:mongodb][:rest]		='true'
 default[:mongodb][:journal]		='true'
 default[:mongodb][:configsvr]		='false'
 default[:mongodb][:arbiter]		='false'
+default[:mongodb][:oplogsize]           ='23552'
 
 default[:mongodb][:backupdir]		='/data/db/backups'
 

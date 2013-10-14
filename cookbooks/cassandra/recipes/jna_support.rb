@@ -30,7 +30,7 @@ if node[:platform].downcase == "ubuntu" && node[:kernel][:machine] == "x86_64"
   end
 end
 if node[:platform].downcase == "centos" && node[:kernel][:machine] == "x86_64"
-  remote_file "/usr/lib/jvm/jdk1.6.0_37/lib/jna.jar" do
+  remote_file "/usr/lib/jvm/jdk1.6.0_43/lib/jna.jar" do
     source "#{node[:cassandra][:jna_release_url]}"
     mode 0644
     notifies :restart, "service[cassandra]"
@@ -40,6 +40,6 @@ end
 
   # Link into our cassandra directory
 link "#{node[:cassandra][:home_dir]}/lib/jna.jar" do
-  to          "/usr/lib/jvm/jdk1.6.0_37/lib/jna.jar"
+  to          "/usr/lib/jvm/jdk1.6.0_43/lib/jna.jar"
   notifies    :restart, "service[cassandra]"
 end
