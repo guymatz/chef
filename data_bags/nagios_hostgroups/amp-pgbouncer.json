@@ -1,0 +1,5 @@
+{
+    "id": "amp-pgbouncer",
+    "hostgroup_name": "amp-pgbouncer",
+    "search_query": "name:iad-amp1*"
+}
