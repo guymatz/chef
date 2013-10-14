@@ -475,8 +475,8 @@ remote_file "/data/jobs/profile/profile_job.jar" do
 end
 cron_d "profile_job" do
   command "/usr/bin/nsca_relay -S profile-job -- /usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\\%s`"
-  minute 30
-  hour 3
+  minute 0
+  hour 0
 end
 
 # GP 9/24/13 - Migrated from etl_jobs::ec2 as per OPS-5524
