@@ -20,8 +20,9 @@ node[:radioedit][:epona][:req_dirs].each do |d|
 end
 
 node[:radioedit][:epona][:packages].each do |p|
-  #arch "x86_64"
-  action :install
+  yum_package p do
+    action [ :install, :upgrade ]
+  end
 end
 
 template "#{node[:radioedit][:epona][:path]}/shared/settings.json" do
@@ -44,14 +45,7 @@ template "/data/apps/radioedit/setenv.sh" do
 end
 
 
-# need to install the memcached package as a dep of libmemcached 
-yum_package "memcached" do
-  arch "x86_64"
-  action [ :install, :upgrade ]
-end
-
-
-python_virtualenv "#{node[:radioedit][:epona][:path]}/envs/core" do
+python_virtualenv "#{node[:radioedit][:epona][:venv_path]}" do
   interpreter "python27"
   owner "ihr-deployer"
   group "ihr-deployer"
@@ -65,6 +59,12 @@ node[:radioedit][:epona][:pips].each { |p|
     action :install
   end
 }
+
+link "/usr/local/bin/supervisorctl" do
+  to "/data/apps/radioedit/envs/core/bin/supervisorctl"
+  action :create
+   not_if "test -L /usr/local/bin/supervisorctl"
+end
 
 application "radioedit-core" do
   repository "#{node[:radioedit][:epona][:repo]}"

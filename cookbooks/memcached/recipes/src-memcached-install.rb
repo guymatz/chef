@@ -8,7 +8,7 @@ directory "/root/build" do
 end
 
 remote_file "/root/build/libmemcached-0.51.tar.gz" do
-  source "https://launchpad.net/libmemcached/1.0/0.51/+download/libmemcached-0.51.tar.gz"
+  source "http://yum.ihr/files/libmemcached-0.51.tar.gz"
   notifies :run, "bash[install_libmemcached]", :immediately
 end
 
@@ -16,8 +16,8 @@ bash "install_libmemcached" do
   user "root"
   cwd "/root/build"
   code <<-EOH
-    tar -zxf libmemcached-0.51.tar.gz
-    (cd libmemcached-0.51/ && ./configure && make && make install)
+    tar -zxvf libmemcached-0.51.tar.gz
+    (cd libmemcached-0.51/ && ./configure && make -v && make -v install)
   EOH
   action :nothing
 end
