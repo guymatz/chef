@@ -3,5 +3,6 @@
     "uid": 4023,
     "name": "HDFS user",
     "email": "pavelkatsev@clearchannel.com",
-    "groups": ["hadoop"],
+    "shell": "/bin/false",
+    "groups": ["hadoop"]
 }
