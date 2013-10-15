@@ -84,6 +84,7 @@ application "radioedit-core" do
     virtualenv "#{node[:radioedit][:epona][:venv_path]}"
     stdout_logfile "#{node[:radioedit][:epona][:out_log]}"
     stderr_logfile "#{node[:radioedit][:epona][:err_log]}"
+    # packages node[:radioedit][:epona][:pips]
     loglevel "DEBUG"
     interpreter "python27"
   end
