@@ -57,10 +57,11 @@ default[:radioedit][:epona][:module] = "wsgi:application"
 default[:radioedit][:epona][:repo] = "git@github.ihrint.com:radioedit/core.git"
 default[:radioedit][:epona][:branch] = "release"
 default[:radioedit][:epona][:intbranch] = "testing"
-default[:radioedit][:epona][:port] = 80
-default[:radioedit][:epona][:host] = "unix"
-default[:radioedit][:epona][:packages] = %w{ memcached python27 python27-libs python27-devel python27-test python27-tools nginx zlib-devel openjpeg-devel zlib gcc python-devel git libevent-devel libevent zeromq-devel zeromq python-setuptools python-ldap postgresql-devel openldap-devel varnish readline-devel patch libjpeg-devel }
-default[:radioedit][:epona][:pips] = %w{ supervisor pymongo python-memcached gunicorn greenlet statsd pyzmq flask flask-cache flask-pymongo pillow blinker celery colorama docutils gevent-websocket jsonschema mock pql pylibmc pyparsing python-dateutil python-ldap requests simplejson raven pytest }
+default[:radioedit][:epona][:packages] = %w{ libevent memcached python27 python27-libs python27-devel python27-test python27-tools nginx zlib-devel openjpeg-devel zlib gcc python-devel git libevent-devel zeromq-devel zeromq python-setuptools python-ldap postgresql-devel openldap-devel varnish readline-devel patch libjpeg-devel }
+default[:radioedit][:epona][:pips] = %w{ supervisor pymongo python-memcached greenlet statsd pyzmq flask flask-cache flask-pymongo pillow blinker celery colorama docutils gevent-websocket jsonschema mock pql pylibmc pyparsing python-dateutil python-ldap requests simplejson raven pytest }
 default[:radioedit][:epona][:env] = "ihr_testing"
 default[:radioedit][:epona][:num_workers] = 5
+default[:radioedit][:epona][:port] = "/var/tmp/radioedit-cms.sock"
+default[:radioedit][:epona][:listen] = "/var/tmp/radioedit-cms.sock"
+default[:radioedit][:epona][:host] = "unix"
 

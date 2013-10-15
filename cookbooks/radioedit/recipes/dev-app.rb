@@ -60,11 +60,11 @@ node[:radioedit][:epona][:pips].each { |p|
   end
 }
 
-link "/usr/local/bin/supervisorctl" do
-  to "/data/apps/radioedit/envs/core/bin/supervisorctl"
-  action :create
-   not_if "test -L /usr/local/bin/supervisorctl"
-end
+# link "/usr/local/bin/supervisorctl" do
+#   to "/data/apps/radioedit/envs/core/bin/supervisorctl"
+#   action :create
+#    not_if "test -L /usr/local/bin/supervisorctl"
+# end
 
 application "radioedit-core" do
   repository "#{node[:radioedit][:epona][:repo]}"
@@ -77,14 +77,15 @@ application "radioedit-core" do
   gunicorn do
     app_module 'wsgi:application'
     Chef::Log.info("Starting up Gunicorn on port #{node[:radioedit][:epona][:port]} for Radioedit-Epona")
-    port node[:radioedit][:epona][:port] 
-    workers node[:radioedit][:epona][:num_workers]
+    port node[:radioedit][:epona][:port]
     host node[:radioedit][:epona][:host]
+    workers node[:radioedit][:epona][:num_workers]
     pidfile node[:radioedit][:epona][:pid_file]
     virtualenv "#{node[:radioedit][:epona][:venv_path]}"
     stdout_logfile "#{node[:radioedit][:epona][:out_log]}"
     stderr_logfile "#{node[:radioedit][:epona][:err_log]}"
     loglevel "DEBUG"
+    interpreter "python27"
   end
 end
 
