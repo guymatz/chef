@@ -1,6 +1,6 @@
 {
     "id": "hdfs",
-    "uid": 5025,
+    "uid": 4023,
     "name": "HDFS user",
     "email": "pavelkatsev@clearchannel.com",
     "groups": ["hadoop"],
