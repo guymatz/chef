@@ -76,7 +76,6 @@ application "radioedit-core" do
 
   gunicorn do
     app_module 'wsgi:application'
-    Chef::Log.info("Starting up Gunicorn on port #{node[:radioedit][:epona][:port]} for Radioedit-Epona")
     port node[:radioedit][:epona][:port]
     host node[:radioedit][:epona][:host]
     workers node[:radioedit][:epona][:num_workers]
