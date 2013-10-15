@@ -46,7 +46,7 @@ end
 
 # need to install the memcached package as a dep of libmemcached 
 yum_package "memcached" do
-  arch "x86_64"
+  # arch "x86_64"
   action [ :install, :upgrade ]
 end
 
