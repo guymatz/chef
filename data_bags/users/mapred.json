@@ -1,0 +1,7 @@
+{
+    "id": "mapred",
+    "uid": 5026,
+    "name": "MapReduce user",
+    "email": "pavelkatsev@clearchannel.com",
+    "groups": ["hadoop"],
+}

@@ -1,0 +1,7 @@
+{
+    "id": "hdfs",
+    "uid": 5025,
+    "name": "HDFS user",
+    "email": "pavelkatsev@clearchannel.com",
+    "groups": ["hadoop"],
+}
