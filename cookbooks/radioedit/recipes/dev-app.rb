@@ -19,6 +19,11 @@ node[:radioedit][:epona][:req_dirs].each do |d|
   end
 end
 
+node[:radioedit][:epona][:packages].each do |p|
+  arch "x86_64"
+  action :install
+end
+
 template "#{node[:radioedit][:epona][:path]}/shared/settings.json" do
   source "epona-settings.json.erb"
   owner "ihr-deployer"
