@@ -14,6 +14,7 @@
 case node['platform_family']
 when "rhel"
   package "srvadmin-all"
+  package "perl-Net-SNMP"
 
   link "/etc/init.d/dell-omsa" do
     to "#{node[:dell][:omsa][:path]}/sbin/srvadmin-services.sh"
