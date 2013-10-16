@@ -2,7 +2,7 @@ include_recipe "logrotate"
 
 logrotate_app "mongo" do
   cookbook "logrotate"
-  path "/var/log/mongo/mongo{d,s}.log" 
+  path "/var/log/mongo/*mongo*.log" 
   options [
     "dateext", 
     "copytruncate", 
