@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# GP: Hackety hack hack 
+# Needed to make sure the conf files are configured correctly
+# ####################
+
+
+
+cp -v /home/gpatmore/radioedit.conf /etc/nginx/conf.d/
+chown root:root /etc/nginx/conf.d/radioedit.conf
+
+cp -v /home/gpatmore/supervisor /etc/init.d/supervisor
+chown root:root /etc/init.d/supervisor
+
+/etc/init.d/supervisor stop
+sleep 3;
+# called 2x b/c seems to never start on first try
+/etc/init.d/supervisor start
+/etc/init.d/supervisor start
+
+/etc/init.d/nginx restart
+
+/data/apps/radioedit/envs/core/bin/supervisorctl stop radioedit-core
+/data/apps/radioedit/envs/core/bin/supervisorctl start radioedit-core
+
+sleep 5; 
+
+/data/apps/radioedit/envs/core/bin/supervisorctl status
