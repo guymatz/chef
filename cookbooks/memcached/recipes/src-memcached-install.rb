@@ -17,7 +17,7 @@ bash "install_libmemcached" do
   cwd "/root/build"
   code <<-EOH
     tar -zxvf libmemcached-0.51.tar.gz
-    (cd libmemcached-0.51/ && ./configure && make -v && make -v install)
+    (cd libmemcached-0.51/ && ./configure --without-memcached && make -v && make -v install)
   EOH
   action :nothing
 end
