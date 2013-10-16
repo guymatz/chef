@@ -20,7 +20,6 @@
   },
   "chef_type": "role",
   "run_list": [
-    "recipe[base]"
   ],
   "env_run_lists": {
       "role[base]",
