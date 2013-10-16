@@ -1,0 +1,31 @@
+import os
+CURRENT_PATH = os.path.abspath(os.path.dirname(__file__).decode('utf-8')).replace('\\', '/')
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+ADMINS = (
+    ('George Vilches', 'georgevilches@clearchannel.com'),
+)
+
+MANAGERS = ADMINS
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_pyodbc',
+        'HOST': '<%= node[:partners][:env][:db_host] %>',
+        'NAME': '<%= node[:partners][:env][:db_name] %>',
+        'USER': '<%= node[:partners][:env][:db_user] %>',
+        'PASSWORD': '<%= node[:partners][:env][:db_pass] %>',
+        'OPTIONS': {
+            'driver': '/usr/lib64/libtdsS.so.2',
+            'host_is_server': True,
+            'USE_THIS_EXACT_STRING': 'Driver=/usr/lib64/libtdsS.so.2;Server=<%= node[:partners][:env][:db_host] %>;UID=<%= node[:partners][:env][:db_user] %>;PWD=<%= node[:partners][:env][:db_pass] %>;PORT=<%= node[:partners][:env][:db_port] %>;DATABASE=<%= node[:partners][:env][:db] %>;TDS_VERSION=8.0;',
+        }
+    },
+
+    'auth_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
+    }
+}
