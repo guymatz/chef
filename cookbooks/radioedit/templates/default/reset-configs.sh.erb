@@ -3,7 +3,7 @@
 # Needed to make sure the conf files are configured correctly
 # ####################
 
-
+mv /etc/nginx/conf.d/default.conf{,bak}
 
 cp -v <%= node[:radioedit][:epona][:utildir] %>/radioedit.conf /etc/nginx/conf.d/
 chown root:root /etc/nginx/conf.d/radioedit.conf
