@@ -75,7 +75,7 @@ application "radioedit-core" do
   enable_submodules true
 
   gunicorn do
-    app_module 'wsgi:application'
+    app_module 'wsgi'
     port node[:radioedit][:epona][:port]
     host node[:radioedit][:epona][:host]
     workers node[:radioedit][:epona][:num_workers]
@@ -83,9 +83,10 @@ application "radioedit-core" do
     virtualenv "#{node[:radioedit][:epona][:venv_path]}"
     stdout_logfile "#{node[:radioedit][:epona][:out_log]}"
     stderr_logfile "#{node[:radioedit][:epona][:err_log]}"
-    # packages node[:radioedit][:epona][:pips]
+    packages node[:radioedit][:epona][:pips]
     loglevel "DEBUG"
     interpreter "python27"
+    raw_env "ENVIRONMENT=ihr_testing"
   end
 end
 

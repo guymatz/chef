@@ -1,5 +1,5 @@
 upstream core {
-    server   unix:/var/tmp/radioedit-cms.sock;
+    server   <%= node[:radioedit][:epona][:host] %>:<%= node[:radioedit][:epona][:listen] %>;
 }
 
 server {

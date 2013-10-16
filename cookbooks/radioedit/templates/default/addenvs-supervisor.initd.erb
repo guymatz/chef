@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # /etc/rc.d/init.d/supervisord
 #
@@ -21,9 +21,10 @@ exec_prefix="${prefix}"
 prog_bin="${exec_prefix}/bin/supervisord -c /etc/supervisord.conf"
 PIDFILE="/var/run/$prog.pid"
 
-ENVIRONMENT='ihr_testing';
+ENVIRONMENT='<%= node[:radioedit][:epona][:env] %>';
 export ENVIRONMENT;
-APP_ENV=='ihr_testing';
+
+APP_ENV=='<%= node[:radioedit][:epona][:env] %>';
 export APP_ENV;
 
 start(){

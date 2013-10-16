@@ -5,10 +5,10 @@
 
 
 
-cp -v /home/gpatmore/radioedit.conf /etc/nginx/conf.d/
+cp -v <%= node[:radioedit][:epona][:utildir] %>/radioedit.conf /etc/nginx/conf.d/
 chown root:root /etc/nginx/conf.d/radioedit.conf
 
-cp -v /home/gpatmore/supervisor /etc/init.d/supervisor
+cp -v <%= node[:radioedit][:epona][:utildir] %>/supervisor /etc/init.d/supervisor
 chown root:root /etc/init.d/supervisor
 
 /etc/init.d/supervisor stop
@@ -19,9 +19,9 @@ sleep 3;
 
 /etc/init.d/nginx restart
 
-/data/apps/radioedit/envs/core/bin/supervisorctl stop radioedit-core
-/data/apps/radioedit/envs/core/bin/supervisorctl start radioedit-core
+<%= node[:radioedit][:epona][:venv_path] %>/bin/supervisorctl stop radioedit-core
+<%= node[:radioedit][:epona][:venv_path] %>/bin/supervisorctl start radioedit-core
 
 sleep 5; 
 
-/data/apps/radioedit/envs/core/bin/supervisorctl status
+<%= node[:radioedit][:epona][:venv_path] %>/bin/supervisorctl status

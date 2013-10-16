@@ -46,7 +46,7 @@ default[:radioedit][:cms][:host] = "unix"
 default[:radioedit][:nginx][:port] = 8000
 
 # epona settings
-default[:radioedit][:epona][:req_dirs] = %w{ /data /data/apps /data/apps/radioedit /root/build /data/apps/radioedit/envs /data/apps/radioedit/envs/core /var/run/radioedit /var/log/radioedit /data/apps/radioedit/shared }
+default[:radioedit][:epona][:req_dirs] = %w{ /data /data/apps /data/apps/radioedit /data/apps/radioedit/util /root/build /data/apps/radioedit/releases /data/apps/radioedit/envs /data/apps/radioedit/envs/core /var/run/radioedit /var/log/radioedit /data/apps/radioedit/shared }
 default[:radioedit][:epona][:path] = "/data/apps/radioedit";
 default[:radioedit][:epona][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
 default[:radioedit][:epona][:log_dir] = "/var/log/radioedit"
@@ -64,4 +64,5 @@ default[:radioedit][:epona][:num_workers] = 5
 default[:radioedit][:epona][:port] = "/var/tmp/radioedit-cms.sock"
 default[:radioedit][:epona][:listen] = "/var/tmp/radioedit-cms.sock"
 default[:radioedit][:epona][:host] = "unix"
+default[:radioedit][:epona][:utildir] = "#{default[:radioedit][:epona][:path]}/util"
 
