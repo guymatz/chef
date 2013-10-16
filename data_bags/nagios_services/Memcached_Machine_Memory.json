@@ -1,5 +1,5 @@
-{
-  "id": "Memcached_Machine_Memory",
-  "hostgroup_name": "memcached",
-  "command_line": "$USER1$/check_m -H $HOSTADDRESS$ -w 85 -c 90"
-}
+#{
+#  "id": "Memcached_Machine_Memory",
+#  "hostgroup_name": "memcached",
+#  "command_line": "$USER1$/check_m -H $HOSTADDRESS$ -w 85 -c 90"
+#}
