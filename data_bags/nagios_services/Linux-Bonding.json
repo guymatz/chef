@@ -1,0 +1,5 @@
+{
+  "id": "Linux-Bonding",
+  "hostgroup_name": "bonded-nics",
+  "command_line": "$USER1$/check_linux_bonding.pl"
+}
