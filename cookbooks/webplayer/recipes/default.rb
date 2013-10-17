@@ -3,7 +3,6 @@
 # Recipe:: default
 #
 # Copyright 2013, iHeartRadio
-# Jake Plimack <Jake.plimack@gmail.com>
 #
 # All rights reserved - Do Not Redistribute
 #

@@ -1,7 +1,6 @@
 #
 # tomcat7::nagios
 #
-# written by Jake Plimack <jake.plimack@gmail.com>
 #
 
 

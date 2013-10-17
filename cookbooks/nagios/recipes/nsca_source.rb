@@ -1,5 +1,4 @@
 #
-# Author:: Jake Plimack <jake.plimack@gmail.com>
 # Cookbook Name:: nagios
 # Recipe:: nsca_source
 #

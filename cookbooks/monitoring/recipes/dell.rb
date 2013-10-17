@@ -3,7 +3,6 @@
 # Recipe:: dell
 #
 # Copyright 2013, iHeartRadio
-# Written by Jake Plimack <jake.plimack@gmail.com>
 #
 # All rights reserved - Do Not Redistribute
 #

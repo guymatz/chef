@@ -1,10 +1,7 @@
 #
 # monbodb::source
 #
-# written by Jake Plimack <jake.plimack@gmail.com>
-#
 # Description: Installs mongodb from source at version specified in attributes
-#
 #
 
 include_recipe "users::mongo"
