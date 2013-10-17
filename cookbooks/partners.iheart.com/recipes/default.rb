@@ -27,6 +27,13 @@ unless tagged?("partners-deployed")
     migrate false
     shallow_clone false
 
+    before_restart do
+      template "/data/apps/partners/current/settings_local.py" do
+        source "settings_local.py.erb"
+        variables({ :db_creds => db_creds })
+      end
+    end
+
     django do
       interpreter "/usr/bin/python2.7"
       requirements "requirements.txt"

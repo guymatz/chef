@@ -13,14 +13,14 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django_pyodbc',
-        'HOST': '<%= node[:partners][:env][:db_host] %>',
-        'NAME': '<%= node[:partners][:env][:db_name] %>',
-        'USER': '<%= node[:partners][:env][:db_user] %>',
-        'PASSWORD': '<%= node[:partners][:env][:db_pass] %>',
+        'HOST': '<%= node[:partners][:db_host] %>',
+        'NAME': '<%= node[:partners][:db_name] %>',
+        'USER': '<%= @db_creds[:username] %>',
+        'PASSWORD': '<%= @db_creds[:password] %>',
         'OPTIONS': {
             'driver': '/usr/lib64/libtdsS.so.2',
             'host_is_server': True,
-            'USE_THIS_EXACT_STRING': 'Driver=/usr/lib64/libtdsS.so.2;Server=<%= node[:partners][:env][:db_host] %>;UID=<%= node[:partners][:env][:db_user] %>;PWD=<%= node[:partners][:env][:db_pass] %>;PORT=<%= node[:partners][:env][:db_port] %>;DATABASE=<%= node[:partners][:env][:db] %>;TDS_VERSION=8.0;',
+            'USE_THIS_EXACT_STRING': 'Driver=/usr/lib64/libtdsS.so.2;Server=<%= node[:partners][:db_host] %>;UID=<%= @db_creds[:username] %>;PWD=<%= @db_creds[:password] %>;PORT=<%= node[:partners][:db_port] %>;DATABASE=<%= node[:partners][:db] %>;TDS_VERSION=8.0;',
         }
     },
 
