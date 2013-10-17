@@ -1,4 +1,4 @@
-default[:fac][:PRN][:version] = "3.4.22"
+default[:fac][:PRN][:version] = "3.4.62"
 default[:fac][:talk][:version] = "3.4.38"
 default[:fac][:music][:version] = "3.4.56"
 default[:fac][:sherpa][:version] = "3.4.54"
