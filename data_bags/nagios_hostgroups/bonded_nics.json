@@ -1,5 +1,5 @@
 {
     "id": "bonded-nics",
     "hostgroup_name": "bonded-nics",
-    "search_query": "recipes:bondage::dns or recipe:bonded_interfaces"
+    "search_query": "recipes:bondage\\:\\:dns or recipe:bonded_interfaces"
 }
