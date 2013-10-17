@@ -11,7 +11,7 @@
 #  include_recipe cb
 #end
 
-%w{ python27 python27-libs python27-devel python27-test python27-tools libevent-devel unixODBC-devel }.each do |p|
+node[:partners][:packages].each do |p|
   package p
 end
 

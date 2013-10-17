@@ -5,8 +5,9 @@ default[:partners][:user] = 'partners'
 default[:partners][:group] = 'partners'
 default[:partners][:deployer] = 'ihr-deployer'
 
-default[:partners][:packages] = %w{ freetds python27 python27-devel python27-libs python27-debuginfo python27-tools libxslt-devel libxml2-devel }
+#default[:partners][:packages] = %w{ freetds python27 python27-devel python27-libs python27-debuginfo python27-tools libxslt-devel libxml2-devel }
 
+default[:partners][:packages] = %w{ python27 python27-libs python27-devel python27-test python27-tools python27-debuginfo libevent-devel unixODBC-devel freetds }
 
 case node.chef_envrionment
 when 'prod'
