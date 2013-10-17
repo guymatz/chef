@@ -15,6 +15,8 @@ node[:partners][:packages].each do |p|
   package p
 end
 
+db_creds = Chef::EncryptedDataBagItem.load("partners", "db-creds")
+
 unless tagged?("partners-deployed")
   application "partners" do
     path "/data/apps/partners/"
