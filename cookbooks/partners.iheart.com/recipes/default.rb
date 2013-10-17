@@ -49,22 +49,22 @@ unless tagged?("partners-deployed")
   end
 
     directory "/var/log/partners" do
-        owner 'root'
-        group 'ihr-deployer'
-        mode "775"
-        action :create
-        not_if { FileTest.directory?("/var/log/partners") }
-     end
+      owner 'root'
+      group 'ihr-deployer'
+      mode "775"
+      action :create
+      not_if { FileTest.directory?("/var/log/partners") }
+    end
 
     logrotate_app "partners" do
-        cookbook "logrotate"
-        path "/var/log/partners/*.log"
-        options ["missingok", "copytruncate", "compress", "notifempty"]
-        frequency "daily"
-        enable true
-        create "0644 nobody root"
-        rotate 2
-     end
+      cookbook "logrotate"
+      path "/var/log/partners/*.log"
+      options ["missingok", "copytruncate", "compress", "notifempty"]
+      frequency "daily"
+      enable true
+      create "0644 nobody root"
+      rotate 2
+    end
 
 
     tag("partners-deployed")
