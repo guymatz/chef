@@ -9,10 +9,23 @@ default[:partners][:deployer] = 'ihr-deployer'
 
 default[:partners][:packages] = %w{ python27 python27-libs python27-devel python27-test python27-tools python27-debuginfo libevent-devel unixODBC-devel freetds }
 
-case node.chef_envrionment
-when 'prod'
+#case node[:chef_environment]
+#when '_default'
   default[:partners][:db_host] = '10.5.43.148'
   default[:partners][:db_name] = 'IHRDWH'
   default[:partners][:db_port] = '1433'
   default[:partners][:db] = 'RadioMart'
-end
+#end
+
+default["partners"]["config"]["prod"] = {
+  :db_host => '10.5.43.148',
+  :db_name => 'IHRDWH',
+  :db_port => '1433',
+  :db => 'RadioMart'
+}
+default["partners"]["config"]["_default"] = {
+  :db_host => '10.5.43.148',
+  :db_name => 'IHRDWH',
+  :db_port => '1433',
+  :db => 'RadioMart'
+}

@@ -9,23 +9,24 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
+<% @partners_config = node["partners"]["config"]["#{@partners_env}"] %>
+<% @db_creds = @db_creds.to_hash %>
 DATABASES = {
     'default': {
         'ENGINE': 'django_pyodbc',
-        'HOST': '<%= node[:partners][:db_host] %>',
-        'NAME': '<%= node[:partners][:db_name] %>',
-        'USER': '<%= @db_creds[:username] %>',
-        'PASSWORD': '<%= @db_creds[:password] %>',
+        'HOST': '<%= @partners_config[:db_host] %>',
+        'NAME': '<%= @partners_config[:db_name] %>',
+        'USER': '<%= @db_creds[@partners_env]["username"] %>',
+        'PASSWORD': '<%= @db_creds[@partners_env]["password"] %>',
         'OPTIONS': {
             'driver': '/usr/lib64/libtdsS.so.2',
             'host_is_server': True,
-            'USE_THIS_EXACT_STRING': 'Driver=/usr/lib64/libtdsS.so.2;Server=<%= node[:partners][:db_host] %>;UID=<%= @db_creds[:username] %>;PWD=<%= @db_creds[:password] %>;PORT=<%= node[:partners][:db_port] %>;DATABASE=<%= node[:partners][:db] %>;TDS_VERSION=8.0;',
+            'USE_THIS_EXACT_STRING': 'Driver=/usr/lib64/libtdsS.so.2;Server=<%= @partners_config[:db_host] %>;UID=<%= @db_creds[@partners_env][:username] %>;PWD=<%= @db_creds[@partners_env][:password] %>;PORT=<%= @partners_config[:db_port] %>;DATABASE=<%= @partners_config[:db] %>;TDS_VERSION=8.0;',
         }
     },
 
     'auth_db': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
+        'NAME': '/data/apps/partners/shared/db.sqlite3',
     }
 }
