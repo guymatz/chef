@@ -1,5 +1,4 @@
 #
-# Author:	Jake Plimack <jake.plimack@gmail.com
 # Cookbook Name::memcached
 # Provider::memcached_instance
 #

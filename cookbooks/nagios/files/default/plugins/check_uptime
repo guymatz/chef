@@ -1,5 +1,4 @@
 #!/bin/sh
-# Version 2.0+ Written by Jake Plimack
 
 VERSION="check_uptime v2"
 

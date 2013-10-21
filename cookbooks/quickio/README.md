@@ -35,8 +35,3 @@ Tags
 CI
 --
 Quick.IO is build by Jenkins [http://build.ihrdev.com/view/Quick.IO/].  Upon a successful build, files are packaged as debs and shipped to [http://files.ihrdev.com/Quick.IO/].  In order to update the environment, the version set in the attribute file must be updated, as well as the tags cleared.
-
-License and Authors
--------------------
-Authors: Jake Plimack <Jake.plimack@gmail.com>
-         Andrew Stone <andrewstone@clearchannel.com>

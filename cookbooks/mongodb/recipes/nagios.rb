@@ -1,9 +1,6 @@
 #
 # mongodb::nagios
 #
-# written by Jake Plimack <jake.plimack@gmail.com>
-#
-#
 
 nagios_nrpecheck "Mongo_Process_Mongos" do
   command "#{node['nagios']['plugin_dir']}/check_procs"

@@ -1,6 +1,6 @@
 name             'webplayer'
 maintainer       'iHeartRadio'
-maintainer_email 'jake.plimack@gmail.com'
+maintainer_email 'none@none.com'
 license          'All rights reserved'
 description      'Installs/Configures webplayer'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))

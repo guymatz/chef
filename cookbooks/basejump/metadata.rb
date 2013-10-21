@@ -1,5 +1,5 @@
-maintainer       "Jake Plimack"
-maintainer_email "jake.plimack@gmail.com"
+maintainer       "iHeartRadio"
+maintainer_email "none@none.com"
 license          "All rights reserved"
 description      "Installs/Configures basejump"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))

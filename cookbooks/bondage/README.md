@@ -4,7 +4,7 @@ Creates bonded interfaced with 802.1q VLAN tags from DNS or static configs.
 Before running the recipe, you should configure the DNS entries and update dns.
 You can test it like this, if you were trying to set up `jobservers`.
 ```bash
-jplimack@use1b-ss-chef002.ihrdev.com # dig AXFR ihr @10.5.32.21 | grep jobserver
+# dig AXFR ihr @10.5.32.21 | grep jobserver
 iad-jobserver101.ihr.        21600      IN      A      10.5.33.10
 iad-jobserver101-v200.ihr.   21600      IN      A      10.5.41.10
 iad-jobserver101a.ihr.       21600      IN      A      10.5.33.11
@@ -42,8 +42,3 @@ Just include `bondage::dns` in your node's `run_list`:
   ]
 }
 ```
-License and Authors
--------------------
-Authors: Jake Plimack <jake.plimack@gmail.com> http://jakeplimack.com
-
-
