@@ -19,5 +19,5 @@ bash "install_libmemcached" do
     tar -zxvf libmemcached-0.51.tar.gz
     (cd libmemcached-0.51/ && ./configure --without-memcached && make -v && make -v install)
   EOH
-  action :nothing
+  action :run
 end
