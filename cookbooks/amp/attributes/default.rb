@@ -1,5 +1,6 @@
 
-default[:amp][:version] = "skrillex"
+default[:amp][:version] = "tool-release"
+
 default[:amp][:url] = "http://files.ihrdev.com/amp"
 
 default[:amp][:packages] = %w{ mongo-10gen-server mongo-10gen }

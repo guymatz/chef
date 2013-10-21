@@ -18,6 +18,10 @@ git "#{node[:mongodb][:admin_scripts][:dir]}" do
   action :sync
 end
 
+bash "chown scripts dir" do
+    code "chown -R root. /root/scripts"
+end
+
 cron_d "compact_MongoDB" do
   minute "10"
   hour   "3"
