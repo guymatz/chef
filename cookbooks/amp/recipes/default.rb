@@ -64,7 +64,7 @@ begin
     end
 
     remote_file "#{node[:tomcat7][:webapp_dir]}/api.war" do
-      source "#{node[:amp][:url]}/#{node[:amp][:version]}/amp-rest.war"
+      source "#{node[:amp][:url]}/#{node[:amp][:version]}/amp-rest-#{node[:amp][:amp_rest_version]}.war"
       owner node[:tomcat7][:user]
       group node[:tomcat7][:group]
       mode "0755"
