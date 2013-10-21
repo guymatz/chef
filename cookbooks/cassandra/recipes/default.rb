@@ -76,14 +76,16 @@ directory "#{node[:cassandra][:pid_dir]}" do
   action :create
 end
 
-directory "#{node[:cassandra][:data_dirs]}" do
-  owner "cassandra"
-  group "cassandra"
-  mode 0755
-  recursive true
-  action :create
+node[:cassandra][:data_dirs].each do |x|
+  directory "#{x}" do
+    owner "cassandra"
+    group "cassandra"
+    mode 0755
+    recursive true
+    action :create
+  end
 end
-
+  
 directory "#{node[:cassandra][:commitlog_dir]}" do
   owner "cassandra"
   group "cassandra"

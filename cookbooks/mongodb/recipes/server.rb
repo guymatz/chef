@@ -14,7 +14,7 @@ directory "#{node[:mongodb][:pidfile_loc]}" do
   action :create
 end
 
-template "/etc/init.d/mongod" do
+template "#{node[:mongodb][:startup_script_name]}" do
         source "mongod.erb"
         owner "root"
         group "root"
@@ -24,7 +24,7 @@ template "/etc/init.d/mongod" do
         })
 end
 
-template "/etc/mongod.conf" do
+template "#{node[:mongodb][:config_file_dir]}/#{node[:mongodb][:config_file_name]}" do
 	source "mongod.conf.erb"
 	owner "root"
         group "root"

@@ -16,6 +16,7 @@ default[:mongodb][:lock_file]		='/var/lock/subsys/mongod'
 default[:mongodb][:data_dir]		='/data/db/mongo'
 default[:mongodb][:data_device]		='/dev/mapper/centos-data'
 default[:mongodb][:data_mount_point]	='/data'
+default[:mongodb][:startup_script_name] ='/etc/init.d/mongod'
 
 #mongod.conf config elements
 default[:mongodb][:config_file_dir]	='/etc/'
@@ -48,3 +49,6 @@ default[:mongodb][:ulimits] = [ {
 default[:mongodb][:source][:url] = "http://downloads.mongodb.org/linux/mongodb-linux-x86_64"
 default[:mongodb][:source][:version] = "2.0.2"
 default[:mongodb][:source][:install_path] = "/usr/bin"
+default[:mongodb][:admin_scripts][:dir] = '/root/scripts'
+default[:mongodb][:admin_scripts][:rev] = "HEAD"
+default[:mongodb][:admin_scripts][:repo] = "git@github.ihrint.com:DB-OPS-QAC1/mongodba.git"
