@@ -1,0 +1,11 @@
+{
+    "id": "azic",
+    "uid": 50227,
+    "name": "Anthony Zic",
+    "email": "azic@clearchannel.com",
+    "groups": ["cnpuser"],
+    "shell":    "/bin/bash",
+    "ssh_keys": [
+       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsah9QceA1SLYE5n4SG/FX086R02hDQ1Kc5PS6ZBQC4UlIAa7BQQcfeJu7Cu3xhE8DKvKNcT5rodR65jF3LgaAoEVPpEVgMddTJ32SgHpBB+75MyfdKLLRq0TGySHymLIppDUDu+6FDI3kmS7on63QBgBRkXx/1KQqaxxnlZojgtYUCVYpTtt7Nqpz5la9WWWacDs6Qz5t+nzeJvHYWhTyvARA63Np6NQfuAO7ObbSMgD70tkxMuSktxgm5jb5vmyiqLaGGx06lM7+swcNlx8rQW6L1QBunSyQFxQ99pFwyLjoK2POzW+HgNJUIdZ5prnLtntVJKeYhi/Hw0zhB1/3 cccpeo1ajz@CCCNYC01AJZ"
+    ]
+}
