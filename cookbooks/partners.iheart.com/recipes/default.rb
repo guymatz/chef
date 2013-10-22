@@ -34,12 +34,12 @@ unless tagged?("partners-deployed")
         source "settings_local.py.erb"
         owner node[:partners][:deployer]
         group node[:partners][:group]
-        variables({ :db_creds => db_creds,
+        variables({ :db_creds => db_creds.to_hash,
                     :partners_env => node.chef_environment
                   })
       end
       template "/etc/odbc.ini" do
-        source "settings_local.py.erb"
+        source "odbc.ini.erb"
         owner node[:partners][:deployer]
         group node[:partners][:group]
         variables({ :partners_env => node.chef_environment
@@ -53,7 +53,7 @@ unless tagged?("partners-deployed")
         end
       end
       bash "import keys" do
-        cwd "#{node[:partners][:deploy_path]}/current/#{key}"
+        cwd "#{node[:partners][:deploy_path]}/current"
         code <<-EOH
         mkdir keyring
         gpg --homedir keyring/ --import gooddata-sso.pub
