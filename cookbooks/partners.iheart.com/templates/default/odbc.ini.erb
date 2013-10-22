@@ -1,0 +1,8 @@
+<% @partners_config = node["partners"]["config"]["#{@partners_env}"] %>
+[MSSQLDWH]
+Driver	         = FreeTDS
+Description	 = <%= @partners_config[:db] %>
+Trace	         = No
+Server	         = <%= @partners_config[:db_host] %>
+Port	         = <%= @partners_config[:db_port] %>
+Database	 = <%= @partners_config[:db] %>

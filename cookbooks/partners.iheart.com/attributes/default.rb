@@ -21,11 +21,11 @@ default["partners"]["config"]["prod"] = {
   :db_host => '10.5.43.148',
   :db_name => 'IHRDWH',
   :db_port => '1433',
-  :db => 'RadioMart'
+  :db => 'RadioModel'
 }
 default["partners"]["config"]["_default"] = {
   :db_host => '10.5.43.148',
   :db_name => 'IHRDWH',
   :db_port => '1433',
-  :db => 'RadioMart'
+  :db => 'RadioModel'
 }
