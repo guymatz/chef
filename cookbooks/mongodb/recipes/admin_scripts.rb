@@ -1,3 +1,9 @@
+directory "/root/scripts" do
+  owner "root"
+  group "root"
+  mode "0755"
+end
+
 directory "#{node[:mongodb][:admin_scripts][:dir]}" do
   owner "ihr-deployer"
   group "ihr-deployer"
