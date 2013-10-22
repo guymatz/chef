@@ -21,7 +21,7 @@ DATABASES = {
         'OPTIONS': {
             'driver': '/usr/lib64/libtdsS.so.2',
             'host_is_server': True,
-            'USE_THIS_EXACT_STRING': 'Driver=/usr/lib64/libtdsS.so.2;Server=<%= @partners_config[:db_host] %>;UID=<%= @db_creds[@partners_env][:username] %>;PWD=<%= @db_creds[@partners_env][:password] %>;PORT=<%= @partners_config[:db_port] %>;DATABASE=<%= @partners_config[:db] %>;TDS_VERSION=8.0;',
+            'USE_THIS_EXACT_STRING': 'DSN=<%= @partners_config[:db_name] %>;UID=<%= @db_creds[@partners_env]["username"] %>;PWD=<%= @db_creds[@partners_env]["password"] %>;PORT=<%= @partners_config[:db_port] %>;DATABASE=<%= @partners_config[:db] %>'
         }
     },
 
@@ -30,3 +30,4 @@ DATABASES = {
         'NAME': '/data/apps/partners/shared/db.sqlite3',
     }
 }
+GPG_KEYRING_DIR = '<%= node[:partners][:deploy_path] %>/current/keyring/'

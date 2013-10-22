@@ -12,6 +12,8 @@ node[:partners][:packages].each do |p|
 end
 
 db_creds = Chef::EncryptedDataBagItem.load("partners", "db-creds")
+gpg_keys = Chef::EncryptedDataBagItem.load("partners", "gpg-keys")
+gpg_keys = gpg_keys.to_hash
 
 unless tagged?("partners-deployed")
   application "partners" do
@@ -22,11 +24,11 @@ unless tagged?("partners-deployed")
     revision node[:partners][:rev]
     migrate false
     shallow_clone false
-    before_migrate do
-      bash "chown" do
-        code "chown -R #{node[:partners][:deployer]}. #{node[:partners][:deploy_path]}"
-      end
-    end
+#    before_migrate do
+#      bash "chown" do
+#        code "chown -R #{node[:partners][:deployer]}. #{node[:partners][:deploy_path]}"
+#      end
+#    end
     before_restart do
       template "#{node[:partners][:deploy_path]}/current/partners_portal/settings_local.py" do
         source "settings_local.py.erb"
@@ -35,6 +37,31 @@ unless tagged?("partners-deployed")
         variables({ :db_creds => db_creds,
                     :partners_env => node.chef_environment
                   })
+      end
+      template "/etc/odbc.ini" do
+        source "settings_local.py.erb"
+        owner node[:partners][:deployer]
+        group node[:partners][:group]
+        variables({ :partners_env => node.chef_environment
+                  })
+      end
+      gpg_keys.each do |key, value|
+        file "#{node[:partners][:deploy_path]}/current/#{key}" do
+          content value
+          owner node[:partners][:deployer]
+          group node[:partners][:group]
+        end
+      end
+      bash "import keys" do
+        cwd "#{node[:partners][:deploy_path]}/current/#{key}"
+        code <<-EOH
+        mkdir keyring
+        gpg --homedir keyring/ --import gooddata-sso.pub
+        gpg --homedir keyring/ --allow-secret-key-import --import cc.gpg
+        chmod 0700 -R keyring/
+        EOH
+        user node[:partners][:deployer]
+        group node[:partners][:group]
       end
     end
 
