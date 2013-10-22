@@ -23,9 +23,9 @@ bash "chown scripts dir" do
 end
 
 cron_d "compact_MongoDB" do
-  minute "10"
-  hour   "3"
-  weekday "6"
+  minute "50"
+  hour   "10"
   user "root"
-  command "/root/scripts/mongodba/bin/compactData.sh -h 127.0.0.1 -p 37017"
+  command "/root/scripts/mongodba/bin/compactData.sh -h 127.0.0.1 -p 37017 -f d "
+  mailto "irinakaprizkina@clearchannel.com"
 end
