@@ -24,7 +24,7 @@ bash "chown scripts dir" do
 end
 
 cron_d "compact_MongoDB" do
-  minute "07"
+  minute "43"
   hour   "11"
   user "root"
   command "/root/scripts/mongodba/bin/compactData.sh -h 127.0.0.1 -p 37017 -f d "
