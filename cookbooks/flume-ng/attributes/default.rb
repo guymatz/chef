@@ -35,5 +35,5 @@ default[:flume_ng][:pidfile] = "#{default[:flume_ng][:agent_name]}.pid"
 default[:flume_ng][:lockfile] = "/var/lock/subsys/flume-ng-#{default[:flume_ng][:agent_name]}"
 default[:flume_ng][:niceness] = 0
 
-default[:flume_ng][:hadoop][:namenode][:host] = "use1b-cdh-namenode101.ihr"
+default[:flume_ng][:hadoop][:namenode][:host] = "iad-hadoop105-v200.ihr"
 default[:flume_ng][:hadoop][:namenode][:avro_port] = "9999"
