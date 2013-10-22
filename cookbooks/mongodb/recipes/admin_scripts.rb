@@ -3,6 +3,7 @@ directory "#{node[:mongodb][:admin_scripts][:dir]}" do
   group "ihr-deployer"
   mode  00755
   action :create
+  recursive true
 end
 
 #directory "#{node[:mongodb][:admin_scripts][:dir]}/DB-OPS-QAC1" do
