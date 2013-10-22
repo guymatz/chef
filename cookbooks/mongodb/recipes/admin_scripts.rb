@@ -1,14 +1,9 @@
-directory "/root/scripts" do
-  owner "root"
-  group "root"
-  mode "0755"
-end
-
 directory "#{node[:mongodb][:admin_scripts][:dir]}" do
   owner "ihr-deployer"
   group "ihr-deployer"
   mode  00755
   action :create
+  recursive true
 end
 
 #directory "#{node[:mongodb][:admin_scripts][:dir]}/DB-OPS-QAC1" do
