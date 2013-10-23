@@ -38,6 +38,7 @@ default[:proftpd][:data_item_keys]       = "upload_user-keys"
 default[:proftpd][:data_item_users]      = "upload_users"
 default[:proftpd][:port]                 = 21
 default[:proftpd][:default_address]      = ipaddress
+default[:proftpd][:default_address]      = "10.5.41.45"
 default[:proftpd][:modules]              = [
   "ctrls",
   "ctrls_admin",
