@@ -6,10 +6,10 @@
 mv /etc/nginx/conf.d/default.conf{,bak}
 
 
-cp -v <%= node[:radioedit][:production][:utildir] %>/radioedit.conf /etc/nginx/conf.d/
+cp -v <%= node[:radioedit][:dev][:utildir] %>/radioedit.conf /etc/nginx/conf.d/
 chown root:root /etc/nginx/conf.d/radioedit.conf
 
-cp -v <%= node[:radioedit][:production][:utildir] %>/supervisor /etc/init.d/supervisor
+cp -v <%= node[:radioedit][:dev][:utildir] %>/supervisor /etc/init.d/supervisor
 chown root:root /etc/init.d/supervisor
 
 # /etc/init.d/supervisor stop
@@ -20,8 +20,8 @@ chown root:root /etc/init.d/supervisor
 
 # /etc/init.d/nginx restart
 
-# <%= node[:radioedit][:production][:venv_path] %>/bin/supervisorctl stop radioedit-core
-# <%= node[:radioedit][:production][:venv_path] %>/bin/supervisorctl start radioedit-core
-<%= node[:radioedit][:production][:venv_path] %>/bin/supervisorctl restart radioedit-core
+# <%= node[:radioedit][:dev][:venv_path] %>/bin/supervisorctl stop radioedit-core
+# <%= node[:radioedit][:dev][:venv_path] %>/bin/supervisorctl start radioedit-core
+<%= node[:radioedit][:dev][:venv_path] %>/bin/supervisorctl restart radioedit-core
 sleep 5;
-<%= node[:radioedit][:production][:venv_path] %>/bin/supervisorctl status
+<%= node[:radioedit][:dev][:venv_path] %>/bin/supervisorctl status
