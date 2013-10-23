@@ -1,5 +1,5 @@
 default[:partners][:repo] = 'git@github.com:iheartradio/partners.iheart.com.git'
-default[:partners][:rev] = 'a176239ef5754548e51bbc1dd0005cfad5efe300'
+default[:partners][:rev] = 'release'
 default[:partners][:deploy_path] = '/data/apps/partners'
 default[:partners][:user] = 'partners'
 default[:partners][:group] = 'partners'
