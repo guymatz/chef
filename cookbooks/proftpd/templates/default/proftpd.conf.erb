@@ -93,4 +93,34 @@ DirFakeUser               on <%= @node[:proftpd][:dir_fakeuser] %>
 DirFakeGroup              on <%= @node[:proftpd][:dir_fakegroup] %>
 
 
+<VirtualHost <%= @node[:proftpd][:ip] %>>
+  ServerName            "* FTP *"
+  ServerIdent           off # iHeartRadio Access Control Policy 5.3
+  Port                  21
+  PassivePorts          60000 65535
+  WtmpLog               off
+  ExtendedLog           /var/log/proftpd/ftp-auth.log AUTH auth
+</VirtualHost>
+
+<VirtualHost <%= @node[:proftpd][:ip] %>>
+  ServerName            "* SFTP *"
+  ServerIdent           off # iHeartRadio Access Control Policy 5.3
+  SFTPEngine            on
+  Port                  2022
+  WtmpLog               off
+  ExtendedLog           /var/log/proftpd/sftp-auth.log AUTH auth
+  # per http://www.proftpd.org/docs/contrib/mod_sftp_sql.html
+  SFTPHostKey /etc/ssh/sftp_host_dsa_key
+  SFTPHostKey /etc/ssh/sftp_host_rsa_key
+  SFTPAuthorizedUserKeys file:/etc/ssh/authorized_keys/%u
+  SFTPLog /var/log/proftpd/SFTP.log
+  # Enable compression
+  SFTPCompression delayed
+
+  # Allow the same number of authentication attempts as OpenSSH.
+  MaxLoginAttempts 6
+
+</VirtualHost>
+### End virtual servers section ###
+
 <%= "Include #{@node[:proftpd][:dir]}/proftpd.conf.local" if File.exist?("#{@node[:proftpd][:dir]}/proftpd.conf.local") %>
