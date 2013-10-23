@@ -81,24 +81,40 @@ unless tagged?("partners-deployed")
     end
   end
 
-    directory "/var/log/partners" do
-      owner 'root'
-      group 'ihr-deployer'
-      mode "775"
-      action :create
-      not_if { FileTest.directory?("/var/log/partners") }
-    end
+  package "nginx"
 
-    logrotate_app "partners" do
-      cookbook "logrotate"
-      path "/var/log/partners/*.log"
-      options ["missingok", "copytruncate", "compress", "notifempty"]
-      frequency "daily"
-      enable true
-      create "0644 nobody root"
-      rotate 2
-    end
-
-
-    tag("partners-deployed")
+  bash "remove default nginx configs" do
+    cwd "/etc/nginx/conf.d"
+    code "rm -f *.conf"
   end
+
+  template "/etc/nginx/conf.d/partners.conf" do
+    source "partners.conf.erb"
+  end
+
+  service "nginx" do
+    supports :status => true, :restart => true, :reload => true
+    action [ :enable, :restart ]
+  end
+
+  directory "/var/log/partners" do
+    owner 'root'
+    group 'ihr-deployer'
+    mode "775"
+    action :create
+    not_if { FileTest.directory?("/var/log/partners") }
+  end
+
+  logrotate_app "partners" do
+    cookbook "logrotate"
+    path "/var/log/partners/*.log"
+    options ["missingok", "copytruncate", "compress", "notifempty"]
+    frequency "daily"
+    enable true
+    create "0644 nobody root"
+    rotate 2
+  end
+
+
+  tag("partners-deployed")
+end

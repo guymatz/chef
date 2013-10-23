@@ -4,6 +4,8 @@ default[:partners][:deploy_path] = '/data/apps/partners'
 default[:partners][:user] = 'partners'
 default[:partners][:group] = 'partners'
 default[:partners][:deployer] = 'ihr-deployer'
+default[:partners][:nginx_port] = "8080"
+default[:partners][:gunicorn_port] = "8000"
 
 #default[:partners][:packages] = %w{ freetds python27 python27-devel python27-libs python27-debuginfo python27-tools libxslt-devel libxml2-devel }
 
