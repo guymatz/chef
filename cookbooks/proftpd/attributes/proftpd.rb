@@ -27,6 +27,7 @@ default[:proftpd][:dir_fakegroup]        = "ftp_users"
 default[:proftpd][:default_root]         = "/data/ftp"
 default[:proftpd][:port]                 = 21
 default[:proftpd][:default_address]      = ipaddress
+default[:proftpd][:default_address]      = "10.5.41.45"
 default[:proftpd][:modules]              = [
   "ctrls",
   "ctrls_admin",
