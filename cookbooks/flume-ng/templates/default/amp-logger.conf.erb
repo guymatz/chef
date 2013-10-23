@@ -22,8 +22,8 @@ agent1.channels = memory_channel
 
 # memory channel
 agent1.channels.memory_channel.type                = memory
-agent1.channels.memory_channel.capacity            = 100000
-agent1.channels.memory_channel.transactionCapacity = 100
+agent1.channels.memory_channel.capacity            = 10000
+agent1.channels.memory_channel.transactionCapacity = 1000
 
 # spool directory source
 agent1.sources.search_exit_log_spooldir.type                = spooldir
@@ -60,7 +60,7 @@ agent1.sinks.avro_sink.type       = avro
 agent1.sinks.avro_sink.channel    = memory_channel
 agent1.sinks.avro_sink.hostname   = <%= @node[:flume_ng][:hadoop][:namenode][:host] %>
 agent1.sinks.avro_sink.port       = <%= @node[:flume_ng][:hadoop][:namenode][:avro_port] %>
-agent1.sinks.avro_sink.batch-size = 100
+agent1.sinks.avro_sink.batch-size = 500
 
 # logger sink (debug)
 agent1.sinks.logger_sink.type = logger
