@@ -5,6 +5,10 @@ directory "#{node[:elasticsearchnew][:ihrsearch_path]}/plugins" do
   recursive true
 end
 
+service "elasticsearch" do
+    supports :start => true, :stop =>true, :restart => true
+    action :enable
+  end
 
 unless tagged?("es-plugins-installed")
   ES_HOME = node[:elasticsearchnew][:deploy_path]
