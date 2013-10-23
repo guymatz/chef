@@ -5,23 +5,23 @@
 
 mv /etc/nginx/conf.d/default.conf{,bak}
 
+
 cp -v <%= node[:radioedit][:production][:utildir] %>/radioedit.conf /etc/nginx/conf.d/
 chown root:root /etc/nginx/conf.d/radioedit.conf
 
 cp -v <%= node[:radioedit][:production][:utildir] %>/supervisor /etc/init.d/supervisor
 chown root:root /etc/init.d/supervisor
 
-/etc/init.d/supervisor stop
-sleep 3;
+# /etc/init.d/supervisor stop
+# sleep 3;
 # called 2x b/c seems to never start on first try
-/etc/init.d/supervisor start
-/etc/init.d/supervisor start
+# /etc/init.d/supervisor start
+# /etc/init.d/supervisor start
 
-/etc/init.d/nginx restart
+# /etc/init.d/nginx restart
 
-<%= node[:radioedit][:production][:venv_path] %>/bin/supervisorctl stop radioedit-core
-<%= node[:radioedit][:production][:venv_path] %>/bin/supervisorctl start radioedit-core
-
-sleep 5; 
-
+# <%= node[:radioedit][:production][:venv_path] %>/bin/supervisorctl stop radioedit-core
+# <%= node[:radioedit][:production][:venv_path] %>/bin/supervisorctl start radioedit-core
+<%= node[:radioedit][:production][:venv_path] %>/bin/supervisorctl restart radioedit-core
+sleep 5;
 <%= node[:radioedit][:production][:venv_path] %>/bin/supervisorctl status
