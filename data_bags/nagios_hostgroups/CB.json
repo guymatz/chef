@@ -1,5 +1,5 @@
 {
     "id": "CB",
     "hostgroup_name": "CB",
-    "search_query": "name:iad-amp-cache101"
+    "search_query": "name:iad-amp-cache101*"
 }
