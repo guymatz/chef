@@ -90,13 +90,15 @@ template "#{node[:radioedit][:production][:utildir]}/supervisor" do
   owner "root"
   group "root"
   mode 0755
+  action [:delete, :create]
 end
 
 template "#{node[:radioedit][:production][:utildir]}/radioedit.conf" do
-  source "radioedit-nginx.conf.erb"
+  source "prod-radioedit.conf.erb"
   owner "root"
   group "root"
   mode 0666
+  action [:delete, :create]
 end
 
 template "#{node[:radioedit][:production][:utildir]}/upd_confs.sh" do
@@ -104,6 +106,7 @@ template "#{node[:radioedit][:production][:utildir]}/upd_confs.sh" do
   owner "root"
   group "root"
   mode 0755
+  action [:delete,:create]
 end
 
 # reset ownership to nginx to allow static file serving
@@ -117,21 +120,32 @@ template "#{node[:radioedit][:production][:staticdir]}/android.json" do
   source "staticfile-android.json.erb"
   owner "nginx"
   group "nginx"
-  mode 0555
+  mode 0444
+  action [:delete, :create]
 end
 
 template "#{node[:radioedit][:production][:staticdir]}/fux.json" do
   source "staticfile-fux.json.erb"
   owner "nginx"
   group "nginx"
-  mode 0555
+  mode 0444 
+  action [:delete, :create]
 end
 
 template "#{node[:radioedit][:production][:staticdir]}/iphone.json" do
   source "staticfile-iphone.json.erb"
   owner "nginx"
   group "nginx"
-  mode 0555
+  mode 0444
+  action [:delete, :create]
+end
+
+template "#{node[:radioedit][:production][:staticdir]}/kenwood.json" do
+  source "staticfile-kenwood.json.erb"
+  owner "nginx"
+  group "nginx"
+  mode 0444
+  action [:delete, :create]
 end
 
 

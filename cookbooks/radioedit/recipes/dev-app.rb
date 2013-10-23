@@ -86,7 +86,6 @@ application "radioedit-core" do
     packages node[:radioedit][:epona][:pips]
     loglevel "DEBUG"
     interpreter "python27"
-    raw_env "ENVIRONMENT=ihr_testing"
   end
 end
 
