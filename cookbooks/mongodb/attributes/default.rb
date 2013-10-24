@@ -45,10 +45,12 @@ default[:mongodb][:ulimits] = [ {
                                  }
                                 ]
 
-
 default[:mongodb][:source][:url] = "http://downloads.mongodb.org/linux/mongodb-linux-x86_64"
 default[:mongodb][:source][:version] = "2.0.2"
 default[:mongodb][:source][:install_path] = "/usr/bin"
+
+#MongoDB admin scripts stuff
 default[:mongodb][:admin_scripts][:dir] = '/root/scripts/mongodba'
 default[:mongodb][:admin_scripts][:rev] = "HEAD"
 default[:mongodb][:admin_scripts][:repo] = "git@github.ihrint.com:DB-OPS-QAC1/mongodba.git"
+default[:mognodb][:admin_scripts][:port] = 37017

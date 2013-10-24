@@ -23,10 +23,14 @@ bash "chown scripts dir" do
     code "chown -R root. /root/scripts"
 end
 
-cron_d "compact_MongoDB" do
-  minute "16"
-  hour   "15"
-  user "root"
-  command "/root/scripts/mongodba/bin/compactData.sh -h 127.0.0.1 -p 37017 -f d "
-  mailto "irinakaprizkina@clearchannel.com"
+begin
+ if tagged?("compactor")
+   cron_d "compact_MongoDB" do
+     minute "16"
+     hour   "15"
+     user "root"
+     command "/root/scripts/mongodba/bin/compactData.sh -h 127.0.0.1 -p #{node[:mongodb][:admin_scripts][:port]} -f d "
+     mailto "irinakaprizkina@clearchannel.com"
+   end
+ end
 end
