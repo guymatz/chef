@@ -15,6 +15,12 @@ db_creds = Chef::EncryptedDataBagItem.load("partners", "db-creds")
 gpg_keys = Chef::EncryptedDataBagItem.load("partners", "gpg-keys")
 gpg_keys = gpg_keys.to_hash
 
+directory node[:partners][:sqlite_path] do
+  owner node[:partners][:deployer]
+  group node[:partners][:group]
+  recursive true
+end
+
 unless tagged?("partners-deployed")
   application "partners" do
     path node[:partners][:deploy_path] 
@@ -75,7 +81,7 @@ unless tagged?("partners-deployed")
       app_module :django
       version "17.5"
       worker_class "gevent"
-      port 8080
+      port node[:partners][:gunicorn_port]
       autostart true
       workers 9
     end
@@ -90,6 +96,12 @@ unless tagged?("partners-deployed")
 
   template "/etc/nginx/conf.d/partners.conf" do
     source "partners.conf.erb"
+  end
+
+  template "/etc/nginx/proxy_params" do
+    source "proxy_params.erb"
+    owner "nginx"
+    group "nginx"
   end
 
   service "nginx" do

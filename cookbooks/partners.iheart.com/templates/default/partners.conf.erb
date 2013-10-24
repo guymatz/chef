@@ -11,7 +11,7 @@ server {
     gzip_types       text/plain application/xml text/javascript application/x-javascript application/json text/css;
 
     location /static/ {
-        root <%= node[:partners][:deploy_path] %>/current;
+        root <%= node[:partners][:deploy_path] %>/current/partners_portal;
         add_header X-Static true;
 
         expires 30d;
