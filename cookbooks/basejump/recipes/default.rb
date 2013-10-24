@@ -32,6 +32,7 @@ application "basejump" do
   db_name = node[:basejump][:db_name]
 
   django do
+    packages ["gevent"]
     requirements "requirements.txt"
     debug true
     settings_template "settings.py.erb"
@@ -48,6 +49,9 @@ application "basejump" do
     app_module :django
     Chef::Log.info("Starting up Gunicorn on port 8080 for Basejump")
     port 8080
+    version "17.5"
+    worker_class "gevent"
+    max_requests 1
   end
 end
 
