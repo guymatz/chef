@@ -32,7 +32,7 @@ class ImgProxyLogster(LogsterParser):
         
         # Regular expression for matching lines we are interested in, and capturing
         # fields from the line (in this case, http_status_code).
-        self.reg = re.compile('.*HTTP/1.\d\" \(?P<http_status_code>\d{3}) .*')
+        self.reg = re.compile('.*HTTP/1.\d\" \\\\(?P<http_status_code>\d{3}) .*')
 
 
     def parse_line(self, line):
@@ -72,9 +72,9 @@ class ImgProxyLogster(LogsterParser):
 
         # Return a list of metrics objects
         return [
-            MetricObject("webplayer." + SHORT_HOSTNAME + ".http_1xx", (self.http_1xx / self.duration), "Responses per sec"),
-            MetricObject("webplayer." + SHORT_HOSTNAME + ".http_2xx", (self.http_2xx / self.duration), "Responses per sec"),
-            MetricObject("webplayer." + SHORT_HOSTNAME + ".http_3xx", (self.http_3xx / self.duration), "Responses per sec"),
-            MetricObject("webplayer." + SHORT_HOSTNAME + ".http_4xx", (self.http_4xx / self.duration), "Responses per sec"),
-            MetricObject("webplayer." + SHORT_HOSTNAME + ".http_5xx", (self.http_5xx / self.duration), "Responses per sec"),
+            MetricObject("imgproxy." + SHORT_HOSTNAME + ".http_1xx", (self.http_1xx / self.duration), "Responses per sec"),
+            MetricObject("imgproxy." + SHORT_HOSTNAME + ".http_2xx", (self.http_2xx / self.duration), "Responses per sec"),
+            MetricObject("imgproxy." + SHORT_HOSTNAME + ".http_3xx", (self.http_3xx / self.duration), "Responses per sec"),
+            MetricObject("imgproxy." + SHORT_HOSTNAME + ".http_4xx", (self.http_4xx / self.duration), "Responses per sec"),
+            MetricObject("imgproxy." + SHORT_HOSTNAME + ".http_5xx", (self.http_5xx / self.duration), "Responses per sec"),
         ]
