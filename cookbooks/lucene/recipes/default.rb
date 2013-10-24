@@ -16,16 +16,16 @@ unless tagged?('lucene-deployed')
     end
   end
   
-  %w{ python27 python27-devel python27-libs emacs gcc apache-ivy glibc-devel freetds pyodbc python-editdist}.each do |pkg|
+  %w{ python27 python27-devel python27-libs emacs gcc ant apache-ivy glibc-devel freetds pyodbc python-editdist JCC}.each do |pkg|
     package pkg do
       action :install
     end
   end
   
-  python_pip "JCC" do
-      action :install
-      version "2.16"
-  end
+##@#  python_pip "JCC" do
+##@#      action :install
+##@#      version "2.16"
+##@#  end
 
   %w{ distribute }.each do |pkg|
     python_pip pkg do
