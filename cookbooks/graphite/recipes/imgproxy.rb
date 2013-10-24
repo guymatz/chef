@@ -11,7 +11,7 @@ include_recipe "logster::default"
 
 template "/etc/init.d/imgproxy" do
     mode "0755"
-    source "imgproxy.erb"
+    source "imgproxystats.erb"
         variables(
         )
 end
