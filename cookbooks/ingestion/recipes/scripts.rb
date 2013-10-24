@@ -16,6 +16,7 @@ cron "check_ingdb_data_backup_corruption" do
   hour	  "0"
   month	  "*"
   weekday "*"
+  mailto "CCRDDatabaseOperations@clearchannel.com"
 end
 
 cookbook_file "/root/scripts/check_ingdb_index_backup_corruption.sh" do
@@ -30,6 +31,7 @@ cron "check_ingdb_index_backup_corruption" do
   hour    "1"
   month   "*"
   weekday "*"
+  mailto "CCRDDatabaseOperations@clearchannel.com"
 end
 
 cookbook_file "/root/scripts/check_ingdb_archwal_backup_corruption.sh" do
@@ -44,6 +46,7 @@ cron "check_ingdb_archwal_backup_corruption" do
   hour    "2"
   month   "*"
   weekday "*"
+  mailto "CCRDDatabaseOperations@clearchannel.com"
 end
 
 cron "check_ingdb_backup_freshness" do
@@ -52,6 +55,7 @@ cron "check_ingdb_backup_freshness" do
   hour    "3"
   month   "*"
   weekday "*"
+  mailto "CCRDDatabaseOperations@clearchannel.com"
 end
 
 cookbook_file "/root/scripts/check_ingdb_backup_freshness.sh" do
@@ -66,6 +70,7 @@ cron "check_ingdb_backup_size" do
   hour    "2"
   month   "*"
   weekday "*"
+  mailto "CCRDDatabaseOperations@clearchannel.com"
 end
 
 cookbook_file "/root/scripts/check_ingdb_backup_size.sh" do
