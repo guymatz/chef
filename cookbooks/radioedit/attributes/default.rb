@@ -117,7 +117,7 @@ default[:radioedit][:bob][:pips] = %w{
   pytest 
 }
 default[:radioedit][:bob][:repo] = "git@github.ihrint.com:radioedit/core.git"
-default[:radioedit][:bob][:branch] = "release"
+default[:radioedit][:bob][:branch] = "staging"
 default[:radioedit][:bob][:env] = "ihr_testing"
 default[:radioedit][:bob][:path] = "/data/apps/radioedit";
 default[:radioedit][:bob][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"

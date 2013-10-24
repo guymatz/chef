@@ -26,7 +26,7 @@ node[:radioedit][:bob][:packages].each do |p|
 end
 
 template "#{node[:radioedit][:bob][:path]}/shared/settings.json" do
-  source "production-settings.json.erb"
+  source "dev-settings.json.erb"
   owner "ihr-deployer"
   group "ihr-deployer"
 end
@@ -58,7 +58,7 @@ application "radioedit-core" do
   enable_submodules true
 
   gunicorn do
-    app_module 'wsgi'
+    app_module 'wsgi:application'
     port node[:radioedit][:bob][:port]
     host node[:radioedit][:bob][:host]
     workers node[:radioedit][:bob][:num_workers]
@@ -74,7 +74,7 @@ end
 
 # gp adding these templates to a util directory until a way using existing chef resource objects is found.
 template "#{node[:radioedit][:bob][:utildir]}/supervisor" do
-  source "dev-supervisor.initd.erb"
+  source "dev-supervisor-initd.erb"
   owner "root"
   group "root"
   mode 0755
