@@ -3,7 +3,11 @@
   "default_attributes": {
     "webplayer": {
 <<<<<<< HEAD
+<<<<<<< HEAD
       "rev": "release-5.1.0-eiswein-rc1",
+=======
+      "rev": "release-5.1.0-eiswein-rc3",
+>>>>>>> 7198222355440ae611b3727f5602dbbd8628e896
 =======
       "rev": "release-5.1.0-eiswein-rc3",
 >>>>>>> 7198222355440ae611b3727f5602dbbd8628e896
