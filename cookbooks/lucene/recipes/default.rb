@@ -16,30 +16,37 @@ unless tagged?('lucene-deployed')
     end
   end
   
-  %w{ python27 python27-devel python27-libs emacs gcc ant apache-ivy glibc-devel freetds pyodbc python-editdist JCC}.each do |pkg|
+  %w{ python27 python27-devel python27-libs emacs gcc ant apache-ivy glibc-devel freetds}.each do |pkg|
     package pkg do
       action :install
     end
   end
   
-##@#  python_pip "JCC" do
-##@#      action :install
-##@#      version "2.16"
-##@#  end
+  # We need this link in place for JCC to install .  Hack!
+  link "/usr/lib/jvm/java-openjdk" do
+    to "/usr/lib/jvm/java-7-openjdk-amd64"
+  end
 
-  %w{ distribute }.each do |pkg|
-    python_pip pkg do
-      action :install
-    end
+  python_virtualenv "/data/apps/names/shared" do
+    interpreter "python27"
+    owner "root"
+    group "root"
+    action :create
   end
   
+  %w{distribute pyodbc python-editdist JCC}.each { |p| 
+    python_pip p do 
+      virtualenv "/data/apps/names/shared"
+      action :install
+    end
+  }
 
-  include_recipe "lucene::install_from_release"
+##@#  include_recipe "lucene::install_from_release"
 
   # service "elasticsearch" do
   #   supports :start => true, :stop =>true, :restart => true
   #   action :enable
   # end
   
-  tag('lucene-deployed')
+##@#  tag('lucene-deployed')
 end
