@@ -1,0 +1,41 @@
+{
+  "id": "Check_CBM_catalog",
+  "hostgroup_name": "CB",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Check_CBM_catalog -t 20"
+}
+
+{
+  "id": "Check_CBM_default",
+  "hostgroup_name": "CB",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Check_CBM_default -t 20"
+}
+
+{
+  "id": "Check_CBM_l3stream",
+  "hostgroup_name": "CB",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Check_CBM_l3stream -t 20"
+}
+
+{
+  "id": "Check_CBM_live-episodes",
+  "hostgroup_name": "CB",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Check_CBM_live-episodes -t 20"
+}
+
+{
+  "id": "Check_CBM_radio-sessions",
+  "hostgroup_name": "CB",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Check_CBM_radio-sessions -t 20"
+}
+
+{
+  "id": "Check_CBM_search",
+  "hostgroup_name": "CB",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Check_CBM_search -t 20"
+}
+
+{
+  "id": "Check_CBM_sessions",
+  "hostgroup_name": "CB",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Check_CBM_sessions -t 20"
+}

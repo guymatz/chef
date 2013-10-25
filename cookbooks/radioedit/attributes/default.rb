@@ -45,6 +45,97 @@ default[:radioedit][:cms][:host] = "unix"
 
 default[:radioedit][:nginx][:port] = 8000
 
+# ################################################################
+# PRODUCTION SETTINGS!!!!!
+# ################################################################
+default[:radioedit][:bob][:req_dirs] = %w{ 
+  /data 
+  /data/apps 
+  /data/apps/radioedit 
+  /data/apps/radioedit/util 
+  /data/apps/radioedit/static
+  /data/apps/radioedit/releases 
+  /data/apps/radioedit/envs 
+  /data/apps/radioedit/envs/core 
+  /var/run/radioedit 
+  /var/log/radioedit 
+  /data/apps/radioedit/shared 
+}
+default[:radioedit][:bob][:packages] = %w{ 
+  libevent 
+  memcached 
+  python27 
+  python27-libs 
+  python27-devel 
+  python27-test 
+  python27-tools 
+  nginx 
+  zlib-devel 
+  openjpeg-devel 
+  zlib 
+  gcc 
+  python-devel 
+  git 
+  libevent-devel 
+  zeromq-devel 
+  zeromq 
+  python-setuptools 
+  python-ldap 
+  postgresql-devel 
+  openldap-devel 
+  varnish 
+  readline-devel 
+  patch 
+  libjpeg-devel 
+}
+default[:radioedit][:bob][:pips] = %w{ 
+  supervisor 
+  pymongo 
+  python-memcached 
+  greenlet 
+  statsd 
+  pyzmq 
+  flask 
+  flask-cache 
+  flask-pymongo 
+  pillow 
+  blinker 
+  celery 
+  colorama 
+  docutils 
+  gevent-websocket 
+  jsonschema 
+  mock 
+  pql 
+  pylibmc 
+  pyparsing 
+  python-dateutil 
+  python-ldap 
+  requests 
+  simplejson 
+  raven 
+  pytest 
+}
+default[:radioedit][:bob][:repo] = "git@github.ihrint.com:radioedit/core.git"
+default[:radioedit][:bob][:branch] = "staging"
+default[:radioedit][:bob][:env] = "ihr_testing"
+default[:radioedit][:bob][:path] = "/data/apps/radioedit";
+default[:radioedit][:bob][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
+default[:radioedit][:bob][:log_dir] = "/var/log/radioedit"
+default[:radioedit][:bob][:out_log] = "#{default[:radioedit][:bob][:log_dir]}/application.log"
+default[:radioedit][:bob][:err_log] = "#{default[:radioedit][:bob][:log_dir]}/applicaiton.err"
+default[:radioedit][:bob][:venv_path] = "#{default[:radioedit][:bob][:path]}/envs/core";
+default[:radioedit][:bob][:module] = "wsgi:application"
+default[:radioedit][:bob][:num_workers] = 5
+default[:radioedit][:bob][:port] = "/var/tmp/radioedit-cms.sock"
+default[:radioedit][:bob][:listen] = "/var/tmp/radioedit-cms.sock"
+default[:radioedit][:bob][:host] = "unix"
+default[:radioedit][:bob][:utildir] = "#{default[:radioedit][:bob][:path]}/util"
+default[:radioedit][:bob][:staticdir] = "#{default[:radioedit][:bob][:path]}/static"
+# ################################################################
+# End of 'bob' env
+# ################################################################
+
 # epona settings
 default[:radioedit][:epona][:req_dirs] = %w{ 
   /data 
