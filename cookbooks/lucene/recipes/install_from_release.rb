@@ -24,7 +24,8 @@ include_recipe 'ark'
 ark 'pylucene' do
   url   node[:pylucene][:release_url]
   version       node[:pylucene][:version]
-  make_opts [ 'CLASSPATH=/usr/share/java/ivy.jar' ]
+  make_opts [ "CLASSPATH=/usr/share/java/ivy.jar" ]
+  environment "PREFIX_PYTHON" => "/data/apps/names/venv"
   action        :install_with_make
   checksum      'c580d8e89f19170692b61e3865691a953c10a3e8acb06b6e2d68988d5649c183'
 end
