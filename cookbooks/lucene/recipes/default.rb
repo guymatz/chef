@@ -15,33 +15,42 @@ unless tagged?('lucene-deployed')
     directory "#{der}" do
     end
   end
-  
-  %w{ python27 python27-devel python27-libs emacs gcc ant apache-ivy glibc-devel freetds}.each do |pkg|
+
+  # mercurial is a kludge/requirement for for editdist install below
+  %w{ java-1.7.0-openjdk-devel emacs gcc ant apache-ivy glibc-devel freetds unixODBC-devel mercurial }.each do |pkg|
     package pkg do
       action :install
     end
   end
   
-  # We need this link in place for JCC to install .  Hack!
-  link "/usr/lib/jvm/java-openjdk" do
-    to "/usr/lib/jvm/java-7-openjdk-amd64"
-  end
+#  # We need this link in place for JCC to install .  Hack!
+#  link "/usr/lib/jvm/java-openjdk" do
+#    to "/usr/lib/jvm/java-7-openjdk-amd64"
+#  end
 
-  python_virtualenv "/data/apps/names/shared" do
-    interpreter "python27"
-    owner "root"
-    group "root"
+  python_virtualenv "/data/apps/names/venv" do
+    interpreter 'python27'
+    owner 'root'
+    group 'root'
     action :create
   end
-  
-  %w{distribute pyodbc python-editdist JCC}.each { |p| 
-    python_pip p do 
-      virtualenv "/data/apps/names/shared"
+
+  pips = [ 'pyodbc', ' -e hg+https://code.google.com/p/py-editdist/#egg=editdist' ]
+
+  pips.each do |p|
+    python_pip p do
+      virtualenv '/data/apps/names/venv'
       action :install
     end
-  }
+  end
+ 
+  python_pip "JCC" do 
+    virtualenv "/data/apps/names/venv"
+    version "2.15"
+    action :install
+  end
 
-##@#  include_recipe "lucene::install_from_release"
+  include_recipe "lucene::install_from_release"
 
   # service "elasticsearch" do
   #   supports :start => true, :stop =>true, :restart => true
