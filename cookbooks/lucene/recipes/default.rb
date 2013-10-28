@@ -31,6 +31,7 @@ unless tagged?(deployed_tag)
     to "/usr/lib/jvm/java-openjdk"
   end
 
+  # TODO: Creates python27-compatible RPMs of the PIPs below and get rid of virtual env
   python_virtualenv "/data/apps/names/venv" do
     interpreter 'python27'
     owner 'root'
