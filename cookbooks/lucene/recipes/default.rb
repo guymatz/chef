@@ -17,16 +17,16 @@ unless tagged?('lucene-deployed')
   end
 
   # mercurial is a kludge/requirement for for editdist install below
-  %w{ java-1.7.0-openjdk-devel emacs gcc ant apache-ivy glibc-devel freetds unixODBC-devel mercurial }.each do |pkg|
+  %w{ python27 python27-devel java-1.7.0-openjdk-devel emacs gcc ant apache-ivy glibc-devel freetds unixODBC-devel mercurial }.each do |pkg|
     package pkg do
       action :install
     end
   end
-  
-#  # We need this link in place for JCC to install .  Hack!
-#  link "/usr/lib/jvm/java-openjdk" do
-#    to "/usr/lib/jvm/java-7-openjdk-amd64"
-#  end
+
+  # We need this link in place for JCC to install .  Hack!
+  link  "/usr/lib/jvm/java-7-openjdk-amd64" do
+    to "/usr/lib/jvm/java-openjdk"
+  end
 
   python_virtualenv "/data/apps/names/venv" do
     interpreter 'python27'
