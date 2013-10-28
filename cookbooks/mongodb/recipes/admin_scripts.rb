@@ -20,16 +20,16 @@ git "#{node[:mongodb][:admin_scripts][:dir]}" do
 end
 
 bash "chown scripts dir" do
-    code "chown -R root. /root/scripts"
+    code "chown -R mongod. /home/mongod/scripts"
 end
 
 begin
  if tagged?("compactor")
    cron_d "compact_MongoDB" do
-     minute "16"
+     minute "20"
      hour   "15"
-     user "root"
-     command "/root/scripts/mongodba/bin/compactData.sh -h 127.0.0.1 -p #{node[:mongodb][:admin_scripts][:port]} -f d "
+     user "mongod"
+     command "/home/mongod/scripts/mongodba/bin/compactData.sh -h 127.0.0.1 -p #{node[:mongodb][:admin_scripts][:port]} -m d "
      mailto "irinakaprizkina@clearchannel.com"
    end
  end

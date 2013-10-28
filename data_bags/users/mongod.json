@@ -2,7 +2,8 @@
     "id": "mongod",
     "name": "Mongod Service",
     "groups":   ["mongod"],
-    "shell":    "/sbin/nologin",
+    "ssh_keys": [ "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAnbUuBVYmapLabZeTVrFTumZa4/U1ki54RfWFsRzb5b8ITd7YEIWNSCujmfADs80cRbEAS6XrVvfG/acALPMqRKSBfgANDeP22KhoDi2sw+vhPrQ8EHEoLXif9Q+TCboByhINF0UPcHvBNEeQQjHb/tDmEQBdo71He7pXqYureB8e1HbaKGj8ry6HThlqvhxc/3BKGdqgwplJrzRoECSv3m4UOHi/Bq/mViOpjZJ0XYEnQN8pAQSEctu9O85aAqM19iAYNLoauYR9JiGVp2san1RX9EQlQGp42tDxgsjzyMksbihawU2Cv7heOhB0tqzcWzmvYDlCRxHIhqxlaSLdCQ== mongod@iad-stg-mongo-usr102.ihr", "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA2v36o4Z1NTTMBJ+Jghp4XaRm7Z/uS2VRxj/iSvz95P1DS0r7uEpsV3bT3pT8DMR1ck+jeWX/GSCo3UCaJVybi75HO1gtLDuMR9bNA9O79PJ89Yyj6lCMMzzcfm/puXV89hd7SMCKK+fXQxhVC4C6yFkAKG+s0vfNmachxC024JF7eZnAqXfA0umgPe5I6k+O57o8vmTsJHRQoSF07JlaIshn/0xNj/WrquxEbFMxjNufXvWK0oAW+TAolutkQBD4MIfT2ytqFynguG0F4pPEVUCtCRp3OmdHmgA33clYTVkyanvSbVZcKRWYwmwmH+WqOIz674EpSZnmIa/w/7oWTQ== mongod@iad-stg-mongo-fac101.ihr" ],
+    "shell":    "/bin/bash",
     "home": "/home/mongod",
     "uid": 4009
 }
