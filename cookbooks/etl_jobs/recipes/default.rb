@@ -466,7 +466,7 @@ remote_file "/data/jobs/profile/profile_job.jar" do
   source "http://yum.ihr/files/jobs/profile/profile_job.jar"
 end
 cron_d "profile_job" do
-  command "/usr/bin/nsca_relay -S profile-job -- usr/lib/jvm/java-1.7.0/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=$(/bin/date +\%s) favoritesStartDate=$(/bin/date \%Y\%m\%d)"
+  command "/usr/bin/nsca_relay -S profile-job -- /usr/lib/jvm/java-1.7.0/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=$(/bin/date +\\%s) favoritesStartDate=$(/bin/date +\\%Y\\%m\\%d)"
   minute 0
   hour 0
 end
