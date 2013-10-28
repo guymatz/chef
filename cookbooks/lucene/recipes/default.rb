@@ -6,7 +6,10 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-unless tagged?('lucene-deployed')
+
+deployed_tag = 'lucene-deployed'
+
+unless tagged?(deployed_tag)
   %w{ ark python::pip }.each do |cb|
     include_recipe cb
   end
@@ -57,5 +60,9 @@ unless tagged?('lucene-deployed')
   #   action :enable
   # end
   
-##@#  tag('lucene-deployed')
+  tag(deployed_tag)
+else
+  log "NOT executing lucene due to tag: #{deployed_tag}" do
+    level :info
+  end
 end
