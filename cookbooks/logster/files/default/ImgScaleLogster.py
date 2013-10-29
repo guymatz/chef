@@ -19,7 +19,7 @@ from logster.logster_helper import LogsterParsingException
 FULL_HOSTNAME=gethostname()
 SHORT_HOSTNAME=FULL_HOSTNAME.split('.')[0]
 
-class ImgProxyLogster(LogsterParser):
+class ImgScaleLogster(LogsterParser):
 
     def __init__(self, option_string=None):
         '''Initialize any data structures or variables needed for keeping track
