@@ -78,7 +78,7 @@ template "#{node[:radioedit][:bob][:utildir]}/supervisor" do
   owner "root"
   group "root"
   mode 0755
-  action [:create]
+  action [ :create ]
 end
 
 template "#{node[:radioedit][:bob][:utildir]}/radioedit.conf" do
@@ -86,7 +86,7 @@ template "#{node[:radioedit][:bob][:utildir]}/radioedit.conf" do
   owner "root"
   group "root"
   mode 0666
-  action [:create]
+  action [ :create ]
 end
 
 template "#{node[:radioedit][:bob][:utildir]}/upd_confs.sh" do
@@ -94,7 +94,7 @@ template "#{node[:radioedit][:bob][:utildir]}/upd_confs.sh" do
   owner "root"
   group "root"
   mode 0755
-  action [:delete,:create]
+  action [ :delete,:create ]
 end
 
 # reset ownership to nginx to allow static file serving
@@ -109,7 +109,7 @@ template "#{node[:radioedit][:bob][:staticdir]}/android.json" do
   owner "nginx"
   group "nginx"
   mode 0444
-  action [:delete, :create]
+  action [ :delete, :create ]
 end
 
 template "#{node[:radioedit][:bob][:staticdir]}/fux.json" do
@@ -117,7 +117,7 @@ template "#{node[:radioedit][:bob][:staticdir]}/fux.json" do
   owner "nginx"
   group "nginx"
   mode 0444 
-  action [:delete, :create]
+  action [ :delete, :create ]
 end
 
 template "#{node[:radioedit][:bob][:staticdir]}/iphone.json" do
@@ -125,7 +125,7 @@ template "#{node[:radioedit][:bob][:staticdir]}/iphone.json" do
   owner "nginx"
   group "nginx"
   mode 0444
-  action [:delete, :create]
+  action [ :delete, :create ]
 end
 
 template "#{node[:radioedit][:bob][:staticdir]}/kenwood.json" do
@@ -133,7 +133,7 @@ template "#{node[:radioedit][:bob][:staticdir]}/kenwood.json" do
   owner "nginx"
   group "nginx"
   mode 0444
-  action [:delete, :create]
+  action [ :delete, :create ]
 end
 
 

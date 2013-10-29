@@ -129,7 +129,7 @@ template "#{node[:radioedit][:production][:staticdir]}/fux.json" do
   owner "nginx"
   group "nginx"
   mode 0444 
-  action [:delete, :create]
+  action [ :delete, :create ]
 end
 
 template "#{node[:radioedit][:production][:staticdir]}/iphone.json" do
@@ -137,7 +137,7 @@ template "#{node[:radioedit][:production][:staticdir]}/iphone.json" do
   owner "nginx"
   group "nginx"
   mode 0444
-  action [:delete, :create]
+  action [ :delete, :create ]
 end
 
 template "#{node[:radioedit][:production][:staticdir]}/kenwood.json" do
@@ -145,7 +145,7 @@ template "#{node[:radioedit][:production][:staticdir]}/kenwood.json" do
   owner "nginx"
   group "nginx"
   mode 0444
-  action [:delete, :create]
+  action [ :delete, :create ]
 end
 
 
