@@ -47,6 +47,12 @@ unless tagged?(deployed_tag)
       action :install
     end
   end
+
+  cookbook_file "/etc/odbcinst.ini" do
+    source "odbcinst.ini"
+    mode 0755
+    action :create
+  end
  
   python_pip "JCC" do 
     virtualenv "/data/apps/names/venv"
