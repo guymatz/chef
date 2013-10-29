@@ -90,7 +90,7 @@ template "#{node[:radioedit][:production][:utildir]}/supervisor" do
   owner "root"
   group "root"
   mode 0755
-  action [:delete, :create]
+  action [ :delete, :create ]
 end
 
 template "#{node[:radioedit][:production][:utildir]}/radioedit.conf" do
@@ -98,7 +98,7 @@ template "#{node[:radioedit][:production][:utildir]}/radioedit.conf" do
   owner "root"
   group "root"
   mode 0666
-  action [:delete, :create]
+  action [ :delete, :create ]
 end
 
 template "#{node[:radioedit][:production][:utildir]}/upd_confs.sh" do
@@ -106,7 +106,7 @@ template "#{node[:radioedit][:production][:utildir]}/upd_confs.sh" do
   owner "root"
   group "root"
   mode 0755
-  action [:delete,:create]
+  action [ :delete, :create ]
 end
 
 # reset ownership to nginx to allow static file serving
@@ -121,7 +121,7 @@ template "#{node[:radioedit][:production][:staticdir]}/android.json" do
   owner "nginx"
   group "nginx"
   mode 0444
-  action [:delete, :create]
+  action [ :delete, :create ]
 end
 
 template "#{node[:radioedit][:production][:staticdir]}/fux.json" do
