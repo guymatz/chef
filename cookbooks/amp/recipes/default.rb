@@ -7,10 +7,10 @@
 # All rights reserved - Do Not Redistribute
 #
 
-hostsfile_entry '10.5.36.28' do
-  hostname 'files.ihrdev.com'
-  #action :create_if_missing
-end
+#hostsfile_entry '10.5.36.28' do
+#  hostname 'files.ihrdev.com'
+#  #action :create_if_missing
+#end
 
 node.set[:java][:oracle][:accept_oracle_download_terms] = true
 node.save
