@@ -1,0 +1,5 @@
+{
+  "id": "Check_CBM_radio-sessions",
+  "hostgroup_name": "CB",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Check_CBM_radio-sessions -t 20"
+}
