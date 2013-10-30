@@ -1,7 +1,7 @@
 {
   "environment" : "<%= node[:radioedit][:bob][:env] %>",
   "mongosd": {
-    "mongosconfigdbs": "mongodb://127.0.0.1:27017/radioedit-epona"
+    "mongosconfigdbs": "<%= node[:radioedit][:bob][:mongo_cstring] %>"
   },
 
   "memcached": {

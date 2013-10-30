@@ -1,7 +1,7 @@
 {
   "environment" : "<%= node[:radioedit][:production][:env] %>",
   "mongosd": {
-    "mongosconfigdbs": "mongodb://iad-mongo-shared101.ihr:37017/radioedit-f"
+    "mongosconfigdbs": "<%= node[:radioedit][:production][:mongo_cstring] %>"
   },
   "memcached": {
     "servers": [

@@ -46,7 +46,7 @@ default[:radioedit][:cms][:host] = "unix"
 default[:radioedit][:nginx][:port] = 8000
 
 # ################################################################
-# PRODUCTION SETTINGS!!!!!
+# Development Environment settings.
 # ################################################################
 default[:radioedit][:bob][:req_dirs] = %w{ 
   /data 
@@ -132,11 +132,31 @@ default[:radioedit][:bob][:listen] = "/var/tmp/radioedit-cms.sock"
 default[:radioedit][:bob][:host] = "unix"
 default[:radioedit][:bob][:utildir] = "#{default[:radioedit][:bob][:path]}/util"
 default[:radioedit][:bob][:staticdir] = "#{default[:radioedit][:bob][:path]}/static"
+default[:radioedit][:bob][:mongo_cstring] = "mongodb://127.0.0.1:27017/radioedit-epona"
 # ################################################################
 # End of 'bob' env
 # ################################################################
 
 # epona settings
+default[:radioedit][:epona][:path] = "/data/apps/radioedit";
+default[:radioedit][:epona][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
+default[:radioedit][:epona][:log_dir] = "/var/log/radioedit"
+default[:radioedit][:epona][:out_log] = "#{default[:radioedit][:epona][:log_dir]}/epona.log"
+default[:radioedit][:epona][:err_log] = "#{default[:radioedit][:epona][:log_dir]}/epona.err"
+default[:radioedit][:epona][:venv_path] = "#{default[:radioedit][:epona][:path]}/envs/core";
+default[:radioedit][:epona][:module] = "wsgi:application"
+default[:radioedit][:epona][:repo] = "git@github.ihrint.com:radioedit/core.git"
+default[:radioedit][:epona][:branch] = "release"
+default[:radioedit][:epona][:intbranch] = "testing"
+default[:radioedit][:epona][:packages] = %w{ libevent memcached python27 python27-libs python27-devel python27-test python27-tools nginx zlib-devel openjpeg-devel zlib gcc python-devel git libevent-devel zeromq-devel zeromq python-setuptools python-ldap postgresql-devel openldap-devel varnish readline-devel patch libjpeg-devel }
+default[:radioedit][:epona][:pips] = %w{ supervisor pymongo python-memcached greenlet statsd pyzmq flask flask-cache flask-pymongo pillow blinker celery colorama docutils gevent-websocket jsonschema mock pql pylibmc pyparsing python-dateutil python-ldap requests simplejson raven pytest }
+default[:radioedit][:epona][:env] = "ihr_testing"
+default[:radioedit][:epona][:num_workers] = 5
+default[:radioedit][:epona][:port] = "/var/tmp/radioedit-cms.sock"
+default[:radioedit][:epona][:listen] = "/var/tmp/radioedit-cms.sock"
+default[:radioedit][:epona][:host] = "unix"
+default[:radioedit][:epona][:utildir] = "#{default[:radioedit][:epona][:path]}/util"
+default[:radioedit][:epona][:mongo_cstring] = "mongodb://127.0.0.1:27017/radioedit-f"
 default[:radioedit][:epona][:req_dirs] = %w{ 
   /data 
   /data/apps 
@@ -177,6 +197,7 @@ default[:radioedit][:epona][:packages] = %w{
   patch 
   libjpeg-devel 
 }
+
 default[:radioedit][:epona][:pips] = %w{ 
   supervisor 
   pymongo 
@@ -205,30 +226,30 @@ default[:radioedit][:epona][:pips] = %w{
   raven 
   pytest 
 }
-default[:radioedit][:epona][:path] = "/data/apps/radioedit";
-default[:radioedit][:epona][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
-default[:radioedit][:epona][:log_dir] = "/var/log/radioedit"
-default[:radioedit][:epona][:out_log] = "#{default[:radioedit][:epona][:log_dir]}/epona.log"
-default[:radioedit][:epona][:err_log] = "#{default[:radioedit][:epona][:log_dir]}/epona.err"
-default[:radioedit][:epona][:venv_path] = "#{default[:radioedit][:epona][:path]}/envs/core";
-default[:radioedit][:epona][:module] = "wsgi:application"
-default[:radioedit][:epona][:repo] = "git@github.ihrint.com:radioedit/core.git"
-default[:radioedit][:epona][:branch] = "release"
-default[:radioedit][:epona][:intbranch] = "testing"
-default[:radioedit][:epona][:packages] = %w{ libevent memcached python27 python27-libs python27-devel python27-test python27-tools nginx zlib-devel openjpeg-devel zlib gcc python-devel git libevent-devel zeromq-devel zeromq python-setuptools python-ldap postgresql-devel openldap-devel varnish readline-devel patch libjpeg-devel }
-default[:radioedit][:epona][:pips] = %w{ supervisor pymongo python-memcached greenlet statsd pyzmq flask flask-cache flask-pymongo pillow blinker celery colorama docutils gevent-websocket jsonschema mock pql pylibmc pyparsing python-dateutil python-ldap requests simplejson raven pytest }
-default[:radioedit][:epona][:env] = "ihr_testing"
-default[:radioedit][:epona][:num_workers] = 5
-default[:radioedit][:epona][:port] = "/var/tmp/radioedit-cms.sock"
-default[:radioedit][:epona][:listen] = "/var/tmp/radioedit-cms.sock"
-default[:radioedit][:epona][:host] = "unix"
-default[:radioedit][:epona][:utildir] = "#{default[:radioedit][:epona][:path]}/util"
 # End Epona QA environment attributes
 
 
 # ################################################################
 # PRODUCTION SETTINGS!!!!!
 # ################################################################
+default[:radioedit][:production][:repo] = "git@github.ihrint.com:radioedit/core.git"
+default[:radioedit][:production][:branch] = "release"
+default[:radioedit][:production][:env] = "ihr_testing"
+default[:radioedit][:production][:path] = "/data/apps/radioedit";
+default[:radioedit][:production][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
+default[:radioedit][:production][:log_dir] = "/var/log/radioedit"
+default[:radioedit][:production][:out_log] = "#{default[:radioedit][:production][:log_dir]}/application.log"
+default[:radioedit][:production][:err_log] = "#{default[:radioedit][:production][:log_dir]}/applicaiton.err"
+default[:radioedit][:production][:venv_path] = "#{default[:radioedit][:production][:path]}/envs/core";
+default[:radioedit][:production][:module] = "wsgi:application"
+default[:radioedit][:production][:num_workers] = 5
+default[:radioedit][:production][:port] = "/var/tmp/radioedit-cms.sock"
+default[:radioedit][:production][:listen] = "/var/tmp/radioedit-cms.sock"
+default[:radioedit][:production][:host] = "unix"
+default[:radioedit][:production][:utildir] = "#{default[:radioedit][:production][:path]}/util"
+default[:radioedit][:production][:staticdir] = "#{default[:radioedit][:production][:path]}/static"
+default[:radioedit][:production][:mongo_cstring] = "mongodb://iad-mongo-shared101.ihr:37017/radioedit-f"
+
 default[:radioedit][:production][:req_dirs] = %w{ 
   /data 
   /data/apps 
@@ -242,6 +263,7 @@ default[:radioedit][:production][:req_dirs] = %w{
   /var/log/radioedit 
   /data/apps/radioedit/shared 
 }
+
 default[:radioedit][:production][:packages] = %w{ 
   libevent 
   memcached 
@@ -269,6 +291,7 @@ default[:radioedit][:production][:packages] = %w{
   patch 
   libjpeg-devel 
 }
+
 default[:radioedit][:production][:pips] = %w{ 
   supervisor 
   pymongo 
@@ -297,22 +320,6 @@ default[:radioedit][:production][:pips] = %w{
   raven 
   pytest 
 }
-default[:radioedit][:production][:repo] = "git@github.ihrint.com:radioedit/core.git"
-default[:radioedit][:production][:branch] = "release"
-default[:radioedit][:production][:env] = "ihr_testing"
-default[:radioedit][:production][:path] = "/data/apps/radioedit";
-default[:radioedit][:production][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
-default[:radioedit][:production][:log_dir] = "/var/log/radioedit"
-default[:radioedit][:production][:out_log] = "#{default[:radioedit][:production][:log_dir]}/application.log"
-default[:radioedit][:production][:err_log] = "#{default[:radioedit][:production][:log_dir]}/applicaiton.err"
-default[:radioedit][:production][:venv_path] = "#{default[:radioedit][:production][:path]}/envs/core";
-default[:radioedit][:production][:module] = "wsgi:application"
-default[:radioedit][:production][:num_workers] = 5
-default[:radioedit][:production][:port] = "/var/tmp/radioedit-cms.sock"
-default[:radioedit][:production][:listen] = "/var/tmp/radioedit-cms.sock"
-default[:radioedit][:production][:host] = "unix"
-default[:radioedit][:production][:utildir] = "#{default[:radioedit][:production][:path]}/util"
-default[:radioedit][:production][:staticdir] = "#{default[:radioedit][:production][:path]}/static"
 # ################################################################
 # END PRODUCTION SETTINGS
 # ################################################################
