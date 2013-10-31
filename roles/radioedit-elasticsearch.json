@@ -1,0 +1,19 @@
+{
+  "name": "radioedit-elasticsearch",
+  "description": "Radioedit Elasticseach server",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "java": {
+      "jdk_version": "7"
+    }
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[java]",
+    "recipe[elasticsearchnew::radioedit]"
+  ],
+  "env_run_lists": {
+  }
+}
