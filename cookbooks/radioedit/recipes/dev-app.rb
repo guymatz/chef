@@ -86,7 +86,7 @@ end
 
 # gp adding these templates to a util directory until a way using existing chef resource objects is found.
 template "#{node[:radioedit][:dev][:utildir]}/supervisor" do
-  source "dev-supervisor.initd.erb"
+  source "dev-supervisor-initd.erb"
   owner "root"
   group "root"
   mode 0755

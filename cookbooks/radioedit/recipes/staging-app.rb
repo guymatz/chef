@@ -11,7 +11,7 @@
 include_recipe "yum::epel"
 
 # make all required directories
-node[:radioedit][:bob][:req_dirs].each do |d|
+node[:radioedit][:staging][:req_dirs].each do |d|
   directory d do
     owner "ihr-deployer"
     group "ihr-deployer"
@@ -90,7 +90,7 @@ template "#{node[:radioedit][:staging][:utildir]}/radioedit.conf" do
 end
 
 template "#{node[:radioedit][:staging][:utildir]}/upd_confs.sh" do
-  source "staging-reset-configs.sh.erb"
+  source "staging-reset-config.sh.erb"
   owner "root"
   group "root"
   mode 0755
