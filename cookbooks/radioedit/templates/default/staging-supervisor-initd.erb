@@ -24,7 +24,7 @@ PIDFILE="/var/run/$prog.pid"
 ENVIRONMENT='<%= node[:radioedit][:staging][:env] %>';
 export ENVIRONMENT;
 
-APP_ENV=='<%= node[:radioedit][:staging][:env] %>';
+APP_ENV='<%= node[:radioedit][:staging][:env] %>';
 export APP_ENV;
 
 start(){
