@@ -2,7 +2,7 @@
   "name": "stage",
   "default_attributes": {
     "webplayer": {
-      "rev": "release-5.1.0-eiswein-rc3",
+      "rev": "temp-hash-fix-rc1",
       "settings": {
         "url": {
           "site_host": "stage.iheart.com"
