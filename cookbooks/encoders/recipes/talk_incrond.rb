@@ -31,8 +31,8 @@ begin
       code "chown -R converter. /data/apps/content-talk"
     end
 
-    service "incrond" do
-        action [:enable, :start]
-    end
+#    service "incrond" do
+#        action [:enable, :start]
+#    end
 
 end
