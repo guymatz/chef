@@ -22,10 +22,13 @@ begin
         symlinks.clear
         symlink_before_migrate.clear
         create_dirs_before_symlink.clear
-        user "converter"
         deploy_to "/data/apps/content-talk"
         restart_command "/usr/local/bin/load_incron.sh"
         action  :deploy
+    end
+
+    bash "chown scripts dir" do
+      code "chown -R converter. /data/apps/content-talk"
     end
 
     service "incrond" do

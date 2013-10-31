@@ -66,7 +66,7 @@ default[:radioedit][:dev][:port] = "/var/tmp/radioedit-cms.sock"
 default[:radioedit][:dev][:listen] = "/var/tmp/radioedit-cms.sock"
 default[:radioedit][:dev][:host] = "unix"
 default[:radioedit][:dev][:utildir] = "#{default[:radioedit][:dev][:path]}/util"
-default[:radioedit][:dev][:mongo_cstring] = "mongodb://127.0.0.1:27017/radioedit-f"
+default[:radioedit][:dev][:mongo_cstring] = "mongodb://use1b-radioedit-test102.ihr:37017/radioedit-f"
 default[:radioedit][:dev][:req_dirs] = %w{ 
   /data 
   /data/apps 
@@ -160,7 +160,7 @@ default[:radioedit][:staging][:listen] = "/var/tmp/radioedit-cms.sock"
 default[:radioedit][:staging][:host] = "unix"
 default[:radioedit][:staging][:utildir] = "#{default[:radioedit][:staging][:path]}/util"
 default[:radioedit][:staging][:staticdir] = "#{default[:radioedit][:staging][:path]}/static"
-default[:radioedit][:staging][:mongo_cstring] = "mongodb://127.0.0.1:27017/radioedit-epona"
+default[:radioedit][:staging][:mongo_cstring] = "mongodb://use1b-radioedit-test102.ihr:37017/radioedit-epona"
 default[:radioedit][:staging][:req_dirs] = %w{ 
   /data 
   /data/apps 
