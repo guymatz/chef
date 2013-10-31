@@ -26,7 +26,7 @@ node[:radioedit][:dev][:packages].each do |p|
 end
 
 template "#{node[:radioedit][:dev][:path]}/shared/settings.json" do
-  source "epona-settings.json.erb"
+  source "dev-settings.json.erb"
   owner "ihr-deployer"
   group "ihr-deployer"
 end
@@ -45,7 +45,7 @@ execute "set-app-env" do
 end
 
 template "/data/apps/radioedit/setenv.sh" do
-  source "epona-env.sh.erb"
+  source "dev-env.sh.erb"
   owner "ihr-deployer"
   group "ihr-deployer"
   mode 0755
@@ -86,21 +86,21 @@ end
 
 # gp adding these templates to a util directory until a way using existing chef resource objects is found.
 template "#{node[:radioedit][:dev][:utildir]}/supervisor" do
-  source "addenvs-supervisor.initd.erb"
+  source "dev-supervisor.initd.erb"
   owner "root"
   group "root"
   mode 0755
 end
 
 template "#{node[:radioedit][:dev][:utildir]}/radioedit.conf" do
-  source "radioedit-nginx.conf.erb"
+  source "dev-nginx.conf.erb"
   owner "root"
   group "root"
   mode 0666
 end
 
 template "#{node[:radioedit][:dev][:utildir]}/upd_confs.sh" do
-  source "reset-configs.sh.erb"
+  source "dev-reset-configs.sh.erb"
   owner "root"
   group "root"
   mode 0755

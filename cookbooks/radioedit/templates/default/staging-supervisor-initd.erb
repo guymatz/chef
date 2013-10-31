@@ -21,10 +21,10 @@ exec_prefix="${prefix}"
 prog_bin="${exec_prefix}/bin/supervisord -c /etc/supervisord.conf"
 PIDFILE="/var/run/$prog.pid"
 
-ENVIRONMENT='<%= node[:radioedit][:dev][:env] %>';
+ENVIRONMENT='<%= node[:radioedit][:staging][:env] %>';
 export ENVIRONMENT;
 
-APP_ENV=='<%= node[:radioedit][:dev][:env] %>';
+APP_ENV=='<%= node[:radioedit][:staging][:env] %>';
 export APP_ENV;
 
 start(){

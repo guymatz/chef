@@ -1,5 +1,5 @@
 upstream core {
-    server   <%= node[:radioedit][:dev][:host] %>:<%= node[:radioedit][:dev][:listen] %>;
+    server   <%= node[:radioedit][:staging][:host] %>:<%= node[:radioedit][:staging][:listen] %>;
 }
 
 server {

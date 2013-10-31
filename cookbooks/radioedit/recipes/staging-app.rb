@@ -26,7 +26,7 @@ node[:radioedit][:staging][:packages].each do |p|
 end
 
 template "#{node[:radioedit][:staging][:path]}/shared/settings.json" do
-  source "dev-settings.json.erb"
+  source "staging-settings.json.erb"
   owner "ihr-deployer"
   group "ihr-deployer"
 end
@@ -74,7 +74,7 @@ end
 
 # gp adding these templates to a util directory until a way using existing chef resource objects is found.
 template "#{node[:radioedit][:staging][:utildir]}/supervisor" do
-  source "dev-supervisor-initd.erb"
+  source "staging-supervisor-initd.erb"
   owner "root"
   group "root"
   mode 0755
@@ -82,7 +82,7 @@ template "#{node[:radioedit][:staging][:utildir]}/supervisor" do
 end
 
 template "#{node[:radioedit][:staging][:utildir]}/radioedit.conf" do
-  source "dev-radioedit.conf.erb"
+  source "staging-nginx.conf.erb"
   owner "root"
   group "root"
   mode 0666
@@ -90,7 +90,7 @@ template "#{node[:radioedit][:staging][:utildir]}/radioedit.conf" do
 end
 
 template "#{node[:radioedit][:staging][:utildir]}/upd_confs.sh" do
-  source "dev-reset-configs.sh.erb"
+  source "staging-reset-configs.sh.erb"
   owner "root"
   group "root"
   mode 0755

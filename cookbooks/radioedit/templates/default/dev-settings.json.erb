@@ -1,7 +1,7 @@
 {
-  "environment" : "<%= node[:radioedit][:bob][:env] %>",
+  "environment" : "<%= node[:radioedit][:dev][:env] %>",
   "mongosd": {
-    "mongosconfigdbs": "<%= node[:radioedit][:bob][:mongo_cstring] %>"
+    "mongosconfigdbs": "<%= node[:radioedit][:dev][:mongo_cstring] %>"
   },
 
   "memcached": {
@@ -9,5 +9,5 @@
       "use1b-radioedit-test105.ihr:11211"
     ] 
   },
-  "cdn_url": "http://10.5.1.28/"
+  "cdn_url": "http://10.5.1.29/"
 }
