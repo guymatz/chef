@@ -43,7 +43,7 @@ unless tagged?('elasticsearchnew-deployed')
   # end
   
   template "/etc/init.d/elasticsearch" do
-    source "elasticsearch.init.erb"
+    source "elasticsearch.init.erb"i
     owner "root"
     group "root"
     mode "0755"
@@ -73,10 +73,10 @@ unless tagged?('elasticsearchnew-deployed')
     notifies :restart, "service[elasticsearch]"
   end
   
-  template "#{node[:elasticsearchnew][:ihrsearch_path]}/configs/logging.yml" do
-    source "logging.yml.erb"
-    owner node[:elasticsearchnew][:user]
-    group node[:elasticsearchnew][:group]
-  end
+  # template "#{node[:elasticsearchnew][:ihrsearch_path]}/configs/logging.yml" do
+  #   source "logging.yml.erb"
+  #   owner node[:elasticsearchnew][:user]
+  #   group node[:elasticsearchnew][:group]
+  # end
   tag('elasticsearchnew-deployed')
 end

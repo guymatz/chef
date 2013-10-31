@@ -8,6 +8,9 @@
     }
   },
   "override_attributes": {
+    "elasticsearchnew" : {
+        "cluster_name" : "radioedit"
+    }
   },
   "chef_type": "role",
   "run_list": [
