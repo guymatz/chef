@@ -102,3 +102,5 @@ end
 service "proftpd" do
   action [ :enable, :start ]
 end
+
+include_recipe "proftpd::auth_file"
