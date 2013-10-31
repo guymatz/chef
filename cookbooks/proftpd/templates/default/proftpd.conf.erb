@@ -88,12 +88,14 @@ RequireValidShell         <%= @node[:proftpd][:require_valid_shell] %>
 
 # chroot
 DefaultRoot               <%= @node[:proftpd][:default_root] %>
+AuthUserFile              <%= @node[:proftpd][:user_file] %>
+RequireValidShell         off
 
 DirFakeUser               on <%= @node[:proftpd][:dir_fakeuser] %>
 DirFakeGroup              on <%= @node[:proftpd][:dir_fakegroup] %>
 
 
-<VirtualHost <%= @node[:proftpd][:ip] %>>
+<VirtualHost <%= @node[:proftpd][:default_address] %>>
   ServerName            "* FTP *"
   ServerIdent           off # iHeartRadio Access Control Policy 5.3
   Port                  21
@@ -102,7 +104,7 @@ DirFakeGroup              on <%= @node[:proftpd][:dir_fakegroup] %>
   ExtendedLog           /var/log/proftpd/ftp-auth.log AUTH auth
 </VirtualHost>
 
-<VirtualHost <%= @node[:proftpd][:ip] %>>
+<VirtualHost <%= @node[:proftpd][:default_address] %>>
   ServerName            "* SFTP *"
   ServerIdent           off # iHeartRadio Access Control Policy 5.3
   SFTPEngine            on
