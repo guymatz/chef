@@ -7,8 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-
-
 unless tagged?('elasticsearchnew-deployed')
   %w{ users::elasticsearch 
       elasticsearchnew::users 
