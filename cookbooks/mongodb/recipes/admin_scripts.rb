@@ -26,10 +26,10 @@ end
 begin
  if tagged?("compactor")
    cron_d "compact_MongoDB" do
-     minute "20"
-     hour   "15"
+     minute "15"
+     hour   "03"
      user "mongod"
-     command "/home/mongod/scripts/mongodba/bin/compactData.sh -h 127.0.0.1 -p #{node[:mongodb][:admin_scripts][:port]} -m d "
+     command "/home/mongod/scripts/mongodba/bin/compactData.sh -h 127.0.0.1 -p #{node[:mongodb][:admin_scripts][:port]} -m d -s 2"
      mailto "irinakaprizkina@clearchannel.com"
    end
  end
