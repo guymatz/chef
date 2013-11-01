@@ -40,3 +40,7 @@ Just include `role[elasticsearch]` in your node's `run_list`:
 }
 ```
 
+License and Authors
+-------------------
+Authors: Jake Plimack <jake.plimack@gmail.com>
+         Amit Patel <amitpatel@clearchannel.com>
