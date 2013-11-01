@@ -100,5 +100,9 @@ cron_d "fac-updatestream-t3dump" do
   hour "3"
   weekday "4"
   user "nobody"
-  command "/usr/bin/cronwrap iad-jobserver101a fac-updatestream-t3dump \"#{script_dir}/streaminfo/zip/t3_dump_zip.py"
+  if tagged?("no-updatestream")
+    command "#/usr/bin/cronwrap iad-jobserver101a fac-updatestream-t3dump \"#{script_dir}/streaminfo/zip/t3_dump_zip.py"
+  else
+    command "/usr/bin/cronwrap iad-jobserver101a fac-updatestream-t3dump \"#{script_dir}/streaminfo/zip/t3_dump_zip.py"
+  end
 end

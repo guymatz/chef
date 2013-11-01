@@ -11,7 +11,7 @@
 include_recipe "yum::epel"
 
 # make all required directories
-node[:radioedit][:dev][:req_dirs].each do |d|
+node[:radioedit][:epona][:req_dirs].each do |d|
   directory d do
     owner "ihr-deployer"
     group "ihr-deployer"
@@ -19,24 +19,24 @@ node[:radioedit][:dev][:req_dirs].each do |d|
   end
 end
 
-node[:radioedit][:dev][:packages].each do |p|
+node[:radioedit][:epona][:packages].each do |p|
   yum_package p do
     action [ :install, :upgrade ]
   end
 end
 
-template "#{node[:radioedit][:dev][:path]}/shared/settings.json" do
-  source "dev-settings.json.erb"
+template "#{node[:radioedit][:epona][:path]}/shared/settings.json" do
+  source "epona-settings.json.erb"
   owner "ihr-deployer"
   group "ihr-deployer"
 end
 
-link "#{node[:radioedit][:dev][:path]}/settings.json" do
-  to "#{node[:radioedit][:dev][:path]}/shared/settings.json"
+link "#{node[:radioedit][:epona][:path]}/settings.json" do
+  to "#{node[:radioedit][:epona][:path]}/shared/settings.json"
   action :create
   owner "ihr-deployer"
   group "ihr-deployer"
-  not_if "test -L #{node[:radioedit][:dev][:path]}/shared/settings.json"
+  not_if "test -L #{node[:radioedit][:epona][:path]}/shared/settings.json"
 end
 
 execute "set-app-env" do
@@ -45,7 +45,7 @@ execute "set-app-env" do
 end
 
 template "/data/apps/radioedit/setenv.sh" do
-  source "dev-env.sh.erb"
+  source "epona-env.sh.erb"
   owner "ihr-deployer"
   group "ihr-deployer"
   mode 0755
@@ -53,7 +53,7 @@ template "/data/apps/radioedit/setenv.sh" do
 end
 
 
-python_virtualenv "#{node[:radioedit][:dev][:venv_path]}" do
+python_virtualenv "#{node[:radioedit][:epona][:venv_path]}" do
   interpreter "python27"
   owner "ihr-deployer"
   group "ihr-deployer"
@@ -62,45 +62,45 @@ end
 
 
 application "radioedit-core" do
-  repository "#{node[:radioedit][:dev][:repo]}"
-  revision "#{node[:radioedit][:dev][:intbranch]}"
-  path "#{node[:radioedit][:dev][:path]}"
+  repository "#{node[:radioedit][:epona][:repo]}"
+  revision "#{node[:radioedit][:epona][:intbranch]}"
+  path "#{node[:radioedit][:epona][:path]}"
   owner "ihr-deployer"
   group "ihr-deployer"
   enable_submodules true
 
   gunicorn do
     app_module 'wsgi'
-    port node[:radioedit][:dev][:port]
-    host node[:radioedit][:dev][:host]
-    workers node[:radioedit][:dev][:num_workers]
-    pidfile node[:radioedit][:dev][:pid_file]
-    virtualenv "#{node[:radioedit][:dev][:venv_path]}"
-    stdout_logfile "#{node[:radioedit][:dev][:out_log]}"
-    stderr_logfile "#{node[:radioedit][:dev][:err_log]}"
-    packages node[:radioedit][:dev][:pips]
+    port node[:radioedit][:epona][:port]
+    host node[:radioedit][:epona][:host]
+    workers node[:radioedit][:epona][:num_workers]
+    pidfile node[:radioedit][:epona][:pid_file]
+    virtualenv "#{node[:radioedit][:epona][:venv_path]}"
+    stdout_logfile "#{node[:radioedit][:epona][:out_log]}"
+    stderr_logfile "#{node[:radioedit][:epona][:err_log]}"
+    packages node[:radioedit][:epona][:pips]
     loglevel "DEBUG"
     interpreter "python27"
   end
 end
 
 # gp adding these templates to a util directory until a way using existing chef resource objects is found.
-template "#{node[:radioedit][:dev][:utildir]}/supervisor" do
-  source "dev-supervisor-initd.erb"
+template "#{node[:radioedit][:epona][:utildir]}/supervisor" do
+  source "addenvs-supervisor.initd.erb"
   owner "root"
   group "root"
   mode 0755
 end
 
-template "#{node[:radioedit][:dev][:utildir]}/radioedit.conf" do
-  source "dev-nginx.conf.erb"
+template "#{node[:radioedit][:epona][:utildir]}/radioedit.conf" do
+  source "radioedit-nginx.conf.erb"
   owner "root"
   group "root"
   mode 0666
 end
 
-template "#{node[:radioedit][:dev][:utildir]}/upd_confs.sh" do
-  source "dev-reset-configs.sh.erb"
+template "#{node[:radioedit][:epona][:utildir]}/upd_confs.sh" do
+  source "reset-configs.sh.erb"
   owner "root"
   group "root"
   mode 0755
@@ -109,7 +109,7 @@ end
 
 #GP hackety hack hack - @TODO Templatize what this script does
 execute "reset-confs" do
-  command "#{node[:radioedit][:dev][:utildir]}/upd_confs.sh"
+  command "#{node[:radioedit][:epona][:utildir]}/upd_confs.sh"
   action :run
 end
 

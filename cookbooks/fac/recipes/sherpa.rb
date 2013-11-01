@@ -53,6 +53,10 @@ end
 cron_d "fac-sherpa" do
  minute "12"
  hour "12"
- command "/usr/bin/nsca_relay -S fac-sherpa -- #{script_dir}/#{start_script}"
+ if tagged?("no-fac-sherpa")
+   command "#/usr/bin/nsca_relay -S fac-sherpa -- #{script_dir}/#{start_script}"
+ else
+   command "#/usr/bin/nsca_relay -S fac-sherpa -- #{script_dir}/#{start_script}"
+ end
  user "root"
 end

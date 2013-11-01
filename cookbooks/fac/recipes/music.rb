@@ -69,23 +69,29 @@ template "#{script_dir}/fac-incremental-runner.sh" do
             })
 end
 
-master = search(:node, "recipe:attivio\\:\\:clustermaster AND chef_environment:prod")
-puts "DEBUG: MASTER: " + master[0].inspect
-template "#{script_dir}/shipFAC2attivio.sh" do
-  source "shipFAC2attivio.sh.erb"
-  owner node[:attivio][:user]
-  group node[:attivio][:group]
-  mode "0755"
-  variables({
-              :attivio_master => master[0],
-              :attivio_inputdir => "#{node[:attivio][:input_path]}"
-            })
+if node.chef_environment == "prod"
+  master = search(:node, "recipe:attivio\\:\\:clustermaster AND chef_environment:prod")
+  puts "DEBUG: MASTER: " + master[0].inspect
+  template "#{script_dir}/shipFAC2attivio.sh" do
+    source "shipFAC2attivio.sh.erb"
+    owner node[:attivio][:user]
+    group node[:attivio][:group]
+    mode "0755"
+    variables({
+                :attivio_master => master[0],
+                :attivio_inputdir => "#{node[:attivio][:input_path]}"
+              })
+  end
 end
 
 cron_d "fac-music" do
  minute "2"
  hour "0"
  # weekday "2" # tuesday
- command "/usr/bin/cronwrap #{node[:hostname]} fac-music \"#{script_dir}/fac-incremental-runner.sh\""
+ if tagged?("no-fac-music")
+   command "#/usr/bin/cronwrap #{node[:hostname]} fac-music \"#{script_dir}/fac-incremental-runner.sh\""
+ else
+   command "/usr/bin/cronwrap #{node[:hostname]} fac-music \"#{script_dir}/fac-incremental-runner.sh\""
+ end
  user "root"
 end
