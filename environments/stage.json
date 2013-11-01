@@ -2,7 +2,7 @@
   "name": "stage",
   "default_attributes": {
     "webplayer": {
-      "rev": "temp-hash-fix-rc1",
+      "rev": "release-5.2.0-fosters-uat5",
       "settings": {
         "url": {
           "site_host": "stage.iheart.com"
