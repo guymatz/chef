@@ -12,7 +12,5 @@
 # #########################################
 
 yum_package "ImageMagick" do
-  arch "x86_64"
-  version "6.8.7"
-  action :upgrade
+  action [ :install, :upgrade ]
 end

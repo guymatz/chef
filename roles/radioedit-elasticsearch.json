@@ -15,7 +15,7 @@
   "chef_type": "role",
   "run_list": [
     "recipe[java]",
-    "recipe[elasticsearchnew::radioedit]"
+    "recipe[elasticsearchnew::radioedit@0.1.0]"
   ],
   "env_run_lists": {
   }
