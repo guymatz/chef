@@ -9,5 +9,6 @@
       "use1b-radioedit-test105.ihr:11211"
     ] 
   },
-  "cdn_url": "http://10.5.1.28/"
+  "cdn_url": "<%= node[:radioedit][:staging][:cdn_url] %>",
+  "binstore": "<%= node[:radioedit][:staging][:asset_dir] %>"
 }

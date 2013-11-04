@@ -9,5 +9,6 @@
       "iad-radioedit102.ihr:11211"
     ] 
   },
-  "cdn_url": "http://images.iheart.com/"
+  "cdn_url": "<%= node[:radioedit][:production][:cdn_url] %>",
+  "binstore": "<%= node[:radioedit][:production][:asset_dir] %>"
 }
