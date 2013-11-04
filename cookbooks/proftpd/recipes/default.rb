@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+include_recipe "users::vftp"
+
 if node[:proftpd][:modules].include?('sql_mysql')
   package "proftpd-mod-mysql" do
     action :upgrade
@@ -39,6 +41,10 @@ end
 
 service "proftpd" do
   supports :status => true, :restart => true, :reload => true
+end
+
+cookbook_file "/etc/proftpd.conf" do
+  source "conf.ms"
 end
 
 remote_directory "#{node[:proftpd][:dir]}/#{node[:proftpd][:dir_extra_conf]}" do
@@ -73,13 +79,13 @@ template "#{node[:proftpd][:dir]}/modules.conf" do
 end
 
 #template "#{node[:proftpd][:dir]}/proftpd.conf" do
-template "/etc/proftpd.conf" do
-  source "proftpd.conf.erb"
-  mode 0644
-  owner node[:proftpd][:user]
-  group node[:proftpd][:group]
-  notifies :restart, resources(:service => "proftpd")
-end
+# template "/etc/proftpd.conf" do
+#   source "proftpd.conf.erb"
+#   mode 0644
+#   owner node[:proftpd][:user]
+#   group node[:proftpd][:group]
+#   notifies :restart, resources(:service => "proftpd")
+# end
 
 if (node[:proftpd][:sql] == "on")
   template "#{node[:proftpd][:dir]}/#{node[:proftpd][:dir_extra_conf]}/sql.conf" do
