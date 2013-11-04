@@ -1,0 +1,36 @@
+upstream core {
+    server   <%= node[:radioedit][:dev][:host] %>:<%= node[:radioedit][:dev][:listen] %>;
+}
+
+server {
+    listen 80 default;
+    server_name _;
+
+    keepalive_timeout 5;
+    client_max_body_size 20M;
+
+    gzip             on;
+    gzip_min_length  1000;
+    #gzip_proxied     expired no-cache no-store private auth;
+    gzip_types       text/plain application/xml text/javascript application/x-javascript application/json text/css;
+
+    location = / {
+        rewrite .* /-service/app/shell/ redirect;
+    }
+
+    location / {
+        try_files $uri @proxy_to_core;
+    }
+
+    location @proxy_to_core {
+        #add_header X-Time '$request_time';
+        add_header X-CORE true;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Scheme $scheme;
+        #proxy_set_header X-Script-Name /;
+        proxy_redirect off;
+        proxy_pass  http://core;
+    }
+}
