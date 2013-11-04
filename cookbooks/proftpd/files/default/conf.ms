@@ -2,6 +2,9 @@
 #
 # See: http://www.proftpd.org/docs/directives/linked/by-name.html
 
+TraceLog /var/log/proftpd_trace.log
+Trace DEFAULT:10 ssh2:20 sftp:20
+
 # Server Config - config used for anything outside a <VirtualHost> or <Global> context
 # See: http://www.proftpd.org/docs/howto/Vhost.html
 
@@ -15,16 +18,18 @@ SocketBindTight                 on
 # TraceLog /var/log/proftpd/trace.log
 # Trace ssh2:20 sftp:10 scp:10
 
-# Cause every FTP user except adm to be chrooted into their home directory
+# Cause every FTP user except adm to be default+_ted into their home directory
 # Aliasing /etc/security/pam_env.conf into the chroot allows pam_env to
 # work at session-end time (http://bugzilla.redhat.com/477120)
-VRootEngine                     on
-DefaultRoot                     ~ !adm
-VRootAlias                      /etc/security/pam_env.conf etc/security/pam_env.conf
+#VRootEngine                     on
+#DefaultRoot                     ~ !adm
+#VRootAlias                      /etc/security/pam_env.conf etc/security/pam_env.conf
 
 # Use pam to authenticate (default) and be authoritative
 #AuthPAMConfig                  proftpd
 #AuthOrder                      mod_auth_pam.c* mod_auth_unix.c
+AuthPAMConfig                  proftpd
+AuthOrder                      mod_auth_file.c
 # If you use NIS/YP/LDAP you may need to disable PersistentPasswd
 #PersistentPasswd               off
 
@@ -55,30 +60,30 @@ LogFormat                       auth    "%v [%P] %h %t \"%r\" %s"
 # See README.DSO and howto/DSO.html for more details
 #
 # General database support (http://www.proftpd.org/docs/contrib/mod_sql.html)
-   LoadModule mod_sql.c
+#   LoadModule mod_sql.c
 #
 # Support for base-64 or hex encoded MD5 and SHA1 passwords from SQL tables
 # (contrib/mod_sql_passwd.html)
-   LoadModule mod_sql_passwd.c
+#   LoadModule mod_sql_passwd.c
 #
 # Mysql support (requires proftpd-mysql package)
 # (http://www.proftpd.org/docs/contrib/mod_sql.html)
-   LoadModule mod_sql_mysql.c
+#   LoadModule mod_sql_mysql.c
 #
 # Postgresql support (requires proftpd-postgresql package)
 # (http://www.proftpd.org/docs/contrib/mod_sql.html)
 #   LoadModule mod_sql_postgres.c
 #
 # Quota support (http://www.proftpd.org/docs/contrib/mod_quotatab.html)
-   LoadModule mod_quotatab.c
+#   LoadModule mod_quotatab.c
 #
 # File-specific "driver" for storing quota table information in files
 # (http://www.proftpd.org/docs/contrib/mod_quotatab_file.html)
-   LoadModule mod_quotatab_file.c
+#   LoadModule mod_quotatab_file.c
 #
 # SQL database "driver" for storing quota table information in SQL tables
 # (http://www.proftpd.org/docs/contrib/mod_quotatab_sql.html)
-   LoadModule mod_quotatab_sql.c
+#   LoadModule mod_quotatab_sql.c
 #
 # LDAP support (requires proftpd-ldap package)
 # (http://www.proftpd.org/docs/directives/linked/config_ref_mod_ldap.html)
@@ -147,7 +152,7 @@ SFTPLog /var/log/proftpd/SFTP.log
 # Use SQL (via mod_sql) for looking up authorized SSH2 public keys for user
 # and host based authentication
 # (http://www.castaglia.org/proftpd/modules/mod_sftp_sql.html)
-   LoadModule mod_sftp_sql.c
+#   LoadModule mod_sftp_sql.c
 #
 # Provide data transfer rate "shaping" across the entire server
 # (http://www.castaglia.org/proftpd/modules/mod_shaper.html)
@@ -178,7 +183,7 @@ SFTPLog /var/log/proftpd/SFTP.log
 #
 # Support module for mod_wrap2 that handles access rules stored in SQL
 # database tables (http://www.proftpd.org/docs/contrib/mod_wrap2_sql.html)
-   LoadModule mod_wrap2_sql.c
+#   LoadModule mod_wrap2_sql.c
 #
 # Provide a flexible way of specifying that certain configuration directives
 # only apply to certain sessions, based on credentials such as connection
@@ -301,82 +306,38 @@ SFTPLog /var/log/proftpd/SFTP.log
 #</IfDefine>
 #
 
-### Begin MySQL section ###
-# per http://www.howtoforge.com/proftpd_mysql_virtual_hosting_p2
-#
-
-# The passwords in MySQL are encrypted using CRYPT
-# And now MD5 - gm
-SQLAuthTypes            MD5 Crypt
-SQLAuthenticate         users* groups*
-SQLPasswordEngine       on
-SQLPasswordEncoding     hex
-
-# used to connect to the database
-# databasename@host database_user user_password
-SQLConnectInfo  proftpd@10.73.232.102 proftpd proftpd101
-
-# Here we tell ProFTPd the names of the database columns in the "usertable"
-# we want it to interact with. Match the names with those in the db
-SQLUserInfo     ftpuser userid passwd uid gid homedir shell
-
-# Here we tell ProFTPd the names of the database columns in the "grouptable"
-# we want it to interact with. Again the names match with those in the db
-SQLGroupInfo    ftpgroup groupname gid members
-
-# set min UID and GID - otherwise these are 999 each
-SQLMinID        500
-
-# create a user's home directory on demand if it doesn't exist
-# SQLHomedirOnDemand on
-# (we use CreateHome instead of deprecated SQLHomedirOnDemand)
-CreateHome on
-
-# Update count every time user logs in
-#SQLLog PASS updatecount
-#SQLNamedQuery updatecount UPDATE "count=count+1, accessed=now() WHERE userid='%u'" ftpuser
-
-# Update modified everytime user uploads or deletes a file
-#SQLLog  STOR,DELE modified
-#SQLNamedQuery modified UPDATE "modified=now() WHERE userid='%u'" ftpuser
-
 # User quotas
 # ===========
-QuotaEngine off
-QuotaDirectoryTally off
-QuotaDisplayUnits Mb
-QuotaShowQuotas off
+#QuotaEngine off
+#QuotaDirectoryTally off
+#QuotaDisplayUnits Mb
+#QuotaShowQuotas off
 
-SQLNamedQuery get-quota-limit SELECT "name, quota_type, per_session, limit_type, bytes_in_avail, bytes_out_avail, bytes_xfer_avail, files_in_avail, files_out_avail, files_xfer_avail FROM ftpquotalimits WHERE name = '%{0}' AND quota_type = '%{1}'"
-
-SQLNamedQuery get-quota-tally SELECT "name, quota_type, bytes_in_used, bytes_out_used, bytes_xfer_used, files_in_used, files_out_used, files_xfer_used FROM ftpquotatallies WHERE name = '%{0}' AND quota_type = '%{1}'"
-
-SQLNamedQuery update-quota-tally UPDATE "bytes_in_used = bytes_in_used + %{0}, bytes_out_used = bytes_out_used + %{1}, bytes_xfer_used = bytes_xfer_used + %{2}, files_in_used = files_in_used + %{3}, files_out_used = files_out_used + %{4}, files_xfer_used = files_xfer_used + %{5} WHERE name = '%{6}' AND quota_type = '%{7}'" ftpquotatallies
-
-SQLNamedQuery insert-quota-tally INSERT "%{0}, %{1}, %{2}, %{3}, %{4}, %{5}, %{6}, %{7}" ftpquotatallies
-
-QuotaLimitTable sql:/get-quota-limit
-QuotaTallyTable sql:/get-quota-tally/update-quota-tally/insert-quota-tally
-
-# Banner for FTP command LIST
-# ===========================
-SQLNamedQuery gettally  SELECT "ROUND((bytes_in_used/1048576),2) FROM ftpquotatallies WHERE name='%u'"
-SQLNamedQuery getlimit  SELECT "ROUND((bytes_in_avail/1048576),2) FROM ftpquotalimits WHERE name='%u'"
-SQLNamedQuery getfree   SELECT "ROUND(((ftpquotalimits.bytes_in_avail-ftpquotatallies.bytes_in_used)/1048576),2) FROM ftpquotalimits,ftpquotatallies WHERE ftpquotalimits.name = '%u' AND ftpquotatallies.name = '%u'"
-
-SQLShowInfo   LIST    "226" "Used %{gettally}MB from %{getlimit}MB. You have %{getfree}MB available space."
-
-### End MySQL section ###
 
 DefaultRoot             ~ !adm
 RootLogin               off
 RequireValidShell       off
 
+## - AUTH
+RequireValidShell         off
+
+# default+_t
+#DefaultRoot               <%= @node[:proftpd][:default_root] %>
+DefaultRoot               ~ !adm
+RootLogin                 off
+AuthUserFile              /etc/proftpd/ftpd.passwd
+RequireValidShell         off
+# create a user's home directory on demand if it doesn't exist
+CreateHome on
+
+DirFakeUser               on myself
+DirFakeGroup              on ftpusers
+
 </Global>
 
 ### Begin virtual servers section ###
 
-<VirtualHost 10.73.232.153>
+<VirtualHost 10.5.33.45>
   ServerName            "* FTP *"
   ServerIdent                   off # MarkitSERV Access Control Policy 5.3
   Port                  21
@@ -384,7 +345,8 @@ RequireValidShell       off
   WtmpLog                       off
   ExtendedLog                   /var/log/proftpd/ftp-auth.log AUTH auth
 </VirtualHost>
-<VirtualHost 10.73.232.153>
+
+<VirtualHost 10.5.33.45>
   ServerName            "* SFTP *"
   ServerIdent                   off # MarkitSERV Access Control Policy 5.3
   SFTPEngine                    on
@@ -392,211 +354,63 @@ RequireValidShell       off
   WtmpLog                       off
   ExtendedLog                   /var/log/proftpd/sftp-auth.log AUTH auth
   # per http://www.proftpd.org/docs/contrib/mod_sftp_sql.html
-  SFTPHostKey /etc/ssh/sftp_host_dsa_key
-  SFTPHostKey /etc/ssh/sftp_host_rsa_key
-SFTPAuthorizedUserKeys file:/etc/ssh/authorized_keys/%u
-DebugLevel 0
-SFTPLog /var/log/proftpd/SFTP.log
-      # Enable compression
-      SFTPCompression delayed
-
-      # Allow the same number of authentication attempts as OpenSSH.
-      #
-      # It is recommended that you explicitly configure MaxLoginAttempts
-      # for your SSH2/SFTP instance to be higher than the normal
-      # MaxLoginAttempts value for FTP, as there are more ways to authenticate
-      # using SSH2.
-      MaxLoginAttempts 6
-
-  # These are for difficult clients. Tested, should work, came from the FAQ.  Tested as working by citi.
-
-    # channelPacketSize 32KB channelWindowSize 4GB sftpProtocolVersion 1-6
-    #
-    # General fixes from the mod_sftp forum
-    SFTPClientMatch ".*WS_FTP.*" channelWindowSize 1GB    #WS_FTP initial window size
-    SFTPClientMatch ".*ClientSftp" sftpProtocolVersion 3  #CuteFTPPro8
-    SFTPClientMatch ".*WinSCP.*" sftpProtocolVersion 3    #upload/download fix for WinSCP
-    #
-    # SecureBlackbox (SSH-2.0-SecureBlackbox.7)
-    # http://www.eldos.com/sbb/download-release.php
-    SFTPClientMatch ".*SecureBlackbox.*" sftpProtocolVersion 3
-    #
-    # GoAnywhere (SSH-2.0-1.0)
-    # http://www.goanywheremft.com/products
-    SFTPClientMatch "1.0" sftpProtocolVersion 3 channelWindowSize 1GB
-    #
-    # JaSFtp (SSH-2.0-J2SSH_Maverick_1.2.10_Sterling Commerce)
-    # http://www.hiteksoftware.com/jasf/
-    SFTPClientMatch ".*J2SSH_Maverick.*" channelWindowSize 1GB
-    #
-    # Robo-FTP (SSH-2.0-WeOnlyDo)
-    # http://www.robo-ftp.com/
-    SFTPClientMatch ".*WeOnlyDo.*" sftpProtocolVersion 3 channelWindowSize 1GB
-    #
-    # Network Automation (SSH-2.0-EldoS.SSHBlackbox.3)
-    # http://www.networkautomation.com/
-    SFTPClientMatch ".*EldoS.SSHBlackbox.3.*" sftpProtocolVersion 3 channelWindowSize 1GB
-    #
-    # /n Software BizTalk SFTP Receive (SSH-2.0-IP*Works! SSH Client v8.0)
-    # http://www.nsoftware.com/products/biztalk/adapters/sftp.aspx
-    SFTPClientMatch ".*IP.Works.*" channelWindowSize 1GB
-    #
-    # JSch - Java Secure Channel (SSH-2.0-JSCH-0.1.39)
-    # http://www.jcraft.com/jsch/
-    SFTPClientMatch "JSCH.*" channelWindowSize 1GB
-
-    # Change the channelWindowSize to 1GB. Some SFTP clients, including ThinFile, can't
-    # deal with a channelWindowSize >2GB, and will hang when logging in. For more, see
-    # the QA on: http://www.castaglia.org/proftpd/modules/mod_sftp.html
-    SFTPClientMatch .* channelWindowSize 1GB
-
-</VirtualHost>
-
-<VirtualHost 10.73.22.153>
-  ServerName            "* FTP *"
-  ServerIdent                   off # MarkitSERV Access Control Policy 5.3
-  Port                  21
-  PassivePorts          60000 65535
-  WtmpLog                       off
-  ExtendedLog                   /var/log/proftpd/ftp-auth.log AUTH auth
-</VirtualHost>
-<VirtualHost 10.73.22.153>
-  ServerName            "* SFTP *"
-  ServerIdent                   off # MarkitSERV Access Control Policy 5.3
-  SFTPEngine                    on
-  Port                  2022
-  WtmpLog                       off
-  ExtendedLog                   /var/log/proftpd/sftp-auth.log AUTH auth
-  # per http://www.proftpd.org/docs/contrib/mod_sftp_sql.html
-  SFTPHostKey /etc/ssh/sftp_host_dsa_key
-  SFTPHostKey /etc/ssh/sftp_host_rsa_key
-      # Enable compression
-      SFTPCompression delayed
-
-      # Allow the same number of authentication attempts as OpenSSH.
-      #
-      # It is recommended that you explicitly configure MaxLoginAttempts
-      # for your SSH2/SFTP instance to be higher than the normal
-      # MaxLoginAttempts value for FTP, as there are more ways to authenticate
-      # using SSH2.
-      MaxLoginAttempts 6
-
-  # These are for difficult clients. Tested, should work, came from the FAQ.  Tested as working by citi.
-
-    # channelPacketSize 32KB channelWindowSize 4GB sftpProtocolVersion 1-6
-    #
-    # General fixes from the mod_sftp forum
-    SFTPClientMatch ".*WS_FTP.*" channelWindowSize 1GB    #WS_FTP initial window size
-    SFTPClientMatch ".*ClientSftp" sftpProtocolVersion 3  #CuteFTPPro8
-    SFTPClientMatch ".*WinSCP.*" sftpProtocolVersion 3    #upload/download fix for WinSCP
-    #
-    # SecureBlackbox (SSH-2.0-SecureBlackbox.7)
-    # http://www.eldos.com/sbb/download-release.php
-    SFTPClientMatch ".*SecureBlackbox.*" sftpProtocolVersion 3
-    #
-    # GoAnywhere (SSH-2.0-1.0)
-    # http://www.goanywheremft.com/products
-    SFTPClientMatch "1.0" sftpProtocolVersion 3 channelWindowSize 1GB
-    #
-    # JaSFtp (SSH-2.0-J2SSH_Maverick_1.2.10_Sterling Commerce)
-    # http://www.hiteksoftware.com/jasf/
-    SFTPClientMatch ".*J2SSH_Maverick.*" channelWindowSize 1GB
-    #
-    # Robo-FTP (SSH-2.0-WeOnlyDo)
-    # http://www.robo-ftp.com/
-    SFTPClientMatch ".*WeOnlyDo.*" sftpProtocolVersion 3 channelWindowSize 1GB
-    #
-    # Network Automation (SSH-2.0-EldoS.SSHBlackbox.3)
-    # http://www.networkautomation.com/
-    SFTPClientMatch ".*EldoS.SSHBlackbox.3.*" sftpProtocolVersion 3 channelWindowSize 1GB
-    #
-    # /n Software BizTalk SFTP Receive (SSH-2.0-IP*Works! SSH Client v8.0)
-    # http://www.nsoftware.com/products/biztalk/adapters/sftp.aspx
-    SFTPClientMatch ".*IP.Works.*" channelWindowSize 1GB
-    #
-    # JSch - Java Secure Channel (SSH-2.0-JSCH-0.1.39)
-    # http://www.jcraft.com/jsch/
-    SFTPClientMatch "JSCH.*" channelWindowSize 1GB
-
-    # Change the channelWindowSize to 1GB. Some SFTP clients, including ThinFile, can't
-    # deal with a channelWindowSize >2GB, and will hang when logging in. For more, see
-    # the QA on: http://www.castaglia.org/proftpd/modules/mod_sftp.html
-    SFTPClientMatch .* channelWindowSize 1GB
-
-</VirtualHost>
-
-<VirtualHost 10.73.32.153>
-  ServerName            "* FTP *"
-  ServerIdent                   off # MarkitSERV Access Control Policy 5.3
-  Port                  21
-  PassivePorts          60000 65535
-  WtmpLog                       off
-  ExtendedLog                   /var/log/proftpd/ftp-auth.log AUTH auth
-</VirtualHost>
-<VirtualHost 10.73.32.153>
-  ServerName            "* SFTP *"
-  ServerIdent                   off # MarkitSERV Access Control Policy 5.3
-  SFTPEngine                    on
-  Port                  2022
-  WtmpLog                       off
-  ExtendedLog                   /var/log/proftpd/sftp-auth.log AUTH auth
-  # per http://www.proftpd.org/docs/contrib/mod_sftp_sql.html
-  SFTPHostKey /etc/ssh/sftp_host_dsa_key
-  SFTPHostKey /etc/ssh/sftp_host_rsa_key
+  SFTPHostKey /etc/ssh/ssh_host_dsa_key
+  SFTPHostKey /etc/ssh/ssh_host_rsa_key
   SFTPAuthorizedUserKeys file:/etc/ssh/authorized_keys/%u
-SFTPLog /var/log/proftpd/SFTP.log
-      # Enable compression
-      SFTPCompression delayed
+  SFTPAuthMethods         publickey password
+  DebugLevel 0
+  SFTPLog /var/log/proftpd/SFTP.log
+  # Enable compression
+  SFTPCompression delayed
 
-      # Allow the same number of authentication attempts as OpenSSH.
-      #
-      # It is recommended that you explicitly configure MaxLoginAttempts
-      # for your SSH2/SFTP instance to be higher than the normal
-      # MaxLoginAttempts value for FTP, as there are more ways to authenticate
-      # using SSH2.
-      MaxLoginAttempts 6
+  # Allow the same number of authentication attempts as OpenSSH.
+  #
+  # It is recommended that you explicitly configure MaxLoginAttempts
+  # for your SSH2/SFTP instance to be higher than the normal
+  # MaxLoginAttempts value for FTP, as there are more ways to authenticate
+  # using SSH2.
+  MaxLoginAttempts 6
 
   # These are for difficult clients. Tested, should work, came from the FAQ.  Tested as working by citi.
 
-    # channelPacketSize 32KB channelWindowSize 4GB sftpProtocolVersion 1-6
-    #
-    # General fixes from the mod_sftp forum
-    SFTPClientMatch ".*WS_FTP.*" channelWindowSize 1GB    #WS_FTP initial window size
-    SFTPClientMatch ".*ClientSftp" sftpProtocolVersion 3  #CuteFTPPro8
-    SFTPClientMatch ".*WinSCP.*" sftpProtocolVersion 3    #upload/download fix for WinSCP
-    #
-    # SecureBlackbox (SSH-2.0-SecureBlackbox.7)
-    # http://www.eldos.com/sbb/download-release.php
-    SFTPClientMatch ".*SecureBlackbox.*" sftpProtocolVersion 3
-    #
-    # GoAnywhere (SSH-2.0-1.0)
-    # http://www.goanywheremft.com/products
-    SFTPClientMatch "1.0" sftpProtocolVersion 3 channelWindowSize 1GB
-    #
-    # JaSFtp (SSH-2.0-J2SSH_Maverick_1.2.10_Sterling Commerce)
-    # http://www.hiteksoftware.com/jasf/
-    SFTPClientMatch ".*J2SSH_Maverick.*" channelWindowSize 1GB
-    #
-    # Robo-FTP (SSH-2.0-WeOnlyDo)
-    # http://www.robo-ftp.com/
-    SFTPClientMatch ".*WeOnlyDo.*" sftpProtocolVersion 3 channelWindowSize 1GB
-    #
-    # Network Automation (SSH-2.0-EldoS.SSHBlackbox.3)
-    # http://www.networkautomation.com/
-    SFTPClientMatch ".*EldoS.SSHBlackbox.3.*" sftpProtocolVersion 3 channelWindowSize 1GB
-    #
-    # /n Software BizTalk SFTP Receive (SSH-2.0-IP*Works! SSH Client v8.0)
-    # http://www.nsoftware.com/products/biztalk/adapters/sftp.aspx
-    SFTPClientMatch ".*IP.Works.*" channelWindowSize 1GB
-    #
-    # JSch - Java Secure Channel (SSH-2.0-JSCH-0.1.39)
-    # http://www.jcraft.com/jsch/
-    SFTPClientMatch "JSCH.*" channelWindowSize 1GB
+  # channelPacketSize 32KB channelWindowSize 4GB sftpProtocolVersion 1-6
+  #
+  # General fixes from the mod_sftp forum
+  SFTPClientMatch ".*WS_FTP.*" channelWindowSize 1GB    #WS_FTP initial window size
+  SFTPClientMatch ".*ClientSftp" sftpProtocolVersion 3  #CuteFTPPro8
+  SFTPClientMatch ".*WinSCP.*" sftpProtocolVersion 3    #upload/download fix for WinSCP
+  #
+  # SecureBlackbox (SSH-2.0-SecureBlackbox.7)
+  # http://www.eldos.com/sbb/download-release.php
+  SFTPClientMatch ".*SecureBlackbox.*" sftpProtocolVersion 3
+  #
+  # GoAnywhere (SSH-2.0-1.0)
+  # http://www.goanywheremft.com/products
+  SFTPClientMatch "1.0" sftpProtocolVersion 3 channelWindowSize 1GB
+  #
+  # JaSFtp (SSH-2.0-J2SSH_Maverick_1.2.10_Sterling Commerce)
+  # http://www.hiteksoftware.com/jasf/
+  SFTPClientMatch ".*J2SSH_Maverick.*" channelWindowSize 1GB
+  #
+  # Robo-FTP (SSH-2.0-WeOnlyDo)
+  # http://www.robo-ftp.com/
+  SFTPClientMatch ".*WeOnlyDo.*" sftpProtocolVersion 3 channelWindowSize 1GB
+  #
+  # Network Automation (SSH-2.0-EldoS.SSHBlackbox.3)
+  # http://www.networkautomation.com/
+  SFTPClientMatch ".*EldoS.SSHBlackbox.3.*" sftpProtocolVersion 3 channelWindowSize 1GB
+  #
+  # /n Software BizTalk SFTP Receive (SSH-2.0-IP*Works! SSH Client v8.0)
+  # http://www.nsoftware.com/products/biztalk/adapters/sftp.aspx
+  SFTPClientMatch ".*IP.Works.*" channelWindowSize 1GB
+  #
+  # JSch - Java Secure Channel (SSH-2.0-JSCH-0.1.39)
+  # http://www.jcraft.com/jsch/
+  SFTPClientMatch "JSCH.*" channelWindowSize 1GB
 
-    # Change the channelWindowSize to 1GB. Some SFTP clients, including ThinFile, can't
-    # deal with a channelWindowSize >2GB, and will hang when logging in. For more, see
-    # the QA on: http://www.castaglia.org/proftpd/modules/mod_sftp.html
-    SFTPClientMatch .* channelWindowSize 1GB
+  # Change the channelWindowSize to 1GB. Some SFTP clients, including ThinFile, can't
+  # deal with a channelWindowSize >2GB, and will hang when logging in. For more, see
+  # the QA on: http://www.castaglia.org/proftpd/modules/mod_sftp.html
+  SFTPClientMatch .* channelWindowSize 1GB
 
 </VirtualHost>
-### End virtual servers section ###
