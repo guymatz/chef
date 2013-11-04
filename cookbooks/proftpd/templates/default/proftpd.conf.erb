@@ -23,6 +23,10 @@ UseIPv6                   on
 Port                      <%= node[:proftpd][:port] %>
 DefaultAddress            <%= node[:proftpd][:default_address] %>
 
+# Define the log formats
+LogFormat                       default "%h %l %u %t \"%r\" %s %b"
+LogFormat                       auth    "%v [%P] %h %t \"%r\" %s"
+
 <% if @node[:proftpd][:nat] != "off" %>
 # In some cases you have to specify passive ports range to by-pass
 # firewall limitations. Ephemeral ports can be used for that, but
@@ -87,9 +91,13 @@ ShowSymlinks              <%= @node[:proftpd][:show_symlinks] %>
 RequireValidShell         <%= @node[:proftpd][:require_valid_shell] %>
 
 # chroot
-DefaultRoot               <%= @node[:proftpd][:default_root] %>
+#DefaultRoot               <%= @node[:proftpd][:default_root] %>
+DefaultRoot               ~ !adm
+RootLogin                 off
 AuthUserFile              <%= @node[:proftpd][:user_file] %>
 RequireValidShell         off
+# create a user's home directory on demand if it doesn't exist
+CreateHome on
 
 DirFakeUser               on <%= @node[:proftpd][:dir_fakeuser] %>
 DirFakeGroup              on <%= @node[:proftpd][:dir_fakegroup] %>
@@ -112,12 +120,14 @@ DirFakeGroup              on <%= @node[:proftpd][:dir_fakegroup] %>
   WtmpLog               off
   ExtendedLog           /var/log/proftpd/sftp-auth.log AUTH auth
   # per http://www.proftpd.org/docs/contrib/mod_sftp_sql.html
-  SFTPHostKey /etc/ssh/sftp_host_dsa_key
-  SFTPHostKey /etc/ssh/sftp_host_rsa_key
+  SFTPHostKey /etc/ssh/ssh_host_dsa_key
+  SFTPHostKey /etc/ssh/ssh_host_rsa_key
   SFTPAuthorizedUserKeys file:/etc/ssh/authorized_keys/%u
   SFTPLog /var/log/proftpd/SFTP.log
   # Enable compression
   SFTPCompression delayed
+  # list of available authentication methods presented to connecting clients
+  SFTPAuthMethods publickey password
 
   # Allow the same number of authentication attempts as OpenSSH.
   MaxLoginAttempts 6
