@@ -20,19 +20,15 @@ default[:radioedit][:cms][:path] = "/data/apps/radioedit/radioedit-core"
 # Application Repositories
 default[:radioedit][:image][:repo] = "git@github.com:iheartradio/radioedit-img.git"
 default[:radioedit][:image][:branch] = "deploy"
-
 default[:radioedit][:cms][:repo] = "git@github.com:iheartradio/featcontent.git"
 default[:radioedit][:cms][:branch] = node.run_list.include?('role[radioedit_server_a]') ? 'deploy_a_release' : 'deploy'
 default[:radioedit][:cms][:static] = node.run_list.include?('role[radioedit_server_a]') ? 'staticv1' : 'static'
 
 # Requirements
 default[:radioedit][:image][:packages] = %w{ python-imaging python-psycopg2 postgresql-libs }
-
 default[:radioedit][:cms][:packages] = %w{ python-psycopg2 postgresql-libs libjpeg-devel }
-
 default[:radioedit][:core][:packages] = %w{ python27 python27-libs python27-devel python27-test python27-tools nginx zlib-devel libjpeg zlib gcc python-devel git libevent-devel libevent zeromq-devel zeromq python-setuptools python-ldap postgresql-devel openldap-devel varnish readline-devel patch libjpeg-devel }
 default[:radioedit][:core][:pips] = %w{ supervisor pymongo python-memcached gunicorn greenlet statsd pyzmq }
-
 default[:radioedit][:diablocore][:packages] = %w{ nginx zlib-devel libjpeg zlib gcc python-devel git libevent-devel libevent zeromq-devel zeromq }
 
 # Gunicorn Settings
@@ -54,7 +50,7 @@ default[:radioedit][:dev][:log_dir] = "/var/log/radioedit"
 default[:radioedit][:dev][:out_log] = "#{default[:radioedit][:dev][:log_dir]}/epona.log"
 default[:radioedit][:dev][:err_log] = "#{default[:radioedit][:dev][:log_dir]}/epona.err"
 default[:radioedit][:dev][:venv_path] = "#{default[:radioedit][:dev][:path]}/envs/core";
-default[:radioedit][:dev][:module] = "wsgi:application"
+default[:radioedit][:dev][:module] = "wsgi"
 default[:radioedit][:dev][:repo] = "git@github.ihrint.com:radioedit/core.git"
 default[:radioedit][:dev][:branch] = "release"
 default[:radioedit][:dev][:intbranch] = "testing"
@@ -62,13 +58,14 @@ default[:radioedit][:dev][:packages] = %w{ libevent memcached python27 python27-
 default[:radioedit][:dev][:pips] = %w{ supervisor pymongo python-memcached greenlet statsd pyzmq flask flask-cache flask-pymongo pillow blinker celery colorama docutils gevent-websocket jsonschema mock pql pylibmc pyparsing python-dateutil python-ldap requests simplejson raven pytest }
 default[:radioedit][:dev][:env] = "ihr_testing"
 default[:radioedit][:dev][:num_workers] = 5
+default[:radioedit][:dev][:log_level] = "DEBUG"
 default[:radioedit][:dev][:port] = "/var/tmp/radioedit-cms.sock"
 default[:radioedit][:dev][:listen] = "/var/tmp/radioedit-cms.sock"
 default[:radioedit][:dev][:host] = "unix"
 default[:radioedit][:dev][:utildir] = "#{default[:radioedit][:dev][:path]}/util"
 default[:radioedit][:dev][:asset_dir] = "/data/binstore"
 default[:radioedit][:dev][:cdn_url] = "http://10.5.1.29/"
-default[:radioedit][:dev][:mongo_cstring] = "mongodb://use1b-radioedit-test102.ihr:37017/radioedit-f"
+default[:radioedit][:dev][:mongo_cstring] = "mongodb://use1b-radioedit-test102.ihr:37017,use1b-radioedit-test103.ihr:37017,use1b-radioedit-test103.ihr:37017/radioedit-f?replica_set=radioedit1"
 default[:radioedit][:dev][:req_dirs] = %w{ 
   /data 
   /data/binstore
@@ -157,6 +154,7 @@ default[:radioedit][:staging][:err_log] = "#{default[:radioedit][:staging][:log_
 default[:radioedit][:staging][:venv_path] = "#{default[:radioedit][:staging][:path]}/envs/core";
 default[:radioedit][:staging][:module] = "wsgi:application"
 default[:radioedit][:staging][:num_workers] = 5
+default[:radioedit][:staging][:log_level] = "DEBUG"
 default[:radioedit][:staging][:port] = "/var/tmp/radioedit-cms.sock"
 default[:radioedit][:staging][:listen] = "/var/tmp/radioedit-cms.sock"
 default[:radioedit][:staging][:host] = "unix"
@@ -164,7 +162,7 @@ default[:radioedit][:staging][:utildir] = "#{default[:radioedit][:staging][:path
 default[:radioedit][:staging][:staticdir] = "#{default[:radioedit][:staging][:path]}/static"
 default[:radioedit][:staging][:asset_dir] = "/data/binstore"
 default[:radioedit][:staging][:cdn_url] = "http://10.5.1.28/"
-default[:radioedit][:staging][:mongo_cstring] = "mongodb://use1b-radioedit-test102.ihr:37017/radioedit-epona"
+default[:radioedit][:staging][:mongo_cstring] = "mongodb://use1b-radioedit-test102.ihr:37017,use1b-radioedit-test103.ihr:37017,use1b-radioedit-test103.ihr:37017/radioedit-epona?replica_set=radioedit1"
 default[:radioedit][:staging][:req_dirs] = %w{ 
   /data 
   /data/binstore
@@ -250,8 +248,9 @@ default[:radioedit][:production][:log_dir] = "/var/log/radioedit"
 default[:radioedit][:production][:out_log] = "#{default[:radioedit][:production][:log_dir]}/application.log"
 default[:radioedit][:production][:err_log] = "#{default[:radioedit][:production][:log_dir]}/applicaiton.err"
 default[:radioedit][:production][:venv_path] = "#{default[:radioedit][:production][:path]}/envs/core";
-default[:radioedit][:production][:module] = "wsgi:application"
+default[:radioedit][:production][:module] = "wsgi"
 default[:radioedit][:production][:num_workers] = 5
+default[:radioedit][:production][:log_level] = "WARNING"
 default[:radioedit][:production][:port] = "/var/tmp/radioedit-cms.sock"
 default[:radioedit][:production][:listen] = "/var/tmp/radioedit-cms.sock"
 default[:radioedit][:production][:host] = "unix"
@@ -259,7 +258,7 @@ default[:radioedit][:production][:utildir] = "#{default[:radioedit][:production]
 default[:radioedit][:production][:staticdir] = "#{default[:radioedit][:production][:path]}/static"
 default[:radioedit][:production][:asset_dir] = "/data/binstore"
 default[:radioedit][:production][:cdn_url] = "http://images.iheart.com/"
-default[:radioedit][:production][:mongo_cstring] = "mongodb://iad-mongo-shared101.ihr:37017/radioedit-f"
+default[:radioedit][:production][:mongo_cstring] = "mongodb://iad-mongo-shared101.ihr:37017,iad-mongo-shared102.ihr:37017,iad-mongo-shared103.ihr:37017/radioedit-f?replica_set=Mongo-shared1"
 default[:radioedit][:production][:req_dirs] = %w{ 
   /data 
   /data/binstore
