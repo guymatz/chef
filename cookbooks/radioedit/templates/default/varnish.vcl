@@ -10,7 +10,7 @@ sub vcl_hash {
         hash_data(server.ip);
     }
     if (req.http.X-LocalTime) {
-        hash_data(req.http.X-LocalTime);
+        hash_data(regsub(req.http.X-LocalTime, ":\d+:\d+", ""));
     }
     return (hash);
 }
