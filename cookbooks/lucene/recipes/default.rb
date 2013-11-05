@@ -20,7 +20,7 @@ unless tagged?(deployed_tag)
   end
 
   # mercurial is a kludge/requirement for for editdist install below
-  %w{ python27 python27-devel java-1.7.0-openjdk-devel emacs gcc ant apache-ivy glibc-devel freetds unixODBC-devel mercurial }.each do |pkg|
+  %w{ python27 python27-devel java-1.7.0-openjdk-devel emacs gcc ant apache-ivy glibc-devel freetds freetds-devel unixODBC-devel mercurial }.each do |pkg|
     package pkg do
       action :install
     end
@@ -39,9 +39,9 @@ unless tagged?(deployed_tag)
     action :create
   end
 
-  pips = [ 'pyodbc', ' -e hg+https://code.google.com/p/py-editdist/#egg=editdist' ]
-
-  pips.each do |p|
+  # No idea why this has to work as an array
+  odbc_pip = [ 'pyodbc', ' -e hg+https://code.google.com/p/py-editdist/#egg=editdist' ]
+  odbc_pip.each do |p|
     python_pip p do
       virtualenv '/data/apps/names/venv'
       action :install
@@ -59,14 +59,17 @@ unless tagged?(deployed_tag)
     version "2.15"
     action :install
   end
+ 
+  #  Needs freetds-devel to build (See RPMs above)
+  python_pip "pymssql" do 
+    virtualenv "/data/apps/names/venv"
+    action :install
+  end
 
+
+  # Builds lucene/pylucene from source
   include_recipe "lucene::install_from_release"
 
-  # service "elasticsearch" do
-  #   supports :start => true, :stop =>true, :restart => true
-  #   action :enable
-  # end
-  
   tag(deployed_tag)
 else
   log "NOT executing lucene due to tag: #{deployed_tag}" do
