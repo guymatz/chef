@@ -86,7 +86,7 @@ end
 
 # gp adding these templates to a util directory until a way using existing chef resource objects is found.
 template "#{node[:radioedit][:production][:utildir]}/supervisor" do
-  source "addenvs-supervisor.initd.erb"
+  source "production-supervisor.initd.erb"
   owner "root"
   group "root"
   mode 0755
@@ -94,7 +94,7 @@ template "#{node[:radioedit][:production][:utildir]}/supervisor" do
 end
 
 template "#{node[:radioedit][:production][:utildir]}/radioedit.conf" do
-  source "prod-radioedit.conf.erb"
+  source "production-radioedit.conf.erb"
   owner "root"
   group "root"
   mode 0666
@@ -102,7 +102,7 @@ template "#{node[:radioedit][:production][:utildir]}/radioedit.conf" do
 end
 
 template "#{node[:radioedit][:production][:utildir]}/upd_confs.sh" do
-  source "prod-reset-configs.sh.erb"
+  source "production-reset-configs.sh.erb"
   owner "root"
   group "root"
   mode 0755
