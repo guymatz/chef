@@ -14,6 +14,9 @@ ServerAdmin                     root@localhost
 #DefaultServer                  on
 Port                            0 #disable non-virtual FTP server
 SocketBindTight                 on
+User                      vftp
+Group                     vftp
+
 
 # TraceLog /var/log/proftpd/trace.log
 # Trace ssh2:20 sftp:10 scp:10
