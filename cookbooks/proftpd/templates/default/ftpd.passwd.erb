@@ -1,0 +1,32 @@
+<%
+
+  # This is defined in proftpd/libraries/helper.rb
+  # But I can't get it to work from there
+	def hash_pwd(pwd)
+		#Chef::Log.info("pwd #{pwd}")
+		#puts "pwd #{pwd}"
+		return if pwd.nil?
+	  salt_string = '$1$iheartrd'
+	  pwd.crypt( salt_string )  
+	end
+%>
+<%
+  @users.sort.each do |username, user_info|
+  	#Chef::Log.info("user_info #{user_info}")
+  	next unless user_info.is_a?(Hash)
+	  pwd = hash_pwd(user_info['password'])
+	  uid = @node[:proftpd][:uid]
+	  gid = uid
+	  home_dir = "#{@node[:proftpd][:default_root]}/#{username}"
+	  shell = @node[:proftpd][:default_shell]
+	  gecos = username
+
+	  entry = "#{username}:#{pwd}:#{uid}:#{gid}:#{gecos}:#{home_dir}:#{shell}"
+%>
+<%=
+entry
+%>
+<%  
+  end
+%>
+
