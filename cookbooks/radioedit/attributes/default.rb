@@ -65,7 +65,7 @@ default[:radioedit][:dev][:host] = "unix"
 default[:radioedit][:dev][:utildir] = "#{default[:radioedit][:dev][:path]}/util"
 default[:radioedit][:dev][:asset_dir] = "/data/binstore"
 default[:radioedit][:dev][:cdn_url] = "http://10.5.1.29/"
-default[:radioedit][:dev][:mongo_cstring] = "mongodb://use1b-radioedit-test102.ihr:37017,use1b-radioedit-test103.ihr:37017,use1b-radioedit-test103.ihr:37017/radioedit-f?replica_set=radioedit1"
+default[:radioedit][:dev][:mongo_cstring] = "mongodb://use1b-radioedit-test102.ihr:37017,use1b-radioedit-test103.ihr:37017,use1b-radioedit-test103.ihr:37017/radioedit-f?replicaSet=radioedit1"
 default[:radioedit][:dev][:req_dirs] = %w{ 
   /data 
   /data/binstore
@@ -162,7 +162,7 @@ default[:radioedit][:staging][:utildir] = "#{default[:radioedit][:staging][:path
 default[:radioedit][:staging][:staticdir] = "#{default[:radioedit][:staging][:path]}/static"
 default[:radioedit][:staging][:asset_dir] = "/data/binstore"
 default[:radioedit][:staging][:cdn_url] = "http://10.5.1.28/"
-default[:radioedit][:staging][:mongo_cstring] = "mongodb://use1b-radioedit-test102.ihr:37017,use1b-radioedit-test103.ihr:37017,use1b-radioedit-test103.ihr:37017/radioedit-epona?replica_set=radioedit1"
+default[:radioedit][:staging][:mongo_cstring] = "mongodb://use1b-radioedit-test102.ihr:37017,use1b-radioedit-test103.ihr:37017,use1b-radioedit-test103.ihr:37017/radioedit-epona?replicaSet=radioedit1"
 default[:radioedit][:staging][:req_dirs] = %w{ 
   /data 
   /data/binstore
@@ -258,7 +258,7 @@ default[:radioedit][:production][:utildir] = "#{default[:radioedit][:production]
 default[:radioedit][:production][:staticdir] = "#{default[:radioedit][:production][:path]}/static"
 default[:radioedit][:production][:asset_dir] = "/data/binstore"
 default[:radioedit][:production][:cdn_url] = "http://images.iheart.com/"
-default[:radioedit][:production][:mongo_cstring] = "mongodb://iad-mongo-shared101.ihr:37017,iad-mongo-shared102.ihr:37017,iad-mongo-shared103.ihr:37017/radioedit-f?replica_set=Mongo-shared1"
+default[:radioedit][:production][:mongo_cstring] = "mongodb://iad-mongo-shared101.ihr:37017,iad-mongo-shared102.ihr:37017,iad-mongo-shared103.ihr:37017/radioedit-f?replicaSet=Mongo-shared1"
 default[:radioedit][:production][:req_dirs] = %w{ 
   /data 
   /data/binstore
