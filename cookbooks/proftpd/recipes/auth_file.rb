@@ -7,12 +7,9 @@
 # All rights reserved - Do Not Redistribute
 #
 
-# class Chef::Recipe
-#   include Helper
-# end
-
-cookbook_file node[:proftpd][:user_file] do
-  action :create_if_missing
+# Required for "custom" hash function in template
+class Chef::Recipe::Proftpd
+  include Helper
 end
 
 # Get our encrypted data
@@ -26,4 +23,5 @@ template "#{node[:proftpd][:user_file]}" do
   variables(
     :users => users
   )
+  helpers(Helper)
 end
