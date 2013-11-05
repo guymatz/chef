@@ -65,7 +65,7 @@ default[:radioedit][:dev][:host] = "unix"
 default[:radioedit][:dev][:utildir] = "#{default[:radioedit][:dev][:path]}/util"
 default[:radioedit][:dev][:asset_dir] = "/data/binstore"
 default[:radioedit][:dev][:cdn_url] = "http://10.5.1.29/"
-default[:radioedit][:dev][:mongo_cstring] = "mongodb://use1b-radioedit-test102.ihr:37017,use1b-radioedit-test103.ihr:37017,use1b-radioedit-test103.ihr:37017/radioedit-f?replicaSet=RadioEdit1"
+default[:radioedit][:dev][:mongo_cstring] = "mongodb://use1b-radioedit-test102.ihr:37017,use1b-radioedit-test103.ihr:37017,use1b-radioedit-test104.ihr:37017/radioedit-f?replicaSet=RadioEdit1"
 default[:radioedit][:dev][:req_dirs] = %w{ 
   /data 
   /data/binstore
@@ -162,7 +162,7 @@ default[:radioedit][:staging][:utildir] = "#{default[:radioedit][:staging][:path
 default[:radioedit][:staging][:staticdir] = "#{default[:radioedit][:staging][:path]}/static"
 default[:radioedit][:staging][:asset_dir] = "/data/binstore"
 default[:radioedit][:staging][:cdn_url] = "http://10.5.1.28/"
-default[:radioedit][:staging][:mongo_cstring] = "mongodb://use1b-radioedit-test102.ihr:37017,use1b-radioedit-test103.ihr:37017,use1b-radioedit-test103.ihr:37017/radioedit-epona?replicaSet=RadioEdit1"
+default[:radioedit][:staging][:mongo_cstring] = "mongodb://use1b-radioedit-test102.ihr:37017,use1b-radioedit-test103.ihr:37017,use1b-radioedit-test104.ihr:37017/radioedit-epona?replicaSet=RadioEdit1"
 default[:radioedit][:staging][:req_dirs] = %w{ 
   /data 
   /data/binstore
