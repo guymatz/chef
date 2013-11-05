@@ -1,5 +1,0 @@
-{
-  "id": "Radioedit-Proc-Check",
-  "hostgroup_name": "radioedit",
-  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Radioedit-Proc-Check -t 20"
-}
