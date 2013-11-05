@@ -94,7 +94,7 @@ template "#{node[:radioedit][:production][:utildir]}/supervisor" do
 end
 
 template "#{node[:radioedit][:production][:utildir]}/radioedit.conf" do
-  source "production-radioedit.conf.erb"
+  source "production-nginx.conf.erb"
   owner "root"
   group "root"
   mode 0666
