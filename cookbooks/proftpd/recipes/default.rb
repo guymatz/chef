@@ -104,6 +104,10 @@ directory "#{node[:proftpd][:default_root]}" do
   mode 0700
 end
 
+# And we need a link to /Utility for historical reasons
+link "/Utility" do
+  to "#{node[:proftpd][:default_root]}" 
+end
 
 service "proftpd" do
   action [ :enable, :start ]
