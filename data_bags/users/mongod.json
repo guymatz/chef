@@ -2,7 +2,7 @@
     "id": "mongod",
     "name": "Mongod Service",
     "groups":   ["mongod"],
-    "shell":    "/sbin/nologin",
+    "shell":    "/bin/bash",
     "home": "/home/mongod",
     "uid": 4009
 }

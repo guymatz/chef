@@ -15,6 +15,8 @@ node[:mongodb][:packages].each do |mongo_pkg|
   end
 end
 
+include_recipe "users::mongo"
+
 directory "#{node[:mongodb][:logdir]}" do
   owner "mongod"
   group "mongod"
