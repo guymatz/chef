@@ -2,6 +2,7 @@
     "id": "mongod",
     "name": "Mongod Service",
     "groups":   ["mongod"],
+    "ssh_keys": [ "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAuZF3QBJgKjSP9cFugvQclGoYw5i72LNVpo1f7RImCG6tuzwTMHo9Ddj5ofJkwpu9WEGdx9EL6dszNKwz8r8KQnphyMYT//erxvDbhcqEB7VMQsHfklqDk+yWV8H1Wwmo6erWjyX4rCaa14gMFPVwEg6rqJtAdDy89h2nJFAUPKAz7NEqhqiiwIAwnSiopU4GW3DoG5tQW9ZTmcHgolOQgSo3hGTCw1XEv9sCeciTJgMcKIakkdCGFvbxwv/zAUeAK0TMC144sEgA4Ig3P3/J9+D/3RcBSzc4uaPPkae/R/lSwAHtXcuckpbGKLSphsoPEOejfOse4M8mz2t3wFJFHQ== mongod@iad-mongo-shared101.ihr", "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAxkH66jkSZoJ3yXNhYVYzeOIAnG3+eiU0sNhW/F6fvzx5UGNIDCUJYQqY/+L4q7SVp2TlbsWLRQvv6u+QjNzoFmYLrm7tEHxHFFz72XlHscVSFPA1UBluBcxr1X2t7K3js2/3ScnUrERADsNvIMJ8BoNJzXTN8qdaPrhOCde35thC2oRG1ZyE+TOZEDy4Z2ywbCZ9nqn/6cr9qXYfw9g4hzBzgNHWPY+6ZcmRkvEvLBVwXrYF5Hk/bCY+419jgw+J3nL46PJk6egDkkWvNEU2EyRiK7GkFpUw3QXsnIR2Af+ydQL8RHvxY5xuczdNlCRlQ66fwT6iYQrtq6wBdg41YQ== mongod@iad-mongo-restore101.ihr", "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAszee8GeceF7yTwgjokvDMYWON3/qUiJB4S2FRPF/yWZPtDd4QmJoFquMHSldbC0ZzxyG6uvTiuSK3f2usKpuh2JWluPJQQsfNTKD6+DOSOQItWGugV7hw7zQg17cwMOcYoD7LcdOKOn41R3gItM7cz3nKzBKpnGSp+Gm6fI86Z4Qdv0nF12Co6aLTjD12vnCImpHQ+qDz7RVIskoL6lFJOGSS6tJgfQ/Jwu9vGa/xvYoceCDmcf8CyKwpV+12YFNQ2a5B0rXR6IjYRz8tg3+KstnCNdYDbhbsC9j99vkq0F4kmlXwu9n94mkkjzaYRmPpq/CLrZi6uHUAA4VoMNKiw== mongod@iad-mongo-fac104.ihr" ],
     "shell":    "/bin/bash",
     "home": "/home/mongod",
     "uid": 4009
