@@ -50,7 +50,8 @@ end
 # Install nagios either from source of package
 include_recipe "nagios::server_#{node['nagios']['server']['install_method']}"
 
-sysadmins = search(:users, 'groups:sysadmin OR groups:nagios')
+sysadmins = search(:users, 'groups:sysadmin')
+nagiosusers = search(:users, 'groups:nagios')
 allcontacts = search(:users, 'groups:sysadmin')
 
 case node['nagios']['server_auth_method']
@@ -69,7 +70,7 @@ else
     group web_group
     mode 0640
     variables(
-              :sysadmins => sysadmins
+              :sysadmins => sysadmins.concat(nagiosusers)
               )
   end
 end
