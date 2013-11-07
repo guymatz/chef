@@ -207,3 +207,10 @@ default[:encoders][:p_ftp_export] = "/ifs/inbound-ftp"
 default[:encoders][:p_ftp_mount] = "/data/inbound-ftp"
 default[:encoders][:p_encoder_export] = "/ifs/encoder"
 default[:encoders][:p_encoder_mount] = "/data/isi-encoder"
+
+# stage nfs mounts
+default[:encoders][:stage_server] = "iad-stg-nfs101-v700.ihr"
+default[:encoders][:s_ftp_export] = "/data//export/inbound-ftp"
+default[:encoders][:s_ftp_mount] = "/data/inbound-ftp"
+default[:encoders][:s_encoder_export] = "/data/export/encoder"
+default[:encoders][:s_encoder_mount] = "/data/encoder"

@@ -18,7 +18,7 @@ begin
         path "#{node[:encoders][:deploy_path]}"
         deploy_key "encoder_deploy"
         repository node[:encoders][:github_url]
-        revision "master"
+        revision "qa"
     end
 
     deploy "converter" do
