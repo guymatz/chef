@@ -18,6 +18,7 @@
 #
 
 include_recipe "users::vftp"
+include_recipe "users::converter"
 
 if node[:proftpd][:modules].include?('sql_mysql')
   package "proftpd-mod-mysql" do
@@ -50,31 +51,31 @@ end
 remote_directory "#{node[:proftpd][:dir]}/#{node[:proftpd][:dir_extra_conf]}" do
   source "conf.d"
   files_backup 0
-  files_owner node[:proftpd][:user]
-  files_group node[:proftpd][:group]
+  files_owner node[:proftpd][:ftp_user]
+  files_group node[:proftpd][:ftp_group]
   files_mode 0600
-  owner node[:proftpd][:user]
-  group node[:proftpd][:group]
+  owner node[:proftpd][:ftp_user]
+  group node[:proftpd][:ftp_group]
   mode 0700
 end
 
 directory "#{node[:proftpd][:dir]}/ssl" do
-  owner node[:proftpd][:user]
-  group node[:proftpd][:group]
+  owner node[:proftpd][:ftp_user]
+  group node[:proftpd][:ftp_group]
   mode 0700
 end
 
 directory "#{node[:proftpd][:dir]}/authorized_keys" do
-  owner node[:proftpd][:user]
-  group node[:proftpd][:group]
+  owner node[:proftpd][:ftp_user]
+  group node[:proftpd][:ftp_group]
   mode 0700
 end
 
 template "#{node[:proftpd][:dir]}/modules.conf" do
   source "modules.conf.erb"
   mode 0644
-  owner node[:proftpd][:user]
-  group node[:proftpd][:group]
+  owner node[:proftpd][:ftp_user]
+  group node[:proftpd][:ftp_group]
   notifies :restart, resources(:service => "proftpd")
 end
 
@@ -82,7 +83,7 @@ end
 # template "/etc/proftpd.conf" do
 #   source "proftpd.conf.erb"
 #   mode 0644
-#   owner node[:proftpd][:user]
+#   owner node[:proftpd][:ftp_user]
 #   group node[:proftpd][:group]
 #   notifies :restart, resources(:service => "proftpd")
 # end
@@ -99,9 +100,25 @@ end
 
 # Dir where ftp home dirs will be
 directory "#{node[:proftpd][:default_root]}" do
-  owner node[:proftpd][:user]
-  group node[:proftpd][:group]
+  owner node[:proftpd][:ftp_user]
+  group node[:proftpd][:ftp_group]
   mode 0700
+end
+
+# Dir where encoder will be mounted
+# the converter user needs acccess to these . . .
+directory "#{node[:proftpd][:encoder_mount_point]}" do
+  owner node[:proftpd][:conv_user]
+  group node[:proftpd][:conv_group]
+  mode 0755
+end
+
+# mount encoder from isilon for processing by incron
+mount node[:proftpd][:encoder_mount_point] do
+  device node[:proftpd][:encoder_export]
+  fstype "nfs"
+  options "ro"
+  action [:mount, :enable]
 end
 
 # And we need a link to /Utility for historical reasons

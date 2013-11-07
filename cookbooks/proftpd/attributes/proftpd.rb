@@ -1,10 +1,14 @@
+default[:proftpd][:encoder_export]       = "iad-isilon001.ihr:/data/encoder"
+default[:proftpd][:encoder_mount_point]  = "/data/encoder"
 default[:proftpd][:dir]                  = "/etc/proftpd"
 default[:proftpd][:dir_extra_conf]       = "conf.d"
 default[:proftpd][:nat]                  = "off"
 default[:proftpd][:server_name]          = "NULL"
 default[:proftpd][:email_admin]          = node[:admin_email]
-default[:proftpd][:user]                 = "vftp"
-default[:proftpd][:group]                = "vftp"
+default[:proftpd][:ftp_user]             = "vftp"
+default[:proftpd][:ftp_group]            = "vftp"
+default[:proftpd][:conv_user]            = "converter"
+default[:proftpd][:conv_group]           = "converter"
 default[:proftpd][:uid]                  = 999
 default[:proftpd][:max_instances]        = 30
 default[:proftpd][:max_clients_per_host] = 4
