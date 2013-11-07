@@ -2,5 +2,5 @@
   "id": "Mongodb-Memory-Used",
   "hostgroup_name": "mongodb_server",
   "command_line": "$USER1$/check_mongodb.py -H $HOSTADDRESS$ -A memory_mapped -P 37017 -W 125 -C 140",
-  "contact_groups": ["admins", "dba"]
+  "contact_groups": ["admins", "dba-team"]
 }
