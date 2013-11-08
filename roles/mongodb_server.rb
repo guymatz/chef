@@ -4,6 +4,8 @@ all_env = [
   "recipe[mongodb]",
   "recipe[mongodb::server]",
   "recipe[mongodb::ulimits]",
+  "recipe[users::deployer]",
+  "recipe[mongodb::admin_scripts]",
   "recipe[diamond::mongo]",
 ]
 run_list(all_env)

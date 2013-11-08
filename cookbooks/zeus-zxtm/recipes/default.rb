@@ -81,14 +81,14 @@ begin
       mode  0755
     end
 
-    cron "failover_check.py" do
-      command "/usr/bin/python /root/scripts/failover_check.py"
-      minute  "*"
-      hour    "*"
-      day     "*"
-      month   "*"
-      weekday "*"
-    end
+    #cron "failover_check.py" do
+    #  command "/usr/bin/python /root/scripts/failover_check.py"
+    #  minute  "*"
+    #  hour    "*"
+    #  day     "*"
+    #  month   "*"
+    #  weekday "*"
+    #end
 
     tag("zeus-deployed")
     end

@@ -2,9 +2,9 @@
     "id": "sspagnola",
     "name": "Steve Spagnola",
     "email": "@clearchannel.com",
-    "groups": ["dev", "webplayer"],
+    "groups": ["membase", "dev", "webplayer"],
     "ssh_keys": [
-        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDJejYY7xnxBhhcsm+1Afg+HfvxIFWXlh1sA+TpTRJOy7W5cmKPa+d98SybH923cI4BRcPCK8tHOcSc8wqwzmyWS9Z825Fww8ERFIPzlUwOiutdTyvrywTdBHsIf4V39JcZXntvG76fKdZMRd+tHseGVrRwenzGK5FXRLe9Zy72KLmZc9T2VQQNciTAQcq9TSkXgcb5F21PLP1aFQiXR1yeBWX3TR2TiCvLtZ/1109507JsbbdI9LuiBmf/KcL2aGx0a8rrsYFig/8P+FGpgXnq5G9a5KfJViVC7LzG98eCIvbpnqHFjHqBfoRoksTBv7BYjln9Mous3Ap/l4BPHEz/ stevespagnola@clearchannel.com"
+        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCl4nLMXgzzTz56YF3kzaX9ISu2Z2D22qh7t96D7E674DXJiO1vw7ZtpLiEydp7OHd1IXJkecArAk/EuWuoz8pRGXHYiiamM0uoUduyGg4A+nMA1EYCumuqhJqz9Alc7KXlPvBPDshh2wpLCbYWQTvgwkI8XUhby5vB+48hlex+JLRinlINH8S9oBKU/rTS5u0TgLLbrZMMZa8oJ5QAfCzrZo/rMiypkAR2Sd2iEgKpzXckwWyRFl3sWluuQGENECZEnOVHO9OEAOxew2NqGek/Za94NZ7fYwCoBlaEf9gWqYsNIw7OC5iv4sEDBbB8+md2Vv5WKiRSuKzizljQNKvB sspagnola@clearchannel.com"
     ],
     "shell":    "/bin/zsh",
     "htpasswd": "{SHA}Gx4A9QwVZ+BXn+AXTUj5X2VsvTs=",

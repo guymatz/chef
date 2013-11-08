@@ -1,7 +1,6 @@
 
 
 # Operations cookbook
-# written by Jake Plimack <jakeplimack@clearchannel.com
 #
 
 

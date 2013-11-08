@@ -3,13 +3,12 @@
 "uid": 5005,
     "name": "Lasse Hamre",
     "email": "lassehamre@clearchannel.com",
-    "groups": ["dev", "data-team", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch"],
+    "groups": ["heartbeat", "dev", "data-team", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch"],
     "nagios": {
         "email": "lassehamre@clearchannel.com"
     },
     "htpasswd": "{SHA}gTqndokzSIUwdog8TMd88J2+okY=",
     "ssh_keys": [
-    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCvshMpdx/Mbmy03sBJRd+e3R0DPRdH8yvxvJBvTZvLkhfSaP2eCldAY+u5Fa9lvGMsJrQ+DwGlvElBz/baTfeRn5UGvbukwwsuhcV3HMM+WYSf7a+3lW3FJN40PkM/UBgYmOSNuQiCenVUnu/wRkt0rjEISppja+OcS4/zMJgnpnFPRtSIryc3aL00sC3MNyr2zrxE8BkVwlaPAF23+GvyvE3qybFsLrSON5HVZ6hBn2CKpZqWzlTsZVWXoKp1qlu6zh1yJTenVJStHbMe6Cy3WjvC0wbjBFvyyOayRCdOnZPfpPB1Nt2KLMN5X3QKIGnk9AY68jPfnBpmTJhEHkgy7c+nF0HR434T3IK+E2xEM8moYurMTMpvJC8YguejW9oInWPCwXadmMTqfGCuaQ8inEUEgnn3poEe8vvHljVZqdBooCE5JdML+tODspqb8Hui4y4QyYMK3qnlg53uF33IisVchTR4TGBoszPC4Hv7uOTLuCyQmS9zYi7dVMy0NLuBhjc+DSMSnivzjhZd286HlainyJhP3GOuyYrHzqAHhAPBEdvWHVIkObCcNo7MDdCknWGekbga/BY0r7g9k0Q99kxfxeYcvP8v8YzLGSdMfyFpR2SHfL08nUJjmkJ4KLc/94iQYqcZCNIMpPgPeZx6ULv1jGMJZNo1q1rx2KNdSQ== lhamre@lhamer",
-    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDLA7JzR5nllnmndM89BQDVx9/G0ICTAjjumtidloKWFg3gEHnrDlOCR3KK+a53Je4MqToqXdaF640TOLhcz2Y0xFmQx0I3DLTN/yCJe+VzoODd1IzIBKHqnFVtAn85XIqbw+hTwYPXnTOD8TqnWfra4m2p3iRb+yQBaa/kzGdrMUJcsUX6cwZ2E01i9D8QFAzRSftV9Ze9YIccZzvPEZReKnh3zYDHJmn28lCaujvDC6NXWX0xobUOfIj3Sf236W3WKejGBwHTXCJUopDqJkw0bK0MRPJuv7FlHv+FcXBOvkeR3KSZB4goDSlADRPoH4jH4gMl9a/OJNWFp+u/63Kq95d4R2TwZ7YoEzFpiVN0vpXz1S6T3iH2XpQxgZ/neqYgj9+B7e4qZId2KIebwf2DwcGAuveycj7x1V+4QkAEidhKrZuSRNqs7Dcgaafs7yhsZxQHP4fxrf7hPKoZh9MRmR3wU8Baq2VEEZvinNE6eioUNMp70Z9WAW34U/XvC/nmWXmx2DOAJybdfqKlgCAl9tbR1b5Rek6i9OS5YmAmmrrg5Kg96Dtd15FBYxluSkcnnb93f1eK/ZN8H4SoyPovOI1aF3ql2uTgbQUJh0szC1w+YAOsWH08rwUSE5gUJkRG1ruvN/fICBUIPSNbMLkNl5onZEhwUwN/uhXnrQcGVw== /Users/lhamre/.ssh/id_rsa"
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtqeer0apFHKu3cyiRoi3kDVIhaQRrmqcxj8WAHjT2RxIzkINuVcvvGiRp1KGb6h0458TtuRCsVO0rL+rzkCoIBmZHRe3WZedcWvtANLYFTEgmC2gMt4Tw7GaX6/r4FHpjpiTXyLxjGOFlWWfcuJ6D8qgHG0qff9ynLT4fju3UVlHcI8h8mYGCgU6eXOiqKLOl8b3+7KK5xsmjjj84LXwLWJtqGcWbpa8Ox0sGO94VY/xHPyYcVBQYFST6qilVqmyPmaiIznctfkQc4FZ3vonNyu9Xsm0WwZ8F+8BEangknBZ5Hzvn3RJeAn1XO1jvu1cLUdlgFnRdA3W73pafiyZ3 lhamre@lhamre"
 ]
 }

@@ -54,7 +54,7 @@ file "/root/.ssh/config" do
   group "root"
   mode "0755"
   content <<-EOH
-  Host *github.com
+  Host *github*.com
     User ihr-deployer
     IdentityFile "/home/ihr-deployer/.ssh/id_rsa"
     StrictHostKeyChecking no

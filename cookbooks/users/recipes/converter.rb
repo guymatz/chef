@@ -35,7 +35,7 @@ file "/home/converter/.ssh/config" do
     group node[:encoders][:group]
     mode "0755"
     content <<-EOH
-        Host *github.com
+        Host *github*.com
         IdentityFile "/home/converter/.ssh/id_deploy"
         StrictHostKeyChecking no
     EOH

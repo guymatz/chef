@@ -1,0 +1,14 @@
+{
+  "environment" : "<%= node[:radioedit][:production][:env] %>",
+  "mongosd": {
+    "mongosconfigdbs": "<%= node[:radioedit][:production][:mongo_cstring] %>"
+  },
+  "memcached": {
+    "servers": [
+      "iad-radioedit101.ihr:11211",
+      "iad-radioedit102.ihr:11211"
+    ] 
+  },
+  "cdn_url": "<%= node[:radioedit][:production][:cdn_url] %>",
+  "binstore": "<%= node[:radioedit][:production][:asset_dir] %>"
+}

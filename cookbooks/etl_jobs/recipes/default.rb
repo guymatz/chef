@@ -53,17 +53,7 @@ cron_d "playlog_job" do
   minute "22,52"
 end
 
-directory "/data/jobs/profile"
-directory "/data/log/profile"
-remote_file "/data/jobs/profile/profile_job.jar" do
-  source "http://yum.ihr/files/jobs/profile/profile_job.jar"
-end
 
-#cron_d "profile_job" do
-#  command "/usr/bin/cronwrap iad-jobserver101.ihr profile-job \"/usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\\%s`\""
-#  minute 30
-#  hour 3
-#end
 
 #
 #ALTERED PER OPS-4760
@@ -467,16 +457,18 @@ cron_d "event_job" do
   hour 5
 end
 
+
 # Added per OPS-5313
+# updated per OPS-5649
 directory "/data/jobs/profile"
 directory "/data/log/profile"
 remote_file "/data/jobs/profile/profile_job.jar" do
   source "http://yum.ihr/files/jobs/profile/profile_job.jar"
 end
 cron_d "profile_job" do
-  command "/usr/bin/nsca_relay -S profile-job -- /usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\\%s`"
-  minute 30
-  hour 3
+  command "/usr/bin/nsca_relay -S profile-job -- /usr/lib/jvm/java-1.7.0/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=$(/bin/date +\\%s) favoritesStartDate=$(/bin/date +\\%Y\\%m\\%d)"
+  minute 0
+  hour 0
 end
 
 # GP 9/24/13 - Migrated from etl_jobs::ec2 as per OPS-5524

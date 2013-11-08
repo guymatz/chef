@@ -1,0 +1,33 @@
+import os
+CURRENT_PATH = os.path.abspath(os.path.dirname(__file__).decode('utf-8')).replace('\\', '/')
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+ADMINS = (
+    ('George Vilches', 'georgevilches@clearchannel.com'),
+)
+
+MANAGERS = ADMINS
+<% @partners_config = node["partners"]["config"]["#{@partners_env}"] %>
+<% @db_creds = @db_creds.to_hash %>
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_pyodbc',
+        'HOST': '<%= @partners_config[:db_host] %>',
+        'NAME': '<%= @partners_config[:db_name] %>',
+        'USER': '<%= @db_creds[@partners_env]["username"] %>',
+        'PASSWORD': '<%= @db_creds[@partners_env]["password"] %>',
+        'OPTIONS': {
+            'driver': '/usr/lib64/libtdsS.so.2',
+            'host_is_server': True,
+            'USE_THIS_EXACT_STRING': 'DSN=<%= @partners_config[:db_name] %>;UID=<%= @db_creds[@partners_env]["username"] %>;PWD=<%= @db_creds[@partners_env]["password"] %>;PORT=<%= @partners_config[:db_port] %>;DATABASE=<%= @partners_config[:db] %>'
+        }
+    },
+
+    'auth_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '<%= node[:partners][:sqlite_path] %>/db.sqlite3',
+    }
+}
+GPG_KEYRING_DIR = '<%= node[:partners][:deploy_path] %>/current/keyring/'

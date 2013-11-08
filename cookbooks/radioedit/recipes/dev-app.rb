@@ -5,13 +5,13 @@
 # Copyright 2013, iHeartRadio
 #
 # All rights reserved - Do Not Redistribute
-# Installs requirements for a dev version of an app server
+# Installs requirements for a dev version of the radioedit app server
 #
 
 include_recipe "yum::epel"
 
 # make all required directories
-node[:radioedit][:epona][:req_dirs].each do |d|
+node[:radioedit][:dev][:req_dirs].each do |d|
   directory d do
     owner "ihr-deployer"
     group "ihr-deployer"
@@ -19,19 +19,33 @@ node[:radioedit][:epona][:req_dirs].each do |d|
   end
 end
 
-template "#{node[:radioedit][:epona][:path]}/shared/settings.json" do
-  source "epona-settings.json.erb"
+node[:radioedit][:dev][:packages].each do |p|
+  yum_package p do
+    action [ :install, :upgrade ]
+  end
+end
+
+template "#{node[:radioedit][:dev][:path]}/shared/settings.json" do
+  source "dev-settings.json.erb"
   owner "ihr-deployer"
   group "ihr-deployer"
 end
 
+link "#{node[:radioedit][:dev][:path]}/settings.json" do
+  to "#{node[:radioedit][:dev][:path]}/shared/settings.json"
+  action :create
+  owner "ihr-deployer"
+  group "ihr-deployer"
+  not_if "test -L #{node[:radioedit][:dev][:path]}/shared/settings.json"
+end
+
 execute "set-app-env" do
-  command "/data/apps/radioedit/setenv.sh"
+  command "#{node[:radioedit][:dev][:path]}/setenv.sh"
   action :nothing
 end
 
 template "/data/apps/radioedit/setenv.sh" do
-  source "epona-env.sh.erb"
+  source "dev-env.sh.erb"
   owner "ihr-deployer"
   group "ihr-deployer"
   mode 0755
@@ -39,49 +53,80 @@ template "/data/apps/radioedit/setenv.sh" do
 end
 
 
-# need to install the memcached package as a dep of libmemcached 
-yum_package "memcached" do
-  arch "x86_64"
-  action [ :install, :upgrade ]
-end
-
-
-python_virtualenv "#{node[:radioedit][:epona][:path]}/envs/core" do
+python_virtualenv "#{node[:radioedit][:dev][:venv_path]}" do
   interpreter "python27"
   owner "ihr-deployer"
   group "ihr-deployer"
   action :create
 end
 
-node[:radioedit][:epona][:packages].each  { |p| package p }
-node[:radioedit][:epona][:pips].each { |p| 
-  python_pip p do 
-    virtualenv "#{node[:radioedit][:epona][:venv_path]}"
-    action :install
-  end
-}
 
 application "radioedit-core" do
-  repository "#{node[:radioedit][:epona][:repo]}"
-  revision "#{node[:radioedit][:epona][:branch]}"
-  path "#{node[:radioedit][:epona][:path]}"
+  repository "#{node[:radioedit][:dev][:repo]}"
+  revision "#{node[:radioedit][:dev][:intbranch]}"
+  path "#{node[:radioedit][:dev][:path]}"
   owner "ihr-deployer"
   group "ihr-deployer"
   enable_submodules true
 
   gunicorn do
-    app_module 'wsgi:application'
-    Chef::Log.info("Starting up Gunicorn on port #{node[:radioedit][:epona][:port]} for Radioedit-Epona")
-    port node[:radioedit][:epona][:port] 
-    workers node[:radioedit][:epona][:num_workers]
-    host node[:radioedit][:epona][:host]
-    pidfile node[:radioedit][:epona][:pid_file]
-    virtualenv "#{node[:radioedit][:epona][:venv_path]}"
-    stdout_logfile "#{node[:radioedit][:epona][:out_log]}"
-    stderr_logfile "#{node[:radioedit][:epona][:err_log]}"
-    loglevel "DEBUG"
+    app_module "#{node[:radioedit][:dev][:module]}"
+    port node[:radioedit][:dev][:port]
+    host node[:radioedit][:dev][:host]
+    workers node[:radioedit][:dev][:num_workers]
+    pidfile node[:radioedit][:dev][:pid_file]
+    virtualenv "#{node[:radioedit][:dev][:venv_path]}"
+    stdout_logfile "#{node[:radioedit][:dev][:out_log]}"
+    stderr_logfile "#{node[:radioedit][:dev][:err_log]}"
+    packages node[:radioedit][:dev][:pips]
+    loglevel "#{node[:radioedit][:dev][:log_level]}"
+    interpreter "python27"
   end
 end
+
+# gp adding these templates to a util directory until a way using existing chef resource objects is found.
+template "#{node[:radioedit][:dev][:utildir]}/supervisor" do
+  source "dev-supervisor-initd.erb"
+  owner "root"
+  group "root"
+  mode 0755
+end
+
+template "#{node[:radioedit][:dev][:utildir]}/radioedit.conf" do
+  source "dev-nginx.conf.erb"
+  owner "root"
+  group "root"
+  mode 0666
+end
+
+template "#{node[:radioedit][:dev][:utildir]}/upd_confs.sh" do
+  source "dev-reset-configs.sh.erb"
+  owner "root"
+  group "root"
+  mode 0755
+end
+
+# per OPS-5792
+template "/etc/init.d/radioedit" do
+  source "radioedit-initd.sh.erb"
+  owner "root"
+  group "root"
+  mode 0755
+  variables ({
+    :supervisorctl_path => "#{node[:radioedit][:dev][:venv_path]}/bin/supervisorctl",
+    :application_name   => "#{node[:radioedit][:dev][:application_name]}",
+    :setenv_file        => "#{node[:radioedit][:dev][:path]}/setenv.sh",
+    :pid_file           => "#{node[:radioedit][:dev][:pid_file]}",
+    :runas_user         => "root"
+  })
+end
+
+#GP hackety hack hack - @TODO Templatize what this script does
+execute "reset-confs" do
+  command "#{node[:radioedit][:dev][:utildir]}/upd_confs.sh"
+  action :run
+end
+
 
 
 

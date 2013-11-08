@@ -28,3 +28,7 @@ doc/
 
 # Ignore submodules
 cookbooks/application*
+cookbooks/ark
+
+# Vagrant files
+.vagrant

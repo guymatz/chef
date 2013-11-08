@@ -22,10 +22,10 @@ tier1.sinks     = hdfs_sink
 
 # memory channel
 tier1.channels.mem_channel.type                 = memory
-tier1.channels.mem_channel.capacity             = 10000000
+tier1.channels.mem_channel.capacity             = 100000
 ## transactionCapacity should be set to the value of the largest batch size
 ## that will be used to store or remove events the channel.
-tier1.channels.mem_channel.transactionCapacity  = 1000
+tier1.channels.mem_channel.transactionCapacity  = 2000
 
 # avro source
 tier1.sources.avro_src.type     = avro
@@ -40,11 +40,11 @@ tier1.sinks.debug.channel = mem_channel
 
 # hdfs sink
 tier1.sinks.hdfs_sink.type               = hdfs
-tier1.sinks.hdfs_sink.hdfs.path          = /data/logs/%{log_type}/%Y/%m/%d/%{hostname}
+tier1.sinks.hdfs_sink.hdfs.path          = /data/logs/%{log_type}_raw/year=%Y/month=%m/day=%d
 tier1.sinks.hdfs_sink.hdfs.timeZone      = EST5EDT
 tier1.sinks.hdfs_sink.hdfs.filePrefix    = log-
-## roll at 32mb
-tier1.sinks.hdfs_sink.hdfs.rollSize      = 33554432
+## roll at 256mb
+tier1.sinks.hdfs_sink.hdfs.rollSize      = 268435456
 tier1.sinks.hdfs_sink.hdfs.rollInterval  = 0
 tier1.sinks.hdfs_sink.hdfs.rollCount     = 0
 tier1.sinks.hdfs_sink.hdfs.fileType      = DataStream

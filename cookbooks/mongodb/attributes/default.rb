@@ -28,6 +28,7 @@ default[:mongodb][:rest]		='true'
 default[:mongodb][:journal]		='true'
 default[:mongodb][:configsvr]		='false'
 default[:mongodb][:arbiter]		='false'
+default[:mongodb][:oplogsize]           ='23552'
 
 default[:mongodb][:backupdir]		='/data/db/backups'
 
@@ -47,3 +48,9 @@ default[:mongodb][:ulimits] = [ {
 default[:mongodb][:source][:url] = "http://downloads.mongodb.org/linux/mongodb-linux-x86_64"
 default[:mongodb][:source][:version] = "2.0.2"
 default[:mongodb][:source][:install_path] = "/usr/bin"
+
+#MongoDB admin scripts stuff
+default[:mongodb][:admin_scripts][:dir] = '/home/mongod/scripts/mongodba'
+default[:mongodb][:admin_scripts][:rev] = "HEAD"
+default[:mongodb][:admin_scripts][:repo] = "git@github.ihrint.com:DB-OPS/mongodba.git"
+default[:mongodb][:admin_scripts][:port] = 37017

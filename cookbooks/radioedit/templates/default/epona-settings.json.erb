@@ -1,12 +1,14 @@
 {
-  "environment" : "ihr_testing",
+  "environment" : "<%= node[:radioedit][:epona][:env] %>",
   "mongosd": {
-    "mongosconfigdbs": "mongodb://127.0.0.1:27017/radioedit-f"
+    "mongosconfigdbs": "<%= node[:radioedit][:epona][:mongo_cstring] %>"
   },
 
   "memcached": {
     "servers": [
       "use1b-radioedit-test105.ihr:11211"
     ] 
-  }
+  },
+  "cdn_url": "http://10.5.1.29/",
+  "elasticsearch_url": "<%= node[:radioedit][:epona][:elastic_cstring] %>"
 }

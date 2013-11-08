@@ -1,0 +1,6 @@
+{
+  "id": "Dell-Omsa",
+  "hostgroup_name": "dell", 
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Dell-Omsa-Check -t 34",
+  "contact_groups": ["admins-email"]
+}

@@ -23,6 +23,8 @@
 
 web_srv = node['nagios']['server']['web_server'].to_sym
 
+package 'perl-Net-SNMP'
+
 node[:nagios][:pips].each do |p|
   python_pip p
 end

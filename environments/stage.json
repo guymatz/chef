@@ -2,7 +2,7 @@
   "name": "stage",
   "default_attributes": {
     "webplayer": {
-      "rev": "release-5.0.1.1-donjulio-emr1",
+      "rev": "release-5.2.0-fosters-rc1",
       "settings": {
         "url": {
           "site_host": "stage.iheart.com"

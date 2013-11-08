@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-%w{ users users::dev sudo openssh::iptables iptables ntp chef-client operations timezone zsh }.each do |cb|
+%w{ users users::dev users::dba sudo openssh::iptables iptables ntp chef-client operations timezone zsh }.each do |cb|
   include_recipe cb
 end
 
