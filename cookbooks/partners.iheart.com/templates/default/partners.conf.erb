@@ -1,0 +1,32 @@
+server {
+    listen <%= node[:partners][:nginx_port] %> default;
+    server_name _;
+
+    keepalive_timeout 5;
+    client_max_body_size 20M;
+
+    gzip             on;
+    gzip_min_length  1000;
+    #gzip_proxied     expired no-cache no-store private auth;
+    gzip_types       text/plain application/xml text/javascript application/x-javascript application/json text/css;
+
+    location /static/ {
+        root <%= node[:partners][:deploy_path] %>/current/partners_portal;
+        add_header X-Static true;
+
+        expires 30d;
+        add_header Pragma public;
+        add_header Cache-Control "public";
+    }
+
+    location / {
+        rewrite ^/static/(.*)$ /$1;
+        try_files $uri @proxy_to_app;
+    }
+
+    location @proxy_to_app {
+        include proxy_params;
+        proxy_redirect off;
+        proxy_pass http://127.0.0.1:<%= node[:partners][:gunicorn_port] %>;
+    }
+}

@@ -20,6 +20,9 @@
     RewriteEngine On
     ExpiresActive On
 
+    RewriteCond %{HTTP_HOST} ^iheart.com
+    RewriteRule ^/(.*)$      http://www.iheart.com/$1 [QSA,R=301]
+
     # mod_proxy got executed before mod_alias so no Redirect :( All have to be RewriteRule
     RewriteRule ^/dist/sdk\.js$         http://static.iheart.com/web/sdk/sdk.js [QSA,R=301,L]
     RewriteRule ^/about/?$              http://news.iheart.com/about [QSA,R=301,L]
@@ -78,4 +81,3 @@
     Header unset Server
 
 </VirtualHost>
-                                                                                                                                                                   80,1          Bot
