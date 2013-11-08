@@ -1,6 +1,8 @@
 name "partners"
 description "sets up a partners.iheart.com server"
 all_env = [
+           "recipe[users::deployer]",
+           "recipe[users::partners]",
            "recipe[partners.iheart.com]"
           ]
 run_list(all_env)
