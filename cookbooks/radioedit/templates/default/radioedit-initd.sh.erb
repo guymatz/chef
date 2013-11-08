@@ -54,7 +54,7 @@ PIDFILE="<%= @pid_file %>";
 # start the application withiin supervisor
 function start_app() {
   # source a setenv if one has been set
-  [[ -f $SETENV 2>/dev/null ]] \
+  [[ -f $SETENV ]] \
     && . $SETENV;
 
   result=$($SCTL start $APPNAME);
