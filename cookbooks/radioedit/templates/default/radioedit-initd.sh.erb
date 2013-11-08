@@ -102,9 +102,9 @@ case "$1" in
     ;;
 
   restart)
-    stop_app \
-      && sleep 5 \ 
-      && start_app;
+    stop_app;
+    sleep 5;
+    start_app;
     ;;
 
   status)
