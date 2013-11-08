@@ -108,7 +108,7 @@ end
 
 # per OPS-5792
 template "/etc/init.d/radioedit" do
-  source "radioedit-initd.erb"
+  source "radioedit-initd.sh.erb"
   owner "root"
   group "root"
   mode 0755
