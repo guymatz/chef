@@ -70,7 +70,7 @@ application "radioedit-core" do
   enable_submodules true
 
   gunicorn do
-    app_module 'wsgi'
+    app_module "#{node[:radioedit][:production][:module]}"
     port node[:radioedit][:production][:port]
     host node[:radioedit][:production][:host]
     workers node[:radioedit][:production][:num_workers]
@@ -79,14 +79,14 @@ application "radioedit-core" do
     stdout_logfile "#{node[:radioedit][:production][:out_log]}"
     stderr_logfile "#{node[:radioedit][:production][:err_log]}"
     packages node[:radioedit][:production][:pips]
-    loglevel "DEBUG"
+    loglevel "#{node[:radioedit][:production][:log_level]}"
     interpreter "python27"
   end
 end
 
 # gp adding these templates to a util directory until a way using existing chef resource objects is found.
 template "#{node[:radioedit][:production][:utildir]}/supervisor" do
-  source "addenvs-supervisor.initd.erb"
+  source "production-supervisor-initd.erb"
   owner "root"
   group "root"
   mode 0755
@@ -94,7 +94,7 @@ template "#{node[:radioedit][:production][:utildir]}/supervisor" do
 end
 
 template "#{node[:radioedit][:production][:utildir]}/radioedit.conf" do
-  source "prod-radioedit.conf.erb"
+  source "production-nginx.conf.erb"
   owner "root"
   group "root"
   mode 0666
@@ -102,7 +102,7 @@ template "#{node[:radioedit][:production][:utildir]}/radioedit.conf" do
 end
 
 template "#{node[:radioedit][:production][:utildir]}/upd_confs.sh" do
-  source "prod-reset-configs.sh.erb"
+  source "production-reset-configs.sh.erb"
   owner "root"
   group "root"
   mode 0755
