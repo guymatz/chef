@@ -75,7 +75,7 @@ function stop_app() {
 
 # print the status of the app 
 function status_app() {
-  result=$($SCTL status $APPNAME | grep $APPNAME);
+  result=$( $SCTL status $APPNAME | grep $APPNAME) ;
   # if no results, the app is not running.
   [[ -z "${result}" ]] \
     && echo "${APPNAME} not running" \
