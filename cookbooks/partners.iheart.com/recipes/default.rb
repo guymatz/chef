@@ -83,7 +83,9 @@ unless tagged?("partners-deployed")
       worker_class "gevent"
       port node[:partners][:gunicorn_port]
       autostart true
-      workers 9
+      workers 5
+      max_requests 1
+      preload_app true
     end
   end
 
