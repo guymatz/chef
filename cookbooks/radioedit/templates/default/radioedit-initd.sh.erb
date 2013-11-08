@@ -60,7 +60,7 @@ function start_app() {
     && . $SETENV;
 
   result=$($SCTL start $APPNAME);
-  [[ $result -ne 0 ]] \
+  [[ $? -ne 0 ]] \
     && failure "**Error: $0 : Call to start application (${APPNAME}) exited with unclean status (${result})" \
     && exit 1;
 
@@ -70,7 +70,7 @@ function start_app() {
 # stop the application within supervisor
 function stop_app() {
   result=$($SCTL stop $APPNAME);
-  [[ $result -ne 0 ]] \
+  [[ $? -ne 0 ]] \
     && failure "**Error: $0 : Call to stop application (${APPNAME}) exited with unclean status (${result})" \
     && exit 1;
 };
