@@ -114,7 +114,7 @@ template "/etc/init.d/radioedit" do
   mode 0755
   variables ({
     :supervisorctl_path => "#{node[:radioedit][:dev][:venv_path]}/bin/supervisorctl",
-    :app_name           => "#{node[:radioedit][:dev][:application_name]}",
+    :application_name   => "#{node[:radioedit][:dev][:app_name]}",
     :setenv_file        => "#{node[:radioedit][:dev][:path]}/setenv.sh",
     :pid_file           => "#{node[:radioedit][:dev][:pid_file]}",
     :runas_user         => "root"
