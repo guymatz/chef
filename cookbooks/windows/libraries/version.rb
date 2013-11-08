@@ -58,9 +58,9 @@ module Windows
     VER_SUITE_WH_SERVER = 0x00008000.freeze unless defined?(VER_SUITE_WH_SERVER)
 
     # Product Type
-    # The system is a domain controller and the operating system is Windows Server 2008 R2, Windows Server 2008, Windows Server 2003, or Windows 2000 Server.
+    # The system is a domain controller and the operating system is Windows Server 2012, Windows Server 2008 R2, Windows Server 2008, Windows Server 2003, or Windows 2000 Server.
     VER_NT_DOMAIN_CONTROLLER = 0x0000002.freeze unless defined?(VER_NT_DOMAIN_CONTROLLER)
-    # The operating system is Windows Server 2008 R2, Windows Server 2008, Windows Server 2003, or Windows 2000 Server.
+    # The operating system is Windows Server 2012, Windows Server 2008 R2, Windows Server 2008, Windows Server 2003, or Windows 2000 Server.
     # Note that a server that is also a domain controller is reported as VER_NT_DOMAIN_CONTROLLER, not VER_NT_SERVER.
     VER_NT_SERVER = 0x0000003.freeze unless defined?(VER_NT_SERVER)
     # The operating system is Windows 7, Windows Vista, Windows XP Professional, Windows XP Home Edition, or Windows 2000 Professional.
@@ -71,7 +71,6 @@ module Windows
     SM_SERVERR2 = 89.freeze unless defined?(SM_SERVERR2)
 
     # http://msdn.microsoft.com/en-us/library/ms724358(v=vs.85).aspx
-    # this is what it sounds like...when kittens die
     SKU = {
       0x00000006 => {:ms_const => 'PRODUCT_BUSINESS', :name => 'Business'},
       0x00000010 => {:ms_const => 'PRODUCT_BUSINESS_N', :name => 'Business N'},
@@ -140,6 +139,9 @@ module Windows
     end
 
     WIN_VERSIONS = {
+      "Windows Server 2012 R2" => {:major => 6, :minor => 3, :callable => lambda{ @product_type != VER_NT_WORKSTATION }},
+      "Windows 8" => {:major => 6, :minor => 2, :callable => lambda{ @product_type == VER_NT_WORKSTATION }},
+      "Windows Server 2012" => {:major => 6, :minor => 2, :callable => lambda{ @product_type != VER_NT_WORKSTATION }},
       "Windows 7" => {:major => 6, :minor => 1, :callable => lambda{ @product_type == VER_NT_WORKSTATION }},
       "Windows Server 2008 R2" => {:major => 6, :minor => 1, :callable => lambda{ @product_type != VER_NT_WORKSTATION }},
       "Windows Server 2008" => {:major => 6, :minor => 0, :callable => lambda{ @product_type != VER_NT_WORKSTATION }},

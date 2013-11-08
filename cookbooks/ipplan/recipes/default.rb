@@ -3,7 +3,6 @@
 # Recipe:: default
 #
 # Copyright 2012, Clearchannel Communications
-# Written by Jake Plimack <jakeplimack@clearchannel.com>
 #
 # All rights reserved - Do Not Redistribute
 #

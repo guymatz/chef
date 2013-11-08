@@ -26,6 +26,18 @@ define contactgroup {
   members           <%= @members.join(',') %>
 }
 
+define contactgroup {
+  contactgroup_name admins-email
+  alias             Nagios Administrators Email Only
+  members           <%= @members.join(',') %>
+}
+
+define contactgroup {
+  contactgroup_name mark-email
+  alias             Mark Email Only
+  members           mrechler
+}
+
 <% @contact_groups.each do |cg| -%>
 define contactgroup {
   contactgroup_name <%= cg['id'] %>

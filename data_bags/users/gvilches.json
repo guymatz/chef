@@ -3,7 +3,7 @@
     "uid": 5029,
     "name": "George Vilches",
     "email": "georgevilches@clearchannel.com",
-    "groups": ["dev", "webtools", "news"],
+    "groups": ["dev", "webtools", "news", "partners"],
     "ssh_keys": [
 "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDB0nkxawV5OhMyWGEBJbFu10b8yeNL6yJ3GX8IyDB1IUo/4DBMhDjsjHtllTWEk7Ikmfe+3d0l2GS4oHm/hKh4edzG9XkwGvjg9xvJShTu2szMYX8Nzmy8s4xqebFzYz6BRSnLf9imCcNXVjb8tvKA3HdiaNJj/frOX0paxkqzuFd8WOiHWUA06BApr+4jwP2Gu/SvQx9znaXDkxwP44kEVFVXaHMJg6U8O9ItT7Gb0itgtsNfcudebgvQb8K63XaarIY2rxGnlmfRznDGNKQHQdw/pVEADYARB4jVn+YoJYRKp3WaZNSGUXyNzZG/1rgRVjolyOywyVGYz51SG/zp gav@demi"
     ]

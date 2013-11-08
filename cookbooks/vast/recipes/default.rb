@@ -52,12 +52,12 @@ cron_d "archive_logs" do
   command "/bin/bash /data/apps/tomcat7/logs/archive_logs.sh > /dev/null 2>&1"
   minute 0
   hour 23
-  user "tomcat"
+  user "root"
 end
 
 cron_d "remove_old_logs" do
   command 'find /data/apps/tomcat7/logs -mtime +5 -exec rm {} \;'
   minute 0
   hour 1
-  user "tomcat"
+  user "root"
 end

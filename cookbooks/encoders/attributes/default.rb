@@ -81,7 +81,7 @@ default[:encoders][:encoder_mount] = "/data/encoder"
 ###
 
 # Mounts specific to aladdin, webtools-east and iad-enc101
-default[:aladdin][:nfs_server] = "10.5.32.164" # isilon
+default[:aladdin][:nfs_server] = "10.5.37.53" # isilon
 default[:aladdin][:aladdin_mount_dir] = "/data/aladdin"
 default[:aladdin][:aladdin_export_dir] = "/ifs/webtools-east/aladdin"
 ###
@@ -205,5 +205,5 @@ default[:encoder][:filemonitor][:monitor_script] = "/data/apps/filemonitor/bin/f
 default[:encoders][:isilon_server] = "10.5.32.164"
 default[:encoders][:p_ftp_export] = "/ifs/inbound-ftp"
 default[:encoders][:p_ftp_mount] = "/data/inbound-ftp"
-default[:encoders][:p_encoder_export] = "/ifs/encoder"
-default[:encoders][:p_encoder_mount] = "/data/isi-encoder"
+default[:encoders][:p_encoder_export] = "/ifs/encoder/encoder"
+default[:encoders][:p_encoder_mount] = "/data/encoder"

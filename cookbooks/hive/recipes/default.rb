@@ -3,7 +3,6 @@
 # Recipe:: default
 #
 # Copyright 2012, Clearchannel.com (iHeartRadio)
-# Written by Jake Plimack <jake.plimack@gmail.com>
 #
 # All rights reserved - Do Not Redistribute
 #

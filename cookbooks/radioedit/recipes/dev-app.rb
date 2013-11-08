@@ -5,47 +5,132 @@
 # Copyright 2013, iHeartRadio
 #
 # All rights reserved - Do Not Redistribute
-# Installs requirements for a dev version of an app server
+# Installs requirements for a dev version of the radioedit app server
 #
 
-include_recipe "radioedit::default"
 include_recipe "yum::epel"
 
-# make a directory to stash builds in 
-directory "/root/build" do
-  owner "root"
-  group "root"
+# make all required directories
+node[:radioedit][:dev][:req_dirs].each do |d|
+  directory d do
+    owner "ihr-deployer"
+    group "ihr-deployer"
+    action :create
+  end
+end
+
+node[:radioedit][:dev][:packages].each do |p|
+  yum_package p do
+    action [ :install, :upgrade ]
+  end
+end
+
+template "#{node[:radioedit][:dev][:path]}/shared/settings.json" do
+  source "dev-settings.json.erb"
+  owner "ihr-deployer"
+  group "ihr-deployer"
+end
+
+link "#{node[:radioedit][:dev][:path]}/settings.json" do
+  to "#{node[:radioedit][:dev][:path]}/shared/settings.json"
   action :create
+  owner "ihr-deployer"
+  group "ihr-deployer"
+  not_if "test -L #{node[:radioedit][:dev][:path]}/shared/settings.json"
 end
 
-# need to install the memcached package as a dep of libmemcached 
-yum_package "memcached" do
-  arch "x86_64"
-  action [ :install, :upgrade ]
-end
-
-# install libmemcached from source 
-# @TODO: change to rpm install 
-remote_file "/root/build/libmemcached-0.51.tar.gz" do
-  source "https://launchpad.net/libmemcached/1.0/0.51/+download/libmemcached-0.51.tar.gz"
-  notifies :run, "bash[install_libmemcached]", :immediately
-end
-
-bash "install_libmemcached" do
-  user "root"
-  cwd "/root/build"
-  code <<-EOH
-    tar -zxf libmemcached-0.51.tar.gz
-    (cd libmemcached-0.51/ && ./configure && make && make install)
-  EOH
+execute "set-app-env" do
+  command "#{node[:radioedit][:dev][:path]}/setenv.sh"
   action :nothing
 end
 
-sudo "tlong" do
-  group "tlong"
-  commands ["ALL"]
-  runas "root"
-  nopasswd true
+template "/data/apps/radioedit/setenv.sh" do
+  source "dev-env.sh.erb"
+  owner "ihr-deployer"
+  group "ihr-deployer"
+  mode 0755
+  notifies :run, "execute[set-app-env]", :immediately
 end
+
+
+python_virtualenv "#{node[:radioedit][:dev][:venv_path]}" do
+  interpreter "python27"
+  owner "ihr-deployer"
+  group "ihr-deployer"
+  action :create
+end
+
+
+application "radioedit-core" do
+  repository "#{node[:radioedit][:dev][:repo]}"
+  revision "#{node[:radioedit][:dev][:intbranch]}"
+  path "#{node[:radioedit][:dev][:path]}"
+  owner "ihr-deployer"
+  group "ihr-deployer"
+  enable_submodules true
+
+  gunicorn do
+    app_module "#{node[:radioedit][:dev][:module]}"
+    port node[:radioedit][:dev][:port]
+    host node[:radioedit][:dev][:host]
+    workers node[:radioedit][:dev][:num_workers]
+    pidfile node[:radioedit][:dev][:pid_file]
+    virtualenv "#{node[:radioedit][:dev][:venv_path]}"
+    stdout_logfile "#{node[:radioedit][:dev][:out_log]}"
+    stderr_logfile "#{node[:radioedit][:dev][:err_log]}"
+    packages node[:radioedit][:dev][:pips]
+    loglevel "#{node[:radioedit][:dev][:log_level]}"
+    interpreter "python27"
+  end
+end
+
+# gp adding these templates to a util directory until a way using existing chef resource objects is found.
+template "#{node[:radioedit][:dev][:utildir]}/supervisor" do
+  source "dev-supervisor-initd.erb"
+  owner "root"
+  group "root"
+  mode 0755
+end
+
+template "#{node[:radioedit][:dev][:utildir]}/radioedit.conf" do
+  source "dev-nginx.conf.erb"
+  owner "root"
+  group "root"
+  mode 0666
+end
+
+template "#{node[:radioedit][:dev][:utildir]}/upd_confs.sh" do
+  source "dev-reset-configs.sh.erb"
+  owner "root"
+  group "root"
+  mode 0755
+end
+
+# per OPS-5792
+template "/etc/init.d/radioedit" do
+  source "radioedit-initd.sh.erb"
+  owner "root"
+  group "root"
+  mode 0755
+  variables ({
+    :supervisorctl_path => "#{node[:radioedit][:dev][:venv_path]}/bin/supervisorctl",
+    :application_name   => "#{node[:radioedit][:dev][:application_name]}",
+    :setenv_file        => "#{node[:radioedit][:dev][:path]}/setenv.sh",
+    :pid_file           => "#{node[:radioedit][:dev][:pid_file]}",
+    :runas_user         => "root"
+  })
+end
+
+#GP hackety hack hack - @TODO Templatize what this script does
+execute "reset-confs" do
+  command "#{node[:radioedit][:dev][:utildir]}/upd_confs.sh"
+  action :run
+end
+
+
+
+
+
+
 
 

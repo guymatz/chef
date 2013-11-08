@@ -93,6 +93,11 @@ nagios_nrpecheck "check_users" do
   action :add
 end
 
+nagios_nrpecheck "check_Linux_bonding" do
+  command "#{node['nagios']['plugin_dir']}/check_linux_bonding.pl -s"
+  action :add
+end
+
 cookbook_file "/usr/bin/nagios_passive.py" do
   source "nagios_passive.py"
   owner "root"

@@ -7,10 +7,10 @@
 # All rights reserved - Do Not Redistribute
 #
 
-hostsfile_entry '10.5.36.28' do
-  hostname 'files.ihrdev.com'
-  #action :create_if_missing
-end
+#hostsfile_entry '10.5.36.28' do
+#  hostname 'files.ihrdev.com'
+#  #action :create_if_missing
+#end
 
 node.set[:java][:oracle][:accept_oracle_download_terms] = true
 node.save
@@ -64,7 +64,7 @@ begin
     end
 
     remote_file "#{node[:tomcat7][:webapp_dir]}/api.war" do
-      source "#{node[:amp][:url]}/#{node[:amp][:version]}/amp-rest.war"
+      source "#{node[:amp][:url]}/#{node[:amp][:version]}/amp-rest-#{node[:amp][:amp_rest_version]}.war"
       owner node[:tomcat7][:user]
       group node[:tomcat7][:group]
       mode "0755"

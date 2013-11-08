@@ -25,3 +25,6 @@
 [submodule "cookbooks/gunicorn"]
 	path = cookbooks/gunicorn
 	url = git@github.ihrint.com:OPS/gunicorn.git
+[submodule "cookbooks/ark"]
+	path = cookbooks/ark
+	url = git@github.ihrint.com:OPS/ark.git

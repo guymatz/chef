@@ -23,6 +23,3 @@ Just include `role[sonos]` in your node's `run_list`:
 }
 ```
 
-License and Authors
--------------------
-Authors: Jake Plimack <Jake.plimack@gmail.com>

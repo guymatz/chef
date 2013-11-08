@@ -1,0 +1,110 @@
+#!/bin/bash
+#
+#   /etc/rc.d/init.d/imgscaler
+#
+# Starts the imgscaler daemon
+#
+# chkconfig: 2345 20 80
+# description: Frontend aggregatation of messages destined for graphite daemon
+# processname: imgscalestats
+
+### BEGIN INIT INFO
+# Provides: imgscalestats
+# Defalt-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Description: Frontend aggregatation of messages destined for graphite daemon
+### END INIT INFO
+
+
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+NAME=imgscalestats
+INSTALL_DIR=/data/monitoring/
+NODE_EXE=imgscalestats.py
+
+[ -x $INSTALL_DIR/$NODE_EXE ] || exit 0
+
+RETVAL=0
+
+#
+# See how we were called.
+#
+
+start() {
+    # Check if it is already running
+    if [ ! -f /var/lock/subsys/$NAME ]; then
+        echo -n $"Starting $NAME daemon: "
+        # daemon
+        $INSTALL_DIR/$NODE_EXE &
+        RETVAL=$?
+        if [ $RETVAL -eq 0 ]; then
+            touch /var/lock/subsys/$NAME
+            echo_success
+        else
+            echo_failure
+        fi
+        echo
+    fi
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $NAME daemon: "
+    kill $(ps aux | grep imgscalestats.py | awk '{print $2}')
+    RETVAL=$?
+    if [ $RETVAL -eq 0 ]; then
+        rm -f /var/lock/subsys/$NAME
+        echo_success
+    else
+        echo_failure
+    fi
+    echo
+    return $RETVAL
+}
+
+
+restart() {
+    stop
+    start
+}
+
+reload() {
+    trap "" SIGHUP
+    killall -HUP imgscalestats.py
+}
+
+case "$1" in
+start)
+    start
+    ;;
+stop)
+    stop
+    ;;
+reload)
+    reload
+    ;;
+restart)
+    restart
+    ;;
+condrestart)
+    if [ -f /var/lock/subsys/$NAME ]; then
+        restart
+    fi
+    ;;
+status)
+    if [ -f /var/lock/subsys/$NAME ]; then
+        echo "$NAME is running"
+        exit 0
+    else
+        echo "$NAME is stopped"
+        exit 3
+    fi
+    ;;
+*)
+    echo $"Usage: $0 {start|stop|status|restart|condrestart|reload}"
+    exit 1
+esac
+
+exit $RETVAL

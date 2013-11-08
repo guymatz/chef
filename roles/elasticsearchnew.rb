@@ -5,5 +5,6 @@ default_attributes "java" => {
 }
 run_list(
          "recipe[java]",
-         "recipe[elasticsearchnew]"
+         "recipe[elasticsearchnew]",
+	 "recipe[elasticsearchnew::plugins]"
 )

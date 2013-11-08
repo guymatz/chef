@@ -1,5 +1,5 @@
 {
   "hostgroup_name": "amp",
   "id": "Amp-Extended-500-Rate",
-  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Amp-Extended-500-Rate -t 60"
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Amp-Extended-500-Rate -t 120"
 }

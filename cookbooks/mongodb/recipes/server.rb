@@ -1,9 +1,3 @@
-mount node[:mongodb][:data_mount_point] do
-  device node[:mongodb][:data_device]
-  fstype "ext4"
-  action [:mount, :enable]
-end
-
 include_recipe "users::mongodb"
 
 directory "#{node[:mongodb][:pidfile_loc]}" do
