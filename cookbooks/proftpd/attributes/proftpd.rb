@@ -1,4 +1,4 @@
-default[:proftpd][:encoder_export]       = "iad-isilon001.ihr:/data/encoder"
+default[:proftpd][:encoder_export]       = "iad-isilon001.ihr:/ifs/encoder/encoder"
 default[:proftpd][:encoder_mount_point]  = "/data/encoder"
 default[:proftpd][:dir]                  = "/etc/proftpd"
 default[:proftpd][:dir_extra_conf]       = "conf.d"
