@@ -18,7 +18,7 @@
 
 # Check that networking is up.
 if [ "${NETWORKING}" = "no" ]; then
-  error "**Error: $0 : Networking seems to be unavailable";
+  failure "**Error: $0 : Networking seems to be unavailable";
   # logger -s -p user.error "**Error: $0 : Networking seems to be unavailable";
   exit 1;
 fi
@@ -36,17 +36,17 @@ PIDFILE="<%= @pid_file %>";
 
 # # make sure we can execute on the supervisor daemon
 # [[ -x /etc/init.d/supervisor ]] \
-#   && error "**Error: $0 : Supervisor daemon service missing or not executable" \
+#   && failure "**Error: $0 : Supervisor daemon service missing or not executable" \
 #   && exit 1;
 
 # make sure we can execute the supervisorctl command
 [[ -x $SCTL ]] \
-  && error "**Error: $0 : Supervisor CTL command missing or not executable" \
+  && failure "**Error: $0 : Supervisor CTL command missing or not executable" \
   && exit 1;
 
 # make sure we got a pid file to write to.
 [[ -z "${PIDFILE}" ]] \
-  && error "**Error: $0 : No pid file path given" \
+  && failure "**Error: $0 : No pid file path given" \
   && exit 1;
 
 #@TODO: check that supervisor is running
@@ -59,7 +59,7 @@ function start_app() {
 
   result=$($SCTL start $APPNAME);
   [[ $result -ne 0 ]] \
-    && error "**Error: $0 : Call to start application (${APPNAME}) exited with unclean status (${result})" \
+    && failure "**Error: $0 : Call to start application (${APPNAME}) exited with unclean status (${result})" \
     && exit 1;
 
   # @TODO: Register the pid file with sysv
@@ -69,7 +69,7 @@ function start_app() {
 function stop_app() {
   result=$($SCTL stop $APPNAME);
   [[ $result -ne 0 ]] \
-    && error "**Error: $0 : Call to stop application (${APPNAME}) exited with unclean status (${result})" \
+    && failure "**Error: $0 : Call to stop application (${APPNAME}) exited with unclean status (${result})" \
     && exit 1;
 };
 
