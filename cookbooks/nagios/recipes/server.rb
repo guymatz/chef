@@ -53,7 +53,7 @@ include_recipe "nagios::server_#{node['nagios']['server']['install_method']}"
 sysadmins = search(:users, 'groups:sysadmin')
 nagiosusers = search(:users, 'groups:nagios')
 allcontacts = search(:users, 'groups:sysadmin')
-nagiosportalusers = Array.new.concat(sysadmins).concat(nagiosusers)
+nagiosportalusers = sysadmins + nagiosusers
 
 case node['nagios']['server_auth_method']
 when "openid"
