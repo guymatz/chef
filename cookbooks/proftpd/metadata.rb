@@ -4,6 +4,9 @@ license          "Apache 2.0"
 description      "Installs/Configures proftpd"
 version          "0.2"
 
+#  Need attributues to create the converter user
+depends          "encoders"
+
 %w{ ubuntu debian }.each do |os|
   supports os
 end
