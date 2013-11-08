@@ -3,5 +3,5 @@
   "id": "Mongo_FAC_Backup_Freshness",
   "freshness_threshold": "259200",
   "max_check_attempts": "1",
-  "contact_groups": ["dba"]
+  "contact_groups": ["dba-team"]
 }

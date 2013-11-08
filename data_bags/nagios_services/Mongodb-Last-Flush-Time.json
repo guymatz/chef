@@ -5,5 +5,5 @@
   "max_check_attempts": "20",
   "check_interval": "60",
   "retry_interval": "60",
-  "contact_groups": ["admins", "dba"]
+  "contact_groups": ["admins", "dba-team"]
 }

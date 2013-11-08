@@ -2,5 +2,5 @@
   "host_name": "iad-mongo-shared101",
   "id": "Mongo_FAC_Backup_Size",
   "freshness_threshold": "259200",
-  "contact_groups": ["dba"]
+  "contact_groups": ["dba-team"]
 }

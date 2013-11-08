@@ -3,5 +3,5 @@
   "id": "INGDB_Index_Backup_Corruption",
   "freshness_threshold": "259200",
   "max_check_attempts": "1",
-  "contact_groups": ["dba"]
+  "contact_groups": ["dba-team"]
 }
