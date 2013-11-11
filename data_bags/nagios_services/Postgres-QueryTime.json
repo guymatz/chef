@@ -1,6 +1,6 @@
 {
   "contact_groups": [
-    "dba"
+    "dba-team"
   ],
   "id": "Postgres-QueryTime",
   "hostgroup_name": "postgres-server",

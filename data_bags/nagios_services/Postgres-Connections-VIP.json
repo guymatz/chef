@@ -1,6 +1,6 @@
 {
   "contact_groups": [
-    "dba"
+    "dba-team"
   ],
   "id": "Postgres-Connections-VIP",
   "host_name": "iad-auth101-v260.ihr",

@@ -2,5 +2,5 @@
   "id": "Mongodb-Average-Flush-Time",
   "hostgroup_name": "mongodb_server",
   "command_line": "$USER1$/check_mongodb.py -H $HOSTADDRESS$ -A flushing -P 37017 -W 1000 -C 1500",
-  "contact_groups": ["admins", "dba"]
+  "contact_groups": ["admins", "dba-team"]
 }
