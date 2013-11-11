@@ -65,7 +65,7 @@ directory "#{node[:proftpd][:dir]}/ssl" do
   mode 0700
 end
 
-directory "#{node[:proftpd][:dir]}/authorized_keys" do
+directory "#{node[:proftpd][:key_dir]}" do
   owner node[:proftpd][:ftp_user]
   group node[:proftpd][:ftp_group]
   mode 0700
@@ -131,3 +131,4 @@ service "proftpd" do
 end
 
 include_recipe "proftpd::auth_file"
+include_recipe "proftpd::sshkeys_files"
