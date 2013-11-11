@@ -34,7 +34,7 @@ server {
     
     # basic wildcard rewrite for cms functioning
     location = / {
-        rewrite .* /-service/app/shell/ redirect;
+        rewrite .* /service/app/shell/ redirect;
     }
 
     location / {
