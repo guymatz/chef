@@ -7,16 +7,16 @@ server {
     server_name _;
 
     keepalive_timeout 5;
-    client_max_body_size 20M;
+    client_max_body_size 500M;
 
     gzip             on;
     gzip_min_length  1000;
     #gzip_proxied     expired no-cache no-store private auth;
     gzip_types       text/plain application/xml text/javascript application/x-javascript application/json text/css;
 
-    location = / {
-        rewrite .* /-service/app/shell/ redirect;
-    }
+    #location = / {
+    #    rewrite .* /-service/app/shell/ redirect;
+    #}
 
     location / {
         try_files $uri @proxy_to_core;
