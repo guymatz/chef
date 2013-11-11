@@ -1,10 +1,11 @@
 {
     "id": "names",
-    "name": "Level3",
+    "name": "names",
     "email":    "ccdsany@clearchannel.com",
     "groups":   ["names"],
     "shell":    "/sbin/nologin",
     "uid": 4010,
+    "comment": "Content Names Project",
     "ssh_keys": [
     ]
 }

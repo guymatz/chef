@@ -14,6 +14,6 @@ end
 sudo "cnpuser" do
   group "cnpuser"
   commands ["ALL"]
-  runas "root"
+  runas "names"
   nopasswd true
 end
