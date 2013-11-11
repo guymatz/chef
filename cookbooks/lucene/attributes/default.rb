@@ -38,16 +38,16 @@ default[:lucene][:log_dir]           = '/var/log/lucene'
 default[:lucene][:lib_dir]           = '/var/lib/lucene'
 default[:lucene][:pid_dir]           = '/var/run/lucene'
 
-default[:lucene][:data_root_mount]	= ["/data"]
-default[:lucene][:data_device]	= ["/dev/sdb1"]
+default[:lucene][:data_root_mount]   = "/data"
+default[:lucene][:data_device]	     = "/dev/sdb1"
 default[:lucene][:data_dirs]         = ["/data/db/lucene"]
 default[:lucene][:commitlog_dir]     = "/var/lib/lucene/commitlog"
 default[:lucene][:saved_caches_dir]  = "/var/lib/lucene/saved_caches"
 
-default[:lucene][:user]              = 'lucene'
-default[:lucene][:group]             = 'nogroup'
-default[:users]['lucene'][:uid]      = 330
-default[:users]['lucene'][:gid]      = 330
+default[:lucene][:user]              = 'names'
+default[:lucene][:group]             = 'names'
+default[:users]['lucene'][:uid]      = 4010
+default[:users]['lucene'][:gid]      = 4010
 
 default[:lucene][:listen_addr]       = "localhost"
 default[:lucene][:seeds]             = ["127.0.0.1"]

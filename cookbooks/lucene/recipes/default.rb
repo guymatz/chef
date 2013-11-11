@@ -17,8 +17,15 @@ unless tagged?(deployed_tag)
   end
   
   %w{ }.each do |der|
-    directory "#{der}" do
+    directory der do
+      owner @node[:lucene][:user]
+      group @node[:lucene][:group]
     end
+  end
+  
+  directory "#{@node[:lucene][:data_root_mount]}/lucene_indexes" do
+    owner @node[:lucene][:user]
+    group @node[:lucene][:group]
   end
 
   # mercurial is a kludge/requirement for for editdist install below
