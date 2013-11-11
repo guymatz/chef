@@ -87,18 +87,6 @@ if not tagged?("webplayer-deployed")
       settings_template "settings.py.erb"
     end
 
-    before_restart do
-      bash "Webplayers: Build Static Resources" do
-        user "root"
-        cwd node[:webplayer][:deploy_path]
-        code <<-EOH
-      source shared/env/bin/activate
-      cd current
-      python27 tusiq/config/local/manage.py assets build --settings=tusiq.config.#{node.chef_environment}.settings
-      EOH
-      end
-    end
-
     gunicorn do
       app_module :django
       command "tusiq.config.#{node.chef_environment}.wsgi"
