@@ -10,6 +10,8 @@
 deployed_tag = 'lucene-deployed'
 
 unless tagged?(deployed_tag)
+  include_recipe "users::names"
+
   %w{ ark python::pip }.each do |cb|
     include_recipe cb
   end
