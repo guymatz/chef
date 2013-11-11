@@ -31,11 +31,6 @@ server {
         add_header Content-Type application/json;
         alias /data/apps/radioedit/static/iphone.json; 
     }
-    
-    # basic wildcard rewrite for cms functioning
-    location = / {
-        rewrite .* /service/app/shell/ redirect;
-    }
 
     location / {
         try_files $uri @proxy_to_core;
