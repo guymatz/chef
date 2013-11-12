@@ -3,7 +3,7 @@
     "name": "names",
     "email":    "ccdsany@clearchannel.com",
     "groups":   ["names"],
-    "shell":    "/sbin/nologin",
+    "shell":    "/bin/bash",
     "uid": 4010,
     "comment": "Content Names Project",
     "ssh_keys": [
