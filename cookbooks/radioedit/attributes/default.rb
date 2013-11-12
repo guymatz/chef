@@ -79,9 +79,7 @@ default[:radioedit][:dev][:req_dirs] = %w{
   /var/log/radioedit 
   /data/apps/radioedit/shared 
 }
-default[:radioedit][:dev][:packages] = %w{ 
-  nfs-utils 
-  nfs-utils-lib
+default[:radioedit][:dev][:packages] = %w{
   libevent 
   memcached 
   python27 
@@ -106,7 +104,8 @@ default[:radioedit][:dev][:packages] = %w{
   varnish 
   readline-devel 
   patch 
-  libjpeg-devel 
+  libjpeg-devel
+  nginx
 }
 default[:radioedit][:dev][:pips] = %w{ 
   supervisor 
@@ -180,8 +179,6 @@ default[:radioedit][:staging][:req_dirs] = %w{
   /data/apps/radioedit/shared 
 }
 default[:radioedit][:staging][:packages] = %w{ 
-  nfs-utils 
-  nfs-utils-lib
   libevent 
   memcached 
   python27 
@@ -206,7 +203,8 @@ default[:radioedit][:staging][:packages] = %w{
   varnish 
   readline-devel 
   patch 
-  libjpeg-devel 
+  libjpeg-devel
+  nginx
 }
 default[:radioedit][:staging][:pips] = %w{ 
   supervisor 
@@ -267,9 +265,9 @@ default[:radioedit][:production][:mongo_cstring] = "mongodb://iad-mongo-shared10
 default[:radioedit][:production][:nfs_server] = "10.5.40.121"
 default[:radioedit][:production][:nfs_remdir] = "/data/imgscaler/radioedit"
 default[:radioedit][:production][:nfs_locdir] = "/data/binstore"
+default[:radioedit][:production][:deploy_tag] = "radioedit-deployed"
 default[:radioedit][:production][:req_dirs] = %w{ 
   /data 
-  /data/binstore
   /data/apps 
   /data/apps/radioedit 
   /data/apps/radioedit/util 
@@ -282,8 +280,6 @@ default[:radioedit][:production][:req_dirs] = %w{
   /data/apps/radioedit/shared 
 }
 default[:radioedit][:production][:packages] = %w{ 
-  nfs-utils 
-  nfs-utils-lib
   libevent 
   memcached 
   python27 
@@ -308,7 +304,8 @@ default[:radioedit][:production][:packages] = %w{
   varnish 
   readline-devel 
   patch 
-  libjpeg-devel 
+  libjpeg-devel
+  nginx
 }
 default[:radioedit][:production][:pips] = %w{ 
   supervisor 
