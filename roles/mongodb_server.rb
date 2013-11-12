@@ -3,6 +3,7 @@ description "mongodb_server"
 all_env = [
   "recipe[mongodb]",
   "recipe[mongodb::server]",
+  "recipe[mongodb::admin_scripts]",
   "recipe[mongodb::ulimits]",
   "recipe[diamond::mongo]",
 ]
