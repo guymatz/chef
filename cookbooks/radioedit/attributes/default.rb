@@ -55,8 +55,6 @@ default[:radioedit][:dev][:app_name] = "radioedit-core"
 default[:radioedit][:dev][:repo] = "git@github.ihrint.com:radioedit/core.git"
 default[:radioedit][:dev][:branch] = "release"
 default[:radioedit][:dev][:intbranch] = "testing"
-default[:radioedit][:dev][:packages] = %w{ libevent memcached python27 python27-libs python27-devel python27-test python27-tools nginx zlib-devel openjpeg-devel zlib gcc python-devel git libevent-devel zeromq-devel zeromq python-setuptools python-ldap postgresql-devel openldap-devel varnish readline-devel patch libjpeg-devel }
-default[:radioedit][:dev][:pips] = %w{ supervisor pymongo python-memcached greenlet statsd pyzmq flask flask-cache flask-pymongo pillow blinker celery colorama docutils gevent-websocket jsonschema mock pql pylibmc pyparsing python-dateutil python-ldap requests simplejson raven pytest }
 default[:radioedit][:dev][:env] = "ihr_testing"
 default[:radioedit][:dev][:num_workers] = 5
 default[:radioedit][:dev][:log_level] = "DEBUG"
@@ -82,6 +80,8 @@ default[:radioedit][:dev][:req_dirs] = %w{
   /data/apps/radioedit/shared 
 }
 default[:radioedit][:dev][:packages] = %w{ 
+  nfs-utils 
+  nfs-utils-lib
   libevent 
   memcached 
   python27 
@@ -180,6 +180,8 @@ default[:radioedit][:staging][:req_dirs] = %w{
   /data/apps/radioedit/shared 
 }
 default[:radioedit][:staging][:packages] = %w{ 
+  nfs-utils 
+  nfs-utils-lib
   libevent 
   memcached 
   python27 
@@ -262,6 +264,9 @@ default[:radioedit][:production][:staticdir] = "#{default[:radioedit][:productio
 default[:radioedit][:production][:asset_dir] = "/data/binstore"
 default[:radioedit][:production][:cdn_url] = "http://images.iheart.com/"
 default[:radioedit][:production][:mongo_cstring] = "mongodb://iad-mongo-shared101.ihr:37017,iad-mongo-shared102.ihr:37017,iad-mongo-shared103.ihr:37017/radioedit-f?replicaSet=Mongo-shared1"
+default[:radioedit][:production][:nfs_server] = "10.5.40.121"
+default[:radioedit][:production][:nfs_remdir] = "/data/imgscaler/radioedit"
+default[:radioedit][:production][:nfs_locdir] = "/data/binstore"
 default[:radioedit][:production][:req_dirs] = %w{ 
   /data 
   /data/binstore
@@ -277,6 +282,8 @@ default[:radioedit][:production][:req_dirs] = %w{
   /data/apps/radioedit/shared 
 }
 default[:radioedit][:production][:packages] = %w{ 
+  nfs-utils 
+  nfs-utils-lib
   libevent 
   memcached 
   python27 

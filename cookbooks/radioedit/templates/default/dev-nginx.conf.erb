@@ -3,7 +3,7 @@ upstream core {
 }
 
 server {
-    listen 80 default;
+    listen 8080 default;
     server_name _;
 
     keepalive_timeout 5;
@@ -13,10 +13,6 @@ server {
     gzip_min_length  1000;
     #gzip_proxied     expired no-cache no-store private auth;
     gzip_types       text/plain application/xml text/javascript application/x-javascript application/json text/css;
-
-    #location = / {
-    #    rewrite .* /-service/app/shell/ redirect;
-    #}
 
     location / {
         try_files $uri @proxy_to_core;
