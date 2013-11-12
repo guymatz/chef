@@ -1,4 +1,9 @@
 include_recipe "lvm"
+package "nfs-utils"
+
+service "rpcbind" do
+  action [:start, :enable]
+end
 
 lvm_volume_group 'vg_data' do
         physical_volumes '/dev/sdb1'
@@ -100,4 +105,27 @@ cookbook_file "/root/scripts/check_mongo_usr_backup_size.sh" do
   owner "root"
   group "root"
   mode "0755"
+end
+
+nfs_server = search(:node, "recipe:files.ihrdev.com\\:\\:nfs AND chef_environment:#{node.chef_environment}")[0]
+
+directory "/data/nfs/files.ihrdev.com" do
+  action :create
+  recursive true
+end
+
+mount "/data/nfs/files.ihrdev.com" do
+  device "#{nfs_server[:hostname]}-v600.ihr:/data/exports/files.ihrdev.com"
+  fstype "nfs"
+  options "noatime,nocto"
+  action [:mount, :enable]
+end
+
+cron_d "Move_backup_to_NFS" do
+  command "/bin/cp $(/usr/bin/find /data/db/backups/ -maxdepth 1 -name '*tarz' -type f -printf '%T@ %p\\n' | sort -n | tail -1 | cut -f2- -d\" \") /data/nfs/files.ihrdev.com/mongo_usr_bak"
+  minute  "25"
+  hour    "6"
+  month   "*"
+  weekday "*"
+  user    "root"
 end
