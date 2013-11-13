@@ -106,6 +106,7 @@ default[:radioedit][:dev][:packages] = %w{
   patch 
   libjpeg-devel
   nginx
+  rsyslog
 }
 default[:radioedit][:dev][:pips] = %w{ 
   supervisor 
@@ -205,6 +206,7 @@ default[:radioedit][:staging][:packages] = %w{
   patch 
   libjpeg-devel
   nginx
+  rsyslog
 }
 default[:radioedit][:staging][:pips] = %w{ 
   supervisor 
@@ -242,7 +244,7 @@ default[:radioedit][:staging][:pips] = %w{
 # PRODUCTION SETTINGS!!!!!
 # ################################################################
 default[:radioedit][:production][:repo] = "git@github.ihrint.com:radioedit/core.git"
-default[:radioedit][:production][:branch] = "release"
+default[:radioedit][:production][:branch] = "release-fox"
 default[:radioedit][:production][:env] = "ihr_testing"
 default[:radioedit][:production][:path] = "/data/apps/radioedit";
 default[:radioedit][:production][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
@@ -261,7 +263,7 @@ default[:radioedit][:production][:utildir] = "#{default[:radioedit][:production]
 default[:radioedit][:production][:staticdir] = "#{default[:radioedit][:production][:path]}/static"
 default[:radioedit][:production][:asset_dir] = "/data/binstore"
 default[:radioedit][:production][:cdn_url] = "http://images.iheart.com/"
-default[:radioedit][:production][:mongo_cstring] = "mongodb://iad-mongo-shared101.ihr:37017,iad-mongo-shared102.ihr:37017,iad-mongo-shared103.ihr:37017/radioedit-f?replicaSet=Mongo-shared1"
+default[:radioedit][:production][:mongo_cstring] = "mongodb://iad-mongo-shared101.ihr:37017,iad-mongo-shared102.ihr:37017,iad-mongo-shared103.ihr:37017/radioedit?replicaSet=Mongo-shared1"
 default[:radioedit][:production][:nfs_server] = "10.5.40.121"
 default[:radioedit][:production][:nfs_remdir] = "/data/imgscaler/radioedit"
 default[:radioedit][:production][:nfs_locdir] = "/data/binstore"
@@ -306,6 +308,7 @@ default[:radioedit][:production][:packages] = %w{
   patch 
   libjpeg-devel
   nginx
+  rsyslog
 }
 default[:radioedit][:production][:pips] = %w{ 
   supervisor 
