@@ -122,7 +122,7 @@ mount "/data/nfs/files.ihrdev.com" do
 end
 
 cron_d "Move_backup_to_NFS" do
-  command "/bin/cp $(/usr/bin/find /data/db/backups/ -maxdepth 1 -name '*tarz' -type f -printf '%T@ %p\\n' | sort -n | tail -1 | cut -f2- -d\" \") /data/nfs/files.ihrdev.com/mongo_usr_bak"
+  command "/bin/cp $(/usr/bin/find /data/db/backups/ -maxdepth 1 -name '*tarz' -type f -printf '\%T@ \%p\\n' | sort -n | tail -1 | cut -f2- -d\" \") /data/nfs/files.ihrdev.com/mongo_usr_bak"
   minute  "25"
   hour    "6"
   month   "*"
