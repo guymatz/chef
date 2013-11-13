@@ -340,7 +340,7 @@ DirFakeGroup              on ftpusers
 
 ### Begin virtual servers section ###
 
-<VirtualHost 10.5.33.45>
+<VirtualHost 10.5.41.45>
   ServerName            "* FTP *"
   ServerIdent                   off # MarkitSERV Access Control Policy 5.3
   Port                  21
@@ -349,7 +349,7 @@ DirFakeGroup              on ftpusers
   ExtendedLog                   /var/log/proftpd/ftp-auth.log AUTH auth
 </VirtualHost>
 
-<VirtualHost 10.5.33.45>
+<VirtualHost 10.5.41.45>
   ServerName            "* SFTP *"
   ServerIdent                   off # MarkitSERV Access Control Policy 5.3
   SFTPEngine                    on

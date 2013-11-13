@@ -6,6 +6,7 @@ version          "0.2"
 
 #  Need attributues to create the converter user
 depends          "encoders"
+depends          "users"
 
 %w{ ubuntu debian }.each do |os|
   supports os
