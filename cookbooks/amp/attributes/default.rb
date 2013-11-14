@@ -1,6 +1,6 @@
 
-default[:amp][:version] = "tool-emr"
-default[:amp][:amp_rest_version] = "2.20.2"
+default[:amp][:version] = "tool-emr2"
+default[:amp][:amp_rest_version] = "2.20.3"
 default[:amp][:url] = "http://files.ihrdev.com/amp"
 
 default[:amp][:packages] = %w{ mongo-10gen-server mongo-10gen }
