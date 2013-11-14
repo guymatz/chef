@@ -21,6 +21,24 @@ directory node[:partners][:sqlite_path] do
   recursive true
 end
 
+directory "/var/log/partners" do
+  owner 'root'
+  group 'ihr-deployer'
+  mode "775"
+  action :create
+  not_if { FileTest.directory?("/var/log/partners") }
+end
+
+logrotate_app "partners" do
+  cookbook "logrotate"
+  path "/var/log/partners/*.log"
+  options ["missingok", "copytruncate", "compress", "notifempty"]
+  frequency "daily"
+  enable true
+  create "0644 nobody root"
+  rotate 2
+end
+
 unless tagged?("partners-deployed")
   application "partners" do
     path node[:partners][:deploy_path] 
@@ -111,24 +129,15 @@ unless tagged?("partners-deployed")
     action [ :enable, :restart ]
   end
 
-  directory "/var/log/partners" do
-    owner 'root'
-    group 'ihr-deployer'
-    mode "775"
-    action :create
-    not_if { FileTest.directory?("/var/log/partners") }
+  cron_d "partners-auth-backup" do
+    minute 0
+    hour 1
+    user "ihr-deployer"
+    command "scp #{node[:partners][:sqlite_path]}/db.sqlite3 iad-ss-web101.ihr:/data/www/files.ihrdev.com/partners/."
   end
-
-  logrotate_app "partners" do
-    cookbook "logrotate"
-    path "/var/log/partners/*.log"
-    options ["missingok", "copytruncate", "compress", "notifempty"]
-    frequency "daily"
-    enable true
-    create "0644 nobody root"
-    rotate 2
-  end
-
 
   tag("partners-deployed")
 end
+
+
+
