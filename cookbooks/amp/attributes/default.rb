@@ -1,5 +1,5 @@
 
-default[:amp][:version] = "tool-emr2"
+default[:amp][:version] = "tool-emr-2-rc1"
 default[:amp][:amp_rest_version] = "2.20.3"
 default[:amp][:url] = "http://files.ihrdev.com/amp"
 
