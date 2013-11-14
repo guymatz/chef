@@ -13,8 +13,8 @@ include_recipe "yum::epel"
 # make all required directories
 node[:radioedit][:production][:req_dirs].each do |d|
   directory d do
-    owner "ihr-deployer"
-    group "ihr-deployer"
+    owner "#{node[:radioedit][:production][:app_user]}"
+    group "#{node[:radioedit][:production][:app_user]}"
     action :create
   end
 end
@@ -27,15 +27,15 @@ end
 
 template "#{node[:radioedit][:production][:path]}/shared/settings.json" do
   source "production-settings.json.erb"
-  owner "ihr-deployer"
-  group "ihr-deployer"
+  owner "#{node[:radioedit][:production][:app_user]}"
+  group "#{node[:radioedit][:production][:app_user]}"
 end
 
 link "#{node[:radioedit][:production][:path]}/settings.json" do
   to "#{node[:radioedit][:production][:path]}/shared/settings.json"
   action :create
-  owner "ihr-deployer"
-  group "ihr-deployer"
+  owner "#{node[:radioedit][:production][:app_user]}"
+  group "#{node[:radioedit][:production][:app_user]}"
   not_if "test -L #{node[:radioedit][:production][:path]}/shared/settings.json"
 end
 
@@ -44,44 +44,20 @@ end
 #   action :nothing
 # end
 
-# template "/data/apps/radioedit/setenv.sh" do
-#   source "production-env.sh.erb"
-#   owner "ihr-deployer"
-#   group "ihr-deployer"
-#   mode 0755
-#   notifies :run, "execute[set-app-env]", :immediately
-# end
+template "/data/apps/radioedit/setenv.sh" do
+  source "production-env.sh.erb"
+  owner "#{node[:radioedit][:production][:app_user]}"
+  group "#{node[:radioedit][:production][:app_user]}"
+  mode 0755
+  # notifies :run, "execute[set-app-env]", :immediately
+end
 
 
 python_virtualenv "#{node[:radioedit][:production][:venv_path]}" do
   interpreter "python27"
-  owner "ihr-deployer"
-  group "ihr-deployer"
+  owner "#{node[:radioedit][:production][:app_user]}"
+  group "#{node[:radioedit][:production][:app_user]}"
   action :create
-end
-
-
-application "radioedit-core" do
-  repository "#{node[:radioedit][:production][:repo]}"
-  revision "#{node[:radioedit][:production][:branch]}"
-  path "#{node[:radioedit][:production][:path]}"
-  owner "ihr-deployer"
-  group "ihr-deployer"
-  enable_submodules true
-
-  gunicorn do
-    app_module "#{node[:radioedit][:production][:module]}"
-    port node[:radioedit][:production][:port]
-    host node[:radioedit][:production][:host]
-    workers node[:radioedit][:production][:num_workers]
-    pidfile node[:radioedit][:production][:pid_file]
-    virtualenv "#{node[:radioedit][:production][:venv_path]}"
-    stdout_logfile "#{node[:radioedit][:production][:out_log]}"
-    stderr_logfile "#{node[:radioedit][:production][:err_log]}"
-    packages node[:radioedit][:production][:pips]
-    loglevel "#{node[:radioedit][:production][:log_level]}"
-    interpreter "python27"
-  end
 end
 
 # gp adding these templates to a util directory until a way using existing chef resource objects is found.
@@ -149,10 +125,43 @@ template "#{node[:radioedit][:production][:staticdir]}/kenwood.json" do
 end
 
 
-#GP hackety hack hack - @TODO Templatize what this script does
-execute "reset-confs" do
-  command "#{node[:radioedit][:production][:utildir]}/upd_confs.sh"
-  action :run
+# implementing tag locking per OPS 
+unless tagged?("#{node[:radioedit][:production][:deploy_tag]}")
+
+  log "Deploying #{node[:radioedit][:production][:branch]}"
+
+  application "radioedit-core" do
+    repository "#{node[:radioedit][:production][:repo]}"
+    revision "#{node[:radioedit][:production][:branch]}"
+    path "#{node[:radioedit][:production][:path]}"
+    owner "#{node[:radioedit][:production][:app_user]}"
+    group "#{node[:radioedit][:production][:app_user]}"
+    enable_submodules true
+
+    gunicorn do
+      app_module "#{node[:radioedit][:production][:module]}"
+      port node[:radioedit][:production][:port]
+      host node[:radioedit][:production][:host]
+      workers node[:radioedit][:production][:num_workers]
+      pidfile node[:radioedit][:production][:pid_file]
+      virtualenv "#{node[:radioedit][:production][:venv_path]}"
+      stdout_logfile "#{node[:radioedit][:production][:out_log]}"
+      stderr_logfile "#{node[:radioedit][:production][:err_log]}"
+      packages node[:radioedit][:production][:pips]
+      loglevel "#{node[:radioedit][:production][:log_level]}"
+      interpreter "python27"
+    end
+  end
+
+  #GP hackety hack hack - @TODO Templatize what this script does
+  execute "reset-confs" do
+    command "#{node[:radioedit][:production][:utildir]}/upd_confs.sh"
+    action :run
+  end
+
+  # re-tag to make sure it doesn't try to deploy again
+  tag("#{node[:radioedit][:production][:deploy_tag]}")
+
 end
 
 
