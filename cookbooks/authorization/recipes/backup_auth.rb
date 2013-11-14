@@ -15,7 +15,7 @@ mount "/data/nfs/files.ihrdev.com" do
 end
 
 cron_d "Move_backup_to_NFS" do
-  command "/bin/cp $(/usr/bin/find /data/backups/ -name '*archwal.tar.gz' -type f -printf '\\%T@ \\%p\\n' | sort -n | tail -1 | cut -f2- -d\" \") /data/nfs/files.ihrdev.com/auth_bak; /bin/cp $(/usr/bin/find /data/backups/ -name '*data.tar.gz' -type f -printf '\\%T@ \\%p\\n' | sort -n | tail -1 | cut -f2- -d\" \") /data/nfs/files.ihrdev.com/auth_bak; /bin/cp $(/usr/bin/find /data/backups/ -name '*index.tar.gz' -type f -printf '\\%T@ \\%p\\n' | sort -n | tail -1 | cut -f2- -d\" \") /data/nfs/files.ihrdev.com/auth_bak;"
+  command "/usr/bin/rsync --bwlimit=500 $(/usr/bin/find /data/backups/ -name '*archwal.tar.gz' -type f -printf '\\%T@ \\%p\\n' | sort -n | tail -1 | cut -f2- -d\" \") /data/nfs/files.ihrdev.com/auth_bak; /usr/bin/rsync $(/usr/bin/find /data/backups/ -name '*data.tar.gz' -type f -printf '\\%T@ \\%p\\n' | sort -n | tail -1 | cut -f2- -d\" \") /data/nfs/files.ihrdev.com/auth_bak; /usr/bin/rsync $(/usr/bin/find /data/backups/ -name '*index.tar.gz' -type f -printf '\\%T@ \\%p\\n' | sort -n | tail -1 | cut -f2- -d\" \") /data/nfs/files.ihrdev.com/auth_bak;"
   minute  "25"
   hour    "7"
   month   "*"

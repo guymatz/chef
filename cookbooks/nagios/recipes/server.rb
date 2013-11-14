@@ -51,6 +51,7 @@ end
 include_recipe "nagios::server_#{node['nagios']['server']['install_method']}"
 
 sysadmins = search(:users, 'groups:sysadmin')
+amp = search(:users, 'groups:amp')
 nagiosusers = search(:users, 'groups:nagios')
 allcontacts = search(:users, 'groups:sysadmin')
 nagiosportalusers = sysadmins + nagiosusers
@@ -275,7 +276,7 @@ end
 
 nagios_conf "contacts" do
   Chef::Log.info("allcontacts value = #{allcontacts}")
-  variables :admins => sysadmins, :members => members, :allcontacts => allcontacts, :contact_groups => contactgroups
+  variables :admins => sysadmins + amp,  :members => members, :allcontacts => allcontacts, :contact_groups => contactgroups
 end
 
 nagios_conf "hostgroups" do
