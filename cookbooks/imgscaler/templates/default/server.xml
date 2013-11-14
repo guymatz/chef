@@ -52,7 +52,7 @@
             factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
             url="jdbc:postgresql://iad-auth101-v260.ihr:5432/thmbamw"
             username="appuser"
-            password="2ph2Tr@ce"
+            password="cEjewe6r"
             maxActive="2"
             maxIdle="2"
             maxWait="5000"

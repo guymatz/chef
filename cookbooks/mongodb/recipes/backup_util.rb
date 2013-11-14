@@ -1,20 +1,9 @@
-include_recipe "lvm"
-
-#lvm_volume_group 'vg_data' do
-#        physical_volumes '/dev/sdb1'
-#        logical_volume 'lv_data' do
-#            size '75%VG'
-#            filesystem 'ext4'
-#            mount_point :location => '/data', :options => 'noatime,nodiratime'
-#        end
-#end
-
-cron_d "mongos_backup" do
+cron_d "util_backup" do
   minute        "15"
-  hour          "1"
+  hour          "2"
   day           "*"
-  weekday       "*"
-  command       "/var/lib/mongo/scripts/do_mongosbkp.sh > /var/lib/mongo/mongodbbackup.log 2>&1"
+  weekday       "3"
+  command       "/var/lib/mongo/scripts/do_mongobkp.sh > /var/lib/mongo/mongodbbackup.log 2>&1"
   mailto        "CCRDDatabaseOperations@clearchannel.com"
   user          "mongod"
 end
@@ -27,11 +16,11 @@ directory "/var/lib/mongo/scripts" do
   action :create
 end
 
-cookbook_file "do_mongosbkp.sh" do
-  path "/var/lib/mongo/scripts/do_mongosbkp.sh"
+cookbook_file "do_mongobkp.sh" do
+  path "/var/lib/mongo/scripts/do_mongobkp.sh"
   mode 0755
   owner "mongod"
-  group "mongod"
+  group "mongod"  
   action :create_if_missing
 end
 
@@ -57,14 +46,14 @@ directory "/root/scripts" do
   mode "0755"
 end
 
-cookbook_file "/root/scripts/check_mongo_usr_backup_corruption.sh" do
+cookbook_file "/root/scripts/check_mongo_util_backup_corruption.sh" do
   owner "root"
   group "root"
   mode "0755"
 end
 
-cron_d "check_usr_backup_corruption" do
-  command "/root/scripts/check_mongo_usr_backup_corruption.sh"
+cron_d "check_mongo_util_backup_corruption" do
+  command "/root/scripts/check_mongo_util_backup_corruption.sh"
   minute  "45"
   hour	  "0"
   month	  "*"
@@ -72,8 +61,8 @@ cron_d "check_usr_backup_corruption" do
   user    "root"
 end
 
-cron_d "check_usr_backup_freshness" do
-  command "/root/scripts/check_mongo_usr_backup_freshness.sh"
+cron_d "check_mongo_util_backup_freshness" do
+  command "/root/scripts/check_mongo_util_backup_freshness.sh"
   minute  "25"
   hour    "3"
   month   "*"
@@ -81,14 +70,14 @@ cron_d "check_usr_backup_freshness" do
   user    "root"
 end
 
-cookbook_file "/root/scripts/check_mongo_usr_backup_freshness.sh" do
+cookbook_file "/root/scripts/check_mongo_util_backup_freshness.sh" do
   owner "root"
   group "root"
   mode "0755"
 end
 
-cron_d "check_usr_backup_size" do
-  command "/root/scripts/check_mongo_usr_backup_size.sh"
+cron_d "check_mongo_util_backup_size" do
+  command "/root/scripts/check_mongo_util_backup_size.sh"
   minute  "25"
   hour    "2"
   month   "*"
@@ -96,7 +85,7 @@ cron_d "check_usr_backup_size" do
   user    "root"
 end
 
-cookbook_file "/root/scripts/check_mongo_usr_backup_size.sh" do
+cookbook_file "/root/scripts/check_mongo_util_backup_size.sh" do
   owner "root"
   group "root"
   mode "0755"
