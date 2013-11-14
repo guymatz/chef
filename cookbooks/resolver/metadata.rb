@@ -8,6 +8,8 @@ version           "1.1.0"
 recipe "resolver", "Configures /etc/resolv.conf via attributes"
 recipe "resolver::from_server_role", "Manages nameservers from role with explicitly set servers"
 
+depends "hostsfile"
+
 %w{ ubuntu debian fedora centos redhat freebsd openbsd macosx }.each do |os|
   supports os
 end
