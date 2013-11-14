@@ -47,8 +47,8 @@ default[:radioedit][:nginx][:port] = 8000
 default[:radioedit][:dev][:path] = "/data/apps/radioedit";
 default[:radioedit][:dev][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
 default[:radioedit][:dev][:log_dir] = "/var/log/radioedit"
-default[:radioedit][:dev][:out_log] = "#{default[:radioedit][:dev][:log_dir]}/epona.log"
-default[:radioedit][:dev][:err_log] = "#{default[:radioedit][:dev][:log_dir]}/epona.err"
+default[:radioedit][:dev][:out_log] = "#{default[:radioedit][:dev][:log_dir]}/application.log"
+default[:radioedit][:dev][:err_log] = "#{default[:radioedit][:dev][:log_dir]}/application.err"
 default[:radioedit][:dev][:venv_path] = "#{default[:radioedit][:dev][:path]}/envs/core";
 default[:radioedit][:dev][:module] = "wsgi"
 default[:radioedit][:dev][:app_name] = "radioedit-core"
@@ -64,6 +64,7 @@ default[:radioedit][:dev][:host] = "unix"
 default[:radioedit][:dev][:utildir] = "#{default[:radioedit][:dev][:path]}/util"
 default[:radioedit][:dev][:asset_dir] = "/data/binstore"
 default[:radioedit][:dev][:cdn_url] = "http://10.5.1.29/"
+default[:radioedit][:dev][:elastic_clustername] = "radioedit-dev";
 default[:radioedit][:dev][:mongo_cstring] = "mongodb://use1b-radioedit-test102.ihr:37017,use1b-radioedit-test103.ihr:37017,use1b-radioedit-test104.ihr:37017/radioedit-f?replicaSet=RadioEdit1"
 default[:radioedit][:dev][:req_dirs] = %w{ 
   /data 
@@ -151,7 +152,7 @@ default[:radioedit][:staging][:path] = "/data/apps/radioedit";
 default[:radioedit][:staging][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
 default[:radioedit][:staging][:log_dir] = "/var/log/radioedit"
 default[:radioedit][:staging][:out_log] = "#{default[:radioedit][:staging][:log_dir]}/application.log"
-default[:radioedit][:staging][:err_log] = "#{default[:radioedit][:staging][:log_dir]}/applicaiton.err"
+default[:radioedit][:staging][:err_log] = "#{default[:radioedit][:staging][:log_dir]}/application.err"
 default[:radioedit][:staging][:venv_path] = "#{default[:radioedit][:staging][:path]}/envs/core";
 default[:radioedit][:staging][:module] = "wsgi:application"
 default[:radioedit][:staging][:app_name] = "radioedit-core"
@@ -164,6 +165,7 @@ default[:radioedit][:staging][:utildir] = "#{default[:radioedit][:staging][:path
 default[:radioedit][:staging][:staticdir] = "#{default[:radioedit][:staging][:path]}/static"
 default[:radioedit][:staging][:asset_dir] = "/data/binstore"
 default[:radioedit][:staging][:cdn_url] = "http://10.5.1.28/"
+default[:radioedit][:staging][:elastic_clustername] = "radioedit-staging";
 default[:radioedit][:staging][:mongo_cstring] = "mongodb://use1b-radioedit-test102.ihr:37017,use1b-radioedit-test103.ihr:37017,use1b-radioedit-test104.ihr:37017/radioedit-epona?replicaSet=RadioEdit1"
 default[:radioedit][:staging][:req_dirs] = %w{ 
   /data 
@@ -243,31 +245,33 @@ default[:radioedit][:staging][:pips] = %w{
 # ################################################################
 # PRODUCTION SETTINGS!!!!!
 # ################################################################
-default[:radioedit][:production][:repo] = "git@github.ihrint.com:radioedit/core.git"
-default[:radioedit][:production][:branch] = "release-fox"
-default[:radioedit][:production][:env] = "ihr_testing"
+default[:radioedit][:production][:repo] = "git@github.ihrint.com:radioedit/core.git";
+default[:radioedit][:production][:branch] = "release-fox";
+default[:radioedit][:production][:env] = "ihr_testing";
+default[:radioedit][:production][:app_user] = "ihr-deployer";
 default[:radioedit][:production][:path] = "/data/apps/radioedit";
-default[:radioedit][:production][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
-default[:radioedit][:production][:log_dir] = "/var/log/radioedit"
-default[:radioedit][:production][:out_log] = "#{default[:radioedit][:production][:log_dir]}/application.log"
-default[:radioedit][:production][:err_log] = "#{default[:radioedit][:production][:log_dir]}/applicaiton.err"
+default[:radioedit][:production][:pid_file] = "/var/run/radioedit/radioedit-epona.pid";
+default[:radioedit][:production][:log_dir] = "/var/log/radioedit";
+default[:radioedit][:production][:out_log] = "#{default[:radioedit][:production][:log_dir]}/application.log";
+default[:radioedit][:production][:err_log] = "#{default[:radioedit][:production][:log_dir]}/application.err";
 default[:radioedit][:production][:venv_path] = "#{default[:radioedit][:production][:path]}/envs/core";
-default[:radioedit][:production][:module] = "wsgi"
-default[:radioedit][:production][:app_name] = "radioedit-core"
-default[:radioedit][:production][:num_workers] = 5
-default[:radioedit][:production][:log_level] = "WARNING"
-default[:radioedit][:production][:port] = "/var/tmp/radioedit-cms.sock"
-default[:radioedit][:production][:listen] = "/var/tmp/radioedit-cms.sock"
-default[:radioedit][:production][:host] = "unix"
-default[:radioedit][:production][:utildir] = "#{default[:radioedit][:production][:path]}/util"
-default[:radioedit][:production][:staticdir] = "#{default[:radioedit][:production][:path]}/static"
-default[:radioedit][:production][:asset_dir] = "/data/binstore"
-default[:radioedit][:production][:cdn_url] = "http://images.iheart.com/"
-default[:radioedit][:production][:mongo_cstring] = "mongodb://iad-mongo-shared101.ihr:37017,iad-mongo-shared102.ihr:37017,iad-mongo-shared103.ihr:37017/radioedit?replicaSet=Mongo-shared1"
-default[:radioedit][:production][:nfs_server] = "10.5.40.121"
-default[:radioedit][:production][:nfs_remdir] = "/data/imgscaler/radioedit"
-default[:radioedit][:production][:nfs_locdir] = "/data/binstore"
-default[:radioedit][:production][:deploy_tag] = "radioedit-deployed"
+default[:radioedit][:production][:module] = "wsgi";
+default[:radioedit][:production][:app_name] = "radioedit-core";
+default[:radioedit][:production][:num_workers] = 5;
+default[:radioedit][:production][:log_level] = "WARNING";
+default[:radioedit][:production][:port] = "/var/tmp/radioedit-cms.sock";
+default[:radioedit][:production][:listen] = "/var/tmp/radioedit-cms.sock";
+default[:radioedit][:production][:host] = "unix";
+default[:radioedit][:production][:utildir] = "#{default[:radioedit][:production][:path]}/util";
+default[:radioedit][:production][:staticdir] = "#{default[:radioedit][:production][:path]}/static";
+default[:radioedit][:production][:asset_dir] = "/data/binstore/assets";
+default[:radioedit][:production][:cdn_url] = "http://images.iheart.com/";
+default[:radioedit][:production][:mongo_cstring] = "mongodb://iad-mongo-shared101.ihr:37017,iad-mongo-shared102.ihr:37017,iad-mongo-shared103.ihr:37017/radioedit?replicaSet=Mongo-shared1";
+default[:radioedit][:production][:nfs_server] = "10.5.40.121";
+default[:radioedit][:production][:nfs_remdir] = "/data/imgscaler/radioedit";
+default[:radioedit][:production][:nfs_locdir] = "/data/binstore";
+default[:radioedit][:production][:elastic_clustername] = "radioedit";
+default[:radioedit][:production][:deploy_tag] = "radioedit-deployed";
 default[:radioedit][:production][:req_dirs] = %w{ 
   /data 
   /data/apps 
@@ -280,7 +284,7 @@ default[:radioedit][:production][:req_dirs] = %w{
   /var/run/radioedit 
   /var/log/radioedit 
   /data/apps/radioedit/shared 
-}
+};
 default[:radioedit][:production][:packages] = %w{ 
   libevent 
   memcached 
@@ -309,7 +313,7 @@ default[:radioedit][:production][:packages] = %w{
   libjpeg-devel
   nginx
   rsyslog
-}
+};
 default[:radioedit][:production][:pips] = %w{ 
   supervisor 
   pymongo 
@@ -337,7 +341,7 @@ default[:radioedit][:production][:pips] = %w{
   simplejson 
   raven 
   pytest 
-}
+};
 # ################################################################
 # END PRODUCTION SETTINGS
 # ################################################################

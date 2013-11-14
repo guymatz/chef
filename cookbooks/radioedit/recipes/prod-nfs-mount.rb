@@ -21,6 +21,7 @@ directory "#{node[:radioedit][:production][:nfs_locdir]}" do
   owner "ihr-deployer"
   group "ihr-deployer"
   action :create
+  not_if "test -d #{node[:radioedit][:production][:nfs_locdir]}"
 end
 
 mount "#{node[:radioedit][:production][:nfs_locdir]}" do

@@ -13,8 +13,8 @@ include_recipe "yum::epel"
 # make all required directories
 node[:radioedit][:production][:req_dirs].each do |d|
   directory d do
-    owner "ihr-deployer"
-    group "ihr-deployer"
+    owner "#{node[:radioedit][:production][:app_user]}"
+    group "#{node[:radioedit][:production][:app_user]}"
     action :create
   end
 end
@@ -27,15 +27,15 @@ end
 
 template "#{node[:radioedit][:production][:path]}/shared/settings.json" do
   source "production-settings.json.erb"
-  owner "ihr-deployer"
-  group "ihr-deployer"
+  owner "#{node[:radioedit][:production][:app_user]}"
+  group "#{node[:radioedit][:production][:app_user]}"
 end
 
 link "#{node[:radioedit][:production][:path]}/settings.json" do
   to "#{node[:radioedit][:production][:path]}/shared/settings.json"
   action :create
-  owner "ihr-deployer"
-  group "ihr-deployer"
+  owner "#{node[:radioedit][:production][:app_user]}"
+  group "#{node[:radioedit][:production][:app_user]}"
   not_if "test -L #{node[:radioedit][:production][:path]}/shared/settings.json"
 end
 
@@ -46,8 +46,8 @@ end
 
 template "/data/apps/radioedit/setenv.sh" do
   source "production-env.sh.erb"
-  owner "ihr-deployer"
-  group "ihr-deployer"
+  owner "#{node[:radioedit][:production][:app_user]}"
+  group "#{node[:radioedit][:production][:app_user]}"
   mode 0755
   # notifies :run, "execute[set-app-env]", :immediately
 end
@@ -55,8 +55,8 @@ end
 
 python_virtualenv "#{node[:radioedit][:production][:venv_path]}" do
   interpreter "python27"
-  owner "ihr-deployer"
-  group "ihr-deployer"
+  owner "#{node[:radioedit][:production][:app_user]}"
+  group "#{node[:radioedit][:production][:app_user]}"
   action :create
 end
 
@@ -126,14 +126,16 @@ end
 
 
 # implementing tag locking per OPS 
-unless tagged?("#{node[:radioedit][:deploy_tag]}")
+unless tagged?("#{node[:radioedit][:production][:deploy_tag]}")
+
+  log "Deploying #{node[:radioedit][:production][:branch]}"
 
   application "radioedit-core" do
     repository "#{node[:radioedit][:production][:repo]}"
     revision "#{node[:radioedit][:production][:branch]}"
     path "#{node[:radioedit][:production][:path]}"
-    owner "ihr-deployer"
-    group "ihr-deployer"
+    owner "#{node[:radioedit][:production][:app_user]}"
+    group "#{node[:radioedit][:production][:app_user]}"
     enable_submodules true
 
     gunicorn do
@@ -158,7 +160,7 @@ unless tagged?("#{node[:radioedit][:deploy_tag]}")
   end
 
   # re-tag to make sure it doesn't try to deploy again
-  tag("#{node[:radioedit][:deploy_tag]}")
+  tag("#{node[:radioedit][:production][:deploy_tag]}")
 
 end
 
