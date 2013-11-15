@@ -1,7 +1,7 @@
 default[:proftpd][:encoder_export]       = "iad-isilon001.ihr:/ifs/encoder/encoder"
 default[:proftpd][:encoder_mount_point]  = "/data/encoder"
 default[:proftpd][:dir]                  = "/etc/proftpd"
-default[:proftpd][:key_dir]              = "/etc/ssh/authorized_keys"
+default[:proftpd][:key_dir]              = "/etc/proftpd/authorized_keys"
 default[:proftpd][:dir_extra_conf]       = "conf.d"
 default[:proftpd][:nat]                  = "off"
 default[:proftpd][:server_name]          = "NULL"
@@ -33,6 +33,8 @@ default[:proftpd][:dir_fakegroup]        = "ftp_users"
 default[:proftpd][:default_root]         = "/data/ftp"
 default[:proftpd][:default_shell]        = "/bin/bash"
 default[:proftpd][:user_file]            = default[:proftpd][:dir] + "/ftpd.passwd"
+default[:proftpd][:data_bag]             = "music_upload"
+default[:proftpd][:data_item]            = "upload_users"
 default[:proftpd][:port]                 = 21
 default[:proftpd][:default_address]      = ipaddress
 default[:proftpd][:modules]              = [

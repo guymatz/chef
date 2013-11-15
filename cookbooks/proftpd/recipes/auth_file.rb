@@ -13,7 +13,9 @@ class Chef::Recipe::Proftpd
 end
 
 # Get our encrypted data
-users = Chef::EncryptedDataBagItem.load("music_upload", "upload_users-dev").to_hash
+db = node[:proftpd][:data_bag]
+di = node[:proftpd][:data_item]
+users = Chef::EncryptedDataBagItem.load(db, di).to_hash
 
 template "#{node[:proftpd][:user_file]}" do
   source "ftpd.passwd.erb"
