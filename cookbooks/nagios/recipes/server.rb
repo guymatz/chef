@@ -164,6 +164,12 @@ sysadmins.each do |s|
   members << s['id']
 end
 
+amp.each do |s|
+  members << s['id']
+end
+
+allcontacts += amp
+
 # maps nodes into nagios hostgroups
 role_list = Array.new
 service_hosts= Hash.new
@@ -276,7 +282,7 @@ end
 
 nagios_conf "contacts" do
   Chef::Log.info("allcontacts value = #{allcontacts}")
-  variables :admins => sysadmins + amp,  :members => members, :allcontacts => allcontacts, :contact_groups => contactgroups
+  variables :admins => sysadmins,  :members => members, :allcontacts => allcontacts, :contact_groups => contactgroups
 end
 
 nagios_conf "hostgroups" do
