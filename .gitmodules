@@ -28,3 +28,9 @@
 [submodule "cookbooks/ark"]
 	path = cookbooks/ark
 	url = git@github.ihrint.com:OPS/ark.git
+[submodule "cookbooks/postgresql"]
+	path = cookbooks/postgresql
+	url = git@github.ihrint.com:OPS/postgresql.git
+[submodule "cookbooks/mongodb"]
+	path = cookbooks/mongodb
+	url = git@github.ihrint.com:OPS/mongodb.git
