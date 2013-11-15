@@ -7,8 +7,9 @@
 # All rights reserved - Do Not Redistribute
 #
 
-
-users = Chef::DataBagItem.load("music_upload", "upload_user-keys").to_hash
+db = node[:proftpd][:data_bag]
+di = node[:proftpd][:data_item]
+users = Chef::DataBagItem.load(db, di).to_hash
 
 users.each do |username,ssh_keys|
   keys=''
