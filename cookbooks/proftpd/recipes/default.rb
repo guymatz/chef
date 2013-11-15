@@ -51,24 +51,15 @@ end
 remote_directory "#{node[:proftpd][:dir]}/#{node[:proftpd][:dir_extra_conf]}" do
   source "conf.d"
   files_backup 0
-<<<<<<< HEAD
   files_owner node[:proftpd][:ftp_user]
   files_group node[:proftpd][:ftp_group]
   files_mode 0600
   owner node[:proftpd][:ftp_user]
   group node[:proftpd][:ftp_group]
-=======
-  files_owner node[:proftpd][:user]
-  files_group node[:proftpd][:group]
-  files_mode 0600
-  owner node[:proftpd][:user]
-  group node[:proftpd][:group]
->>>>>>> f4bb32cdd92484b6088b22bdbb170102e72dfcf1
   mode 0700
 end
 
 directory "#{node[:proftpd][:dir]}/ssl" do
-<<<<<<< HEAD
   owner node[:proftpd][:ftp_user]
   group node[:proftpd][:ftp_group]
   mode 0700
@@ -77,29 +68,14 @@ end
 directory "#{node[:proftpd][:key_dir]}" do
   owner node[:proftpd][:ftp_user]
   group node[:proftpd][:ftp_group]
-=======
-  owner node[:proftpd][:user]
-  group node[:proftpd][:group]
-  mode 0700
-end
-
-directory "#{node[:proftpd][:dir]}/authorized_keys" do
-  owner node[:proftpd][:user]
-  group node[:proftpd][:group]
->>>>>>> f4bb32cdd92484b6088b22bdbb170102e72dfcf1
   mode 0700
 end
 
 template "#{node[:proftpd][:dir]}/modules.conf" do
   source "modules.conf.erb"
   mode 0644
-<<<<<<< HEAD
   owner node[:proftpd][:ftp_user]
   group node[:proftpd][:ftp_group]
-=======
-  owner node[:proftpd][:user]
-  group node[:proftpd][:group]
->>>>>>> f4bb32cdd92484b6088b22bdbb170102e72dfcf1
   notifies :restart, resources(:service => "proftpd")
 end
 
@@ -107,11 +83,7 @@ end
 # template "/etc/proftpd.conf" do
 #   source "proftpd.conf.erb"
 #   mode 0644
-<<<<<<< HEAD
 #   owner node[:proftpd][:ftp_user]
-=======
-#   owner node[:proftpd][:user]
->>>>>>> f4bb32cdd92484b6088b22bdbb170102e72dfcf1
 #   group node[:proftpd][:group]
 #   notifies :restart, resources(:service => "proftpd")
 # end
@@ -128,7 +100,6 @@ end
 
 # Dir where ftp home dirs will be
 directory "#{node[:proftpd][:default_root]}" do
-<<<<<<< HEAD
   owner node[:proftpd][:ftp_user]
   group node[:proftpd][:ftp_group]
   mode 0700
@@ -150,13 +121,6 @@ mount node[:proftpd][:encoder_mount_point] do
   action [:mount, :enable]
 end
 
-=======
-  owner node[:proftpd][:user]
-  group node[:proftpd][:group]
-  mode 0700
-end
-
->>>>>>> f4bb32cdd92484b6088b22bdbb170102e72dfcf1
 # And we need a link to /Utility for historical reasons
 link "/Utility" do
   to "#{node[:proftpd][:default_root]}" 
@@ -167,7 +131,4 @@ service "proftpd" do
 end
 
 include_recipe "proftpd::auth_file"
-<<<<<<< HEAD
 include_recipe "proftpd::sshkeys_files"
-=======
->>>>>>> f4bb32cdd92484b6088b22bdbb170102e72dfcf1

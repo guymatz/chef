@@ -18,7 +18,7 @@ users.each do |username,ssh_keys|
     keys = ssh_keys
   elsif ssh_keys.is_a?(Array)
     ssh_keys.sort!.each do |key|
-      keys = keys + key + "\r\n"
+      keys = keys + key + "\r"
     end
   else
     log("Can't make key file for #{username} with: #{ssh_keys}")
