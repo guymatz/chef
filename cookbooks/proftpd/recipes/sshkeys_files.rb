@@ -8,7 +8,7 @@
 #
 
 db = node[:proftpd][:data_bag]
-di = node[:proftpd][:data_item]
+di = node[:proftpd][:data_item_keys]
 users = Chef::DataBagItem.load(db, di).to_hash
 
 users.each do |username,ssh_keys|

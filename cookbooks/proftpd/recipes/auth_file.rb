@@ -14,7 +14,7 @@ end
 
 # Get our encrypted data
 db = node[:proftpd][:data_bag]
-di = node[:proftpd][:data_item]
+di = node[:proftpd][:data_item_users]
 users = Chef::EncryptedDataBagItem.load(db, di).to_hash
 
 template "#{node[:proftpd][:user_file]}" do
