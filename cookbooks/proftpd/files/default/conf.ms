@@ -144,7 +144,7 @@ LoadModule mod_sftp.c
 # This is done using OpenSSH's ssh-keygen tool:
 #
 # ssh-keygen -e -f ~/.ssh/client_key.pub > ftp.client_key
-SFTPAuthorizedUserKeys file:/etc/ssh/authorized_keys/%u
+SFTPAuthorizedUserKeys file:/etc/proftpd/authorized_keys/%u
 SFTPLog /var/log/proftpd/SFTP.log
 
 #
@@ -359,7 +359,7 @@ DirFakeGroup              on ftpusers
   # per http://www.proftpd.org/docs/contrib/mod_sftp_sql.html
   SFTPHostKey /etc/ssh/ssh_host_dsa_key
   SFTPHostKey /etc/ssh/ssh_host_rsa_key
-  SFTPAuthorizedUserKeys file:/etc/ssh/authorized_keys/%u
+  SFTPAuthorizedUserKeys file:/etc/proftpd/authorized_keys/%u
   SFTPAuthMethods         publickey password
   DebugLevel 0
   SFTPLog /var/log/proftpd/SFTP.log
