@@ -80,7 +80,7 @@ PROGNAME=$(basename $0)
 ERR_MESG=()
 LOGGER="`which logger` -i -p kern.warn -t"
 
-AUTO=0
+AUTO=1
 AUTOIGNORE=0
 IGNOREFSTAB=0
 WRITETEST=0
