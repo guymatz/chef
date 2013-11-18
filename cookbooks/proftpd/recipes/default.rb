@@ -79,6 +79,9 @@ template "#{node[:proftpd][:dir]}/modules.conf" do
   notifies :restart, resources(:service => "proftpd")
 end
 
+## The original tempate that came with the cookbook
+## Will go back to using this once I can figure out 
+## how to get the correct IP from ohai!!
 #template "#{node[:proftpd][:dir]}/proftpd.conf" do
 # template "/etc/proftpd.conf" do
 #   source "proftpd.conf.erb"
@@ -132,3 +135,10 @@ end
 
 include_recipe "proftpd::auth_file"
 include_recipe "proftpd::sshkeys_files"
+
+# I generally don't like to mix non-required packages into a cookbook
+# like this, but I can't imagine an ftp server not requiring
+# incron - gmatz
+package "incron" do
+  action :install
+end
