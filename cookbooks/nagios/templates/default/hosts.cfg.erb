@@ -12,7 +12,7 @@ define host {
 <% @nodes.each do |n| -%>
 <% unless n.name == node.name -%>
 define host {
-  use server
+  use <%= n['nagios'].to_hash.has_key?('server-type') ? n['server-type'] : 'server' %>
   address <%= n['hostname'] %>
   host_name <%= n['hostname'] %>
 <% if n.run_list.roles.nil? || n.run_list.roles.length == 0 -%>
@@ -28,7 +28,7 @@ define host {
 <% if @unmanaged_hosts -%>
 <% @unmanaged_hosts.each do |n| -%>
 define host{
-  use server
+  use <%= n['nagios'].to_hash.has_key?('server-type') ? n['server-type'] : 'server' %>
   address <%= n['address'] %>
   alias <%= n['address'] %>
   host_name <%= n['address'] %>
