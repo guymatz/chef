@@ -9,6 +9,13 @@ define service {
     check_command       check_ping!200.0,20%!500.0,60%
 }
 
+define service {
+    use                 dba-service
+    hostgroup_name      postgres-server,postgres-server-ha,mongodb-server,mongodb-config-server,cassandra
+    service_description ping-dba
+    check_command       check_ping!200.0,20%!500.0,60%
+}
+
 # monitoring service checks
 define service {
     service_description Nagios
@@ -43,6 +50,13 @@ define service {
 }
 
 define service {
+    service_description Free Space All Disks - DBA
+    hostgroup_name      postgres-server,postgres-server-ha,mongodb-server,mongodb-config-server,cassandra
+    check_command       check_all_disks
+    use                 dba-service
+}
+
+define service {
     service_description SSH
     hostgroup_name      linux
     check_command       check_ssh
@@ -50,10 +64,24 @@ define service {
 }
 
 define service {
+    service_description SSH - DBA
+    hostgroup_name      postgres-server,postgres-server-ha,mongodb-server,mongodb-config-server,cassandra
+    check_command       check_ssh
+    use                 dba-service
+}
+
+define service {
     service_description Processes
     hostgroup_name      linux
     check_command       check_local_procs
     use                 default-service
+}
+
+define service {
+    service_description Processes - DBA
+    hostgroup_name      postgres-server,postgres-server-ha,mongodb-server,mongodb-config-server,cassandra
+    check_command       check_local_procs
+    use                 dba-service
 }
 
 <% unless @service_hosts['monitoring'].nil? -%>
