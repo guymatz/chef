@@ -51,7 +51,7 @@ end
 include_recipe "nagios::server_#{node['nagios']['server']['install_method']}"
 
 sysadmins = search(:users, 'groups:sysadmin')
-amp = search(:users, 'groups:amp')
+all_alerts = search(:users, 'groups:all_alerts')
 nagiosusers = search(:users, 'groups:nagios')
 allcontacts = search(:users, 'groups:sysadmin')
 nagiosportalusers = sysadmins + nagiosusers
@@ -164,11 +164,11 @@ sysadmins.each do |s|
   members << s['id']
 end
 
-amp.each do |s|
+all_alerts.each do |s|
   members << s['id']
 end
 
-allcontacts += amp
+allcontacts += all_alerts
 
 # maps nodes into nagios hostgroups
 role_list = Array.new
