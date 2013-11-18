@@ -56,3 +56,10 @@ cron_d "remove-recommendation-logs" do
   hour 3
   command "rm -f /var/log/fac-recs/fac-recs-#{app}/*log.*"
 end
+
+cron_d "fac-recommendations" do
+ minute "12"
+ hour "12"
+ command "/usr/bin/nsca_relay -S fac-recommendations -- #{script_dir}/#{start_script}"
+ user "root"
+end
