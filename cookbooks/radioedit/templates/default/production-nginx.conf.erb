@@ -32,6 +32,10 @@ server {
         alias /data/apps/radioedit/static/iphone.json; 
     }
 
+    #location = /api/v2/query/webapp.us.slider-staging {
+    #    rewrite .* /service/dl/iheartcom-qa/ redirect; 
+    #}
+
     location / {
         try_files $uri @proxy_to_core;
     }

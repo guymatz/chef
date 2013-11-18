@@ -90,7 +90,7 @@ directory "#{node[:radioedit][:production][:staticdir]}" do
     owner "nginx"
     group "nginx"
     action :create
-  end
+end
 
 template "#{node[:radioedit][:production][:staticdir]}/android.json" do
   source "staticfile-android.json.erb"
@@ -150,6 +150,7 @@ unless tagged?("#{node[:radioedit][:production][:deploy_tag]}")
       packages node[:radioedit][:production][:pips]
       loglevel "#{node[:radioedit][:production][:log_level]}"
       interpreter "python27"
+      autostart true
     end
   end
 
