@@ -8,11 +8,12 @@ define host {
   host_name <%= node['hostname'] %>
   hostgroups <%= node['nagios']['server_role'] %>,<%= node['os'] %>
 }
-
+<% n_hash = Hash.new %>
 <% @nodes.each do |n| -%>
+<% n_hash = n.to_hash %>
 <% unless n.name == node.name -%>
 define host {
-  use <%= n['nagios'].to_hash.has_key?('server-type') ? n['server-type'] : 'server' %>
+  use <%= n_hash['nagios'].has_key?('server-type') ? n['nagios']['server-type'] : 'server' %>
   address <%= n['hostname'] %>
   host_name <%= n['hostname'] %>
 <% if n.run_list.roles.nil? || n.run_list.roles.length == 0 -%>
@@ -27,8 +28,9 @@ define host {
 
 <% if @unmanaged_hosts -%>
 <% @unmanaged_hosts.each do |n| -%>
+<% n_hash = n.to_hash %>
 define host{
-  use <%= n['nagios'].to_hash.has_key?('server-type') ? n['server-type'] : 'server' %>
+  use <%= n_hash.has_key?('server-type') ? n['server-type'] : 'server' %>
   address <%= n['address'] %>
   alias <%= n['address'] %>
   host_name <%= n['address'] %>
