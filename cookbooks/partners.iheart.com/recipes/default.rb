@@ -133,7 +133,12 @@ unless tagged?("partners-deployed")
     minute 0
     hour 1
     user "ihr-deployer"
-    command "scp #{node[:partners][:sqlite_path]}/db.sqlite3 iad-ss-web101.ihr:/data/www/files.ihrdev.com/partners/."
+    command <<-EOH
+    cd #{node[:partners][:sqlite_path]}
+    sqlite3 db.sqlite3 '.backup main backup.sqlite3'
+    scp backup.sqlite3 iad-ss-web101.ihr:/data/www/files.ihrdev.com/partners/.
+    rm -f backup.sqlite3
+    EOH
   end
 
   tag("partners-deployed")
