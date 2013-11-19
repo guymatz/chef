@@ -1,22 +1,28 @@
 #
 # Cookbook Name:: fac
-# Recipe:: recommendations
+# Recipe:: recommendations   (apadted from sherpa)
 # Copyright 2013, iHeartRadio
 # All rights reserved - Do Not Redistribute
 #
 app = "recommendations"
-download_url = "#{node[:fac][:url]}/FAC-#{app}/#{node[:fac][app][:version]}/FAC-#{app}-#{node[:fac][app][:version]}.jar"
+jar_file = "FAC-#{app}-#{node[:fac][app][:version]}.jar"
+download_url = "#{node[:fac][:url]}/FAC-#{app}/#{node[:fac][app][:version]}/#{jar_file}"
 script_dir = "#{node[:fac][:script_path]}/#{app}"
+start_script = "fac-#{app}-runner.sh"
 
 directory "#{script_dir}" do
   recursive true
 end
 
-remote_file "#{script_dir}/fac-#{app}.jar" do
-  Chef::Log.info("Downloading fac-#{app} from #{download_url}")
+remote_file "#{script_dir}/#{jar_file}" do
+  Chef::Log.info("Downloading #{download_url}")
   source "#{download_url}"
   mode "0755"
   action :create_if_missing
+end
+
+link "#{script_dir}/fac-#{app}.jar" do
+  to "#{script_dir}/#{jar_file}" 
 end
 
 # init directories
@@ -27,20 +33,19 @@ end
   end
 end
 
-directory "/var/log/fac-recs/fac-recs-#{app}" do
+directory "/var/log/fac-recs/fac-#{app}" do
   recursive true
   mode "0755"
 end
 
-template "/etc/init.d/fac-#{app}" do
-  source "fac.init.erb"
+template "#{script_dir}/#{start_script}" do
+  source "#{start_script}.erb"
   mode "0755"
   owner "root"
   group "root"
   variables({
-              :fac_app => app,
-              :jarfile => "#{script_dir}/fac-#{app}.jar"
-            })
+    :jarfile => "#{script_dir}/#{jar_file}"
+  })
 end
 
 nagios_nrpecheck "FAC-Recommendations" do
@@ -63,3 +68,4 @@ cron_d "fac-recommendations" do
  command "/usr/bin/nsca_relay -S fac-recommendations -- #{script_dir}/#{start_script}"
  user "root"
 end
+
