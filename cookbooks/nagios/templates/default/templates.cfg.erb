@@ -64,7 +64,7 @@ define host {
   check_command           check-host-alive
   notification_interval   <%= nagios_interval(nagios_attr(:default_host)[:notification_interval]) %>
   notification_options    d,u,r
-  contact_groups          dba-team
+  contact_groups          dba-team,admins
   register                0
 }
 
