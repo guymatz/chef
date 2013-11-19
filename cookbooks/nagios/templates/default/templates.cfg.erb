@@ -55,7 +55,7 @@ define host {
 }
 
 define host {
-  name                    server-dba
+  name                    dba-server
   use                     default-host
   check_period            24x7
   check_interval          <%= nagios_interval(nagios_attr(:default_host)[:check_interval]) %>
