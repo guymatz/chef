@@ -120,7 +120,7 @@ end
 mount node[:proftpd][:encoder_mount_point] do
   device node[:proftpd][:encoder_export]
   fstype "nfs"
-  options "ro"
+  options "rw"
   action [:mount, :enable]
 end
 
