@@ -48,13 +48,13 @@ template "#{script_dir}/#{start_script}" do
   })
 end
 
-nagios_nrpecheck "FAC-Recommendations" do
-  command "#{node['nagios']['plugin_dir']}/check_procs"
-  warning_condition "1:1"
-  critical_condition "1:1"
-  parameters "-C fac-recommendations.jar" 
-  action :add
-end
+#nagios_nrpecheck "FAC-Recommendations" do
+#  command "#{node['nagios']['plugin_dir']}/check_procs"
+#  warning_condition "1:1"
+#  critical_condition "1:1"
+#  parameters "-C fac-recommendations.jar" 
+#  action :add
+#end
 
 cron_d "remove-recommendation-logs" do
   minute 0
