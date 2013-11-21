@@ -2,10 +2,10 @@
     "id": "lvauthrin",
     "uid": 5016,
     "name": "Laurent Vauthrin",
-    "email": "laurentvauthrin@clearchannel.com",
+    "email": "",
     "groups": ["dev", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch", "facebook", "rabbit"],
     "nagios": {
-        "email": "laurentvauthrin@clearchannel.com"
+        "email": ""
     },
     "htpasswd": "{SHA}UMSgGIz+mv9Fd7TcOKM+7ICLbHQ=",
     "ssh_keys": [

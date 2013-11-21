@@ -2,7 +2,7 @@
     "id": "jisles",
     "uid": 50224,
     "name": "Jack Isles",
-    "email": "JackIsles@clearchannel.com",
+    "email": "",
     "groups": ["cnpuser"],
     "shell":    "/bin/bash",
     "ssh_keys": [

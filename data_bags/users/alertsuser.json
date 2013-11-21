@@ -1,12 +1,12 @@
 {
     "id": "alertsuser",
     "name": "Alerts User",
-    "email":    "aaronclements@clearchannel.com",
+    "email":    "",
     "groups":   ["webplayer","nagios"],
     "shell":    "/sbin/nologin",
     "nagios": {
-        "email": "aaronclements@clearchannel.com",
-        "pager": "aaronclements@clearchannel.com"
+        "email": "",
+        "pager": ""
     },
     "uid": 7777
 }

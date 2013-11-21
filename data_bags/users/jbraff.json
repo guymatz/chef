@@ -2,10 +2,10 @@
     "id": "jbraff",
     "uid": 5007,
     "name": "Jeremy Braff",
-    "email": "jeremybraff@clearchannel.com",
+    "email": "",
     "groups": ["dev", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch"],
     "nagios": {
-        "email": "jeremybraff@clearchannel.com"
+        "email": ""
     },
     "htpasswd": "{SHA}4Da0TyoBNIOMshZi3FJIAU+2bAw=",
     "ssh_keys": [

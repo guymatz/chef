@@ -1,7 +1,7 @@
 {
     "id": "attivio",
     "name": "Attivio Service",
-    "email":    "ccd-sa@clearchannel.com",
+    "email":    "",
     "groups":   ["attivio"],
     "shell":    "/bin/bash",
     "uid": 4001,

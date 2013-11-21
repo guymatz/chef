@@ -10,8 +10,8 @@
     ],
     "shell":    "/bin/bash",
     "nagios": {
-        "email": "aaronclements@clearchannel.com",
-        "pager": "aaronclements@clearchannel.com"
+        "email": "",
+        "pager": ""
     },
     "htpasswd": "{SHA}O/ygVkFyCxURoH6rAHXoPJSjwxU=",
     "uid": 5025

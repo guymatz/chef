@@ -1,7 +1,7 @@
 {
     "id": "jderagon",
     "name": "John Deragon",
-    "email":    "johnderagon@clearchannel.com",
+    "email":    "",
     "groups":   ["sysadmin"],
     "ssh_keys": [
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDhH3q3cdo4hTtVRAIKWn3GRWt9ALFBVbn+NgEbexUnrFV3ZoTpZrQFfTqEl0/d6uoAygYbMU1vNpLOf1rQZ/maIETDV3vhDLW2qSghqd5FE6LpMVaV1V/l41yicKfSJH+7I/Blr4rgqZusdIyMVHMfAWlUxoKt/NncS/6enqWjgWjJ/0ozgYCP8FD8cThacuV1/qEk16H/IMZTP5Ws9QwzIJoFCClc7U2/Kh6eGN8y5Mic8vJ2aq535KKXZMf001vRYCqMp3l1LnQJ0PCKzn9Y7ES9tftUzs8MQoN+vBqe9GmfntsYPYRKAtNIx2HEOcOtt3rbep50ej2rDeb0nSen cccpeo1jxd@CCCNYC01JXD.local",
@@ -10,8 +10,8 @@
     ],
     "shell":    "/bin/bash",
     "nagios": {
-        "email": "johnderagon@clearchannel.com",
-        "pager": "johnderagon@clearchannel.com"
+        "email": "",
+        "pager": ""
     },
     "htpasswd": "{SHA}48pjCrAIZIGO58nhpat488q7+HI=",
     "uid": 5002

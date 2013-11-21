@@ -1,7 +1,7 @@
 {
 	"id": "converter",
 	"name": "Converter Service",
-	"email":    "ccd-sa@clearchannel.com",
+	"email":    "",
 	"groups":   [ "converter" ],
 	"shell":    "/bin/bash",
 	"ssh_keys": [

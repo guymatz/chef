@@ -2,10 +2,10 @@
     "id": "lhamre",
 "uid": 5005,
     "name": "Lasse Hamre",
-    "email": "lassehamre@clearchannel.com",
+    "email": "",
     "groups": ["dev", "data-team", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch"],
     "nagios": {
-        "email": "lassehamre@clearchannel.com"
+        "email": ""
     },
     "htpasswd": "{SHA}gTqndokzSIUwdog8TMd88J2+okY=",
     "ssh_keys": [

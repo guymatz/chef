@@ -2,10 +2,10 @@
     "id": "kgilmer",
     "uid": 5019,
     "name": "Kenneth Gilmer",
-    "email": "kennethgilmer@clearchannel.com",
+    "email": "",
     "groups": ["dev", "jobserver", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch", "pnp"],
     "nagios": {
-        "email": "kennethgilmer@clearchannel.com"
+        "email": ""
     },
     "htpasswd": "{SHA}d+8HBZ92ovXvBIZ8zp2R9vFB/YQ=",
     "ssh_keys": [

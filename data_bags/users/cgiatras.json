@@ -1,11 +1,11 @@
 {
     "id": "cgiatras",
     "name":	"Kosta",
-    "email":	"cgiatras@clearchannel.com",
+    "email":	"",
     "action": "remove",
     "groups":	["disabled"],
        "shell":	"/bin/nologin",
     "nagios": {
-	"email": "cgiatras@clearchannel.com"
+	"email": ""
    }
 }

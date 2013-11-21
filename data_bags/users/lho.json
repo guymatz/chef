@@ -1,7 +1,7 @@
 {
     "id": "lho",
     "name": "Long Ho",
-    "email": "longho@clearchannel.com",
+    "email": "",
     "groups": ["dev", "webplayer"],
     "ssh_keys": [
         "ssh-dss AAAAB3NzaC1kc3MAAACBAM6tu6ODPeP8yv8Dkr+DBZXhq/0d4+gKa5fEU86Np3DGkiAi1pH3UzDSaWBy2DnxfgjrOxhVuhCODOa3R5sG7zL8OFebsd4Z+EIlp13vuWsTXsXfriJgVy+J+2pEHbQJW44INjSoAsj2x5Ag9jbXbhQBmD/GYeEfoThfBdfwsNWfAAAAFQDgL/bHIECArj+cKTYoidmebVfVhwAAAIBzOxMHCsVnw8pHmWQCdu5Sp+OuMw3jUrG8CEB5L+YadoagW2rJ3RBOE/shzCauOS90PH/ivi2fYF2bgxwti2VUQ8dwOktsrzpQl03XHnv/A1s3DiimNQyRkVOfqAzgESZLdeQGBqji/3J6f98usjQzU+tHnu9vfCn6/VaFULmPawAAAIEAypUneXa/nZg/sJhTRUGpIKKhpCLc5wpZKXj//G256m8/W/xFlq58htRsrY0ACsoIw5DQT1g7cxHGVDz7ZEHX7xgAOi39nuwW81VbHeBcnR4a5aEM4EBpYUp0aNBT9FIAzebFKw3XQ4y1N4OR7QnCASSEY4Jtgje9ZtsylIb+fpE= longlho@Longs-MacBook-Pro.local"

@@ -1,7 +1,7 @@
 {
     "id": "alevasseur",
     "name": "Adam LeVasseur",
-    "email":    "adamlevasseur@clearchannel.com",
+    "email":    "",
     "groups":   ["dev", "webplayer"],
     "ssh_keys": [
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDy9MSPNgODcSihLeYjxp1todlxhKdhXcFovIywhOIbU6/XlLLRIPJhQbdfShprrcqTs/kZT57YRetgpdlX6p0bzsrle8Rw7wMCSwtXbC4yrwcC1ELnmfae6/XUf2VFg5xKHvOSU8tLrEZDq79MyIVC8xSfE2O0H3o6CqxuJzJgZ8FaogKXWUaNLNeSh3GQWGwNZ6KTzxvquH2qPvqF5mkhvczSea9rRhmlHkXe+4x5PbpiFCVo8mzq2Hp1AZnaYZYANtubtOOCtdez52Y9UGGqTrGNxaA6KY5MK+4vHtIr9DQTrvTeAaKeN6d7nakGzJ+Dl/8CbymlbMLYr1bwBNlr alevasseur@TECH-ALEVASSEUR.local",

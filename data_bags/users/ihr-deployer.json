@@ -1,7 +1,7 @@
 {
     "id": "ihr-deployer",
     "name": "Github Deploy User",
-    "email":    "ihr-deployer@clearchannel.com",
+    "email":    "",
     "ssh_keys": [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDSUPuNFBp04O9z+RVasObH6Wvlo3RRVRbHhiowS+urDNTwkmiywfyv1bzFjdp1HgPMDtkQKwDX/Zg3QOUoEW1bn3ewuHaxZxd0ZuEYCW7UUw71uR81ykDM7qC/Pv/PvzfvEsqiNltRxgPbkxfpaEbVvSeIPR0yEJH45mAksRZWOkEGB/UjqFbAc0940c/Cfh/LYV7FkJiaumpbUGiFgEkFxaTGWEigdr18QV4vRr2/oXz/ytXsEBRpjMXNiTGjH/s223n9T9IRBo8XYCIYby6Rd244Y7l49go1YJQFBoPeGZtEc07A8zwD8jQdp/TAFbCtI/TbUBrzVsi6f+GoGsmB"
     ],

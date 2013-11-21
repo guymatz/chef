@@ -2,11 +2,11 @@
     "id": "tdrapeau",
     "uid": 5015,
     "name": "Thomas Drapeau",
-    "email": "thomasdrapeau@clearchannel.com",
+    "email": "",
     "htpasswd": "{SHA}LOCKED",
     "groups": ["dev", "converter", "qa", "amp", "nagios", "talk" ],
     "nagios": {
-        "email": "thomasdrapeau@clearchannel.com"
+        "email": ""
     },
     "ssh_keys": [
 "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCqmHkOSzOUGQUYTCL8HeNQle5m//d3DzJEcVGgQfiJ1uw8/EyNkX8ceakk7uQDcokXtvEgykauCA/qroKH4jv8jyKKoQb0J3Ja45XGWsiwsou1MjzDIVir2JDEKVT08t0y9aQE6aRBUArfwhzTm8Q+gZMSdUNWws4/H2u5eK5786fZITqN5CACGSyzLd23s3OT8iE8JjYGQv5Hdx2FF59DxKg/bvwttwQukPY86mYCN6RvPSKKqxda4Y/nzbsSOzoIZwyMoWC6fIBtAXK1Pb7s2R+C0uqm4wsD2uHXWqlAWznZztHbjjiSQPWmD9Ectos2XP6Vv01z3k9gzEV15q9v ThomasDrapeau@clearchannel.com",

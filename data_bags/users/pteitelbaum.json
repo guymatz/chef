@@ -1,7 +1,7 @@
 {
   "id": "pteitelbaum",
   "name":	"Peter Teitelbaum",
-  "email":	"peterteitelbaum@clearchannel.com",
+  "email":	"",
   "groups":	["dba", "postgresql-sysadmin", "mongodb"],
   "ssh_keys":	"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDT3JZ7pwJh0HWtPAJGNXsbvI/9p4Aeq+PaBjHeJNLIJpDAx/VoxXMNAuaAkih8/UEWsCr94GqHRr4wxSzHQMtN+V4i1LdUJdMBOUTy2wHLyeDJkFtb16OqvFpdnx8o7hmI0TgJwu22Xo71EhNcRQDW2Fns059VDp63kmaqaMzy0aXiZwa6MiD8icfTD2zkkqjRejnwQ8j7pXzmofpT1XjI1avAf6vo0y1c/U+wq0xJojOxjaQV2zVQnhc/S5nnPs8G0XYf1X4FZJjfYGbxkSwYSg3iE8pxjznhQoS03h44LdtFx28nTNzPeLYI68S+kq2qDypvkb6ZM2jD7AkEJa7t PETET-DV@ccomradmin.cci.clearchannel.com",
   "shell":	"/bin/bash",

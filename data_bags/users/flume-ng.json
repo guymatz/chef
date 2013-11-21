@@ -1,7 +1,7 @@
 {
     "id": "flume",
     "name": "flume-ng user",
-    "email":    "pkatsev@clearchannel.com",
+    "email":    "",
     "groups":   ["flume"],
     "shell":    "/bin/bash",
     "uid": 4020

@@ -1,7 +1,7 @@
 {
     "id": "news",
     "name": "News",
-    "email":    "ccd-sa@clearchannel.com",
+    "email":    "",
     "groups":   ["news"],
     "shell":    "/bin/bash",
     "uid": 4022

@@ -2,11 +2,11 @@
     "id": "apatel",
     "uid": 5013,
     "name": "Amit Patel",
-    "email": "amitpatel@clearchannel.com",
+    "email": "",
     "htpasswd": "{SHA}LOCKED",
     "groups": ["dev", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch", "facebook", "rabbit"],
     "nagios": {
-        "email": "amitpatel@clearchannel.com"
+        "email": ""
     },
     "ssh_keys": [
 "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbi0Xi6NBZWch/txhopvc6dYlnwY3CXjDHG7/85O5J0vr3msjp+dpVzDUZnvAObNC/MIdQa7GdWiQWfZ5jlPPFHP3zzrlO96mcCMfU0M2RFcZQAxMxT0LSMJMtVLMsdKV6BF0UbeIrOIqviYuH8A5u1Khh8m3/Qk48cQiCGkJdT3z2rfRoPT4NmIDeuXbH9CsDqBCZnEaAG+0umiQHqnXkK24Nc2G+fPOVPCNNyTJgSW+0GWfeBZ1z5DykKhcoIy6BPJlsX2wkBeJpLNKCnghQnI16y3qkNgTOJQqtmdHP4O3GZk7/G1ZS49iSlw7fHPhRWFTWil7RFXA9PmBzl1Xv AmitPatel@clearchannel.com",

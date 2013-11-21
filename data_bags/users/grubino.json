@@ -2,10 +2,10 @@
     "id": "grubino",
     "uid": 5033,
     "name": "Greg Rubino",
-    "email": "GregRubino@clearchannel.com",
+    "email": "",
     "groups": ["dev", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch"],
     "nagios": {
-        "email": "GregRubino@clearchannel.com"
+        "email": ""
     },
     "htpasswd": "{SHA}Glr/Y92CSYrFCFn+FI4l5tMybh0=",
     "ssh_keys": ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCraUxfCNcmkPYYqVmGZ+i5yMr0jAaH1PD99BchrMVEfq1MIJePQ8nwjP2G3a7EAOsFFBtlUe61wfnIjBiS8ZByvX8EecqZAurOd83xxardAkfOeMDSTlDNYfEz/3UL/21pGDMu7fe68De5QVwcjdUZu7ysxLu2tEx8AFF+5CmnApJ1E2Zpz6Vq0ETUEbQyMd4l1fgjTHoy98gidyoflvaOHvoweyeA2s4ICJlmqEbLw94Bo1IjfvTKV31X0YE6wObwdglDsZ27TFZ/ilBS0SOzd3W9mZ7zaBeUC6Z84pAGcyZdOE84aX4LV8Ksu59E1ue+Zblm66S8IkEknI5cpTS9 gregrubino@clearchannel.com"]

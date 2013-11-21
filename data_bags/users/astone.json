@@ -1,7 +1,7 @@
 {
     "id": "astone",
     "name": "Andrew Stone",
-    "email":    "andrewstone@clearchannel.com",
+    "email":    "",
     "groups":   ["dev", "webplayer", "quickio"],
     "htpasswd": "{SHA}LOCKED",
     "ssh_keys": [
