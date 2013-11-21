@@ -59,14 +59,14 @@ begin
     end
 
     remote_file "#{node[:tomcat7][:webapp_dir]}/api.war" do
-      source "#{node[:amp][:url]}/#{node[:amp][:version]}/amp-rest.war"
+      source "#{node[:amp][:url]}/#{node[:amp][:version]}/amp-rest-#{node[:amp][:amp_rest_version]}.war"
       owner node[:tomcat7][:user]
       group node[:tomcat7][:group]
       mode "0755"
     end
 
-    remote_file "#{node[:tomcat7][:install_path]}/lib/env.properties" do
-      source "#{node[:amp][:url]}/#{node[:amp][:version]}/env.properties"
+    cookbook_file "#{node[:tomcat7][:install_path]}/lib/env.properties" do
+      source "stg_env.properties"
       owner node[:tomcat7][:user]
       group node[:tomcat7][:group]
       mode "0755"

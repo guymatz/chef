@@ -39,8 +39,7 @@ when "debian"
     sshpass
   }
 when "rhel"
-  default['jenkins']['packages'] = %w{ sshpass }
+  default['jenkins']['packages'] = %w{ sshpass ruby-devel make gcc libxml2 libxslt-devel libxml2-devel }
 end
 
 default['jenkins']['recipes'] = %w{ rvm::ruby_192 }
-default[:jenkins][:gems] = %w{ foodcritic }

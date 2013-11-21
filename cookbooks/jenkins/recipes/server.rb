@@ -25,6 +25,7 @@
 
 include_recipe "java"
 include_recipe "runit"
+include_recipe "users::jenkins_dev"
 
 node[:jenkins][:packages].each do |pkg|
   package pkg
@@ -32,10 +33,6 @@ end
 
 node[:jenkins][:recipes].each do |r|
   include_recipe r
-end
-
-node[:jenkins][:gems].each do |g|
-  gem_package g
 end
 
 user node['jenkins']['server']['user'] do

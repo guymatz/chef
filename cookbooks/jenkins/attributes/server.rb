@@ -39,7 +39,7 @@ default['jenkins']['server']['war_checksum'] = nil
 
 default['jenkins']['server']['port'] = 8080
 default['jenkins']['server']['host'] = node['fqdn']
-default['jenkins']['server']['url']  = "http://build.ihrdev.com:#{node[:jenkins][:server][:port]}"
+default['jenkins']['server']['url']  = "http://stg-build101.ihrdev.com:#{node[:jenkins][:server][:port]}"
 #default['jenkins']['server']['url']  = "http://#{node['jenkins']['server']['host']}:#{node['jenkins']['server']['port']}"
 
 default['jenkins']['server']['plugins'] = %w{ publish-over-ssh scp crowd2 github-oauth gravatar instant-messaging blame-upstream-commiters
@@ -50,7 +50,7 @@ default['jenkins']['server']['pubkey'] = nil
 default['jenkins']['http_proxy']['variant']              = "nginx"
 default['jenkins']['http_proxy']['www_redirect']         = "disable"
 default['jenkins']['http_proxy']['listen_ports']         = [ 80 ]
-default['jenkins']['http_proxy']['host_name']            = "build.ihrdev.com"
+default['jenkins']['http_proxy']['host_name']            = "stg-build101.ihrdev.com"
 default['jenkins']['http_proxy']['host_aliases']         = []
 default['jenkins']['http_proxy']['client_max_body_size'] = "1024m"
 default['jenkins']['http_proxy']['basic_auth_username'] = "jenkins"
