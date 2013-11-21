@@ -13,7 +13,8 @@ users = Chef::DataBagItem.load(db, di).to_hash
 
 users.each do |username,ssh_keys|
   keys=''
-  next if username == "id"
+  # Chef 11 has some weird extra keys we don't want
+  next if ["id","data_bag","chef_type"].include?(username)
   # If keys are not an array, we treat them differnt
   if ssh_keys.is_a?(String)
     keys = ssh_keys
