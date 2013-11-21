@@ -44,9 +44,9 @@ service "proftpd" do
   supports :status => true, :restart => true, :reload => true
 end
 
-cookbook_file "/etc/proftpd.conf" do
-  source "conf.ms"
-end
+##@# cookbook_file "/etc/proftpd.conf" do
+##@#   source "conf.ms"
+##@# end
 
 remote_directory "#{node[:proftpd][:dir]}/#{node[:proftpd][:dir_extra_conf]}" do
   source "conf.d"
@@ -82,14 +82,14 @@ end
 ## The original tempate that came with the cookbook
 ## Will go back to using this once I can figure out 
 ## how to get the correct IP from ohai!!
-#template "#{node[:proftpd][:dir]}/proftpd.conf" do
-# template "/etc/proftpd.conf" do
-#   source "proftpd.conf.erb"
-#   mode 0644
-#   owner node[:proftpd][:ftp_user]
-#   group node[:proftpd][:group]
-#   notifies :restart, resources(:service => "proftpd")
-# end
+# template "#{node[:proftpd][:dir]}/proftpd.conf" do
+template "/etc/proftpd.conf" do
+   source "proftpd.conf.erb"
+   mode 0644
+   owner node[:proftpd][:ftp_user]
+   group node[:proftpd][:group]
+   notifies :restart, resources(:service => "proftpd")
+end
 
 if (node[:proftpd][:sql] == "on")
   template "#{node[:proftpd][:dir]}/#{node[:proftpd][:dir_extra_conf]}/sql.conf" do
@@ -105,7 +105,7 @@ end
 directory "#{node[:proftpd][:default_root]}" do
   owner node[:proftpd][:ftp_user]
   group node[:proftpd][:ftp_group]
-  mode 0700
+  mode 0750
 end
 
 # Dir where encoder will be mounted
