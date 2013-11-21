@@ -14,7 +14,7 @@ env_run_lists(
               )
 default_attributes({
                      "nagios" => {
-                       "server_aliases" => "nagios-iad.ihrdev.com nagios-iad"
+                       "server_aliases" => "nagios-stg.ihrdev.com nagios-stg"
                      }
                    })
 override_attributes({
