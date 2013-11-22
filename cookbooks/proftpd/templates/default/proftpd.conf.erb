@@ -231,7 +231,9 @@ SFTPLog /var/log/proftpd/SFTP.log
 
   # Umask 022 is a good standard umask to prevent new dirs and files
   # from being group and world writable
-  Umask                         022
+  # Except that we need the dirs group-writable so that admins can do their
+  # work
+  Umask                         002
 
   # Allow users to overwrite files and change permissions
   AllowOverwrite                yes
@@ -328,7 +330,7 @@ AuthUserFile              <%=  @node[:proftpd][:user_file] %>
 RequireValidShell         off
 # create a user's home directory on demand if it doesn't exist and make it
 # readable by vftp group
-CreateHome on 750
+CreateHome on 770
 
 DirFakeUser               on myself
 DirFakeGroup              on ftpusers
