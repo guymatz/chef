@@ -1,293 +1,345 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# #################################################
+# @FILE: check_mountpoints.sh
+# @AUTHOR: GregoryPatmore <gregorypatmore@clearchannel.com>}
+# @CHEF-COOKBOOK: Nagios
+# @PROJECT: Operations (OPS)
+# @TICKETID: OPS-5746
+# @TAB-SIZE: 4
+# @SOFT-TABS: YES
+# @DESC: Checks and verifies mountpoints
+# @NOTES: 
+# #################################################
 
-# --------------------------------------------------------------------
-# **** BEGIN LICENSE BLOCK *****
-#
-# Version: MPL 2.0
-#
-# echocat check_mountpoints.sh, Copyright (c) 2011-2012 echocat
-#
-# This Source Code Form is subject to the terms of the Mozilla Public
-# License, v. 2.0. If a copy of the MPL was not distributed with this
-# file, You can obtain one at http://mozilla.org/MPL/2.0/.
-#
-# **** END LICENSE BLOCK *****
-# --------------------------------------------------------------------
+# #################################################
+# Variable Declarations
+# #################################################
 
-# --------------------------------------------------------------------
-# Check if all specified nfs/cifs/davfs mounts exist and if they are correct implemented.
-# That means we check /etc/fstab, the mountpoints in the filesystem and if they
-# are mounted. It is written for Linux, uses proc-Filesystem and was tested on
-# Debian, OpenSuse 10.1 10.2 10.3 11.0, SLES 10.1 11.1, RHEL 5 6, CentOS 5 6 and solaris
-#
-# @author: Daniel Werdermann / dwerdermann@web.de
-# @projectsite: https://github.com/echocat/nagios-plugin-check_mountpoints
-# @version: 1.15
-# @date: 2013-08-07 16:56:34 CEST
-#
-# changes 1.17
-#  - add support for ocfs2
-# changes 1.16
-#  - minor English fixes
-# changes 1.15
-#  - fix bad bug in MTAB check
-# changes 1.14
-#  - better support for HP-UX, Icinga
-#  - cleanup writecheck file after check
-# changes 1.13
-#  - add support for glusterfs
-# changes 1.12
-#  - add LIBEXEC path for OpenCSW-installed nagios in Solaris
-# changes 1.11
-#  - just update license information
-# changes 1.10
-#  - new flag -w results in a write test on the mountpoint
-#  - kernel logger logs CRITICAL check results now as CRIT 
-# changes 1.9
-#  - new flag -i disable check of fstab (if you use automount etc.)
-# changes 1.8
-#  - fiexes for solaris support
-#  - improved usage text
-# changes 1.7
-#  - new flag -A to autoread mounts from fstab and return OK if no mounts found in fstab
-# changes 1.6
-#  - new flag -a to autoread mounts from fstab and return UNKNOWN if no mounts found in fstab
-#  - no mountpoints given returns state UNKNOWN instead of critical now
-#  - parameter MTAB is used correctly on solaris now
-#  - fix some minor bugs in the way variables were used
-# changes 1.5
-#  - returns error, if no mountpoints given
-#  - change help text
-# changes 1.4
-#  - add support for davfs
-#  - look for logger path via which command
-#  - change shebang to /bin/bash
-# changes 1.3
-#  - add license information
-# changes 1.2
-#  - script doesnt hang on staled nfs mounts anymore
-# changes 1.1
-#  - support for nfs4
-# changes 1.0
-#  - support for solaris
-# --------------------------------------------------------------------
+# Nagios standard states/exit statuses
+# Indexed according to nagios exit status conventions
+declare -a NAGIOS_STATE=(OK WARNING CRITICAL UNKNOWN);
+declare -ri STATE_OK=0;
+declare -ri STATE_WARNING=1;
+declare -ri STATE_CRITICAL=2;
+declare -ri STATE_UNKNOWN=3;
+
+# array of field names in the various *_ENTRY arrays defined below
+declare -a FIELDS=(device mountpoint fstype options dump fsckorder devsymlink);
+
+# reference array to capture key names for the other arrays
+declare -A MOUNT_IDS;
+# assoc array of info from /etc/fstab
+declare -A FSTAB_ENTRY;
+# assoc array of info from /etc/mtab
+declare -A MTAB_ENTRY;
+# assoc array of info from /proc/mounts
+declare -A PROC_ENTRY;
+# assoc array of nagios states per mount
+declare -A MOUNT_STATE;
+# associative array of message info generated from checks
+declare -A MOUNT_MSG;
+
+# counters for end nagios states.
+declare -A STATE_COUNTS;
+STATE_COUNTS['OK']=0;
+STATE_COUNTS['WARNING']=0;
+STATE_COUNTS['UNKNOWN']=0;
+STATE_COUNTS['CRITICAL']=0;
 
 
-# --------------------------------------------------------------------
-# configuration
-# --------------------------------------------------------------------
-PROGNAME=$(basename $0)
-ERR_MESG=()
-LOGGER="`which logger` -i -p kern.warn -t"
-
-AUTO=1
-AUTOIGNORE=0
-IGNOREFSTAB=0
-WRITETEST=0
-
-export PATH="/bin:/usr/local/bin:/sbin:/usr/bin:/usr/sbin:/usr/sfw/bin"
-LIBEXEC="/opt/nagios/libexec /usr/lib64/nagios/plugins /usr/lib/nagios/plugins /usr/local/nagios/libexec /usr/local/icinga/libexec /usr/local/libexec /opt/csw/libexec/nagios-plugins"
-for i in ${LIBEXEC} ; do
-  [ -r ${i}/utils.sh ] && . ${i}/utils.sh
-done
-
-if [ -z "$STATE_OK" ]; then
-  echo "nagios utils.sh not found" &>/dev/stderr
-  exit 1
-fi
-
-KERNEL=`uname -s`
-case $KERNEL in 
-  # For solaris FSF=4 MF=3 FSTAB=/etc/vfstab MTAB=/etc/mnttab gnu grep and bash required
-  SunOS) FSF=4
-         MF=3
-         FSTAB=/etc/vfstab
-         MTAB=/etc/mnttab
-         GREP=ggrep
-         ;;
-  HP-UX) FSF=3
-         MF=2
-         FSTAB=/etc/fstab
-         MTAB=/dev/mnttab
-         GREP=grep
-         ;;
-  *)     FSF=3
-         MF=2
-         FSTAB=/etc/fstab
-         MTAB=/proc/mounts
-         GREP=grep
-         ;;
-esac
-
-# Time in seconds after which the check assumes that an NFS mount is staled, if
-# it does not respond. (default: 3)
-TIME_TILL_STALE=3
-
-# --------------------------------------------------------------------
+# #################################################
+# Function Definitions
+# #################################################
 
 
-# --------------------------------------------------------------------
-# functions
-# --------------------------------------------------------------------
-function log() {
-        $LOGGER ${PROGNAME} "$@";
-}
 
-function usage() {
-        echo "Usage: $PROGNAME [-m FILE] \$mountpoint [\$mountpoint2 ...]"
-        echo "Usage: $PROGNAME -h,--help"
-        echo "Options:"
-        echo " -m FILE     Use this mtab instead (default: ${MTAB})"
-        echo " -f FILE     Use this fstab instead (default: ${FSTAB})"
-        echo " -N NUMBER   FS Field number in fstab (default: ${FSF})"
-        echo " -M NUMBER   Mount Field number in fstab (default: ${MF})"
-        echo " -T SECONDS  Responsetime at which an NFS is declared as staled (default: ${TIME_TILL_STALE})"
-        echo " -L          Allow softlinks to be accepted instead of mount points"
-        echo " -i          Ignore fstab. Do not fail just because mount is not in fstab. (default: unset)"
-        echo " -a          Autoselect mounts from fstab (default: unset)"
-        echo " -A          Autoselect from fstab. Return OK if no mounts found. (default: unset)"
-        echo " -w          Writetest. Touch file \$mountpoint/.mount_test_from_\$(hostname) (default: unset)"
-        echo " MOUNTPOINTS list of mountpoints to check. Ignored when -a is given"
-}
+# converts a parsed entry string from one of the *_ENTRY arrays 
+# and turns it into an associative array
+# NOTE: use like so: eval "declare -A <variablename>=$(entry2array "<entrystring>")
+#       example use: 
+#         eval declare -A my_array=$(entry2array "</dev/sda8&&/home&&ext3&&rw,suid,dev,exec,auto,nouser,async&&1&&2&&/dev/disk/by-uuid/7b11992e-56b5-4b7d-8dad-17950e6b520d")
+#         echo ${my_array['device']}; # outputs /dev/sda8
+function entry2array(){
+    local -A oa;
+    local -a ia=(${*//&&/ });
 
-function print_help() {
-        echo ""
-        usage
-        echo ""
-        echo "Check if nfs/cifs/davfs mountpoints are correctly implemented and mounted."
-        echo ""
-        echo "This plugin is NOT developped by the Nagios Plugin group."
-        echo "Please do not e-mail them for support on this plugin, since"
-        echo "they won't know what you're talking about."
-        echo ""
-        echo "For contact info, read the plugin itself..."
-}
+    for i in ${!ia[*]}; do 
+        oa[${FIELDS[$i]}]="${ia[$i]}";
+    done;
 
-# --------------------------------------------------------------------
-# startup checks
-# --------------------------------------------------------------------
+    declare -p oa | sed -e 's/^declare -A oa=//';
+};
 
-if [ $# -eq 0 ]; then
-        usage
-        exit $STATE_CRITICAL
-fi
+# sets the mountpoint state to a given state unless the 
+# current state is higher then given state, the higher state is retained.
+function setMountState(){
+    # echo "INFO: $0 : setMountState : $1 = $2"
+    [ $# -ne 2 ] \
+        && echo "ERROR: $0: setMountState : invalid usage. requires exactly 2 arguments <mountpoint> <state>" \
+        && return 1;
 
-while [ "$1" != "" ]
-do
-        case "$1" in
-                -a) AUTO=1; shift;;
-                -A) AUTO=1; AUTOIGNORE=1; shift;;
-                --help) print_help; exit $STATE_OK;;
-                -h) print_help; exit $STATE_OK;;
-                -m) MTAB=$2; shift 2;;
-                -f) FSTAB=$2; shift 2;;
-                -N) FSF=$2; shift 2;;
-                -M) MF=$2; shift 2;;
-                -T) TIME_TILL_STALE=$2; shift 2;;
-                -i) IGNOREFSTAB=1; shift;;
-                -w) WRITETEST=1; shift;;
-                -L) LINKOK=1; shift;;
-                /*) MPS="${MPS} $1"; shift;;
-                *) usage; exit $STATE_UNKNOWN;;
-        esac
-done
+    [ ${MOUNT_STATE[$1]+isset} ] || MOUNT_STATE[$1]=${STATE_OK};
 
-if [ ${AUTO} -eq 1 ]; then
-        MPS=`${GREP} -v '^#' ${FSTAB} | awk '{if ($'${FSF}'=="nfs" || $'${FSF}'=="nfs4" || $'${FSF}'=="davfs" || $'${FSF}'=="cifs" || $'${FSF}'=="fuse" || $'${FSF}'=="glusterfs" || $'${FSF}'=="ocfs2"){print $'${MF}' }}' | tr '\n' ' '`
-fi
+    # make sure we received an integer
+    if [[ $2 =~ ^[0-9]+$ ]] && [ ${NAGIOS_STATE[$2]+i} ]; then
+        # echo "INFO: $0 : setMountState : received a valid nagios state integer";
+        [[ $2 -gt ${MOUNT_STATE[$1]} ]] \
+            && MOUNT_STATE[$1]=$2 \
+            && return 0;
 
-if [ -z "${MPS}"  ] && [ ${AUTOIGNORE} -eq 1 ] ; then
-                echo "OK: no external mounts were found in ${FSTAB}"
-                exit $STATE_OK
-elif [ -z "${MPS}"  ]; then
-        log "ERROR: no mountpoints given!"
-        echo "ERROR: no mountpoints given!"
-        usage
-        exit $STATE_UNKNOWN
-fi
 
-if [ ! -f /proc/mounts -a "${MTAB}" == "/proc/mounts" ]; then
-        log "CRIT: /proc wasn't mounted!"
-        mount -t proc proc /proc
-        ERR_MESG[${#ERR_MESG[*]}]="CRIT: mounted /proc $?"
-fi
+        # echo "INFO: $0 : setMountState : Given state does not supercede current state";
+        return 0;
+    else
+        echo "ERROR: $0 : setMountState : invalid state received ($2) for mount ($1)"
+    fi
+};
 
-if [ ! -e "${MTAB}" ]; then
-        log "CRIT: ${MTAB} doesn't exist!"
-        echo "CRIT: ${MTAB} doesn't exist!"
-        exit $STATE_CRITICAL
-fi
+# adds a message to the mountpoint message log 
+function addMountMsg(){
+    [ $# -ne 2 ] \
+        && echo "ERROR: $0: addMountMsg : invalid usage. requires exactly 2 arguments <mountpoint> <message>" \
+        && return 1;
 
-# --------------------------------------------------------------------
-# now we check if the given parameters ...
-#  1) ... exist in the /etc/fstab
-#  2) ... are mounted
-#  3) ... df -k gives no stale
-#  4) ... exist on the filesystem
-#  5) ... is writable (optional)
-# --------------------------------------------------------------------
-for MP in ${MPS} ; do
-        ## If its an OpenVZ Container or -a Mode is selected skip fstab check.
-        ## -a Mode takes mounts from fstab, we do not have to check if they exist in fstab ;)
-        if [ ! -f /proc/vz/veinfo -a ${AUTO} -ne 1 -a ${IGNOREFSTAB} -ne 1 ]; then
-                awk '{if ($'${FSF}'=="nfs" || $'${FSF}'=="nfs4" || $'${FSF}'=="davfs" || $'${FSF}'=="cifs" || $'${FSF}'=="fuse" || $'${FSF}'=="glusterfs" || $'${FSF}'=="ocfs2"){print $'${MF}'}}' ${FSTAB} | ${GREP} -q ${MP} &>/dev/null
-                if [ $? -ne 0 ]; then
-                        log "CRIT: ${MP} doesn't exist in /etc/fstab"
-                        ERR_MESG[${#ERR_MESG[*]}]="${MP} doesn't exist in fstab ${FSTAB}"
-                fi
+    [ ! ${MOUNT_MSG[$1]+isset} ] && MOUNT_MSG[$1]='';
+
+    MOUNT_MSG[$1]="${MOUNT_MSG[$1]}${2}\n";
+    return 0;
+};
+
+# #################################################
+# Information Discovery
+# #################################################
+
+# loop through each mount entry in fstab file
+# index the various info gleaned from the other files
+while read -r f_dev f_mp f_fs f_opt f_dmp f_fsck; do
+
+    # if the device value conforms to the new redhat mounting conventions, 
+    # we'll need to strip the prefix and make a correct path
+    if grep -q 'UUID=' <<< $f_dev; then
+        f_symdev="/dev/disk/by-uuid/${f_dev#UUID=}";
+        f_dev=$(readlink -f $f_symdev);
+    fi
+
+    # normalize options set to 'default'
+    [[ "${f_opt}" == "defaults" ]] \
+        && f_opt="rw,suid,dev,exec,auto,nouser,async";
+
+    # add an entry with device file into the main reference array
+    MOUNT_IDS[${#MOUNT_IDS[*]}]=${f_mp};
+
+    # set initial state to ok (0)
+    MOUNT_STATE[${f_mp}]=STATE_OK;
+
+    FSTAB_ENTRY[${f_mp}]="$f_dev&&$f_mp&&$f_fs&&$f_opt&&$f_dmp&&$f_fsck&&$f_symdev";
+    # echo "FSTAB= dev:$f_dev, mp:$f_mp, fs:$f_fs, opt:$f_opt, dmp:$f_dmp, fsck:$f_fsck";
+
+    # we'll mainly use the info in the fstab table,
+    # however, we'll fetch the mtab and /proc/mounts 
+    # info for reference
+
+    # grab any records from the mtab file for reference
+    read m_dev m_mp m_fs m_opt m_dmp m_fsck < <(grep "${f_mp}" /etc/mtab);
+    MTAB_ENTRY[${f_mp}]="$m_dev&&$m_mp&&$m_fs&&$m_opt&&$m_dmp&&$m_fsck";
+    #echo "MTAB=  dev:$m_dev, mp:$m_mp, fs:$m_fs, opt:$m_opt, dmp:$m_dmp, fsck:$m_fsck";
+
+    # grab any records from /proc/mounts for reference
+    read p_dev p_mp p_fs p_opt p_dmp p_fsck < <(grep "${f_mp}" /proc/mounts);
+    PROC_ENTRY[${f_mp}]="$p_dev&&$p_mp&&$p_fs&&$p_opt&&$p_dmp&&$p_fsck";
+    #echo "PROC=  dev:$p_dev, mp:$p_mp, fs:$p_fs, opt:$p_opt, dmp:$p_dmp, fsck:$p_fsck";
+
+    #echo;
+
+done < <( awk '/^[^#]/{print}' < /etc/fstab);
+
+# #################################################
+# Check Processing
+# #################################################
+
+for i in ${!FSTAB_ENTRY[*]}; do
+    
+    # echo "Running tests on $i";
+
+    # set up the info as associative arrays so it's a bit easier.
+    eval "declare -A fstab=$( entry2array ${FSTAB_ENTRY[$i]} )";
+    eval "declare -A mtab=$( entry2array ${MTAB_ENTRY[$i]} )";
+    eval "declare -A proc=$( entry2array ${PROC_ENTRY[$i]} )";
+
+    # skip proc,swap,tmpfs,devpts,sysfs 
+    # @TODO Write more checks for this(?) 
+    grep -Eq "swap|devpts|tmpfs|proc" <<< ${fstab['fstype']} && continue;
+
+    # make sure the mountpoint directory exists
+    if [ -d ${fstab[mountpoint]} ]; then
+        setMountState $i $STATE_OK;
+        #echo "${fstab[mountpoint]} directory was found" >&2;
+    else
+        setMountState $i $STATE_CRITICAL;
+        addMountMsg $i "Mountpoint directory missing.";
+        #echo "ERROR: ${fstab[mountpoint]} directory is missing" >&2;
+    fi
+
+    # check options for read only. if not, make sure it's writable
+    if [ ! $(echo "${fstab[mountpoint]}" | grep -Eq "[^0-9a-zA-Z]?ro[^0-9a-zA-Z]" ) ]; then
+
+        # echo "INFO: $0 : Mount (${fstab[mountpoint]}) should be writable";
+        # test by touching a tmp file
+        r=$(timeout 5 touch ${fstab[mountpoint]}/.tmp.check_mountpoint.txt 2>/dev/null);
+        rm -f ${fstab[mountpoint]}/.tmp.check_mountpoint.txt 2>/dev/null;
+
+        if [[ $r -ne 0 ]]; then
+            #echo "ERROR: $0 : Failed to touch a file" >&2;
+            setMountState $i $STATE_CRITICAL;
+            addMountMsg $i "Touch file check failed."
+        else 
+            #echo "INFO: $0 : Mountpoint (${fstab[mountpoint]}) is writable";
+            setMountState $i $STATE_OK;
+        fi    
+    fi
+
+    # check stat on nfs mounts
+    if [ "${fstab[fstype]}" == 'nfs' ]; then
+        r=$( read -t3 < <(stat -t $i) );
+        if [ $? -eq 0 ]; then
+            setMountState $i $STATE_OK;
+        else 
+            setMountState $i $STATE_CRITICAL;
+            addMountMsg $i "Stat check failed for nfs mount";
         fi
+    fi
 
-        ## check kernel mounts
-        ${GREP} "${MP}" ${MTAB} | ${GREP} -q -E "(nfs|nfs4|davfs|cifs|fuse|simfs|glusterfs|ocfs2)" &>/dev/null
-        if [ $? -ne 0 ]; then
-        ## if a softlink is not an adequate replacement
-                if [ -z "$LINKOK" -o ! -L ${MP} ]; then
-                        log "CRIT: ${MP} is not mounted"
-                        ERR_MESG[${#ERR_MESG[*]}]="${MP} is not mounted"
-                fi
-        fi
+done;
 
-        ## check if it stales
-        df -k ${MP} &>/dev/null &
-        DFPID=$!
-        for (( i=1 ; i<$TIME_TILL_STALE ; i++ )) ; do
-                if ps -p $DFPID > /dev/null ; then
-                        sleep 1
-                else
-                        break
-                fi
-        done
-        if ps -p $DFPID > /dev/null ; then
-                $(kill -s SIGTERM $DFPID &>/dev/null)
-                ERR_MESG[${#ERR_MESG[*]}]="${MP} did not respond in $TIME_TILL_STALE sec. Seems to be stale."
-        else
-        ## if it not stales, check if it is a directory
-                if [ ! -d ${MP} ]; then
-                        log "CRIT: ${MP} doesn't exist on filesystem"
-                        ERR_MESG[${#ERR_MESG[*]}]="${MP} doesn't exist on filesystem"
-                elif [ ${WRITETEST} -eq 1 ]; then
-                ## if wanted, check if it is writable
-                        TOUCHFILE=${MP}/.mount_test_from_$(hostname)
-                        touch ${TOUCHFILE} &>/dev/null
-                        if [ $? -ne 0 ]; then
-                                log "CRIT: ${TOUCHFILE} is not writable."
-                                ERR_MESG[${#ERR_MESG[*]}]="${TOUCHFILE} is not writable."
-                        else
-                                rm ${TOUCHFILE} &>/dev/null
-                        fi
-                fi
-        fi
+#count up the end mount states.
+for i in ${!MOUNT_STATE[*]}; do
+    # echo "$i , ${MOUNT_STATE[$i]}"
+    case "${MOUNT_STATE[$i]}" in
+        STATE_OK | 0) 
+           ((STATE_COUNTS[OK]++));
+           ;;
+        STATE_WARNING | 1)
+            ((STATE_COUNTS[WARNING]++));
+            ;;
+        STATE_UNKNOWN | 2)
+            ((STATE_COUNTS[UNKNOWN]++));
+            ;;
+        STATE_CRITICAL | 3)
+            ((STATE_COUNTS[CRITICAL]++));
+            ;;
+        *)
+            echo "ERROR: $0 : Invalid state (${MOUNT_STATE[$i]}) found for mount ($i)";
+            ;;
+    esac
+done;
 
-done
+# craft the information message and exit status;
+if [ ${STATE_COUNTS[CRITICAL]} -gt 0 ]; then
+    echo -n "CRITICAL C:${STATE_COUNTS[CRITICAL]},W:${STATE_COUNTS[WARNING]},U:${STATE_COUNTS[UNKNONW]},O:${STATE_COUNTS[OK]} | ";
+    for i in ${!MOUNT_MSG[*]}; do
+        echo -e "$i : ${MOUNT_MSG[$i]}";
+    done;
+    exit $STATE_CRITICAL;
 
-if [ ${#ERR_MESG[*]} -ne 0 ]; then
-        echo -n "CRITICAL: "
-        for element in "${ERR_MESG[@]}"; do
-                echo -n ${element}" ; "
-        done
-        echo
-        exit $STATE_CRITICAL
+elif [ ${STATE_COUNTS[WARNING]} -gt 0 ]; then
+    echo -n "WARNING C:${STATE_COUNTS[CRITICAL]},W:${STATE_COUNTS[WARNING]},U:${STATE_COUNTS[UNKNONW]},O:${STATE_COUNTS[OK]} | ";
+    for i in ${!MOUNT_MSG[*]}; do
+        echo -e "$i : ${MOUNT_MSG[$i]}";
+    done;
+    exit $STATE_WARNING;
+
+elif [ ${STATE_COUNTS[UNKNOWN]} -gt 0 ]; then
+    echo -n "UNKNOWN C:${STATE_COUNTS[CRITICAL]},W:${STATE_COUNTS[WARNING]},U:${STATE_COUNTS[UNKNONW]},O:${STATE_COUNTS[OK]} | ";
+    for i in ${!MOUNT_MSG[*]}; do
+        echo -e "$i : ${MOUNT_MSG[$i]}";
+    done;
+    exit $STATE_UNKNOWN;
+else
+    echo -n "OK C:${STATE_COUNTS[CRITICAL]},W:${STATE_COUNTS[WARNING]},U:${STATE_COUNTS[UNKNONW]},O:${STATE_COUNTS[OK]} | ";
+    for i in ${!MOUNT_MSG[*]}; do
+        echo -e "$i : ${MOUNT_MSG[$i]}";
+    done;
+    exit $STATE_OK;
 fi
 
-echo "OK: all mounts were found (${MPS})"
-exit $STATE_OK
+
+
+
+# #################################################
+# Debugging Output
+# #################################################
+
+
+# echo "STATE COUNTS:" 
+# for i in ${!STATE_COUNTS[*]}; do
+#     echo  "$i = ${STATE_COUNTS[$i]}";
+# done;
+# echo;
+
+
+# echo "STATE INFO"
+# for i in ${!MOUNT_STATE[*]}; do
+#     echo  -n "$i = ";
+#     echo "${NAGIOS_STATE[${MOUNT_STATE[$i]}]}";
+# done;
+# echo;
+
+# echo "STATE Messages"
+# for i in ${!MOUNT_MSG[*]}; do
+#     echo "$i";
+#     echo -e "${MOUNT_MSG[$i]}";
+# done;
+# echo;
+
+# echo "Valid States: ${NAGIOS_STATE[*]}";
+# echo "Mounts: ${MOUNT_IDS[*]}";
+# echo
+
+# echo "FSTAB INFO"
+# for i in ${!FSTAB_ENTRY[*]}; do
+#     echo  -n "$i = ";
+#     echo "${FSTAB_ENTRY[$i]//&&/ : }";
+# done;
+# echo;
+
+# echo "MTAB INFO"
+# for i in ${!MTAB_ENTRY[*]}; do
+#     echo  -n "$i = ";
+#     echo "${MTAB_ENTRY[$i]//&&/ : }";
+# done;
+# echo;
+
+# echo "PROC INFO"
+# for i in ${!PROC_ENTRY[*]}; do
+#     echo  -n "$i = ";
+#     echo "${PROC_ENTRY[$i]//&&/ : }";
+# done;
+# echo;
+
+# echo "Testing entry2array";
+# echo;
+# echo "TESTING FSTAB FOR: /home";
+# eval "declare -A f=$( entry2array ${FSTAB_ENTRY['/home']} )";
+# for i in ${!f[*]}; do
+#     echo  -n "$i = ";
+#     echo "${f[$i]}";
+# done;
+# echo;
+
+# echo "TESTING MTAB FOR: /home";
+# eval "declare -A f=$( entry2array ${MTAB_ENTRY['/home']} )";
+# for i in ${!f[*]}; do
+#     echo  -n "$i = ";
+#     echo "${f[$i]}";
+# done;
+# echo;
+
+# echo "TESTING PROC FOR: /home";
+# eval "declare -A f=$( entry2array ${PROC_ENTRY['/home']} )";
+# for i in ${!f[*]}; do
+#     echo  -n "$i = ";
+#     echo "${f[$i]}";
+# done;
+# echo;
+
+
