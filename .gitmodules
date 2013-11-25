@@ -28,9 +28,6 @@
 [submodule "cookbooks/postgresql"]
 	path = cookbooks/postgresql
 	url = git@github.ihrint.com:OPS-QAC1/postgresql.git
-[submodule "cookbooks/mongodb"]
-	path = cookbooks/mongodb
-	url = git@github.ihrint.com:OPS-QAC1/mongodb.git
 [submodule "cookbooks/ingestion"]
 	path = cookbooks/ingestion
 	url = git@github.ihrint.com:OPS-QAC1/ingestion.git
