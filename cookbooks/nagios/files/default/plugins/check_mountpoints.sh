@@ -221,10 +221,10 @@ for i in ${!MOUNT_STATE[*]}; do
         STATE_WARNING | 1)
             ((STATE_COUNTS[WARNING]++));
             ;;
-        STATE_UNKNOWN | 2)
+        STATE_UNKNOWN | 3)
             ((STATE_COUNTS[UNKNOWN]++));
             ;;
-        STATE_CRITICAL | 3)
+        STATE_CRITICAL | 2)
             ((STATE_COUNTS[CRITICAL]++));
             ;;
         *)
