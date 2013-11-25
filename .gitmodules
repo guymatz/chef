@@ -34,3 +34,6 @@
 [submodule "cookbooks/authorization"]
 	path = cookbooks/authorization
 	url = git@github.ihrint.com:OPS-QAC1/authorization.git
+[submodule "cookbooks/mongodb"]
+	path = cookbooks/mongodb
+	url = git@github.ihrint.com:OPS-QAC1/mongodb.git
