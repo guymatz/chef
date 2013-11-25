@@ -76,8 +76,8 @@ EOH
 end
 
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", "attivio")
-cluster = search(:node, "recipes:attivio\\:\\:clustered AND chef_environment:#{node.chef_environment}")
-master = search(:node, "recipes:attivio\\:\\:clustermaster AND chef_environment:#{node.chef_environment}")
+cluster = search(:node, "recipe:attivio\\:\\:clustered AND chef_environment:#{node.chef_environment}")
+master = search(:node, "recipe:attivio\\:\\:clustermaster AND chef_environment:#{node.chef_environment}")
 
 # searcher = cluster - master
 searchers = cluster
@@ -112,7 +112,7 @@ template "#{node[:attivio][:config_path]}/iheartradio.xml" do
 end
 
 template "#{node[:attivio][:config_path]}/iheartradio.#{node.chef_environment}.properties" do
-  source "iheartradio.env.properties.erb"
+  source "iheartradio.env.properties.#{node.chef_environment}.erb"
   owner node[:attivio][:user]
   group node[:attivio][:group]
   variables({
@@ -128,6 +128,7 @@ template "#{node[:attivio][:config_path]}/iheartradio.#{node.chef_environment}.p
               :master => master[0]
             })
 end
+
 
 template "#{node[:attivio][:config_path]}/topology-nodes-#{node.chef_environment}.xml" do
   source "topology-nodes-env.xml.erb"
