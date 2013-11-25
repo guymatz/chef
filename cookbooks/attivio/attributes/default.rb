@@ -53,12 +53,12 @@ default[:attivio][:xml][:track_bundle_update_batch_size] = "10"
 default[:attivio][:ulimits] = [{
                                  "type" => "hard",
                                  "item" => "nproc",
-                                 "value" => "4096"
+                                 "value" => "8192"
                                },
                                {
                                  "type" => "soft",
                                  "item" => "nproc",
-                                 "value" => "4096"
+                                 "value" => "8192"
                                },
                                {
                                  "type" => "hard",
