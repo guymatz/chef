@@ -32,11 +32,11 @@ service "attivio31-searcher" do
   action :nothing
 end
 
-nagios_nrpecheck "Attivio_Process_Searcher" do
-  command "#{node['nagios']['plugin_dir']}/check_procs"
-  warning_condition "1:1"
-  critical_condition "1:1"
-  parameters "-C attivio-java -a searcher"
+template "#{node['nagios']['plugin_dir']}/check_attivio_available.sh" do
+  owner node[:nagios][:user]
+  group node[:nagios][:group]
+  mode 0777
+  source "check_attivio_available.sh.erb"
 end
 
 nagios_nrpecheck "Attivio_Searcher_Available" do 
