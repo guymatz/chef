@@ -3,7 +3,7 @@
 PROCESS_STATUS=$(pgrep -f "attivio-java (\w|\W)*searcher" | wc -l >/dev/null 2>&1)
 
 # Check the last line of the log to make sure the endpoint is up
-tail -1 <%= node[:attivio][:app_dir]/%>logs*searcher/attivio.log | egrep "\[searcher.index-query-dispatcher\] Endpoint [\w'-|\W]*offline" >/dev/null 2>&1
+tail -1 <%= node[:attivio][:app_path]/%>logs*searcher/attivio.log | egrep "\[searcher.index-query-dispatcher\] Endpoint [\w|\W]*offline" >/dev/null 2>&1
 LOG_STATUS=$?
 
 # Exit with a relevant code for nagios based on the process being there and the log being clean
