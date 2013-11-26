@@ -37,5 +37,8 @@ nagios_nrpecheck "Attivio_Process_Searcher" do
   warning_condition "1:1"
   critical_condition "1:1"
   parameters "-C attivio-java -a searcher"
-  action :add
+end
+
+nagios_nrpecheck "Attivio_Searcher_Available" do 
+  command "#{node['nagios']['plugin_dir']}/check_attivio_available.sh"
 end
