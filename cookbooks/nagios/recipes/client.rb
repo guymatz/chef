@@ -53,6 +53,11 @@ directory "#{node['nagios']['nrpe']['conf_dir']}/nrpe.d" do
   mode 00755
 end
 
+service "nagios-nrpe-server" do
+  action [:start, :enable]
+  supports :restart => true, :reload => true
+end
+
 template "#{node['nagios']['nrpe']['conf_dir']}/nrpe.cfg" do
   source "nrpe.cfg.erb"
   owner "root"
@@ -63,11 +68,6 @@ template "#{node['nagios']['nrpe']['conf_dir']}/nrpe.cfg" do
     :nrpe_directory => "#{node['nagios']['nrpe']['conf_dir']}/nrpe.d"
   )
   notifies :restart, "service[nagios-nrpe-server]"
-end
-
-service "nagios-nrpe-server" do
-  action [:start, :enable]
-  supports :restart => true, :reload => true
 end
 
 # Use NRPE LWRP to define a few checks

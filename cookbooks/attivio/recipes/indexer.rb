@@ -32,10 +32,10 @@ service "attivio31-indexer" do
   action :nothing
 end
 
-nagios_nrpecheck "Attivio_Process_Indexer" do
-  command "#{node['nagios']['plugin_dir']}/check_procs"
-  warning_condition "1:1"
-  critical_condition "1:1"
-  parameters "-C attivio-java -a indexer1"
-  action :add
-end
+#nagios_nrpecheck "Attivio_Process_Indexer" do
+#  command "#{node['nagios']['plugin_dir']}/check_procs"
+#  warning_condition "1:1"
+#  critical_condition "1:1"
+#  parameters "-C attivio-java -a indexer1"
+#  action :add
+#end
