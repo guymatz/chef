@@ -151,10 +151,10 @@ end
 
 fqdns = Array.new
 if (defined?(master[0]["fqdn"]))
-  fqdns << master[0]["fqdn"]
+  fqdns << "#{master[0][:hostname]}-v700"
 end
 cluster.each do |c|
-  fqdns << c["fqdn"]
+  fqdns << "#{c[:hostname]}-v700"
 end
 
 template "#{node[:attivio][:bin_path]}/#{node.chef_environment}/env.sh" do

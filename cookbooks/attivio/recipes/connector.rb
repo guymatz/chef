@@ -32,11 +32,10 @@ service "attivio31-connector" do
   action :nothing
 end
 
-nagios_nrpecheck "Attivio_Process_Connector" do
-  command "#{node['nagios']['plugin_dir']}/check_procs"
-  warning_condition "1:1"
-  critical_condition "1:1"
-  parameters "-C attivio-java -a connector1"
-  action :add
-end
-
+#nagios_nrpecheck "Attivio_Process_Connector" do
+#  command "#{node['nagios']['plugin_dir']}/check_procs"
+#  warning_condition "1:1"
+#  critical_condition "1:1"
+#  parameters "-C attivio-java -a connector1"
+#  action :add
+#end

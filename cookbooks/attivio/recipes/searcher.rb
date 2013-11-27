@@ -2,7 +2,7 @@ results = search(:node, "recipes:attivio\\:\\:clustered AND chef_environment:#{n
 
 searchers = Array.new
 results.each do |r|
-  searchers << r["fqdn"]
+  searchers << "#{r[:hostname]}-v700"
 end
 
 template "/etc/init.d/attivio31-searcher" do
@@ -12,7 +12,7 @@ template "/etc/init.d/attivio31-searcher" do
   mode "0755"
   variables({
               :attivio => node[:attivio],
-              :nodename => node[:fqdn],
+              :nodename => "#{node[:hostname]}-v700",
               :zookeeper_port => node[:attivio][:zookeeper_port],
               :searchers => searchers,
               :attivio_env => node.chef_environment,
@@ -32,10 +32,10 @@ service "attivio31-searcher" do
   action :nothing
 end
 
-nagios_nrpecheck "Attivio_Process_Searcher" do
-  command "#{node['nagios']['plugin_dir']}/check_procs"
-  warning_condition "1:1"
-  critical_condition "1:1"
-  parameters "-C attivio-java -a searcher"
-  action :add
-end
+#nagios_nrpecheck "Attivio_Process_Searcher" do
+#  command "#{node['nagios']['plugin_dir']}/check_procs"
+#  warning_condition "1:1"
+#  critical_condition "1:1"
+#  parameters "-C attivio-java -a searcher"
+#  action :add
+#end
