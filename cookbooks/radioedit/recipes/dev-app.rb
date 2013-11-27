@@ -81,6 +81,7 @@ application "radioedit-core" do
     packages node[:radioedit][:dev][:pips]
     loglevel "#{node[:radioedit][:dev][:log_level]}"
     interpreter "python27"
+    autostart true
   end
 end
 
