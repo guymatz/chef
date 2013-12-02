@@ -115,3 +115,68 @@ function stopServiceProcess {
    kill -s KILL $pid || return 1
    local killWaitTime=15
    for ((i=0; i<killWaitTime*10; i++)); do
+      checkProcessIsRunning $pid
+      if [ $? -ne 0 ]; then
+         rm -f $pidFile
+         return 0
+         fi
+      sleep 0.1
+      done
+   echo "Error: $serviceName could not be stopped within $maxShutdownTime+$killWaitTime seconds!"
+   return 1; }
+
+function startService {
+   getServicePID
+   if [ $? -eq 0 ]; then echo -n "$serviceName is already running"; RETVAL=0; return 0; fi
+   echo -n "Starting $serviceName   "
+   startServiceProcess
+   if [ $? -ne 0 ]; then RETVAL=1; echo "failed"; return 1; fi
+   echo "started PID=$pid"
+   RETVAL=0
+   return 0; }
+
+function stopService {
+   getServicePID
+   if [ $? -ne 0 ]; then echo -n "$serviceName is not running"; RETVAL=0; echo ""; return 0; fi
+   echo -n "Stopping $serviceName   "
+   stopServiceProcess
+   if [ $? -ne 0 ]; then RETVAL=1; echo "failed"; return 1; fi
+   echo "stopped PID=$pid"
+   RETVAL=0
+   return 0; }
+
+function checkServiceStatus {
+   echo -n "Checking for $serviceName:   "
+   if getServicePID; then
+    echo "running PID=$pid"
+    RETVAL=0
+   else
+    echo "stopped"
+    RETVAL=3
+   fi
+   return 0; }
+
+function main {
+   RETVAL=0
+   case "$1" in
+      start)                                               # starts the Java program as a Linux service
+         startService
+         ;;
+      stop)                                                # stops the Java program service
+         stopService
+         ;;
+      restart)                                             # stops and restarts the service
+         stopService && startService
+         ;;
+      status)                                              # displays the service status
+         checkServiceStatus
+         ;;
+      *)
+         echo "Usage: $0 {start|stop|restart|status}"
+         exit 1
+         ;;
+      esac
+   exit $RETVAL
+}
+
+main $1
