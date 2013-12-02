@@ -261,7 +261,8 @@ default[:radioedit][:production][:num_workers] = 5;
 default[:radioedit][:production][:log_level] = "WARNING";
 default[:radioedit][:production][:port] = "/var/tmp/radioedit-cms.sock";
 default[:radioedit][:production][:listen] = "/var/tmp/radioedit-cms.sock";
-default[:radioedit][:production][:host] = "unix";
+default[:radioedit][:production][:listen] = "/var/tmp/radioedit-cms.sock";
+default[:radioedit][:production][:nginx_port] = "8080";
 default[:radioedit][:production][:utildir] = "#{default[:radioedit][:production][:path]}/util";
 default[:radioedit][:production][:staticdir] = "#{default[:radioedit][:production][:path]}/static";
 default[:radioedit][:production][:asset_dir] = "/data/binstore/assets";
@@ -272,6 +273,8 @@ default[:radioedit][:production][:nfs_remdir] = "/data/imgscaler/radioedit";
 default[:radioedit][:production][:nfs_locdir] = "/data/binstore";
 default[:radioedit][:production][:elastic_clustername] = "radioedit";
 default[:radioedit][:production][:deploy_tag] = "radioedit-deployed";
+default[:radioedit][:production][:varnish_backend_port] = "8080";
+default[:radioedit][:production][:varnish_backend_ip] = "127.0.0.1";
 default[:radioedit][:production][:req_dirs] = %w{ 
   /data 
   /data/apps 
