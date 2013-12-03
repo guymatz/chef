@@ -36,8 +36,8 @@ default[:proftpd][:user_file]            = default[:proftpd][:dir] + "/ftpd.pass
 default[:proftpd][:data_bag]             = "music_upload"
 default[:proftpd][:data_item_keys]       = "upload_user-keys"
 default[:proftpd][:data_item_users]      = "upload_users"
-default[:proftpd][:port]                 = 21
-default[:proftpd][:sport]                = 2022
+default[:proftpd][:port]                 = "21"
+default[:proftpd][:sport]                = "2022"
 default[:proftpd][:default_address]      = ipaddress
 default[:proftpd][:modules]              = [
   "ctrls",
