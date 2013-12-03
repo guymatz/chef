@@ -344,6 +344,7 @@ DirFakeGroup              on ftpusers
   ServerIdent           off # iHeart Access Control Policy 5.3
   Port                  <%=  @node[:proftpd][:port] %>
   PassivePorts          60000 65535
+  Umask                 <%=  @node[:proftpd][:umask] %>
   WtmpLog               off
   ExtendedLog           /var/log/proftpd/ftp-auth.log AUTH auth
 </VirtualHost>
@@ -353,6 +354,7 @@ DirFakeGroup              on ftpusers
   ServerIdent           off # iHeart Access Control Policy 5.3
   SFTPEngine            on
   Port                  <%=  @node[:proftpd][:sport] %>
+  Umask                 <%=  @node[:proftpd][:umask] %>
   WtmpLog               off
   ExtendedLog           /var/log/proftpd/sftp-auth.log AUTH auth
   # per http://www.proftpd.org/docs/contrib/mod_sftp_sql.html
