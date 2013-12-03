@@ -1,0 +1,53 @@
+http:
+  port: <%= node[:subscription][:port] %> 
+
+  requestLog:
+    console:
+      enabled: <%= node[:subscription][:requestlog_console_enabled] %> 
+    file:
+      enabled: <%= node[:subscription][:requestlog_file_enabled] %> 
+      currentLogFilename: <%= node[:subscription][:requestlog_file_name] %> 
+      archivedLogFilenamePattern: <%= node[:subscription][:requestlog_file_archive_name] %> 
+      archivedFileCount: <%= node[:subscription][:requestlog_file_count] %> 
+
+logging:
+  console:
+    enabled: <%= node[:subscription][:log_console_enabled] %> 
+  file:
+    enabled: <%= node[:subscription][:log_file_enabled] %> 
+    currentLogFilename: <%= node[:subscription][:log_file_name] %> 
+    archivedLogFilenamePattern: <%= node[:subscription][:log_file_archive_name] %> 
+    archivedFileCount: <%= node[:subscription][:log_file_count] %> 
+
+vindicia:
+  url: <%= node[:subscription][:vindicia_host] %> 
+  username: <%= @vindicia_creds[:vindicia_username] %> 
+  password: <%= @vindicia_creds[:vindicia_password] %> 
+  timeout: <%= node[:subscription][:vindicia_timeout] %> 
+  entitlementPageSize: <%= node[:subscription][:vindicia_items_per_page] %> 
+
+mongo:
+  mongoServers:
+    - {host: <%= node[:subscription][:mongo_host] %> , port: <%= node[:subscription][:mongo_port] %>} 
+
+  autoConnectRetry: <%= node[:subscription][:mongo_auto_retry] %> 
+  maxAutoConnectRetryTime: <%= node[:subscription][:mongo_retry_time] %>
+  connectionsPerHost: <%= node[:subscription][:mongo_connections_per_host] %>
+  connectionTimeout: <%= node[:subscription][:mongo_connection_timeout] %>
+  socketTimeout: <%= node[:subscription][:mongo_socket_timeout] %>
+  maxWaitTime: <%= node[:subscription][:mongo_max_wait_time] %>
+  writeConcern: <%= node[:subscription][:mongo_write_concern] %>
+  
+  subscriptionsDbName: <%= node[:subscription][:mongo_db_name] %>
+
+swagger:
+  host: <%= node[:subscription][:swagger_host] %>
+  resourcePath: <%= node[:subscription][:swagger_file_path] %>
+  uriPath: <%= node[:subscription][:swagger_url_path] %>
+  indexFile: <%= node[:subscription][:swagger_index_file] %>
+
+graphite:
+  host: <%= node[:subscription][:graphite_host] %>
+  port: <%= node[:subscription][:graphite_port] %>
+  prefix: <%= node[:subscription][:graphite_prefix] %>
+  interval: <%= node[:subscription][:graphite_interval] %>
