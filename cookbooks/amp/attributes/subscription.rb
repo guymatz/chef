@@ -1,6 +1,9 @@
 case chef_environment
 when "prod"
+  ### PROD ATTRIBUTES START ###
+  ### PROD ATTRIBUTES END ###
 else
+  ### _DEFAULT ATTRIBUTES START ###
   default[:subscription][:port] = 8080
   default[:subscription][:requestlog_console_enabled] = false
   default[:subscription][:requestlog_file_enabled] = true
@@ -33,4 +36,6 @@ else
   default[:subscription][:graphite_port] = 2003
   default[:subscription][:graphite_prefix] = "subscriptions.stage"
   default[:subscription][:graphite_interval] = "10s"
+  default[:subscription][:path] = "/data/apps/subscription"
+  ### _DEFAULT ATTRIBUTES END ###
 end
