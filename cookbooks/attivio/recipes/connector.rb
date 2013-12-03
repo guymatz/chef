@@ -2,7 +2,7 @@ results = search(:node, "recipes:attivio\\:\\:clustered AND chef_environment:#{n
 
 searchers = Array.new
 results.each do |r|
-  searchers << r["fqdn"]
+  searchers << "#{r[:hostname]}-v700"
 end
 
 template "/etc/init.d/attivio31-connector" do

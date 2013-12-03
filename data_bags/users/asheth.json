@@ -7,7 +7,7 @@
           "email": ""
   },
   "groups":	["dba", "jobserver", "amp", "nagios", "postgresql-sysadmin", "mongodb"],
-  "ssh_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+aMEXnUHEiIShNKi+nMBmxG7Qrp4dPA+bcYd4g9gNFKD0RZPVNVHIfiKnOcYz0ZZGACC2pOzeDCl8PscqyuJS0I50pnyT7fkDjUnWhsVF398axkPYDeFGYt2aJsip/3RF7VtMDDDyFlN0vb54JFLMaLF7Fl3bnxnPFkMvzBWeaKUzTsVDg6pW3U9Ibn4NZcSv0twPP+Tle+cLeYrHagFQcgdJZshUkys2zZx0yexOO0AJdRZ4dxU9TO0SbaU2Z6fEG+LuC3YG3/GmkbqdAB/746VK8hz0fhnI+ze2jOu6WQHB48v8cjzEdPcTjnJjF4X9fFd/xlLw342iMDxwTcpP asheth@cccnyc03axs.sompa.iheart.com",
+  "ssh_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC2zUvr5t4pCBMe1EKS46JNVxYvIij3G2zbWP60stJkotNtp0TLe/UB/nZTRBZvBzvIVB4O4b9IeKBeOxz4//dVZ8NBe4Ed0cte7nL/Dwxf86sDlf4OZyu15T7xLtkABFkkfivgnkgiwNzf+lfXkE+XNEt2MNSuf7CgTrL0SHrIJhcO3xN5wgwg1AOowDF17GureHFxYCwZYdkjrsFkHlmn9dhV2qHdvzfbKS82OkBZbFsUxySX6f9wzc0QWT77eCVNqrUWlxr5RJhKUPhDOBRbwhNULrxKNs6HgEEs2sRnFs25vE8jZXgCcImDEyFd0nuFLpLxR4+1LJbDJagnuDcf asheth@CCCNYC03AXS.local",
   "shell":	"/bin/bash",
     "uid": 50225
 }

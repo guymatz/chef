@@ -12,7 +12,7 @@ template "/etc/init.d/attivio31-searcher" do
   mode "0755"
   variables({
               :attivio => node[:attivio],
-              :nodename => "#{node[:hostname]}-v700",
+              :nodename => "#{node[:fqdn]}",
               :zookeeper_port => node[:attivio][:zookeeper_port],
               :searchers => searchers,
               :attivio_env => node.chef_environment,

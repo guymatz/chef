@@ -32,7 +32,7 @@ case node.chef_environment
     default[:attivio][:indexer][:memory] = "4g"
     default[:attivio][:connector][:memory] = "1g"
     default[:attivio][:memory] = "2g"
-  when "dev"
+  when "stage"
     default[:attivio][:searcher][:memory] = "4g"
     default[:attivio][:indexer][:memory] = "1g"
     default[:attivio][:connector][:memory] = "1g"
