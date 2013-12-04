@@ -28,7 +28,7 @@ else
   default[:subscription][:mongo_max_wait_time] = 5000
   default[:subscription][:mongo_write_concern] = 1 
   default[:subscription][:mongo_db_name] = "subscriptions"
-  default[:subscription][:swagger_host] = 127.0.0.1
+  default[:subscription][:swagger_host] = "127.0.0.1"
   default[:subscription][:swagger_file_path] = "/swagger-ui/"
   default[:subscription][:swagger_url_path] = "/docs"
   default[:subscription][:swagger_index_file] = "index.html"
