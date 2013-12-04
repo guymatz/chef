@@ -4,10 +4,16 @@ vindicia_creds = Chef::EncryptedDataBagItem.load("secrets", "subscription")
 # Deploys subscription-dropwizard app
 unless tagged?("subscription-deployed")
   %w{ /data/apps /data/apps/subscription }.each do |dir|
-    directory dir
+    directory dir do
+      owner "amp"
+      group "amp"
+    end
   end
   template "/etc/init.d/subscription" do
     source "java.init.erb"
+    variables({
+      :app => "amp"
+    })
     mode 0755
   end
 
@@ -17,6 +23,8 @@ unless tagged?("subscription-deployed")
   end
 
   remote_file "#{node[:subscription][:path]}/subscription.jar" do
+    owner "amp"
+    group "amp"
     source "http://files.ihrdev.com/subscription-service/stage/subscriptions-service.jar/subscriptions-service-1.0.3.jar"
   end
 
@@ -25,6 +33,8 @@ unless tagged?("subscription-deployed")
     variables({
       :vindicia_creds => vindicia_creds
     })
+    owner "amp"
+    group "amp"
   end
 
   service "subscription" do
