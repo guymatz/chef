@@ -12,11 +12,11 @@
 #http://shrubbery.mynetgear.net/c/display/W/Java+Daemon+Startup+Script
 #
 # Templated and adjusted for iheart 12/04/2013
-
+#
 # Set this to your Java installation
 JAVA_HOME=/usr/java/latest
 #Few JVM settings
-HEAPSIZE=<%= node[@app][:heap_size] %>
+HEAPSIZE=<%= node[@app.to_sym][:heap_size] %>
 
 JAVAOPTS="-Xmx$HEAPSIZE \
           -Xms$HEAPSIZE \
@@ -25,7 +25,7 @@ JAVAOPTS="-Xmx$HEAPSIZE \
           -Dcom.sun.management.jmxremote.authenticate=false"
 
 PROG=$(basename $0)
-PROG_HOME="<%= node[@app][:parent_path]%>/$PROG"
+PROG_HOME="<%= node[@app.to_sym][:parent_path] %>/$PROG"
 LOG_DIR="/var/log"
 LOG_FILE="$LOG_DIR/$PROG.log"
 #notice conf doesn't have an asterisk so that resources are added to the classpath
@@ -34,8 +34,8 @@ JAVA_PARAMS="$JAVAOPTS -jar $PROG.jar server config.yml"
 
 serviceNameLo=$PROG                                        # service name with the first letter in lowercase
 serviceName="<%= @app %>"                                  # service name
-serviceUser="<%= node[@app][:user] %>"                     # OS user name for the service
-serviceGroup="<%= node[@app][:group] %>"                   # OS group name for the service
+serviceUser="<%= node[@app.to_sym][:user] %>"                     # OS user name for the service
+serviceGroup="<%= node[@app.to_sym][:group] %>"                   # OS group name for the service
 applDir=$PROG_HOME                                         # home directory of the service application
 serviceUserHome="/home/$serviceUser"                       # home directory of the service user
 serviceLogFile=$LOG_FILE                                   # log file for StdOut/StdErr
