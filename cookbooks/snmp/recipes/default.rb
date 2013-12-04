@@ -36,7 +36,11 @@ if not node['snmp']['cookbook_files'].empty?
   end
 end
 
+# Host type should either be guest, i.e. VM, or metal, for a hardware server
+host_type = node[:virtualization][:role] || "metal"
+
 template "/etc/snmp/snmpd.conf" do
+  source "snmpd.conf.erb"
   mode 0644
   owner "root"
   group "root"
