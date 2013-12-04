@@ -40,5 +40,6 @@ else
   default[:subscription][:parent_path] = "/data/apps"
   default[:subscription][:user] = "amp"
   default[:subscription][:group] = "amp"
+  default[:subscription][:heap_size] = "512m"
   ### _DEFAULT ATTRIBUTES END ###
 end

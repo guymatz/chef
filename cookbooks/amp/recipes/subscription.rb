@@ -12,7 +12,7 @@ unless tagged?("subscription-deployed")
   template "/etc/init.d/subscription" do
     source "java.init.erb"
     variables({
-      :app => "amp"
+      :app => "subscription"
     })
     mode 0755
   end
