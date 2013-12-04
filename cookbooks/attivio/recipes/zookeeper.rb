@@ -18,7 +18,6 @@ template "/etc/init.d/attivio31-zookeeper" do
               :attivio_env => node.chef_environment,
               :zookeeper => node[:attivio][:zookeeper]
             })
-  notifies :restart, "service[attivio31-zookeeper]"
 end
 
 service "attivio31-zookeeper" do
