@@ -1,0 +1,10 @@
+{
+    "id": "amp",
+    "name": "Amp Service User",
+    "email":    "",
+    "groups":   ["amp"],
+    "shell":    "/bin/bash",
+    "uid": 2310,
+    "ssh_keys": [
+    ]
+}
