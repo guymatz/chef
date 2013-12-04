@@ -6,10 +6,21 @@ default[:pkgsx64] = [ 'libxml2', 'zlib', 'zlib-devel', 'libxml2-devel', 'libxslt
 # Iheart RPMS
 default[:iheart_pkg] = [ 'jdk', 'mpg123',  'lame-libs', 'libmad-devel', 'libmad'  ]
 default[:ftpserver] = [ 'vsftpd', 'inotify-tools', 'inotify-tools-devel', 'incron' ]
+# v3 packages
+default[:v3_pkg] = [ 'ruby', 'ruby-devel', "unixODBC", "freetds", "freetds-devel" ]
 
 # vantrix rpm, specific to iad-vantrix101 for now
 default[:vantrix] = [ 'spotxde-trx' ]
 
+
+# v3 gems
+default[:v3_gems] = {
+    "i18n" => "0.6.5",
+    "activerecord-sqlserver-adapter" => "2.3.11",
+    "tiny_tds" => "0.5.1",
+    "bundler" => "1.3.5"
+
+} 
 
 # Tons of specific gems for all the encoders
 default[:jruby_gems] =  {
@@ -29,7 +40,7 @@ default[:jruby_gems] =  {
 
 default[:gems] = {
     "akamai" => "0.2.0",
-    "ffi" => "1.2.0",
+#    "ffi" => "1.2.0",
     "postgres-pr" => "0.6.3",
     "nori" => "2.0.4",
     "rack" => "1.5.2",
