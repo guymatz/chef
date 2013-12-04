@@ -37,5 +37,8 @@ else
   default[:subscription][:graphite_prefix] = "subscriptions.stage"
   default[:subscription][:graphite_interval] = "10s"
   default[:subscription][:path] = "/data/apps/subscription"
+  default[:subscription][:parent_path] = "/data/apps"
+  default[:subscription][:user] = "amp"
+  default[:subscription][:group] = "amp"
   ### _DEFAULT ATTRIBUTES END ###
 end
