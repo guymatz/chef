@@ -3,8 +3,12 @@ vindicia_creds = Chef::EncryptedDataBagItem.load("secrets", "subscription")
 
 # Deploys subscription-dropwizard app
 unless tagged?("subscription-deployed")
+  %w{ /data/apps /data/apps/subscription }.each do |dir|
+    directory dir
+  end
   template "/etc/init.d/subscription" do
     source "java.init.erb"
+    mode 0755
   end
 
   bash "install-subscription-service" do

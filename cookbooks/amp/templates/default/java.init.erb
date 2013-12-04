@@ -12,7 +12,7 @@
 #http://shrubbery.mynetgear.net/c/display/W/Java+Daemon+Startup+Script
 
 # Set this to your Java installation
-JAVA_HOME=/usr/lib/jvm
+JAVA_HOME=/usr/java/latest
 #Few JVM settings
 HEAPSIZE=512m
 
@@ -31,7 +31,7 @@ PROG_CONF="/daa/apps/$PROG"
 #prog home has it so that jars are included. see http://docs.oracle.com/javase/1.4.2/docs/tooldocs/solaris/classpath.html
 PROG_CP="$PROG_CONF/:$PROG_HOME/*"
 JAVA_PARAMS="-classpath $PROG_CP \
-              $JAVAOPTS
+              $JAVAOPTS"
 
 serviceNameLo=$PROG                                        # service name with the first letter in lowercase
 serviceName="My Service"                                   # service name
