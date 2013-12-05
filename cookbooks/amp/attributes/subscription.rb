@@ -4,7 +4,7 @@ when "prod"
   ### PROD ATTRIBUTES END ###
 else
   ### _DEFAULT ATTRIBUTES START ###
-  default[:subscription][:port] = 8080
+  default[:subscription][:port] = 8088
   default[:subscription][:requestlog_console_enabled] = false
   default[:subscription][:requestlog_file_enabled] = true
   default[:subscription][:requestlog_file_name] = "./logs/requests.log"
