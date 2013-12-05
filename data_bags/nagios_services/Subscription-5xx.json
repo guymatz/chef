@@ -1,0 +1,6 @@
+{
+  "id": "Subscription-5xx",
+  "hostgroup_name": "subscription",
+  "command_line": "$USER1$/check_dropwizard_5xx.py --url 'http://$HOSTADDRESS$:8081/metrics' --errno 0",
+  "contact_groups": ["admins"]
+}
