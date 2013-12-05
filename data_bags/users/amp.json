@@ -4,7 +4,7 @@
     "email":    "",
     "groups":   ["amp"],
     "shell":    "/bin/bash",
-    "uid": 2310,
+    "uid": 2312,
     "ssh_keys": [
     ]
 }
