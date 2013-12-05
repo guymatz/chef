@@ -3,8 +3,8 @@
 hflag=false
 pflag=false
 zerofile=true
-usage() { echo "Usage: $0 -h hostname/ip -p port" 1>&2; exit 1; }
-health_fetch_error() { echo "CRITICAL: Could not get health status." 1>&2; exit 1; }
+usage() { echo "Usage: $0 -h hostname/ip -p port" 1>&2; exit 2; }
+health_fetch_error() { echo "CRITICAL: Could not get health status." 1>&2; exit 2; }
 while getopts ":h:p:" opt; do
   case "${opt}" in
     h)
@@ -36,7 +36,7 @@ while read healthfile;do
     echo "$healthfile" | grep -q "OK" >/dev/null 2>&1
     if [ $? -ne 0 ]; then
         echo "CRITICAL: $healthfile"
-        exit 1
+        exit 2
     fi
 done < /tmp/healthcheck
 if $zerofile ; then
