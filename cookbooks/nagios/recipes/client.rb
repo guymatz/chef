@@ -93,6 +93,13 @@ nagios_nrpecheck "check_users" do
   action :add
 end
 
+nagios_nrpecheck "check_nic_speed" do
+  command "#{node['nagios']['plugin_dir']}/check_nic_speed"
+  warning_condition "100"
+  critical_condition "10"
+  action :add
+end
+
 cookbook_file "/usr/bin/nagios_passive.py" do
   source "nagios_passive.py"
   owner "root"
