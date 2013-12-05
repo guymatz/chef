@@ -1,0 +1,8 @@
+{
+    "id": "salinux",
+    "name": "CCIT Nagios",
+    "groups":   ["ccit"],
+    "shell":    "/sbin/nologin",
+    "home": "/data/salinux",
+    "uid": 5200 
+}
