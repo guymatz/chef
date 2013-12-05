@@ -1,6 +1,6 @@
 nagios_nrpecheck "Check_Vantrix" do
   command "#{node['nagios']['plugin_dir']}/check_procs"
-  parameters '-C /opt/spotxde/sbin/trx/VATranscoder'
+  parameters '-C VATranscoder'
   action :add
 end
 
