@@ -1,0 +1,7 @@
+BROKER_URL:                     amqp://<%= @rabbit_user %>:<%= @rabbit_pass %>@<%= node[:ingestion_ng][:celery_broker_host] %>//amp
+CELERYD_POOL:                   <%= node[:ingestion_ng][:celery_pool] %>
+CELERYD_CONCURRENCY:            <%= node[:ingestion_ng][:celery_concurrency] %>
+CELERY_RESULT_BACKEND:          <%= node[:ingestion_ng][:celery_result_backend] %>
+CELERY_CACHE_BACKEND:           <%= node[:ingestion_ng][:celery_cache_backend] %>
+CELERY_TASK_RESULT_EXPIRES:     <%= node[:ingestion_ng][:celery_task_result_expire] %>
+CELERY_IMPORTS:                 [<%= node[:ingestion_ng][:celery_imports] %>]

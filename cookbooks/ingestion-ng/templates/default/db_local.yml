@@ -1,0 +1,8 @@
+db:         postgresql
+driver:     psycopg2
+
+host:       <%= node[:ingestion_ng][:db_host] %>
+port:       <%= node[:ingestion_ng][:db_port] %>
+user:       <%= node[:ingestion_ng][:db_user] %>
+password:   <%= node[:ingestion_ng][:db_password] %>
+database:   <%= node[:ingestion_ng][:db] %>
