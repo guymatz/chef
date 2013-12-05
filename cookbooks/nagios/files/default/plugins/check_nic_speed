@@ -1,0 +1,103 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'optparse'
+
+EXIT_OK = 0
+EXIT_WARNING = 1
+EXIT_CRITICAL = 2
+EXIT_UNKNOWN = 3
+
+###  GetOpts
+o = {}
+ 
+optparse = OptionParser.new do|opts|
+  # Set a banner, displayed at the top
+  # of the help screen.
+  opts.banner = "Usage: check_nic_speed -w 100 -c 10" 
+
+  # Define the options, and what they do
+  o[:crit] = Integer
+  opts.on( '-c', '--critical=VAL', 'Critical threshold' ) do |val|
+    o[:crit] = val
+  end
+
+  o[:warn] = Integer
+  opts.on( '-w', '--warning=VAL', 'Warning threshold' ) do |val|
+    o[:warn] = val
+  end
+  
+  # This displays the help screen, all programs are
+  # assumed to have this option.
+  opts.on( '-h', '--help', 'Display this screen' ) do
+    puts opts
+    exit
+  end
+end
+
+optparse.parse!
+### End of Opts
+
+# Location of kernel files to check for NIC speed, etc.
+net_dev_dir = "/sys/class/net"
+nics = Dir.entries(net_dev_dir)
+
+warning_nics = Array.new
+critical_nics = Array.new
+
+##@#puts "Critical #{o[:crit]}"
+##@#puts "Warning #{o[:warn]}"
+
+begin
+  nics.each do |nic|
+    # Skipping loopback
+    next if nic == "lo"
+    # skipping dirs with dots, . & .. as well as vlans
+    next if nic.include?(".")
+    # Now we check the operstate file in the subdir for the NIC to see if it's up
+    state = File.read(File.join(net_dev_dir , nic , "operstate")).chop
+    # And skip to the next interface if it's not up
+    next unless state == "up"
+    
+    # And finally check the speed
+    speed = File.read(File.join(net_dev_dir , nic , "speed")).chop
+    # Now see what to do with it
+    this_nic="#{nic}/#{speed}"
+    if speed <= o[:crit]
+      critical_nics << this_nic
+    elsif speed <= o[:warn]
+      warning_nics << this_nic
+    end
+  end
+rescue => e
+  puts "Error #{e.inspect}"
+  #exit(EXIT_UNKNOWN)
+end
+
+# Now return errors and warnings (if we have any)
+if o[:crit] || o[:warn]
+
+  warnings = warning_nics.join(", ")
+  criticals = critical_nics.join(", ")
+
+  if critical_nics.size > 0
+    message = "Error NICs: #{criticals}"
+    message = message + " - Warning NICs: #{warnings}" if warning_nics.size > 0
+    puts message
+    exit(EXIT_CRITICAL)
+  end
+
+  if warning_nics.size > 0
+    message = "Warning NICs: #{warnings}"
+    puts message
+    exit(EXIT_WARNING)
+  end
+
+else
+  puts "Please provide a warning or critical threshold"
+  exit(EXIT_UNKNOWN)
+end
+
+# if neither warning nor critical trigger, say OK
+puts "OK: All Interfaces at correct speed"
+exit(EXIT_OK)

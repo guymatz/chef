@@ -1,0 +1,5 @@
+{
+  "hostgroup_name": "linux",
+  "id": "NIC-Speed",
+  "command_line": "$USER1$/check_nic_speed -w 100 -c 10"
+}
