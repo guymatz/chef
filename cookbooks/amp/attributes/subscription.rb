@@ -38,8 +38,11 @@ else
   default[:subscription][:graphite_interval] = "10s"
   default[:subscription][:path] = "/data/apps/subscription"
   default[:subscription][:parent_path] = "/data/apps"
+  default[:subscription][:dirs] = [ default[:subscription][:parent_path], default[:subscription][:path] ]
   default[:subscription][:user] = "amp"
   default[:subscription][:group] = "amp"
   default[:subscription][:heap_size] = "512m"
+  default[:subscription][:jar_download] = "http://files.ihrdev.com/subscription-service/stage/subscriptions-service.jar"
+  default[:subscription][:yml_download] = "http://files.ihrdev.com/subscription-service/stage/config.yml.erb"
   ### _DEFAULT ATTRIBUTES END ###
 end
