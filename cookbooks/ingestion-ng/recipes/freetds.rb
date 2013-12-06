@@ -10,3 +10,7 @@
 %w{ freetds freetds-devel }.each do |p|
   package p
 end
+
+template "/etc/freetds.conf"
+
+template "/etc/odbc.ini"

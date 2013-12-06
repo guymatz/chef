@@ -42,3 +42,20 @@ default[:encoders][:s_ftp_export] = "/data//export/inbound-ftp"
 default[:encoders][:s_ftp_mount] = "/data/inbound-ftp"
 default[:encoders][:s_encoder_export] = "/data/export/encoder"
 default[:encoders][:s_encoder_mount] = "/data/encoder"
+
+# FreeTDS
+default[:freetds][:servers][:mssql_aws] = {
+  :description => 'Ingestion3 MSsql in AWS',
+  :host => '10.5.1.52',
+  :port => 1433,
+  :tds_version => '8.0',
+  :client_charset => 'UTF-8'
+}
+
+# ODBC
+default[:odbc][:name] = 'mssql_aws'
+default[:odbc][:driver] = '/usr/lib64/libtdsodbc.so'
+default[:odbc][:database] = 'ingestion'
+default[:odbc][:description] = default[:freetds][:servers][default[:odbc][:name]][:description]
+default[:odbc][:host] = default[:freetds][:servers][default[:odbc][:name]][:host]
+default[:odbc][:client_charset] = default[:freetds][:servers][default[:odbc][:name]][:client_charset]
