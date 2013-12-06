@@ -1,0 +1,5 @@
+{
+  "hostgroup_name": "linux",
+  "id": "NIC-Speed",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c NIC-Speed -t 10"
+}
