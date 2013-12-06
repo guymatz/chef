@@ -26,26 +26,23 @@ done
 ### End of Opts
 
 # Location of kernel files to check for NIC speed, etc.
-net_dev_dir="/sys/class/net"
-nics=$net_dev_dir/*
+NET_DEV_DIR="/sys/class/net"
+NICS=$net_dev_dir/*
 
 warning_nics=""
 critical_nics=""
 
-for nic in $nics; do
+for nic in $NICS; do
   nic=$(basename $nic)
-  # Skipping loopback and directories with a dot, i.e. with a dot
-  # Not excluding vlans.  If VLANs are to be excluded, use the
-  # following if condition instead
-  #if [[ $nic == "lo" ]] || [[ $nic =~ \. ]]; then continue; fi
-  if [[ $nic == "lo" ]] || [[ $nic =~ ^\. ]]; then continue; fi
+  # We only want to check files that are pci devices, i.e. (real, not virtual)
+  if ! [[ $(readlink $nic) =~ /devices/pci ]]; then continue; fi
   # Now we check the operstate file in the subdir for the NIC to see if it's up
-  state=$(cat "$net_dev_dir/$nic/operstate")
+  state=$(cat "$NET_DEV_DIR/$nic/operstate")
   # And skip to the next interface if it's not up
   if [ $state != "up" ]; then continue; fi
   
   # And finally check the speed of UP interfaces
-  speed=$(cat "$net_dev_dir/$nic/speed")
+  speed=$(cat "$NET_DEV_DIR/$nic/speed")
   # Now see what to do with it
   this_nic="${nic}/${speed}"
   if [[ $speed -lt $crit ]]; then
