@@ -11,14 +11,18 @@ args = parser.parse_args()
 # Initiate the subscription update
 sub_post = requests.post(args.url, timeout=300)
 
-# Grab the error code and error description
-sub_error = int(sub_post.json()['errorCode'])
-sub_error_desc = sub_post.json()['errorDescription']
+# Grab the error code and error description if there is one
+try:
+    sub_error = int(sub_post.json()['errorCode'])
+    sub_error_desc = sub_post.json()['errorDescription']
+except KeyError:
+    sub_error = 0
+    sub_updated = sub_post.json()['numUpdated']
 
 # Fire critical if errorCode != 0
 if sub_error != 0:
     print "CRITICAL: The subscription update failed with error code " + str(sub_error) + " and description " + sub_error_desc + "."
     sys.exit(2)
 else:
-    print "OK: Subscriptions updated successfully."
+    print "OK: " + str(sub_updated) + " subscriptions updated successfully."
     sys.exit(0)
