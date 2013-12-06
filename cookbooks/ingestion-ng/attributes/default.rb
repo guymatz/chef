@@ -23,7 +23,7 @@ default[:ingestion_ng][:db_user] = 'postgres'
 default[:ingestion_ng][:db_password] = ''
 default[:ingestion_ng][:db] = 'ingestion_ng'
 
-default[:ingestion_ng][:celery_broker_host] = 'iad-qac1-rabbitmq101.ihr"
+default[:ingestion_ng][:celery_broker_host] = 'iad-qac1-rabbitmq101.ihr'
 default[:ingestion_ng][:celery_pool] = 'gevent'
 default[:ingestion_ng][:celery_concurrency] = 8
 default[:ingestion_ng][:celery_result_backend] = 'amqp'
