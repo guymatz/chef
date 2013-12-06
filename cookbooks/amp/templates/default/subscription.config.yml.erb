@@ -21,8 +21,8 @@ logging:
 
 vindicia:
   url: <%= node[:subscription][:vindicia_host] %> 
-  username: <%= @vindicia_creds[:vindicia_username] %> 
-  password: <%= @vindicia_creds[:vindicia_password] %> 
+  username: <%= @vindicia_creds['vindicia_username'] %> 
+  password: <%= @vindicia_creds['vindicia_password'] %> 
   timeout: <%= node[:subscription][:vindicia_timeout] %> 
   entitlementPageSize: <%= node[:subscription][:vindicia_items_per_page] %> 
 
