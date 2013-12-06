@@ -17,11 +17,13 @@ default[:ingestion_ng][:apps] = [ 'ingqueue' ].join(',')
 
 # default[:ingestion_ng][:init_style] = "heartbeat" # heartbeat or init
 
-default[:ingestion_ng][:db_host] = 'localhost'
-default[:ingestion_ng][:db_port] = 5432
-default[:ingestion_ng][:db_user] = 'postgres'
-default[:ingestion_ng][:db_password] = ''
-default[:ingestion_ng][:db] = 'ingestion_ng'
+default[:ingestion_ng][:db][:type] = 'mssql'
+default[:ingestion_ng][:db][:driver] = 'pymssql'
+default[:ingestion_ng][:db][:host] = 'mssql-aws'
+default[:ingestion_ng][:db][:port] = 1433
+default[:ingestion_ng][:db][:name] = 'ingestion'
+default[:ingestion_ng][:db][:user] = 'appbatchuser_devdb'
+default[:ingestion_ng][:db][:pass] = 'Ms9P34kW'
 
 default[:ingestion_ng][:celery_broker_host] = 'iad-qac1-rabbitmq101.ihr'
 default[:ingestion_ng][:celery_pool] = 'gevent'
@@ -44,7 +46,7 @@ default[:encoders][:s_encoder_export] = "/data/export/encoder"
 default[:encoders][:s_encoder_mount] = "/data/encoder"
 
 # FreeTDS
-default[:freetds][:servers][:mssql_aws] = {
+default[:freetds][:servers][default[:ingestion_ng][:db][:name]] = {
   :description => 'Ingestion3 MSsql in AWS',
   :host => '10.5.1.52',
   :port => 1433,
@@ -53,7 +55,7 @@ default[:freetds][:servers][:mssql_aws] = {
 }
 
 # ODBC
-default[:odbc][:name] = 'mssql_aws'
+default[:odbc][:name] = default[:ingestion_ng][:db][:name]
 default[:odbc][:driver] = '/usr/lib64/libtdsodbc.so'
 default[:odbc][:database] = 'ingestion'
 default[:odbc][:description] = default[:freetds][:servers][default[:odbc][:name]][:description]

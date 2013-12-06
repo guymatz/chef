@@ -87,11 +87,10 @@ end
           mode "0644"
           variables ({:rabbit_user => node[:ingestion_ng][:rabbit_user], :rabbit_pass => rabbit_data[node[:ingestion_ng][:rabbit_user]]})
         end
-        template "#{config_path}/db_local.yml" do
+        template "#{config_path}/db.yml" do
           owner node[:ingestion_ng][:user]
           group node[:ingestion_ng][:group]
           mode "0644"
-          source "db_local.yml"
         end
       end
       after_restart do
