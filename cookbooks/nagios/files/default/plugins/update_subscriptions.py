@@ -9,7 +9,7 @@ parser.add_argument('--url', help='Subscription Service POST URL', required=True
 args = parser.parse_args()
 
 # Initiate the subscription update
-sub_post = requests.post(args.url)
+sub_post = requests.post(args.url, timeout=300)
 
 # Grab the error code and error description
 sub_error = int(sub_post.json()['errorCode'])
