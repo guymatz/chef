@@ -2,7 +2,7 @@
   "name": "stage",
   "default_attributes": {
     "webplayer": {
-      "rev": "release-5.2.1-fosters-rc1",
+      "rev": "release-5.2.1-fosters-uat8",
       "settings": {
         "url": {
           "site_host": "stage.iheart.com"
