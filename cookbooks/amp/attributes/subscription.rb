@@ -16,8 +16,8 @@ else
   default[:subscription][:log_file_archive_name] = "./logs/service-%d.log.gz"
   default[:subscription][:log_file_count] = 14
   default[:subscription][:vindicia_host] = "https://soap.prodtest.sj.vindicia.com"
-  default[:subscription][:vindicia_timeout] = "10s"
-  default[:subscription][:vindicia_items_per_page] = 10
+  default[:subscription][:vindicia_timeout] = "30s"
+  default[:subscription][:vindicia_items_per_page] = 25
   default[:subscription][:mongo_host] = "127.0.0.1"
   default[:subscription][:mongo_port] = 27017
   default[:subscription][:mongo_auto_retry] = true
