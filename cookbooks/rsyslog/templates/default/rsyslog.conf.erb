@@ -1,135 +1,80 @@
-#  /etc/rsyslog.conf	Configuration file for rsyslog v3.
-#
-#			For more information see
-#			/usr/share/doc/rsyslog-doc/html/rsyslog_conf.html
+# rsyslog v5 configuration file
 
-#
-# Set max message size
-#
-$MaxMessageSize <%= node['rsyslog']['max_message_size'] %>
+# For more information see /usr/share/doc/rsyslog-*/rsyslog_conf.html
+# If you experience problems, see http://www.rsyslog.com/doc/troubleshoot.html
 
-#################
 #### MODULES ####
-#################
 
-$ModLoad imuxsock # provides support for local system logging
+$ModLoad imuxsock # provides support for local system logging (e.g. via logger command)
 $ModLoad imklog   # provides kernel logging support (previously done by rklogd)
 #$ModLoad immark  # provides --MARK-- message capability
 
-<% if node['rsyslog']['server'] -%>
-# Provide <%= @protocol.upcase %> log reception
-<% case @protocol -%>
-<% when "tcp" -%>
-$ModLoad imtcp
-$InputTCPServerRun <%= node['rsyslog']['port'] %>
-<% when "udp" -%>
-$ModLoad imudp
-$UDPServerRun <%= node['rsyslog']['port'] %>
-<% end -%>
-<% end -%>
+# Provides UDP syslog reception
+#$ModLoad imudp
+#$UDPServerRun 514
 
-###########################
+# Provides TCP syslog reception
+#$ModLoad imtcp
+#$InputTCPServerRun 514
+
+
 #### GLOBAL DIRECTIVES ####
-###########################
 
-#
-# Use default timestamp format.
-# To enable high precision timestamps, comment out the following line.
-#
+# Use default timestamp format
 $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
 
-# Filter duplicated messages
-$RepeatedMsgReduction on
+# File syncing capability is disabled by default. This feature is usually not required,
+# not useful and an extreme performance hit
+#$ActionFileEnableSync on
 
-#
-# Set temporary directory to buffer syslog queue
-#
-$WorkDirectory /var/spool/rsyslog
-
-#
-# Set the default permissions for all log files.
-#
-$FileOwner <%= node['rsyslog']['user'] %>
-$FileGroup <%= node['rsyslog']['group'] %>
-$FileCreateMode 0640
-$DirCreateMode 0755
-$Umask 0022
-<% if node['rsyslog']['priv_seperation'] %>
-$PrivDropToUser <%= node['rsyslog']['user'] %>
-$PrivDropToGroup <%= node['rsyslog']['group'] %>
-<% end %>
-#
 # Include all config files in /etc/rsyslog.d/
-#
 $IncludeConfig /etc/rsyslog.d/*.conf
 
-<% unless node[:platform] == 'ubuntu' -%>
-###############
+
 #### RULES ####
-###############
 
-#
-# First some standard log files.  Log by facility.
-#
-auth,authpriv.*			/var/log/auth.log
-*.*;auth,authpriv.none		-/var/log/syslog
-#cron.*				/var/log/cron.log
-daemon.*			-/var/log/daemon.log
-kern.*				-/var/log/kern.log
-lpr.*				-/var/log/lpr.log
-mail.*				-/var/log/mail.log
-user.*				-/var/log/user.log
+# Log all kernel messages to the console.
+# Logging much else clutters up the screen.
+#kern.*                                                 /dev/console
 
-#
-# Logging for the mail system.  Split it up so that
-# it is easy to write scripts to parse these files.
-#
-mail.info			-/var/log/mail.info
-mail.warn			-/var/log/mail.warn
-mail.err			/var/log/mail.err
+# Log anything (except mail) of level info or higher.
+# Don't log private authentication messages!
+*.info;mail.none;authpriv.none;cron.none                /var/log/messages
 
-#
-# Logging for INN news system.
-#
-news.crit			/var/log/news/news.crit
-news.err			/var/log/news/news.err
-news.notice			-/var/log/news/news.notice
+# The authpriv file has restricted access.
+authpriv.*                                              /var/log/secure
 
-#
-# Some "catch-all" log files.
-#
-*.=debug;\
-	auth,authpriv.none;\
-	news.none;mail.none	-/var/log/debug
-*.=info;*.=notice;*.=warn;\
-	auth,authpriv.none;\
-	cron,daemon.none;\
-	mail,news.none		-/var/log/messages
+# Log all the mail messages in one place.
+mail.*                                                  -/var/log/maillog
 
-#
-# Emergencies are sent to everybody logged in.
-#
-*.emerg				*
 
-#
-# I like to have messages displayed on the console, but only on a virtual
-# console I usually leave idle.
-#
-#daemon,mail.*;\
-#	news.=crit;news.=err;news.=notice;\
-#	*.=debug;*.=info;\
-#	*.=notice;*.=warn	/dev/tty8
+# Log cron stuff
+cron.*                                                  /var/log/cron
 
-# The named pipe /dev/xconsole is for the `xconsole' utility.  To use it,
-# you must invoke `xconsole' with the `-file' option:
+# Everybody gets emergency messages
+*.emerg                                                 *
+
+# Save news errors of level crit and higher in a special file.
+uucp,news.crit                                          /var/log/spooler
+
+# Save boot messages also to boot.log
+local7.*                                                /var/log/boot.log
+
+
+# ### begin forwarding rule ###
+# The statement between the begin ... end define a SINGLE forwarding
+# rule. They belong together, do NOT split them. If you create multiple
+# forwarding rules, duplicate the whole block!
+# Remote Logging (we use TCP for reliable delivery)
 #
-#    $ xconsole -file /dev/xconsole [...]
-#
-# NOTE: adjust the list below, or you'll go crazy if you have a reasonably
-#      busy site..
-#
-daemon.*;mail.*;\
-	news.err;\
-	*.=debug;*.=info;\
-	*.=notice;*.=warn	|/dev/console
-<% end -%>
+# An on-disk queue is created for this action. If the remote host is
+# down, messages are spooled to disk and sent when it is up again.
+#$WorkDirectory /var/lib/rsyslog # where to place spool files
+#$ActionQueueFileName fwdRule1 # unique name prefix for spool files
+#$ActionQueueMaxDiskSpace 1g   # 1gb space limit (use as much as possible)
+#$ActionQueueSaveOnShutdown on # save messages to disk on shutdown
+#$ActionQueueType LinkedList   # run asynchronously
+#$ActionResumeRetryCount -1    # infinite retries if host is down
+# remote host is: name/ip:port, e.g. 192.168.0.1:514, port optional
+#*.* @@remote-host:514
+# ### end of the forwarding rule ###
