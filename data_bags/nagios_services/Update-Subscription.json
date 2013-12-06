@@ -1,0 +1,8 @@
+{
+  "id": "Update-Subscription",
+  "host_name": "iad-stg-sub101",
+  "command_line": "$USER1$/update_subscription.py --url 'http://$HOSTADDRESS$:8088/update'",
+  "check_interval": "5",
+  "max_check_attempts": "1",
+  "contact_groups": ["admins", "amp"]
+}
