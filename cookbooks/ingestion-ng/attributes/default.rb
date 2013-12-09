@@ -7,6 +7,7 @@ default[:ingestion_ng][:branch] = 'deploy'
 # deploy path
 default[:ingestion_ng][:deploy_path] = '/data/apps/ingestion-ng'
 default[:ingestion_ng][:venv] = 'shared/venv'
+default[:ingestion_ng][:var] = '/var/ingestion-ng'
 
 default[:ingestion_ng][:packages] = %w{ python27 python27-libs python27-devel python27-test python27-tools libxslt-devel libevent-devel nfs-utils }
 
@@ -32,11 +33,7 @@ default[:ingestion_ng][:celery_result_backend] = 'amqp'
 default[:ingestion_ng][:celery_cache_backend] = 'default'
 default[:ingestion_ng][:celery_task_result_expire] = 3600
 default[:ingestion_ng][:celery_imports] = 'ingqueue.tasks'
-
 default[:ingestion_ng][:rabbit_user] = 'amp-tomcat'
-
-# Apps write stuff here
-default[:ingestion_ng][:var] = '/var/ingestion-ng'
 
 # stage nfs mounts
 default[:encoders][:stage_server] = "iad-stg-nfs101-v700.ihr"
