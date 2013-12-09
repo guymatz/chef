@@ -35,7 +35,7 @@
     {"name":"responsysQueue","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
     {"name":"updateUserFacebookQueue","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
     {"name":"fb.scrobbling.live.radio","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
-    {"name":"googleQueue","vhost":"/amp","durable":false,"auto_delete":false,"arguments":{}}
+    {"name":"googleQueue","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}}
   ],
   "exchanges":[
     {"name":"responsys","vhost":"/amp","type":"direct","durable":true,"auto_delete":false,"internal":false,"arguments":{}},
