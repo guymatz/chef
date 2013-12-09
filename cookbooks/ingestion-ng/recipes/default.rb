@@ -121,7 +121,7 @@ begin
           command <<-EOH
           . #{venv_activate}
           export INGESTION_PROJECT_ROOT=#{ingestion_root} && export CELERY_CONFIG=#{celery_config}
-          #init_web_db
+          [ -s #{node[:ingestion_ng][:var]}/web.db ] || init_web_db
           EOH
           not_if { ::File.exists?("#{node[:ingestion_ng][:var]}/test.db") }
         end

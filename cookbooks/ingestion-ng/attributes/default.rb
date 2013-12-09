@@ -37,8 +37,9 @@ default[:ingestion_ng][:celery][:result_exchange] = 'ingestion_results'
 default[:ingestion_ng][:celery][:result_serializer] = 'json'
 default[:ingestion_ng][:celery][:task_result_expires] = 3600
 default[:ingestion_ng][:celery][:imports] = 'ingqueue.tasks'
-default[:ingestion_ng][:rabbit][:user] = 'amp-tomcat'
-default[:ingestion_ng][:rabbit][:vhost] = '/amp'
+default[:ingestion_ng][:rabbit][:user] = 'ingestion'
+default[:ingestion_ng][:rabbit][:pass] = 's3ym0ur'
+default[:ingestion_ng][:rabbit][:vhost] = '/ingestion'
 
 # stage nfs mounts
 default[:encoders][:stage_server] = "iad-stg-nfs101-v700.ihr"
