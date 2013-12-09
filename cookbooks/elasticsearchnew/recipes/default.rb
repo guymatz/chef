@@ -78,5 +78,6 @@ unless tagged?('elasticsearchnew-deployed')
     owner node[:elasticsearchnew][:user]
     group node[:elasticsearchnew][:group]
   end
+  
   tag('elasticsearchnew-deployed')
 end
