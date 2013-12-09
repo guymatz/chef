@@ -27,15 +27,17 @@ done
 
 # Location of kernel files to check for NIC speed, etc.
 NET_DEV_DIR="/sys/class/net"
-NICS=$net_dev_dir/*
+NICS=$NET_DEV_DIR/*
 
 warning_nics=""
 critical_nics=""
 
 for nic in $NICS; do
   nic=$(basename $nic)
-  # We only want to check files that are pci devices, i.e. (real, not virtual)
-  if ! [[ $(readlink $nic) =~ /devices/pci ]]; then continue; fi
+  # We only want to check links to ../../devices . . . 
+  if ! [ -h $NET_DEV_DIR/$nic ]; then continue; fi
+  # But we only want to check physical devices, not virtual
+  if [[ $(readlink $NET_DEV_DIR/$nic) =~ /devices/virtual/ ]]; then continue; fi
   # Now we check the operstate file in the subdir for the NIC to see if it's up
   state=$(cat "$NET_DEV_DIR/$nic/operstate")
   # And skip to the next interface if it's not up
