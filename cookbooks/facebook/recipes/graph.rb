@@ -18,7 +18,7 @@ end
 
 %w{ amqp-fbgraph-1.0.0.jar env.properties log4j.xml }.each do |fbfile|
   remote_file "#{node[:fbgraph][:deploy_path]}/#{fbfile}" do
-    Chef::Log.info("Downloading #{fbfile} from #{node[:fbgraph][:url]}/#{fbfile}-#{node[:fbgraph][:version]}")
+    Chef::Log.info("Downloading #{fbfile} from #{node[:fbgraph][:url]}/live/#{fbfile}-#{node[:fbgraph][:version]}")
     source "#{node[:fbgraph][:url]}/#{fbfile}-#{node[:fbgraph][:version]}"
     mode "0755"
     action :create_if_missing
@@ -33,7 +33,7 @@ end
   end
 end
 
-directory "/var/log/fbgraph" do
+directory "/var/log/fbgraph-consumer" do
   recursive true
   mode "0755"
 end
