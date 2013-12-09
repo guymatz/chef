@@ -1,13 +1,13 @@
 #!/bin/bash
 # Grab the number of attivio-searcher processes running (should always be 1)
-PROCESS_STATUS=$(pgrep -f "attivio-java (\w|\W)*searcher" | wc -l >/dev/null 2>&1)
+PROCESS_STATUS=$(pgrep -f "attivio-java (\w|\W)*searcher" | wc -l)
 
 # Check the last line of the log to make sure the endpoint is up
 tail -1 <%= node[:attivio][:app_path] %>/logs*searcher/attivio.log | egrep "\[searcher.index-query-dispatcher\] Endpoint [\w|\W]*offline" >/dev/null 2>&1
 LOG_STATUS=$?
 
 # Exit with a relevant code for nagios based on the process being there and the log being clean
-if [ $LOG_STATUS -ne 0 ] && [ $PROCESS_STATUS -eq 1 ]; then
+if [[ $LOG_STATUS -ne 0 && $PROCESS_STATUS -eq 1 ]]; then
     echo "OK: Attivio searcher is available."
     exit 0
 else
