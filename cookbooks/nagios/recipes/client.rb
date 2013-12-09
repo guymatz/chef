@@ -95,8 +95,8 @@ end
 
 nagios_nrpecheck "check_nic_speed" do
   command "#{node['nagios']['plugin_dir']}/check_nic_speed"
-  warning_condition "100"
-  critical_condition "10"
+  warning_condition "1000"
+  critical_condition "100"
   action :add
 end
 
