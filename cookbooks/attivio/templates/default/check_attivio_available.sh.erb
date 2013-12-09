@@ -12,5 +12,5 @@ if [ $LOG_STATUS -ne 0 ] && [ $PROCESS_STATUS -eq 1 ]; then
     exit 0
 else
     echo "CRITICAL: Attivio searcher is unavailable or having problems."
-    exit 1
+    exit 2
 fi
