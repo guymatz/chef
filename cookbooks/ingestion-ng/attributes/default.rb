@@ -9,7 +9,7 @@ default[:ingestion_ng][:deploy_path] = '/data/apps/ingestion-ng'
 default[:ingestion_ng][:venv] = 'shared/venv'
 default[:ingestion_ng][:var] = '/var/ingestion-ng'
 
-default[:ingestion_ng][:packages] = %w{ python27 python27-libs python27-devel python27-test python27-tools libxslt-devel libevent-devel nfs-utils }
+default[:ingestion_ng][:packages] = %w{ python27 python27-libs python27-devel python27-test python27-tools libxslt-devel libevent-devel nfs-utils postgresql-devel }
 
 default[:ingestion_ng][:user] = 'ihr-deployer'
 default[:ingestion_ng][:group] = 'ihr-deployer'
@@ -26,14 +26,18 @@ default[:ingestion_ng][:db][:name] = 'ingestion'
 default[:ingestion_ng][:db][:user] = 'appbatchuser_devdb'
 default[:ingestion_ng][:db][:pass] = 'Ms9P34kW'
 
-default[:ingestion_ng][:celery_broker_host] = 'iad-qac1-rabbitmq101.ihr'
-default[:ingestion_ng][:celery_pool] = 'gevent'
-default[:ingestion_ng][:celery_concurrency] = 8
-default[:ingestion_ng][:celery_result_backend] = 'amqp'
-default[:ingestion_ng][:celery_cache_backend] = 'default'
-default[:ingestion_ng][:celery_task_result_expire] = 3600
-default[:ingestion_ng][:celery_imports] = 'ingqueue.tasks'
-default[:ingestion_ng][:rabbit_user] = 'amp-tomcat'
+default[:ingestion_ng][:celery][:broker_url] = 'amqp://%{user}:%{pass}@iad-stg-rabbitmq101.ihr/'
+default[:ingestion_ng][:celery][:default_exchange] = 'ingestion'
+default[:ingestion_ng][:celery][:task_serializer] = 'json'
+default[:ingestion_ng][:celery][:accept_content] = 'json'
+default[:ingestion_ng][:celery][:pool] = 'gevent'
+default[:ingestion_ng][:celery][:concurrency] = 8
+default[:ingestion_ng][:celery][:result_exchange] = 'ingestion_results'
+default[:ingestion_ng][:celery][:result_backend] = 'amqp'
+default[:ingestion_ng][:celery][:task_result_expires] = 3600
+default[:ingestion_ng][:celery][:imports] = 'ingqueue.tasks'
+default[:ingestion_ng][:rabbit][:user] = 'amp-tomcat'
+default[:ingestion_ng][:rabbit][:vhost] = '/amp'
 
 # stage nfs mounts
 default[:encoders][:stage_server] = "iad-stg-nfs101-v700.ihr"

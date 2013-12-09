@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-%w{ users::converter users::deployer}.each do |r|
+%w{java users::converter users::deployer}.each do |r|
   include_recipe r
 end
 
@@ -88,8 +88,12 @@ deploy_branch node[:ingestion_ng][:deploy_path] do
       group node[:ingestion_ng][:group]
       mode "0644"
       variables({
-        :rabbit_user => node[:ingestion_ng][:rabbit_user],
-        :rabbit_pass => rabbit_data[node[:ingestion_ng][:rabbit_user]]
+        :celery => node[:ingestion_ng][:celery],
+        :broker_url => node[:ingestion_ng][:celery][:broker_url] % {
+            :user => node[:ingestion_ng][:rabbit][:user],
+            :pass => rabbit_data[node[:ingestion_ng][:rabbit][:user]],
+            :vhost => node[:ingestion_ng][:rabbit][:vhost]
+        }
       })
     end
     template "#{config_path}/db.yml" do
