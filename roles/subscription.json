@@ -1,0 +1,19 @@
+{
+  "name": "subscription",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[java::oracle-7]",
+    "recipe[users::deployer]",
+    "recipe[users::amp]",
+    "role[mongosd]",
+    "recipe[amp::subscription]"
+  ],
+  "env_run_lists": {
+  }
+}
