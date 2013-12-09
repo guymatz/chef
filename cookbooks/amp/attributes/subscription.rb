@@ -29,8 +29,8 @@ when "prod"
   default[:subscription][:swagger_file_path] = "/swagger-ui/"
   default[:subscription][:swagger_url_path] = "/docs"
   default[:subscription][:swagger_index_file] = "index.html"
-  default[:subscription][:graphite_host] = "iad-statsd101.ihr"
-  default[:subscription][:graphite_port] = 8125
+  default[:subscription][:graphite_host] = "iad-graphite101.ihr"
+  default[:subscription][:graphite_port] = 2003
   default[:subscription][:graphite_prefix] = "subscriptions.prod"
   default[:subscription][:graphite_interval] = "10s"
   default[:subscription][:path] = "/data/apps/subscription"
