@@ -26,7 +26,7 @@ default[:ingestion_ng][:db][:name] = 'ingestion'
 default[:ingestion_ng][:db][:user] = 'appbatchuser_devdb'
 default[:ingestion_ng][:db][:pass] = 'Ms9P34kW'
 
-default[:ingestion_ng][:celery][:broker_url] = 'amqp://%{user}:%{pass}@iad-stg-rabbitmq101.ihr/'
+default[:ingestion_ng][:celery][:broker_url] = 'amqp://%{user}:%{pass}@iad-stg-rabbitmq101.ihr/%{vhost}'
 default[:ingestion_ng][:celery][:default_exchange] = 'ingestion'
 default[:ingestion_ng][:celery][:task_serializer] = 'json'
 default[:ingestion_ng][:celery][:accept_content] = 'json'

@@ -90,8 +90,8 @@ deploy_branch node[:ingestion_ng][:deploy_path] do
       variables({
         :celery => node[:ingestion_ng][:celery],
         :broker_url => node[:ingestion_ng][:celery][:broker_url] % {
-            :user => node[:ingestion_ng][:rabbit][:user],
-            :pass => rabbit_data[node[:ingestion_ng][:rabbit][:user]],
+            :user  => node[:ingestion_ng][:rabbit][:user],
+            :pass  => rabbit_data[node[:ingestion_ng][:rabbit][:user]],
             :vhost => node[:ingestion_ng][:rabbit][:vhost]
         }
       })
