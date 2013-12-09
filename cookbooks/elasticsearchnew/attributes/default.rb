@@ -2,7 +2,8 @@
 
 
 default[:elasticsearchnew][:version] = "0.90.3"
-default[:elasticsearchnew][:url] = "http://yum.ihr/files/"
+# default[:elasticsearchnew][:url] = "http://yum.ihr/files/"
+default[:elasticsearchnew][:url] = "http://files.ihrdev.com/elasticsearch/"
 
 default[:elasticsearchnew][:base_path] = "/data/apps"
 default[:elasticsearchnew][:deploy_path] = "/data/apps/elasticsearch"
