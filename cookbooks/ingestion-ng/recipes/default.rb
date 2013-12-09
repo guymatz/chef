@@ -92,7 +92,8 @@ begin
             :celery => node[:ingestion_ng][:celery],
             :broker_url => node[:ingestion_ng][:celery][:broker_url] % {
                 :user  => node[:ingestion_ng][:rabbit][:user],
-                :pass  => rabbit_data[node[:ingestion_ng][:rabbit][:user]],
+                # FIXME access from a databag; rabbit_data[node[:ingestion_ng][:rabbit][:user]]
+                :pass  => node[:ingestion_ng][:rabbit][:pass],
                 :vhost => node[:ingestion_ng][:rabbit][:vhost]
             }
           })
@@ -118,6 +119,7 @@ begin
           user node[:ingestion_ng][:user]
           group node[:ingestion_ng][:group]
           cwd "#{node[:ingestion_ng][:deploy_path]}/current/#{node[:ingestion_ng][:apps]}"
+          # FIXME brittle and inelegant check for web.db
           command <<-EOH
           . #{venv_activate}
           export INGESTION_PROJECT_ROOT=#{ingestion_root} && export CELERY_CONFIG=#{celery_config}

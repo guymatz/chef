@@ -24,6 +24,7 @@ default[:ingestion_ng][:db][:host] = 'mssql-aws'
 default[:ingestion_ng][:db][:port] = 1433
 default[:ingestion_ng][:db][:name] = 'ingestion'
 default[:ingestion_ng][:db][:user] = 'appbatchuser_devdb'
+# FIXME move to a databag
 default[:ingestion_ng][:db][:pass] = 'Ms9P34kW'
 
 default[:ingestion_ng][:celery][:broker_url] = 'amqp://%{user}:%{pass}@iad-stg-rabbitmq101.ihr/%{vhost}'
@@ -38,6 +39,7 @@ default[:ingestion_ng][:celery][:result_serializer] = 'json'
 default[:ingestion_ng][:celery][:task_result_expires] = 3600
 default[:ingestion_ng][:celery][:imports] = 'ingqueue.tasks'
 default[:ingestion_ng][:rabbit][:user] = 'ingestion'
+# FIXME move to a databag
 default[:ingestion_ng][:rabbit][:pass] = 's3ym0ur'
 default[:ingestion_ng][:rabbit][:vhost] = '/ingestion'
 
