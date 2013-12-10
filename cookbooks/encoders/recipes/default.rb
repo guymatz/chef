@@ -96,7 +96,7 @@ begin
     # natively https://tickets.opscode.com/browse/CHEF-2383
     bash "link_jdk" do 
         code <<-EOF
-            ln -s /usr/java/latest/bin/java /usr/bin/jdk
+            ln -sf /usr/java/latest/bin/java /usr/bin/jdk
         EOF
        only_if { ::File.exists?("/usr/java/latest/bin/java") } 
     end
