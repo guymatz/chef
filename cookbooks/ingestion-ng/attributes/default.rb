@@ -20,12 +20,12 @@ default[:ingestion_ng][:apps] = [ 'ingqueue' ].join(',')
 
 default[:ingestion_ng][:db][:type] = 'mssql'
 default[:ingestion_ng][:db][:driver] = 'pymssql'
-default[:ingestion_ng][:db][:host] = 'mssql-aws'
+default[:ingestion_ng][:db][:host] = 'ingestion_capr_dev'
 default[:ingestion_ng][:db][:port] = 1433
 default[:ingestion_ng][:db][:name] = 'ingestion'
-default[:ingestion_ng][:db][:user] = 'appbatchuser_devdb'
+default[:ingestion_ng][:db][:user] = 'adirnberger'
 # FIXME move to a databag
-default[:ingestion_ng][:db][:pass] = 'Ms9P34kW'
+default[:ingestion_ng][:db][:pass] = 'andypassword123'
 
 default[:ingestion_ng][:celery][:broker_url] = 'amqp://%{user}:%{pass}@iad-stg-rabbitmq101.ihr/%{vhost}'
 default[:ingestion_ng][:celery][:default_exchange] = 'ingestion'
@@ -52,8 +52,8 @@ default[:encoders][:s_encoder_mount] = "/data/encoder"
 
 # FreeTDS
 default[:freetds][:servers][default[:ingestion_ng][:db][:host]] = {
-  :description => 'Ingestion3 MSsql in AWS',
-  :host => 'use1b-ingestion-sqlserver101.ihr',
+  :description => 'Ingestion msSQL',
+  :host => '10.5.50.101',
   :port => 1433,
   :tds_version => '8.0',
   :client_charset => 'UTF-8'
@@ -62,7 +62,7 @@ default[:freetds][:servers][default[:ingestion_ng][:db][:host]] = {
 # ODBC
 default[:odbc][:name] = default[:ingestion_ng][:db][:host]
 default[:odbc][:driver] = '/usr/lib64/libtdsodbc.so'
-default[:odbc][:database] = 'ingestion'
+default[:odbc][:database] = 'Ingestion3'
 default[:odbc][:description] = default[:freetds][:servers][default[:odbc][:name]][:description]
 default[:odbc][:host] = default[:freetds][:servers][default[:odbc][:name]][:host]
 default[:odbc][:client_charset] = default[:freetds][:servers][default[:odbc][:name]][:client_charset]
