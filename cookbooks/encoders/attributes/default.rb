@@ -214,7 +214,7 @@ default[:encoder][:filemonitor][:monitor_script] = "/data/apps/filemonitor/bin/f
 
 # permanent isilon mounts
 case chef_environment
-when "stage"
+when /^stage/
   default[:encoders][:isilon_server] = "iad-stg-nfs101-v700.ihr"
   default[:encoders][:p_ftp_export] = "/data/export/inbound-ftp"
   default[:encoders][:p_ftp_mount] = "/data/inbound-ftp"
