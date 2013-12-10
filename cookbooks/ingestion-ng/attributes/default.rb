@@ -22,7 +22,7 @@ default[:ingestion_ng][:db][:type] = 'mssql'
 default[:ingestion_ng][:db][:driver] = 'pymssql'
 default[:ingestion_ng][:db][:host] = 'ingestion_capr_dev'
 default[:ingestion_ng][:db][:port] = 1433
-default[:ingestion_ng][:db][:name] = 'ingestion'
+default[:ingestion_ng][:db][:name] = 'Ingestion3'
 default[:ingestion_ng][:db][:user] = 'adirnberger'
 # FIXME move to a databag
 default[:ingestion_ng][:db][:pass] = 'andypassword123'
@@ -62,7 +62,7 @@ default[:freetds][:servers][default[:ingestion_ng][:db][:host]] = {
 # ODBC
 default[:odbc][:name] = default[:ingestion_ng][:db][:host]
 default[:odbc][:driver] = '/usr/lib64/libtdsodbc.so'
-default[:odbc][:database] = 'Ingestion3'
+default[:odbc][:database] = default[:ingestion_ng][:db][:name]
 default[:odbc][:description] = default[:freetds][:servers][default[:odbc][:name]][:description]
 default[:odbc][:host] = default[:freetds][:servers][default[:odbc][:name]][:host]
 default[:odbc][:client_charset] = default[:freetds][:servers][default[:odbc][:name]][:client_charset]
