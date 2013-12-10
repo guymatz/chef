@@ -96,9 +96,9 @@ begin
     # natively https://tickets.opscode.com/browse/CHEF-2383
     bash "link_jdk" do 
         code <<-EOF
-            ln -s /usr/java/jdk1.6.0_26/ /usr/bin/jdk
+            ln -s /usr/java/latest/bin/java /usr/bin/jdk
         EOF
-        not_if { ::File.exists?("/usr/java/jdk1.6.0_26") } 
+       only_if { ::File.exists?("/usr/java/latest/bin/java") } 
     end
 
     bash 'extract_sox' do
