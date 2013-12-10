@@ -12,5 +12,5 @@
 # #########################################
 
 yum_package "ImageMagick" do
-  action [ :install, :upgrade ]
+  action [ :install ]
 end
