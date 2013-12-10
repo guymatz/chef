@@ -4,6 +4,7 @@ begin
 
     package "spotxde-trx" do
         action :install
+        version "12.10.55.0596-el5"
     end
 
     service "trx" do
