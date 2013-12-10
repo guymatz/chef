@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # #################################################
 # @FILE: check_mountpoints.sh
-# @AUTHOR: GregoryPatmore <gregorypatmore@clearchannel.com>}
+# @AUTHOR: GregoryPatmore <gregorypatmore@clearchannel.com>
 # @CHEF-COOKBOOK: Nagios
 # @PROJECT: Operations (OPS)
 # @TICKETID: OPS-5746
@@ -151,7 +151,7 @@ while read -r f_dev f_mp f_fs f_opt f_dmp f_fsck; do
 
     #echo;
 
-done < <( awk '/^[^#]/{print}' < /etc/fstab);
+done < <( awk '/^[^#]/{print}' < /etc/fstab );
 
 # #################################################
 # Check Processing
@@ -228,7 +228,7 @@ for i in ${!MOUNT_STATE[*]}; do
             ((STATE_COUNTS[CRITICAL]++));
             ;;
         *)
-            echo "ERROR: $0 : Invalid state (${MOUNT_STATE[$i]}) found for mount ($i)";
+            echo "ERROR: $0 : Invalid state (${MOUNT_STATE[$i]}) found for mount ($i)" >&2;
             ;;
     esac
 done;

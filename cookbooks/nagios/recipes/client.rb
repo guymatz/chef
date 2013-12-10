@@ -78,6 +78,11 @@ nagios_nrpecheck "check_load" do
   action :add
 end
 
+nagios_nrpecheck "check_all_mountpoints" do
+  command "#{node['nagios']['plugin_dir']}/check_mountpoints.sh"
+  action :add
+end
+
 nagios_nrpecheck "check_all_disks" do
   command "#{node['nagios']['plugin_dir']}/check_disk"
   warning_condition "8%"
