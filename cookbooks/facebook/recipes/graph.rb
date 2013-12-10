@@ -21,7 +21,7 @@ end
     Chef::Log.info("Downloading #{fbfile} from #{node[:fbgraph][:url]}/live/#{fbfile}-#{node[:fbgraph][:version]}")
     source "#{node[:fbgraph][:url]}/#{fbfile}-#{node[:fbgraph][:version]}"
     mode "0755"
-    action :create_if_missing
+    action :create
   end
 end
 
@@ -48,6 +48,7 @@ template "/etc/init.d/fbgraph" do
               :jarfile => "#{node[:fbgraph][:deploy_path]}/fbgraph.jar",
               :basedir => node[:fbgraph][:deploy_path]
             })
+  action :create
 end
 
 # nagios_nrpecheck "Facebook-Process-FBgraph" do
