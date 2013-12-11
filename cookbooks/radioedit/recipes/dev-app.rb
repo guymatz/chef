@@ -72,7 +72,7 @@ application "radioedit-core" do
   end
 end
 
-template "#{node[:radioedit][:dev][:utildir]}/radioedit.conf" do
+template "/etc/nginx/conf.d/radioedit.conf" do
   source "dev-nginx.conf.erb"
   owner "root"
   group "root"
