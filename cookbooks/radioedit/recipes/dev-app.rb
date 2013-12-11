@@ -67,8 +67,8 @@ application "radioedit-core" do
     loglevel "#{node[:radioedit][:dev][:log_level]}"
     autostart true
     interpreter "python27"
-    environment {"ENVIRONMENT" => node[:radioedit][:dev][:env],
-                 "APP_ENV" => node[:radioedit][:dev][:env]}
+    environment ({"ENVIRONMENT" => node[:radioedit][:dev][:env],
+                 "APP_ENV" => node[:radioedit][:dev][:env]})
   end
 end
 
