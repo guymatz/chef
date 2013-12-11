@@ -1,8 +1,14 @@
 {
   "name": "stage",
+  "description": "",
+  "cookbook_versions": {
+    "encoders": "= 0.1.6"
+  },
+  "json_class": "Chef::Environment",
+  "chef_type": "environment",
   "default_attributes": {
     "webplayer": {
-      "rev": "release-5.0.0-donjulio-rc3",
+      "rev": "release-5.0.0-donjulio-rc1",
       "settings": {
         "url": {
           "site_host": "stage.iheart.com"
@@ -10,11 +16,6 @@
       }
     }
   },
-  "json_class": "Chef::Environment",
-  "description": "",
-  "cookbook_versions": {
-  },
   "override_attributes": {
-  },
-  "chef_type": "environment"
+  }
 }
