@@ -3,7 +3,7 @@ upstream core {
 }
 
 server {
-    listen 80 default;
+    listen 8080 default;
     server_name _;
 
     keepalive_timeout 5;
@@ -31,11 +31,10 @@ server {
         add_header Content-Type application/json;
         alias /data/apps/radioedit/static/iphone.json; 
     }
-    
-    # basic wildcard rewrite for cms functioning
-    location = / {
-        rewrite .* /-service/app/shell/ redirect;
-    }
+
+    #location = /api/v2/query/webapp.us.slider-staging {
+    #    rewrite .* /service/dl/iheartcom-qa/ redirect; 
+    #}
 
     location / {
         try_files $uri @proxy_to_core;

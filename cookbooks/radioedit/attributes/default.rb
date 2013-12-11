@@ -272,6 +272,8 @@ default[:radioedit][:production][:nfs_remdir] = "/data/imgscaler/radioedit";
 default[:radioedit][:production][:nfs_locdir] = "/data/binstore";
 default[:radioedit][:production][:elastic_clustername] = "radioedit";
 default[:radioedit][:production][:deploy_tag] = "radioedit-deployed";
+default[:radioedit][:production][:varnish_backend_port] = "8080";
+default[:radioedit][:production][:varnish_backend_ip] = "127.0.0.1";
 default[:radioedit][:production][:req_dirs] = %w{ 
   /data 
   /data/apps 

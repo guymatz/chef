@@ -90,7 +90,11 @@ directory "#{node[:radioedit][:production][:staticdir]}" do
     owner "nginx"
     group "nginx"
     action :create
-  end
+end
+
+# ###############################################################
+# static files served through a redirect in nginx conf file 
+# ###############################################################
 
 template "#{node[:radioedit][:production][:staticdir]}/android.json" do
   source "staticfile-android.json.erb"
@@ -124,6 +128,23 @@ template "#{node[:radioedit][:production][:staticdir]}/kenwood.json" do
   action [ :delete, :create ]
 end
 
+# ###############################################################
+# end static file templates 
+# ###############################################################
+
+template "/etc/varnish/default.vcl" do
+  source "production-default.vcl.erb"
+  owner "root"
+  group "root"
+  mode 0600
+  variables({
+    :host => node[:radioedit][:production][:varnish_backend_ip],
+    :port => node[:radioedit][:production][:varnish_backend_port]
+  })
+  action [ :create ]
+end
+
+
 
 # implementing tag locking per OPS 
 unless tagged?("#{node[:radioedit][:production][:deploy_tag]}")
@@ -150,6 +171,7 @@ unless tagged?("#{node[:radioedit][:production][:deploy_tag]}")
       packages node[:radioedit][:production][:pips]
       loglevel "#{node[:radioedit][:production][:log_level]}"
       interpreter "python27"
+      autostart true
     end
   end
 
