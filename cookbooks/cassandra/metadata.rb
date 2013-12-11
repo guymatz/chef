@@ -13,6 +13,7 @@ depends          "thrift"
 depends          "iptables"
 depends          "install_from"
 depends		 "sysctl"
+depends		 "nagios"
 
 recipe           "cassandra::autoconf",                "Automatically configure nodes from chef-server information."
 recipe           "cassandra::ec2snitch",               "Automatically configure properties snitch for clusters on EC2."
