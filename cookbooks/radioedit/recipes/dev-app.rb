@@ -25,6 +25,13 @@ node[:radioedit][:dev][:packages].each do |p|
   end
 end
 
+%w{ nginx varnish varnishlog }.each do |serv|
+  service serv do
+    supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
+    action [ :enable, :start ]
+  end
+end
+
 template "#{node[:radioedit][:dev][:path]}/shared/settings.json" do
   source "dev-settings.json.erb"
   owner "ihr-deployer"
@@ -77,4 +84,5 @@ template "/etc/nginx/conf.d/radioedit.conf" do
   owner "root"
   group "root"
   mode 0666
+  notifies :reload, "service[nginx]", :immediately
 end
