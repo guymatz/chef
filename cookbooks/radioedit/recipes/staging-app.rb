@@ -25,6 +25,13 @@ node[:radioedit][:staging][:packages].each do |p|
   end
 end
 
+%w{ nginx varnish varnishlog }.each do |serv|
+  service serv do
+    supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
+    action [ :enable, :start ]
+  end
+end
+
 template "#{node[:radioedit][:staging][:path]}/shared/settings.json" do
   source "staging-settings.json.erb"
   owner "ihr-deployer"
@@ -39,15 +46,12 @@ link "#{node[:radioedit][:staging][:path]}/settings.json" do
   not_if "test -L #{node[:radioedit][:staging][:path]}/shared/settings.json"
 end
 
-
-
 python_virtualenv "#{node[:radioedit][:staging][:venv_path]}" do
   interpreter "python27"
   owner "ihr-deployer"
   group "ihr-deployer"
   action :create
 end
-
 
 application "radioedit-core" do
   repository "#{node[:radioedit][:staging][:repo]}"
@@ -72,44 +76,25 @@ application "radioedit-core" do
   end
 end
 
-# gp adding these templates to a util directory until a way using existing chef resource objects is found.
-template "#{node[:radioedit][:staging][:utildir]}/supervisor" do
-  source "staging-supervisor-initd.erb"
-  owner "root"
-  group "root"
-  mode 0755
-  action [ :create ]
-end
-
-template "#{node[:radioedit][:staging][:utildir]}/radioedit.conf" do
+template "/etc/nginx/conf.d/radioedit.conf" do
   source "staging-nginx.conf.erb"
   owner "root"
   group "root"
   mode 0666
-  action [ :create ]
-end
-
-template "#{node[:radioedit][:staging][:utildir]}/upd_confs.sh" do
-  source "staging-reset-config.sh.erb"
-  owner "root"
-  group "root"
-  mode 0755
-  action [ :delete,:create ]
+  notifies :reload, "service[nginx]", :immediately
 end
 
 # reset ownership to nginx to allow static file serving
 directory "#{node[:radioedit][:staging][:staticdir]}" do
     owner "nginx"
     group "nginx"
-    action :create
-  end
+end
 
 template "#{node[:radioedit][:staging][:staticdir]}/android.json" do
   source "staticfile-android.json.erb"
   owner "nginx"
   group "nginx"
   mode 0444
-  action [ :delete, :create ]
 end
 
 template "#{node[:radioedit][:staging][:staticdir]}/fux.json" do
@@ -117,7 +102,6 @@ template "#{node[:radioedit][:staging][:staticdir]}/fux.json" do
   owner "nginx"
   group "nginx"
   mode 0444 
-  action [ :delete, :create ]
 end
 
 template "#{node[:radioedit][:staging][:staticdir]}/iphone.json" do
@@ -125,7 +109,6 @@ template "#{node[:radioedit][:staging][:staticdir]}/iphone.json" do
   owner "nginx"
   group "nginx"
   mode 0444
-  action [ :delete, :create ]
 end
 
 template "#{node[:radioedit][:staging][:staticdir]}/kenwood.json" do
@@ -133,20 +116,4 @@ template "#{node[:radioedit][:staging][:staticdir]}/kenwood.json" do
   owner "nginx"
   group "nginx"
   mode 0444
-  action [ :delete, :create ]
 end
-
-
-#GP hackety hack hack - @TODO Templatize what this script does
-execute "reset-confs" do
-  command "#{node[:radioedit][:staging][:utildir]}/upd_confs.sh"
-  action :run
-end
-
-
-
-
-
-
-
-
