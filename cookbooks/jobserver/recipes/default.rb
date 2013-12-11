@@ -8,6 +8,7 @@
 #
 
 include_recipe "users::jobserver"
+include_recipe "users::jobserver-sudo"
 
 if node.chef_environment == 'prod'
   include_recipe "jobserver::ha"

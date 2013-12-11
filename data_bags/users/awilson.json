@@ -2,7 +2,7 @@
   "id": "awilson",
   "name":	"Alan Wilson",
   "email":	"alanwilson@clearchannel.com",
-  "groups":	["dba", "nagios", "postgresql-sysadmin", "mongodb"],
+  "groups":	["dba", "nagios", "postgresql-sysadmin", "mongodb", "jobserver-sudo"],
   "htpasswd": "{SHA}OCh+AyHMT4qjX20pjb7yeityaPw=",
   "ssh_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0EN9Ek5gCnbqCqlDz/UzwNtZAKy8RVg+DGrqI1PE/H7itTUzYSduBqehxH64LoUxpXBgTuMpiur5KrIxqvHetalNSEZht254zgQW2CNrcMQBqwh7lBYTKLmCEFk57X+zpF5pa9FzZGcG9eNW5Ih69X1knpjcd7eiLhqXlEvX2tuUx2F3cbUBMnCQxgq0dbusDNLjf4oICgOoozzhchglp09lEn8+cZgG6O1P5nNzfJ1ZG0Qt6MA7+lME5Iv3tFEF3NpAAXWmKi6D+3vFypS0GBNRLx5zH0xmHT+1pWQmEAS5POo62GjsE9A/vSY5vgf4jKZM8ZBYAFxkbKZX2Jf+p alanw@ccomradmin.cci.clearchannel.com",
   "shell":	"/bin/bash",

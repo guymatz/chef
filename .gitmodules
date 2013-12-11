@@ -40,3 +40,6 @@
 [submodule "cookbooks/authorization"]
 	path = cookbooks/authorization
 	url = git@github.ihrint.com:OPS/authorization.git
+[submodule "cookbooks/zookeeper"]
+	path = cookbooks/zookeeper
+	url = git@github.com:iheartradio/chef-zookeeper.git
