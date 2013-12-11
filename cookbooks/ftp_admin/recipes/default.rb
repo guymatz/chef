@@ -22,19 +22,22 @@ python_virtualenv "/data/apps/ftp_admin/shared/venv" do
   interpreter "/usr/bin/python27"
   owner node[:ftp_admin][:deployer]
 #  group node[:ftp_admin][:group]
-  action :create   
+  action :create
 end
 
-bash "setup venv" do
-      code <<-EOH
-      chown -R #{node[:ftp_admin][:deployer]} #{node[:ftp_admin][:ftp_admin_path]}
-      EOH
-end
+
+# bash "setup venv" do
+#       code <<-EOH
+#       chown -R #{node[:ftp_admin][:deployer]} #{node[:ftp_admin][:ftp_admin_path]}
+#       EOH
+# end
+
 
 application "ftp_admin" do
+  name "ftp_admin"
   path "/data/apps/ftp_admin/"
   owner node[:ftp_admin][:deployer]
-#  group node[:ftp_admin][:group]
+  group node[:ftp_admin][:deployer]
   repository node[:ftp_admin][:repo]
   revision node[:ftp_admin][:rev]
   enable_submodules true
@@ -46,11 +49,15 @@ application "ftp_admin" do
       EOH
     end
   end
+
   gunicorn do
     app_module "ftp_admin:app"
     host "0.0.0.0"
-    port 8080
-    workers 9
+    port 8888
+    workers 2
+    #worker_class "gevent"
     virtualenv "/data/apps/ftp_admin/shared/venv"
+    autostart true
+    accesslog "/var/log/supervisor/ftp_admin-gunicorn-access.log"
   end
 end
