@@ -246,7 +246,7 @@ default[:radioedit][:staging][:pips] = %w{
 # PRODUCTION SETTINGS!!!!!
 # ################################################################
 default[:radioedit][:production][:repo] = "git@github.ihrint.com:radioedit/core.git";
-default[:radioedit][:production][:branch] = "release-fox";
+default[:radioedit][:production][:branch] = "fox.1";
 default[:radioedit][:production][:env] = "ihr_testing";
 default[:radioedit][:production][:app_user] = "ihr-deployer";
 default[:radioedit][:production][:path] = "/data/apps/radioedit";
