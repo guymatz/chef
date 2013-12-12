@@ -4,7 +4,7 @@
     "name": "Thomas Drapeau",
     "email": "thomasdrapeau@clearchannel.com",
     "htpasswd": "{SHA}LOCKED",
-    "groups": ["dev", "converter", "qa", "amp", "nagios", "talk" ],
+    "groups": ["dev", "converter", "qa", "amp", "nagios", "talk", "top20" ],
     "nagios": {
         "email": "thomasdrapeau@clearchannel.com"
     },
