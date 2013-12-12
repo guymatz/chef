@@ -154,6 +154,7 @@ define service {
   <%= 'max_check_attempts ' + service['max_check_attempts'] unless service['max_check_attempts'].nil? %>
   use <%= service.to_hash.has_key?('service-type') ? service['service-type'] : 'default-service' %>
   <%= 'contact_groups ' + service['contact_groups'].join(',') unless service['contact_groups'].nil? %>
+  <%= 'check_period ' + service['check_period'] unless service['check_period'].nil? %>
 }
   <% end -%>
 <% end -%>
@@ -171,6 +172,7 @@ define service {
             <%= 'retry_interval ' + service['retry_interval'] unless service['retry_interval'].nil? %>
             <%= 'max_check_attempts ' + service['max_check_attempts'] unless service['max_check_attempts'].nil? %>
             <%= 'contact_groups ' + service['contact_groups'].join(',') unless service['contact_groups'].nil? %>
+            <%= 'check_period ' + service['check_period'] unless service['check_period'].nil? %>
 }
   <% end -%>
 <% end -%>
