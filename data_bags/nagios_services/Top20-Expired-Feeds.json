@@ -3,7 +3,7 @@
   "hostgroup_name": "encmanager105",
   "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Check-Top20 -t 45",
   "contact_groups": ["admins", "top20"],
-  "check_period": "Business_Hours",
+  "check_period": "Top20_Hours",
   "max_check_attempts": "1",
   "check_interval": "45" 
 }
