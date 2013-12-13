@@ -1,0 +1,82 @@
+#!/bin/bash
+
+EXIT_OK=0
+EXIT_WARNING=1
+EXIT_CRITICAL=2
+EXIT_UNKNOWN=3
+
+###  GetOpts
+while [[ -n $1 ]]; do
+  case "$1" in
+    -h|--help)
+      print_help
+      exit $STATE_OK
+      ;;
+    -w|--warning)
+      warn=$2
+      shift
+      ;;
+    -c|--critical)
+      crit=$2
+      shift
+      ;;
+  esac
+  shift
+done
+### End of Opts
+
+# Location of kernel files to check for NIC speed, etc.
+NET_DEV_DIR="/sys/class/net"
+NICS=$NET_DEV_DIR/*
+
+warning_nics=""
+critical_nics=""
+
+for nic in $NICS; do
+  nic=$(basename $nic)
+  # We only want to check links to ../../devices . . . 
+  if ! [ -h $NET_DEV_DIR/$nic ]; then continue; fi
+  # But we only want to check physical devices, not virtual
+  if [[ $(readlink $NET_DEV_DIR/$nic) =~ /devices/virtual/ ]]; then continue; fi
+  # Now we check the operstate file in the subdir for the NIC to see if it's up
+  state=$(cat "$NET_DEV_DIR/$nic/operstate")
+  # And skip to the next interface if it's not up
+  if [ $state != "up" ]; then continue; fi
+  
+  # And finally check the speed of UP interfaces
+  speed=$(cat "$NET_DEV_DIR/$nic/speed")
+  # Now see what to do with it
+  this_nic="${nic}/${speed}"
+  if [[ $speed -lt $crit ]]; then
+    critical_nics="$critical_nics $this_nic"
+  elif [[ $speed -lt $warn ]]; then
+    warning_nics="$warning_nics $this_nic"
+  fi
+done
+
+# Now return errors and warnings (if we have any)
+if [[ -n $crit || -n $warn ]]; then
+
+  if [[ $critical_nics != "" ]]; then
+    message="Error NICs: ${critical_nics}"
+    if [[ $warning_nics != "" ]]; then
+      message="$message - Warning NICs: ${warning_nics}"
+    fi
+    echo $message
+    exit $EXIT_CRITICAL
+  fi
+
+  if [[ $warning_nics != "" ]]; then
+    message="Warning NICs: ${warning_nics}"
+    echo $message
+    exit $EXIT_WARNING
+  fi
+
+else
+  echo "Please provide a warning or critical threshold"
+  exit $EXIT_UNKNOWN
+fi
+
+# if neither warning nor critical trigger, say OK
+echo "OK: All Interfaces at correct speed"
+exit $EXIT_OK
