@@ -13,12 +13,24 @@ define timeperiod {
   saturday        00:00-24:00
 }
 
+# GP adjusted per JIRA ticket TRANSCD-4 to adjust for lack of timezone resolution bug in nagios
+# reference: http://tracker.nagios.org/view.php?id=322
 define timeperiod {
   timeperiod_name Top20_Hours
   alias           Monday-Friday 7AM-12PM, 5PM-10PM
-  monday          07:00-12:00,17:00-22:00
-  tuesday         07:00-12:00,17:00-22:00
-  wednesday       07:00-12:00,17:00-22:00
-  thursday        07:00-12:00,17:00-22:00
-  friday          07:00-12:00,17:00-22:00
+  monday          00:00-03:00,12:00-17:00,22:00-24:59
+  tuesday         00:00-03:00,12:00-17:00,22:00-24:59
+  wednesday       00:00-03:00,12:00-17:00,22:00-24:59
+  thursday        00:00-03:00,12:00-17:00,22:00-24:59
+  friday          00:00-03:00,12:00-17:00,22:00-24:59
 }
+
+# define timeperiod {
+#  timeperiod_name Top20_Hours
+#  alias           Monday-Friday 7AM-12PM, 5PM-10PM
+#  monday          07:00-12:00,17:00-22:00
+#  tuesday         07:00-12:00,17:00-22:00
+#  wednesday       07:00-12:00,17:00-22:00
+#  thursday        07:00-12:00,17:00-22:00
+#  friday          07:00-12:00,17:00-22:00
+#}
