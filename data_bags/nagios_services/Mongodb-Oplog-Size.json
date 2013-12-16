@@ -1,0 +1,8 @@
+{
+  "contact_groups": [
+    "dba-team"
+  ],
+  "id": "Mongodb-Oplog-Size",
+  "hostgroup_name": "mongodb_server",
+  "command_line": "$USER1$/check_mongodb.py -H $HOSTADDRESS$ -A oplog -P 37017 -W 1.30 -C 0.5"
+}

@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+# #################################################
+# chkconfig: 345 91 10 
+# @FILE: radioedit
+# @AUTHOR: GregoryPatmore <gregorypatmore@clearchannel.com>}
+# @CHEF-COOKBOOK: radioedit
+# @PROJECT: Radioedit Epona Launch
+# @TICKETID: OPS-5792
+# @TAB-SIZE: 2
+# @SOFT-TABS: YES
+# @DESC: SystemV init.d script to manage the radioedit application server process.
+# @NOTES: 
+#
+# #################################################
+
+# Source function library.
+. /etc/rc.d/init.d/functions 
+# Get config.
+. /etc/sysconfig/network 
+
+# Check that networking is up.
+if [ "${NETWORKING}" = "no" ]; then
+  failure "**Error: $0 : Networking seems to be unavailable";
+  # logger -s -p user.error "**Error: $0 : Networking seems to be unavailable";
+  exit 1;
+fi
+
+# handle to the supervisorctl command
+SCTL="<%= @supervisorctl_path %>";
+# name of the app module to manage
+APPNAME="<%= @application_name %>";
+# any setenv file that needs to be sourced
+SETENV="<%= @setenv_file %>";
+# user to execute the commands as
+RUNAS="<%= @runas_user %>"
+# path to the pid file
+PIDFILE="<%= @pid_file %>";
+
+# # make sure we can execute on the supervisor daemon
+# [[ -x /etc/init.d/supervisor ]] \
+#   && failure "**Error: $0 : Supervisor daemon service missing or not executable" \
+#   && exit 1;
+
+# make sure we can execute the supervisorctl command
+[[ ! -x $SCTL ]] \
+  && failure "**Error: $0 : Supervisor CTL command missing or not executable" \
+  && exit 1;
+
+# make sure we got a pid file to write to.
+[[ -z "${PIDFILE}" ]] \
+  && failure "**Error: $0 : No pid file path given" \
+  && exit 1;
+
+#@TODO: check that supervisor is running
+
+# start the application withiin supervisor
+function start_app() {
+  # source a setenv if one has been set
+  [[ -f $SETENV ]] \
+    && . $SETENV;
+
+  result=$($SCTL start $APPNAME);
+  [[ $? -ne 0 ]] \
+    && failure "**Error: $0 : Call to start application (${APPNAME}) exited with unclean status (${result})" \
+    && exit 1;
+
+  # @TODO: Register the pid file with sysv
+};
+
+# stop the application within supervisor
+function stop_app() {
+  result=$($SCTL stop $APPNAME);
+  [[ $? -ne 0 ]] \
+    && failure "**Error: $0 : Call to stop application (${APPNAME}) exited with unclean status (${result})" \
+    && exit 1;
+};
+
+# print the status of the app 
+function status_app() {
+  result=$( $SCTL status $APPNAME | grep "${APPNAME}" ) ;
+  # if no results, the app is not running.
+  [[ -z "${result}" ]] \
+    && echo "${APPNAME} not running" \
+    && exit 0;
+
+  echo "${APPNAME}: $(echo ${result} | awk '{print $2}')" 
+
+}
+
+# print the usage message 
+function show_usage() {
+ echo "Usage: $0 {start|stop|restart|status}"
+};
+
+# argument processing
+case "$1" in
+
+  start) 
+    start_app;
+    ;;
+
+  stop) 
+    stop_app;
+    ;;
+
+  restart)
+    stop_app;
+    sleep 5;
+    start_app;
+    ;;
+
+  status)
+    status_app;
+    ;;
+
+  *)
+    show_usage \
+      && exit 0; 
+    ;;
+
+esac
+
+exit $?;

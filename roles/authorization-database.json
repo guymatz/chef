@@ -1,0 +1,20 @@
+{
+    "name": "authorization-database",
+    "default_attributes": {
+    },
+    "json_class": "Chef::Role",
+    "env_run_lists": {
+    },
+    "run_list": [
+	"recipe[authorization]",
+        "recipe[authorization::backup_auth]"
+    ],
+    "description": "Authorization",
+    "chef_type": "role",
+    "override_attributes": {
+          "splunk": {
+            "forwarder_config_folder": "prod",
+            "forwarder_role": "authorization"
+          }
+    }
+}

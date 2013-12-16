@@ -50,8 +50,11 @@ end
 # Install nagios either from source of package
 include_recipe "nagios::server_#{node['nagios']['server']['install_method']}"
 
-sysadmins = search(:users, 'groups:sysadmin OR groups:nagios')
+sysadmins = search(:users, 'groups:sysadmin')
+all_alerts = search(:users, 'groups:all_alerts')
+nagiosusers = search(:users, 'groups:nagios')
 allcontacts = search(:users, 'groups:sysadmin')
+nagiosportalusers = sysadmins + nagiosusers
 
 case node['nagios']['server_auth_method']
 when "openid"
@@ -69,7 +72,7 @@ else
     group web_group
     mode 0640
     variables(
-              :sysadmins => sysadmins
+              :sysadmins => nagiosportalusers
               )
   end
 end
@@ -160,6 +163,12 @@ members = Array.new
 sysadmins.each do |s|
   members << s['id']
 end
+
+all_alerts.each do |s|
+  members << s['id']
+end
+
+allcontacts += all_alerts
 
 # maps nodes into nagios hostgroups
 role_list = Array.new
@@ -273,7 +282,7 @@ end
 
 nagios_conf "contacts" do
   Chef::Log.info("allcontacts value = #{allcontacts}")
-  variables :admins => sysadmins, :members => members, :allcontacts => allcontacts, :contact_groups => contactgroups
+  variables :admins => sysadmins,  :members => members, :allcontacts => allcontacts, :contact_groups => contactgroups
 end
 
 nagios_conf "hostgroups" do

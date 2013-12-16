@@ -1,6 +1,6 @@
 {
   "contact_groups": [
-    "dba"
+    "dba-team"
   ],
   "id": "Postgres-Connections",
   "hostgroup_name": "postgres-server",

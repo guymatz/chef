@@ -78,6 +78,11 @@ nagios_nrpecheck "check_load" do
   action :add
 end
 
+nagios_nrpecheck "check_all_mountpoints" do
+  command "#{node['nagios']['plugin_dir']}/check_mountpoints.sh"
+  action :add
+end
+
 nagios_nrpecheck "check_all_disks" do
   command "#{node['nagios']['plugin_dir']}/check_disk"
   warning_condition "8%"
@@ -95,6 +100,13 @@ end
 
 nagios_nrpecheck "check_Linux_bonding" do
   command "#{node['nagios']['plugin_dir']}/check_linux_bonding.pl -s"
+  action :add
+end
+
+nagios_nrpecheck "check_nic_speed" do
+  command "#{node['nagios']['plugin_dir']}/check_nic_speed"
+  warning_condition "1000"
+  critical_condition "100"
   action :add
 end
 

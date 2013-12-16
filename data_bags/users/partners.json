@@ -1,0 +1,8 @@
+{
+    "id": "partners",
+    "name": "Partners",
+    "email":    "ccd-sa@clearchannel.com",
+    "groups":   ["partners"],
+    "shell":    "/bin/bash",
+    "uid": 4024
+}

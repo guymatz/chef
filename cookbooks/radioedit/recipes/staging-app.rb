@@ -58,7 +58,7 @@ application "radioedit-core" do
   enable_submodules true
 
   gunicorn do
-    app_module 'wsgi:application'
+    app_module "#{node[:radioedit][:staging][:module]}"
     port node[:radioedit][:staging][:port]
     host node[:radioedit][:staging][:host]
     workers node[:radioedit][:staging][:num_workers]
@@ -67,7 +67,7 @@ application "radioedit-core" do
     stdout_logfile "#{node[:radioedit][:staging][:out_log]}"
     stderr_logfile "#{node[:radioedit][:staging][:err_log]}"
     packages node[:radioedit][:staging][:pips]
-    loglevel "DEBUG"
+    loglevel "#{node[:radioedit][:staging][:log_level]}"
     interpreter "python27"
   end
 end

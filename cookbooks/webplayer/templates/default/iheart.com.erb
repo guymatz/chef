@@ -1,20 +1,13 @@
-
 <VirtualHost *:80>
 
     # Enable gzip for text statics
     AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/x-javascript
 
     DocumentRoot /data/www/webplayer/current/tusiq/static
-    Customlog	/var/log/httpd/webplayer-access.log common
-    ErrorLog	/var/log/httpd/webplayer-error.log
+    Customlog   /var/log/httpd/webplayer-access.log common
+    ErrorLog    /var/log/httpd/webplayer-error.log
 
-    <Directory /data/www/webplayer/current/tusiq/static>
-      Order allow,deny
-      Allow from all
-      AllowOverride None
-    </Directory>
-
-ProxyPass /server-status !
+    ProxyPass /server-status !
     <Location /server-status>
       SetHandler server-status
       Order Deny,Allow
@@ -27,46 +20,55 @@ ProxyPass /server-status !
     RewriteEngine On
     ExpiresActive On
 
-    # Hostname rewrites
-    RewriteCond %{HTTP_HOST} ^beta.iheartradio.com [OR]
-    RewriteCond %{HTTP_HOST} ^www.beta.iheartradio.com [OR]
     RewriteCond %{HTTP_HOST} ^iheart.com
-    RewriteRule ^/(.*)$      http://www.iheart.com/$1 [QSA,R=301,L]
+    RewriteRule ^/(.*)$      http://www.iheart.com/$1 [QSA,R=301]
 
-  # Set somewhat-far-expiry times for sdk-related assets
-    <LocationMatch "^/dist/">
-      FileETag None
-      ExpiresDefault "access plus 5 min"
-      # Akamai headers
-      Header set Edge-Control "!no-store, max-age=300s"
-      Header set X-IHR-Edge-Control "!no-store, max-age=300s"
-    </LocationMatch>
+    # mod_proxy got executed before mod_alias so no Redirect :( All have to be RewriteRule
+    RewriteRule ^/dist/sdk\.js$         http://static.iheart.com/web/sdk/sdk.js [QSA,R=301,L]
+    RewriteRule ^/about/?$              http://news.iheart.com/about [QSA,R=301,L]
+    RewriteRule ^/mobile/about/?$       http://m.news.iheart.com/articles/iheartradio-390884/about-6906244 [QSA,R=301,L]
+    RewriteRule ^/mobile/terms/?$       http://m.iheart.com/articles/legal-477363/terms-of-use-11584658 [QSA,R=301,L]
+    RewriteRule ^/mobile/privacy/?$     http://m.iheart.com/articles/legal-477363/privacy-and-cookie-notice-11584630 [QSA,R=301,L]
+    RewriteRule ^/legal/terms/?$        http://m.iheart.com/articles/legal-477363/terms-of-use-11584658 [QSA,R=301,L]
+    RewriteRule ^/legal/privacy/?$      http://m.iheart.com/articles/legal-477363/privacy-and-cookie-notice-11584630 [QSA,R=301,L]
+    RewriteRule ^/legal/privacy-es/?$   http://m.iheart.com/articles/legal-477363/poltica-de-privacidad-y-cookies-11584650 [QSA,R=301,L]
+    RewriteRule ^/legal/terms-es/?$     http://m.iheart.com/articles/legal-477363/trminos-de-uso-de-clear-channel-11584682 [QSA,R=301,L]
 
-    # Set far-expiry times for assets when accessed like /_/1a7b66c1f/img/image.jpg
-    <LocationMatch "^/_/">
-      FileETag None
-      ExpiresDefault "access plus 1 year"
-      # Akamai headers
-      Header set Edge-Control "!no-store, max-age=31536000s"
-      Header set X-IHR-Edge-Control "!no-store, max-age=31536000s"
-    </LocationMatch>
+    # FIND REDIRECTS
+    RewriteRule ^/find/?$                                         /find/country/US/ [QSA,R=301,L]   # By default go to US
+    RewriteRule ^/find/country/([A-Za-z]+)/states/([A-Za-z]+)/?$  /find/country/$1/state/$2/ [QSA,R=301,L]
+    RewriteRule ^/find/country/([A-Za-z]+)/genres/(.+)/?$         /find/country/$1/genre/$2/ [QSA,R=301,L]
+    RewriteRule ^/find/originals/?$                               /perfect-for/ [QSA,R=301,L]   # Originals is /perfect-for/ now
+    RewriteRule ^/find/custom/?$                                  /custom/ [QSA,R=301,L]   # Custom is /custom/
 
-    ### temp fix by Long on 7-1-2013
-    ### RewriteRule ^/_/[\w]+/(.*)$ /$1
-    RewriteRule ^/_/[\w]+/(.*)$ /data/www/webplayer/current/tusiq/static/$1
+    # TALK REDIRECTS
+    RewriteRule ^/talk/([-\$\w]*)-([0-9]+)/?$    /talk/category/$1-$2/ [QSA,R=301,L]
+
+    # CUSTOM REDIRECTS
+    RewriteRule ^/create/perfect-for/?$   /perfect-for/explore/ [QSA,R=301,L]
+    RewriteRule ^/create/talk/?$          /talk/ [QSA,R=301,L]
+    RewriteRule ^/create/talk/(.+)?/$     /talk/category/$1/ [QSA,R=301,L]
+    RewriteRule ^/create/custom/$         /custom/ [QSA,R=301,L]
+    RewriteRule ^/create/?$               /custom/ [QSA,R=301,L]
+
+    # ACCOUNT REDIRECTS
+    RewriteRule ^/account/unsubscribe/?$  /simple/unsubscribe/ [R=301,L]
+
+    # OTHER RANDOM REDIRECTS
+    RewriteRule ^/apps/?$               http://news.iheart.com/apps [QSA,R=301,L]
+    RewriteRule ^/activate/?$           /simple/activate/ [QSA,R=301,L]
+    RewriteRule ^/password/?$           /account/forgot-password/ [QSA,R=301,L]
+    RewriteRule ^/account/?$            /account/settings/ [QSA,R=301,L]
+    RewriteRule ^/signup/?$             /account/signup/ [QSA,R=301,L]
+    RewriteRule ^/(festival|vegas)/?$   http://festival.iheart.com [QSA,R=301,L]
+
     <Location />
-	   Order Deny,Allow
-	   Allow from all
+           Order Deny,Allow
+           Allow from all
     </Location>
 
     # Proxy all requests to gunicorn except statics
     ProxyRequests Off
-    ProxyPass /mobile/terms http://m.iheart.com/articles/legal-477363/terms-of-use-11584658
-    ProxyPass /mobile/privacy http://m.iheart.com/articles/legal-477363/privacy-and-cookie-notice-11584630
-    ProxyPass /legal/terms http://m.iheart.com/articles/legal-477363/terms-of-use-11584658
-    ProxyPass /legal/privacy http://m.iheart.com/articles/legal-477363/privacy-and-cookie-notice-11584630
-    ProxyPass /legal/privacy-es http://m.iheart.com/articles/legal-477363/poltica-de-privacidad-y-cookies-11584650
-    ProxyPass /legal/terms-es http://m.iheart.com/articles/legal-477363/trminos-de-uso-de-clear-channel-11584682
     ProxyPass /favicon.ico !
     ProxyPass /css !
     ProxyPass /js !

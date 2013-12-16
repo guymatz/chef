@@ -7,82 +7,142 @@
 # All rights reserved - Do Not Redistribute
 #
 
-#%w{ users::partners }.each do |cb|
-#  include_recipe cb
-#end
-
-%w{ python27 python27-libs python27-devel python27-test python27-tools libevent-devel }.each do |p|
+node[:partners][:packages].each do |p|
   package p
 end
 
-directory "/data/apps/partners/shared/venv" do
+db_creds = Chef::EncryptedDataBagItem.load("partners", "db-creds")
+gpg_keys = Chef::EncryptedDataBagItem.load("partners", "gpg-keys")
+gpg_keys = gpg_keys.to_hash
+
+directory node[:partners][:sqlite_path] do
+  owner node[:partners][:deployer]
+  group node[:partners][:group]
   recursive true
-  owner node[:partners][:deployer]
-  group node[:partners][:group]
+end
+
+directory "/var/log/partners" do
+  owner 'root'
+  group 'ihr-deployer'
+  mode "775"
   action :create
+  not_if { FileTest.directory?("/var/log/partners") }
 end
 
-python_virtualenv "/data/apps/partners/shared/venv" do
-  interpreter "/usr/bin/python27"
-  owner node[:partners][:deployer]
-  group node[:partners][:group]
-  action :create   
+logrotate_app "partners" do
+  cookbook "logrotate"
+  path "/var/log/partners/*.log"
+  options ["missingok", "copytruncate", "compress", "notifempty"]
+  frequency "daily"
+  enable true
+  create "0644 nobody root"
+  rotate 2
 end
 
-    unless tagged?("partners-deployed")
-
-    application "partners" do
-      path "/data/apps/partners/"
-      owner node[:partners][:deployer]
-      group node[:partners][:group]
-      repository node[:partners][:repo]
-      revision node[:partners][:rev]
-      before_restart do
-        bash "setup venv" do
-          code <<-EOH
-          chown -R #{node[:partners][:deployer]}. #{node[:partners][:partners_path]}
-          . /data/apps/partners/shared/venv/bin/activate && \
-          pip install -r "/data/apps/partners/shared/cached-copy/requirements.txt"
-          EOH
+unless tagged?("partners-deployed")
+  application "partners" do
+    path node[:partners][:deploy_path] 
+    owner node[:partners][:deployer]
+    group node[:partners][:group]
+    repository node[:partners][:repo]
+    revision node[:partners][:rev]
+    migrate false
+    shallow_clone false
+#    before_migrate do
+#      bash "chown" do
+#        code "chown -R #{node[:partners][:deployer]}. #{node[:partners][:deploy_path]}"
+#      end
+#    end
+    before_restart do
+      template "#{node[:partners][:deploy_path]}/current/partners_portal/settings_local.py" do
+        source "settings_local.py.erb"
+        owner node[:partners][:deployer]
+        group node[:partners][:group]
+        variables({ :db_creds => db_creds.to_hash,
+                    :partners_env => node.chef_environment
+                  })
+      end
+      template "/etc/odbc.ini" do
+        source "odbc.ini.erb"
+        owner node[:partners][:deployer]
+        group node[:partners][:group]
+        variables({ :partners_env => node.chef_environment
+                  })
+      end
+      gpg_keys.each do |key, value|
+        file "#{node[:partners][:deploy_path]}/current/#{key}" do
+          content value
+          owner node[:partners][:deployer]
+          group node[:partners][:group]
         end
       end
-
-      gunicorn do
-        app_module "partners:app"
-        host "0.0.0.0"
-        port 8080
-        workers 9
-        worker_class "gevent"
-        virtualenv "/data/apps/partners/shared/venv"
-        autostart true
-        accesslog "/var/log/partners/partners-gunicorn-access.log"
+      bash "import keys" do
+        cwd "#{node[:partners][:deploy_path]}/current"
+        code <<-EOH
+        mkdir keyring
+        gpg --homedir keyring/ --import gooddata-sso.pub
+        gpg --homedir keyring/ --allow-secret-key-import --import cc.gpg
+        chmod 0700 -R keyring/
+        EOH
+        user node[:partners][:deployer]
+        group node[:partners][:group]
       end
     end
 
-    directory "/var/log/partners" do
-        owner 'root'
-        group 'ihr-deployer'
-        mode "775"
-        action :create
-        not_if { FileTest.directory?("/var/log/partners") }
-     end
+    django do
+      packages ["gevent"]
+      interpreter "/usr/bin/python2.7"
+      requirements "requirements.txt"
+    end
 
-    logrotate_app "partners" do
-        cookbook "logrotate"
-        path "/var/log/partners/*.log"
-        options ["missingok", "copytruncate", "compress", "notifempty"]
-        frequency "daily"
-        enable true
-        create "0644 nobody root"
-        rotate 2
-     end
-
-
-    tag("partners-deployed")
+    gunicorn do
+      app_module :django
+      version "17.5"
+      worker_class "gevent"
+      port node[:partners][:gunicorn_port]
+      autostart true
+      workers 5
+      max_requests 1
+      preload_app true
+    end
   end
 
-bash "setup venv" do
-      code <<-EOH
-      chown -R #{node[:partners][:user]}. #{node[:partners][:partners_path]}
-      EOH
+  package "nginx"
+
+  bash "remove default nginx configs" do
+    cwd "/etc/nginx/conf.d"
+    code "rm -f *.conf"
+  end
+
+  template "/etc/nginx/conf.d/partners.conf" do
+    source "partners.conf.erb"
+  end
+
+  template "/etc/nginx/proxy_params" do
+    source "proxy_params.erb"
+    owner "nginx"
+    group "nginx"
+  end
+
+  service "nginx" do
+    supports :status => true, :restart => true, :reload => true
+    action [ :enable, :restart ]
+  end
+
+  cron_d "partners-auth-backup" do
+    minute 0
+    hour 1
+    user "ihr-deployer"
+    command <<-EOH
+    cd #{node[:partners][:sqlite_path]}
+    sqlite3 db.sqlite3 '.backup main backup.sqlite3'
+    scp backup.sqlite3 iad-ss-web101.ihr:/data/www/files.ihrdev.com/partners/.
+    rm -f backup.sqlite3
+    EOH
+  end
+
+  tag("partners-deployed")
 end
+
+
+

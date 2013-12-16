@@ -41,7 +41,7 @@ start() {
 
     # Redirects default and error output to a log file
     BASEDIR="<%= @basedir %>"
-    nohup $JAVA_HOME/bin/java -Xmx1024M -Dpidfile=$PIDFILE -Dlog4j.configuration=file:///$BASEDIR/log4j.xml -Djava.rmi.server.hostname=<%= node[:ipaddress] %> -Dcom.sun.management.jmxremote.port=8995 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -cp $BASEDIR/amqp-fbgraph-1.0.0.jar com.ccrd.amqp.FBGraphConsumer $BASEDIR/env.properties > /dev/null 2>&1 &
+    nohup $JAVA_HOME/bin/java -Xmx1024M -Dpidfile=$PIDFILE -Dlog4j.configuration=file:///$BASEDIR/log4j.xml -Djava.rmi.server.hostname=<%= node[:ipaddress] %> -Dcom.sun.management.jmxremote.port=8995 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -cp $BASEDIR/amqp-fbgraph-1.0.0-jar-with-dependencies.jar com.ccrd.amqp.SocialGraphConsumer $BASEDIR/env.properties &  
     echo $! > $PIDFILE
     echo "OK"
 }

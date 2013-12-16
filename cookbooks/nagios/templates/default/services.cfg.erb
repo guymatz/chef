@@ -9,6 +9,13 @@ define service {
     check_command       check_ping!200.0,20%!500.0,60%
 }
 
+define service {
+    use                 dba-service
+    hostgroup_name      postgres-server,postgres-server-ha,mongodb_server,mongodb_config_server
+    service_description ping-dba
+    check_command       check_ping!200.0,20%!500.0,60%
+}
+
 # monitoring service checks
 define service {
     service_description Nagios
@@ -43,6 +50,13 @@ define service {
 }
 
 define service {
+    service_description Free Space All Disks - DBA
+    hostgroup_name      postgres-server,postgres-server-ha,mongodb_server,mongodb_config_server
+    check_command       check_all_disks
+    use                 dba-service
+}
+
+define service {
     service_description SSH
     hostgroup_name      linux
     check_command       check_ssh
@@ -50,10 +64,24 @@ define service {
 }
 
 define service {
+    service_description SSH - DBA
+    hostgroup_name      postgres-server,postgres-server-ha,mongodb_server,mongodb_config_server
+    check_command       check_ssh
+    use                 dba-service
+}
+
+define service {
     service_description Processes
     hostgroup_name      linux
     check_command       check_local_procs
     use                 default-service
+}
+
+define service {
+    service_description Processes - DBA
+    hostgroup_name      postgres-server,postgres-server-ha,mongodb_server,mongodb_config_server
+    check_command       check_local_procs
+    use                 dba-service
 }
 
 <% unless @service_hosts['monitoring'].nil? -%>
@@ -124,8 +152,9 @@ define service {
   <%= 'check_interval ' + service['check_interval'] unless service['check_interval'].nil? %>
   <%= 'retry_interval ' + service['retry_interval'] unless service['retry_interval'].nil? %>
   <%= 'max_check_attempts ' + service['max_check_attempts'] unless service['max_check_attempts'].nil? %>
-  use default-service
+  use <%= service.to_hash.has_key?('service-type') ? service['service-type'] : 'default-service' %>
   <%= 'contact_groups ' + service['contact_groups'].join(',') unless service['contact_groups'].nil? %>
+  <%= 'check_period ' + service['check_period'] unless service['check_period'].nil? %>
 }
   <% end -%>
 <% end -%>
@@ -134,7 +163,7 @@ define service {
 <% @passive_services.each do |service| -%>
   <% unless @service_hosts[service['hostgroup_name'].nil? && service['hostgroup_name'] != 'all' ] -%>
 define service {
-            use passive-service
+            use <%= service.to_hash.has_key?('service-type') ? service['service-type'] : 'dba-passive-service' %>
             service_description <%= service['id'] %>
             <%= 'hostgroup_name ' + service['hostgroup_name'] unless service['hostgroup_name'].nil? %>
             <%= 'host_name ' + service['host_name'] unless service['host_name'].nil? %>
@@ -143,6 +172,7 @@ define service {
             <%= 'retry_interval ' + service['retry_interval'] unless service['retry_interval'].nil? %>
             <%= 'max_check_attempts ' + service['max_check_attempts'] unless service['max_check_attempts'].nil? %>
             <%= 'contact_groups ' + service['contact_groups'].join(',') unless service['contact_groups'].nil? %>
+            <%= 'check_period ' + service['check_period'] unless service['check_period'].nil? %>
 }
   <% end -%>
 <% end -%>
