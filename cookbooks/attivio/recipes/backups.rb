@@ -122,7 +122,7 @@ mount "/data/nfs/dr_backups" do
 end
 
 cron_d "Move_backup_to_NFS_DR" do
-  command "/usr/bin/rsync --bwlimit=500 $(/usr/bin/find /data/apps/backups/ -maxdepth 1 -name '*tgz' -type f -printf '\\%T@ \\%p\\n' | sort -n | tail -1 | cut -f2- -d\" \") /data/nfs/dr_backups/attivio"
+  command "/usr/bin/rsync --bwlimit=500 $(/usr/bin/find /data/apps/backups/ -maxdepth 2 -name '*tgz' -type f -printf '\\%T@ \\%p\\n' | sort -n | tail -1 | cut -f2- -d\" \") /data/nfs/dr_backups/attivio"
   minute  "25"
   hour    "6"
   month   "*"
