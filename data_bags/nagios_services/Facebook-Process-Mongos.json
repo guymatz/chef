@@ -1,5 +1,5 @@
 {
-  "id": "Facebookb-Process-Mongos",
+  "id": "Facebook-Process-Mongos",
   "hostgroup_name": "facebook",
   "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Facebook-Process-Mongos -t 45"
 }
