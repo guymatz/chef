@@ -1,0 +1,5 @@
+{
+    "id": "dell-physicals",
+    "hostgroup_name": "dell-physicals",
+    "search_query": "vendor:DELL"
+}
