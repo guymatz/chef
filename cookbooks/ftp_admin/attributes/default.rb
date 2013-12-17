@@ -1,0 +1,6 @@
+default[:ftp_admin][:user]		='ihr-deployer'
+default[:ftp_admin][:group]		='ihr-deployer'
+default[:ftp_admin][:deployer]	='ihr-deployer'
+default[:ftp_admin][:ftp_admin_path]	='/data/apps/ftp_admin'
+default[:ftp_admin][:repo]		='git@github.ihrint.com:OPS/ftp_admin.git'
+default[:ftp_admin][:rev]		='e43c8e355110d46294ce9e707c16e10e2c264ec5'
