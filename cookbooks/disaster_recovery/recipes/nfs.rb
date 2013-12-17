@@ -8,6 +8,7 @@
 #
 
 include_recipe "users::attivio"
+include_recipe "users::elasticsearch"
 
 directory "#{node[:disaster_recovery][:base_path]}/dr_backups" do
   mode "0775"
@@ -22,6 +23,18 @@ directory "#{node[:disaster_recovery][:base_path]}/dr_backups/attivio" do
   action :create
 end
 
+es_nodes = search(:node, "role:elasticsearchnew AND chef_environment:#{node.chef_environment}")
+
+es_nodes.each do |es_node|
+  directory "#{node[:disaster_recovery][:base_path]}/dr_backup/#{es_node[:hostname]}" do
+    action :create
+    recursive true
+    mode "0755"
+    owner "elasticsearch"
+    group "elasticsearch"
+  end
+end
+  
 nfs_export "#{node[:disaster_recovery][:base_path]}/dr_backups" do
   network "10.5.32.0/23"
   writeable true
