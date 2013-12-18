@@ -105,7 +105,7 @@ end
 directory "#{node[:proftpd][:default_root]}" do
   owner node[:proftpd][:ftp_user]
   group node[:proftpd][:ftp_group]
-  mode 0750
+  mode 0770
 end
 
 # Dir where encoder will be mounted

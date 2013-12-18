@@ -3,7 +3,7 @@
 # Attributes:: kafka
 #
 default[:kafka][:broker_id] = node[:ipaddress].gsub('.', '')
-default[:kafka][:host_name] = node[:fqdn]
+default[:kafka][:host_name] = node[:hostname]
 default[:kafka][:port] = 9092
 default[:kafka][:network_threads] = 2
 default[:kafka][:io_threads] = 2
@@ -21,7 +21,7 @@ default[:kafka][:log][:retention_bytes] = 1073741824
 default[:kafka][:log][:segment_bytes] = 536870912
 default[:kafka][:log][:cleanup_interval_mins] = 1
 
-default[:kafka][:zookeeper][:connect] = [ "10.5.32.190", "10.5.32.191", "10.5.32.192" ]
+default[:kafka][:zookeeper][:connect] = []
 default[:kafka][:zookeeper][:timeout] = 1000000
 
 default[:kafka][:metrics][:polling_interval] = 5

@@ -3,23 +3,20 @@
 # Recipe:: source
 #
 
-include_recipe 'kafka::configure'
+include_recipe 'kafka::setup'
 
 node.default[:kafka][:scala_version] ||= '2.9.2'
-node.default[:kafka][:checksum]      ||= 'e069a1d5e47d18944376b6ca30b625dc013045e7e1f948054ef3789a4b5f54b3'
-node.default[:kafka][:md5_checksum]  ||= 'b90e355ea2bc1e5f62db1836fdd77502'
+node.default[:kafka][:checksum]      ||= 'f4b7229671aba98dba9a882244cb597aab8a9018631575d28e119725a01cfc9a'
+node.default[:kafka][:md5_checksum]  ||= '46b3e65e38f1bde4b6251ea131d905f4'
 
-build_directory    = "#{node[:kafka][:install_dir]}/build"
 kafka_src          = "kafka-#{node[:kafka][:version]}-src"
+kafka_base         = "kafka_#{node[:kafka][:scala_version]}-#{node[:kafka][:version]}"
 kafka_tar_gz       = "#{kafka_src}.tgz"
-download_file      = "#{node[:kafka][:base_url]}/#{kafka_tar_gz}"
-local_file_path    = "#{Chef::Config[:file_cache_path]}/#{kafka_tar_gz}"
-kafka_path         = "kafka_#{node[:kafka][:scala_version]}-#{node[:kafka][:version]}"
-kafka_jar          = "#{kafka_path}.jar"
-kafka_release_path = "#{build_directory}/#{kafka_src}/target/RELEASE"
-kafka_jar_path     = "#{kafka_release_path}/#{kafka_path}/#{kafka_jar}"
-kafka_libs_path    = "#{kafka_release_path}/#{kafka_path}/libs"
-installed_path     = "#{node[:kafka][:install_dir]}/#{kafka_jar}"
+download_file      = "#{node[:kafka][:base_url]}/#{node[:kafka][:version]}/#{kafka_tar_gz}"
+build_directory    = File.join(node[:kafka][:install_dir], 'build')
+local_file_path    = File.join(Chef::Config[:file_cache_path], kafka_tar_gz)
+kafka_target_path  = File.join(build_directory, kafka_src, 'target', 'RELEASE', kafka_base)
+installed_path     = File.join(node[:kafka][:install_dir], "#{kafka_base}.jar")
 
 unless (already_installed = (File.directory?(build_directory) && File.exists?(installed_path)))
   directory build_directory do
@@ -38,20 +35,19 @@ unless (already_installed = (File.directory?(build_directory) && File.exists?(in
   end
 
   ruby_block 'validate-tarball' do
-    # block do
-    #   #checksum = Digest::MD5.file(local_file_path).hexdigest
-    #   #unless checksum == node[:kafka][:md5_checksum]
-    #    # Chef::Log.fatal!("Downloaded tarball checksum (#{checksum}) does not match known checksum (#{node[:kafka][:md5_checksum]})")
-    #   #end
-    # end
+    block do
+      unless (checksum = Digest::MD5.file(local_file_path).hexdigest) == node[:kafka][:md5_checksum]
+        Chef::Application.fatal!("Downloaded tarball checksum (#{checksum}) does not match known checksum (#{node[:kafka][:md5_checksum]})")
+      end
+    end
     action :nothing
     notifies :run, 'execute[compile-kafka]', :immediately
   end
-  
+
   execute 'compile-kafka' do
     cwd   build_directory
     command <<-EOH.gsub(/^\s+/, '')
-      tar zxvf #{Chef::Config[:file_cache_path]}/#{kafka_tar_gz}
+      tar zxvf #{local_file_path}
       cd #{kafka_src}
       ./sbt update
       ./sbt "++#{node[:kafka][:scala_version]} release-zip"
@@ -65,7 +61,9 @@ unless (already_installed = (File.directory?(build_directory) && File.exists?(in
     user  node[:kafka][:user]
     group node[:kafka][:group]
     cwd   node[:kafka][:install_dir]
-    command %{cp -r #{kafka_libs_path} . && cp #{kafka_jar_path} .}
+    command %{cp -r #{File.join(kafka_target_path, '*')} .}
     action :nothing
   end
 end
+
+include_recipe 'kafka::configure'
