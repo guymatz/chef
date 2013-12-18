@@ -22,7 +22,8 @@ all_env = [
            "recipe[motd-tail]",
            "recipe[operations]",
            "recipe[logrotate::syslog]",
-           "recipe[vmware-tools::noop]"
+           "recipe[vmware-tools::noop]",
+           "recipe[ulimit]"
           ]
 run_list(all_env)
 
