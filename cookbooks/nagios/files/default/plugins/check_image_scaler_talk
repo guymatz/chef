@@ -22,6 +22,7 @@ http://iad-imgsca105-v200.ihr:8080/sca/imscale?id=6&type=theme&w=222&h=223 \
 http://iad-imgsca106-v200.ihr:8080/sca/imscale?id=6&type=theme&w=222&h=223
 "
 
+# Should i change this to use {1..6} instead of the list above . . ?  Nah.
 for image in $URLS; do
   md5_for_this_image=$(curl -s $image | md5sum -b | awk '{print $1}')
   if [[ $md5_for_this_image != $EXPECTED_MD5 ]]; then
