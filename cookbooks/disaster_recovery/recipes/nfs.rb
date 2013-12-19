@@ -26,7 +26,7 @@ end
 es_nodes = search(:node, "role:elasticsearchnew AND chef_environment:#{node.chef_environment}")
 
 es_nodes.each do |es_node|
-  directory "#{node[:disaster_recovery][:base_path]}/dr_backup/#{es_node[:hostname]}" do
+  directory "#{node[:disaster_recovery][:base_path]}/dr_backups/elasticsearch/#{es_node[:hostname]}" do
     action :create
     recursive true
     mode "0755"
