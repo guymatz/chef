@@ -1,0 +1,6 @@
+{
+  "id": "Imgscaler-Talk-Image-Health",
+  "host_name": "127.0.0.1",
+  "command_line": "$USER1$/check_image_scaler_talk",
+  "contact_groups": ["admins"]
+}

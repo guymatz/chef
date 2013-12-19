@@ -1,0 +1,41 @@
+#!/bin/bash
+
+RET_OK=0
+RET_WARN=1
+RET_ERROR=2
+
+# We know what the MD% of the image is going to be
+EXPECTED_MD5='c6407265fc3ff73e36b512b63b9f5b24'
+TOTAL_FAILURES=0
+
+WARNING_FAILURES=0
+CRITICAL_FAILURES=3
+
+# These are the image scaler servers . ..   if the image is not correct
+# we may need to restart the image scaler
+URLS="\
+http://iad-imgsca101-v200.ihr:8080/sca/imscale?id=6&type=theme&w=222&h=223 \
+http://iad-imgsca102-v200.ihr:8080/sca/imscale?id=6&type=theme&w=222&h=223 \
+http://iad-imgsca103-v200.ihr:8080/sca/imscale?id=6&type=theme&w=222&h=223 \
+http://iad-imgsca104-v200.ihr:8080/sca/imscale?id=6&type=theme&w=222&h=223 \
+http://iad-imgsca105-v200.ihr:8080/sca/imscale?id=6&type=theme&w=222&h=223 \
+http://iad-imgsca106-v200.ihr:8080/sca/imscale?id=6&type=theme&w=222&h=223
+"
+
+for image in $URLS; do
+  md5_for_this_image=$(curl -s $image | md5sum -b | awk '{print $1}')
+  if [[ $md5_for_this_image != $EXPECTED_MD5 ]]; then
+    TOTAL_FAILURES=$((TOTAL_FAILURES + 1))
+  fi
+done
+
+if [[ $TOTAL_FAILURES -ge $CRITICAL_FAILURES ]]; then
+  echo "Error: $TOTAL_FAILURES image failures"
+  exit $RET_ERROR
+elif [[ $TOTAL_FAILURES -gt $WARNING_FAILURES ]]; then
+  echo "Warning: $TOTAL_FAILURES image failures"
+  exit $RET_WARN
+else
+  echo "OK: $TOTAL_FAILURES image failures"
+  exit $RET_OK
+fi
