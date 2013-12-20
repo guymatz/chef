@@ -46,6 +46,7 @@ UseReverseDNS                   off
 # that allows you to limit maximum number of processes per service
 # (such as xinetd)
 MaxInstances                    200
+MaxClientsPerUser               5
 
 # Disable sendfile by default since it breaks displaying the download speeds in
 # ftptop and ftpwho
@@ -233,7 +234,7 @@ SFTPLog /var/log/proftpd/SFTP.log
   # from being group and world writable
   # Except that we need the dirs group-writable so that admins can do their
   # work
-  Umask                         002
+  Umask                         000
 
   # Allow users to overwrite files and change permissions
   AllowOverwrite                yes
