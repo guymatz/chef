@@ -5,7 +5,7 @@ RET_WARN=1
 RET_ERROR=2
 
 # We know what the MD% of the image is going to be
-EXPECTED_MD5='c6407265fc3ff73e36b512b63b9f5b24'
+EXPECTED_MD5='ddadf0c8052cb0dc6379dd02e078f1b7'
 TOTAL_FAILURES=0
 
 WARNING_FAILURES=0
