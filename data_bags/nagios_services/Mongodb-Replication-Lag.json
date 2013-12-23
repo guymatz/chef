@@ -1,6 +1,6 @@
 {
   "id": "Mongodb-Replication-Lag",
   "hostgroup_name": "mongodb_server",
-  "command_line": "$USER1$/check_mongodb.py -H $HOSTADDRESS$-v240.ihr -A replication_lag -P 37017 -W 15 -C 30",
+  "command_line": "$USER1$/check_mongodb.py -H $HOSTADDRESS$-v760 -A replication_lag -P 37017 -W 15 -C 30",
   "contact_groups": ["admins", "dba"]
 }
