@@ -1,5 +1,7 @@
 {
-  "address": "iad-auth101-v260.ihr",
+  "address": "iad-stg-auth101-v760.ihr",
   "hostgroups": ["VIPs"],
-  "id": "iad-auth101-v260-ihr"
+  "id": "iad-stg-auth101-VIP",
+  "host": "iad-stg-auth101-VIP",
+  "alias": "iad-stg-auth101-VIP"
 }
