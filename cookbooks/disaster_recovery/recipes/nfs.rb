@@ -9,6 +9,8 @@
 
 include_recipe "users::attivio"
 include_recipe "users::elasticsearch"
+include_recipe "postgresql::users"
+include_recipe "users::mongo"
 
 directory "#{node[:disaster_recovery][:base_path]}/dr_backups" do
   mode "0775"
@@ -34,7 +36,28 @@ es_nodes.each do |es_node|
     group "elasticsearch"
   end
 end
-  
+
+%w{mongo_fac_bak mongo_util_bak mongo_usr_bak}.each do |dir|
+  directory "#{node[:disaster_recovery][:base_path]}/dr_backups/#{dir}" do
+    mode 00775
+    owner "mongod"
+    group "mongod"
+    action :create
+    recursive true
+  end
+end
+
+%w{auth_bak ing_bak}.each do |dir|
+  directory "#{node[:disaster_recovery][:base_path]}/dr_backups/#{dir}" do
+    mode 00775
+    owner "postgres"
+    group "postgres"
+    action :create
+    recursive true
+  end
+end
+
+
 nfs_export "#{node[:disaster_recovery][:base_path]}/dr_backups" do
   network "10.5.32.0/23"
   writeable true

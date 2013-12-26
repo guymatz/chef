@@ -5,3 +5,12 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+
+include_recipe "apache2"
+
+web_app "dr.ihr" do
+  server_name "dr.ihr"
+  server_aliases ["disaster-recovery.ihr"]
+  docroot node[:disaster_recovery][:base_path]
+  directory_options ["Indexes", " FollowSymLinks"]
+end
