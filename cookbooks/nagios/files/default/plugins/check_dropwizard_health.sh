@@ -5,6 +5,9 @@ hflag=false
 pflag=false
 zerofile=true
 
+# Timeout value for curl
+timeout=45
+
 # Usage output function
 usage() { echo "Usage: $0 -h hostname/ip -p port" 1>&2; exit 2; }
 
@@ -35,7 +38,7 @@ fi
 
 # Pull the current health status and check for a line that is not OK
 rm -f /tmp/healthcheck >/dev/null 2>&1
-curl -s http://$HOST:$PORT/healthcheck > /tmp/healthcheck
+curl -m $timeout -s http://$HOST:$PORT/healthcheck > /tmp/healthcheck
 if [ ! -e /tmp/healthcheck ]; then
     health_fetch_error
 fi
