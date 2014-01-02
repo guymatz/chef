@@ -2,6 +2,7 @@ name "monitoring"
 description "monitoring"
 all_env = [
   "recipe[nagios::server]",
+  "recipe[nagios-api]",
   "recipe[nagios::pagerduty]",
   "recipe[java]"
           ]
@@ -14,7 +15,7 @@ env_run_lists(
               )
 default_attributes({
                      "nagios" => {
-                       "server_aliases" => "nagios-stg.ihrdev.com nagios-stg"
+                       "server_aliases" => "nagios-iad.ihrdev.com nagios-iad"
                      }
                    })
 override_attributes({
