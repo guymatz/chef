@@ -6,7 +6,7 @@ description      'Installs/Configures disaster_recovery'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.1.0'
 
-%w{ avamar users nagios nfs openssh cron }.each do |dep|
+%w{ avamar users nagios nfs openssh cron postgresql}.each do |dep|
   depends dep
 end
 

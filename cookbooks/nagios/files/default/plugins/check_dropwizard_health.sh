@@ -5,11 +5,14 @@ hflag=false
 pflag=false
 zerofile=true
 
+# Timeout value for curl
+timeout=45
+
 # Usage output function
-usage() { echo "Usage: $0 -h hostname/ip -p port" 1>&2; exit 2; }
+usage() { echo "Usage: $0 -h hostname/ip -p port"; exit 2; }
 
 # Error output function that fires when the health status can't be obtained
-health_fetch_error() { echo "CRITICAL: Could not get health status." 1>&2; exit 2; }
+health_fetch_error() { echo "CRITICAL: Could not get health status."; exit 2; }
 
 # Option flag handling
 while getopts ":h:p:" opt; do
@@ -29,13 +32,13 @@ while getopts ":h:p:" opt; do
 done 
 
 # Check for mandatory flags
-if ! $hflag ] || ! $pflag ; then
+if ! $hflag || ! $pflag ; then
     usage
 fi
 
 # Pull the current health status and check for a line that is not OK
 rm -f /tmp/healthcheck >/dev/null 2>&1
-curl -s http://$HOST:$PORT/healthcheck > /tmp/healthcheck
+curl -m $timeout -s http://$HOST:$PORT/healthcheck > /tmp/healthcheck
 if [ ! -e /tmp/healthcheck ]; then
     health_fetch_error
 fi
@@ -45,7 +48,7 @@ while read healthfile;do
     zerofile=false
     echo "$healthfile" | grep -q "OK" >/dev/null 2>&1
     if [ $? -ne 0 ]; then
-        echo "CRITICAL: $healthfile"
+        echo "$healthfile"
         exit 2
     fi
 done < /tmp/healthcheck
@@ -56,5 +59,5 @@ if $zerofile ; then
 fi
 
 # Exit with OK if nothing fired previously
-echo "OK: Application health checks are fine."
+cat /tmp/healthcheck
 exit 0

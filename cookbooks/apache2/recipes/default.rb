@@ -55,6 +55,7 @@ if platform_family?("rhel", "fedora", "arch", "suse", "freebsd")
     mode 00755
     owner "root"
     group node['apache']['root_group']
+    action :create_if_missing
   end
 
   %w{sites-available sites-enabled mods-available mods-enabled}.each do |dir|

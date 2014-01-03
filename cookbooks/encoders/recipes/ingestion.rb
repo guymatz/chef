@@ -59,6 +59,20 @@ begin
         owner "root"
         mode "0755"
     end
+    logrotate_app "tomcat" do
+        path "/data/apps/tomcat7/logs"
+        options ["missingok", "copytruncate", "compress", "notifempty"]
+        frequency "daily"
+        enable true
+        create "0644 nobody root"
+        rotate 2
+    end
+
+
+    remote_file "/data/apps/filemonitor/lib/filemonitor-1.0.jar" do
+          source "#{node[:encoders][:filemonitor][:ingestion_jar]}"
+          mode "0755"
+    end
 
     logrotate_app "filemonitor" do
         path "/var/log/filemonitor/"
