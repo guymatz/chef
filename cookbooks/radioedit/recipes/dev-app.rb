@@ -25,6 +25,13 @@ node[:radioedit][:dev][:packages].each do |p|
   end
 end
 
+%w{ nginx varnish varnishlog }.each do |serv|
+  service serv do
+    supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
+    action [ :enable, :start ]
+  end
+end
+
 template "#{node[:radioedit][:dev][:path]}/shared/settings.json" do
   source "dev-settings.json.erb"
   owner "ihr-deployer"
@@ -39,27 +46,12 @@ link "#{node[:radioedit][:dev][:path]}/settings.json" do
   not_if "test -L #{node[:radioedit][:dev][:path]}/shared/settings.json"
 end
 
-execute "set-app-env" do
-  command "#{node[:radioedit][:dev][:path]}/setenv.sh"
-  action :nothing
-end
-
-template "/data/apps/radioedit/setenv.sh" do
-  source "dev-env.sh.erb"
-  owner "ihr-deployer"
-  group "ihr-deployer"
-  mode 0755
-  notifies :run, "execute[set-app-env]", :immediately
-end
-
-
 python_virtualenv "#{node[:radioedit][:dev][:venv_path]}" do
   interpreter "python27"
   owner "ihr-deployer"
   group "ihr-deployer"
   action :create
 end
-
 
 application "radioedit-core" do
   repository "#{node[:radioedit][:dev][:repo]}"
@@ -82,56 +74,15 @@ application "radioedit-core" do
     loglevel "#{node[:radioedit][:dev][:log_level]}"
     autostart true
     interpreter "python27"
+    environment ({"ENVIRONMENT" => node[:radioedit][:dev][:env],
+                 "APP_ENV" => node[:radioedit][:dev][:env]})
   end
 end
 
-# gp adding these templates to a util directory until a way using existing chef resource objects is found.
-template "#{node[:radioedit][:dev][:utildir]}/supervisor" do
-  source "dev-supervisor-initd.erb"
-  owner "root"
-  group "root"
-  mode 0755
-end
-
-template "#{node[:radioedit][:dev][:utildir]}/radioedit.conf" do
+template "/etc/nginx/conf.d/radioedit.conf" do
   source "dev-nginx.conf.erb"
   owner "root"
   group "root"
   mode 0666
+  notifies :reload, "service[nginx]", :immediately
 end
-
-template "#{node[:radioedit][:dev][:utildir]}/upd_confs.sh" do
-  source "dev-reset-configs.sh.erb"
-  owner "root"
-  group "root"
-  mode 0755
-end
-
-# per OPS-5792
-template "/etc/init.d/radioedit" do
-  source "radioedit-initd.sh.erb"
-  owner "root"
-  group "root"
-  mode 0755
-  variables ({
-    :supervisorctl_path => "#{node[:radioedit][:dev][:venv_path]}/bin/supervisorctl",
-    :application_name   => "#{node[:radioedit][:dev][:app_name]}",
-    :setenv_file        => "#{node[:radioedit][:dev][:path]}/setenv.sh",
-    :pid_file           => "#{node[:radioedit][:dev][:pid_file]}",
-    :runas_user         => "root"
-  })
-end
-
-#GP hackety hack hack - @TODO Templatize what this script does
-execute "reset-confs" do
-  command "#{node[:radioedit][:dev][:utildir]}/upd_confs.sh"
-  action :run
-end
-
-
-
-
-
-
-
-

@@ -83,3 +83,9 @@ extend bindNxdomain /usr/local/bin/snmp_rndc_stats.pl --nxdomain
 extend bindRecursion /usr/local/bin/snmp_rndc_stats.pl --recursion
 extend bindFailure /usr/local/bin/snmp_rndc_stats.pl --failure
 <% end %>
+
+<% if node['virtualization']['role'] != "guest" %>
+#Allow Systems Management Data Engine SNMP to connect to snmpd using SMUX
+smuxpeer .1.3.6.1.4.1.674.10892.1
+<% else %>
+<% end %>
