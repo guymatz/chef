@@ -31,7 +31,7 @@ Group                     vftp
 # Use pam to authenticate (default) and be authoritative
 #AuthPAMConfig                  proftpd
 #AuthOrder                      mod_auth_pam.c* mod_auth_unix.c
-AuthPAMConfig                  proftpd
+#AuthPAMConfig                  proftpd
 AuthOrder                      mod_auth_file.c
 # If you use NIS/YP/LDAP you may need to disable PersistentPasswd
 #PersistentPasswd               off
@@ -173,7 +173,7 @@ SFTPLog /var/log/proftpd/SFTP.log
 # Use the /etc/hosts.allow and /etc/hosts.deny files, or other allow/deny
 # files, as well as SQL-based access rules, for IP-based access control
 # (http://www.proftpd.org/docs/contrib/mod_wrap2.html)
-   LoadModule mod_wrap2.c
+#   LoadModule mod_wrap2.c
 #
 # Support module for mod_wrap2 that handles access rules stored in specially
 # formatted files on disk
