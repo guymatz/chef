@@ -367,6 +367,9 @@ DirFakeGroup              on ftpusers
   # Enable compression
   SFTPCompression delayed
 
+  # Ignore file/directory permission setting requests
+  SFTPOptions IgnoreSFTPUploadPerms IgnoreSCPUploadPerms
+
   # Allow the same number of authentication attempts as OpenSSH.
   #
   # It is recommended that you explicitly configure MaxLoginAttempts
