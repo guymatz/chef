@@ -188,7 +188,7 @@
   "default_attributes": {
     "nagiosapi": {
       "server": {
-	"name": "iad-stg-nagiosapi.ihr",
+	"name": "iad-nagiosapi.ihr",
         "port": "6315"
       }
     }
