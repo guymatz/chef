@@ -186,6 +186,12 @@
   "json_class": "Chef::Environment",
   "chef_type": "environment",
   "default_attributes": {
+    "nagiosapi": {
+      "server": {
+	"name": "iad-stg-nagiosapi.ihr",
+        "port": "6315"
+      }
+    }
   },
   "override_attributes": {
   }
