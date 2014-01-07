@@ -10,38 +10,32 @@
 #"log_dir": "/var/log/nagios3",
 #"home": "/usr/lib/nagios3",
 
-app_secrets = Chef::EncryptedDataBagItem.load("secrets", "nagiosapi")
-file "/etc/chef/nagiosapi_identity" do
-  content app_secrets['private_key']
-  owner "nobody"
-  group "nobody"
-  mode "0600"
+include_recipe "users::deployer"
+
+directory "/data/www" do
+  owner "ihr-deployer"
+  group "apache"
 end
 
-template "/etc/chef/ssh_wrapper_nobody.sh" do
-  user node[:nagiosapi][:user]
-  group node[:nagiosapi][:group]
-  mode "0700"
-  source "ssh_wrapper.erb"
+pips = %w{ diesel requests }
+pips.each do |p| 
+  python_pip p do
+    action :upgrade
+  end
+end
+
+%w{ nagios-api }.each do |p|
+  package p
+end
+
+template "/etc/rc.d/init.d/nagios-api" do
+  mode "0755"
+  source "nagios-api.sh.erb"
   variables({
-              :deploy_key => "/etc/chef/nagiosapi_identity"
-            })
+    :deploy_key => "/etc/chef/nagiosapi_identity"
+  })
 end
 
-git "#{node[:nagiosapi][:path]}" do
-  path node[:nagiosapi][:path]
-  owner node[:nagiosapi][:user]
-  group node[:nagiosapi][:group]
-  ssh_wrapper "/etc/chef/nobody_ssh_wrapper"
-  repository node[:nagiosapi][:repo]
-  revision node[:nagiosapi][:rev]
-  action :sync
+service "nagios-api" do
+	  action [:enable, :start]
 end
-
-# supervisor_service "nagios-api" do
-#   command "/usr/bin/nagios-api -p #{node[:nagiosapi][:server][:port]} -c /var/lib/nagios3/rw/nagios.cmd -s /var/cache/nagios3/status.dat -l /var/log/nagios3/nagios.log"
-#   autostart true
-#   autorestart true
-#   stdout_logfile "/var/log/nagios-api.log"
-#   stderr_logfile "/var/log/nagios-api.err.log"
-# end
