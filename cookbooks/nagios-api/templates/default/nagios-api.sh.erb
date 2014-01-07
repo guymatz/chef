@@ -1,0 +1,63 @@
+#!/bin/bash
+#
+#        /etc/rc.d/init.d/nagios-api
+#
+# Starts the Nagios API
+# (RedHat/CentOS only!)
+#
+# chkconfig: 2345 90 10
+# description: Nagios API Daemon
+
+# processname: nagios-api
+
+source /etc/rc.d/init.d/functions
+
+PROG="nagios-api"
+DESC="Nagios API Daemon"
+RETVAL=0
+LOGFILE="/var/log/nagios3/nagios-api.log"
+
+NAG_API_BIN=/usr/bin/nagios-api
+NAG_API_PORT=6315
+NAG_API_PID=/var/run/$PROG.pid
+
+NAGIOS_STATUS_FILE=/var/cache/nagios3/status.dat
+NAGIOS_COMMAND_FILE=/var/lib/nagios3/rw/nagios.cmd
+NAGIOS_LOG_FILE=/var/log/nagios3/nagios.log
+
+start() {
+  echo -n "Starting $DESC ($PROG): "
+  daemon $NAG_API_BIN -p $NAG_API_PORT -s $NAGIOS_STATUS_FILE -c $NAGIOS_COMMAND_FILE -l $NAGIOS_LOG_FILE > $LOGFILE 2>&1 &
+  
+  echo
+RETVAL=$?
+  return $RETVAL
+}
+
+stop() {
+  echo -n "Shutting down $DESC ($PROG): "
+  killproc $PROG
+
+  echo
+RETVAL=$?
+  return $RETVAL
+}
+
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart)
+        stop
+        start
+        RETVAL=$?
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart}"
+        RETVAL=1
+esac
+
+exit $RETVAL

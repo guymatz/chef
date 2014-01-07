@@ -10,29 +10,18 @@
 #"log_dir": "/var/log/nagios3",
 #"home": "/usr/lib/nagios3",
 
-include_recipe "users::deployer"
-
-directory "/data/www" do
-  owner "ihr-deployer"
-  group "apache"
-end
-
-pips = %w{ diesel requests }
+pips = %w{ requests }
 pips.each do |p| 
   python_pip p do
     action :upgrade
   end
 end
 
-%w{ nagios-api }.each do |p|
-  package p
-end
-
-template "/etc/rc.d/init.d/nagios-api" do
+template "/usr/bin/nagios-cli" do
   mode "0755"
-  source "nagios-api.sh.erb"
+  source "nagios-cli.py.erb"
   variables({
-    :deploy_key => "/etc/chef/nagiosapi_identity"
+    :api_host => node[:nagiosapi][:server][:name],
+    :api_port => node[:nagiosapi][:server][:port]
   })
 end
-

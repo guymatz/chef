@@ -1,3 +1,4 @@
+default[:nagiosapi][:app_name] = "nagios-api"
 
 default[:nagiosapi][:repo] = "git@github.com:xb95/nagios-api.git"
 default[:nagiosapi][:rev] = "HEAD"

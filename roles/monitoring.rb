@@ -2,6 +2,7 @@ name "monitoring"
 description "monitoring"
 all_env = [
   "recipe[nagios::server]",
+  "recipe[nagios-api]",
   "recipe[nagios::pagerduty]",
   "recipe[java]"
           ]
