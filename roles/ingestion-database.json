@@ -6,6 +6,7 @@
     "env_run_lists": {
     },
     "run_list": [
+        "recipe[postgresql::directories]",
         "recipe[ingestion]",
         "recipe[ingestion::db_mounts]",
         "recipe[ingestion::database]",
