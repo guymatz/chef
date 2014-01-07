@@ -8,7 +8,7 @@
 #
 
 #install some packages
-%w{ tomcat7 apache2 apache2::mod_sflow }.each do |dep|
+%w{ tomcat7 apache2 }.each do |dep|
   include_recipe dep
 end
 

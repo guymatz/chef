@@ -7,10 +7,11 @@
 #
 
 include_recipe "apache2"
+include_recipe "apache2::mod_autoindex"
 
 web_app "dr.ihr" do
   server_name "dr.ihr"
   server_aliases ["disaster-recovery.ihr"]
   docroot node[:disaster_recovery][:base_path]
-  directory_options ["Indexes", " FollowSymLinks"]
+  directory_options ["Indexes", "FollowSymLinks"]
 end
