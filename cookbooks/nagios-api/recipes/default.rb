@@ -36,3 +36,6 @@ template "/etc/rc.d/init.d/nagios-api" do
   })
 end
 
+service "nagios-api" do
+	  action [:enable, :start]
+end
