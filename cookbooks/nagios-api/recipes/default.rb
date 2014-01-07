@@ -24,7 +24,7 @@ pips.each do |p|
   end
 end
 
-%w{ nagios-api }.each do |p|
+%w{ nagios_cli }.each do |p|
   package p
 end
 
