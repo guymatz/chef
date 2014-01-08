@@ -63,6 +63,7 @@ application "radioedit-core" do
 
   gunicorn do
     app_module "#{node[:radioedit][:dev][:module]}"
+    requirements "requirements.txt"
     port node[:radioedit][:dev][:port]
     host node[:radioedit][:dev][:host]
     workers node[:radioedit][:dev][:num_workers]
