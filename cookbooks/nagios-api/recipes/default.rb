@@ -35,3 +35,7 @@ template "/etc/rc.d/init.d/nagios-api" do
     :deploy_key => "/etc/chef/nagiosapi_identity"
   })
 end
+
+service "nagios-api" do
+  action [:enable, :start]
+end
