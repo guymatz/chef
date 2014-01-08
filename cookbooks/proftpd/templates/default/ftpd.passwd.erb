@@ -1,0 +1,20 @@
+<%
+  @users.sort.each do |username, user_info|
+  	#Chef::Log.info("user_info #{user_info}")
+  	next unless user_info.is_a?(Hash)
+	  pwd = hash_pwd(user_info['password'])
+	  uid = @node[:proftpd][:uid]
+	  gid = uid
+	  home_dir = "#{@node[:proftpd][:default_root]}/#{username}"
+	  shell = @node[:proftpd][:default_shell]
+	  gecos = username
+
+	  entry = "#{username}:#{pwd}:#{uid}:#{gid}:#{gecos}:#{home_dir}:#{shell}"
+%>
+<%=
+entry
+%>
+<%  
+  end
+%>
+
