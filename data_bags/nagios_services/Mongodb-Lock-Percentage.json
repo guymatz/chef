@@ -1,6 +1,0 @@
-{
-  "id": "Mongodb-Lock-Percentage",
-  "hostgroup_name": "mongodb_server",
-  "command_line": "$USER1$/check_mongodb.py -H $HOSTADDRESS$ -A lock -P 37017 -W 5 -C 10",
-  "contact_groups": ["admins", "dba"]
-}
