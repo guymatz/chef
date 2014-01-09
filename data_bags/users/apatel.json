@@ -4,7 +4,7 @@
     "name": "Amit Patel",
     "email": "amitpatel@clearchannel.com",
     "htpasswd": "{SHA}LOCKED",
-    "groups": ["dev", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch", "facebook", "rabbit"],
+    "groups": ["dev", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch", "facebook", "rabbit", "imgsca"],
     "nagios": {
         "email": "amitpatel@clearchannel.com"
     },
