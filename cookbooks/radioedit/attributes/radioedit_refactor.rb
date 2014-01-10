@@ -116,6 +116,8 @@ when /^prod/
     libjpeg-devel
     nginx
     rsyslog
+    libxml2-devel
+    libxslt-devel
   }
   default[:radioedit][:pips] = %w{ 
     supervisor 
@@ -136,7 +138,6 @@ when /^prod/
     jsonschema 
     mock 
     pql 
-    pylibmc 
     pyparsing 
     python-dateutil 
     python-ldap 
@@ -216,6 +217,8 @@ when /^stage/
     libjpeg-devel
     nginx
     rsyslog
+    libxml2-devel
+    libxslt-devel
   }
   default[:radioedit][:pips] = %w{ 
     supervisor 
@@ -236,7 +239,6 @@ when /^stage/
     jsonschema 
     mock 
     pql 
-    pylibmc 
     pyparsing 
     python-dateutil 
     python-ldap 
@@ -316,6 +318,8 @@ else
     libjpeg-devel
     nginx
     rsyslog
+    libxml2-devel
+    libxslt-devel
   }
   default[:radioedit][:pips] = %w{ 
     supervisor 
@@ -336,7 +340,6 @@ else
     jsonschema 
     mock 
     pql 
-    pylibmc 
     pyparsing 
     python-dateutil 
     python-ldap 

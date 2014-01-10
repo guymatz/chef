@@ -13,8 +13,8 @@
 # make all required directories
 node[:radioedit][:req_dirs].each do |d|
   directory d do
-    owner "#{node[:radioedit][:app_user]}"
-    group "#{node[:radioedit][:app_user]}"
+    owner node[:radioedit][:app_user]
+    group node[:radioedit][:app_user]
   end
 end
 
@@ -31,15 +31,15 @@ end
 
 template "#{node[:radioedit][:path]}/shared/settings.json" do
   source "production-settings.json.erb"
-  owner "#{node[:radioedit][:app_user]}"
-  group "#{node[:radioedit][:app_user]}"
+  owner node[:radioedit][:app_user]
+  group node[:radioedit][:app_user]
 end
 
 link "#{node[:radioedit][:path]}/settings.json" do
   to "#{node[:radioedit][:path]}/shared/settings.json"
   action :create
-  owner "#{node[:radioedit][:app_user]}"
-  group "#{node[:radioedit][:app_user]}"
+  owner node[:radioedit][:app_user]
+  group node[:radioedit][:app_user]
   not_if "test -L #{node[:radioedit][:path]}/shared/settings.json"
 end
 
@@ -85,6 +85,34 @@ end
 # end static file templates 
 # ###############################################################
 
+log "Deploying #{node[:radioedit][:branch]}"
+
+application "radioedit-core" do
+  repository node[:radioedit][:repo]
+  revision node[:radioedit][:branch]
+  path node[:radioedit][:path]
+  owner node[:radioedit][:app_user]
+  group node[:radioedit][:app_user]
+  enable_submodules true
+
+  gunicorn do
+    app_module node[:radioedit][:module]
+    port node[:radioedit][:port]
+    host node[:radioedit][:host]
+    workers node[:radioedit][:num_workers]
+    pidfile node[:radioedit][:pid_file]
+    stdout_logfile node[:radioedit][:out_log]
+    stderr_logfile node[:radioedit][:err_log]
+    packages node[:radioedit][:pips]
+    loglevel node[:radioedit][:log_level]
+    interpreter "python27"
+    autostart true
+    virtualenv node[:radioedit][:venv_path]
+    environment ({"ENVIRONMENT" => node[:radioedit][:env],
+                 "APP_ENV" => node[:radioedit][:env]})
+  end
+end
+
 template "/etc/varnish/default.vcl" do
   source "production-default.vcl.erb"
   owner "root"
@@ -96,29 +124,10 @@ template "/etc/varnish/default.vcl" do
   })
 end
 
-log "Deploying #{node[:radioedit][:branch]}"
-
-application "radioedit-core" do
-  repository "#{node[:radioedit][:repo]}"
-  revision "#{node[:radioedit][:branch]}"
-  path "#{node[:radioedit][:path]}"
-  owner "#{node[:radioedit][:app_user]}"
-  group "#{node[:radioedit][:app_user]}"
-  enable_submodules true
-
-  gunicorn do
-    app_module "#{node[:radioedit][:module]}"
-    port node[:radioedit][:port]
-    host node[:radioedit][:host]
-    workers node[:radioedit][:num_workers]
-    pidfile node[:radioedit][:pid_file]
-    virtualenv "#{node[:radioedit][:venv_path]}"
-    stdout_logfile "#{node[:radioedit][:out_log]}"
-    stderr_logfile "#{node[:radioedit][:err_log]}"
-    packages node[:radioedit][:pips]
-    loglevel "#{node[:radioedit][:log_level]}"
-    requirements "requirements.txt"
-    interpreter "python27"
-    autostart true
-  end
+template "/etc/nginx/conf.d/radioedit.conf" do 
+  source "staging-nginx.conf.erb" 
+  owner "root" 
+  group "root" 
+  mode 0666 
+  notifies :reload, "service[nginx]", :immediately 
 end
