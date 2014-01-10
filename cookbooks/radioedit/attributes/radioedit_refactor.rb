@@ -66,7 +66,7 @@ when /^prod/
   default[:radioedit][:utildir] = "#{default[:radioedit][:production][:path]}/util"
   default[:radioedit][:staticdir] = "#{default[:radioedit][:production][:path]}/static"
   default[:radioedit][:asset_dir] = "/data/binstore/assets"
-  default[:radioedit][:cdn_url] = "http://images.iheart.com/"
+  default[:radioedit][:cdn_url] = "http://imgproxy.iheart.com/"
   default[:radioedit][:mongo_cstring] = "mongodb://iad-mongo-shared101.ihr:37017,iad-mongo-shared102.ihr:37017,iad-mongo-shared103.ihr:37017/radioedit?replicaSet=Mongo-shared1"
   default[:radioedit][:nfs_server] = "10.5.40.121"
   default[:radioedit][:nfs_remdir] = "/data/imgscaler/radioedit"
