@@ -1,5 +1,5 @@
 {
-  "host_name": "iad-auth101-v260.ihr",
+  "host_name": "iad-stg-auth101-v760.ihr",
   "id": "AUTHDB_Index_Backup_Corruption",
   "freshness_threshold": "259200",
   "contact_groups": ["dba"]

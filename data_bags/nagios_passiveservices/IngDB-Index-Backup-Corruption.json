@@ -1,5 +1,5 @@
 {
-  "host_name": "iad-ing101",
+  "host_name": "iad-stg-ing101",
   "id": "INGDB_Index_Backup_Corruption",
   "freshness_threshold": "259200",
   "contact_groups": ["dba"]
