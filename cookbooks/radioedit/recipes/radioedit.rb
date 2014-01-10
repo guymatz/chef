@@ -111,6 +111,7 @@ application "radioedit-core" do
     environment ({"ENVIRONMENT" => node[:radioedit][:env],
                  "APP_ENV" => node[:radioedit][:env]})
   end
+  not_if { chef_environment == "prod" && tagged?("radioedit-deployed") }
 end
 
 template "/etc/varnish/default.vcl" do
