@@ -8,8 +8,6 @@
 # Installs requirements for a production version of the radioedit app server
 #
 
-#include_recipe "yum::epel" -- move to role
-
 # make all required directories
 node[:radioedit][:req_dirs].each do |d|
   directory d do
