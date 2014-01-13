@@ -120,6 +120,7 @@ when /^prod/
     libxslt-devel
   }
   default[:radioedit][:pips] = %w{ 
+    lxml
     supervisor 
     pymongo 
     python-memcached 
@@ -223,6 +224,7 @@ when /^stage/
     libxslt-devel
   }
   default[:radioedit][:pips] = %w{ 
+    lxml
     supervisor 
     pymongo 
     python-memcached 
@@ -326,6 +328,7 @@ else
     libxslt-devel
   }
   default[:radioedit][:pips] = %w{ 
+    lxml
     supervisor 
     pymongo 
     python-memcached 
