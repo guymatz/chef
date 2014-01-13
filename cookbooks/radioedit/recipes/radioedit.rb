@@ -5,7 +5,7 @@
 # Copyright 2013, iHeartRadio
 #
 # All rights reserved - Do Not Redistribute
-# Installs requirements for a production version of the radioedit app server
+# Installs/deploys the radioedit app server
 #
 
 # make all required directories
@@ -28,7 +28,7 @@ end
 end
 
 template "#{node[:radioedit][:path]}/shared/settings.json" do
-  source "production-settings.json.erb"
+  source "settings.json.erb"
   owner node[:radioedit][:app_user]
   group node[:radioedit][:app_user]
 end
@@ -109,11 +109,11 @@ application "radioedit-core" do
     environment ({"ENVIRONMENT" => node[:radioedit][:env],
                  "APP_ENV" => node[:radioedit][:env]})
   end
-  not_if { chef_environment == "prod" && tagged?("radioedit-deployed") }
+  not_if { node.chef_environment == "prod" && tagged?("radioedit-deployed") }
 end
 
 template "/etc/varnish/default.vcl" do
-  source "production-default.vcl.erb"
+  source "default.vcl.erb"
   owner "root"
   group "root"
   mode 0600
@@ -125,7 +125,7 @@ template "/etc/varnish/default.vcl" do
 end
 
 template "/etc/nginx/conf.d/radioedit.conf" do 
-  source "staging-nginx.conf.erb" 
+  source "nginx.refactor.conf.erb" 
   owner "root" 
   group "root" 
   mode 0666 
