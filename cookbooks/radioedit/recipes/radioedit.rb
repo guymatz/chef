@@ -85,31 +85,33 @@ end
 
 log "Deploying #{node[:radioedit][:branch]}"
 
-application "radioedit-core" do
-  repository node[:radioedit][:repo]
-  revision node[:radioedit][:branch]
-  path node[:radioedit][:path]
-  owner node[:radioedit][:app_user]
-  group node[:radioedit][:app_user]
-  enable_submodules true
-
-  gunicorn do
-    app_module node[:radioedit][:module]
-    port node[:radioedit][:port]
-    host node[:radioedit][:host]
-    workers node[:radioedit][:num_workers]
-    pidfile node[:radioedit][:pid_file]
-    stdout_logfile node[:radioedit][:out_log]
-    stderr_logfile node[:radioedit][:err_log]
-    packages node[:radioedit][:pips]
-    loglevel node[:radioedit][:log_level]
-    interpreter "python27"
-    autostart true
-    virtualenv node[:radioedit][:venv_path]
-    environment ({"ENVIRONMENT" => node[:radioedit][:env],
-                 "APP_ENV" => node[:radioedit][:env]})
+unless tagged?("radioedit-deployed" && node.chef_environment == "prod")
+  application "radioedit-core" do
+    repository node[:radioedit][:repo]
+    revision node[:radioedit][:branch]
+    path node[:radioedit][:path]
+    owner node[:radioedit][:app_user]
+    group node[:radioedit][:app_user]
+    enable_submodules true
+  
+    gunicorn do
+      app_module node[:radioedit][:module]
+      port node[:radioedit][:port]
+      host node[:radioedit][:host]
+      workers node[:radioedit][:num_workers]
+      pidfile node[:radioedit][:pid_file]
+      stdout_logfile node[:radioedit][:out_log]
+      stderr_logfile node[:radioedit][:err_log]
+      packages node[:radioedit][:pips]
+      loglevel node[:radioedit][:log_level]
+      interpreter "python27"
+      autostart true
+      virtualenv node[:radioedit][:venv_path]
+      environment ({"ENVIRONMENT" => node[:radioedit][:env],
+                   "APP_ENV" => node[:radioedit][:env]})
+    end
   end
-  not_if { node.chef_environment == "prod" && tagged?("radioedit-deployed") }
+  tag("radioedit-deployed")
 end
 
 template "/etc/varnish/default.vcl" do
