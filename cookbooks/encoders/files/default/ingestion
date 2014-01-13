@@ -20,8 +20,9 @@ PID_FILE=/var/run/ingestion.pid
 start()
 {
 	echo -n $"Starting $prog: "
-	$INGESTION --pidfile $PID_FILE && success || failure
-	RETVAL=$?
+	/usr/bin/nohup $INGESTION start >> /dev/null 2>&1 &
+        RETVAL=$?
+	echo $! > $PID_FILE
 	echo
 	return $RETVAL
 }
@@ -29,7 +30,7 @@ start()
 stop()
 {
 	echo -n $"Stopping $prog: "
-	killproc -p $PID_FILE -d 10 $INGESTION
+	kill $( /bin/cat $PID_FILE )
 	RETVAL=$?
 	echo
 }
