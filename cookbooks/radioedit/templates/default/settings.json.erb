@@ -1,0 +1,9 @@
+{
+  "environment" : "<%= node[:radioedit][:env] %>",
+  "mongosd": {
+    "mongosconfigdbs": "<%= node[:radioedit][:mongo_cstring] %>"
+  },
+  "cdn_url": "<%= node[:radioedit][:cdn_url] %>",
+  "binstore": "<%= node[:radioedit][:asset_dir] %>",
+  "elasticsearch" : "http://<%= node[:ipaddress] %>:9200/"
+}

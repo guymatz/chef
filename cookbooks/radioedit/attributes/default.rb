@@ -129,7 +129,6 @@ default[:radioedit][:dev][:pips] = %w{
   jsonschema 
   mock 
   pql 
-  pylibmc 
   pyparsing 
   python-dateutil 
   python-ldap 
@@ -232,7 +231,6 @@ default[:radioedit][:staging][:pips] = %w{
   jsonschema 
   mock 
   pql 
-  pylibmc 
   pyparsing 
   python-dateutil 
   python-ldap 
@@ -340,7 +338,6 @@ default[:radioedit][:production][:pips] = %w{
   jsonschema 
   mock 
   pql 
-  pylibmc 
   pyparsing 
   python-dateutil 
   python-ldap 
