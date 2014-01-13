@@ -53,9 +53,9 @@ when /^prod/
   default[:radioedit][:path] = "/data/apps/radioedit"
   default[:radioedit][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
   default[:radioedit][:log_dir] = "/var/log/radioedit"
-  default[:radioedit][:out_log] = "#{default[:radioedit][:production][:log_dir]}/application.log"
-  default[:radioedit][:err_log] = "#{default[:radioedit][:production][:log_dir]}/application.err"
-  default[:radioedit][:venv_path] = "#{default[:radioedit][:production][:path]}/envs/core"
+  default[:radioedit][:out_log] = "#{default[:radioedit][:log_dir]}/application.log"
+  default[:radioedit][:err_log] = "#{default[:radioedit][:log_dir]}/application.err"
+  default[:radioedit][:venv_path] = "#{default[:radioedit][:path]}/envs/core"
   default[:radioedit][:module] = "wsgi"
   default[:radioedit][:app_name] = "radioedit-core"
   default[:radioedit][:num_workers] = 5
@@ -63,8 +63,8 @@ when /^prod/
   default[:radioedit][:port] = "/var/tmp/radioedit-cms.sock"
   default[:radioedit][:listen] = "/var/tmp/radioedit-cms.sock"
   default[:radioedit][:host] = "unix"
-  default[:radioedit][:utildir] = "#{default[:radioedit][:production][:path]}/util"
-  default[:radioedit][:staticdir] = "#{default[:radioedit][:production][:path]}/static"
+  default[:radioedit][:utildir] = "#{default[:radioedit][:path]}/util"
+  default[:radioedit][:staticdir] = "#{default[:radioedit][:path]}/static"
   default[:radioedit][:asset_dir] = "/data/binstore/assets"
   default[:radioedit][:cdn_url] = "http://imgproxy.iheart.com/"
   default[:radioedit][:mongo_cstring] = "mongodb://iad-mongo-shared101.ihr:37017,iad-mongo-shared102.ihr:37017,iad-mongo-shared103.ihr:37017/radioedit?replicaSet=Mongo-shared1"
@@ -159,9 +159,9 @@ when /^stage/
   default[:radioedit][:path] = "/data/apps/radioedit";
   default[:radioedit][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
   default[:radioedit][:log_dir] = "/var/log/radioedit"
-  default[:radioedit][:out_log] = "#{default[:radioedit][:staging][:log_dir]}/application.log"
-  default[:radioedit][:err_log] = "#{default[:radioedit][:staging][:log_dir]}/application.err"
-  default[:radioedit][:venv_path] = "#{default[:radioedit][:staging][:path]}/envs/core";
+  default[:radioedit][:out_log] = "#{default[:radioedit][:log_dir]}/application.log"
+  default[:radioedit][:err_log] = "#{default[:radioedit][:log_dir]}/application.err"
+  default[:radioedit][:venv_path] = "#{default[:radioedit][:path]}/envs/core";
   default[:radioedit][:module] = "wsgi:application"
   default[:radioedit][:app_name] = "radioedit-core"
   default[:radioedit][:num_workers] = 5
@@ -169,8 +169,8 @@ when /^stage/
   default[:radioedit][:port] = "/var/tmp/radioedit-cms.sock"
   default[:radioedit][:listen] = "/var/tmp/radioedit-cms.sock"
   default[:radioedit][:host] = "unix"
-  default[:radioedit][:utildir] = "#{default[:radioedit][:staging][:path]}/util"
-  default[:radioedit][:staticdir] = "#{default[:radioedit][:staging][:path]}/static"
+  default[:radioedit][:utildir] = "#{default[:radioedit][:path]}/util"
+  default[:radioedit][:staticdir] = "#{default[:radioedit][:path]}/static"
   default[:radioedit][:asset_dir] = "/data/binstore"
   default[:radioedit][:cdn_url] = "http://10.5.1.28/"
   default[:radioedit][:elastic_clustername] = "radioedit-staging";
@@ -257,9 +257,9 @@ else
   default[:radioedit][:path] = "/data/apps/radioedit";
   default[:radioedit][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
   default[:radioedit][:log_dir] = "/var/log/radioedit"
-  default[:radioedit][:out_log] = "#{default[:radioedit][:dev][:log_dir]}/application.log"
-  default[:radioedit][:err_log] = "#{default[:radioedit][:dev][:log_dir]}/application.err"
-  default[:radioedit][:venv_path] = "#{default[:radioedit][:dev][:path]}/envs/core";
+  default[:radioedit][:out_log] = "#{default[:radioedit][:log_dir]}/application.log"
+  default[:radioedit][:err_log] = "#{default[:radioedit][:log_dir]}/application.err"
+  default[:radioedit][:venv_path] = "#{default[:radioedit][:path]}/envs/core";
   default[:radioedit][:module] = "wsgi"
   default[:radioedit][:app_name] = "radioedit-core"
   default[:radioedit][:repo] = "git@github.ihrint.com:radioedit/core.git"
@@ -271,7 +271,7 @@ else
   default[:radioedit][:port] = "/var/tmp/radioedit-cms.sock"
   default[:radioedit][:listen] = "/var/tmp/radioedit-cms.sock"
   default[:radioedit][:host] = "unix"
-  default[:radioedit][:utildir] = "#{default[:radioedit][:dev][:path]}/util"
+  default[:radioedit][:utildir] = "#{default[:radioedit][:path]}/util"
   default[:radioedit][:asset_dir] = "/data/binstore"
   default[:radioedit][:cdn_url] = "http://10.5.1.29/"
   default[:radioedit][:elastic_clustername] = "radioedit-dev";
