@@ -10,6 +10,11 @@ env_run_lists(
               "ec2" => all_env
               )
 default_attributes({
-                   })
+	'nagios' => {
+		'nrpe' => {
+			'command_timeout' => "1800"
+			}
+		}
+                   }) 
 override_attributes({
                     })
