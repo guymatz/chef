@@ -270,8 +270,7 @@ else
   default[:radioedit][:repo] = "git@github.ihrint.com:radioedit/core.git"
   default[:radioedit][:varnish_backend_port] = "8080"
   default[:radioedit][:varnish_backend_ip] = "127.0.0.1"
-  default[:radioedit][:branch] = "release"
-  default[:radioedit][:intbranch] = "testing"
+  default[:radioedit][:branch] = "testing"
   default[:radioedit][:env] = "ihr_testing"
   default[:radioedit][:num_workers] = 5
   default[:radioedit][:log_level] = "DEBUG"
