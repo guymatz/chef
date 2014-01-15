@@ -1,6 +1,7 @@
 name "mongodb_backups"
 description "mongodb_backups"
 all_env = [
+	"recipe[mongodb::backup]"
 	  ]
 run_list(all_env)
 env_run_lists(
