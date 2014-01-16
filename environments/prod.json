@@ -132,7 +132,7 @@
     "python": "= 1.1.0",
     "quickio": "= 0.1.0",
     "rabbitmq": "= 1.6.5",
-    "radioedit": "= 0.1.0",
+    "radioedit": "= 0.1.1",
     "rbac": "= 0.0.3",
     "resolver": "= 1.1.0",
     "resource-control": "= 0.0.1",

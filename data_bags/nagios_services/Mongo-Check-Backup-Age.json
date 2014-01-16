@@ -1,0 +1,10 @@
+{
+  "id": "Mongo-Check-Backup-Age",
+  "hostgroup_name": "mongodb_backups",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c mongo_check_backup_age -t 20",
+  "contact_groups": ["dba"],
+  "check_interval": "21600",
+  "retry_interval" : "7200",
+  "notification_interval" : "0",
+  "max_check_attempts" : "3"
+}
