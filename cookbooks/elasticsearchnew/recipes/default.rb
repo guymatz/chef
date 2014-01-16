@@ -41,7 +41,7 @@ unless tagged?('elasticsearchnew-deployed')
     owner node[:elasticsearchnew][:user]
     group node[:elasticsearchnew][:group]
   end
-  
+
   template "/etc/init.d/elasticsearch" do
     source "elasticsearch.init.erb"
     owner "root"
