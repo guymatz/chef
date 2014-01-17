@@ -1,5 +1,5 @@
 {
-  "hostgroup_name": "dell",
+  "hostgroup_name": "dell-physicals",
   "id": "Dell-Performance-Profile",
   "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Dell-Performance-Profile -t 30"
 }

@@ -1,5 +1,5 @@
 {
     "id": "dell-physicals",
     "hostgroup_name": "dell-physicals",
-    "search_query": "vendor:DELL AND recipes:monitoring"
+    "search_query": "vendor:DELL AND recipes:monitoring AND NOT name:iad-backup101.ihr"
 }
