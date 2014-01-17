@@ -115,7 +115,7 @@ begin
     end
 
     cron_d "fix_perms" do
-        command "find #{node[:encoders][:encoder_mount]} -type d \\( -name temp-encoder-dir -o -name tmp-ingestion \\) -prune -o -name '*jpg' -and -not -perm -o=r -ls | mail -s'perm changes on #{node[:fqdn]}' ccd-sa@clearchannel.com"
+        command "find #{node[:encoders][:encoder_mount]} -type d \\( -name peak -o -name balanaced -o -name ddex -o -name temp-encoder-dir -o -name tmp-ingestion \\) -prune -o -name '*jpg' -and -not -perm -o=r -ls | mail -s'perm changes on #{node[:fqdn]}' ccd-sa@clearchannel.com"
         minute  "0"
         hour    "*/2"
         day     "*"
