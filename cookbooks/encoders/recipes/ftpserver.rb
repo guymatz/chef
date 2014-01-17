@@ -114,6 +114,17 @@ begin
         user "root"
     end
 
+    cron_d "fix_perms" do
+        command "find #{node[:encoders][:encoder_mount]} -type d \( -name temp-encoder-dir -o -name tmp-ingestion \) -prune -o -name '*jpg' -and -not -perm -o=r -ls | mail -s'perm changs on #{node[:fqdn]}' ccd-sa@clearchannel.com"
+        minute  "0"
+        hour    "*/2"
+        day     "*"
+        month   "*"
+        weekday "*"
+        user "root"
+    end
+
+
     tag("encoder-ftp-deployed")
     end
     nagios_nrpecheck "check_newest_file_age" do
