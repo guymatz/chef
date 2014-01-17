@@ -58,7 +58,6 @@ unless tagged?('elasticsearchnew-deployed')
   
   service "elasticsearch" do
     supports :start => true, :stop =>true, :restart => true
-    action :enable
   end
   
   cluster_members = search(:node, "cluster_name:#{node[:elasticsearchnew][:cluster_name]}")
