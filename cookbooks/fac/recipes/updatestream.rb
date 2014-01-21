@@ -8,6 +8,7 @@
 #
 
 include_recipe "elasticsearch::users"
+include_recipe "users::deployer"
 app = "updatestream"
 script_dir = "#{node[:fac][:script_path]}/#{app}"
 
@@ -17,32 +18,6 @@ end
 
 directory "#{script_dir}" do
   recursive true
-end
-
-# drop a github private deploy key for amp-tools
-deploy_keys = Chef::EncryptedDataBagItem.load("keys", "amp-tools")
-
-directory "/root/.ssh" do
-  mode "0700"
-end
-
-file "/root/.ssh/deploy" do
-  owner "root"
-  group "root"
-  mode "0400"
-  content deploy_keys['private_key']
-  :create_if_missing
-end
-
-file "/root/.ssh/config" do
-  owner "root"
-  group "root"
-  mode "0755"
-  content <<-EOH
-  Host *github.com
-    IdentityFile "/root/.ssh/deploy"
-    StrictHostKeyChecking no
-EOH
 end
 
 git "#{script_dir}" do
