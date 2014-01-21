@@ -62,6 +62,8 @@
     RewriteRule ^/signup/?$             /account/signup/ [QSA,R=301,L]
     RewriteRule ^/(festival|vegas)/?$   http://festival.iheart.com [QSA,R=301,L]
 
+    # Proxy flash files from static to avoid crossdomain.xml
+    ProxyPass /flash http://securestatic.iheart.com/web/flash
     <Location />
            Order Deny,Allow
            Allow from all
