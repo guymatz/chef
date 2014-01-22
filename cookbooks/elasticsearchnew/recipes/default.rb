@@ -27,7 +27,11 @@ unless tagged?('elasticsearchnew-deployed')
   end
   
   execute "Untar-ihr-search-configs" do
-    command "tar zxf #{pkg} -C #{node[:elasticsearchnew][:ihrsearch_path]}/configs"
+    unless Dir.exist? "#{node[:elasticsearchnew][:ihrsearch_path]}/configs.bak"
+      command "tar zxf #{pkg} -C #{node[:elasticsearchnew][:ihrsearch_path]}/configs"
+    else
+      command "rm -rf #{node[:elasticsearchnew][:ihrsearch_path]}/configs.bak; mv #{node[:elasticsearchnew][:ihrsearch_path]}/configs #{node[:elasticsearchnew][:ihrsearch_path]}/configs.bak; mkdir #{node[:elasticsearchnew][:ihrsearch_path]}/configs; tar zxf #{pkg} -C #{node[:elasticsearchnew][:ihrsearch_path]}/configs"
+    end  
     cwd Chef::Config[:file_cache_path]
     action :nothing
     notifies :run, resources(:execute => "chown-ihr-search-configs"), :immediately
@@ -54,6 +58,11 @@ unless tagged?('elasticsearchnew-deployed')
     group "root"
     mode "0755"
     notifies :restart, "service[elasticsearch]"
+  end
+
+  bash "install-elasticsearch-service" do
+    code "chkconfig --add elasticsearch"
+    not_if "chkconfig --list | egrep '^elasticsearch'"
   end
   
   service "elasticsearch" do
