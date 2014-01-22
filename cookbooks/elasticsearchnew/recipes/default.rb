@@ -42,7 +42,7 @@ unless tagged?('elasticsearchnew-deployed')
     group node[:elasticsearchnew][:group]
   end
 
-  remote_file "#{node[:elasticsearchnew][:input_path]]}/t3/zip_to_market.csv" do
+  remote_file "#{node[:elasticsearchnew][:input_path]}/t3/zip_to_market.csv" do
     source "#{node[:elasticsearchnew][:url]}/zip_to_market.csv"
     owner node[:elasticsearchnew][:user]
     group node[:elasticsearchnew][:group]
