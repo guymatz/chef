@@ -14,7 +14,7 @@
 
 RETVAL=0
 prog="ingestion"
-INGESTION=/opt/telecom/jboss/bin/ingestion.sh
+INGESTION="/opt/telecom/jboss/bin/ingestion.sh -c $prog"
 PID_FILE=/var/run/ingestion.pid
 
 start()
