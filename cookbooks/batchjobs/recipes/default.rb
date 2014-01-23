@@ -48,7 +48,7 @@ begin
 
     batchjobs_databag = Chef::EncryptedDataBagItem.load("secrets", "batchjobs")
     batchjobs_rsa_key = batchjobs_databag["batchjobs_rsa_private"]
-    file "/home/batchjobs/.ssh/id_rsa" do
+    file "/home/batchjobs/.ssh/qaiheart_rsa" do
       owner "batchjobs"
       group "batchjobs"
       mode  "0600"
