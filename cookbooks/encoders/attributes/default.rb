@@ -213,11 +213,20 @@ default[:encftp][:incrond][:github_url] =  "git@github.ihrint.com:Ingestion/talk
 default[:encoder][:filemonitor][:monitor_script] = "/data/apps/filemonitor/bin/fileMonitorService.sh"
 
 # permanent isilon mounts
-default[:encoders][:isilon_server] = "10.5.32.164"
-default[:encoders][:p_ftp_export] = "/ifs/inbound-ftp"
-default[:encoders][:p_ftp_mount] = "/data/inbound-ftp"
-default[:encoders][:p_encoder_export] = "/ifs/encoder"
-default[:encoders][:p_encoder_mount] = "/data/isi-encoder"
+case chef_environment
+when /^stage/
+  default[:encoders][:isilon_server] = "iad-stg-nfs101-v700.ihr"
+  default[:encoders][:p_ftp_export] = "/data/export/inbound-ftp"
+  default[:encoders][:p_ftp_mount] = "/data/inbound-ftp"
+  default[:encoders][:p_encoder_export] = "/data/export/encoder"
+  default[:encoders][:p_encoder_mount] = "/data/encoder"
+else
+  default[:encoders][:isilon_server] = "10.5.32.164"
+  default[:encoders][:p_ftp_export] = "/ifs/inbound-ftp"
+  default[:encoders][:p_ftp_mount] = "/data/inbound-ftp"
+  default[:encoders][:p_encoder_export] = "/ifs/encoder"
+  default[:encoders][:p_encoder_mount] = "/data/isi-encoder"
+end
 
 # stage nfs mounts
 default[:encoders][:stage_server] = "iad-stg-nfs101-v700.ihr"
