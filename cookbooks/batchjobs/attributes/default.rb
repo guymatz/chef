@@ -1,4 +1,4 @@
-default[:batchjobs][:packages] = %w{ pymongo pyodbc amqp freetds python-suds }
+default[:batchjobs][:packages] = %w{ pymongo pyodbc amqp freetds python-suds python-psycopg2 }
 default[:batchjobs][:pip_packages] = { "sqlcmd" => "0.7.1" }
 default[:batchjobs][:repo] = "git@github.ihrint.com:Ingestion/BatchJobs.git"
 default[:batchjobs][:rev] = "971b7a0976a6a8f281ef1de79b5966711027ba77"

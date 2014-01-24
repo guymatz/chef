@@ -1,0 +1,12 @@
+{
+    "id": "mwalden",
+    "uid": 5040,
+    "name": "Marcel Walden",
+    "email": "marcelwalden@clearchannel.com",
+    "groups": ["dev", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch", "all_alerts", "imgsca"],
+    "nagios": {
+        "email": "marcelwalden@clearchannel.com"
+    },
+    "htpasswd": "{SHA}LOCKED",
+    "ssh_keys": ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0S9zAVRw4VNGqJcMqz4X+E9BMdKr4mR+OomOFjHk8V0e3UN1VZojGOBHYxqPBK+4Pvbyzk3m/oMeLpmyIC85Hkpe79O7TqiCD6crLjofZjGyoL26GUJUixg3AEx1L1jM50IvVHIAmIDxyP8ecu6KVTL+Zql+o30uJA3ipVOWwoRFrESKwTAQNq+EiWpYgeSVR64rBvtU+bNqmY92KjCS4JgYxx2GQTuvh7wtqWDhjjZzwh/WS9uY7RI5yfF0W7d4maB+o4uhrL+iEy5+hA7/EraBjorC/J0Ilujsqy34HI/RFivEKpFI8e8vK46Qq4Fu+Qg9Hq87SmjnF3IOm2Le/ mwalden@cccnyc01mhw.sompa.iheart.com" ]
+}
