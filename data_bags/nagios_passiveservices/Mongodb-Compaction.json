@@ -1,6 +1,0 @@
-{
-  "hostgroup_name": "mongodb_backups",
-  "id": "Mongodb-Compaction",
-  "freshness_threshold": "10368000",
-  "contact_groups": ["dba"]
-}
