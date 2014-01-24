@@ -340,7 +340,7 @@ discovery.zen.ping.unicast.hosts: <%= @cluster_ips %>
 # Shard level query and fetch threshold logging.
 
 <% node[:elasticsearchnew][:slowlog_settings].each do |setting, value| %>
-  <%= setting %>:<%= value %>
+<%= setting %>: <%= value %>
 <% end %>
 
 ################################## GC Logging ################################
