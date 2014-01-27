@@ -14,7 +14,7 @@ else:
     print "argv = %s" % len(sys.argv)
 
 # we may need have chef plug in all the nagios servers and send them all this update
-nagios_server="nagios-iad.ihrdev.com"
+nagios_server="iad-stg-nagios101.ihr"
 send_nsca='/usr/lib/nagios/plugins/send_nsca'
 nsca_conf='/etc/nagios/send_nsca.conf'
 check_host = sys.argv[1]
