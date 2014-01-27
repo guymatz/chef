@@ -10,5 +10,4 @@
  yum_package 'libwebp' do
   action [ :install, :upgrade ]
   arch 'x86_64'
-  version "0.4.0"
 end
