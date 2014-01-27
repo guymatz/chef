@@ -43,3 +43,6 @@
 [submodule "cookbooks/zookeeper"]
 	path = cookbooks/zookeeper
 	url = git@github.com:iheartradio/chef-zookeeper.git
+[submodule "cookbooks/application_nodejs"]
+	path = cookbooks/application_nodejs
+	url = git@github.com:iheartradio/application_nodejs.git
