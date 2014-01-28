@@ -1,7 +1,0 @@
-{
-  "host_name": "iad-auth101-v260.ihr",
-  "id": "AUTHDB_Backup_Size",
-  "freshness_threshold": "259200",
-  "max_check_attempts": "1",
-  "contact_groups": ["dba-team"]
-}
