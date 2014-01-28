@@ -85,7 +85,7 @@ end
 
 log "Deploying #{node[:radioedit][:branch]}"
 
-unless tagged?("radioedit-deployed" && node.chef_environment == "prod")
+unless tagged?("radioedit-deployed") && node.chef_environment == "prod"
   application "radioedit-core" do
     repository node[:radioedit][:repo]
     revision node[:radioedit][:branch]
