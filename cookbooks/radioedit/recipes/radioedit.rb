@@ -135,20 +135,15 @@ template "/etc/nginx/conf.d/radioedit.conf" do
 end
 
 logrotate_app "varnish" do
-  cookbook logrotate
+  cookbook "logrotate"
   path "/var/log/varnish/varnish.log"
-  options ["missingok", "delaycompress", "compress", "notifempty", "sharedscript
-s"]
+  options ["missingok", "compress", "notifempty", "sharedscripts","dateext"]
   frequency "daily"
   enable true
   rotate 5
   size "2G"
-  postrotate [
-    "/bin/kill -HUP `cat /var/run/varnishlog.pid 2>/dev/null` 2> /dev/null || tr
-ue",
-    "/bin/kill -HUP `cat /var/run/varnishncsa.pid 2>/dev/null` 2> /dev/null || t
-rue"
-  ]
+  postrotate '    /bin/kill -HUP `cat /var/run/varnishlog.pid 2>/dev/null` 2> /dev/null || true
+    /bin/kill -HUP `cat /var/run/varnishncsa.pid 2>/dev/null` 2> /dev/null || true'
 end
 #  size (1024**2)*2 # 2MB
 #  #  postrotate "find #{node[:apache][:log_dir]} -name '*.gz*' -exec rm -rf {} \\;
