@@ -31,7 +31,7 @@ begin
     git "#{node[:batchjobs][:deploy_path]}" do
       repository node[:batchjobs][:repo]
       revision node[:batchjobs][:rev]
-      action :checkout
+      action :sync
       notifies :run, 'bash[batchjob_perms]', :delayed
     end
 
@@ -55,7 +55,9 @@ begin
       content batchjobs_rsa_key
       action :create_if_missing
     end
-    tag("batchjobs-deployed")
+    unless /development/ =~ node.chef_environment
+      tag("batchjobs-deployed")
+    end
   end
 rescue
   untag("batchjobs-deployed")
