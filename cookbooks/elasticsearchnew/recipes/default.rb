@@ -32,7 +32,7 @@ unless tagged?('elasticsearchnew-deployed')
   end
   
   execute "Untar-ihr-search-configs" do
-    command "echo \"HELLLOOOOOOOOO\"; rm -rf #{node[:elasticsearchnew][:ihrsearch_path]}/configs.bak; mv #{node[:elasticsearchnew][:ihrsearch_path]}/configs #{node[:elasticsearchnew][:ihrsearch_path]}/configs.bak; mkdir #{node[:elasticsearchnew][:ihrsearch_path]}/configs; tar zxf #{pkg} -C #{node[:elasticsearchnew][:ihrsearch_path]}/configs"
+    command "rm -rf #{node[:elasticsearchnew][:ihrsearch_path]}/configs.bak; mv #{node[:elasticsearchnew][:ihrsearch_path]}/configs #{node[:elasticsearchnew][:ihrsearch_path]}/configs.bak; mkdir #{node[:elasticsearchnew][:ihrsearch_path]}/configs; tar zxf #{pkg} -C #{node[:elasticsearchnew][:ihrsearch_path]}/configs"
     cwd Chef::Config[:file_cache_path]
     action :nothing
     notifies :run, resources(:execute => "chown-ihr-search-configs"), :immediately
