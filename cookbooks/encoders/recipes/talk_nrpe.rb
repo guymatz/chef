@@ -1,4 +1,5 @@
-sudo "nagios" do
+sudo "nagios-talk-nrpe" do
+  user "nagios"
   group "nagios"
   commands ["/usr/local/bin/jruby"]
   runas "root"

@@ -14,7 +14,7 @@ cron_d "backup-elasticsearch" do
   user "ihr-admin"
 end
 
-nfs_server = search(:node, "recipe:disaster_recovery\\:\\:nfs AND chef_environment:#{node.chef_environment}")[0]
+nfs_server = search(:node, "role:disaster_recovery AND chef_environment:#{node.chef_environment}")[0]
 
 directory "/data/nfs/dr_backups" do
   recursive true
@@ -29,7 +29,7 @@ mount "/data/nfs/dr_backups" do
 end
 
 cron_d "Move_backup_to_NFS_DR" do
-  command "/usr/bin/rsync --bwlimit=500 --delete #{node[:elasticsearchnew][:ihrsearch_path]}/data /data/nfs/dr_backups/elasticsearch/#{node[:hostname]}"
+  command "/usr/bin/rsync -r --bwlimit=500 --delete #{node[:elasticsearchnew][:ihrsearch_path]}/data /data/nfs/dr_backups/elasticsearch/#{node[:hostname]}"
   minute  "0"
   hour    "0"
   month   "*"

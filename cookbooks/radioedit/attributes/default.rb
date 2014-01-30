@@ -107,7 +107,8 @@ default[:radioedit][:dev][:packages] = %w{
   patch 
   libjpeg-devel
   nginx
-  rsyslog
+  rsyslog 
+  libxslt-devel
 }
 default[:radioedit][:dev][:pips] = %w{ 
   supervisor 
@@ -128,7 +129,6 @@ default[:radioedit][:dev][:pips] = %w{
   jsonschema 
   mock 
   pql 
-  pylibmc 
   pyparsing 
   python-dateutil 
   python-ldap 
@@ -136,6 +136,7 @@ default[:radioedit][:dev][:pips] = %w{
   simplejson 
   raven 
   pytest 
+  lxml
 }
 # ################################################################
 # END Development Environment settings.
@@ -208,7 +209,8 @@ default[:radioedit][:staging][:packages] = %w{
   patch 
   libjpeg-devel
   nginx
-  rsyslog
+  rsyslog 
+  libxslt-devel
 }
 default[:radioedit][:staging][:pips] = %w{ 
   supervisor 
@@ -229,7 +231,6 @@ default[:radioedit][:staging][:pips] = %w{
   jsonschema 
   mock 
   pql 
-  pylibmc 
   pyparsing 
   python-dateutil 
   python-ldap 
@@ -237,6 +238,7 @@ default[:radioedit][:staging][:pips] = %w{
   simplejson 
   raven 
   pytest 
+  lxml
 }
 # ################################################################
 # End of staging env
@@ -246,7 +248,7 @@ default[:radioedit][:staging][:pips] = %w{
 # PRODUCTION SETTINGS!!!!!
 # ################################################################
 default[:radioedit][:production][:repo] = "git@github.ihrint.com:radioedit/core.git";
-default[:radioedit][:production][:branch] = "fox.1";
+default[:radioedit][:production][:branch] = "ganon.2";
 default[:radioedit][:production][:env] = "ihr_testing";
 default[:radioedit][:production][:app_user] = "ihr-deployer";
 default[:radioedit][:production][:path] = "/data/apps/radioedit";
@@ -265,7 +267,7 @@ default[:radioedit][:production][:host] = "unix";
 default[:radioedit][:production][:utildir] = "#{default[:radioedit][:production][:path]}/util";
 default[:radioedit][:production][:staticdir] = "#{default[:radioedit][:production][:path]}/static";
 default[:radioedit][:production][:asset_dir] = "/data/binstore/assets";
-default[:radioedit][:production][:cdn_url] = "http://images.iheart.com/";
+default[:radioedit][:production][:cdn_url] = "http://imgproxy.iheart.com/";
 default[:radioedit][:production][:mongo_cstring] = "mongodb://iad-mongo-shared101.ihr:37017,iad-mongo-shared102.ihr:37017,iad-mongo-shared103.ihr:37017/radioedit?replicaSet=Mongo-shared1";
 default[:radioedit][:production][:nfs_server] = "10.5.40.121";
 default[:radioedit][:production][:nfs_remdir] = "/data/imgscaler/radioedit";
@@ -314,7 +316,8 @@ default[:radioedit][:production][:packages] = %w{
   patch 
   libjpeg-devel
   nginx
-  rsyslog
+  rsyslog 
+  libxslt-devel
 };
 default[:radioedit][:production][:pips] = %w{ 
   supervisor 
@@ -335,7 +338,6 @@ default[:radioedit][:production][:pips] = %w{
   jsonschema 
   mock 
   pql 
-  pylibmc 
   pyparsing 
   python-dateutil 
   python-ldap 
@@ -343,6 +345,7 @@ default[:radioedit][:production][:pips] = %w{
   simplejson 
   raven 
   pytest 
+  lxml 
 };
 # ################################################################
 # END PRODUCTION SETTINGS

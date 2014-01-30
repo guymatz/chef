@@ -4,5 +4,6 @@ run_list(
          "recipe[nagios]",
          "recipe[diamond]",
          "recipe[monitoring]",
+         "recipe[nagios-api::client]",
          "recipe[snmp]"
 )

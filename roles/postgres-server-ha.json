@@ -1,9 +1,6 @@
 {
   "name": "postgres-server-ha",
   "default_attributes": {
-    "nagios": {
-      "server-type": "dba-server"
-    }
   },
   "json_class": "Chef::Role",
   "env_run_lists": {

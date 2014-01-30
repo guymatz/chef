@@ -31,7 +31,7 @@ Group                     vftp
 # Use pam to authenticate (default) and be authoritative
 #AuthPAMConfig                  proftpd
 #AuthOrder                      mod_auth_pam.c* mod_auth_unix.c
-AuthPAMConfig                  proftpd
+#AuthPAMConfig                  proftpd
 AuthOrder                      mod_auth_file.c
 # If you use NIS/YP/LDAP you may need to disable PersistentPasswd
 #PersistentPasswd               off
@@ -46,6 +46,7 @@ UseReverseDNS                   off
 # that allows you to limit maximum number of processes per service
 # (such as xinetd)
 MaxInstances                    200
+MaxClientsPerUser               5
 
 # Disable sendfile by default since it breaks displaying the download speeds in
 # ftptop and ftpwho
@@ -173,7 +174,7 @@ SFTPLog /var/log/proftpd/SFTP.log
 # Use the /etc/hosts.allow and /etc/hosts.deny files, or other allow/deny
 # files, as well as SQL-based access rules, for IP-based access control
 # (http://www.proftpd.org/docs/contrib/mod_wrap2.html)
-   LoadModule mod_wrap2.c
+#   LoadModule mod_wrap2.c
 #
 # Support module for mod_wrap2 that handles access rules stored in specially
 # formatted files on disk
@@ -233,7 +234,7 @@ SFTPLog /var/log/proftpd/SFTP.log
   # from being group and world writable
   # Except that we need the dirs group-writable so that admins can do their
   # work
-  Umask                         002
+  Umask                         000
 
   # Allow users to overwrite files and change permissions
   AllowOverwrite                yes
@@ -366,6 +367,9 @@ DirFakeGroup              on ftpusers
   SFTPLog               /var/log/proftpd/SFTP.log
   # Enable compression
   SFTPCompression delayed
+
+  # Ignore file/directory permission setting requests
+  SFTPOptions IgnoreSFTPUploadPerms IgnoreSCPUploadPerms
 
   # Allow the same number of authentication attempts as OpenSSH.
   #

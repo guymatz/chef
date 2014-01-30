@@ -26,7 +26,7 @@ end
 
 nagios_nrpecheck "Check_CBM_radio-sessions" do
   command "#{node['nagios']['plugin_dir']}/check_couchbase.py"
-  parameters '-u Administrator -p Thumbplay1 -I localhost -P 8091 -b custom-radio-sessions --memory-used -W 18874368000 -C 19922944000'
+  parameters '-u Administrator -p Thumbplay1 -I localhost -P 8091 -b custom-radio-sessions --memory-used -W 47244640256 -C 51539607552'
   action :add
 end
 
@@ -38,6 +38,6 @@ end
 
 nagios_nrpecheck "Check_CBM_sessions" do
   command "#{node['nagios']['plugin_dir']}/check_couchbase.py"
-  parameters '-u Administrator -p Thumbplay1 -I localhost -P 8091 -b sessions --memory-used -W 11596411699 -C 12240656793'
+  parameters '-u Administrator -p Thumbplay1 -I localhost -P 8091 -b sessions --memory-used -W 17179869184 -C 19327352832'
   action :add
 end

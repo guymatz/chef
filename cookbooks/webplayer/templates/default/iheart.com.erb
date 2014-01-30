@@ -62,6 +62,16 @@
     RewriteRule ^/signup/?$             /account/signup/ [QSA,R=301,L]
     RewriteRule ^/(festival|vegas)/?$   http://festival.iheart.com [QSA,R=301,L]
 
+    # Proxy flash files from static to avoid crossdomain.xml
+    # Set far-expiry times for flash assets
+    <LocationMatch "^/flash/">
+          FileETag None
+          ExpiresDefault "access plus 1 year"
+          # Akamai headers
+          Header set Edge-Control "!no-store, max-age=31536000s"
+          Header set X-IHR-Edge-Control "!no-store, max-age=31536000s"
+    </LocationMatch>
+    ProxyPass /flash http://securestatic.iheart.com/web/flash
     <Location />
            Order Deny,Allow
            Allow from all

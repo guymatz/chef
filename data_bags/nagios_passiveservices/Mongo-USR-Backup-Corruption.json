@@ -1,7 +1,0 @@
-{
-  "host_name": "iad-mongo-restore101",
-  "id": "Mongo_USR_Backup_Corruption",
-  "freshness_threshold": "259200",
-  "max_check_attempts": "1",
-  "contact_groups": ["dba-team"]
-}

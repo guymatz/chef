@@ -1,0 +1,25 @@
+backend default {
+  .host = "<%= @host %>";
+  .port = "<%= @port %>";
+}
+
+sub vcl_recv {
+    if (req.http.X-LocalTime && !req.http.X-Localtime-Cache) {
+        #OPS-5910 -- Create truncated version of header from client.
+        set req.http.X-Localtime-Cache = regsub(req.http.X-Localtime, "(\d{4}\-\d{2}\-\d{2} \d{2}):\d{2}:\d{2}", "\1");
+    }
+}
+
+sub vcl_hash {
+    #Generate a hash based on X-Localtime-Cache if it's set.
+    hash_data(req.url);
+    if (req.http.host) {
+        hash_data(req.http.host);
+    } else {
+        hash_data(server.ip);
+    }
+    if (req.http.X-Localtime-Cache) {
+        hash_data(req.http.X-Localtime-Cache);
+    }
+    return (hash);
+}

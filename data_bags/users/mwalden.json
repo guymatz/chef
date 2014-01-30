@@ -3,7 +3,7 @@
     "uid": 5040,
     "name": "Marcel Walden",
     "email": "marcelwalden@clearchannel.com",
-    "groups": [ "amp" ],
+    "groups": ["dev", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch", "all_alerts", "imgsca"],
     "nagios": {
         "email": "marcelwalden@clearchannel.com"
     },

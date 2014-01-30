@@ -18,9 +18,6 @@ env_run_lists(
 default_attributes({
                     "mongodb" => {
                     },
-                    "nagios" => {
-                      "server-type" => "dba-server"
-                    },
                     "diamond" => {
                       "collectors" => {
                         "MongoDBCollector" => {

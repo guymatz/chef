@@ -74,3 +74,15 @@ begin
 rescue
   untag("music-manager")
 end
+
+cookbook_file "/etc/init.d/ingestion" do
+  source "ingestion"
+  owner "root"
+  group "root"
+  mode 0755
+end
+
+service "ingestion" do
+  supports [:start, :stop, :status]
+  action :enable
+end

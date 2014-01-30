@@ -9,7 +9,8 @@
   "chef_type": "role",
   "run_list": [
     "recipe[imgscaler]",
-    "recipe[imgscaler::nrpe]"
+    "recipe[imgscaler::nrpe]",
+    "recipe[users::imgsca]"
   ],
   "env_run_lists": {
   }
