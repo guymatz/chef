@@ -133,3 +133,18 @@ template "/etc/nginx/conf.d/radioedit.conf" do
   mode 0666 
   notifies :reload, "service[nginx]", :immediately 
 end
+
+logrotate_app "varnish" do
+  cookbook "logrotate"
+  path "/var/log/varnish/varnish.log"
+  options ["missingok", "compress", "notifempty", "sharedscripts","dateext"]
+  frequency "daily"
+  enable true
+  rotate 5
+  size "2G"
+  postrotate '    /bin/kill -HUP `cat /var/run/varnishlog.pid 2>/dev/null` 2> /dev/null || true
+    /bin/kill -HUP `cat /var/run/varnishncsa.pid 2>/dev/null` 2> /dev/null || true'
+end
+#  size (1024**2)*2 # 2MB
+#  #  postrotate "find #{node[:apache][:log_dir]} -name '*.gz*' -exec rm -rf {} \\;
+#  "
