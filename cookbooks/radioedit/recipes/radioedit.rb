@@ -20,12 +20,20 @@ node[:radioedit][:packages].each do |p|
   yum_package p
 end
 
-%w{ nginx varnish varnishlog }.each do |serv|
+%w{ nginx varnish }.each do |serv|
   service serv do
     supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
     action [ :enable, :start ]
   end
 end
+
+%w{ varnishlog }.each do |serv|
+  service serv do
+    supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
+    action [ :disable, :stop ]
+  end
+end
+
 
 template "#{node[:radioedit][:path]}/shared/settings.json" do
   source "settings.json.erb"
