@@ -134,6 +134,14 @@ template "/etc/varnish/default.vcl" do
   notifies :reload, "service[varnish]", :immediately
 end
 
+template "/etc/sysconfig/varnish" do
+  source "varnish_sysconfig"
+  owner "root"
+  group "root"
+  mode 0644 
+  notifies :reload, "service[varnish]", :immediately 
+end
+
 template "/etc/nginx/conf.d/radioedit.conf" do 
   source "nginx.refactor.conf.erb" 
   owner "root" 
