@@ -8,8 +8,10 @@
 #
 
 # Encoder needs ruby to ruby.
-package "ruby" do
-  action :install
+%w{ ruby rubygems }.each do |pkg|
+  package pkg do
+    action :install
+  end
 end
 
 begin 
