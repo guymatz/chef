@@ -8,7 +8,7 @@
 #
 app = "sherpa"
 jar_file = "FAC-#{app}-#{node[:fac][app][:version]}.jar"
-download_url = "#{node[:fac][:url]}/FAC-#{app}/#{node[:fac][:app][:version]}/#{jar_file}"
+download_url = "#{node[:fac][:url]}/FAC-#{app}/#{node[:fac][app][:version]}/#{jar_file}"
 script_dir = "#{node[:fac][:script_path]}/#{app}"
 start_script = "fac-#{app}-runner.sh"
 
