@@ -7,6 +7,11 @@
 # All rights reserved - Do Not Redistribute
 #
 
+# Encoder needs ruby to ruby.
+package "ruby" do
+  action :install
+end
+
 begin 
   unless tagged?("encoder-code-deployed")
 
