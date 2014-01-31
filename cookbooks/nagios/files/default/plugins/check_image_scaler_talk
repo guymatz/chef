@@ -1,40 +1,46 @@
 #!/bin/bash
 
+# This check verofies that an image pulled from talk servers
+# is a specified size, +/- 50 bytes
 RET_OK=0
 RET_WARN=1
 RET_ERROR=2
 
-# We know what the MD% of the image is going to be
-EXPECTED_MD5='ddadf0c8052cb0dc6379dd02e078f1b7'
-TOTAL_FAILURES=0
+# We know what the size the image is going to be
+EXPECTED_SIZE='16794'
+# As well as a possible variance in size
+POSSIBLE_VARIANCE='50'
 
+HIGH_SIDE=$((EXPECTED_SIZE + $POSSIBLE_VARIANCE))
+LOW_SIDE=$((EXPECTED_SIZE - $POSSIBLE_VARIANCE))
+
+# For output
+TOTAL_FAILURES=0
 WARNING_FAILURES=0
 CRITICAL_FAILURES=3
+ERROR_SERVERS=""
 
-# These are the image scaler servers . ..   if the image is not correct
-# we may need to restart the image scaler
-URLS="\
-http://iad-imgsca101-v200.ihr:8080/sca/imscale?id=6&type=theme&w=222&h=223 \
-http://iad-imgsca102-v200.ihr:8080/sca/imscale?id=6&type=theme&w=222&h=223 \
-http://iad-imgsca103-v200.ihr:8080/sca/imscale?id=6&type=theme&w=222&h=223 \
-http://iad-imgsca104-v200.ihr:8080/sca/imscale?id=6&type=theme&w=222&h=223 \
-http://iad-imgsca105-v200.ihr:8080/sca/imscale?id=6&type=theme&w=222&h=223 \
-http://iad-imgsca106-v200.ihr:8080/sca/imscale?id=6&type=theme&w=222&h=223
-"
+# PATH To the expected image on the server in the loop below
+IMAGE_PATH="sca/imscale?id=6&type=theme&w=222&h=223"
 
-# Should i change this to use {1..6} instead of the list above . . ?  Nah.
-for image in $URLS; do
-  md5_for_this_image=$(curl -s $image | md5sum -b | awk '{print $1}')
-  if [[ $md5_for_this_image != $EXPECTED_MD5 ]]; then
+# Loop through servers, checking size of returned image
+for server in {101..106}; do
+  image_loc="http://iad-imgsca${server}-v200.ihr:8080/${IMAGE_PATH}"
+  # -I gets us HTTP Headers
+  image_size=$(curl -s $image_loc -I 2> /dev/null | grep "Content-Length" |\
+                        awk '{print $2}' | tr -d '\n\r'
+              )
+  if [ $image_size -lt $LOW_SIDE ] || [ $image_size -gt $HIGH_SIDE ]; then
     TOTAL_FAILURES=$((TOTAL_FAILURES + 1))
+    ERROR_SERVERS="${ERROR_SERVERS} $server"
   fi
 done
 
 if [[ $TOTAL_FAILURES -ge $CRITICAL_FAILURES ]]; then
-  echo "Error: $TOTAL_FAILURES image failures"
+  echo "Error: $TOTAL_FAILURES image failures on $ERROR_SERVERS"
   exit $RET_ERROR
 elif [[ $TOTAL_FAILURES -gt $WARNING_FAILURES ]]; then
-  echo "Warning: $TOTAL_FAILURES image failures"
+  echo "Warning: $TOTAL_FAILURES image failures on $ERROR_SERVERS"
   exit $RET_WARN
 else
   echo "OK: $TOTAL_FAILURES image failures"
