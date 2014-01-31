@@ -7,6 +7,7 @@ default[:fac][:radiobuild][:version] = "1.0.12"
 default[:fac][:radiobuild2][:version] = "1.0.21"
 default[:fac][:recommendations][:version] = "3.4.64"
 
+default[:fac][:es_vip] = "iad-search-vip-v200.ihr:9200"
 default[:fac][:script_path] = "/data/jobs/fac"
 default[:fac][:url] = "http://archiva.ihrdev.com:8080/archiva/repository/internal/com/ccrd/fac"
 default[:fac][:files_url] = "http://files.ihrdev.com/fac"
