@@ -30,7 +30,7 @@ unless tagged?('elasticsearchnew-deployed')
     command "chown -R #{node[:elasticsearchnew][:user]}.#{node[:elasticsearchnew][:group]} #{node[:elasticsearchnew][:ihrsearch_path]}"
     action :nothing
   end
-  
+
   execute "Untar-ihr-search-configs" do
     command "rm -rf #{node[:elasticsearchnew][:ihrsearch_path]}/configs.bak; mv #{node[:elasticsearchnew][:ihrsearch_path]}/configs #{node[:elasticsearchnew][:ihrsearch_path]}/configs.bak; mkdir #{node[:elasticsearchnew][:ihrsearch_path]}/configs; tar zxf #{pkg} -C #{node[:elasticsearchnew][:ihrsearch_path]}/configs"
     cwd Chef::Config[:file_cache_path]
@@ -41,7 +41,7 @@ unless tagged?('elasticsearchnew-deployed')
   end
   
   remote_file "#{Chef::Config[:file_cache_path]}/#{pkg}" do
-    source "#{node[:elasticsearchnew][:url]}/#{node[:chef_environment]}/es-configs/#{pkg}"
+    source "#{node[:elasticsearchnew][:url]}/#{node.chef_environment}/es-configs/#{pkg}"
     notifies :run, resources(:execute => "Untar-ihr-search-configs"), :immediately
     owner node[:elasticsearchnew][:user]
     group node[:elasticsearchnew][:group]
