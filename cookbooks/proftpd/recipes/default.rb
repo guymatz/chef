@@ -34,6 +34,10 @@ else
   end
 end
 
+service "proftpd" do
+  action [ :enable, :start ]
+end
+
 if node[:proftpd][:modules].include?('ldap')
   package "proftpd-mod-ldap" do
     action :upgrade
@@ -59,12 +63,14 @@ directory "#{node[:proftpd][:dir]}/ssl" do
   owner node[:proftpd][:ftp_user]
   group node[:proftpd][:ftp_group]
   mode 0700
+  not_if do FileTest.directory?("#{node[:proftpd][:dir]}/ssl") end
 end
 
-directory "#{node[:proftpd][:key_dir]}" do
+directory node[:proftpd][:key_dir] do
   owner node[:proftpd][:ftp_user]
   group node[:proftpd][:ftp_group]
   mode 0700
+  not_if do FileTest.directory?(node[:proftpd][:key_dir]) end
 end
 
 template "#{node[:proftpd][:dir]}/modules.conf" do
@@ -98,18 +104,20 @@ if (node[:proftpd][:sql] == "on")
 end
 
 # Dir where ftp home dirs will be
-directory "#{node[:proftpd][:default_root]}" do
+directory node[:proftpd][:default_root] do
   owner node[:proftpd][:ftp_user]
   group node[:proftpd][:ftp_group]
   mode 0770
+  not_if do FileTest.directory?(node[:proftpd][:default_root]) end
 end
 
 # Dir where encoder will be mounted
 # the converter user needs acccess to these . . .
-directory "#{node[:proftpd][:encoder_mount_point]}" do
+directory node[:proftpd][:encoder_mount_point] do
   owner node[:proftpd][:conv_user]
   group node[:proftpd][:conv_group]
   mode 0755
+  not_if do FileTest.directory?(node[:proftpd][:encoder_mount_point]) end
 end
 
 # mount encoder from isilon for processing by incron
@@ -123,10 +131,6 @@ end
 # And we need a link to /Utility for historical reasons
 link "/Utility" do
   to "#{node[:proftpd][:default_root]}" 
-end
-
-service "proftpd" do
-  action [ :enable, :start ]
 end
 
 include_recipe "proftpd::auth_file"
