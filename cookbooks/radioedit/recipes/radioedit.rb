@@ -131,7 +131,7 @@ template "/etc/varnish/default.vcl" do
     :host => node[:radioedit][:varnish_backend_ip],
     :port => node[:radioedit][:varnish_backend_port]
   })
-  notifies :reload, "service[varnish]", :immediately
+  notifies :restart, "service[varnish]", :immediately
 end
 
 template "/etc/sysconfig/varnish" do
