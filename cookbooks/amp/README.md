@@ -45,7 +45,7 @@ Just include `role[amp]` in your node's `run_list`:
 {
   "name":"my_node",
   "run_list": [
-    "rolee[amp]"
+    "role[amp]"
   ]
 }
 ```
