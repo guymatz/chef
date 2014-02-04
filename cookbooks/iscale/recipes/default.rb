@@ -50,7 +50,7 @@ service 'iscale' do
   action [ :enable ]
 end
 
-# unless tagged?("#{node[:iscale][:deploy_tag]}") || node.chef_environment !~ /^prod/
+ unless tagged?("#{node[:iscale][:deploy_tag]}") && node.chef_environment ~ /^prod/
 
   application "iscale" do
     path "#{node[:iscale][:install_path]}"
