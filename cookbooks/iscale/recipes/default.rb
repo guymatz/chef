@@ -63,7 +63,6 @@ end
   end
 
   
+  tag("#{node[:iscale][:deploy_tag]}") if node.chef_environment == "prod"
 
-  # tag("#{node[:iscale][:deploy_tag]}")
-
-# end
+end
