@@ -65,7 +65,7 @@ res.each do |s|
 
 end
 
-if not tagged?("webplayer-deployed")
+unless tagged?("webplayer-deployed") && node.chef_environment == "prod"
   application "webplayer" do
     path node[:webplayer][:deploy_path]
     owner "root"
@@ -111,7 +111,9 @@ if not tagged?("webplayer-deployed")
     #not_if "test `find #{node[:webplayer][:geo_path]}/#{node[:webplayer][:geo_file_name]} -mtime +#{node[:webplayer][:geo_freshness]}`"
   end
 
-  tag("webplayer-deployed")
+  if node.chef_environment == "prod" 
+    tag("webplayer-deployed");
+  end
 end
 
 
