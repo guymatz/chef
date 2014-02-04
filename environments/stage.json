@@ -2,7 +2,7 @@
   "name": "stage",
   "default_attributes": {
     "webplayer": {
-      "rev": "release-5.3.0-G-uat11",
+      "rev": "release-5.3.0-G-rc1",
       "settings": {
         "url": {
           "site_host": "stage.iheart.com"
