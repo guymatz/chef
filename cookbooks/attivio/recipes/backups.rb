@@ -107,7 +107,7 @@ cron_d "check_attivio_backup_size" do
   user    "root"
 end
 
-nfs_server = search(:node, "recipe:disaster_recovery\\:\\:nfs AND chef_environment:#{node.chef_environment}")[0]
+nfs_server = search(:node, "role:disaster_recovery AND chef_environment:#{node.chef_environment}")[0]
 
 directory "/data/nfs/dr_backups" do
   recursive true
