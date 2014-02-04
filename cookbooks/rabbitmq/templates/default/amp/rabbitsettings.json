@@ -1,73 +1,487 @@
 {
-  "rabbit_version":"3.0.4",
-  "parameters":[],
-  "policies":[],
-  "users":[
-    {"name":"thumbplay","password_hash":"qBQ5UtpxWZWrenC+UohzzhyZsNs=","tags":"administrator"},
-    {"name":"nagios","password_hash":"ZKqIwBqGoWXCjBTrkNfWww6UtsA=","tags":"monitoring"},
-    {"name":"fb-tomcat","password_hash":"OKfdNZnBpbGzo6zBk+t8SuPHBI0=","tags":"monitoring"},
-    {"name":"amp-tomcat","password_hash":"wtmXoliGkdFa36z1Lnqf6Wr6KGo=","tags":"monitoring"},
-    <% if node.chef_environment =~ /staging/ -%>
-    {"name":"fac","password_hash":"8WTQFEUSwA0wlieDcNlYcXDTVqc=","tags":"Ingestion"},
-    <% end -%>
-    {"name":"fb-graph","password_hash":"B3qBCOVMwEIZ+GaxWzT4qtOfcUY=","tags":"monitoring"}
+  "rabbit_version": "3.0.4",
+  "parameters": [
+    
   ],
-  "vhosts":[
-    {"name":"/"},{"name":"/amp"}
+  "policies": [
+    
   ],
-  "permissions":[
-    {"user":"thumbplay","vhost":"/amp","configure":".*","write":".*","read":".*"},
-    {"user":"amp-tomcat","vhost":"/amp","configure":".*","write":".*","read":".*"},
-    {"user":"nagios","vhost":"/amp","configure":".*","write":".*","read":".*"},
-    {"user":"fb-tomcat","vhost":"/amp","configure":".*","write":".*","read":".*"},
-    {"user":"fb-graph","vhost":"/amp","configure":".*","write":".*","read":".*"},
-    <% if node.chef_environment =~ /staging/ -%>
-    {"user":"ingestion","vhost" : "/ingestion","configure":".*","write":".*","read":".*"},
-    <% end -%>
-    {"user":"nagios","vhost":"/","configure":".*","write":".*","read":".*"}
+  "users": [
+    {
+      "name": "thumbplay",
+      "password_hash": "rDk9dmUQZx6ZMQuVh0EaJo4Ufgw=",
+      "tags": "administrator"
+    },
+    {
+      "name": "nagios",
+      "password_hash": "ZKqIwBqGoWXCjBTrkNfWww6UtsA=",
+      "tags": "monitoring"
+    },
+    {
+      "name": "fb-tomcat",
+      "password_hash": "OKfdNZnBpbGzo6zBk+t8SuPHBI0=",
+      "tags": "monitoring"
+    },
+    {
+      "name": "ihr",
+      "password_hash": "ovougJZ0c4R0Z34aRhjPsSH1GBg=",
+      "tags": "administrator"
+    },
+    {
+      "name": "ingestion",
+      "password_hash": "EJLiu2bumqnN4FRQTelHaCpdtRM=",
+      "tags": "monitoring"
+    },
+    {
+      "name": "amp-tomcat",
+      "password_hash": "wtmXoliGkdFa36z1Lnqf6Wr6KGo=",
+      "tags": "monitoring"
+    },
+    {
+      "name": "fb-graph",
+      "password_hash": "B3qBCOVMwEIZ+GaxWzT4qtOfcUY=",
+      "tags": "monitoring"
+    },
+    {
+      "name": "fac",
+      "password_hash": "8WTQFEUSwA0wlieDcNlYcXDTVqc=",
+      "tags": "Ingestion"
+    }
   ],
-  "queues":[
-    {"name":"talklog.event","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
-    {"name":"companionQueue","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
-    {"name":"enrichmentQueue","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
-    {"name":"fb.scrobbling.talk.radio","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
-    {"name":"radioeventsQueue","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
-    {"name":"talkeventsQueue","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
-    {"name":"fb.scrobbling.get.stream.url","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
-    {"name":"fb.scrobbling.custom.radio","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
-    {"name":"playlog.event","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
-    {"name":"facebookQueue","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
-    {"name":"aliveness-test","vhost":"/amp","durable":false,"auto_delete":false,"arguments":{}},
-    {"name":"responsysQueue","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
-    {"name":"updateUserFacebookQueue","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
-    {"name":"fb.scrobbling.live.radio","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
-    <% if node.chef_environment =~ /staging/ -%>
-    {"name":"elasticsearch","vhost":"/ingestion","durable":true,"auto_delete":false,"arguments":{},
+  "vhosts": [
+    {
+      "name": "\/"
+    },
+    <% if node.chef_environment =~ /stage/ -%>
+    {
+      "name": "\/ingestion"
+    },
     <% end -%>
-    {"name":"googleQueue","vhost":"/amp","durable":false,"auto_delete":false,"arguments":{}}
+    {
+      "name": "\/amp"
+    }
   ],
-  "exchanges":[
-    {"name":"responsys","vhost":"/amp","type":"direct","durable":true,"auto_delete":false,"internal":false,"arguments":{}},
-    {"name":"playlog","vhost":"/amp","type":"direct","durable":true,"auto_delete":false,"internal":false,"arguments":{}},
-    <% if node.chef_environment =~ /staging/ -%>
-    {"name":"elasticsearch","vhost":"/ingestion","type":"direct","durable":true,"auto_delete":false,"arguments":{}},
+  "permissions": [
+    {
+      "user": "thumbplay",
+      "vhost": "\/amp",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "amp-tomcat",
+      "vhost": "\/amp",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "nagios",
+      "vhost": "\/amp",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "thumbplay",
+      "vhost": "\/ingestion",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "fb-tomcat",
+      "vhost": "\/amp",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "thumbplay",
+      "vhost": "\/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+     <% if node.chef_environment =~ /stage/ -%>
+    {
+      "user": "ingestion",
+      "vhost": "\/ingestion",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
     <% end -%>
-    {"name":"facebook","vhost":"/amp","type":"direct","durable":true,"auto_delete":false,"internal":false,"arguments":{}}
+    {
+      "user": "fb-graph",
+      "vhost": "\/amp",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    <% if node.chef_environment =~ /stage/ -%>
+    {
+      "user": "fac",
+      "vhost": "\/ingestion",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "nagios",
+      "vhost": "\/ingestion",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    <% end -%>
+    {
+      "user": "nagios",
+      "vhost": "\/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
   ],
-  "bindings":[
-    {"source":"amq.direct","vhost":"/amp","destination":"enrichmentQueue","destination_type":"queue","routing_key":"enrichmentQueue","arguments":{}},
-    {"source":"facebook","vhost":"/amp","destination":"fb.scrobbling.custom.radio","destination_type":"queue","routing_key":"fb.scrobbling.custom.radio","arguments":{}},
-    {"source":"facebook","vhost":"/amp","destination":"fb.scrobbling.get.stream.url","destination_type":"queue","routing_key":"fb.scrobbling.get.stream.url","arguments":{}},
-    {"source":"facebook","vhost":"/amp","destination":"fb.scrobbling.live.radio","destination_type":"queue","routing_key":"fb.scrobbling.live.radio","arguments":{}},
-    {"source":"facebook","vhost":"/amp","destination":"fb.scrobbling.talk.radio","destination_type":"queue","routing_key":"fb.scrobbling.talk.radio","arguments":{}},
-    {"source":"facebook","vhost":"/amp","destination":"radioeventsQueue","destination_type":"queue","routing_key":"radioeventsQueue","arguments":{}},
-    {"source":"facebook","vhost":"/amp","destination":"talkeventsQueue","destination_type":"queue","routing_key":"talkeventsQueue","arguments":{}},
-    {"source":"playlog","vhost":"/amp","destination":"companionQueue","destination_type":"queue","routing_key":"companionQueue","arguments":{}},
-    {"source":"playlog","vhost":"/amp","destination":"playlog.event","destination_type":"queue","routing_key":"playlog.event","arguments":{}},
-    {"source":"playlog","vhost":"/amp","destination":"talklog.event","destination_type":"queue","routing_key":"talklog.event","arguments":{}},
-    <% if node.chef_environment =~ /staging/ -%>
-    {"source":"elasticsearch","vhost":"/ingestion","destination_type":"queue","routing_key":"elasticsearch","arguments":{}},
+  "queues": [
+    {
+      "name": "talklog.event",
+      "vhost": "\/amp",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        
+      }
+    },
+    {
+      "name": "companionQueue",
+      "vhost": "\/amp",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        
+      }
+    },
+    {
+      "name": "enrichmentQueue",
+      "vhost": "\/amp",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        
+      }
+    },
+    {
+      "name": "fb.scrobbling.talk.radio",
+      "vhost": "\/amp",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        
+      }
+    },
+    {
+      "name": "radioeventsQueue",
+      "vhost": "\/amp",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        
+      }
+    },
+    {
+      "name": "talkeventsQueue",
+      "vhost": "\/amp",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        
+      }
+    },
+    {
+      "name": "fb.scrobbling.get.stream.url",
+      "vhost": "\/amp",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        
+      }
+    },
+    {
+      "name": "fb.scrobbling.custom.radio",
+      "vhost": "\/amp",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        
+      }
+    },
+    {
+      "name": "playlog.event",
+      "vhost": "\/amp",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        
+      }
+    },
+    {
+      "name": "facebookQueue",
+      "vhost": "\/amp",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        
+      }
+    },
+    {
+      "name": "aliveness-test",
+      "vhost": "\/amp",
+      "durable": false,
+      "auto_delete": false,
+      "arguments": {
+        
+      }
+    },
+    {
+      "name": "responsysQueue",
+      "vhost": "\/amp",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        
+      }
+    },
+    {
+      "name": "updateUserFacebookQueue",
+      "vhost": "\/amp",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        
+      }
+    },
+    <% if node.chef_environment =~ /stage/ -%>
+    {
+      "name": "iad-stg-ingestion101.ihr.celery.pidbox",
+      "vhost": "\/ingestion",
+      "durable": false,
+      "auto_delete": true,
+      "arguments": {
+        
+      }
+    },
+    {
+      "name": "elasticsearch",
+      "vhost": "\/ingestion",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        
+      }
+    },
+    {
+      "name": "celery",
+      "vhost": "\/ingestion",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        
+      }
+    },
     <% end -%>
-    {"source":"responsys","vhost":"/amp","destination":"responsysQueue","destination_type":"queue","routing_key":"responsysQueue","arguments":{}}
+    {
+      "name": "fb.scrobbling.live.radio",
+      "vhost": "\/amp",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+
+      }
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "responsys",
+      "vhost": "\/amp",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {
+        
+      }
+    },
+    {
+      "name": "playlog",
+      "vhost": "\/amp",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {
+        
+      }
+    },
+    {
+      "name": "facebook",
+      "vhost": "\/amp",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {
+        
+      }
+    },
+    <% if node.chef_environment =~ /stage/ -%>
+    {
+      "name": "elasticsearch",
+      "vhost": "\/ingestion",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {
+        
+      }
+    },
+    <% end -%>
+    {
+      "name": "facebook",
+      "vhost": "\/amp",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {
+
+      }
+    }
+  ],
+  "bindings": [
+    {
+      "source": "amq.direct",
+      "vhost": "\/amp",
+      "destination": "enrichmentQueue",
+      "destination_type": "queue",
+      "routing_key": "enrichmentQueue",
+      "arguments": {
+        
+      }
+    },
+    {
+      "source": "facebook",
+      "vhost": "\/amp",
+      "destination": "fb.scrobbling.custom.radio",
+      "destination_type": "queue",
+      "routing_key": "fb.scrobbling.custom.radio",
+      "arguments": {
+        
+      }
+    },
+    {
+      "source": "facebook",
+      "vhost": "\/amp",
+      "destination": "fb.scrobbling.get.stream.url",
+      "destination_type": "queue",
+      "routing_key": "fb.scrobbling.get.stream.url",
+      "arguments": {
+        
+      }
+    },
+    {
+      "source": "facebook",
+      "vhost": "\/amp",
+      "destination": "fb.scrobbling.live.radio",
+      "destination_type": "queue",
+      "routing_key": "fb.scrobbling.live.radio",
+      "arguments": {
+        
+      }
+    },
+    {
+      "source": "facebook",
+      "vhost": "\/amp",
+      "destination": "fb.scrobbling.talk.radio",
+      "destination_type": "queue",
+      "routing_key": "fb.scrobbling.talk.radio",
+      "arguments": {
+        
+      }
+    },
+    {
+      "source": "facebook",
+      "vhost": "\/amp",
+      "destination": "radioeventsQueue",
+      "destination_type": "queue",
+      "routing_key": "radioeventsQueue",
+      "arguments": {
+        
+      }
+    },
+    {
+      "source": "facebook",
+      "vhost": "\/amp",
+      "destination": "talkeventsQueue",
+      "destination_type": "queue",
+      "routing_key": "talkeventsQueue",
+      "arguments": {
+        
+      }
+    },
+    {
+      "source": "playlog",
+      "vhost": "\/amp",
+      "destination": "companionQueue",
+      "destination_type": "queue",
+      "routing_key": "companionQueue",
+      "arguments": {
+        
+      }
+    },
+    {
+      "source": "playlog",
+      "vhost": "\/amp",
+      "destination": "playlog.event",
+      "destination_type": "queue",
+      "routing_key": "playlog.event",
+      "arguments": {
+        
+      }
+    },
+    {
+      "source": "playlog",
+      "vhost": "\/amp",
+      "destination": "talklog.event",
+      "destination_type": "queue",
+      "routing_key": "talklog.event",
+      "arguments": {
+        
+      }
+    },
+    <% if node.chef_environment =~ /stage/ -%>
+    {
+      "source": "elasticsearch",
+      "vhost": "\/ingestion",
+      "destination": "elasticsearch",
+      "destination_type": "queue",
+      "routing_key": "elasticsearch",
+      "arguments": {
+        
+      }
+    },
+    <% end -%>
+    {
+      "source": "responsys",
+      "vhost": "\/amp",
+      "destination": "responsysQueue",
+      "destination_type": "queue",
+      "routing_key": "responsysQueue",
+      "arguments": {
+
+      }
+    }
   ]
 }

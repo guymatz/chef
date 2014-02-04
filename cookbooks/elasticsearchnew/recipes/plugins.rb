@@ -43,43 +43,41 @@ unless tagged?("es-plugins-installed")
   Chef::Log.info("Host name info: #{node[:hostname]}")
 
   if primary_node[:hostname] == node[:hostname]
-    execute "configure-river-rabbitmq-plugin" do
+    execute "configure-river-rabbitmq-plugin" do '{ \
+        "type" : "rabbitmq", \
+        "rabbitmq" : { \
+            "addresses" : [ \
+                { \
+                    "host" : "iad-stg-rabbitmq101.ihr.", \
+                    "port" : 5672 \
+                }, \
+                { \
+                    "host" : "iad-stg-rabbitmq102.ihr.", \
+                    "port" : 5672 \
+                } \
+            ], \
+            "user" : "fac", \
+            "pass" : "tppw2011!", \
+            "vhost" : "/ingestion", \
+            "queue" : "elasticsearch", \
+            "exchange" : "elasticsearch", \
+            "routing_key" : "elasticsearch", \
+            "exchange_declare" : true, \
+            "exchange_type" : "direct", \
+            "exchange_durable" : true, \
+            "queue_declare" : true, \
+            "queue_bind" : true, \
+            "queue_durable" : true, \
+            "queue_auto_delete" : false, \
+            "heartbeat" : "30s" \
+        }, \
+        "index" : { \
+            "bulk_size" : 100, \
+            "bulk_timeout" : "50ms", \
+            "ordered" : false \
+        } \
+      }'
       command <<-EOH 
-        /usr/bin/curl -XPUT '#{node[:ipaddress]}:9200/_river/my_river/_meta' -d '{ \
-          "type" : "rabbitmq", \
-          "rabbitmq" : { \
-              "addresses" : [ \
-                  { \
-                      "host" : "iad-stg-rabbitmq101.ihr.", \
-                      "port" : 5672 \
-                  }, \
-                  { \
-                      "host" : "iad-stg-rabbitmq102.ihr.", \
-                      "port" : 5672 \
-                  } \
-              ], \
-              "user" : "fac", \
-              "pass" : "tppw2011!", \
-              "vhost" : "/amp", \
-              "queue" : "elasticsearch", \
-              "exchange" : "elasticsearch", \
-              "routing_key" : "elasticsearch", \
-              "exchange_declare" : true, \
-              "exchange_type" : "direct", \
-              "exchange_durable" : true, \
-              "queue_declare" : true, \
-              "queue_bind" : true, \
-              "queue_durable" : true, \
-              "queue_auto_delete" : false, \
-              "heartbeat" : "30s" \
-          }, \
-          "index" : { \
-              "bulk_size" : 100, \
-              "bulk_timeout" : "50ms", \
-              "ordered" : false \
-          } \
-        }' 
-        EOH
     end
   end
   tag("es-plugins-installed")
