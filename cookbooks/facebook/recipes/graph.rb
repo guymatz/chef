@@ -13,6 +13,8 @@ include_recipe "java"
 include_recipe "tomcat7"
 
 directory "#{node[:fbgraph][:deploy_path]}" do
+  owner node[:fbgraph][:user]
+  group node[:fbgraph][:group]
   recursive true
 end
 
@@ -21,6 +23,8 @@ end
     Chef::Log.info("Downloading #{fbfile} from #{node[:fbgraph][:url]}/#{fbfile}-#{node[:fbgraph][:version]}")
     source "#{node[:fbgraph][:url]}/#{fbfile}-#{node[:fbgraph][:version]}"
     mode "0755"
+    owner node[:fbgraph][:user]
+    group node[:fbgraph][:group]
     action :create_if_missing
   end
 end
@@ -29,12 +33,16 @@ end
 %w{ /var/run/fbgraph }.each do |dir|
   directory dir do
     recursive true
+    owner node[:fbgraph][:user]
+    group node[:fbgraph][:group]
     mode "0755"
   end
 end
 
 directory "/var/log/fbgraph" do
   recursive true
+  owner node[:fbgraph][:user]
+  group node[:fbgraph][:group]
   mode "0755"
 end
 
