@@ -13,6 +13,8 @@ default[:db_sync_tools][:reference] = "d74b373c8b76f0a6994a1bb8427b045d891e7add"
 case chef_environment
 when /^prod/
   default[:etl][:data_warehouse][:jdbc_url] = "jdbc:jtds:sqlserver://iad-dwh.prod.ihr:1433;databaseName=IHRDWH"
+  default[:etl][:data_warehouse][:host] = "iad-dwh.prod.ihr"
+  default[:etl][:data_warehouse][:port] = "1433"
   default[:etl][:data_warehouse][:batch_user_name] = "appBatch"
   default[:etl][:data_warehouse][:batch_user_password] = "i8piZZa4u"
   default[:etl][:event_job][:archive_directory] = "/isilon/event/processed"
@@ -20,13 +22,15 @@ when /^prod/
   default[:etl][:event_job][:log_directory] = "/isilon/event/"
 when /^stage/
   default[:etl][:data_warehouse][:jdbc_url] = "jdbc:jtds:sqlserver://10.5.50.101;databaseName=IHRDWH"
+  default[:etl][:data_warehouse][:host] = "iad-dwh.prod.ihr"
+  default[:etl][:data_warehouse][:port] = "1433"
   default[:etl][:data_warehouse][:batch_user_name] = "appBatch"
   default[:etl][:data_warehouse][:batch_user_password] = "i8piZZa4u"
   default[:etl][:event_job][:archive_directory] = "/data/log/event/processed"
   default[:etl][:event_job][:source_directory] = "/data/log/event/input"
   default[:etl][:event_job][:log_directory] = "/data/log/event"
 else
-  default[:etl][:data_warehouse][:jdbc_url] = "jdbc:jtds:sqlserver://10.10.182.175:1433;databaseName=IHRDWH"
+  default[:etl][:data_warehouse][:jdbc_url] = "jdbc:jtds:sqlserver://iad-dwh.prod.ihr:1433;databaseName=IHRDWH"
   default[:etl][:data_warehouse][:batch_user_name] = "appBatch"
   default[:etl][:data_warehouse][:batch_user_password] = "i8piZZa4u"
   default[:etl][:event_job][:archive_directory] = "/isilon/event/processed"
