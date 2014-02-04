@@ -20,7 +20,7 @@ if [ -f $SRC_FILE ] ; then
         echo "An error occured shipping streams_list_attivio_ready.xml to $ES_MASTER"
     fi
     mv $SRC_FILE $SRC_FILE.$(date +%Y%m%d).shipped
-    /usr/bin/curl -XPUT -v "http://$ES_MASTER:9200/_index/liveStations/_induce"
+    /usr/bin/curl -XPUT -v "http://$ES_MASTER/_index/liveStations/_induce"
 else
     echo "Error: No xml file available to ship"
     exit 1
