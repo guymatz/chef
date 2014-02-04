@@ -59,6 +59,10 @@ end
     repository "#{node[:iscale][:git_repository]}"
     revision "#{node[:iscale][:git_branch]}"
 
+    nodejs do
+      entry_point "#{node[:iscale][:app_homedir]}/server.js"
+    end 
+
     notifies :restart, "service[iscale]", :immediately
   end
 
