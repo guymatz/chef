@@ -58,7 +58,7 @@ end
     group "#{node[:iscale][:group]}"
     repository "#{node[:iscale][:git_repository]}"
     revision "#{node[:iscale][:git_branch]}"
-    enable_submodules 'true'
+    enable_submodules true
 
     restart_command '/etc/init.d/iscale restart'
 
