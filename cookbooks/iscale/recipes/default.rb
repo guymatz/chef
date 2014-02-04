@@ -60,11 +60,11 @@ end
     revision "#{node[:iscale][:git_branch]}"
     enable_submodules true
 
-    restart_command '/etc/init.d/iscale restart'
+    restart_command 'exit 0'
 
-    # nodejs do
-    #   entry_point "#{node[:iscale][:app_homedir]}/server.js"
-    # end 
+    nodejs do
+       entry_point "#{node[:iscale][:app_homedir]}/server.js"
+    end 
 
     notifies :restart, "service[iscale]", :immediately
   end
