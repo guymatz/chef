@@ -56,7 +56,7 @@ begin
     mode "0700"
   end
   
-  file "/root/.ssh/deploy" do
+  file "/root/.ssh/id_rsa" do
     owner "root"
     group "root"
     mode "0400"
