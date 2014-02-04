@@ -1,5 +1,3 @@
-default[:proftpd][:encoder_export]       = "iad-stg-nfs101.ihr:/data/export/encoder"
-default[:proftpd][:encoder_mount_point]  = "/data/encoder"
 default[:proftpd][:dir]                  = "/etc/proftpd"
 default[:proftpd][:key_dir]              = "/etc/proftpd/authorized_keys"
 default[:proftpd][:dir_extra_conf]       = "conf.d"
