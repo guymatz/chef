@@ -1,3 +1,15 @@
+# permanent isilon mounts
+case chef_environment
+when /^stage/
+  default[:proftpd][:ftp_server]           = "iad-stg-nfs101-v700.ihr"
+  default[:proftpd][:ftp_export]           = default[:proftpd][:ftp_server] + ":/data/export/inbound-ftp"
+  default[:proftpd][:ftp_mount_point]      = "/data/ftp"
+else
+  default[:proftpd][:ftp_server]           = "iad-isilon001.ihr"
+  default[:proftpd][:ftp_export]           = default[:proftpd][:ftp_server] + ":/data/export/inbound-ftp"
+  default[:proftpd][:ftp_mount_point]      = "/data/ftp"
+end
+
 default[:proftpd][:dir]                  = "/etc/proftpd"
 default[:proftpd][:key_dir]              = "/etc/proftpd/authorized_keys"
 default[:proftpd][:dir_extra_conf]       = "conf.d"
