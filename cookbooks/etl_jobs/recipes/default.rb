@@ -438,17 +438,17 @@ end
 # #end
 # #end removed per OPS-5311
 
-# Added per OPS-4937
-directory "/data/log/ampstationsdata"
-git "/data/jobs/amp-tools" do
-  repository "git@github.com:iheartradio/amp-tools.git"
-  reference "master"
-end
-cron_d "ampstationsdata" do
-  command "/usr/bin/nsca_relay -S Ampstationsdata-Job -- /data/jobs/amp-tools/amp-scripts/AmpStationsData/AmpStationsData.sh"
-  minute 0
-  hour 2
-end
+# Added per OPS-4937, and now removed per OPS-6164
+#directory "/data/log/ampstationsdata"
+#git "/data/jobs/amp-tools" do
+#  repository "git@github.com:iheartradio/amp-tools.git"
+#  reference "master"
+#end
+#cron_d "ampstationsdata" do
+#  command "/usr/bin/nsca_relay -S Ampstationsdata-Job -- /data/jobs/amp-tools/amp-scripts/AmpStationsData/AmpStationsData.sh"
+#  minute 0
+#  hour 2
+#end
 
 # Added per OPS-5172
 cron_d "event_job" do
