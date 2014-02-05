@@ -14,13 +14,13 @@ default[:partners][:packages] = %w{ python27 python27-libs python27-devel python
 
 
 default["partners"]["config"]["prod"] = {
-  :db_host => '10.5.43.148',
+  :db_host => 'iad-dwh-db102-vip.ihrint.com',
   :db_name => 'MSSQLDWH',
   :db_port => '1433',
   :db => 'RadioModel'
 }
 default["partners"]["config"]["_default"] = {
-  :db_host => '10.5.43.148',
+  :db_host => 'iad-dwh-db102-vip.ihrint.com',
   :db_name => 'MSSQLDWH',
   :db_port => '1433',
   :db => 'RadioModel'
