@@ -263,14 +263,14 @@ else
   default[:radioedit][:log_dir] = "/var/log/radioedit"
   default[:radioedit][:out_log] = "#{default[:radioedit][:log_dir]}/application.log"
   default[:radioedit][:err_log] = "#{default[:radioedit][:log_dir]}/application.err"
+  default[:radioedit][:staticdir] = "#{default[:radioedit][:path]}/static"
   default[:radioedit][:venv_path] = "#{default[:radioedit][:path]}/envs/core";
   default[:radioedit][:module] = "wsgi"
   default[:radioedit][:app_name] = "radioedit-core"
   default[:radioedit][:repo] = "git@github.ihrint.com:radioedit/core.git"
   default[:radioedit][:varnish_backend_port] = "8080"
   default[:radioedit][:varnish_backend_ip] = "127.0.0.1"
-  default[:radioedit][:branch] = "release"
-  default[:radioedit][:intbranch] = "testing"
+  default[:radioedit][:branch] = "testing"
   default[:radioedit][:env] = "ihr_testing"
   default[:radioedit][:num_workers] = 5
   default[:radioedit][:log_level] = "DEBUG"

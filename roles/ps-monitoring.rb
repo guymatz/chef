@@ -1,8 +1,7 @@
-name "backup_util"
-description "backup_util"
+name "ps-monitoring"
+description "ps-monitoring"
 all_env = [
-  "recipe[mongodb::backup_util]",
-]
+	  ]
 run_list(all_env)
 env_run_lists(
               "_default" => all_env,
@@ -10,9 +9,6 @@ env_run_lists(
               "prod" => all_env,
               "ec2" => all_env
               )
-default_attributes({
-                    "backup_util" => {
-                    },
-                   })
+default_attributes() 
 override_attributes({
                     })

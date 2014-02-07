@@ -9,7 +9,8 @@
     "recipe[postgresql]",
     "recipe[postgresql::server]",
     "recipe[postgresql::slony]",
-    "recipe[postgresql::users]"
+    "recipe[postgresql::users]",
+    "recipe[postgresql::nagios]"
   ],
   "description": "",
   "chef_type": "role",

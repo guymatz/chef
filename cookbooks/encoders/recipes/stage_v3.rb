@@ -5,7 +5,7 @@
 # 
 
 begin
-
+    unless tagged?("stage-v3")
 
     application "converter" do
         path "#{node[:encoders][:deploy_path]}"
@@ -27,7 +27,6 @@ begin
         ssh_wrapper "/home/converter/encoder-wrap-ssh.sh"
     end
 
-  unless tagged?("stage-v3")
    node[:v3_pkg].each do |pkg|
       yum_package pkg do
           arch "x86_64"
@@ -43,7 +42,7 @@ begin
   end
 
     tag("stage-v3")
-  end
+    end
 rescue
-  untag("stage-v3")
+    untag("stage-v3")
 end

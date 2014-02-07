@@ -18,22 +18,6 @@ directory "/data"
 directory "/data/jobs"
 directory "/data/log"
 
-directory "/data/jobs/event"
-directory "/data/log/event"
-directory "/data/log/event/input" do
-  mode 0777
-end
-directory "/data/log/event/processed"
-remote_file "/data/jobs/event/event_job.jar" do
-  source "http://yum.ihr/files/jobs/event/event_job.jar"
-end
-remote_file "/data/jobs/event/batch.properties" do
-  source "http://yum.ihr/files/jobs/event/batch.properties"
-end
-remote_file "/data/jobs/event/log4j.properties" do
-  source "http://yum.ihr/files/jobs/event/log4j.properties"
-end
-
 directory "/data/jobs/playlog"
 directory "/data/log/playlog"
 directory "/data/log/playlog/processed"
@@ -458,13 +442,6 @@ cron_d "ampstationsdata" do
   command "/usr/bin/nsca_relay -S Ampstationsdata-Job -- /data/jobs/amp-tools/amp-scripts/AmpStationsData/AmpStationsData.sh"
   minute 0
   hour 2
-end
-
-# Added per OPS-5172
-cron_d "event_job" do
-  command "/usr/bin/nsca_relay -S event-job -- /usr/bin/java -jar /data/jobs/event/event_job.jar launch-context.xml eventJob rundate=`/bin/date +\\%s`"
-  minute 30
-  hour 5
 end
 
 # Added per OPS-5313

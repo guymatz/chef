@@ -1,13 +1,20 @@
 {
   "name": "postgres-server",
   "default_attributes": {
+	"nagios": {
+		"nrpe": {
+				"command_timeout": "1800"
+				}
+		}
   },
   "json_class": "Chef::Role",
   "env_run_lists": {
   },
   "run_list": [
       "recipe[postgresql]",
-      "recipe[postgresql::server]"
+      "recipe[postgresql::server]",
+      "recipe[postgresql::users]",
+      "recipe[postgresql::nagios]"
   ],
   "description": "",
   "chef_type": "role",
