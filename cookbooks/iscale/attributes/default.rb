@@ -73,7 +73,7 @@ when /^stage/
     # git repository used to pull revisions of the codebase
     :git_repository    => 'git@github.com:iheartradio/iscale.git',
     # git repository branch or tag used to indicate which revision to pull
-    :git_branch        => 'master',
+    :git_branch        => 'stage',
     # path to the settings json file used to load the correct app settings per env
     :settings_path     => '/data/apps/iscale/settings.json',
 
@@ -118,7 +118,7 @@ else
     # git repository used to pull revisions of the codebase
     :git_repository    => 'git@github.com:iheartradio/iscale.git',
     # git repository branch or tag used to indicate which revision to pull
-    :git_branch        => 'master',
+    :git_branch        => 'dev',
     # path to the settings json file used to load the correct app settings per env
     :settings_path     => '/data/apps/iscale/settings.json',
 
