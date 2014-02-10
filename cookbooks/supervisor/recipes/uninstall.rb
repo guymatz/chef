@@ -19,6 +19,7 @@ end
 
 directory node['supervisor']['dir'] do
   action :delete
+  recursive true
 end
 
 template "/etc/supervisord.conf" do
@@ -27,6 +28,7 @@ end
 
 directory node['supervisor']['log_dir'] do
   action :delete
+  recursive true
 end
 
 template "/etc/init.d/supervisor" do
