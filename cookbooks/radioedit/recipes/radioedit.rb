@@ -20,12 +20,20 @@ node[:radioedit][:packages].each do |p|
   yum_package p
 end
 
-%w{ nginx varnish varnishlog }.each do |serv|
+%w{ nginx varnish }.each do |serv|
   service serv do
     supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
     action [ :enable, :start ]
   end
 end
+
+%w{ varnishlog }.each do |serv|
+  service serv do
+    supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
+    action [ :disable, :stop ]
+  end
+end
+
 
 template "#{node[:radioedit][:path]}/shared/settings.json" do
   source "settings.json.erb"
@@ -85,7 +93,7 @@ end
 
 log "Deploying #{node[:radioedit][:branch]}"
 
-unless tagged?("radioedit-deployed" && node.chef_environment == "prod")
+unless tagged?("radioedit-deployed") && node.chef_environment == "prod"
   application "radioedit-core" do
     repository node[:radioedit][:repo]
     revision node[:radioedit][:branch]
@@ -123,7 +131,15 @@ template "/etc/varnish/default.vcl" do
     :host => node[:radioedit][:varnish_backend_ip],
     :port => node[:radioedit][:varnish_backend_port]
   })
-  notifies :reload, "service[varnish]", :immediately
+  notifies :restart, "service[varnish]", :immediately
+end
+
+template "/etc/sysconfig/varnish" do
+  source "varnish_sysconfig"
+  owner "root"
+  group "root"
+  mode 0644 
+  notifies :reload, "service[varnish]", :immediately 
 end
 
 template "/etc/nginx/conf.d/radioedit.conf" do 
@@ -145,6 +161,3 @@ logrotate_app "varnish" do
   postrotate '    /bin/kill -HUP `cat /var/run/varnishlog.pid 2>/dev/null` 2> /dev/null || true
     /bin/kill -HUP `cat /var/run/varnishncsa.pid 2>/dev/null` 2> /dev/null || true'
 end
-#  size (1024**2)*2 # 2MB
-#  #  postrotate "find #{node[:apache][:log_dir]} -name '*.gz*' -exec rm -rf {} \\;
-#  "
