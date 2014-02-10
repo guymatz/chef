@@ -12,6 +12,10 @@ begin
         not_if do FileTest.directory?("/var/www/html/talkstatus") end
     end
 
+    link "/var/www/html/Mixins" do
+      to "/data/encoder/tmp-ingestion/Mixins"
+    end
+
     cron_d "mixin_status" do
         command "/data/apps/converter/status/mixin.sh > /dev/null 2>&1"
         minute  "*/3"
