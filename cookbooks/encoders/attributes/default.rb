@@ -217,7 +217,7 @@ case chef_environment
 when /^stage/
   default[:encoders][:isilon_server] = "iad-stg-nfs101-v700.ihr"
   default[:encoders][:p_ftp_export] = "/data/export/inbound-ftp"
-  default[:encoders][:p_ftp_mount] = "/data/inbound-ftp"
+  default[:encoders][:p_ftp_mount] = "/data/ftp"
   default[:encoders][:p_encoder_export] = "/data/export/encoder"
   default[:encoders][:p_encoder_mount] = "/data/encoder"
 else
