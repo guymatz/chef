@@ -22,7 +22,7 @@ directory node['supervisor']['dir'] do
   recursive true
 end
 
-template "/etc/supervisord.conf" do
+file "/etc/supervisord.conf" do
   action :delete
 end
 
@@ -31,13 +31,13 @@ directory node['supervisor']['log_dir'] do
   recursive true
 end
 
-template "/etc/init.d/supervisor" do
+file "/etc/init.d/supervisor" do
   action :delete
 end
 
 case node['platform']
 when "debian", "ubuntu"
-  template "/etc/default/supervisor" do
+  file "/etc/default/supervisor" do
     action :delete
   end
 end
