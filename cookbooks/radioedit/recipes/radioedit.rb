@@ -119,7 +119,7 @@ unless tagged?("radioedit-deployed") && node.chef_environment == "prod"
                    "APP_ENV" => node[:radioedit][:env]})
     end
   end
-  tag("radioedit-deployed")
+  tag("radioedit-deployed") if node.chef_environment == "prod"
 end
 
 template "/etc/varnish/default.vcl" do
