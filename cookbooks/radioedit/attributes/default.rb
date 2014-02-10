@@ -13,7 +13,7 @@ default[:radioedit] = {
   # Path that needs to get traced for attribute use. this might be an orphan
   :install_path   => "/data/apps/radioedit",
   # Again, another possible orphan
-  :nginx          => {:port => 8000}
+  :nginx          => {:port => 8000},
 
   # user shell account management
   :user_accounts  => {
