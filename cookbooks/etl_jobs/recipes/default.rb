@@ -134,7 +134,7 @@ directory "/data/jobs/custom_thumbs"
 directory "/data/log/customradiothumbslog"
 directory "/data/log/customradiothumbslog/processed"
 remote_file "/data/jobs/custom_thumbs/custom_thumbs_job.jar" do
-source "http://yum.ihr/files/jobs/custom_thumbs/custom_thumbs_job.jar"
+source "http://files.ihrdev.com/jobs/custom_thumbs/custom_thumbs_job.jar"
 end
 remote_file "/data/jobs/custom_thumbs/custom_thumbs_wrapper.sh" do
 source "http://yum.ihr/files/jobs/custom_thumbs/custom_thumbs_wrapper.sh"

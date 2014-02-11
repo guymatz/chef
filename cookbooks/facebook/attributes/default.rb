@@ -5,7 +5,7 @@ default[:fbgraph][:version] = "20130911"
 default[:fbgraph][:url] = "http://files.ihrdev.com/fbgraph"
 
 default[:fbtomcat][:version] = "2013-05-17_15-39-59"
-default[:fbtomcat][:url] = "  "
+default[:fbtomcat][:url] = "http://files.ihrdev.com/Facebook-Tomcat"
 
 
 # ulimits
