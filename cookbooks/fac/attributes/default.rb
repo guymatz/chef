@@ -5,6 +5,7 @@ default[:fac][:sherpa][:version] = "3.4.54"
 default[:fac][:sherpa][:jarfile] = "FAC-sherpa"
 default[:fac][:radiobuild][:version] = "1.0.12"
 default[:fac][:radiobuild2][:version] = "1.0.15"
+default[:fac][:genre][:version] = "3.4.98"
 
 default[:fac][:script_path] = "/data/jobs/fac"
 default[:fac][:url] = "http://archiva.ihrdev.com:8080/archiva/repository/internal/com/ccrd/fac"
@@ -13,6 +14,7 @@ default[:fac][:radiobuild][:url] = "http://archiva.ihrdev.com:8080/archiva/repos
 default[:fac][:radiobuild][:echonest] = "http://yum.ihr/files/ten.915.gz"
 default[:fac][:radiobuild2][:url] = "http://archiva.ihrdev.com:8080/archiva/repository/internal/com/ccrd/radio"
 default[:fac][:radiobuild2][:echonest] = "http://yum.ihr/files/ten.915.gz"
+default[:fac][:genre][:properties][:url] = "
 
 default[:fac][:amptools][:repo] = "git@github.com:iheartradio/amp-tools.git"
 
