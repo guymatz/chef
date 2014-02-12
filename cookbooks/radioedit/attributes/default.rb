@@ -429,7 +429,7 @@ default[:radioedit][:image] = {
       python-imaging 
       python-psycopg2 
       postgresql-libs 
-  };
+  }
 };
 
 default[:radioedit][:cms] = {
