@@ -4,6 +4,9 @@
     "iheart": {
       "deployer": "ihr-deployer"
     },
+    "esearch": {
+      "vip": "iad-stg-search-vip-v700.ihr"
+    },
     "webplayer": {
       "rev": "release-5.0.0-donjulio-rc3",
       "settings": {
