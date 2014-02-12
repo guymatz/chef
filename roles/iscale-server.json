@@ -1,0 +1,16 @@
+{
+  "name": "iscale-server",
+  "description": "Role for server running iscale applications. Installs, updates and manages iscale application stack. ImageMagick, Nodejs, nginx, varnish",
+  "json_class": "Chef::Role",
+  "default_attributes": {},
+  "override_attributes": {},
+  "chef_type": "role",
+  "run_list": [
+    "recipe[nodejs]"
+    "recipe[users::dev]",
+    "recipe[users::deployer]",
+    "recipe[iscale]",
+  ],
+  "env_run_lists": {
+  }
+}
