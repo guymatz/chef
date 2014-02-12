@@ -258,6 +258,10 @@ else
   # ################################################################
   # Development Environment settings.
   # ################################################################
+
+  # override for the default value "0.0.0.0"
+  default[:memcached][:listen]  = "localhost";
+
   default[:radioedit][:path] = "/data/apps/radioedit";
   default[:radioedit][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
   default[:radioedit][:log_dir] = "/var/log/radioedit"
