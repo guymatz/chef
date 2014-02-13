@@ -65,11 +65,13 @@ begin
       mode "0755"
     end
 
-    cookbook_file "#{node[:tomcat7][:install_path]}/lib/env.properties" do
-      source "stg_env.properties"
-      owner node[:tomcat7][:user]
-      group node[:tomcat7][:group]
-      mode "0755"
+    remote_file "#{node[:tomcat7][:install_path]}/lib/env.properties.erb" do
+      source "http://files.ihrdev.com/amp/#{node[:amp][:version]}/env.properties.erb"
+    end
+
+    template "#{node[:tomcat7][:install_path]}/lib/env.properties" do
+      source "#{node[:tomcat7][:install_path]}/lib/env.properties.erb"
+      local true
     end
 
     remote_file "#{node[:tomcat7][:install_path]}/lib/log4j.xml" do
