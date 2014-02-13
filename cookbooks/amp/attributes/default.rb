@@ -1,4 +1,3 @@
-
 default[:amp][:version] = "2.22-vanilla-ice"
 default[:amp][:amp_rest_version] = "2.22.0"
 default[:amp][:url] = "http://files.ihrdev.com/amp"
@@ -100,6 +99,12 @@ when /^prod/
   default[:amp][:subscriptions][:max_pool_size] = 100
   default[:amp][:subscriptions][:queue_size] = 100
   default[:amp][:subscriptions][:max_wait_in_seconds] = 1
+  default[:amp][:data_warehouse][:jdbc_url] = "jdbc:jtds:sqlserver://iheartdw.ihrint.com:1433;databaseName=IHRDWH"
+  default[:amp][:data_warehouse][:host] = "iheartdw.ihrint.com"
+  default[:amp][:data_warehouse][:port] = "1433"
+  default[:amp][:data_warehouse][:batch_user_name] = "appBatch"
+  default[:amp][:data_warehouse][:batch_user_password] = "i8piZZa4u"
+
 when /^stage/
   default[:amp][:usr_mongo][:hosts] = "localhost:27017"
   default[:amp][:usr_mongo][:connections_per_host] = 300
@@ -175,6 +180,12 @@ when /^stage/
   default[:amp][:subscriptions][:max_pool_size] = 100
   default[:amp][:subscriptions][:queue_size] = 100
   default[:amp][:subscriptions][:max_wait_in_seconds] = 1
+  default[:amp][:data_warehouse][:jdbc_url] = "jdbc:jtds:sqlserver://10.5.50.101;databaseName=IHRDWH"
+  default[:amp][:data_warehouse][:host] = "10.5.50.101"
+  default[:amp][:data_warehouse][:port] = "1433"
+  default[:amp][:data_warehouse][:batch_user_name] = "appBatch"
+  default[:amp][:data_warehouse][:batch_user_password] = "i8piZZa4u"
+ 
 else
   default[:amp][:usr_mongo][:hosts] = "localhost:27017"
   default[:amp][:usr_mongo][:connections_per_host] = 300
