@@ -260,6 +260,11 @@ else
   default[:amp][:subscriptions][:pool_size] = 100
   default[:amp][:subscriptions][:max_pool_size] = 100
   default[:amp][:subscriptions][:queue_size] = 100
+  default[:amp][:data_warehouse][:jdbc_url] = "jdbc:jtds:sqlserver://iheartdw.ihrint.com:1433;databaseName=IHRDWH"
+  default[:amp][:data_warehouse][:host] = "iheartdw.ihrint.com"
+  default[:amp][:data_warehouse][:port] = "1433"
+  default[:amp][:data_warehouse][:batch_user_name] = "appBatch"
+  default[:amp][:data_warehouse][:batch_user_password] = "i8piZZa4u"
 end
 # GP EDIT 8/16/13 Included a list of people to notify when endpoints show alert levels of 500s 
 # Used in ./templates/default/amp-extended-log-chk.sh.erb
