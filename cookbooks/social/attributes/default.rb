@@ -1,18 +1,18 @@
 
 
-default[:fbgraph][:deploy_path] = "/data/apps/fbgraph"
-default[:fbgraph][:version] = "20130911"
-default[:fbgraph][:url] = "http://files.ihrdev.com/fbgraph"
-default[:fbgraph][:user] = "fbgraph"
-default[:fbgraph][:group] = "fbgraph"
+default[:social_graph][:deploy_path] = "/data/apps/social_graph"
+default[:social_graph][:version] = "1.0.5"
+default[:social_graph][:url] = "http://files.ihrdev.com/jobs/social_graph"
+default[:social_graph][:user] = "social_graph"
+default[:social_graph][:group] = "social_graph"
 
 
-default[:fbtomcat][:version] = "2013-05-17_15-39-59"
-default[:fbtomcat][:url] = "http://files.ihrdev.com/Facebook-Tomcat"
+default[:social_tomcat][:version] = "2013-05-17_15-39-59"
+default[:social_tomcat][:url] = "http://files.ihrdev.com/Facebook-Tomcat"
 
 
 # ulimits
-default[:facebook][:ulimits] = [{
+default[:social][:ulimits] = [{
                                  "type" => "hard",
                                  "item" => "nproc",
                                  "value" => "4096"
