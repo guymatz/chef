@@ -48,4 +48,5 @@ else
   default[:social][:ingestion][:port] = ""
   default[:social][:ingestion][:app_user_name] = "appbatchuser"
   default[:social][:ingestion][:password] = "Pq2Ajf82k9"
+  default[:social][:social_graph][:log_directory] = "/var/log/fbgraph-consumer/"
 end
