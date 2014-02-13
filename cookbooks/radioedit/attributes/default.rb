@@ -97,7 +97,7 @@ case chef_environment
 # PRODUCTION SETTINGS!!!!!
 # ################################################################
 when /^prod/
-  
+
   default[:radioedit][:repo] = "git@github.ihrint.com:radioedit/core.git"
   default[:radioedit][:branch] = "ganon.3"
   default[:radioedit][:env] = "ihr_testing"
@@ -209,6 +209,7 @@ when /^stage/
 
   # override for the default value "0.0.0.0"
   override[:memcached][:listen]  = "localhost";
+  # override for the default value "1024"
   override[:memcached][:memory]  = 64;
 
   default[:radioedit][:repo] = "git@github.ihrint.com:radioedit/core.git"
@@ -317,6 +318,7 @@ else
   
   # override for the default value "0.0.0.0"
   override[:memcached][:listen]  = "localhost";
+  # override for the default value "1024"
   override[:memcached][:memory]  = 64;
 
   default[:radioedit][:path] = "/data/apps/radioedit";
