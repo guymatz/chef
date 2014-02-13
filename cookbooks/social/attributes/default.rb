@@ -1,5 +1,3 @@
-
-
 default[:social_graph][:deploy_path] = "/data/apps/social_graph"
 default[:social_graph][:version] = "1.0.5"
 default[:social_graph][:url] = "http://files.ihrdev.com/jobs/social_graph"
@@ -32,3 +30,22 @@ default[:social][:ulimits] = [{
                                  "item" => "nofile",
                                  "value" => "65535"
                                }]
+case chef_environment
+when /^prod/
+  default[:social][:ingestion][:host] = "iad-ing101-v260.ihr"
+  default[:social][:ingestion][:port] = ""
+  default[:social][:ingestion][:app_user_name] = "appbatchuser"
+  default[:social][:ingestion][:password] = "Pq2Ajf82k9"
+  default[:social][:social_graph][:log_directory] = "/var/log/fbgraph-consumer/"
+when /^stage/
+  default[:social][:ingestion][:host] = "10.9.176.24"
+  default[:social][:ingestion][:port] = "5432"
+  default[:social][:ingestion][:app_user_name] = "appbatchuser"
+  default[:social][:ingestion][:password] = "Pq2Ajf82k9"
+  default[:social][:social_graph][:log_directory] = "/var/log/fbgraph-consumer/"
+else
+  default[:social][:ingestion][:host] = "iad-ing101-v260.ihr"
+  default[:social][:ingestion][:port] = ""
+  default[:social][:ingestion][:app_user_name] = "appbatchuser"
+  default[:social][:ingestion][:password] = "Pq2Ajf82k9"
+end
