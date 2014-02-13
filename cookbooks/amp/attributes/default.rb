@@ -139,6 +139,7 @@ when /^stage/
   default[:amp][:facebook][:timeout] = 15000
   default[:amp][:facebook][:max_connections] = 100
   default[:amp][:facebook][:url] = "https://graph.facebook.com/me?access_token=%s&fields=email,id"
+  default[:amp][:facebook][:exchange_url] = "https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=214588375268980&client_secret=41e22a79bb59ebb4785d01d0366123e6&fb_exchange_token=%s"
   default[:amp][:google_plus][:url] = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=%s"
   default[:amp][:google_plus][:client_id] = "884160514548-7rrpob5uu4gn3bova3rvkn1ng16v4138.apps.googleusercontent.com"
   default[:amp][:amazon][:url] = "https://api.amazon.com/auth/o2/tokeninfo?access_token=%s"
@@ -163,6 +164,7 @@ when /^stage/
   default[:amp][:cassandra][:keep_alive] = "true"
   default[:amp][:cassandra][:max_wait_millis] = 5000
   default[:amp][:cassandra][:socket_timeout_millis] = 5000
+  default[:amp][:dwh][:radiomodel_jdbc_url] = "jdbc:jtds:sqlserver://iad-dwh-db102-vip.ihrint.com:1433;DatabaseName=RadioModel"
   default[:amp][:statsd][:prefix] = "amp.stage"
   default[:amp][:statsd][:host] = "iad-stg-statsd101.ihr"
   default[:amp][:statsd][:port] = 8125
