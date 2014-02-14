@@ -97,6 +97,9 @@ case chef_environment
 # PRODUCTION SETTINGS!!!!!
 # ################################################################
 when /^prod/
+
+  override[:memcached][:memory]  = 64;
+
   default[:radioedit][:repo] = "git@github.ihrint.com:radioedit/core.git"
   default[:radioedit][:branch] = "ganon.3"
   default[:radioedit][:env] = "ihr_testing"
@@ -207,6 +210,8 @@ when /^prod/
 # ################################################################
 when /^stage/
 
+  override[:memcached][:memory]  = 64;
+
   default[:radioedit][:repo] = "git@github.ihrint.com:radioedit/core.git"
   default[:radioedit][:branch] = "staging"
   default[:radioedit][:env] = "ihr_testing"
@@ -310,6 +315,8 @@ when /^stage/
 # Development Environment settings.
 # ################################################################
 else
+
+  override[:memcached][:memory]  = 64;
   
   default[:radioedit][:path] = "/data/apps/radioedit";
   default[:radioedit][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
