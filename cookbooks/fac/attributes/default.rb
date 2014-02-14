@@ -5,7 +5,7 @@ default[:fac][:sherpa][:version] = "3.4.54"
 default[:fac][:sherpa][:jarfile] = "FAC-sherpa"
 default[:fac][:radiobuild][:version] = "1.0.12"
 default[:fac][:radiobuild2][:version] = "1.0.15"
-default[:fac][:genre][:version] = "3.4.108"
+default[:fac][:genre][:version] = "3.4.110"
 
 default[:fac][:script_path] = "/data/jobs/fac"
 default[:fac][:url] = "http://archiva.ihrdev.com:8080/archiva/repository/internal/com/ccrd/fac"
@@ -17,7 +17,7 @@ default[:fac][:radiobuild2][:echonest] = "http://yum.ihr/files/ten.915.gz"
 
 default[:fac][:amptools][:repo] = "git@github.com:iheartradio/amp-tools.git"
 
-default[:fac][:genre][:radioedit][:rpc_url] = "iad-radioedit-test101.ihr"
+default[:fac][:genre][:radioedit][:rpc_url] = "iad-radioedit-test101.ihr/api/rpc"
 default[:fac][:genre][:radioedit][:api_key] = "T2R6dFl2MXY4bA=="
 
 # GP EDIT OPS-5083
