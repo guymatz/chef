@@ -44,8 +44,8 @@ start() {
 
     # Redirects default and error output to a log file
     BASEDIR="<%= @basedir %>"
-    cmd="nohup $JAVA_HOME/bin/java -Xmx1024M -Dpidfile=$PIDFILE -Dlog4j.configuration=file:///$BASEDIR/log4j.xml -Djava.rmi.server.hostname=<%= node[:ipaddress] %> -Dcom.sun.management.jmxremote.port=8995 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -cp $BASEDIR/<%= @jarfile %> com.ccrd.amqp.FBGraphConsumer $BASEDIR/env.properties > /dev/null 2>&1"
-    su -m serviceUser -s $SHELL -c "$cmd" || return 1
+    cmd="nohup $JAVA_HOME/bin/java -Xmx1024M -Dpidfile=$PIDFILE -Dlog4j.configuration=file:///$BASEDIR/log4j.xml -Djava.rmi.server.hostname=<%= node[:ipaddress] %> -Dcom.sun.management.jmxremote.port=8995 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -cp <%= @jarfile %> com.ccrd.amqp.SocialGraphConsumer $BASEDIR/env.properties > /var/log/<%= @app %>/<%= @app %>.log 2>&1"
+    su -m $serviceUser -s $SHELL -c "$cmd" || return 1
     echo $! > $PIDFILE
     echo "OK"
 }

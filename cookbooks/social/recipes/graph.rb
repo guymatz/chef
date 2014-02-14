@@ -28,8 +28,8 @@ end
   end
 end
 
-template "#{node[:social_graph][:deploy_path]}/env.properties" do
-      source "#{node[:social_graph][:deploy_path]}/env.properties.erb"
+template "#{node[:social_graph][:deploy_path]}/#{node[:social_graph][:version]}/env.properties" do
+      source "#{node[:social_graph][:deploy_path]}/#{node[:social_graph][:version]}/env.properties.erb"
       local true
 end
 
@@ -57,8 +57,8 @@ template "/etc/init.d/social_graph" do
   group "root"
   variables({
               :app => 'social_graph',
-              :jarfile => "#{node[:social_graph][:deploy_path]}/social_graph-jar-with-dependencies.jar",
-              :basedir => node[:social_graph][:deploy_path]/node[:social_graph][:version]
+              :jarfile => "#{node[:social_graph][:deploy_path]}/#{node[:social_graph][:version]}/social_graph-jar-with-dependencies.jar",
+              :basedir => "#{node[:social_graph][:deploy_path]}/#{node[:social_graph][:version]}"
             })
 end
 
