@@ -12,14 +12,14 @@ node.save
 include_recipe "java"
 include_recipe "tomcat7"
 
-directory "#{node[:social_graph][:deploy_path]}" do
+directory "#{node[:social_graph][:deploy_path]}/#{node[:social_graph][:version]}" do
   owner node[:social_graph][:user]
   group node[:social_graph][:group]
   recursive true
 end
 
 %w{ social_graph-jar-with-dependencies.jar env.properties.erb log4j.xml }.each do |social_file|
-  remote_file "#{node[:social_graph][:deploy_path]}/#{social_file}" do
+  remote_file "#{node[:social_graph][:deploy_path]}/#{node[:social_graph][:version]}/#{social_file}" do
     Chef::Log.info("Downloading #{social_file} from #{node[:social_graph][:url]}/#{node[:social_graph][:version]}/#{social_file}")
     source "#{node[:social_graph][:url]}/#{node[:social_graph][:version]}/#{social_file}"
     mode "0755"
@@ -58,7 +58,7 @@ template "/etc/init.d/social_graph" do
   variables({
               :app => 'social_graph',
               :jarfile => "#{node[:social_graph][:deploy_path]}/social_graph-jar-with-dependencies.jar",
-              :basedir => node[:social_graph][:deploy_path]
+              :basedir => node[:social_graph][:deploy_path]/node[:social_graph][:version]
             })
 end
 

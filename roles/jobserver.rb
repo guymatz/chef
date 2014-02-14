@@ -23,5 +23,9 @@ override_attributes({
         "splunk" => {
             "forwarder_config_folder" => "prod",
             "forwarder_role" =>  "jobserver"
+        },
+        "java" => {
+            "install_flavor" => "oracle",
+            "jdk_version" => "7"
         }
 })

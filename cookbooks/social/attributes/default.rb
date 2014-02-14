@@ -1,5 +1,5 @@
 default[:social_graph][:deploy_path] = "/data/apps/social_graph"
-default[:social_graph][:version] = "1.0.5"
+default[:social_graph][:version] = "1.0.6"
 default[:social_graph][:url] = "http://files.ihrdev.com/jobs/social_graph"
 default[:social_graph][:user] = "social_graph"
 default[:social_graph][:group] = "social_graph"
