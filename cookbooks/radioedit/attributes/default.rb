@@ -60,7 +60,8 @@ default[:radioedit][:core] = {
     readline-devel 
     patch 
     libjpeg-devel 
-  }
+  },
+
   :pips         => %w{ 
     supervisor 
     pymongo 
@@ -137,7 +138,8 @@ when /^prod/
     /var/run/radioedit 
     /var/log/radioedit 
     /data/apps/radioedit/shared 
-  }
+  };
+
   default[:radioedit][:packages] = %w{ 
     libevent 
     memcached 
@@ -168,7 +170,8 @@ when /^prod/
     rsyslog
     libxml2-devel
     libxslt-devel
-  }
+  };
+
   default[:radioedit][:pips] = %w{ 
     lxml
     supervisor 
@@ -196,7 +199,7 @@ when /^prod/
     simplejson 
     raven 
     pytest 
-  }
+  };
 # END PRODUCTION SETTINGS
 
 # ################################################################
@@ -241,7 +244,7 @@ when /^stage/
     /var/run/radioedit 
     /var/log/radioedit 
     /data/apps/radioedit/shared 
-  }
+  };
   default[:radioedit][:packages] = %w{ 
     libevent 
     memcached 
@@ -272,7 +275,7 @@ when /^stage/
     rsyslog
     libxml2-devel
     libxslt-devel
-  }
+  };
   default[:radioedit][:pips] = %w{ 
     lxml
     supervisor 
@@ -300,7 +303,7 @@ when /^stage/
     simplejson 
     raven 
     pytest 
-  }
+  };
 # End of stage settings
 
 # ################################################################
@@ -345,7 +348,8 @@ else
     /var/run/radioedit 
     /var/log/radioedit 
     /data/apps/radioedit/shared 
-  }
+  };
+
   default[:radioedit][:packages] = %w{
     libevent 
     memcached 
@@ -376,7 +380,8 @@ else
     rsyslog
     libxml2-devel
     libxslt-devel
-  }
+  };
+
   default[:radioedit][:pips] = %w{ 
     lxml
     supervisor 
@@ -404,7 +409,7 @@ else
     simplejson 
     raven 
     pytest 
-  }
+  };
   
 # END Development Environment settings.
 end
@@ -423,7 +428,7 @@ default[:radioedit][:image] = {
       python-imaging 
       python-psycopg2 
       postgresql-libs 
-  };
+  }
 };
 
 default[:radioedit][:cms] = {
