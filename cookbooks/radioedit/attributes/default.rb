@@ -13,7 +13,7 @@ default[:radioedit] = {
   # Path that needs to get traced for attribute use. this might be an orphan
   :install_path   => "/data/apps/radioedit",
   # Again, another possible orphan
-  :nginx          => {:port => 8000},
+  :nginx          => {:port => 8000}
 
   # user shell account management
   :user_accounts  => {
@@ -60,8 +60,7 @@ default[:radioedit][:core] = {
     readline-devel 
     patch 
     libjpeg-devel 
-  },
-
+  }
   :pips         => %w{ 
     supervisor 
     pymongo 
@@ -97,7 +96,6 @@ case chef_environment
 # PRODUCTION SETTINGS!!!!!
 # ################################################################
 when /^prod/
-
   default[:radioedit][:repo] = "git@github.ihrint.com:radioedit/core.git"
   default[:radioedit][:branch] = "ganon.3"
   default[:radioedit][:env] = "ihr_testing"
@@ -139,7 +137,7 @@ when /^prod/
     /var/run/radioedit 
     /var/log/radioedit 
     /data/apps/radioedit/shared 
-  };
+  }
   default[:radioedit][:packages] = %w{ 
     libevent 
     memcached 
@@ -170,8 +168,7 @@ when /^prod/
     rsyslog
     libxml2-devel
     libxslt-devel
-  };
-  
+  }
   default[:radioedit][:pips] = %w{ 
     lxml
     supervisor 
@@ -206,11 +203,6 @@ when /^prod/
 # Stage Environment settings.
 # ################################################################
 when /^stage/
-
-  # override for the default value "0.0.0.0"
-  override[:memcached][:listen]  = "localhost";
-  # override for the default value "1024"
-  override[:memcached][:memory]  = 64;
 
   default[:radioedit][:repo] = "git@github.ihrint.com:radioedit/core.git"
   default[:radioedit][:branch] = "staging"
@@ -316,11 +308,6 @@ when /^stage/
 # ################################################################
 else
   
-  # override for the default value "0.0.0.0"
-  override[:memcached][:listen]  = "localhost";
-  # override for the default value "1024"
-  override[:memcached][:memory]  = 64;
-
   default[:radioedit][:path] = "/data/apps/radioedit";
   default[:radioedit][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
   default[:radioedit][:log_dir] = "/var/log/radioedit"
@@ -389,7 +376,6 @@ else
     rsyslog
     libxml2-devel
     libxslt-devel
-    libmemcached-devel
   }
   default[:radioedit][:pips] = %w{ 
     lxml
@@ -437,7 +423,7 @@ default[:radioedit][:image] = {
       python-imaging 
       python-psycopg2 
       postgresql-libs 
-  }
+  };
 };
 
 default[:radioedit][:cms] = {
