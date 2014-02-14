@@ -6,10 +6,10 @@
   "override_attributes": {},
   "chef_type": "role",
   "run_list": [
-    "recipe[nodejs]"
+    "recipe[nodejs]",
     "recipe[users::dev]",
     "recipe[users::deployer]",
-    "recipe[iscale]",
+    "recipe[iscale]"
   ],
   "env_run_lists": {
   }
