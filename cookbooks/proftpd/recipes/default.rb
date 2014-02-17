@@ -44,6 +44,10 @@ if node[:proftpd][:modules].include?('ldap')
   end
 end
 
+service "proftpd" do
+  action [ :enable, :start ]
+end
+
 ##@# cookbook_file "/etc/proftpd.conf" do
 ##@#   source "conf.ms"
 ##@# end
