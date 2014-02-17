@@ -50,6 +50,6 @@ end
 
 cron_d "fac-genre" do
  minute "*/5"
- command "java -jar #{script_dir}/FAC-#{app}-#{node[:fac][app][:version]}.jar jobPropertyFile=#{script_dir}/env.properties"
+ command "/usr/lib/jvm/java-1.7.0/bin/java -jar #{script_dir}/FAC-#{app}-#{node[:fac][app][:version]}.jar jobPropertyFile=#{script_dir}/env.properties"
  user "root"
 end
