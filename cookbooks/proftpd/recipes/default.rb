@@ -115,6 +115,14 @@ directory node[:proftpd][:default_root] do
   not_if do FileTest.directory?(node[:proftpd][:default_root]) end
 end
 
+# mount encoder from isilon for processing by incron
+mount node[:proftpd][:ftp_mount_point] do
+  device node[:proftpd][:ftp_export]
+  fstype "nfs"
+  options "rw,vers=3,bg,soft,tcp,intr"
+  action [:mount, :enable]
+end
+
 include_recipe "proftpd::auth_file"
 include_recipe "proftpd::sshkeys_files"
 
