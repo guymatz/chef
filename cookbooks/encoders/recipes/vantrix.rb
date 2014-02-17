@@ -2,9 +2,9 @@
 begin
   unless tagged?("vantrix-deployed")
 
-#    package "spotxde-trx" do
-#        action :install
-#    end
+    package "spotxde-trx" do
+        action :install
+    end
 
     group "converter" do
       action :modify
