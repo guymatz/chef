@@ -7,11 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-#hostsfile_entry '10.5.36.28' do
-#  hostname 'files.ihrdev.com'
-#  #action :create_if_missing
-#end
-
 node.set[:java][:oracle][:accept_oracle_download_terms] = true
 node.save
 %w{ users::amp java tomcat7 amp::logging }.each do |r|
@@ -63,14 +58,13 @@ begin
       mode "0755"
     end
 
-    # JPD OPS-6114
+    #JPD OPS-6114
     remote_file "#{node[:tomcat7][:webapp_dir]}/ROOT/akamai-endpoint.20Kb" do
       source "#{node[:amp][:url]}/akamai-endpoint.20Kb"
       owner node[:tomcat7][:user]
       group node[:tomcat7][:group]
       mode "0755"
     end
-
 
     remote_file "#{node[:tomcat7][:webapp_dir]}/api.war" do
       source "#{node[:amp][:url]}/#{node[:amp][:version]}/amp-rest-#{node[:amp][:amp_rest_version]}.war"
@@ -79,11 +73,13 @@ begin
       mode "0755"
     end
 
-    remote_file "#{node[:tomcat7][:install_path]}/lib/env.properties" do
-      source "#{node[:amp][:url]}/#{node[:amp][:version]}/env.properties"
-      owner node[:tomcat7][:user]
-      group node[:tomcat7][:group]
-      mode "0755"
+    remote_file "#{node[:tomcat7][:install_path]}/lib/env.properties.erb" do
+      source "http://files.ihrdev.com/amp/#{node[:amp][:version]}/env.properties.erb"
+    end
+
+    template "#{node[:tomcat7][:install_path]}/lib/env.properties" do
+      source "#{node[:tomcat7][:install_path]}/lib/env.properties.erb"
+      local true
     end
 
     remote_file "#{node[:tomcat7][:install_path]}/lib/log4j.xml" do
