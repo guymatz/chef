@@ -5,6 +5,8 @@ all_env = [
   "recipe[disaster_recovery]",
   "recipe[disaster_recovery::nfs]",
   "recipe[disaster_recovery::unpack_attivio]",
+  "recipe[disaster_recovery::unpack_auth]",
+  "recipe[disaster_recovery::unpack_ing]",
   "recipe[avamar]"
 ]
 run_list(all_env)
