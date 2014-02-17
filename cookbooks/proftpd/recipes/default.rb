@@ -111,28 +111,6 @@ directory node[:proftpd][:default_root] do
   not_if do FileTest.directory?(node[:proftpd][:default_root]) end
 end
 
-# Dir where encoder will be mounted
-# the converter user needs acccess to these . . .
-directory node[:proftpd][:encoder_mount_point] do
-  owner node[:proftpd][:conv_user]
-  group node[:proftpd][:conv_group]
-  mode 0755
-  not_if do FileTest.directory?(node[:proftpd][:encoder_mount_point]) end
-end
-
-# mount encoder from isilon for processing by incron
-mount node[:proftpd][:encoder_mount_point] do
-  device node[:proftpd][:encoder_export]
-  fstype "nfs"
-  options "rw"
-  action [:mount, :enable]
-end
-
-# And we need a link to /Utility for historical reasons
-link "/Utility" do
-  to "#{node[:proftpd][:default_root]}" 
-end
-
 include_recipe "proftpd::auth_file"
 include_recipe "proftpd::sshkeys_files"
 
