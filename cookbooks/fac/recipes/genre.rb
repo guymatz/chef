@@ -20,6 +20,7 @@ dwh_creds = Chef::EncryptedDataBagItem.load("secrets", "dwh_radiomodel_creds")
 remote_file "#{script_dir}/FAC-#{app}-#{node[:fac][app][:version]}.jar" do
   Chef::Log.info("Downloading fac-#{app} from #{download_url}")
   source "#{download_url}"
+  action :create_if_missing
   mode "0755"
 end
 
