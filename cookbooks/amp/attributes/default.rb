@@ -42,3 +42,4 @@ default[:amp][:fac_mongo][:connect_timeout] = 5000
 default[:amp][:fac_mongo][:socket_timeout] = 5000
 default[:amp][:fac_mongo][:maxWaitTime] = 5000
 default[:amp][:fac_mongo][:threads_allowed_to_block_for_connections_multiplier] = 5
+default[:amp][:dwh][:radiomodel_jdbc_url] = "jdbc:jtds:sqlserver://iad-dwh-db102-vip.ihrint.com:1433;DatabaseName=RadioModel"
