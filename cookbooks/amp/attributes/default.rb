@@ -1,6 +1,10 @@
 default[:amp][:version] = "2.22-vanilla-ice"
 default[:amp][:amp_rest_version] = "2.22.0"
 default[:amp][:url] = "http://files.ihrdev.com/amp"
+default[:amp][:new_relic_directory] = "//data/apps/tomcat7/newrelic"
+default[:amp][:new_relic_url] = "http://files.ihrdev.com/newrelic"
+default[:amp][:new_relic_filename] = "newrelic_agent"
+defualt[:amp][:new_relic_version] = "3.4.2"
 
 default[:amp][:packages] = %w{ mongo-10gen-server mongo-10gen }
 
