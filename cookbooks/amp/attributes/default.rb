@@ -128,9 +128,9 @@ when /^stage/
   default[:amp][:image][:amg_prefix] = "http://assets.iheart.com"
   default[:amp][:image][:talk_prefix] = "http://staging.content.iheart.com"
   default[:amp][:image][:prn_prefix] = "http://staging.content.iheart.com"
-  default[:amp][:image][:smt_prefix] = "http://iad-radioedit-test101.ihr/-service/img/nop()/images/"
-  default[:amp][:image][:genre_prefix] = "http://iad-radioedit-test101.ihr/service/img/nop()/assets"
-  default[:amp][:image][:genre_recs_prefix] = "http://iad-radioedit-test101.ihr/service/img/nop()/assets"
+  default[:amp][:image][:smt_prefix] = "http://radioedit-stg1-origin.ihrdev.com/service/img/"
+  default[:amp][:image][:genre_prefix] = "http://radioedit-stg1-origin.ihrdev.com/service/img/nop()/assets"
+  default[:amp][:image][:genre_recs_prefix] = "http://radioedit-stg1-origin.ihrdev.com/service/img/nop()/assets"
   default[:amp][:search][:pool_size] = 50
   default[:amp][:search][:pool_max_size] = 50
   default[:amp][:search][:max_wait] = 10
