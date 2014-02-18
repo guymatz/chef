@@ -3,7 +3,7 @@
     "uid": 5016,
     "name": "Laurent Vauthrin",
     "email": "",
-    "groups": ["dev", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch", "facebook", "rabbit"],
+    "groups": ["dev", "jenkins", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch", "facebook", "rabbit"],
     "nagios": {
         "email": ""
     },

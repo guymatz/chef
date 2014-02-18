@@ -12,7 +12,6 @@ recipe 'node', 'Installs a Jenkins node'
 recipe 'proxy', 'Installs a web server proxy for communication with the jenkins instance'
 recipe 'server', 'Installs Jenkins server'
 
-depends 'java'
 depends 'runit', '>= 1.0.0'
 depends 'apt'
 depends 'yum'
