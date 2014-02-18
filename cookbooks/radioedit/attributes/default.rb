@@ -105,7 +105,7 @@ when /^prod/
   default[:radioedit][:env] = "ihr_testing"
   default[:radioedit][:app_user] = "ihr-deployer"
   default[:radioedit][:path] = "/data/apps/radioedit"
-  default[:radioedit][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
+  default[:radioedit][:pid_file] = "/var/run/radioedit/radioedit-core.pid"
   default[:radioedit][:log_dir] = "/var/log/radioedit"
   default[:radioedit][:out_log] = "#{default[:radioedit][:log_dir]}/application.log"
   default[:radioedit][:err_log] = "#{default[:radioedit][:log_dir]}/application.err"
@@ -216,7 +216,7 @@ when /^stage/
   default[:radioedit][:branch] = "staging"
   default[:radioedit][:env] = "ihr_testing"
   default[:radioedit][:path] = "/data/apps/radioedit";
-  default[:radioedit][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
+  default[:radioedit][:pid_file] = "/var/run/radioedit/radioedit-core.pid"
   default[:radioedit][:log_dir] = "/var/log/radioedit"
   default[:radioedit][:out_log] = "#{default[:radioedit][:log_dir]}/application.log"
   default[:radioedit][:err_log] = "#{default[:radioedit][:log_dir]}/application.err"
@@ -319,7 +319,7 @@ else
   override[:memcached][:memory]  = 64;
   
   default[:radioedit][:path] = "/data/apps/radioedit";
-  default[:radioedit][:pid_file] = "/var/run/radioedit/radioedit-epona.pid"
+  default[:radioedit][:pid_file] = "/var/run/radioedit/radioedit-core.pid"
   default[:radioedit][:log_dir] = "/var/log/radioedit"
   default[:radioedit][:out_log] = "#{default[:radioedit][:log_dir]}/application.log"
   default[:radioedit][:err_log] = "#{default[:radioedit][:log_dir]}/application.err"

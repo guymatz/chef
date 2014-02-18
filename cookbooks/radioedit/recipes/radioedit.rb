@@ -27,11 +27,9 @@ end
   end
 end
 
-%w{ varnishlog }.each do |serv|
-  service serv do
-    supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
-    action [ :disable, :stop ]
-  end
+service "varnishlog" do
+  supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
+  action [ :disable, :stop ]
 end
 
 
