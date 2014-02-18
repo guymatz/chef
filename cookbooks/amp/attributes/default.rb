@@ -44,9 +44,9 @@ when /^prod/
   default[:amp][:image][:amg_prefix] = "http://assets.iheart.com"
   default[:amp][:image][:talk_prefix] = "http://content.iheart.com"
   default[:amp][:image][:prn_prefix] = "http://content.iheart.com"
-  default[:amp][:image][:smt_prefix] = "http://images.iheart.com/service/img/"
-  default[:amp][:image][:genre_prefix] = "http://images.iheart.com/service/img/nop()/assets"
-  default[:amp][:image][:genre_recs_prefix] = "http://images.iheart.com/service/img/nop()/assets"
+  default[:amp][:image][:smt_prefix] = "http://radioedit.iheart.com/service/img/"
+  default[:amp][:image][:genre_prefix] = "http://radioedit.iheart.com/service/img/nop()/assets"
+  default[:amp][:image][:genre_recs_prefix] = "http://radioedit.iheart.com/service/img/nop()/assets"
   default[:amp][:search][:pool_size] = 50
   default[:amp][:search][:pool_max_size] = 50
   default[:amp][:search][:max_wait] = 10
@@ -213,9 +213,9 @@ else
   default[:amp][:image][:amg_prefix] = "http://assets.iheart.com"
   default[:amp][:image][:talk_prefix] = "http://content.iheart.com"
   default[:amp][:image][:prn_prefix] = "http://content.iheart.com"
-  default[:amp][:image][:smt_prefix] = "http://images.iheart.com/service/img/"
-  default[:amp][:image][:genre_prefix] = "http://images.iheart.com/service/img/nop()/assets"
-  default[:amp][:image][:genre_recs_prefix] = "http://images.iheart.com/service/img/nop()/assets"
+  default[:amp][:image][:smt_prefix] = "http://radioedit.iheart.com/service/img/"
+  default[:amp][:image][:genre_prefix] = "http://radioedit.iheart.com/service/img/nop()/assets"
+  default[:amp][:image][:genre_recs_prefix] = "http://radioedit.iheart.com/service/img/nop()/assets"
   default[:amp][:search][:pool_size] = 50
   default[:amp][:search][:pool_max_size] = 50
   default[:amp][:search][:max_wait] = 10
