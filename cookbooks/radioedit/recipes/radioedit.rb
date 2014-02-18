@@ -149,6 +149,12 @@ template "/etc/nginx/nginx.conf" do
   mode 0644
 end
 
+# gp added to remove default.conf file dropped by the rpm.
+remote_file '/etc/nginx/conf.d/default.conf' do
+  action :delete
+  force_unlink true
+end
+
 template "/etc/nginx/conf.d/radioedit.conf" do 
   source "nginx.refactor.conf.erb" 
   owner "root" 
