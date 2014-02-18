@@ -142,6 +142,13 @@ template "/etc/sysconfig/varnish" do
   notifies :reload, "service[varnish]", :immediately 
 end
 
+template "/etc/nginx/nginx.conf" do
+  source "nginx.conf"
+  owner "root"
+  group "root"
+  mode 0644
+end
+
 template "/etc/nginx/conf.d/radioedit.conf" do 
   source "nginx.refactor.conf.erb" 
   owner "root" 
