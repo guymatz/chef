@@ -3,6 +3,7 @@ description "disaster_recovery"
 all_env = [
   "recipe[nfs::server]",
   "recipe[disaster_recovery]",
+  "recipe[avamar]",
   "recipe[disaster_recovery::nfs]",
   "recipe[disaster_recovery::unpack_attivio]",
   "recipe[disaster_recovery::unpack_auth]",
