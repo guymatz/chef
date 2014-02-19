@@ -1,0 +1,51 @@
+{
+  "name": "iad-stg-cass103.ihr",
+  "chef_environment": "stage",
+  "run_list": [
+    "role[base]",
+    "role[cassandra]",
+    "role[dell]"
+  ],
+  "normal": {
+    "cassandra": {
+      "listen_addr": "10.5.53.162",
+      "rpc_addr": "10.5.53.162",
+      "seed_ips": [
+        "10.5.53.163",
+        "10.5.53.164"
+      ]
+    },
+    "tags": [
+
+    ],
+    "mysql": {
+      "conf_dir": "/etc",
+      "confd_dir": "/etc/mysql/conf.d",
+      "socket": "/var/lib/mysql/mysql.sock",
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "old_passwords": 1,
+      "grants_path": "/etc/mysql_grants.sql",
+      "tunable": {
+        "innodb_adaptive_flushing": false
+      }
+    },
+    "snmp": {
+      "packages": [
+        "net-snmp",
+        "net-snmp-utils"
+      ],
+      "cookbook_files": [
+
+      ]
+    },
+    "sysctl": {
+      "vm.max_map_count": "131072",
+      "vm.swappiness": 1
+    },
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    }
+  }
+}

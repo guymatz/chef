@@ -1,0 +1,13 @@
+{
+  "name": "iad-stg-build-slave101.ihr",
+  "chef_environment": "_default",
+  "run_list": [
+    "role[base]",
+    "recipe[jenkins::node]"
+  ],
+  "normal": {
+    "tags": [
+
+    ]
+  }
+}

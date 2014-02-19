@@ -1,0 +1,49 @@
+{
+  "name": "use1b-search201.ihr",
+  "chef_environment": "stage",
+  "run_list": [
+    "role[base]",
+    "role[elasticsearch]",
+    "role[use1b-search]"
+  ],
+  "normal": {
+    "runlist_override_history": {
+      "1378846222": "[recipe[ganglia]]"
+    },
+    "mysql": {
+      "conf_dir": "/etc",
+      "grants_path": "/etc/mysql_grants.sql",
+      "old_passwords": 1,
+      "confd_dir": "/etc/mysql/conf.d",
+      "tunable": {
+        "innodb_adaptive_flushing": false
+      },
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "socket": "/var/lib/mysql/mysql.sock"
+    },
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    },
+    "platform?": "ubuntu",
+    "tags": [
+      "es-plugins-installed"
+    ],
+    "snmp": {
+      "cookbook_files": [
+
+      ],
+      "packages": [
+        "net-snmp",
+        "net-snmp-utils"
+      ]
+    },
+    "openssh": {
+      "server": {
+      },
+      "client": {
+      }
+    }
+  }
+}

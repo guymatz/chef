@@ -1,0 +1,13 @@
+{
+  "name": "iad-stg-aisteste101.ihr",
+  "chef_environment": "_default",
+  "run_list": [
+    "role[base]",
+    "recipe[users::dev]"
+  ],
+  "normal": {
+    "tags": [
+
+    ]
+  }
+}

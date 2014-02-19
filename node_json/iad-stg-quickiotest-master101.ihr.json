@@ -1,0 +1,12 @@
+{
+  "name": "iad-stg-quickiotest-master101.ihr",
+  "chef_environment": "development",
+  "run_list": [
+    "role[base]"
+  ],
+  "normal": {
+    "tags": [
+
+    ]
+  }
+}

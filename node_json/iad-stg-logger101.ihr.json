@@ -1,0 +1,14 @@
+{
+  "name": "iad-stg-logger101.ihr",
+  "chef_environment": "_default",
+  "run_list": [
+    "role[base]",
+    "recipe[users::flume]",
+    "recipe[java::oracle-7]"
+  ],
+  "normal": {
+    "tags": [
+
+    ]
+  }
+}

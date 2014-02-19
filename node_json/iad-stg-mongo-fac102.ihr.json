@@ -1,0 +1,49 @@
+{
+  "name": "iad-stg-mongo-fac102.ihr",
+  "chef_environment": "stage",
+  "run_list": [
+    "role[base]",
+    "recipe[users::deployer]",
+    "role[mongodb_server]",
+    "role[mongodb_server_second_instance]",
+    "recipe[mongodb::admin_scripts]",
+    "role[dell]"
+  ],
+  "normal": {
+    "mongodb": {
+      "replset": "Mongo-FAC-stg"
+    },
+    "mongodb2": {
+      "replset": "Mongo-shared-STG",
+      "oplogsize": "13319"
+    },
+    "tags": [
+      "mongo_fac"
+    ],
+    "mysql": {
+      "conf_dir": "/etc",
+      "confd_dir": "/etc/mysql/conf.d",
+      "socket": "/var/lib/mysql/mysql.sock",
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "old_passwords": 1,
+      "grants_path": "/etc/mysql_grants.sql",
+      "tunable": {
+        "innodb_adaptive_flushing": false
+      }
+    },
+    "snmp": {
+      "packages": [
+        "net-snmp",
+        "net-snmp-utils"
+      ],
+      "cookbook_files": [
+
+      ]
+    },
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    }
+  }
+}

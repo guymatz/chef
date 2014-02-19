@@ -1,0 +1,12 @@
+{
+  "name": "iad-stg-zk101.ihr",
+  "chef_environment": "_default",
+  "run_list": [
+    "role[base]"
+  ],
+  "normal": {
+    "tags": [
+
+    ]
+  }
+}
