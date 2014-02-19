@@ -1,0 +1,2 @@
+#!/bin/bash
+for i in `/bin/cat /data/jobs/api_servers`; do for x in `ssh $i 'cd /data/apps/tomcat7/logs/; ls sysinfo.log.*'`; do /usr/bin/scp $i:/data/apps/tomcat7/logs/$x /data/log/sysinfo/input/$i.$x; ssh $i "sudo rm -f /data/apps/tomcat7/logs/$x"; done; done

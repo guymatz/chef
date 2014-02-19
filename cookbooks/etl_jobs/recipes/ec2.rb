@@ -170,7 +170,7 @@ remote_file "/data/jobs/sysinfo/sysinfo_job.jar" do
   source "http://yum.ihr/files/jobs/sysinfo/sysinfo_job.jar"
 end
 remote_file "/data/jobs/sysinfo/batch.properties" do
-  source "http://yum.ihr/files/jobs/sysinfo/batch.properties"
+  source "http://files.ihrdev.com/jobs/sysinfo/batch.properties"
 end
 remote_file "/data/jobs/sysinfo/log4j.properties" do
   source "http://yum.ihr/files/jobs/sysinfo/log4j.properties"
