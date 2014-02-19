@@ -1,10 +1,6 @@
 default[:amp][:version] = "2.22-vanilla-ice"
 default[:amp][:amp_rest_version] = "2.22.0"
 default[:amp][:url] = "http://files.ihrdev.com/amp"
-default[:amp][:new_relic_directory] = "//data/apps/tomcat7/newrelic"
-default[:amp][:new_relic_url] = "http://files.ihrdev.com/newrelic"
-default[:amp][:new_relic_filename] = "newrelic_agent"
-defualt[:amp][:new_relic_version] = "3.4.2"
 
 default[:amp][:packages] = %w{ mongo-10gen-server mongo-10gen }
 
@@ -26,6 +22,11 @@ when "debian"
 else
   default[:amp][:logging][:group] = "nobody"
 end
+
+default[:amp][:new_relic_directory] = "//data/apps/tomcat7/newrelic"
+default[:amp][:new_relic_url] = "http://files.ihrdev.com/new_relic"
+default[:amp][:new_relic_filename] = "newrelic_agent"
+default[:amp][:new_relic_version] = "3.4.2"
 
 case chef_environment
 when /^prod/
@@ -112,6 +113,7 @@ when /^prod/
   default[:amp][:authdb][:port] = "5432"
   default[:amp][:authdb][:user_name] = "appuser"
   default[:amp][:authdb][:password] = "2ph2Tr@ce"
+  default[:amp][:new_relic_app_name] = "PRD-AMP"
 when /^stage/
   default[:amp][:usr_mongo][:hosts] = "localhost:27017"
   default[:amp][:usr_mongo][:connections_per_host] = 300
@@ -196,6 +198,7 @@ when /^stage/
   default[:amp][:authdb][:port] = "5432"
   default[:amp][:authdb][:user_name] = "appuser"
   default[:amp][:authdb][:password] = "Pk32T783q9"
+  default[:amp][:new_relic_app_name] = "STG-AMP"
 else
   default[:amp][:usr_mongo][:hosts] = "localhost:27017"
   default[:amp][:usr_mongo][:connections_per_host] = 300
@@ -279,6 +282,7 @@ else
   default[:amp][:authdb][:port] = "5432"
   default[:amp][:authdb][:user_name] = "appuser"
   default[:amp][:authdb][:password] = "2ph2Tr@ce"
+  default[:amp][:new_relic_app_name] = "DEFAULT-AMP"
 end
 # GP EDIT 8/16/13 Included a list of people to notify when endpoints show alert levels of 500s 
 # Used in ./templates/default/amp-extended-log-chk.sh.erb
