@@ -1,13 +1,9 @@
 #
+# Author:: Guilhem Lettron <guilhem.lettron@youscribe.com>
 # Cookbook Name:: jenkins
-# Attributes:: default
+# Recipe:: default
 #
-# Author:: Doug MacEachern <dougm@vmware.com>
-# Author:: Fletcher Nichol <fnichol@nichol.ca>
-# Author:: Seth Chisamore <schisamo@opscode.com>
-#
-# Copyright 2010, VMware, Inc.
-# Copyright 2012, Opscode, Inc.
+# Copyright 2013, Youscribe
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,16 +17,3 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-default['jenkins']['mirror'] = 'http://mirrors.jenkins-ci.org'
-default['jenkins']['java_home'] = ENV['JAVA_HOME']
-default['jenkins']['iptables_allow'] = 'disable'
-
-default[:gems] = {
-    "erubis" => "2.7.0",
-    "gherkin" => "2.11.7",
-    "rake" => "10.0.1",
-    "treetop" => "1.4.10",
-    "yajl-ruby" => "1.2.0",
-    "foodcritic" => "3.0.3"
-}

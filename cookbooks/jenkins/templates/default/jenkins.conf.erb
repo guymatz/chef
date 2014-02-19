@@ -1,0 +1,31 @@
+<IfModule mod_proxy.c>
+        #turning ProxyRequests on and allowing proxying from all may allow
+        #spammers to use your proxy to send email.
+
+        ProxyRequests Off
+
+        ProxyPass         /jenkins  http://localhost:8080/jenkins nocanon
+        ProxyPassReverse  /jenkins  http://localhost:8080/jenkins
+
+        ProxyRequests     Off
+        AllowEncodedSlashes Off
+
+        # Local reverse proxy authorization override
+        # Most unix distribution deny proxy by default (ie /etc/apache2/mods-enabled/proxy.conf in Ubuntu)
+        <Proxy http://localhost:8080/*>
+        Order deny,allow
+          Allow from all
+          AuthType Basic
+          AuthName "Jenkins IHR Stage"
+          AuthBasicProvider file
+          AuthUserFile /etc/httpd/htpasswd
+          Require valid-user
+          # allow slave's to connect 
+          # TODO: render dynamically
+          Allow from 10.5.54.97
+          Satisfy Any
+       </Proxy>
+
+
+        ProxyVia On
+</IfModule>

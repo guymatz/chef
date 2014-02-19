@@ -62,10 +62,11 @@ default['jenkins']['server']['version'] = nil
 default['jenkins']['server']['war_checksum'] = nil
 
 default['jenkins']['server']['port'] = 8080
-default['jenkins']['server']['host'] = node['fqdn']
-default['jenkins']['server']['url']  = "http://#{default['jenkins']['server']['host']}:#{default['jenkins']['server']['port']}"
+default['jenkins']['server']['external_port'] = 8080
+default['jenkins']['server']['host'] = "iad-stg-build-master101-v700.ihr"
+default['jenkins']['server']['url']  = "http://#{default['jenkins']['server']['host']}:#{default['jenkins']['server']['port']}/jenkins"
 
-default['jenkins']['server']['plugins'] = [  'build-pipeline-plugin', 'build-name-setter', 'copyartifact', 'disk-usage', 'email-ext', 'git', 'git-client', 'git-parameter', 'github', 'scp', 'm2-extra-steps', 'sonargraph-plugin', 'm2release', 'nodelabelparameter', 'ssh', 'ws-cleanup', 'skype-notifier', 'hipchat'  ] 
+default['jenkins']['server']['plugins'] = [  'notification', 'build-pipeline-plugin', 'build-name-setter', 'copyartifact', 'disk-usage', 'email-ext', 'git', 'git-client', 'git-parameter', 'github', 'scp', 'm2-extra-steps', 'sonargraph-plugin', 'm2release', 'nodelabelparameter', 'ssh', 'ws-cleanup', 'skype-notifier', 'hipchat'  ] 
 
 default['jenkins']['server']['jvm_options'] = nil
 default['jenkins']['server']['pubkey'] = nil

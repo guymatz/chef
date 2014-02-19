@@ -53,7 +53,7 @@ default['jenkins']['node']['labels'] = (node['tags'] || [])
 
 default['jenkins']['node']['env'] = nil
 default['jenkins']['node']['jvm_options'] = nil
-default['jenkins']['node']['executors'] = 1
+default['jenkins']['node']['executors'] = 4
 default['jenkins']['node']['in_demand_delay'] = 0
 default['jenkins']['node']['idle_delay'] = 1
 

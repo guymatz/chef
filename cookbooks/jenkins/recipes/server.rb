@@ -115,6 +115,15 @@ ruby_block 'block_until_operational' do
   action :nothing
 end
 
+template "#{node['apache']['dir']}/conf.d/jenkins.conf" do
+    source "jenkins.conf.erb"
+    owner       'apache'
+    group       'apache'
+    mode 0640
+    variables(
+              )
+  end
+
 log 'ensure_jenkins_is_running' do
   notifies :start, 'service[jenkins]', :immediately
   notifies :create, 'ruby_block[block_until_operational]', :immediately
