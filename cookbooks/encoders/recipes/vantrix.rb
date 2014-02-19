@@ -1,3 +1,8 @@
+group "converter" do
+  action :modify
+  members "spotxde"
+  append true
+end
 
 begin
   unless tagged?("vantrix-deployed")
@@ -5,13 +10,7 @@ begin
     package "spotxde-trx" do
         action :install
     end
-
-    group "converter" do
-      action :modify
-      members "spotxde"
-      append true
-    end
-
+    
     service "trx" do
         action [:enable, :start]
     end
