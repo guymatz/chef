@@ -110,7 +110,7 @@ when /^prod/
   default[:radioedit][:out_log] = "#{default[:radioedit][:log_dir]}/application.log"
   default[:radioedit][:err_log] = "#{default[:radioedit][:log_dir]}/application.err"
   default[:radioedit][:venv_path] = "#{default[:radioedit][:path]}/envs/core"
-  default[:radioedit][:module] = "wsgi"
+  default[:radioedit][:module] = "wsgi:application"
   default[:radioedit][:app_name] = "radioedit-core"
   default[:radioedit][:num_workers] = 5
   default[:radioedit][:log_level] = "WARNING"
