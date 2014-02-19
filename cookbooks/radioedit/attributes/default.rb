@@ -280,6 +280,8 @@ when /^stage/
     rsyslog
     libxml2-devel
     libxslt-devel
+    libvmod
+    libvmod-statsd
   };
   default[:radioedit][:pips] = %w{ 
     lxml
@@ -387,6 +389,8 @@ else
     rsyslog
     libxml2-devel
     libxslt-devel
+    libvmod
+    libvmod-statsd
   };
 
   default[:radioedit][:pips] = %w{ 
