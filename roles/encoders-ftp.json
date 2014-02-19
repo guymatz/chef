@@ -14,8 +14,7 @@
   "chef_type": "role",
   "run_list": [
     "recipe[splunk::forwarder]",
-    "recipe[nfs]",
-    "recipe[fail2ban]"
+    "recipe[nfs]"
   ],
   "env_run_lists": {
   },

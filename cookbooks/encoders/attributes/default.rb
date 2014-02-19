@@ -46,6 +46,7 @@ default[:gems] = {
     "rack" => "1.5.2",
     "rails" => "3.2.13",
     "httpi" => "2.0.2",
+    "nokogiri" => "1.4.0",
     "wasabi" => "2.5.0",
     "builder" => "3.2.0",
     "gyoku" => "1.0.0",
@@ -58,7 +59,6 @@ default[:gems] = {
     "bundler" => "1.1.5",
     "jdbc-postgres" => "9.1.901",
     "jruby-openssl" => "0.7.7",
-    "nokogiri" => "1.4.0",
     "rake" => "0.8.7",
     "ruby-mp3info" => "0.7.1",
     "sources" => "0.0.1",
@@ -217,7 +217,7 @@ case chef_environment
 when /^stage/
   default[:encoders][:isilon_server] = "iad-stg-nfs101-v700.ihr"
   default[:encoders][:p_ftp_export] = "/data/export/inbound-ftp"
-  default[:encoders][:p_ftp_mount] = "/data/inbound-ftp"
+  default[:encoders][:p_ftp_mount] = "/data/ftp"
   default[:encoders][:p_encoder_export] = "/data/export/encoder"
   default[:encoders][:p_encoder_mount] = "/data/encoder"
 else
@@ -231,6 +231,6 @@ end
 # stage nfs mounts
 default[:encoders][:stage_server] = "iad-stg-nfs101-v700.ihr"
 default[:encoders][:s_ftp_export] = "/data//export/inbound-ftp"
-default[:encoders][:s_ftp_mount] = "/data/inbound-ftp"
+default[:encoders][:s_ftp_mount] = "/data/ftp"
 default[:encoders][:s_encoder_export] = "/data/export/encoder"
 default[:encoders][:s_encoder_mount] = "/data/encoder"

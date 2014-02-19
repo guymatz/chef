@@ -41,6 +41,40 @@ begin
      end
   end
 
+  node[:gems].each do |gem,ver|
+     gem_package gem do
+       action :install
+       options "--no-ri --no-rdoc"
+       version ver
+     end
+  end
+
+  # drop a github private deploy key for amp-tools
+  deploy_keys = Chef::EncryptedDataBagItem.load("keys", "testtalkstream")
+
+  directory "/root/.ssh" do
+    mode "0700"
+  end
+  
+  file "/root/.ssh/id_rsa" do
+    owner "root"
+    group "root"
+    mode "0400"
+    content deploy_keys['private_key']
+    :create_if_missing
+  end
+    
+  file "/root/.ssh/config" do
+    owner "root"
+    group "root"
+    mode "0755"
+    content <<-EOH
+    Host *github.com
+      IdentityFile "/root/.ssh/deploy"
+      StrictHostKeyChecking no
+  EOH
+  end
+
     tag("stage-v3")
     end
 rescue
