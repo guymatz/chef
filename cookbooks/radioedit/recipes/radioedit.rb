@@ -18,10 +18,10 @@ node[:radioedit][:req_dirs].each do |d|
 end
 
 node[:radioedit][:packages].each do |p|
-  yum_package p
+  package p
 end
 
-%w{ nginx varnish }.each do |serv|
+%w{ nginx varnish memcached }.each do |serv|
   service serv do
     supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
     action [ :enable, :start ]
