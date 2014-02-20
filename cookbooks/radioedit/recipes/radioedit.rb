@@ -13,6 +13,7 @@ node[:radioedit][:req_dirs].each do |d|
   directory d do
     owner node[:radioedit][:app_user]
     group node[:radioedit][:app_user]
+    recursive true
   end
 end
 
