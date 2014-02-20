@@ -1,0 +1,12 @@
+{
+  "name": "iad-stg-logger102.ihr",
+  "chef_environment": "_default",
+  "run_list": [
+    "role[base]"
+  ],
+  "normal": {
+    "tags": [
+
+    ]
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "iad-stg-encmanager105.ihr",
+  "chef_environment": "stage",
+  "run_list": [
+    "role[base]",
+    "role[encoders]",
+    "recipe[apache2]",
+    "recipe[jruby]",
+    "recipe[nfs]",
+    "recipe[encoders]",
+    "recipe[encoders::mixins]",
+    "recipe[encoders::mixins_status]",
+    "recipe[encoders::mixins_manager]",
+    "recipe[encoders::stage_v3]",
+    "recipe[encoders::mounts]"
+  ],
+  "normal": {
+    "mysql": {
+      "conf_dir": "/etc",
+      "old_passwords": 1,
+      "grants_path": "/etc/mysql_grants.sql",
+      "confd_dir": "/etc/mysql/conf.d",
+      "tunable": {
+        "innodb_adaptive_flushing": false
+      },
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "socket": "/var/lib/mysql/mysql.sock"
+    },
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    },
+    "snmp": {
+      "cookbook_files": [
+
+      ],
+      "packages": [
+        "net-snmp",
+        "net-snmp-utils"
+      ]
+    },
+    "tags": [
+      "encoder-deployed",
+      "encoder-code-deployed",
+      "stage-v3",
+      "mixins-status-deployed",
+      "encoder-mounts"
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "iad-stg-graphite101.ihr",
+  "chef_environment": "_default",
+  "run_list": [
+    "role[base]",
+    "recipe[graphite]",
+    "role[graphite]"
+  ],
+  "normal": {
+    "tags": [
+
+    ],
+    "mysql": {
+      "conf_dir": "/etc",
+      "confd_dir": "/etc/mysql/conf.d",
+      "socket": "/var/lib/mysql/mysql.sock",
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "old_passwords": 1,
+      "grants_path": "/etc/mysql_grants.sql",
+      "tunable": {
+        "innodb_adaptive_flushing": false
+      }
+    }
+  }
+}

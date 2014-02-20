@@ -60,3 +60,13 @@ nagios_nrpecheck "Fac-Process-PRN" do
   parameters "-C java -a '-Xmx4G -jar /data/jobs/fac/PRN/fac-PRN.jar initialOverlap=200'"
   action :add
 end
+
+service "fac-#{app}" do
+   supports :status => true, :restart => true
+   if tagged?("no-fac-PRN")
+     action [ :disable, :stop ]
+   else
+     action [ :enable, :start ]
+   end
+end
+

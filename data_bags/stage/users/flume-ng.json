@@ -1,0 +1,8 @@
+{
+    "id": "flume",
+    "name": "flume-ng user",
+    "email":    "",
+    "groups":   ["flume"],
+    "shell":    "/bin/bash",
+    "uid": 4020
+}

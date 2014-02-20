@@ -1,0 +1,6 @@
+{
+  "hostgroup_name": "mongodb_backups",
+  "id": "Mongodb-Backups",
+  "freshness_threshold": "691200",
+  "contact_groups": ["dba"]
+}

@@ -1,0 +1,7 @@
+{
+  "address": "iad-stg-auth101-v760.ihr",
+  "hostgroups": ["VIPs", "ps-monitoring"],
+  "id": "iad-stg-auth101-VIP",
+  "host": "iad-stg-auth101-VIP",
+  "alias": "iad-stg-auth101-VIP"
+}

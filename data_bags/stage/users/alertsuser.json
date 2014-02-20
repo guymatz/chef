@@ -1,0 +1,12 @@
+{
+    "id": "alertsuser",
+    "name": "Alerts User",
+    "email":    "",
+    "groups":   ["webplayer","nagios"],
+    "shell":    "/sbin/nologin",
+    "nagios": {
+        "email": "",
+        "pager": ""
+    },
+    "uid": 7777
+}

@@ -6,10 +6,21 @@ default[:pkgsx64] = [ 'libxml2', 'zlib', 'zlib-devel', 'libxml2-devel', 'libxslt
 # Iheart RPMS
 default[:iheart_pkg] = [ 'jdk', 'mpg123',  'lame-libs', 'libmad-devel', 'libmad'  ]
 default[:ftpserver] = [ 'vsftpd', 'inotify-tools', 'inotify-tools-devel', 'incron' ]
+# v3 packages
+default[:v3_pkg] = [ 'ruby', 'ruby-devel', "unixODBC", "freetds", "freetds-devel" ]
 
 # vantrix rpm, specific to iad-vantrix101 for now
 default[:vantrix] = [ 'spotxde-trx' ]
 
+
+# v3 gems
+default[:v3_gems] = {
+    "i18n" => "0.6.5",
+    "activerecord-sqlserver-adapter" => "2.3.11",
+    "tiny_tds" => "0.5.1",
+    "bundler" => "1.3.5"
+
+} 
 
 # Tons of specific gems for all the encoders
 default[:jruby_gems] =  {
@@ -81,7 +92,7 @@ default[:encoders][:encoder_mount] = "/data/encoder"
 ###
 
 # Mounts specific to aladdin, webtools-east and iad-enc101
-default[:aladdin][:nfs_server] = "10.5.37.53" # isilon
+default[:aladdin][:nfs_server] = "10.5.32.164" # isilon
 default[:aladdin][:aladdin_mount_dir] = "/data/aladdin"
 default[:aladdin][:aladdin_export_dir] = "/ifs/webtools-east/aladdin"
 ###
@@ -202,8 +213,17 @@ default[:encftp][:incrond][:github_url] =  "git@github.ihrint.com:Ingestion/talk
 default[:encoder][:filemonitor][:monitor_script] = "/data/apps/filemonitor/bin/fileMonitorService.sh"
 
 # permanent isilon mounts
-default[:encoders][:isilon_server] = "10.5.32.164"
-default[:encoders][:p_ftp_export] = "/ifs/inbound-ftp"
-default[:encoders][:p_ftp_mount] = "/data/inbound-ftp"
-default[:encoders][:p_encoder_export] = "/ifs/encoder/encoder"
-default[:encoders][:p_encoder_mount] = "/data/encoder"
+case chef_environment
+when /^stage/
+  default[:encoders][:isilon_server] = "iad-stg-nfs101-v700.ihr"
+  default[:encoders][:p_ftp_export] = "/data/export/inbound-ftp"
+  default[:encoders][:p_ftp_mount] = "/data/inbound-ftp"
+  default[:encoders][:p_encoder_export] = "/data/export/encoder"
+  default[:encoders][:p_encoder_mount] = "/data/encoder"
+else
+  default[:encoders][:isilon_server] = "10.5.32.164"
+  default[:encoders][:p_ftp_export] = "/ifs/inbound-ftp"
+  default[:encoders][:p_ftp_mount] = "/data/inbound-ftp"
+  default[:encoders][:p_encoder_export] = "/ifs/encoder"
+  default[:encoders][:p_encoder_mount] = "/data/isi-encoder"
+end

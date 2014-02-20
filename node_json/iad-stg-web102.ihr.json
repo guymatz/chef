@@ -1,0 +1,47 @@
+{
+  "name": "iad-stg-web102.ihr",
+  "chef_environment": "stage",
+  "run_list": [
+    "role[base]",
+    "role[webplayers]",
+    "role[dell]"
+  ],
+  "normal": {
+    "tags": [
+      "webplayer-deployed"
+    ],
+    "mysql": {
+      "conf_dir": "/etc",
+      "confd_dir": "/etc/mysql/conf.d",
+      "socket": "/var/lib/mysql/mysql.sock",
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "old_passwords": 1,
+      "grants_path": "/etc/mysql_grants.sql",
+      "tunable": {
+        "innodb_adaptive_flushing": false
+      }
+    },
+    "snmp": {
+      "packages": [
+        "net-snmp",
+        "net-snmp-utils"
+      ],
+      "cookbook_files": [
+
+      ]
+    },
+    "apache": {
+      "binary": "/usr/sbin/httpd.worker"
+    },
+    "java": {
+      "oracle": {
+        "accept_oracle_download_terms": true
+      }
+    },
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    }
+  }
+}

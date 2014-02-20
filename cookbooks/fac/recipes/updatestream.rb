@@ -92,27 +92,19 @@ template "#{script_dir}/streaminfo/ship2es.sh" do
   mode "0755"
   variables({
               :updatestream => "#{script_dir}/streaminfo",
-              :es_master => "#{node[:fac][:es_vip]}",
+              :es_master => "#{master[0][:ipaddress]}",
               :es_dropbox => "#{node[:elasticsearch][:input_path]}/livestations"
             })
 end
 
-# GP 9/24/13 - updated. replaced cronwrap command with nsca_relay
-# JPD Tue Oct  1 19:51:09 UTC 2013 -- removed per OPS-5580
-#cron_d "fac-updatestream-t3dump" do
-#  minute "35"
-#  hour "3"
-#  weekday "4"
-#  user "nobody"
-#  command "/usr/bin/nsca_relay -S fac-updatestream-t3dump -- #{script_dir}/streaminfo/zip/t3_dump_zip.py"
-#end
-
-
-# JPD Tue Oct  1 19:51:09 UTC 2013 -- added per OPS-5580
-cron_d "fac-updatestream-curl" do
-  minute "0"
-  hour "6,14,22"
-  weekday "*"
+cron_d "fac-updatestream-t3dump" do
+  minute "35"
+  hour "3"
+  weekday "4"
   user "nobody"
-  command "/usr/bin/curl -XPUT -v 'http://iad-search-vip-v200.ihr:9200/_ihr/index/liveStations/_induce'"
+  if tagged?("no-updatestream")
+    command "#/usr/bin/cronwrap iad-jobserver101a fac-updatestream-t3dump \"#{script_dir}/streaminfo/zip/t3_dump_zip.py"
+  else
+    command "/usr/bin/cronwrap iad-jobserver101a fac-updatestream-t3dump \"#{script_dir}/streaminfo/zip/t3_dump_zip.py"
+  end
 end

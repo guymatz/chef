@@ -1,0 +1,11 @@
+{
+    "id": "attivio",
+    "name": "Attivio Service",
+    "email":    "",
+    "groups":   ["attivio"],
+    "shell":    "/bin/bash",
+    "uid": 4001,
+    "ssh_keys": [
+        "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAyDDczXKNVsu+B3UpYeYjK7Mbuhp32Sk0nKJeDp4R1gbVzS1kltE0ao1BrkNUtNrorq25hfegkqE490Ivn6dexgd4A6PO5ou5zlAU6Vu+WRTOTftSd5mFRYWBE1pN9s1hAIDp5zox3WtMD71KO8dA6t5zvsgGMRb7l58wDk2jB7yJQC3D0tiHzsFnZQsc3yMCcd+swhoOVe1OY/ac4AnVgCb1zlBl/FJSp/y6pFBQYvB6xUFUMnpU8lzdyt8FZBqYpbE6TNxs+JYqWUdI0t/pI/4TsDzlKfea8CBZCDAVXCQex9RP5aGPU+GEE5A5i+K3Du+pbyi+9RMusDv3v5QEiw=="
+    ]
+}

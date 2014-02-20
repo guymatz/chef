@@ -1,8 +1,0 @@
-{
-    "id": "amqp-consumer",
-    "name": "AMQP Consumer",
-    "email":    "mrechler@clearchannel.com",
-    "groups":   ["amqp-consumer"],
-    "shell":    "/bin/bash",
-    "uid": 4006
-}

@@ -263,6 +263,7 @@ else
   default[:radioedit][:log_dir] = "/var/log/radioedit"
   default[:radioedit][:out_log] = "#{default[:radioedit][:log_dir]}/application.log"
   default[:radioedit][:err_log] = "#{default[:radioedit][:log_dir]}/application.err"
+  default[:radioedit][:staticdir] = "#{default[:radioedit][:path]}/static"
   default[:radioedit][:venv_path] = "#{default[:radioedit][:path]}/envs/core";
   default[:radioedit][:module] = "wsgi"
   default[:radioedit][:app_name] = "radioedit-core"

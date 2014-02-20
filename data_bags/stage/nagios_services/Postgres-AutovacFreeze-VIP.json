@@ -1,0 +1,8 @@
+{
+  "contact_groups": [
+    "dba-team"
+  ],
+  "id": "Postgres-AutovacFreeze-VIP",
+  "host_name": "iad-stg-auth101-v760.ihr",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Postgres-AutovacFreeze -t 20"
+}

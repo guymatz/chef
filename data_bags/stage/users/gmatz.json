@@ -1,0 +1,18 @@
+{
+  "id": "gmatz",
+  "uid": 5038,
+  "name":    "Guy Matz",
+  "email":    "",
+  "groups":    ["sysadmin"],
+  "ssh_keys": [
+                "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCxn2aC1EbLoKi7IHk2HJErKvFuthE666nx5KjS8T5lnIVN8APuIfiMeVM+k1hJKRSJVWFKYfHHjXuUlKV85Tazga3VbJqDi02+809ym/y9G3Gc55c5OZv7ip5xvTpndEMnUoCtOjtKhwLywCF6yeCg+/Db1TYxRg6WDmhpVnU8RpFBUgW1y5Nlh9zGXGANvxkfGYod4N//k0xvzf6yM0wPgZ9uhOkJAUkmR/KCJtwJtyWGh5i6xTZAsG9T18PZT5DC4chYf8ooJNXOsMPuA5lSWhEsxrLtchDZGpHFMG9sIsTRYj4lJypqanOct66eyKP+H8p1yB1u/vHShw7rHG+T con-ccrnyc1gxm@CCCNYC06FLT",
+                "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDU0hvXtWSZks/1b+man5H9Jn0NUKfMnNML6jOyYEm9LKH9ip/MCmEV1RRxfIkwBWXmjzqEdIeX/pz1qP4r3pqXsVt1K0v74y+j281eYG7Ij/gJG5Qsg4A2xrJCRuF2yDu0mUN4GB9iCjyBga0Nl8A41WN7y8sSVg+5p4DvWjJMcFqHJkGfUFFhw+93ccvw+i85nTlXXgAjyTm4jk8ipDi5fVxpbYtuLtopFmkomFBINpNoxdJPeyp+GBMKkiLLUkmFWtn84J8JTLzdqWUZGnLrKw38Paxl0iZzH7kwu3xNw4JIXbJs5J7wCauBGBU/7wlGjFxg5Xjtmc5I5KqwAB99 gmatz@ooboo",
+                "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDfWj0GOnzmTWMA85YC2uc2F6ZZON3pQJMcFuMdq62I6nw6fLqmoxZjrqiX3q6csENoxdHSiyzB51oN6K0tJM7NGJfKOhRLq+1FIRsl9beShX+IJiFrszrItTT93T9vF6KkVaGDFZVjj3+C3+bUCi0N1/Z7wKpWJtiYma28FVrmcC+tm03VvfpBaKDPCHLFo8feHiFIwaYvtZVqi2mj21leu5EOdgM231VzGLWZEGmAV6YFgSIzPfwhEaRUISTPDznwLq1fQCg6rMToAilGsfiZLMQoPDcNA/1D7qVIyVc0HMDIKNxErtZIrnIL2bxWa8A+1YRokyjY8zIkdG7y5tiv gmatz@chromebook"
+  ],
+  "shell":    "/bin/bash",
+    "nagios": {
+    "email": "",
+    "pager": ""
+    },
+    "htpasswd": "{SHA}r6415j4LEV5AycrqHwjfHEZVhuI="
+}

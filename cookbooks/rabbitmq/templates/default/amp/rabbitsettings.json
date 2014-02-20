@@ -7,6 +7,9 @@
     {"name":"nagios","password_hash":"ZKqIwBqGoWXCjBTrkNfWww6UtsA=","tags":"monitoring"},
     {"name":"fb-tomcat","password_hash":"OKfdNZnBpbGzo6zBk+t8SuPHBI0=","tags":"monitoring"},
     {"name":"amp-tomcat","password_hash":"wtmXoliGkdFa36z1Lnqf6Wr6KGo=","tags":"monitoring"},
+    <% if node.chef_environment =~ /staging/ -%>
+    {"name":"fac","password_hash":"8WTQFEUSwA0wlieDcNlYcXDTVqc=","tags":"Ingestion"},
+    <% end -%>
     {"name":"fb-graph","password_hash":"B3qBCOVMwEIZ+GaxWzT4qtOfcUY=","tags":"monitoring"}
   ],
   "vhosts":[
@@ -18,6 +21,9 @@
     {"user":"nagios","vhost":"/amp","configure":".*","write":".*","read":".*"},
     {"user":"fb-tomcat","vhost":"/amp","configure":".*","write":".*","read":".*"},
     {"user":"fb-graph","vhost":"/amp","configure":".*","write":".*","read":".*"},
+    <% if node.chef_environment =~ /staging/ -%>
+    {"user":"ingestion","vhost" : "/ingestion","configure":".*","write":".*","read":".*"},
+    <% end -%>
     {"user":"nagios","vhost":"/","configure":".*","write":".*","read":".*"}
   ],
   "queues":[
@@ -35,11 +41,17 @@
     {"name":"responsysQueue","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
     {"name":"updateUserFacebookQueue","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
     {"name":"fb.scrobbling.live.radio","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}},
-    {"name":"googleQueue","vhost":"/amp","durable":true,"auto_delete":false,"arguments":{}}
+    <% if node.chef_environment =~ /staging/ -%>
+    {"name":"elasticsearch","vhost":"/ingestion","durable":true,"auto_delete":false,"arguments":{},
+    <% end -%>
+    {"name":"googleQueue","vhost":"/amp","durable":false,"auto_delete":false,"arguments":{}}
   ],
   "exchanges":[
     {"name":"responsys","vhost":"/amp","type":"direct","durable":true,"auto_delete":false,"internal":false,"arguments":{}},
     {"name":"playlog","vhost":"/amp","type":"direct","durable":true,"auto_delete":false,"internal":false,"arguments":{}},
+    <% if node.chef_environment =~ /staging/ -%>
+    {"name":"elasticsearch","vhost":"/ingestion","type":"direct","durable":true,"auto_delete":false,"arguments":{}},
+    <% end -%>
     {"name":"facebook","vhost":"/amp","type":"direct","durable":true,"auto_delete":false,"internal":false,"arguments":{}}
   ],
   "bindings":[
@@ -53,6 +65,9 @@
     {"source":"playlog","vhost":"/amp","destination":"companionQueue","destination_type":"queue","routing_key":"companionQueue","arguments":{}},
     {"source":"playlog","vhost":"/amp","destination":"playlog.event","destination_type":"queue","routing_key":"playlog.event","arguments":{}},
     {"source":"playlog","vhost":"/amp","destination":"talklog.event","destination_type":"queue","routing_key":"talklog.event","arguments":{}},
+    <% if node.chef_environment =~ /staging/ -%>
+    {"source":"elasticsearch","vhost":"/ingestion","destination_type":"queue","routing_key":"elasticsearch","arguments":{}},
+    <% end -%>
     {"source":"responsys","vhost":"/amp","destination":"responsysQueue","destination_type":"queue","routing_key":"responsysQueue","arguments":{}}
   ]
 }

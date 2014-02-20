@@ -8,6 +8,7 @@ all_env = [
            "recipe[cassandra::server]",
            "recipe[cassandra::jna_support]",
            "recipe[cassandra::users]",
+	   "recipe[users::cassandra]",
            "recipe[cassandra::nagios]",
 	  ]
 run_list(all_env)
@@ -19,7 +20,7 @@ env_run_lists(
               )
 default_attributes({
                      "cassandra" => {
-                        "cluster_name" => "iad-cassandra1",
+                        "cluster_name" => "iad-qac1-cassandra1",
                         "concurrent_reads" => "96",
                         "concurrent_writes" => "400",
                         "throttle_limit" => "92",

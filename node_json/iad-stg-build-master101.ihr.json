@@ -1,0 +1,22 @@
+{
+  "name": "iad-stg-build-master101.ihr",
+  "chef_environment": "_default",
+  "run_list": [
+    "role[base]",
+    "recipe[java::oracle-7]",
+    "recipe[apache2]",
+    "recipe[jenkins::users]",
+    "recipe[jenkins::server]",
+    "recipe[maven]"
+  ],
+  "normal": {
+    "tags": [
+
+    ],
+    "jenkins": {
+      "server": {
+        "pubkey": "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAyBqnY/pfIbgBeAIxqzKgrr9144223GaxG/uOgXp88MmPGQ/gUgMiEhDxZOdbVgl4/xD/ZVsNjIX1mzyf6f3otXhHpWMQlQAvInglrhLmIXsWyXr2uwUu3oPQV4EQI1NIUee82qy9wQG5VRybeLZ/cjdMQqjdnKqM7a5RtzK5h4eQJUuQqKppztYUB+Eu1vEkhZKG/1maIUdZuq3M7AxAsqoKjiMedUMOQj42muCw5a/0SXQAtU7J7YDLPYTvEKkOuIQg1RHHqbpMypKUQ422kHtvXS7ayEDO/twvb81RqEpVDXDx4SS8sA7t7QNys0LIH0AuWrs4VWAwNYBMGxeDvw== jenkins@iad-stg-build-master101.ihr\n"
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "stage-mr",
+  "default_attributes": {
+    "iheart": {
+      "deployer": "ihr-deployer"
+    },
+    "webplayer": {
+      "rev": "release-5.0.0-donjulio-rc3",
+      "settings": {
+        "url": {
+          "site_host": "stage.iheart.com"
+        }
+      }
+    },
+    "nagiosapi": {
+      "server": {
+        "name": "iad-stg-nagiosapi.ihr",
+        "port": "6315"
+      }
+    }
+  },
+  "json_class": "Chef::Environment",
+  "description": "Someone made a stage just for me...",
+  "cookbook_versions": {
+    "radioedit": "= 0.1.1"
+  },
+  "override_attributes": {
+  },
+  "chef_type": "environment"
+}

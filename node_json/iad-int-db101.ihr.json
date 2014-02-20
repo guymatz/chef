@@ -1,0 +1,95 @@
+{
+  "name": "iad-int-db101.ihr",
+  "chef_environment": "development",
+  "run_list": [
+    "role[base]",
+    "role[postgres-server-ha]",
+    "role[postgres-server]",
+    "recipe[postgresql::directories]",
+    "recipe[postgresql::slony]",
+    "recipe[authorization]",
+    "role[ingestion-database]",
+    "recipe[users::dev]",
+    "role[batchjobs]",
+    "recipe[java::oracle-7]",
+    "role[dell]"
+  ],
+  "normal": {
+    "tags": [
+      "authorization",
+      "ingestion"
+    ],
+    "mysql": {
+      "conf_dir": "/etc",
+      "confd_dir": "/etc/mysql/conf.d",
+      "socket": "/var/lib/mysql/mysql.sock",
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "old_passwords": 1,
+      "grants_path": "/etc/mysql_grants.sql",
+      "tunable": {
+        "innodb_adaptive_flushing": false
+      }
+    },
+    "postgresql": {
+      "password": {
+        "postgres": "uBocuNwzI5nGCnUESvRg"
+      }
+    },
+    "snmp": {
+      "packages": [
+        "net-snmp",
+        "net-snmp-utils"
+      ],
+      "cookbook_files": [
+
+      ]
+    },
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    },
+    "sysctl": {
+      "kernel.sysrq": 0,
+      "kernel.core_uses_pid": 1,
+      "kernel.msgmnb": 65536,
+      "kernel.msgmax": 65536,
+      "kernel.shmmax": 33792937984,
+      "kernel.shmall": 8250229,
+      "net.ipv4.ip_forward": 0,
+      "net.ipv4.conf.all.send_redirects": 0,
+      "net.ipv4.conf.default.send_redirects": 0,
+      "net.ipv4.tcp_max_syn_backlog": 1280,
+      "net.ipv4.icmp_echo_ignore_broadcasts": 1,
+      "net.ipv4.conf.all.accept_source_route": 0,
+      "net.ipv4.conf.all.accept_redirects": 0,
+      "net.ipv4.conf.all.secure_redirects": 0,
+      "net.ipv4.conf.all.log_martians": 1,
+      "net.ipv4.conf.default.accept_source_route": 0,
+      "net.ipv4.conf.default.accept_redirects": 0,
+      "net.ipv4.conf.default.secure_redirects": 0,
+      "net.ipv4.icmp_ignore_bogus_error_responses": 1,
+      "net.ipv4.tcp_syncookies": 1,
+      "net.ipv4.conf.all.rp_filter": 1,
+      "net.ipv4.conf.default.rp_filter": 1,
+      "net.ipv4.tcp_timestamps": 0,
+      "kernel.exec-shield": 1,
+      "kernel.randomize_va_space": 1,
+      "net.core.rmem_default": 262144,
+      "net.core.wmem_default": 262144,
+      "net.core.rmem_max": 8388608,
+      "net.core.wmem_max": 8388608,
+      "net.core.netdev_max_backlog": 10000,
+      "net.ipv4.tcp_rmem": "8192 87380 8388608",
+      "net.ipv4.tcp_wmem": "8192 65536 8388608",
+      "net.ipv4.udp_rmem_min": 16384,
+      "net.ipv4.udp_wmem_min": 16384,
+      "net.ipv4.tcp_mem": "8388608 12582912 16777216",
+      "net.ipv4.udp_mem": "8388608 12582912 16777216",
+      "vm.swappiness": 1,
+      "vm.dirty_ratio": 50,
+      "vm.pagecache": 90,
+      "kernel.sem": "250 64000 32 256"
+    }
+  }
+}

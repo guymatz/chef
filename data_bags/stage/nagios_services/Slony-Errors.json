@@ -1,0 +1,7 @@
+{
+  "id": "Slony-Errors",
+  "hostgroup_name": "slony-daemon",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c ps_check_slony_errors -t 20",
+  "contact_groups": ["dba"],
+  "check_interval": "300"
+}

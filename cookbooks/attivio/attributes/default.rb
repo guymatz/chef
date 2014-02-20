@@ -26,10 +26,24 @@ default[:attivio][:search_config] = ({
                                        "documentCacheMaxSize" => "75000",
                                        "documentCacheLoadFactor" => "0.01" # cache size will be 10% of the segment size
                                      })
-default[:attivio][:searcher][:memory] = "24g"
-default[:attivio][:indexer][:memory] = "4g"
-default[:attivio][:connector][:memory] = "1g"
-default[:attivio][:memory] = "2g"
+
+case node.chef_environment
+  when "prod"
+    default[:attivio][:searcher][:memory] = "24g"
+    default[:attivio][:indexer][:memory] = "4g"
+    default[:attivio][:connector][:memory] = "1g"
+    default[:attivio][:memory] = "2g"
+  when "stage"
+    default[:attivio][:searcher][:memory] = "4g"
+    default[:attivio][:indexer][:memory] = "1g"
+    default[:attivio][:connector][:memory] = "1g"
+    default[:attivio][:memory] = "1g"
+  else
+    default[:attivio][:searcher][:memory] = "24g"
+    default[:attivio][:indexer][:memory] = "4g"
+    default[:attivio][:connector][:memory] = "1g"
+    default[:attivio][:memory] = "2g"
+end
 
 default[:attivio][:connector_port] = "19200"
 default[:attivio][:indexer_port] = "19100"

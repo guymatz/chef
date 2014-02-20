@@ -1,0 +1,42 @@
+{
+  "name": "iad-qac1-admin101.ihr",
+  "chef_environment": "stage",
+  "run_list": [
+    "role[base]",
+    "role[ntp-server]",
+    "role[dell]"
+  ],
+  "normal": {
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    },
+    "arbmongodb": {
+      "arbreplset": "Mongo-FAC-stg"
+    },
+    "tags": [
+
+    ],
+    "mysql": {
+      "conf_dir": "/etc",
+      "confd_dir": "/etc/mysql/conf.d",
+      "socket": "/var/lib/mysql/mysql.sock",
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "old_passwords": 1,
+      "grants_path": "/etc/mysql_grants.sql",
+      "tunable": {
+        "innodb_adaptive_flushing": false
+      }
+    },
+    "snmp": {
+      "packages": [
+        "net-snmp",
+        "net-snmp-utils"
+      ],
+      "cookbook_files": [
+
+      ]
+    }
+  }
+}

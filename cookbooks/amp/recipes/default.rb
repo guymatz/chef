@@ -79,8 +79,8 @@ begin
       mode "0755"
     end
 
-    remote_file "#{node[:tomcat7][:install_path]}/lib/env.properties" do
-      source "#{node[:amp][:url]}/#{node[:amp][:version]}/env.properties"
+    cookbook_file "#{node[:tomcat7][:install_path]}/lib/env.properties" do
+      source "stg_env.properties"
       owner node[:tomcat7][:user]
       group node[:tomcat7][:group]
       mode "0755"

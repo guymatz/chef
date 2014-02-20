@@ -1,0 +1,27 @@
+{
+  "name": "iad-stg-vantrix101.ihr",
+  "chef_environment": "stage-test",
+  "run_list": [
+    "role[base]",
+    "role[vantrix]"
+  ],
+  "normal": {
+    "tags": [
+      "encoder-deployed",
+      "encoder-code-deployed",
+      "encoder-mounts",
+      "vantrix-deployed"
+    ],
+    "mysql": {
+      "conf_dir": "/etc",
+      "confd_dir": "/etc/mysql/conf.d",
+      "socket": "/var/lib/mysql/mysql.sock",
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "old_passwords": 1,
+      "grants_path": "/etc/mysql_grants.sql",
+      "tunable": {
+        "innodb_adaptive_flushing": false
+      }
+    }
+  }
+}

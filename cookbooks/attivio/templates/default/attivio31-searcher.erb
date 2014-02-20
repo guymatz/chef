@@ -46,14 +46,14 @@ RETVAL=0
 start() {
   echo -n "Starting Searcher:"
   pushd ${ATTIVIO_PROJECT}/bin/${ENV} > /dev/null
-  daemon --user $USER "$NOHUP aie-main $PB_CLASS -cmd start -mode remote $ATTIVIO_ARGS > $LOG_DIR/processbuilder.start.$NODENAME.log 2>&1 &" > /dev/null
-  daemon --user $USER "aie-main $PB_CLASS -cmd waitfor -mode remote $ATTIVIO_ARGS > $LOG_DIR/processbuilder.waitfor.$NODENAME.log 2>&1" > /dev/null
+  daemon --user $USER "$NOHUP ${ATTIVIO_HOME}/bin/aie-main $PB_CLASS -cmd start -mode remote $ATTIVIO_ARGS > $LOG_DIR/processbuilder.start.$NODENAME.log 2>&1 &" > /dev/null
+  daemon --user $USER "${ATTIVIO_HOME}/bin/aie-main $PB_CLASS -cmd waitfor -mode remote $ATTIVIO_ARGS > $LOG_DIR/processbuilder.waitfor.$NODENAME.log 2>&1" > /dev/null
   #daemon --user $USER "${AIE_EXEC_CONNECTOR_START_CMD} $NODENAME > ${LOG_DIR}/searcher.start.${NODENAME}.log 2>&1 &" > /dev/null
   echo
   echo  "Starting multi-node AIE"
   daemon --user $USER "${ATTIVIO_HOME}/bin/attivio -cmd start -mode remote $ATTIVIO_ARGS $ATTIVIO_ARGS &" > /dev/null &
   echo  "Stopping external process manager"
-  daemon --user $USER "aie-main $PB_CLASS -cmd stop -mode remote $ATTIVIO_ARGS > $LOG_DIR/processbuilder.waitfor.$NODENAME.log 2>&1 &" > /dev/null
+  daemon --user $USER "${ATTIVIO_HOME}/bin/aie-main $PB_CLASS -cmd stop -mode remote $ATTIVIO_ARGS > $LOG_DIR/processbuilder.waitfor.$NODENAME.log 2>&1 &" > /dev/null
   echo
   RETVAL=$?
   popd > /dev/null
