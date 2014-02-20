@@ -259,6 +259,7 @@ when /^stage/
   default[:radioedit][:packages] = %w{ 
     libevent 
     memcached 
+    libmemcached-devel
     python27 
     python27-libs 
     python27-devel 
@@ -367,7 +368,8 @@ else
 
   default[:radioedit][:packages] = %w{
     libevent 
-    memcached 
+    memcached
+    libmemcached-devel 
     python27 
     python27-libs 
     python27-devel 
