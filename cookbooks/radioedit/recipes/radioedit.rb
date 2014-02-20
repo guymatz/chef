@@ -52,6 +52,7 @@ end
 directory "#{node[:radioedit][:staticdir]}" do
   owner "nginx"
   group "nginx"
+  recursive true
 end
 
 # ###############################################################
