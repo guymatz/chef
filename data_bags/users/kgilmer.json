@@ -3,7 +3,7 @@
     "uid": 5019,
     "name": "Kenneth Gilmer",
     "email": "",
-    "groups": ["dev", "jobserver", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch", "pnp"],
+    "groups": ["dev", "jobserver", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch", "pnp", "jobserver-sudo"],
     "nagios": {
         "email": ""
     },

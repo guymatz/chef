@@ -3,7 +3,7 @@
     "uid": 5024,
     "name": "Pavel Katsev",
     "email": "",
-    "groups": ["dev", "data-team", "flume", "converter"],
+    "groups": ["dev", "data-team", "flume", "converter", "jobserver-sudo"],
     "ssh_keys": [
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDcA6n1I8fC/MUR4KtE6jNS/ljQHvL7cUtOMtQPoQvcSvbwndOpp+YZ7bNr1ERFNwpFs1qaAjOB+gqzsTlHTzC3sHpVvBH4pwUu8oXrlqEtmnYDHRYcfHimtDCKBUVl4HsbzuIV/hqNA9g7zjia6BnFNOniCCKLP2/spc+1DPYfnv26MhXCnbdWKVwHZZMPfFBFsbjgZlaElEiJbXGb4n13Npa6ibb9xxRxczPSetx7TZCex5ahHbhZVWViUIJnlCAnhvVdh4d09L17wf//BzvGT6k+wG3hNZcmiBVe36uQPBQOfyz4Aaimn9klMlRMLUDBMnsolUIKlF6Qdv2P6fob pkatsev@gmail.com"
     ]
