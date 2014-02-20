@@ -212,6 +212,11 @@ when /^stage/
 
   override[:memcached][:memory]  = 64;
 
+  default[:radioedit][:mongo_route] = {
+    :network => "10.10.155.0/24",
+    :gateway => "10.5.52.1"
+  };
+
   default[:radioedit][:repo] = "git@github.ihrint.com:radioedit/core.git"
   default[:radioedit][:branch] = "staging"
   default[:radioedit][:env] = "ihr_testing"

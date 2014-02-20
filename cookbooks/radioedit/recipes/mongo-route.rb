@@ -8,8 +8,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-#route add -net 10.10.155.0/24 gw 10.5.52.1
-route "10.10.155.0/24" do
-  gateway "10.5.52.1"
+route "#{node[:radioedit][:mongo_route][:network]}" do
+  gateway "#{node[:radioedit][:mongo_route][:gateway]}"
   action :add
 end
