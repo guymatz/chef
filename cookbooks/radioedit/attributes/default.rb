@@ -235,7 +235,8 @@ when /^stage/
   default[:radioedit][:asset_dir] = "/data/binstore"
   default[:radioedit][:cdn_url] = "http://10.5.1.28/"
   default[:radioedit][:elastic_clustername] = "radioedit-staging";
-  default[:radioedit][:mongo_cstring] = "mongodb://iad-stg-mongo-fac101-v760.ihr:37018,iad-stg-mongo-fac102-v760.ihr:37018"
+  default[:radioedit][:mongo_cstring] = "mongodb://iad-stg-mongo-fac101-v760.ihr:37018,iad-stg-mongo-fac102-v760.ihr:37018/radioedit?replicaSet=Mongo-shared-STG"
+
   default[:radioedit][:req_dirs] = %w{ 
     /data 
     /data/binstore

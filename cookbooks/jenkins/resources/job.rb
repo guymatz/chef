@@ -31,7 +31,7 @@ def initialize(name, run_context = nil)
   @action = :update
   @job_name = name
   jenkins_node = jenkins_attributes_from_node(run_context)
-  @url = (jenkins_node[:server] && jenkins_node[:server][:url]) || 'http://iad-stg-build-master101-v700:80'
+  @url = (jenkins_node[:server] && jenkins_node[:server][:url]) || 'http://iad-stg-build-master101:80'
 end
 
 private
