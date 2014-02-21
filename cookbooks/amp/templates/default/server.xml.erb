@@ -166,7 +166,7 @@ this work for additional information regarding copyright ownership.
                                                                                           <Valve className="org.apache.catalina.valves.ExtendedAccessLogValve"
                                                                                         fileDateFormat="yyyy-MM-dd-HH"
                                                                                         prefix="extended_localhost_access_log." suffix=".log"
-                                                                                        pattern="cs(X-Cluster-Client-IP) date time cs-method cs-uri sc-status cs(Session-Id) s-dns cs(Device-Name) cs(Client-Id) cs(Profile-Id) x-P(contentType) x-P(contentId) x-P(host) x-P(sessionId) x-P(profileId) x-P(userName) time-taken c-ip" directory="logs" resolveHosts="false" />
+                                                                                        pattern="cs(X-Cluster-Client-IP) date time cs-method cs-uri sc-status cs(Session-Id) s-dns cs(Device-Name) cs(Client-Id) cs(Profile-Id) x-P(contentType) x-P(contentId) x-P(host) x-P(sessionId) x-P(profileId) x-P(userName) time-taken c-ip cs(User-Agent)" directory="logs" resolveHosts="false" />
 
                                                                                           </Host>
     </Engine>

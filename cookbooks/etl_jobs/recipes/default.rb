@@ -53,17 +53,7 @@ cron_d "playlog_job" do
   minute "22,52"
 end
 
-directory "/data/jobs/profile"
-directory "/data/log/profile"
-remote_file "/data/jobs/profile/profile_job.jar" do
-  source "http://yum.ihr/files/jobs/profile/profile_job.jar"
-end
 
-#cron_d "profile_job" do
-#  command "/usr/bin/cronwrap iad-jobserver101.ihr profile-job \"/usr/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=`/bin/date +\\%s`\""
-#  minute 30
-#  hour 3
-#end
 
 #
 #ALTERED PER OPS-4760
@@ -297,9 +287,10 @@ remote_file "/home/amqp-consumer/facebook-consumer-2/facebook_consumer.jar" do
   group "amqp-consumer"
 end
 remote_file "/home/amqp-consumer/facebook-consumer-2/env.properties" do
-  source "http://yum.ihr/files/jobs/facebook-consumer-2/env.properties"
+  source "http://files.ihrdev.com/jobs/facebook-consumer/env.properties"
   owner "amqp-consumer"
   group "amqp-consumer"
+  action :create_if_missing
 end
 remote_file "/home/amqp-consumer/facebook-consumer-2/log4j.xml" do
   source "http://yum.ihr/files/jobs/facebook-consumer-2/log4j.xml"
@@ -448,17 +439,17 @@ end
 # #end
 # #end removed per OPS-5311
 
-# Added per OPS-4937
-directory "/data/log/ampstationsdata"
-git "/data/jobs/amp-tools" do
-  repository "git@github.com:iheartradio/amp-tools.git"
-  reference "master"
-end
-cron_d "ampstationsdata" do
-  command "/usr/bin/nsca_relay -S Ampstationsdata-Job -- /data/jobs/amp-tools/amp-scripts/AmpStationsData/AmpStationsData.sh"
-  minute 0
-  hour 2
-end
+# Added per OPS-4937, and now removed per OPS-6164
+#directory "/data/log/ampstationsdata"
+#git "/data/jobs/amp-tools" do
+#  repository "git@github.com:iheartradio/amp-tools.git"
+#  reference "master"
+#end
+#cron_d "ampstationsdata" do
+#  command "/usr/bin/nsca_relay -S Ampstationsdata-Job -- /data/jobs/amp-tools/amp-scripts/AmpStationsData/AmpStationsData.sh"
+#  minute 0
+#  hour 2
+#end
 
 # Added per OPS-5172
 cron_d "event_job" do
@@ -478,4 +469,51 @@ cron_d "profile_job" do
   command "/usr/bin/nsca_relay -S profile-job -- /usr/lib/jvm/java-1.7.0/bin/java -jar /data/jobs/profile/profile_job.jar launch-context.xml profileJob rundate=$(/bin/date +\\%s) favoritesStartDate=$(/bin/date +\\%Y\\%m\\%d)"
   minute 0
   hour 0
+end
+
+# GP 9/24/13 - Migrated from etl_jobs::ec2 as per OPS-5524
+
+# commented out as this block seems to append a new set of api server entries that are copies of the ones added last run.
+# create a text file with all api server hostnames
+# search(:node, "role:amp AND chef_environment:#{node.chef_environment}").each do |x|
+#  ruby_block x.name do
+#    block do
+#      file = Chef::Util::FileEdit.new('/data/jobs/api_servers')
+#      file.insert_line_if_no_match("/#{x.name}/m", "#{x.name}")
+#      file.write_file
+#    end
+#  end
+# end
+
+remote_file "/data/jobs/event/scp_event_logs.sh" do
+  source "http://yum.ihr/files/jobs/event/scp_event_logs.sh"
+  owner 'ihr-deployer'
+  group 'ihr-deployer'
+  mode 0755
+end
+
+cron_d "pull_event_logs" do
+  command '/usr/bin/nsca_relay -S Pull-Event-Logs -- /data/jobs/event/scp_event_logs.sh'
+  minute 27
+  hour 1
+  user 'ihr-deployer'
+end
+
+directory "/data/jobs/stationlikes"
+directory "/data/log/stationlikes"
+bash "extract-stationlikes" do
+  cwd "/data/jobs/stationlikes"
+  code "tar xpf stationlikes.tar.gz"
+  action :nothing
+end
+
+remote_file "/data/jobs/stationlikes/stationlikes.tar.gz" do
+  source "http://yum.ihr/files/jobs/stationlikes/stationlikes.tar.gz"
+  action :create_if_missing
+  notifies :run, 'bash[extract-stationlikes]', :immediately
+end
+
+cron_d "stationlikes" do
+  command "/data/jobs/stationlikes/ReadFBData.sh"
+  minute 3
 end

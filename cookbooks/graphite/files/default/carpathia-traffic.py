@@ -20,11 +20,11 @@ when = datetime.now() - timedelta(minutes=1)
 when_stamp = when.strftime('%s')
 
 url = URL.format(**{
-	'month': when.month,
-	'day': when.day,
-	'year': when.year,
-	'hour': when.hour,
-	'min': when.minute,
+        'month': when.month,
+        'day': when.day,
+        'year': when.year,
+        'hour': when.hour,
+        'min': when.minute,
 })
 
 doc = pq(urllib2.urlopen(url).read())
@@ -32,26 +32,27 @@ trs = doc.find('tr')
 
 # filter with :contains doesn't work
 for tr in trs.filter(lambda el: pq(this).find('td')):
-	tds = pq(tr).find('td')
-	name = tds[0].text
-	vals = {
-		'avg_in': float(tds[1].text),
-		'avg_out': float(tds[2].text),
-		'max_in': float(tds[1].text),
-		'max_out': float(tds[2].text),
-		'total_in': float(tds[8].text),
-		'total_out': float(tds[9].text),
-	}
+        tds = pq(tr).find('td')
+        name = tds[0].text
+        vals = {
+                'avg_in': float(tds[1].text),
+                'avg_out': float(tds[2].text),
+                'max_in': float(tds[1].text),
+                'max_out': float(tds[2].text),
+                'total_in': float(tds[8].text),
+                'total_out': float(tds[9].text),
+        }
 
-	curr = stats.get(name, None)
-	if curr:
-		for k, v in curr.iteritems():
-			curr[k] += vals[k]
-	else:
-		stats[name] = vals
+        curr = stats.get(name, None)
+        if curr:
+                for k, v in curr.iteritems():
+                        curr[k] += vals[k]
+        else:
+                stats[name] = vals
 
 for dev, vs in stats.iteritems():
-	dev = re.sub(r'(iheartradio )|(-?,?fw\d)*', '', dev).lower()
+        dev = re.sub(r'(iheartradio)|(\[.*\])|(-?,?fw\d)*', '', dev).lower().strip()
 
-	for stat, val in vs.iteritems():
-		graphite.send('carpathia.%s.%s %f %s\n' % (dev, stat, val, when_stamp))
+        for stat, val in vs.iteritems():
+                graphite.send('carpathia.%s.%s %f %s\n' % (dev, stat, val, when_stamp))
+

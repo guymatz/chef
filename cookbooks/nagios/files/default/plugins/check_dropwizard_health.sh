@@ -12,7 +12,7 @@ timeout=45
 usage() { echo "Usage: $0 -h hostname/ip -p port"; exit 2; }
 
 # Error output function that fires when the health status can't be obtained
-health_fetch_error() { echo "CRITICAL: Could not get health status."; exit 2; }
+health_fetch_error() { echo "$1"; exit 2; }
 
 # Option flag handling
 while getopts ":h:p:" opt; do
@@ -38,9 +38,13 @@ fi
 
 # Pull the current health status and check for a line that is not OK
 rm -f /tmp/healthcheck >/dev/null 2>&1
-curl -m $timeout -s http://$HOST:$PORT/healthcheck > /tmp/healthcheck
+rm -f /tmp/healthcheck_error >/dev/null 2>&1
+curl -m $timeout http://$HOST:$PORT/healthcheck 1> /tmp/healthcheck 2> /tmp/healthcheck_error
+if [ $? -ne 0 ]; then
+    health_fetch_error "CRITICAL: $(cat /tmp/healthcheck_error)"
+fi
 if [ ! -e /tmp/healthcheck ]; then
-    health_fetch_error
+    health_fetch_error "CRITICAL: Could not write to temp file /tmp/healthcheck."
 fi
 
 # Read and process the file, fire an error when something is not OK
@@ -55,7 +59,7 @@ done < /tmp/healthcheck
 
 # Fire an error if the file was empty
 if $zerofile ; then
-    health_fetch_error
+    health_fetch_error "CRITICAL: Health stats are blank."
 fi
 
 # Exit with OK if nothing fired previously

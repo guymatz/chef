@@ -47,7 +47,7 @@ when /^prod/
   # PRODUCTION SETTINGS!!!!!
   # ################################################################
   default[:radioedit][:repo] = "git@github.ihrint.com:radioedit/core.git"
-  default[:radioedit][:branch] = "ganon.3"
+  default[:radioedit][:branch] = "ganon.4"
   default[:radioedit][:env] = "ihr_testing"
   default[:radioedit][:app_user] = "ihr-deployer"
   default[:radioedit][:path] = "/data/apps/radioedit"
