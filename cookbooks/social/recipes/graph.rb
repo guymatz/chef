@@ -25,6 +25,7 @@ end
     mode "0755"
     owner node[:social_graph][:user]
     group node[:social_graph][:group]
+    action :create_if_missing
   end
 end
 
