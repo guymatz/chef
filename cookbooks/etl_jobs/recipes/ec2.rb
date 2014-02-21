@@ -170,7 +170,7 @@ remote_file "/data/jobs/sysinfo/sysinfo_job.jar" do
   source "http://yum.ihr/files/jobs/sysinfo/sysinfo_job.jar"
 end
 remote_file "/data/jobs/sysinfo/batch.properties" do
-  source "http://yum.ihr/files/jobs/sysinfo/batch.properties"
+  source "http://files.ihrdev.com/jobs/sysinfo/batch.properties"
 end
 remote_file "/data/jobs/sysinfo/log4j.properties" do
   source "http://yum.ihr/files/jobs/sysinfo/log4j.properties"
@@ -397,22 +397,22 @@ cron_d "radiomigration" do
   user 'ihr-deployer'
 end
 
-directory "/data/jobs/stationlikes"
-directory "/data/log/stationlikes"
-bash "extract-stationlikes" do
-  cwd "/data/jobs/stationlikes"
-  code "tar xpf stationlikes.tar.gz"
-  action :nothing
-end
-remote_file "/data/jobs/stationlikes/stationlikes.tar.gz" do
-  source "http://yum.ihr/files/jobs/stationlikes/stationlikes.tar.gz"
-  action :create_if_missing
-  notifies :run, 'bash[extract-stationlikes]', :immediately
-end
-cron_d "stationlikes" do
-  command "/data/jobs/stationlikes/ReadFBData.sh"
-  minute 3
-end
+#directory "/data/jobs/stationlikes"
+#directory "/data/log/stationlikes"
+#bash "extract-stationlikes" do
+#  cwd "/data/jobs/stationlikes"
+#  code "tar xpf stationlikes.tar.gz"
+#  action :nothing
+#end
+#remote_file "/data/jobs/stationlikes/stationlikes.tar.gz" do
+#  source "http://yum.ihr/files/jobs/stationlikes/stationlikes.tar.gz"
+#  action :create_if_missing
+#  notifies :run, 'bash[extract-stationlikes]', :immediately
+#end
+#cron_d "stationlikes" do
+#  command "/data/jobs/stationlikes/ReadFBData.sh"
+#  minute 3
+#end
 
 python_pip "simplejson" do
   action :install

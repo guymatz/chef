@@ -1,7 +1,8 @@
 name "etljob_server"
 description "ETL Job Server"
 all_env = [
-           "recipe[users::deployer]"
+           "recipe[users::deployer]",
+           "recipe[etl_jobs::sysinfo]"
           ]
 run_list(all_env)
 

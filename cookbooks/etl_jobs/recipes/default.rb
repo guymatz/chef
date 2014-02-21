@@ -181,22 +181,6 @@ remote_file "/data/jobs/talklog/talkbatch.properties" do
   source "http://yum.ihr/files/jobs/talklog/talkbatch.properties"
 end
 
-directory "/data/jobs/sysinfo"
-directory "/data/log/sysinfo"
-directory "/data/log/sysinfo/input" do
-  mode 0777
-end
-directory "/data/log/sysinfo/processed"
-remote_file "/data/jobs/sysinfo/sysinfo_job.jar" do
-  source "http://yum.ihr/files/jobs/sysinfo/sysinfo_job.jar"
-end
-remote_file "/data/jobs/sysinfo/batch.properties" do
-  source "http://yum.ihr/files/jobs/sysinfo/batch.properties"
-end
-remote_file "/data/jobs/sysinfo/log4j.properties" do
-  source "http://yum.ihr/files/jobs/sysinfo/log4j.properties"
-end
-
 directory "/home/amqp-consumer/playlog-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"
@@ -255,9 +239,10 @@ remote_file "/home/amqp-consumer/facebook-consumer/facebook_consumer.jar" do
   group "amqp-consumer"
 end
 remote_file "/home/amqp-consumer/facebook-consumer/env.properties" do
-  source "http://yum.ihr/files/jobs/facebook-consumer/env.properties"
+  source "http://files.ihrdev.com/jobs/facebook-consumer/env.properties"
   owner "amqp-consumer"
   group "amqp-consumer"
+  action :create_if_missing
 end
 remote_file "/home/amqp-consumer/facebook-consumer/log4j.xml" do
   source "http://yum.ihr/files/jobs/facebook-consumer/log4j.xml"
@@ -287,9 +272,10 @@ remote_file "/home/amqp-consumer/facebook-consumer-2/facebook_consumer.jar" do
   group "amqp-consumer"
 end
 remote_file "/home/amqp-consumer/facebook-consumer-2/env.properties" do
-  source "http://yum.ihr/files/jobs/facebook-consumer-2/env.properties"
+  source "http://files.ihrdev.com/jobs/facebook-consumer/env.properties"
   owner "amqp-consumer"
   group "amqp-consumer"
+  action :create_if_missing
 end
 remote_file "/home/amqp-consumer/facebook-consumer-2/log4j.xml" do
   source "http://yum.ihr/files/jobs/facebook-consumer-2/log4j.xml"
@@ -499,4 +485,21 @@ cron_d "pull_event_logs" do
   user 'ihr-deployer'
 end
 
+directory "/data/jobs/stationlikes"
+directory "/data/log/stationlikes"
+bash "extract-stationlikes" do
+  cwd "/data/jobs/stationlikes"
+  code "tar xpf stationlikes.tar.gz"
+  action :nothing
+end
 
+remote_file "/data/jobs/stationlikes/stationlikes.tar.gz" do
+  source "http://yum.ihr/files/jobs/stationlikes/stationlikes.tar.gz"
+  action :create_if_missing
+  notifies :run, 'bash[extract-stationlikes]', :immediately
+end
+
+cron_d "stationlikes" do
+  command "/data/jobs/stationlikes/ReadFBData.sh"
+  minute 3
+end
