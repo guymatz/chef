@@ -1,0 +1,10 @@
+{
+    "id": "batchjobs",
+    "name": "batchjobs",
+    "email": "",
+    "groups": ["batchjobs"],
+    "ssh_keys": [
+    ],
+    "shell":    "/bin/bash",
+    "uid": 5052
+}
