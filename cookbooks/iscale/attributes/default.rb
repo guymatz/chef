@@ -132,7 +132,7 @@ else
       :ampURL                   => '"https://api2.iheart.com/api/"',
       # host to connect to for sending graphite data
       :statsdHost               => '"iad-statsd101.ihr"',
-      # port to connect to for sending graphite data
+      # port to connect to for sending graphite data  
       :statsdPort               => '8125',
       # path to the application log file
       :logPath                  => '"/var/log/iscale/iscale.log"',
