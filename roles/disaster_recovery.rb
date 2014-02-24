@@ -8,7 +8,9 @@ all_env = [
   "recipe[disaster_recovery::unpack_attivio]",
   "recipe[disaster_recovery::unpack_auth]",
   "recipe[disaster_recovery::unpack_ing]",
-  "recipe[avamar]"
+  "recipe[disaster_recovery::unpack_mongo_fac]",
+  "recipe[disaster_recovery::unpack_mongo_usr]",
+  "recipe[disaster_recovery::unpack_mongo_util]"
 ]
 run_list(all_env)
 env_run_lists(
