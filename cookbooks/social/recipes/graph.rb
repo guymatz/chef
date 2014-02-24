@@ -29,9 +29,19 @@ end
   end
 end
 
+rabbit_cluster_members = search(:node, "role:amp_rabbit_server" AND "node.chef_environment =~ #{node.chef_environment}")
+
+  rabbit_cluster_names = Array.new
+  rabbit_cluster_members.each do |s|
+    rabbit_cluster_names << s[:hostname]
+  end
+
 template "#{node[:social_graph][:deploy_path]}/#{node[:social_graph][:version]}/env.properties" do
-      source "#{node[:social_graph][:deploy_path]}/#{node[:social_graph][:version]}/env.properties.erb"
-      local true
+  source "#{node[:social_graph][:deploy_path]}/#{node[:social_graph][:version]}/env.properties.erb"
+  local true
+   variables({
+                :rabbit_cluster_names => rabbit_cluster_names.join(',')
+   })    
 end
 
 # init directories
