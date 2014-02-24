@@ -152,7 +152,7 @@ end
 # gp added to remove default.conf file dropped by the rpm.
 file '/etc/nginx/conf.d/default.conf' do
   action :delete
-  only_if "-f /etc/nginx/conf.d/default.conf"
+  only_if "test -f /etc/nginx/conf.d/default.conf"
 end
 
 template "/etc/nginx/conf.d/radioedit.conf" do 
