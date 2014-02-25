@@ -38,7 +38,7 @@ when /^prod/
   default[:social][:ingestion][:password] = "Pq2Ajf82k9"
   default[:social][:social_graph][:log_directory] = "/var/log/fbgraph-consumer/"
 when /^stage/
-  default[:social][:ingestion][:host] = "10.9.176.24"
+  default[:social][:ingestion][:host] = "iad-stg-ing101-v760.ihr"
   default[:social][:ingestion][:port] = "5432"
   default[:social][:ingestion][:app_user_name] = "appbatchuser"
   default[:social][:ingestion][:password] = "Pq2Ajf82k9"

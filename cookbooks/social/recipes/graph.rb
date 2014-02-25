@@ -33,7 +33,7 @@ rabbit_cluster_members = search(:node, "role:amp_rabbit_server AND chef_environm
 
   rabbit_cluster_names = Array.new
   rabbit_cluster_members.each do |s|
-    rabbit_cluster_names << s[:hostname]
+    rabbit_cluster_names << "#{s[:hostname]}"
   end
 
 template "#{node[:social_graph][:deploy_path]}/#{node[:social_graph][:version]}/env.properties" do

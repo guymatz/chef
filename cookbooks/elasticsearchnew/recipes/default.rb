@@ -12,7 +12,7 @@
 end
 
 unless tagged?('elasticsearchnew-deployed')
-  %w{ elasticsearchnew::users users::deployer elasticsearchnew::elasticsearch elasticsearchnew::ulimits elasticsearchnew::plugins }.each do |cb|
+  %w{ elasticsearchnew::users users::deployer elasticsearchnew::elasticsearch elasticsearchnew::plugins }.each do |cb|
     include_recipe cb
   end
   

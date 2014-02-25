@@ -163,6 +163,7 @@ when /^stage/
   default[:amp][:twitter][:url] = "https://api.twitter.com/1.1/account/verify_credentials.json?include_entities=false&skip_status=true"
   default[:amp][:twitter][:client_id] = "Ueh0hhV1GzQY7a7nbNGw"
   default[:amp][:twitter][:secret] = "27HQsO9wZklHX0kNcGYrcJrTSysKrGuuf5jIVpzcxmI"
+  default[:amp][:rabbit][:consumer][:port] = 5672
   default[:amp][:rabbit][:facebook][:host] = "iad-stg-rabbitmq-vip-v700.ihr"
   default[:amp][:rabbit][:facebook][:port] = 5673
   default[:amp][:rabbit][:facebook][:username] = "amp-tomcat"

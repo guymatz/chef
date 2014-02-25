@@ -77,7 +77,6 @@ unless tagged?("es-plugins-installed")
             "ordered" : false \
         } \
       }'
-      command <<-EOH 
     end
   end
   tag("es-plugins-installed")
