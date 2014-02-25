@@ -29,7 +29,7 @@ end
   end
 end
 
-rabbit_cluster_members = search(:node, "role:amp_rabbit_server" AND "node.chef_environment =~ #{node.chef_environment}")
+rabbit_cluster_members = search(:node, "role:amp_rabbit_server AND chef_environment:#{node.chef_environment}")
 
   rabbit_cluster_names = Array.new
   rabbit_cluster_members.each do |s|
