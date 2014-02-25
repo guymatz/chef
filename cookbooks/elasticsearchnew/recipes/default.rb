@@ -94,5 +94,18 @@ unless tagged?('elasticsearchnew-deployed')
     owner node[:elasticsearchnew][:user]
     group node[:elasticsearchnew][:group]
   end
+  
+  dwh_creds = Chef::EncryptedDataBagItem.load("secrets", "dwh_radiomodel_creds")
+  ing_creds = Chef::EncryptedDataBagItem.load("secrets", "ing_db_creds")
+  template "#{node[:elasticsearchnew][:ihrsearch_path]}/configs/index-builder.properties" do
+    source "index-builder.properties.erb"
+    owner node[:elasticsearchnew][:user]
+    group node[:elasticsearchnew][:group]
+    variables({  
+                :dwh_radiomodel_creds => dwh_creds,
+		:ing_db_creds => ing_creds
+              })
+
+  end
   tag('elasticsearchnew-deployed')
 end
