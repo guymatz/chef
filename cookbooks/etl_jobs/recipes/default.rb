@@ -365,7 +365,7 @@ python_pip "pytz" do
 end
 git "/data/jobs/radiomigration" do
   repository "git@github.com:iheartradio/radio-migration.git"
-  reference "temporary"
+  reference "master"
 end
 directory "/data/log/radiomigration" do
   owner "ihr-deployer"
