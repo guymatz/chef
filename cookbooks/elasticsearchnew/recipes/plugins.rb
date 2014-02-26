@@ -1,10 +1,13 @@
-
 directory "#{node[:elasticsearchnew][:ihrsearch_path]}/plugins" do
   owner node[:elasticsearchnew][:user]
   group node[:elasticsearchnew][:group]
   recursive true
 end
 
+service "elasticsearch" do
+  provider Chef::Provider::Service::Init
+  supports :start => true, :stop => true
+end
 
 unless tagged?("es-plugins-installed")
   ES_HOME = node[:elasticsearchnew][:deploy_path]

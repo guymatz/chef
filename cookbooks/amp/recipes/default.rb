@@ -58,7 +58,7 @@ begin
       mode "0755"
     end
 
-    # JPD OPS-6114
+    #JPD OPS-6114
     remote_file "#{node[:tomcat7][:webapp_dir]}/ROOT/akamai-endpoint.20Kb" do
       source "#{node[:amp][:url]}/akamai-endpoint.20Kb"
       owner node[:tomcat7][:user]

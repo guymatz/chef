@@ -31,7 +31,7 @@ cron_d "sysinfo_job" do
 end
 
 cron_d "pull_sysinfo_logs" do
-  command "/usr/bin/nsca_relay -S Pull-Sysinfo-Logs \"/home/ihr-deployer/sysinfo.sh\""
+  command "/usr/bin/nsca_relay -S Pull-Sysinfo-Logs -- /home/ihr-deployer/sysinfo.sh"
   minute '*/15'
   user 'ihr-deployer'
 end

@@ -10,6 +10,7 @@ default[:playlog][:reference] = "0246f36d0c9c2a47d4fdd97942b0c4ebbb24b21d"
 default[:db_sync_tools][:deploy_path] = "/data/jobs/db-sync-tools"
 default[:db_sync_tools][:repo] = "git@github.com:iheartradio/amp-tools"
 default[:db_sync_tools][:reference] = "d74b373c8b76f0a6994a1bb8427b045d891e7add"
+default[:sysinfo][:version] = "1.0.0"
 case chef_environment
 when /^prod/
   default[:etl][:data_warehouse][:jdbc_url] = "jdbc:jtds:sqlserver://iad-dwh.prod.ihr:1433;databaseName=IHRDWH"

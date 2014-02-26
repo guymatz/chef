@@ -67,7 +67,7 @@ template "#{script_dir}/streaminfo/ship2es.sh" do
   mode "0755"
   variables({
               :updatestream => "#{script_dir}/streaminfo",
-              :es_master => "#{master[0][:ipaddress]}",
+              :es_master => "#{node[:fac][:es_vip]}",
               :es_dropbox => "#{node[:elasticsearch][:input_path]}/livestations"
             })
 end

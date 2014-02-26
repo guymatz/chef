@@ -22,8 +22,10 @@
 # limitations under the License.
 #
 
-#default['nagios']['pagerduty_key'] = "05f110a1aa524e86937256ad2609d270"
-default['nagios']['pagerduty_key'] = String.new
+case chef_environment
+when /^prod/
+  default['nagios']['pagerduty_key'] = "05f110a1aa524e86937256ad2609d270"
+end
 
 case node['platform']
 when "ubuntu","debian"

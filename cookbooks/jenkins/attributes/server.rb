@@ -22,69 +22,45 @@
 # limitations under the License.
 #
 
-default['jenkins']['server']['home'] = '/var/lib/jenkins'
-default['jenkins']['server']['log_dir'] = '/var/log/jenkins'
+default['jenkins']['server']['home']     = "/var/lib/jenkins"
+default['jenkins']['server']['data_dir'] = "/data/jenkins/jenkins-data" #File.join(node['jenkins']['server']['home'], "jenkins-data")
+default['jenkins']['server']['log_dir']  = "/var/log/jenkins"
 
-default['jenkins']['server']['user'] = 'jenkins'
-default['jenkins']['server']['dir_permissions'] = 00755
-default['jenkins']['server']['ssh_dir_permissions'] = 00700
+default['jenkins']['server']['user'] = "jenkins"
 case node['platform_family']
-when 'debian'
-  default['jenkins']['server']['install_method'] = 'package'
-  default['jenkins']['server']['config_path'] = '/etc/default/jenkins'
-  default['jenkins']['server']['config_template'] = 'default.erb'
-  default['jenkins']['server']['log_dir_permissions'] = 00755
-  default['jenkins']['server']['home_dir_group'] = 'adm'
-  default['jenkins']['server']['plugins_dir_group'] = default['jenkins']['server']['user']
-  default['jenkins']['server']['log_dir_group'] = 'adm'
-  default['jenkins']['server']['ssh_dir_group'] = 'nogroup'
-when 'rhel'
-  default['jenkins']['server']['install_method'] = 'package'
-  default['jenkins']['server']['group'] = default['jenkins']['server']['user']
-  default['jenkins']['server']['config_path'] = '/etc/sysconfig/jenkins'
-  default['jenkins']['server']['config_template'] = 'sysconfig.erb'
-  default['jenkins']['server']['log_dir_permissions'] = 00750
-  default['jenkins']['server']['home_dir_group'] = default['jenkins']['server']['user']
-  default['jenkins']['server']['plugins_dir_group'] = default['jenkins']['server']['user']
-  default['jenkins']['server']['log_dir_group'] = default['jenkins']['server']['user']
-  default['jenkins']['server']['ssh_dir_group'] = default['jenkins']['server']['user']
+when "debian"
+  default['jenkins']['server']['group'] = "nogroup"
 else
-  default['jenkins']['server']['install_method'] = 'war'
-  default['jenkins']['server']['group'] = default['jenkins']['server']['user']
-  default['jenkins']['server']['log_dir_permissions'] = 00755
-  default['jenkins']['server']['home_dir_group'] = default['jenkins']['server']['user']
-  default['jenkins']['server']['plugins_dir_group'] = default['jenkins']['server']['user']
-  default['jenkins']['server']['log_dir_group'] = default['jenkins']['server']['user']
-  default['jenkins']['server']['ssh_dir_group'] = default['jenkins']['server']['user']
+  default['jenkins']['server']['group'] = node['jenkins']['server']['user']
 end
 
-default['jenkins']['server']['version'] = nil
+default['jenkins']['server']['version'] = :latest
 default['jenkins']['server']['war_checksum'] = nil
 
 default['jenkins']['server']['port'] = 8080
-default['jenkins']['server']['external_port'] = 8080
-default['jenkins']['server']['host'] = "iad-stg-build-master101.ihr"
-default['jenkins']['server']['url']  = "http://#{default['jenkins']['server']['host']}:#{default['jenkins']['server']['port']}/jenkins"
+default['jenkins']['server']['host'] = node['fqdn']
+default['jenkins']['server']['url']  = "http://build.ihrdev.com:#{node[:jenkins][:server][:port]}"
+#default['jenkins']['server']['url']  = "http://#{node['jenkins']['server']['host']}:#{node['jenkins']['server']['port']}"
 
-default['jenkins']['server']['plugins'] = [  'notification', 'build-pipeline-plugin', 'build-name-setter', 'copyartifact', 'disk-usage', 'email-ext', 'git', 'git-client', 'git-parameter', 'github', 'scp', 'm2-extra-steps', 'sonargraph-plugin', 'm2release', 'nodelabelparameter', 'ssh', 'ws-cleanup', 'skype-notifier', 'hipchat'  ] 
-
+default['jenkins']['server']['plugins'] = %w{ publish-over-ssh scp crowd2 github-oauth gravatar instant-messaging blame-upstream-commiters
+skype-notifier rubyMetrics python rake vagrant release ws-cleanup libvirt-slave vsphere-cloud ec2 jira beer job-import-plugin }
 default['jenkins']['server']['jvm_options'] = nil
 default['jenkins']['server']['pubkey'] = nil
 
-default['jenkins']['http_proxy']['variant'] = 'nginx'
-default['jenkins']['http_proxy']['www_redirect'] = 'disable'
-default['jenkins']['http_proxy']['listen_ports'] = [80]
-default['jenkins']['http_proxy']['host_name'] = nil
-default['jenkins']['http_proxy']['host_aliases'] = []
-default['jenkins']['http_proxy']['client_max_body_size'] = '1024m'
-default['jenkins']['http_proxy']['basic_auth_username'] = 'jenkins'
-default['jenkins']['http_proxy']['basic_auth_password'] = 'jenkins'
-default['jenkins']['http_proxy']['cas_validate_server'] = 'off'
+default['jenkins']['http_proxy']['variant']              = "nginx"
+default['jenkins']['http_proxy']['www_redirect']         = "disable"
+default['jenkins']['http_proxy']['listen_ports']         = [ 80 ]
+default['jenkins']['http_proxy']['host_name']            = "build.ihrdev.com"
+default['jenkins']['http_proxy']['host_aliases']         = []
+default['jenkins']['http_proxy']['client_max_body_size'] = "1024m"
+default['jenkins']['http_proxy']['basic_auth_username'] = "jenkins"
+default['jenkins']['http_proxy']['basic_auth_password'] = "jenkins"
+default['jenkins']['http_proxy']['cas_validate_server'] = "off"
 default['jenkins']['http_proxy']['server_auth_method'] = nil
 
 default['jenkins']['http_proxy']['ssl']['enabled'] = false
 default['jenkins']['http_proxy']['ssl']['redirect_http'] = false
-default['jenkins']['http_proxy']['ssl']['ssl_listen_ports'] = [443]
+default['jenkins']['http_proxy']['ssl']['ssl_listen_ports'] = [ 443 ]
 default['jenkins']['http_proxy']['ssl']['dir'] = "#{default['jenkins']['server']['home']}/ssl"
 default['jenkins']['http_proxy']['ssl']['cert_path'] = "#{default['jenkins']['http_proxy']['ssl']['dir']}/jenkins.cert"
 default['jenkins']['http_proxy']['ssl']['key_path'] = "#{default['jenkins']['http_proxy']['ssl']['dir']}/jenkins.key"

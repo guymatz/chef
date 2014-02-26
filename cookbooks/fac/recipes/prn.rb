@@ -69,4 +69,3 @@ service "fac-#{app}" do
      action [ :enable, :start ]
    end
 end
-

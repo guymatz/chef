@@ -76,8 +76,8 @@ EOH
 end
 
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", "attivio")
-cluster = search(:node, "recipe:attivio\\:\\:clustered AND chef_environment:#{node.chef_environment}")
-master = search(:node, "recipe:attivio\\:\\:clustermaster AND chef_environment:#{node.chef_environment}")
+cluster = search(:node, "recipes:attivio\\:\\:clustered AND chef_environment:#{node.chef_environment}")
+master = search(:node, "recipes:attivio\\:\\:clustermaster AND chef_environment:#{node.chef_environment}")
 
 # searcher = cluster - master
 searchers = cluster
@@ -129,7 +129,6 @@ template "#{node[:attivio][:config_path]}/iheartradio.#{node.chef_environment}.p
             })
 end
 
-
 template "#{node[:attivio][:config_path]}/topology-nodes-#{node.chef_environment}.xml" do
   source "topology-nodes-env.xml.erb"
   owner node[:attivio][:user]
@@ -151,10 +150,10 @@ end
 
 fqdns = Array.new
 if (defined?(master[0]["fqdn"]))
-  fqdns << "#{master[0][:hostname]}-v700"
+  fqdns << master[0]["fqdn"]
 end
 cluster.each do |c|
-  fqdns << "#{c[:hostname]}-v700"
+  fqdns << c["fqdn"]
 end
 
 template "#{node[:attivio][:bin_path]}/#{node.chef_environment}/env.sh" do

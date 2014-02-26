@@ -134,7 +134,7 @@ directory "/data/jobs/custom_thumbs"
 directory "/data/log/customradiothumbslog"
 directory "/data/log/customradiothumbslog/processed"
 remote_file "/data/jobs/custom_thumbs/custom_thumbs_job.jar" do
-source "http://yum.ihr/files/jobs/custom_thumbs/custom_thumbs_job.jar"
+source "http://files.ihrdev.com/jobs/custom_thumbs/custom_thumbs_job.jar"
 end
 remote_file "/data/jobs/custom_thumbs/custom_thumbs_wrapper.sh" do
 source "http://yum.ihr/files/jobs/custom_thumbs/custom_thumbs_wrapper.sh"
@@ -255,9 +255,10 @@ remote_file "/home/amqp-consumer/facebook-consumer/facebook_consumer.jar" do
   group "amqp-consumer"
 end
 remote_file "/home/amqp-consumer/facebook-consumer/env.properties" do
-  source "http://yum.ihr/files/jobs/facebook-consumer/env.properties"
+  source "http://files.ihrdev.com/jobs/facebook-consumer/env.properties"
   owner "amqp-consumer"
   group "amqp-consumer"
+  action :create_if_missing
 end
 remote_file "/home/amqp-consumer/facebook-consumer/log4j.xml" do
   source "http://yum.ihr/files/jobs/facebook-consumer/log4j.xml"
