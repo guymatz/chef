@@ -1,0 +1,5 @@
+{
+  "host_name": "127.0.0.1",
+  "id": "Extern-http-Y100",
+  "command_line": "$USER1$/check_http -H www.y100.com -u http://www.y100.com/main.html"
+}

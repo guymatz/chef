@@ -1,9 +1,0 @@
-{
-    "id": "social_graph",
-    "name": "Social Graph Service",
-    "email":    "ccd-sa@clearchannel.com",
-    "groups":   ["social_graph"],
-    "shell":    "/bin/bash",
-    "uid": 5253
-
-}

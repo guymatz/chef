@@ -1,0 +1,8 @@
+{
+  "id": "Profile-Exit-Code",
+  "host_name": "use1b-jobserver101a.ihr",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c check_profile_exit_code -t 20",
+  "max_check_attempts": "1",
+  "check_interval": "43200",
+  "contact_groups": ["etl"]
+}

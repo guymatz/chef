@@ -1,0 +1,8 @@
+{
+    "id": "splunk",
+    "uid": 4000,
+    "name": "Splunk User",
+    "email": "ccd-sa@clearchannel.com",
+    "groups": ["splunk"], 
+    "ssh_keys": []
+}

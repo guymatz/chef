@@ -1,0 +1,9 @@
+{
+  "id": "Mongodb-Last-Flush-Time",
+  "hostgroup_name": "mongodb_server",
+  "command_line": "$USER1$/check_mongodb.py -H $HOSTADDRESS$ -A last_flush_time -P 37017 -W 9000 -C 10000",
+  "max_check_attempts": "20",
+  "check_interval": "60",
+  "retry_interval": "60",
+  "contact_groups": ["admins", "dba-team"]
+}

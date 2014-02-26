@@ -1,0 +1,12 @@
+{
+    "id": "hadoop",
+    "cookie": "SERVERID insert nocache indirect",
+    "vhosts": [ "hadoop.ihrdev.com" ],
+    "check": "True",
+    "backends": [
+	{
+            "server": "use1b-hadoop-master001.ihrdev.com",
+            "port": "7180"
+	}
+    ]
+}

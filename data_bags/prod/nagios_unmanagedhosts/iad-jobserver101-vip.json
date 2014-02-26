@@ -1,0 +1,5 @@
+{
+  "address": "iad-jobserver101.ihr",
+  "hostgroups": ["VIPs","jobserver"],
+  "id": "iad-jobserver101-ihr"
+}

@@ -1,0 +1,12 @@
+{
+    "id": "namenode",
+    "cookie": "SERVERID insert nocache indirect",
+    "vhosts": [ "namenode.ihrdev.com" ],
+    "check": "True",
+    "backends": [
+	{
+            "server": "use1b-hadoop-master001.ihrdev.com",
+            "port": "50070"
+	}
+    ]
+}

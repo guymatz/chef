@@ -1,0 +1,6 @@
+{
+  "hostgroup_name": "elasticsearchnew",
+  "id": "ElasticSearch-Query-JsonResponse-New",
+  "command_line": "$USER1$/check_http_json.py 'http://$HOSTNAME$-v200.ihr:9200/_query/liveStations?keywords=ktu' 200 30 'hits.hits.0._id' 'LS1473'",
+  "contact_groups": ["admins","elasticsearch"]
+}

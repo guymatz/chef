@@ -1,6 +1,0 @@
-{
-  "hostgroup_name": "ps-monitoring",
-  "id": "Postgresql-Backups",
-  "freshness_threshold": "691200",
-  "contact_groups": ["dba"]
-}

@@ -1,0 +1,6 @@
+{
+  "comment" : "production call to verify that the Toyota Entune platform is up and working",
+  "host_name": "127.0.0.1",
+  "id": "Extern-http-LOCALSTATIONS",
+  "command_line": "$USER1$/check_http -H www.iheartradio.com -u http://iheartradio.com/cc-common/iphone/config/production/local_stations.php?latitude=40.71&longitude=-74.0064"
+}

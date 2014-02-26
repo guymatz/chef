@@ -1,0 +1,15 @@
+{
+    "id": "chef-dev",
+    "cookie": "SERVERID insert nocache indirect",
+    "vhosts": [ "chef-dev.ihrdev.com" ],
+    "check": "True",
+    "listen": "8000",
+    "protocol": "tcp",
+    "backends": [
+	{
+            "server": "use1b-dev-chef101.ihr",
+            "port": "8000",
+            "ipaddress": "10.5.1.70"
+	}
+    ]
+}

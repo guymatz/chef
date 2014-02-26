@@ -1,0 +1,5 @@
+{
+  "id": "Cassandra-Running",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c check_app_proc_cassandra -t 20",
+  "hostgroup_name": "cassandra"
+}

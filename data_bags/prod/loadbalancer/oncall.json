@@ -1,0 +1,12 @@
+{
+    "id": "oncall",
+    "cookie": "SERVERID insert nocache indirect",
+    "vhosts": [ "oncall.ihrdev.com" ],
+    "check": "True",
+    "backends": [
+	{
+            "server": "use1b-ss-web001.ihrdev.com",
+            "port": "8081"
+	}
+    ]
+}

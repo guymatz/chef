@@ -1,0 +1,5 @@
+{
+    "id": "Amp-Cassandra-Connection-Pool",
+    "hostgroup_name": "amp",
+    "command_line": "$USER1$/check_jmx -U service:jmx:rmi:///jndi/rmi://$HOSTADDRESS$:8999/jmxrmi -O me.prettyprint.cassandra.service_cassandra1a:ServiceType=api,MonitorType=hector -A NumPoolExhaustedEventCount -vvvv -w 250 -c 300"
+}

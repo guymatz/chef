@@ -1,0 +1,5 @@
+{
+  "id": "Amp-Membase-Sessions",
+  "hostgroup_name": "amp-membase",
+  "command_line": "$USER1$/check_memcached.pl -H $HOSTADDRESS$ -p 11212"
+}
