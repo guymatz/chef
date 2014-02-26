@@ -4,7 +4,7 @@ maintainer_email 'gregorypatmore@clearchannel.com'
 license          'All rights reserved'
 description      'Installs/Configures avamar client'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.1.0'
+version          '1.0.0'
 
 #only have an install rpm for RHEL and Centos 
 %w{ redhat centos }.each do |os|

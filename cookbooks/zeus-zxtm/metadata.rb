@@ -3,7 +3,7 @@ maintainer_email "ccd-sa@clearchannel.com"
 license          "MIT"
 description      "Installs/Configures zeus-zxtm"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.2.1"
+version          "1.0.0"
 recipe		 "default", "Main Zeus ZXTM configuration"
 
 attribute "zeus",
