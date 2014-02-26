@@ -28,14 +28,13 @@ unless tagged?("es-plugins-installed")
   end
 
   if /stage/ =~ node.chef_environment
-      execute "install-river-rabbitmq-plugin" do
+    execute "install-river-rabbitmq-plugin" do
       command "#{ES_HOME}/bin/plugin --url #{node[:elasticsearchnew][:url]}/#{node.chef_environment}/es-plugins/elasticsearch-river-rabbitmq.zip --install river-rabbitmq"
       cwd Chef::Config[:file_cache_path]
       notifies :restart, "service[elasticsearch]"
       user node[:elasticsearchnew][:user]
       group node[:elasticsearchnew][:group]
     end
-  end
 
   primary_node=search(:node, "role:elasticsearchnew AND chef_environment:#{node.chef_environment}")[0]
 
@@ -43,7 +42,9 @@ unless tagged?("es-plugins-installed")
   Chef::Log.info("Host name info: #{node[:hostname]}")
 
   if primary_node[:hostname] == node[:hostname]
-    execute "configure-river-rabbitmq-plugin" do '{ \
+    execute "configure-river-rabbitmq-plugin" do
+      command <<-EOH 
+        /usr/bin/curl -XPUT '#{node[:ipaddress]}:9200/_river/my_river/_meta' -d '{ \
         "type" : "rabbitmq", \
         "rabbitmq" : { \
             "addresses" : [ \
@@ -76,8 +77,10 @@ unless tagged?("es-plugins-installed")
             "bulk_timeout" : "50ms", \
             "ordered" : false \
         } \
-      }'
+       }'
+      EOH
     end
   end
+end
   tag("es-plugins-installed")
 end

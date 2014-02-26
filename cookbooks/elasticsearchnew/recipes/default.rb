@@ -12,7 +12,7 @@
 end
 
 unless tagged?('elasticsearchnew-deployed')
-  %w{ elasticsearchnew::users users::deployer elasticsearchnew::elasticsearch elasticsearchnew::plugins }.each do |cb|
+  %w{ elasticsearchnew::users users::deployer elasticsearchnew::elasticsearch }.each do |cb|
     include_recipe cb
   end
   
@@ -109,3 +109,5 @@ unless tagged?('elasticsearchnew-deployed')
   end
   tag('elasticsearchnew-deployed')
 end
+
+include_recipe "elasticsearchnew::plugins"
