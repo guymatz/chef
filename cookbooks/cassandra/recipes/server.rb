@@ -87,3 +87,14 @@ template "#{node[:cassandra][:conf_dir]}/cassandra.yaml" do
     })
   notifies      :restart, "service[cassandra]"
 end
+
+template "#{node[:cassandra][:conf_dir]}/cassandra-env.sh" do
+  source        "cassandra-env.sh.erb"
+  owner         "root"
+  group         "root"
+  mode          "0644"
+  variables({
+                :hostname => node[:hostname],
+    })
+  notifies      :restart, "service[cassandra]"
+end

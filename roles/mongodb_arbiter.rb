@@ -1,6 +1,7 @@
 name "mongodb_arbiter"
 description "mongodb_arbiter"
 all_env = [
+           "recipe[mongodb]",
 	   "recipe[mongodb::arbiter]",
            "recipe[mongodb::ulimits]",
 	  ]

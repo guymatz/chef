@@ -7,7 +7,7 @@
   },
   "run_list": [
       "role[auto-bonded]",
-    "recipe[jenkins::server]",
+      "recipe[jenkins::server]",
       "recipe[jenkins::proxy_nginx]"
   ],
   "description": "",

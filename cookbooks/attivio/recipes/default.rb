@@ -112,7 +112,7 @@ template "#{node[:attivio][:config_path]}/iheartradio.xml" do
 end
 
 template "#{node[:attivio][:config_path]}/iheartradio.#{node.chef_environment}.properties" do
-  source "iheartradio.env.properties.erb"
+  source "iheartradio.env.properties.#{node.chef_environment}.erb"
   owner node[:attivio][:user]
   group node[:attivio][:group]
   variables({

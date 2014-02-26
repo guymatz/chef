@@ -1,4 +1,9 @@
-default[:proftpd][:encoder_export]       = "iad-isilon001.ihr:/ifs/encoder/encoder"
+case chef_environment
+when /^prod/
+  default[:proftpd][:encoder_export]       = "iad-isilon001.ihr:/ifs/encoder/encoder"
+when /^stage/
+  default[:proftpd][:encoder_export]       = "iad-stg-nfs101.ihr:/data/export/encoder"
+end
 default[:proftpd][:encoder_mount_point]  = "/data/encoder"
 default[:proftpd][:dir]                  = "/etc/proftpd"
 default[:proftpd][:key_dir]              = "/etc/proftpd/authorized_keys"

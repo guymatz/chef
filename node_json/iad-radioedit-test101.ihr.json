@@ -1,0 +1,62 @@
+{
+  "name": "iad-radioedit-test101.ihr",
+  "chef_environment": "stage",
+  "run_list": [
+    "role[base]",
+    "recipe[nodejs]",
+    "role[radioedit_refactor]"
+  ],
+  "normal": {
+    "runlist_override_history": {
+      "1384455732": "[recipe[radioedit::staging-app]]"
+    },
+    "mysql": {
+      "conf_dir": "/etc",
+      "old_passwords": 1,
+      "grants_path": "/etc/mysql_grants.sql",
+      "confd_dir": "/etc/mysql/conf.d",
+      "tunable": {
+        "innodb_adaptive_flushing": false
+      },
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "socket": "/var/lib/mysql/mysql.sock"
+    },
+    "ohai": {
+      "plugins": {
+      }
+    },
+    "tags": [
+      "AWS",
+      "radioedit-deployed"
+    ],
+    "platform?": "ubuntu",
+    "mongosd": {
+      "mongosconfigdbs": [
+        "use1b-radioedit-test102.ihr:57017",
+        "use1b-radioedit-test103.ihr:57017",
+        "use1b-radioedit-test104.ihr:57017"
+      ]
+    },
+    "openssh": {
+      "server": {
+      },
+      "client": {
+      }
+    },
+    "snmp": {
+      "packages": [
+        "net-snmp",
+        "net-snmp-utils"
+      ],
+      "cookbook_files": [
+
+      ]
+    },
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    },
+    "tagged?": "mongo_shared"
+  }
+}

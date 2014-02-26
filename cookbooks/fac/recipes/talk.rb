@@ -64,3 +64,12 @@ cron_d "remove-talk-logs" do
   hour 3
   command "rm -f /var/log/fac-#{app}/*log.*"
 end
+
+service "fac-#{app}" do
+   supports :status => true, :restart => true
+   if tagged?("no-fac-talk")
+     action [ :disable, :stop ]
+   else
+     action [ :enable, :start ]
+   end
+end

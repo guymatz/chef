@@ -1,0 +1,17 @@
+{
+    "id": "apatel",
+    "uid": 5013,
+    "name": "Amit Patel",
+    "email": "",
+    "htpasswd": "{SHA}LOCKED",
+    "groups": ["dev", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch", "facebook", "rabbit", "imgsca"],
+    "nagios": {
+        "email": ""
+    },
+    "ssh_keys": [
+"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbi0Xi6NBZWch/txhopvc6dYlnwY3CXjDHG7/85O5J0vr3msjp+dpVzDUZnvAObNC/MIdQa7GdWiQWfZ5jlPPFHP3zzrlO96mcCMfU0M2RFcZQAxMxT0LSMJMtVLMsdKV6BF0UbeIrOIqviYuH8A5u1Khh8m3/Qk48cQiCGkJdT3z2rfRoPT4NmIDeuXbH9CsDqBCZnEaAG+0umiQHqnXkK24Nc2G+fPOVPCNNyTJgSW+0GWfeBZ1z5DykKhcoIy6BPJlsX2wkBeJpLNKCnghQnI16y3qkNgTOJQqtmdHP4O3GZk7/G1ZS49iSlw7fHPhRWFTWil7RFXA9PmBzl1Xv AmitPatel@clearchannel.com",
+"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/oHXCkpE2qGify10R5smnVW9A0tm/klu3WZUnRiavv4FKOQBqfWMESsB8XfbE3TZDqFLXCn5gdVEXT6kDYgJTq++cYiIsoJzGb452/lzhpjcPPoghm931PQbQGRQSdxFgox131avH6rdZBFKOhYcMFWs1L9bpozYmh1Rg4qkZ+7Da5GDueSreAkopW2Rz5UyoErnNIcGjeyi8UyAHfcSLkHPT4J7GRYzYPbk+qznk/1ox52GUOxL2FBDkEdlGWXUii/kgmrPNJWj1fl+x49hfafnJ3cNU8Xt/aOcmuQTwcBXUhCYwC2Y5nwfMyVIbgy2ZkP0tYVEwQC3U4HreTxH9 apatel@d630",
+"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0nxqeZKquWkVHDDSPw1UmxYJb9M1pcKq4pvkwCc3kFTWIadMuo0chB3BogJR51wDo/FTeiwk+OUqtXI29fCVsrfvQkuM5/2/iHyeM4RI0jWB84m6w8/4QQDSwWjwmnB3pmcIzNUf8hPrIpqUpaaOinwqwT5DplxbtQY/jTVfXPMh7hBeNRZjN0LQBqzp1hMl6YZAY+tYcl7XWLO6/U03VNETZqftoEXuL5KE7HwWZhfIDO6IiOczVAWOJ3Q2epocU4w+sPYzKaKePDNmTl7vIDwyv2vzSLnpBTKBXFBWT+PjFrL02EBZso/Jgz/9w8/isqj4YvJaJTCtRhc4DGjO1 amit@AMITKUMAR-PATELs-MacBook-Pro.local",
+"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDJnr9nhJL4D3rAtvHkpY7tbVXlEPGFoQs1jy+RlD30x5KbrZClIvVdp3BNBkocG5/2RbQfTZcAE8cRgQhK64J0F5ByMNtNBmJhCsLPzaYUiv896XZh7QiGjOSuodLpGVVOWRUoQo/EZFwU+71Q7uA3EsAEMs6if3k9oKvkKKY2RaB8hQRUb3MyuerHuw+N+4SUMiyZ9mlqGa8KgBI2th+mMztlh9Dgg29oj4wWgjTo8ruRAyUlXqMoDwzNhmxqyfBH5E4HqTHcPDbktwij2BUP8jV0IK/Pz4O58Lv4a9fnXWyc7ZNX3P123BfeTkvyPBDfI17dbX20pAajr1KggPd avpate.257@gmail.com"
+    ]
+}

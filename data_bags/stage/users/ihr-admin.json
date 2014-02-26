@@ -1,0 +1,13 @@
+{
+  "id": "ihr-admin",
+  "uid": 550,
+  "name": "iHeart Admin",
+  "email": "",
+  "groups": [
+    "sysadmin"
+  ],
+  "ssh_keys": [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAy175vs7QM3zy4n0A0JOjDgt/EPrQT8QefGgQte9WfY5u4p1qrPEHGq0GE8zRk0Zn/LsmEviwjVszRu6B0SPw9xSWibxZLVAgWtuGd5wkOqFWjfP53NUPl9SnvJ8SbLYUOMvgmrtSVzOesmestMX9bxwd9Z+w5fPGVTgCcOsrCyUPfJX2aTLFjH0533CIV1GjeVfTKL6v+vmtXXwpezKYi/IyqMVSz3mkNSXqvepe2AfUJMMcoMnYnrrz/v6SMJ6POgRBv7HyBOnp1ZcdYOkSSSl7VnVXwGlsjKougjk6/Z/ueT8kliJUp03doxFuyU1Hks1ptsoYz/JvVzQCCAa5Ww== iHeart Admin"
+  ],
+  "shell": "/bin/false"
+}

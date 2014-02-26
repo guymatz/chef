@@ -6,5 +6,5 @@ description       "Updates motd.tail with Chef Roles"
 long_description  <<-EOH
 Queries Chef for the roles assigned to the node and updates motd.tail
 EOH
-version           "1.1.0"
+version           "2.0.0"
 recipe            "motd-tail", "Updates motd.tail with useful node data"

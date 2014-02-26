@@ -2,7 +2,7 @@ maintainer       "Calogero Lo Leggio"
 maintainer_email "kalos@nerdrug.org"
 license          "Apache 2.0"
 description      "Installs/Configures proftpd"
-version          "0.2"
+version          "1.0.0"
 
 #  Need attributues to create the converter user
 depends          "encoders"

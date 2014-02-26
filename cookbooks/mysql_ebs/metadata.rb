@@ -2,7 +2,7 @@ maintainer        "bploetz"
 license           "Apache 2.0"
 description       "Configures a MySQL server to use an EBS volume for it's storage, based on Eric Hammond's post."
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
-version           "0.1.0"
+version           "1.0.0"
 recipe            "mysql_ebs::esh", "Configures a MySQL server to use an EBS volume for it's storage, based on Eric Hammond's post."
 
 %w{ debian ubuntu }.each do |os|

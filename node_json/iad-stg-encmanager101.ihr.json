@@ -1,0 +1,49 @@
+{
+  "name": "iad-stg-encmanager101.ihr",
+  "chef_environment": "stage",
+  "run_list": [
+    "role[base]",
+    "recipe[jruby]",
+    "role[dell]",
+    "recipe[nfs]",
+    "recipe[encoders]",
+    "role[sendmail-smart-host]",
+    "recipe[users::level3]",
+    "recipe[users::converter]",
+    "recipe[encoders::stage_v3]",
+    "recipe[encoders::stage_mounts]"
+  ],
+  "normal": {
+    "tags": [
+      "encoder-mounts",
+      "encoder-deployed",
+      "encoder-code-deployed",
+      "stage-v3"
+    ],
+    "mysql": {
+      "conf_dir": "/etc",
+      "confd_dir": "/etc/mysql/conf.d",
+      "socket": "/var/lib/mysql/mysql.sock",
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "old_passwords": 1,
+      "grants_path": "/etc/mysql_grants.sql",
+      "tunable": {
+        "innodb_adaptive_flushing": false
+      }
+    },
+    "snmp": {
+      "packages": [
+        "net-snmp",
+        "net-snmp-utils"
+      ],
+      "cookbook_files": [
+
+      ]
+    },
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    }
+  }
+}

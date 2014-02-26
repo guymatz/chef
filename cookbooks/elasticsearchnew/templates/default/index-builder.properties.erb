@@ -1,0 +1,75 @@
+#This is live
+zip.to.market.csv.filepath=<%= node[:elasticsearchnew][:input_path] %>/t3/zip_to_market.csv
+#Keywords Indexer Configs
+keywordsindexer.index.settings.file.path=<%= node[:elasticsearchnew][:config_path] %>/settings.json
+keywordsindexer.index.mappings.file.path=<%= node[:elasticsearchnew][:config_path] %>/keywords/mappings.json
+
+#LiveStation Indexer Configs
+livestations.index.settings.file.path=<%= node[:elasticsearchnew][:config_path] %>/settings.json
+livestations.index.mappings.file.path=<%= node[:elasticsearchnew][:config_path] %>/livestations/mappings.json
+liveindexer.move.after.crawl.directory=<%= node[:elasticsearchnew][:input_path] %>/livestations/processed
+liveindexer.start.directory=<%= node[:elasticsearchnew][:input_path] %>/livestations
+liveindexer.include.pattern=streams_list_attivio_ready.xml
+
+#Album Indexer Configs
+liveindexer.index.settings.file.path=<%= node[:elasticsearchnew][:config_path] %>/settings.json
+liveindexer.index.mappings.file.path=<%= node[:elasticsearchnew][:config_path] %>/live/mappings.json
+
+#Artist Indexer Configs
+artistindexer.index.settings.file.path=<%= node[:elasticsearchnew][:config_path] %>/settings.json
+artistindexer.index.mappings.file.path=<%= node[:elasticsearchnew][:config_path] %>/artists/mappings.json
+artistindexer.move.after.crawl.directory=<%= node[:elasticsearchnew][:input_path] %>/artists/processed
+artistindexer.start.directory=<%= node[:elasticsearchnew][:input_path] %>/artists/updates
+artistindexer.include.pattern=add(.*).xml
+
+#Delete Artists Configs
+deleteartists.start.directory=<%= node[:elasticsearchnew][:input_path] %>/artists/deletes
+deleteartists.include.pattern=delete(.*).xml
+
+#Track Indexer Configs
+trackindexer.index.settings.file.path=<%= node[:elasticsearchnew][:config_path] %>/settings.json
+trackindexer.index.mappings.file.path=<%= node[:elasticsearchnew][:config_path] %>/tracks/mappings.json
+trackindexer.move.after.crawl.directory=<%= node[:elasticsearchnew][:input_path] %>/tracks/processed
+trackindexer.start.directory=<%= node[:elasticsearchnew][:input_path] %>/tracks/updates
+trackindexer.include.pattern=add(.*).xml
+
+#Album Indexer Configs
+albumindexer.index.settings.file.path=<%= node[:elasticsearchnew][:config_path] %>/settings.json
+albumindexer.index.mappings.file.path=<%= node[:elasticsearchnew][:config_path] %>/albums/mappings.json
+
+#Delete Tracks Configs
+deletetracks.start.directory=<%= node[:elasticsearchnew][:input_path] %>/tracks/deletes
+deletetracks.include.pattern=delete(.*).xml
+
+#Featured stations index configs
+featuredstations.index.settings.file.path=<%= node[:elasticsearchnew][:config_path] %>/settings.json
+featuredstations.index.mappings.file.path=<%= node[:elasticsearchnew][:config_path] %>/featuredstations/mappings.json
+
+#Talk themes index configs
+talkthemes.index.settings.file.path=<%= node[:elasticsearchnew][:config_path] %>/settings.json
+talkthemes.index.mappings.file.path=<%= node[:elasticsearchnew][:config_path] %>/talkthemes/mappings.json
+
+#Talk shows index configs
+talkshows.index.settings.file.path=<%= node[:elasticsearchnew][:config_path] %>/settings.json
+talkshows.index.mappings.file.path=<%= node[:elasticsearchnew][:config_path] %>/talkshows/mappings.json
+
+#Prn Episodes index configs
+prn.index.settings.file.path=<%= node[:elasticsearchnew][:config_path] %>/settings.json
+prn.index.mappings.file.path=<%= node[:elasticsearchnew][:config_path] %>/prn/mappings.json
+
+#Ingestion DB
+ingestion.jdbc.driver=org.postgresql.Driver
+ingestion.jdbc.username=<%= @ing_db_creds['ing_db_username'] %>
+ingestion.jdbc.password=<%= @ing_db_creds['ing_db_password'] %>
+<% if node[:social][:ingestion][:port] %>
+ingestion.jdbc.url=jdbc:postgresql://<%= node[:social][:ingestion][:host] %>:<%= node[:social][:ingestion][:port] %>/thmbamw_ingestion
+<% else %>
+ingestion.jdbc.url=jdbc:postgresql://<%= node[:social][:ingestion][:host] %>/thmbamw_ingestion
+<% end %>
+
+#MSSqlServer DB
+mssql.jdbc.driver=net.sourceforge.jtds.jdbc.Driver
+mssql.jdbc.username=<%= @dwh_radiomodel_creds['radiomodel_username'] %>
+mssql.jdbc.password=<%= @dwh_radiomodel_creds['radiomodel_password'] %>
+mssql.jdbc.url=<%= node[:amp][:dwh][:radiomodel_jdbc_url] %>
+

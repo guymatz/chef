@@ -33,3 +33,11 @@ else
     variables node['resolver']
   end
 end
+
+case node.chef_environment
+when /^stage/
+  hostsfile_entry node[:resolver][:fileserver_ip] do
+                          hostname node[:resolver][:fileserver_fqdn]
+                          action :append
+  end
+end

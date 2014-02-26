@@ -75,16 +75,18 @@ service "chef-client" do
   action [:disable, :stop]
 end
 
-cron "chef-client" do
-  minute  node['chef_client']['cron']['minute']
-  hour    node['chef_client']['cron']['hour']
-  path    node['chef_client']['cron']['path'] if node['chef_client']['cron']['path']
-  user    "root"
-  shell   "/bin/bash"
+unless /^development/ =~ node.chef_environment
+  cron "chef-client" do
+    minute  node['chef_client']['cron']['minute']
+    hour    node['chef_client']['cron']['hour']
+    path    node['chef_client']['cron']['path'] if node['chef_client']['cron']['path']
+    user    "root"
+    shell   "/bin/bash"
 
-  # Generate a uniformly distributed unique number to sleep.
-  checksum = Digest::MD5.hexdigest node['fqdn']
-  sleep_time = checksum.to_s.hex % 90
+    # Generate a uniformly distributed unique number to sleep.
+    checksum = Digest::MD5.hexdigest node['fqdn']
+    sleep_time = checksum.to_s.hex % 90
 
-  command "/bin/sleep #{sleep_time}; #{client_bin} &>> /var/log/chef/client.log"
+    command "/bin/sleep #{sleep_time}; #{client_bin} &>> /var/log/chef/client.log"
+  end
 end

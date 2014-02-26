@@ -4,7 +4,6 @@ default[:amp][:url] = "http://files.ihrdev.com/amp"
 
 default[:amp][:packages] = %w{ mongo-10gen-server mongo-10gen }
 
-default[:amp][:authdb][:host] = "iad-auth101-v260.ihr"
 default[:amp][:pgbouncer][:port] = "5432"
 
 default[:amp][:logging][:script_path] = "/data/apps/amp/logging"

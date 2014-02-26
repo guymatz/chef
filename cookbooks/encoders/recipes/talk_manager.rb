@@ -34,6 +34,13 @@ begin
             :num_scanners => node[:talk_scanner][:num_processors]
         })
       end
+
+    directory "/var/www/html/talkstatus" do
+        owner "converter"
+        group "converter"
+        not_if do FileTest.directory?("/var/www/html/talkstatus") end
+    end
+
     cron_d srpt do
         command "/usr/local/bin/#{srpt}.sh > /dev/null 2>&1"
         minute  "*/2"

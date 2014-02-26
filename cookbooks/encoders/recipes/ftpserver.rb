@@ -129,7 +129,7 @@ begin
     tag("encoder-ftp-deployed")
     end
     nagios_nrpecheck "check_newest_file_age" do
-      command "/usr/lib/nagios/plugins/check_newest_file_age.sh -d /data/inbound-ftp/nextgen/"
+      command "/usr/lib/nagios/plugins/check_newest_file_age.sh -d /data/ftp/nextgen/"
     end
 rescue
     untag("encoder-ftp-deployed")

@@ -24,3 +24,9 @@ default['resolver']['options'] = {
   "rotate" => true
 }
 default['resolver']['server_role'] = 'nameserver'
+
+case chef_environment
+when /^stage/
+  default['resolver']['fileserver_ip'] = '10.5.36.28'
+  default['resolver']['fileserver_fqdn'] = 'files.ihrdev.com'
+end

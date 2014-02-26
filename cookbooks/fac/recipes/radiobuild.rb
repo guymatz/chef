@@ -56,3 +56,12 @@ template "/etc/init.d/fac-#{app}" do
               :jarfile => "#{script_dir}/fac-#{app}.jar"
             })
 end
+
+service "fac-#{app}" do
+   supports :status => true, :restart => true
+   if tagged?("no-fac-radiobuild")
+     action [ :disable, :stop ]
+   else
+     action [ :enable, :start ]
+   end
+end

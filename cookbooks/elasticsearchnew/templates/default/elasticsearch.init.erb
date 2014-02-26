@@ -6,12 +6,13 @@
 . /etc/rc.d/init.d/functions
 
 IHR_SEARCH_HOME=<%= node[:elasticsearchnew][:ihrsearch_path] %>
+IHR_SEARCH_CONF=<%= node[:elasticsearchnew][:config_path] %>
 ES_HOME=$IHR_SEARCH_HOME/../elasticsearch
 ES_USER=<%= node[:elasticsearchnew][:user] %>
 
 export HOST=<%= node[:ipaddress] %>
 ES_HEAP_SIZE="8g"
-ES_JAVA_OPTS="-server -Djava.rmi.server.hostname=${HOST} -Dcom.sun.management.jmxremote.port=8999 -Dcom.sun.management.jmxremote.ssl=false  -Dcom.sun.management.jmxremote.authenticate=false -Duser.timezone=US/Eastern -Dsun.net.client.defaultConnectTimeout=20000 -Dsun.net.client.defaultReadTimeout=20000"
+ES_JAVA_OPTS="-server -Djava.rmi.server.hostname=${HOST} -Dcom.sun.management.jmxremote.port=8999 -Dcom.sun.management.jmxremote.ssl=false  -Dcom.sun.management.jmxremote.authenticate=false -Duser.timezone=US/Eastern -Dsun.net.client.defaultConnectTimeout=20000 -Dsun.net.client.defaultReadTimeout=20000 -Dindex-builder.properties=$IHR_SEARCH_CONF/index-builder.properties" 
 
 export ES_HEAP_SIZE ES_JAVA_OPTS
 

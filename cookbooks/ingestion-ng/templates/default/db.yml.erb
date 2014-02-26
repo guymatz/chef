@@ -1,0 +1,12 @@
+ingestion:
+  default:    true
+
+  db:         <%= node[:ingestion_ng][:db][:type] %>
+  driver:     <%= node[:ingestion_ng][:db][:driver] %>
+
+  host:       <%= node[:ingestion_ng][:db][:host] %>
+  port:       <%= node[:ingestion_ng][:db][:port] %>
+  user:       <%= node[:ingestion_ng][:db][:user] %>
+  password:   <%= node[:ingestion_ng][:db][:pass] %>
+
+  database:   <%= node[:ingestion_ng][:db][:name] %>

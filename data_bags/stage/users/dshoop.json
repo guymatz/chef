@@ -1,0 +1,14 @@
+{
+    "id": "dshoop",
+    "uid": 5039,
+    "name": "Dan Shoop",
+    "email": "",
+    "htpasswd": "{SHA}LOCKED",
+    "groups": [ ],
+    "nagios": {
+        "email": ""
+    },
+    "ssh_keys": [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDSkZk77weEO2nxINEwyq4xiY9AzCspQOi0EDjwjBpLhisOgQa+JnhVStPke2xhhY0duaq7f1hLOGvSklcWmlb8bSYFdny/I2DES919gNb7U4YKw5XtRHePkThIlAelrKy3TVZSs+DPSeAasXG9pZ8kN1I7TyfLYJb3KfyZXKxBvHKrsKXQWIsIfPMCWFvWUHM/7D8oIEr79hkEKLFgx4r5wxp281o6FYDwS/YRQPeL/am2mn0bYyaiMU2cjSs0qeax0qQH0v1nVhVwG1nyooUW4BJBvYwAx156HEEZX4pZmHDrmjSZ9fae/V1KPS3GITeLI9eJZAb9yj6yBHK9Q/gL danshoop@clearchannel.com"
+    ]
+}

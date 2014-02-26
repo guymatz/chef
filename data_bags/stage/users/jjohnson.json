@@ -1,0 +1,11 @@
+{
+    "id": "jjohnson",
+    "uid": 5008,
+    "name": "Jamie Johnson",
+    "email": "",
+    "groups": ["dev", "attivio", "converter", "talk", "elasticsearch", "int-sudo", "jobserver-sudo"],
+    "ssh_keys": [
+"ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA0ZdwxX/n8XffA0mFdY27oHDKizMK5nK9JITRQApWPFfGGczSB1H46bBL0IwmHssXufj21YSiicT2ZClsXUIJu4V7ZoFfjOUwIrCcNAlmU5ZiteQNvtuU0jC7ie8Bqm2c06w0fx5Ta9zfqtSPeeuPGkLj1XQA/b6mv9QLlZ8UG5d6CLOHAWbmuPyY0hqvtuJIhYcDA2shkvlL/v34BdoDOMYXYo34fnj20qnt3DJ6cnFwXMzgFdiiisMxI2GUDG64fxyoHu+55AlJnga8ILlZxnVVZib9+OVyZS6bE6LYRVKWOAGIuMZSHdm5ZbiT8VTRUdZ3YsARIkAbDqM8Qxr+KQ== jjohnson@jjohnson-laptop",
+"ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIEAwsBvfnVy7W3cdvF7QGguSEOFiUMNt3AiOhZoMOL2UnHf0Pso7p3k10TQqTS+0n0N2RC7oW/11D8Z235Taeta6nhc9YU5JO4Gq+43p0bKgz6V3w1XXlsS5o1PECrmeVnZVlUGWIipG3c7e7hIjUHMtw+mv39+q6m034nwKjO2bIE= rsa-key-20130613"
+    ]
+}

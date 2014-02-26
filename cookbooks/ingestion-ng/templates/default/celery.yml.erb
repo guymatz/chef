@@ -1,0 +1,14 @@
+BROKER_URL:                 <%= @broker_url %>
+CELERY_DEFAULT_EXCHANGE:    <%= @celery[:default_exchange] %>
+CELERY_TASK_SERIALIZER:     <%= @celery[:task_serializer] %>
+CELERY_ACCEPT_CONTENT:      [<%= @celery[:accept_content] %>]
+
+CELERYD_POOL:               <%= @celery[:pool] %>
+CELERYD_CONCURRENCY:        <%= @celery[:concurrency] %>
+
+CELERY_RESULT_BACKEND:      <%= @celery[:result_backend] %>
+CELERY_RESULT_EXCHANGE:     <%= @celery[:result_exchange] %>
+CELERY_RESULT_SERIALIZER:   <%= @celery[:result_serializer] %>
+CELERY_TASK_RESULT_EXPIRES: <%= @celery[:task_result_expires] %>
+
+CELERY_IMPORTS:             [<%= @celery[:imports] %>]

@@ -27,13 +27,10 @@ end
   end
 end
 
-%w{ varnishlog }.each do |serv|
-  service serv do
+service "varnishlog" do
     supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
     action [ :disable, :stop ]
-  end
 end
-
 
 template "#{node[:radioedit][:path]}/shared/settings.json" do
   source "settings.json.erb"
@@ -161,3 +158,6 @@ logrotate_app "varnish" do
   postrotate '    /bin/kill -HUP `cat /var/run/varnishlog.pid 2>/dev/null` 2> /dev/null || true
     /bin/kill -HUP `cat /var/run/varnishncsa.pid 2>/dev/null` 2> /dev/null || true'
 end
+#  size (1024**2)*2 # 2MB
+#  #  postrotate "find #{node[:apache][:log_dir]} -name '*.gz*' -exec rm -rf {} \\;
+#  "

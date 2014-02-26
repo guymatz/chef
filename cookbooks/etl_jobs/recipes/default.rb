@@ -181,6 +181,22 @@ remote_file "/data/jobs/talklog/talkbatch.properties" do
   source "http://yum.ihr/files/jobs/talklog/talkbatch.properties"
 end
 
+directory "/data/jobs/sysinfo"
+directory "/data/log/sysinfo"
+directory "/data/log/sysinfo/input" do
+  mode 0777
+end
+directory "/data/log/sysinfo/processed"
+remote_file "/data/jobs/sysinfo/sysinfo_job.jar" do
+  source "http://yum.ihr/files/jobs/sysinfo/sysinfo_job.jar"
+end
+remote_file "/data/jobs/sysinfo/batch.properties" do
+  source "http://yum.ihr/files/jobs/sysinfo/batch.properties"
+end
+remote_file "/data/jobs/sysinfo/log4j.properties" do
+  source "http://yum.ihr/files/jobs/sysinfo/log4j.properties"
+end
+
 directory "/home/amqp-consumer/playlog-consumer" do
   owner "amqp-consumer"
   group "amqp-consumer"
@@ -383,7 +399,7 @@ db_user = Chef::EncryptedDataBagItem.load("sqlserver", "users")
 
 # node[:db_sync_tools][:radiomigration_cmd] = "/usr/bin/nsca_relay -S Radiomigration -– /data/jobs/radiomigration/ImportToDBFromCSV.sh localhost radio processed iad-dwh.prod.ihr appBatch i8piZZa4u"
 cron_d "radiomigration" do
-  command "/usr/bin/nsca_relay -S Radiomigration -- /data/jobs/radiomigration/ImportToDBFromCSV.sh localhost radio processed iad-dwh-db102-vip.ihrint.com  appBatch i8piZZa4u"
+  command "/usr/bin/nsca_relay -S Radiomigration -- /data/jobs/radiomigration/ImportToDBFromCSV.sh localhost radio processed iad-dwh.prod.ihr appBatch i8piZZa4u"
   minute 50
   hour 21
   user 'root'
@@ -442,7 +458,6 @@ cron_d "event_job" do
   minute 30
   hour 5
 end
-
 
 # Added per OPS-5313
 # updated per OPS-5649

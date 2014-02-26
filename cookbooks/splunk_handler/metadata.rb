@@ -1,5 +1,5 @@
 name 'splunk_handler'
-version '1.2.0'
+version '2.0.0'
 
 maintainer 'Greg Albrecht'
 maintainer_email 'gba@splunk.com'

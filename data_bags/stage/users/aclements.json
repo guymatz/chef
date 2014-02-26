@@ -1,0 +1,18 @@
+{
+    "id": "aclements",
+    "name": "Aaron Clements",
+    "email":    "",
+    "groups":   ["sysadmin"],
+    "ssh_keys": [
+        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7AAxqhXOM0nV8p3IAnq5CgcpdPA6IzoqGDVo8eNSdVrt96J8z9cfUyfl079nDsc5KyNqJzz7EottKlIhdntOn597A8hzfOtZ+kgqMishWtowGp7uZK0Y2kewDFhc55AdPBUaFVDbE4sXG2l+kcZVVTmNv5FleIJ98Kldth7NQbE+Ow3L4+I4uVa1PLbguB5wWXFaikwqaipCiUCGgkjY18wJw+FMguSSw3AZDe/HXXzpzmd8dYr1av5bu+xC7ITHDjHtgD8TRCJsW/XgHpaW1lxykBM2i3cI4rUxE/qhxT2y7nZt1AmsM8P06hblpRPIGxJt0/viyRzGaRrBR8T5j aclements@CCCNYC01CAC.local",
+        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5HQsyLPk3Macic6rOV4UEUW7LqmdbPuWQ+K5u6MSQ+6dMRTwMcwb6/4zyFQH1rYh6e5YSBC7znPqy0unxY2t3JCCDuIjbJxHXYPq05tx0oRJ3Gxw0M/To7e67D19iM7lYPlUr4//Qb6NXRyLtO19X1SJv2wfeIvtDFBpLqwCZ+F/P+iYE0jPYDEwoZByf43zLvmYFDpObic2YR6pJiUCgQTnnxcZoko6QF1gxapj0vQFN7hZQTOBdTqcbYw92nv3XBg6QW7CHsTVl1sCNOOn1GYrlY9T7Df9YNFlL0F/AD2tVHtOE0acYZtvnzcNu0+8XZtTl5l7JRDwWgJqr60GX",
+        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCbgtJDlpr7u0079HBerXaKuHfh+/hL6pyI72WAUbOGbw+QaL6F346Em54uRjY359MBb6utkHVF0JwqKiIkiv73yNf0LZUTQfyTSV7/RmUBmIFGQum1pRQelk7Xve3gbBsOZp8GkHCGl4PNFRN13QpFqz/QbL6ZDM7LQ1kqHQiRL4K9bY7kwYluvRPEuQtuMxbdRMTwa7gzBQoGFfx16KpmcAeQeE6NC5aWaCH5FKgLyibwQRCJ1cD19RtWRPpH+Njyhv+WvHRI9lfXlMwTGTNKZqb1/vF5n8lUE4oBcLcqKpgUvQEj9DKg9edYJeO6k8q08gQ/YsUbcpfspkQwfIRz aaronclements@github.com"
+    ],
+    "shell":    "/bin/bash",
+    "nagios": {
+        "email": "",
+        "pager": ""
+    },
+    "htpasswd": "{SHA}O/ygVkFyCxURoH6rAHXoPJSjwxU=",
+    "uid": 5025
+}

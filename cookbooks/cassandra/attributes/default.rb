@@ -38,8 +38,14 @@ default[:cassandra][:log_dir]           = '/var/log/cassandra'
 default[:cassandra][:lib_dir]           = '/var/lib/cassandra'
 default[:cassandra][:pid_dir]           = '/var/run/cassandra'
 
-default[:cassandra][:data_root_mount]	= ["/data"]
-default[:cassandra][:data_device]	= ["/dev/sdb1"]
+case chef_environment
+when /^prod/
+  default[:cassandra][:data_root_mount]	= ["/data"]
+  default[:cassandra][:data_device]	=     ["/dev/sdb1"]
+when /^stage/
+  default[:cassandra][:data_root_mount]	= ["/data"]
+  default[:cassandra][:data_device]	=     ["/dev/mapper/centos-data"]
+end
 default[:cassandra][:data_dirs]         = ["/data/db/cassandra"]
 default[:cassandra][:commitlog_dir]     = "/var/lib/cassandra/commitlog"
 default[:cassandra][:saved_caches_dir]  = "/var/lib/cassandra/saved_caches"
@@ -70,7 +76,7 @@ default[:cassandra][:mx4j_port]  = "8081"
 # install_from_release
 default[:cassandra][:version]           = "1.2.3"
 # install_from_release: tarball url
-default[:cassandra][:release_url]       = ":apache_mirror:/cassandra/:version:/apache-cassandra-:version:-bin.tar.gz"
+default[:cassandra][:release_url]       = "http://files.ihrdev.com/cassandra/:version:/apache-cassandra-:version:-bin.tar.gz"
 default[:cassandra][:jna_release_url]	= "http://yum.ihr/files/jna-3.5.2.jar"
 
 # Git install

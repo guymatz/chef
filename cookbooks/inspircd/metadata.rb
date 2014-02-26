@@ -2,7 +2,7 @@ maintainer        "AT&T Services, Inc"
 license           ""
 description       "Install InspIRCd"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           "0.5.2"
+version           "1.0.0"
 
 recipe "inspircd", "Install InspIRCd from source"
 

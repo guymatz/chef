@@ -1,0 +1,12 @@
+{
+  "name": "iad-qac1-rabbitmq101",
+  "chef_environment": "stage",
+  "run_list": [
+
+  ],
+  "normal": {
+    "tags": [
+
+    ]
+  }
+}

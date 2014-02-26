@@ -2,6 +2,7 @@ name "jobserver"
 description "Job Server: Cron, ETL, Etc."
 all_env = [
            "recipe[jobserver]",
+           "recipe[users::jobserver-sudo]",
            "recipe[splunk::forwarder]",
            "role[etljob_server]",
            "role[mongosd]",
@@ -23,5 +24,9 @@ override_attributes({
         "splunk" => {
             "forwarder_config_folder" => "prod",
             "forwarder_role" =>  "jobserver"
+        },
+        "java" => {
+            "install_flavor" => "oracle",
+            "jdk_version" => "7"
         }
 })
