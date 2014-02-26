@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+Chef::Log.warn('THIS RECIPE IS SCHEDULED TO BE DELETED. PLEASE ALERT OPS/ADMINS IF THIS RECIPE (radioedit::image) IS STILL REQUIRED. -GP 02/18/13');
+
 directory "#{node[:radioedit][:image][:path]}" do
   owner node[:radioedit][:user]
   group node[:radioedit][:group]

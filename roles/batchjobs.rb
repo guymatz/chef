@@ -3,6 +3,7 @@ description "Batch Jobs"
 all_env = [
          "recipe[users::deployer]",
          "recipe[users::batchjobs]",
+         "recipe[users::int-sudo]",
          "recipe[batchjobs]"
 	]
 run_list(all_env)

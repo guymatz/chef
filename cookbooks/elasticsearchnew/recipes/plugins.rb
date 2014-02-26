@@ -28,14 +28,13 @@ unless tagged?("es-plugins-installed")
   end
 
   if /stage/ =~ node.chef_environment
-      execute "install-river-rabbitmq-plugin" do
+    execute "install-river-rabbitmq-plugin" do
       command "#{ES_HOME}/bin/plugin --url #{node[:elasticsearchnew][:url]}/#{node.chef_environment}/es-plugins/elasticsearch-river-rabbitmq.zip --install river-rabbitmq"
       cwd Chef::Config[:file_cache_path]
       notifies :restart, "service[elasticsearch]"
       user node[:elasticsearchnew][:user]
       group node[:elasticsearchnew][:group]
     end
-  end
 
   primary_node=search(:node, "role:elasticsearchnew AND chef_environment:#{node.chef_environment}")[0]
 
@@ -46,41 +45,42 @@ unless tagged?("es-plugins-installed")
     execute "configure-river-rabbitmq-plugin" do
       command <<-EOH 
         /usr/bin/curl -XPUT '#{node[:ipaddress]}:9200/_river/my_river/_meta' -d '{ \
-          "type" : "rabbitmq", \
-          "rabbitmq" : { \
-              "addresses" : [ \
-                  { \
-                      "host" : "iad-stg-rabbitmq101.ihr.", \
-                      "port" : 5672 \
-                  }, \
-                  { \
-                      "host" : "iad-stg-rabbitmq102.ihr.", \
-                      "port" : 5672 \
-                  } \
-              ], \
-              "user" : "fac", \
-              "pass" : "tppw2011!", \
-              "vhost" : "/amp", \
-              "queue" : "elasticsearch", \
-              "exchange" : "elasticsearch", \
-              "routing_key" : "elasticsearch", \
-              "exchange_declare" : true, \
-              "exchange_type" : "direct", \
-              "exchange_durable" : true, \
-              "queue_declare" : true, \
-              "queue_bind" : true, \
-              "queue_durable" : true, \
-              "queue_auto_delete" : false, \
-              "heartbeat" : "30s" \
-          }, \
-          "index" : { \
-              "bulk_size" : 100, \
-              "bulk_timeout" : "50ms", \
-              "ordered" : false \
-          } \
-        }' 
-        EOH
+        "type" : "rabbitmq", \
+        "rabbitmq" : { \
+            "addresses" : [ \
+                { \
+                    "host" : "iad-stg-rabbitmq101.ihr.", \
+                    "port" : 5672 \
+                }, \
+                { \
+                    "host" : "iad-stg-rabbitmq102.ihr.", \
+                    "port" : 5672 \
+                } \
+            ], \
+            "user" : "fac", \
+            "pass" : "tppw2011!", \
+            "vhost" : "/ingestion", \
+            "queue" : "elasticsearch", \
+            "exchange" : "elasticsearch", \
+            "routing_key" : "elasticsearch", \
+            "exchange_declare" : true, \
+            "exchange_type" : "direct", \
+            "exchange_durable" : true, \
+            "queue_declare" : true, \
+            "queue_bind" : true, \
+            "queue_durable" : true, \
+            "queue_auto_delete" : false, \
+            "heartbeat" : "30s" \
+        }, \
+        "index" : { \
+            "bulk_size" : 100, \
+            "bulk_timeout" : "50ms", \
+            "ordered" : false \
+        } \
+       }'
+      EOH
     end
   end
+end
   tag("es-plugins-installed")
 end

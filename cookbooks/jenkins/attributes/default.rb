@@ -22,24 +22,15 @@
 # limitations under the License.
 #
 
-default['jenkins']['mirror'] = "http://mirrors.jenkins-ci.org"
+default['jenkins']['mirror'] = 'http://mirrors.jenkins-ci.org'
 default['jenkins']['java_home'] = ENV['JAVA_HOME']
-default['jenkins']['iptables_allow'] = "disable"
+default['jenkins']['iptables_allow'] = 'disable'
 
-case node[:platform_family]
-when "debian"
-  default['jenkins']['packages'] = %w{
-    maven
-    libglib2.0-dev
-    libssl-dev
-    check
-    libevent-dev
-    libmemcached-dev
-    libjson0-dev
-    sshpass
-  }
-when "rhel"
-  default['jenkins']['packages'] = %w{ sshpass ruby-devel make gcc libxml2 libxslt-devel libxml2-devel }
-end
-
-default['jenkins']['recipes'] = %w{ rvm::ruby_192 }
+default[:gems] = {
+    "erubis" => "2.7.0",
+    "gherkin" => "2.11.7",
+    "rake" => "10.0.1",
+    "treetop" => "1.4.10",
+    "yajl-ruby" => "1.2.0",
+    "foodcritic" => "3.0.3"
+}

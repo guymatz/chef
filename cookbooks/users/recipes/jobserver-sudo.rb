@@ -1,6 +1,3 @@
-
-
-
 users_manage "jobserver-sudo" do
   group_id 2314
   action [ :remove, :create ]

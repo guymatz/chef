@@ -7,6 +7,21 @@
 # All rights reserved - Do Not Redistribute
 #
 
+# Encoder needs ruby to run.
+%w{ ruby rubygems }.each do |pkg|
+  package pkg do
+    action :install
+  end
+end
+
+# Encoder needs to connect to postgres.
+%w{ postgres-pr }.each do |gem|
+  gem_package gem do
+    action :install
+    options "--no-ri --no-rdoc"
+  end
+end
+
 begin 
   unless tagged?("encoder-code-deployed")
 
