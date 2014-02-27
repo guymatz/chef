@@ -8,8 +8,8 @@
   ],
   "htpasswd": "{SHA}iK/6LEzWBCqA9AOo1nIaz+5SzqU=",
   "nagios": {
-    "pager": "jli@clearchannel.com",
-    "email": "jli@clearchannel.com"
+    "pager": "",
+    "email": ""
   },
   "uid": 50228,
   "id": "jli",
