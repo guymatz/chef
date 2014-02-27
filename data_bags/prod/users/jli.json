@@ -1,0 +1,18 @@
+{
+  "groups": [
+    "sysadmin"
+  ],
+  "name": "John Li",
+  "ssh_keys": [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDToCMYTWuQu/V2TOUxTOKyOPJsuISW3qPW9Y/xtUdtkzlBC4GVbdpwknY9ygC0yGnvsz6WWfwQ7OStNqiH3VCJZISw8JitMOCbKBfiTyOuFJOO8a/UGZRhF79di628yWhNF+Cdp/Ts4QxPo2lGN8cgME3FiW0PRZrXR1mMXcQ83dSjQhQhskQSTBNiapJrVLUhPYUBLJRdByDnr9e6g5vWukGcW0A3068d6akY2acZFf0Y2ZIkgrlIv4JpUN4alXXxhTjIfHDvwtewkoCLk9DSKl99bxxUgYdaiTVkcaLiyyAVI8S0kayVH+TjKjFjjDNbwrO5uU1qf0UWySC3vXdH jli@cccnyc01jli.sompa.iheart.com"
+  ],
+  "htpasswd": "{SHA}iK/6LEzWBCqA9AOo1nIaz+5SzqU=",
+  "nagios": {
+    "pager": "jli@clearchannel.com",
+    "email": "jli@clearchannel.com"
+  },
+  "uid": 50228,
+  "id": "jli",
+  "shell": "/bin/bash",
+  "email": ""
+}
