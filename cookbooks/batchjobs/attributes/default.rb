@@ -6,3 +6,9 @@ default[:batchjobs][:deploy_path] = "/data/apps/batchjobs"
 default[:batchjobs][:secretpath] = "/etc/chef/encrypted_data_bag_secret"
 default[:batchjobs][:user] = "batchjobs"
 default[:batchjobs][:group] = "batchjobs"
+default[:batchjobs][:mssql_db] = "10.5.50.101"
+case chef_environment
+when /^development/
+default[:batchjobs][:rabbit_host] = "iad-int-rabbitmq101.ihr"
+default[:batchjobs][:rabbit_port] = 5672
+end
