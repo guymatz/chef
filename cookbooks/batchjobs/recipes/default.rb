@@ -18,6 +18,37 @@ node[:batchjobs][:pip_packages].each do |pip_batchjob_pkg, pip_batchjob_ver|
   end
 end
 
+directory "/var/log/celery/rovi/image/" do
+  owner "batchjobs"
+  group "batchjobs"
+  mode  "0755"
+  recursive true
+end
+
+template "/etc/odbcinst.ini" do
+  source "odbcinst.ini.erb"
+  mode "0644"
+end
+
+template "/etc/freetds.conf" do
+  source "freetds.conf.erb"
+  mode "0644"
+end
+
+template "/data/apps/batchjobs/jobs/rovi/bin/celeryconfig.py" do
+  source "celeryconfig.py.erb"
+  mode "0755"
+  owner "batchjobs"
+  group "batchjobs"
+end
+
+cron_d "Rovi_image_job" do
+  command "/data/apps/batchjobs/jobs/rovi/bin/run_image_job.sh #{node.chef_environment} > /dev/null 2>&1"
+  minute "0"
+  hour "21"
+  user "batchjobs"
+end
+
 begin
   puts "entered deploy block"
   if not tagged?("batchjobs-deployed")

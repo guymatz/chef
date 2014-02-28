@@ -1,0 +1,4 @@
+#!/usr/bin/python
+BROKER_URL = 'amqp://batchjobs:batchjobs@<%= node[:batchjobs][:rabbit_host] %>:<%= node[:batchjobs][:rabbit_port] %>//batchjobs'
+CELERY_RESULT_BACKEND = 'amqp://guest@localhost//'
+CELERY_TASK_RESULT_EXPIRES = 10
