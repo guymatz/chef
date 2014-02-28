@@ -28,9 +28,10 @@ end
 end
 
 service "varnishlog" do
-    supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
-    action [ :disable, :stop ]
+  supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
+  action [ :disable, :stop ]
 end
+
 
 template "#{node[:radioedit][:path]}/shared/settings.json" do
   source "settings.json.erb"
@@ -116,7 +117,7 @@ unless tagged?("radioedit-deployed") && node.chef_environment == "prod"
                    "APP_ENV" => node[:radioedit][:env]})
     end
   end
-  tag("radioedit-deployed")
+  tag("radioedit-deployed") if node.chef_environment == "prod"
 end
 
 template "/etc/varnish/default.vcl" do
@@ -139,6 +140,19 @@ template "/etc/sysconfig/varnish" do
   notifies :reload, "service[varnish]", :immediately 
 end
 
+template "/etc/nginx/nginx.conf" do
+  source "nginx.conf"
+  owner "root"
+  group "root"
+  mode 0644
+end
+
+# gp added to remove default.conf file dropped by the rpm.
+file '/etc/nginx/conf.d/default.conf' do
+  action :delete
+  only_if "test -f /etc/nginx/conf.d/default.conf"
+end
+
 template "/etc/nginx/conf.d/radioedit.conf" do 
   source "nginx.refactor.conf.erb" 
   owner "root" 
@@ -158,6 +172,3 @@ logrotate_app "varnish" do
   postrotate '    /bin/kill -HUP `cat /var/run/varnishlog.pid 2>/dev/null` 2> /dev/null || true
     /bin/kill -HUP `cat /var/run/varnishncsa.pid 2>/dev/null` 2> /dev/null || true'
 end
-#  size (1024**2)*2 # 2MB
-#  #  postrotate "find #{node[:apache][:log_dir]} -name '*.gz*' -exec rm -rf {} \\;
-#  "
