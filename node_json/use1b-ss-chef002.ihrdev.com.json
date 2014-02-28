@@ -1,0 +1,71 @@
+{
+  "name": "use1b-ss-chef002.ihrdev.com",
+  "chef_environment": "prod",
+  "run_list": [
+    "recipe[users::sysadmins]",
+    "role[monitored]",
+    "recipe[chef-server::default]"
+  ],
+  "normal": {
+    "runit": {
+      "chpst_bin": "/usr/bin/chpst",
+      "sv_bin": "/usr/bin/sv",
+      "service_dir": "/etc/service",
+      "sv_dir": "/etc/sv"
+    },
+    "mysql": {
+      "conf_dir": "/etc/mysql",
+      "grants_path": "/etc/mysql/grants.sql",
+      "old_passwords": 0,
+      "confd_dir": "/etc/mysql/conf.d",
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "socket": "/var/run/mysqld/mysqld.sock"
+    },
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    },
+    "platform?": "ubuntu",
+    "tags": [
+
+    ],
+    "apache": {
+      "cache_dir": "/var/cache/apache2",
+      "group": "www-data",
+      "lib_dir": "/usr/lib/apache2",
+      "dir": "/etc/apache2",
+      "libexecdir": "/usr/lib/apache2/modules",
+      "binary": "/usr/sbin/apache2",
+      "error_log": "error.log",
+      "root_group": "root",
+      "package": "apache2",
+      "default_site_enabled": false,
+      "pid_file": "/var/run/apache2.pid",
+      "icondir": "/usr/share/apache2/icons",
+      "user": "www-data",
+      "log_dir": "/var/log/apache2"
+    },
+    "snmp": {
+      "cookbook_files": [
+        "/etc/default/snmpd"
+      ],
+      "packages": [
+        "snmp",
+        "snmpd"
+      ]
+    },
+    "chef_client": {
+      "bin": "/usr/bin/chef-client"
+    },
+    "openssh": {
+      "server": {
+      },
+      "client": {
+      }
+    },
+    "ucspi": {
+      "bin_dir": "/usr/bin"
+    }
+  }
+}

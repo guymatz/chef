@@ -1,20 +1,16 @@
 {
-  "name": "iad-zk101.ihr",
-  "chef_environment": "prod",
+  "name": "iad-nfs101.ihr",
+  "chef_environment": "_default",
   "run_list": [
     "role[base]",
-    "recipe[users::hadoop]",
-    "recipe[java::oracle-7]",
-    "role[zookeeper]"
+    "recipe[elasticsearchnew::backup_server]",
+    "role[dell]"
   ],
   "normal": {
-    "runlist_override_history": {
-      "1386348004": "[role[auto-bonded]]"
-    },
     "mysql": {
       "conf_dir": "/etc",
-      "old_passwords": 1,
       "grants_path": "/etc/mysql_grants.sql",
+      "old_passwords": 1,
       "confd_dir": "/etc/mysql/conf.d",
       "tunable": {
         "innodb_adaptive_flushing": false
@@ -30,14 +26,6 @@
     "tags": [
 
     ],
-    "platform?": "ubuntu",
-    "network": {
-      "interfaces": {
-      }
-    },
-    "zookeeper": {
-      "server_id": 1
-    },
     "snmp": {
       "cookbook_files": [
 
@@ -46,12 +34,6 @@
         "net-snmp",
         "net-snmp-utils"
       ]
-    },
-    "openssh": {
-      "server": {
-      },
-      "client": {
-      }
     }
   }
 }

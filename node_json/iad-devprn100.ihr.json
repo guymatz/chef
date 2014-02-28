@@ -1,0 +1,37 @@
+{
+  "name": "iad-devprn100.ihr",
+  "chef_environment": "prod",
+  "run_list": [
+    "role[base]",
+    "role[vmware]",
+    "recipe[devprn::default]",
+    "recipe[users::dev]"
+  ],
+  "normal": {
+    "mysql": {
+      "conf_dir": "/etc/mysql",
+      "old_passwords": 0,
+      "grants_path": "/etc/mysql/grants.sql",
+      "confd_dir": "/etc/mysql/conf.d",
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "socket": "/var/run/mysqld/mysqld.sock"
+    },
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    },
+    "tags": [
+
+    ],
+    "snmp": {
+      "cookbook_files": [
+        "/etc/default/snmpd"
+      ],
+      "packages": [
+        "snmp",
+        "snmpd"
+      ]
+    }
+  }
+}

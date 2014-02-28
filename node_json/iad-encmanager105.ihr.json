@@ -1,20 +1,21 @@
 {
-  "name": "iad-zk101.ihr",
+  "name": "iad-encmanager105.ihr",
   "chef_environment": "prod",
   "run_list": [
     "role[base]",
-    "recipe[users::hadoop]",
-    "recipe[java::oracle-7]",
-    "role[zookeeper]"
+    "role[encoders]",
+    "recipe[apache2]",
+    "recipe[encoders::mixins]",
+    "recipe[encoders::mixins_status]",
+    "recipe[encoders::mixin_status_105]",
+    "recipe[encoders::mixins_manager]",
+    "recipe[encoders::top20]"
   ],
   "normal": {
-    "runlist_override_history": {
-      "1386348004": "[role[auto-bonded]]"
-    },
     "mysql": {
       "conf_dir": "/etc",
-      "old_passwords": 1,
       "grants_path": "/etc/mysql_grants.sql",
+      "old_passwords": 1,
       "confd_dir": "/etc/mysql/conf.d",
       "tunable": {
         "innodb_adaptive_flushing": false
@@ -28,16 +29,12 @@
       }
     },
     "tags": [
-
+      "encoder-mounts",
+      "mixins-deployed",
+      "encoder-code-deployed",
+      "mixins-status-deployed",
+      "encoder-deployed"
     ],
-    "platform?": "ubuntu",
-    "network": {
-      "interfaces": {
-      }
-    },
-    "zookeeper": {
-      "server_id": 1
-    },
     "snmp": {
       "cookbook_files": [
 
@@ -46,12 +43,6 @@
         "net-snmp",
         "net-snmp-utils"
       ]
-    },
-    "openssh": {
-      "server": {
-      },
-      "client": {
-      }
     }
   }
 }

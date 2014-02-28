@@ -1,20 +1,18 @@
 {
-  "name": "iad-zk101.ihr",
+  "name": "iad-vast102.ihr",
   "chef_environment": "prod",
   "run_list": [
     "role[base]",
-    "recipe[users::hadoop]",
-    "recipe[java::oracle-7]",
-    "role[zookeeper]"
+    "role[vast]"
   ],
   "normal": {
-    "runlist_override_history": {
-      "1386348004": "[role[auto-bonded]]"
+    "tomcat7": {
+      "webapp_dir": "/data/apps/tomcat7/webapps"
     },
     "mysql": {
       "conf_dir": "/etc",
-      "old_passwords": 1,
       "grants_path": "/etc/mysql_grants.sql",
+      "old_passwords": 1,
       "confd_dir": "/etc/mysql/conf.d",
       "tunable": {
         "innodb_adaptive_flushing": false
@@ -30,14 +28,7 @@
     "tags": [
 
     ],
-    "platform?": "ubuntu",
-    "network": {
-      "interfaces": {
-      }
-    },
-    "zookeeper": {
-      "server_id": 1
-    },
+    "whipped": true,
     "snmp": {
       "cookbook_files": [
 
@@ -47,11 +38,17 @@
         "net-snmp-utils"
       ]
     },
-    "openssh": {
-      "server": {
-      },
-      "client": {
-      }
+    "tomcat": {
+      "work_dir": "/var/cache/tomcat6/work",
+      "group": "tomcat",
+      "webapp_dir": "/var/lib/tomcat6/webapps",
+      "tmp_dir": "/var/cache/tomcat6/temp",
+      "config_dir": "/etc/tomcat6",
+      "log_dir": "/var/log/tomcat6",
+      "home": "/usr/share/tomcat6",
+      "context_dir": "/etc/tomcat6/Catalina/localhost",
+      "user": "tomcat",
+      "base": "/usr/share/tomcat6"
     }
   }
 }

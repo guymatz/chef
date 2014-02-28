@@ -1,16 +1,14 @@
 {
-  "name": "iad-zk101.ihr",
+  "name": "iad-web-cache101.ihr",
   "chef_environment": "prod",
   "run_list": [
     "role[base]",
-    "recipe[users::hadoop]",
-    "recipe[java::oracle-7]",
-    "role[zookeeper]"
+    "role[memcached]",
+    "recipe[webplayer::memcached]",
+    "role[webplayer-membase]",
+    "role[iad-web-cache]"
   ],
   "normal": {
-    "runlist_override_history": {
-      "1386348004": "[role[auto-bonded]]"
-    },
     "mysql": {
       "conf_dir": "/etc",
       "old_passwords": 1,
@@ -30,14 +28,7 @@
     "tags": [
 
     ],
-    "platform?": "ubuntu",
-    "network": {
-      "interfaces": {
-      }
-    },
-    "zookeeper": {
-      "server_id": 1
-    },
+    "whipped": true,
     "snmp": {
       "cookbook_files": [
 
@@ -46,12 +37,6 @@
         "net-snmp",
         "net-snmp-utils"
       ]
-    },
-    "openssh": {
-      "server": {
-      },
-      "client": {
-      }
     }
   }
 }

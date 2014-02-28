@@ -1,0 +1,21 @@
+{
+  "name": "use1b-dss101.ihr",
+  "chef_environment": "_default",
+  "run_list": [
+    "role[base]"
+  ],
+  "normal": {
+    "runlist_override_history": {
+      "1385413148": "[recipe[users::jobserver]]"
+    },
+    "tags": [
+
+    ],
+    "openssh": {
+      "server": {
+      },
+      "client": {
+      }
+    }
+  }
+}

@@ -1,20 +1,24 @@
 {
-  "name": "iad-zk101.ihr",
+  "name": "iad-radioedit101.ihr",
   "chef_environment": "prod",
   "run_list": [
     "role[base]",
-    "recipe[users::hadoop]",
-    "recipe[java::oracle-7]",
-    "role[zookeeper]"
+    "role[auto-bonded]",
+    "role[monitored]",
+    "role[radioedit_refactor]",
+    "role[dell]"
   ],
   "normal": {
+    "couchbase": {
+      "server": {
+      }
+    },
     "runlist_override_history": {
-      "1386348004": "[role[auto-bonded]]"
     },
     "mysql": {
       "conf_dir": "/etc",
-      "old_passwords": 1,
       "grants_path": "/etc/mysql_grants.sql",
+      "old_passwords": 1,
       "confd_dir": "/etc/mysql/conf.d",
       "tunable": {
         "innodb_adaptive_flushing": false
@@ -27,17 +31,15 @@
         "authkey": "JZ_OtF3rF4ponomK0g5F"
       }
     },
-    "tags": [
-
-    ],
-    "platform?": "ubuntu",
-    "network": {
-      "interfaces": {
+    "ohai": {
+      "plugins": {
       }
     },
-    "zookeeper": {
-      "server_id": 1
-    },
+    "platform?": "ubuntu",
+    "tags": [
+      "radioedit-deployed"
+    ],
+    "whipped": true,
     "snmp": {
       "cookbook_files": [
 

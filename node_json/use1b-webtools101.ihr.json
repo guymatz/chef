@@ -1,0 +1,19 @@
+{
+  "name": "use1b-webtools101.ihr",
+  "chef_environment": "_default",
+  "run_list": [
+    "role[base]",
+    "recipe[users::dev]"
+  ],
+  "normal": {
+    "tags": [
+
+    ],
+    "openssh": {
+      "server": {
+      },
+      "client": {
+      }
+    }
+  }
+}

@@ -1,16 +1,17 @@
 {
-  "name": "iad-zk101.ihr",
+  "name": "iad-graphite101.ihr",
   "chef_environment": "prod",
   "run_list": [
     "role[base]",
-    "recipe[users::hadoop]",
-    "recipe[java::oracle-7]",
-    "role[zookeeper]"
+    "role[ntp-server]",
+    "role[graphite]",
+    "recipe[yum::epel]",
+    "recipe[apache2::mod_python]",
+    "recipe[graphite]",
+    "recipe[users::deployer]",
+    "recipe[graphite::raspberry]"
   ],
   "normal": {
-    "runlist_override_history": {
-      "1386348004": "[role[auto-bonded]]"
-    },
     "mysql": {
       "conf_dir": "/etc",
       "old_passwords": 1,
@@ -30,14 +31,6 @@
     "tags": [
 
     ],
-    "platform?": "ubuntu",
-    "network": {
-      "interfaces": {
-      }
-    },
-    "zookeeper": {
-      "server_id": 1
-    },
     "snmp": {
       "cookbook_files": [
 
@@ -46,12 +39,6 @@
         "net-snmp",
         "net-snmp-utils"
       ]
-    },
-    "openssh": {
-      "server": {
-      },
-      "client": {
-      }
     }
   }
 }

@@ -1,20 +1,15 @@
 {
-  "name": "iad-zk101.ihr",
-  "chef_environment": "prod",
+  "name": "use1b-sonos101.ihr",
+  "chef_environment": "ec2-prod",
   "run_list": [
     "role[base]",
-    "recipe[users::hadoop]",
-    "recipe[java::oracle-7]",
-    "role[zookeeper]"
+    "role[sonos]"
   ],
   "normal": {
-    "runlist_override_history": {
-      "1386348004": "[role[auto-bonded]]"
-    },
     "mysql": {
       "conf_dir": "/etc",
-      "old_passwords": 1,
       "grants_path": "/etc/mysql_grants.sql",
+      "old_passwords": 1,
       "confd_dir": "/etc/mysql/conf.d",
       "tunable": {
         "innodb_adaptive_flushing": false
@@ -27,17 +22,10 @@
         "authkey": "JZ_OtF3rF4ponomK0g5F"
       }
     },
+    "platform?": "ubuntu",
     "tags": [
 
     ],
-    "platform?": "ubuntu",
-    "network": {
-      "interfaces": {
-      }
-    },
-    "zookeeper": {
-      "server_id": 1
-    },
     "snmp": {
       "cookbook_files": [
 

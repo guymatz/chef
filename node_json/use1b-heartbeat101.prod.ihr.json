@@ -1,0 +1,19 @@
+{
+  "name": "use1b-heartbeat101.prod.ihr",
+  "chef_environment": "ec2-prod",
+  "run_list": [
+    "role[base]"
+  ],
+  "normal": {
+    "tags": [
+
+    ],
+    "platform?": "centos",
+    "openssh": {
+      "server": {
+      },
+      "client": {
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "name": "iad-zk101.ihr",
+  "name": "iad-zk103.ihr",
   "chef_environment": "prod",
   "run_list": [
     "role[base]",
@@ -9,7 +9,7 @@
   ],
   "normal": {
     "runlist_override_history": {
-      "1386348004": "[role[auto-bonded]]"
+      "1386271671": "[recipe[zookeeper]]"
     },
     "mysql": {
       "conf_dir": "/etc",
@@ -27,17 +27,13 @@
         "authkey": "JZ_OtF3rF4ponomK0g5F"
       }
     },
+    "zookeeper": {
+      "server_id": 3
+    },
     "tags": [
 
     ],
     "platform?": "ubuntu",
-    "network": {
-      "interfaces": {
-      }
-    },
-    "zookeeper": {
-      "server_id": 1
-    },
     "snmp": {
       "cookbook_files": [
 

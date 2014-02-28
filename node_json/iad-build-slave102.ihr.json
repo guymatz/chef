@@ -1,0 +1,62 @@
+{
+  "name": "iad-build-slave102.ihr",
+  "chef_environment": "prod",
+  "run_list": [
+    "role[base]",
+    "role[build-slave]",
+    "role[iad-build]"
+  ],
+  "normal": {
+    "jenkins": {
+      "server": {
+        "pubkey": "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAy/NXfkOuzoYz/2Z+ayK8ys9vWkhPWZ7maq8GDBSMB2RmzySftySMObUC2A3oZr3pMTef1XR5SKEgH79fnz+w0xDaXObdVdUhHySHktMD6Il5d8Gb9PvY5dE0HwvIUXghum7yGT3o1OCBH7uYW24NPc3kTDfeikN4WnTVTgK8A7LFl/sYUCW72vyElKKiVDSmJTtf3756+jMpAUAO5r0oO+9ss4n/VZzR9N954d+4qvd1nblYc8Nb+8E2WiMf6JzmrMuhELYK4OD0CDXJSVCwaRxiA7MIbcjIYVHmm1T8vvccb5098rTrObCwaMPjULMabfziTInVtWKwWYpSgAB2Mw== jenkins@iad-build-master101.ihr\n"
+      }
+    },
+    "mysql": {
+      "conf_dir": "/etc/mysql",
+      "old_passwords": 0,
+      "grants_path": "/etc/mysql/grants.sql",
+      "confd_dir": "/etc/mysql/conf.d",
+      "tunable": {
+        "innodb_adaptive_flushing": false
+      },
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "socket": "/var/run/mysqld/mysqld.sock"
+    },
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    },
+    "java": {
+      "oracle": {
+        "accept_oracle_download_terms": true
+      }
+    },
+    "tags": [
+
+    ],
+    "whipped": true,
+    "platform?": "ubuntu",
+    "network": {
+      "interfaces": {
+      }
+    },
+    "snmp": {
+      "cookbook_files": [
+        "/etc/default/snmpd"
+      ],
+      "packages": [
+        "snmp",
+        "snmpd"
+      ]
+    },
+    "openssh": {
+      "server": {
+      },
+      "client": {
+      }
+    },
+    "tagged?": "permit-root"
+  }
+}

@@ -1,9 +1,12 @@
 {
-  "name": "iad-opstest101.ihr",
+  "name": "iad-opstest-101.ihr",
   "chef_environment": "_default",
   "run_list": [
 
   ],
   "normal": {
+    "tags": [
+
+    ]
   }
 }
