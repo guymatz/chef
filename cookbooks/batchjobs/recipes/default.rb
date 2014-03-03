@@ -43,7 +43,7 @@ template "/data/apps/batchjobs/jobs/rovi/bin/celeryconfig.py" do
 end
 
 cron_d "Rovi_image_job" do
-  command "/data/apps/batchjobs/jobs/rovi/bin/run_image_job.sh #{node.chef_environment} > /dev/null 2>&1"
+  command "/data/apps/batchjobs/jobs/rovi/bin/run_image_job.sh #{node[:batchjobs][:rovi_upload_identity]}} > /dev/null 2>&1"
   minute "0"
   hour "21"
   user "batchjobs"
