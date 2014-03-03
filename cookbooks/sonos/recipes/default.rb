@@ -15,11 +15,9 @@ end
   include_recipe cb
 end
 
-begin
-  puts "entered deploy block"
-  unless tagged?("sonos-deployed")
-
 	application "sonos" do
+	  Chef::Log.info('entered deploy block')
+ 	  unless tagged?("sonos-deployed")
 	  path node[:sonos][:deploy_path]
 	  repository node[:sonos][:repo]
 	  revision node[:sonos][:rev]
@@ -59,4 +57,3 @@ begin
 
 	tag("batchjobs-deployed")
 	end
-end	
