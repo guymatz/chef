@@ -6,7 +6,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'USER': 'sonos',
         'PASSWORD': '6f8234dece03bd29bf40c95f314',
-        'HOST': '10.5.1.119',
+        'HOST': <%= node[:sonos][:mysql_vip] %>,
         'PORT': '',
     }
 }
