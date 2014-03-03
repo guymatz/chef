@@ -1,0 +1,13 @@
+{
+  "name": "iad-dev-quickio101.ihr",
+  "chef_environment": "dev",
+  "run_list": [
+    "role[base]",
+    "role[quickio]"
+  ],
+  "normal": {
+    "tags": [
+      "quickio-deployed"
+    ]
+  }
+}

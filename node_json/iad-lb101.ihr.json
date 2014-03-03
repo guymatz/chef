@@ -1,16 +1,16 @@
 {
-  "name": "iad-zk101.ihr",
+  "name": "iad-lb101.ihr",
   "chef_environment": "prod",
   "run_list": [
     "role[base]",
-    "recipe[users::hadoop]",
-    "recipe[java::oracle-7]",
-    "role[zookeeper]"
+    "role[zeus]",
+    "recipe[java]",
+    "recipe[zeus-zxtm]",
+    "recipe[diamond]",
+    "recipe[bonded_interfaces]",
+    "role[dell]"
   ],
   "normal": {
-    "runlist_override_history": {
-      "1386348004": "[role[auto-bonded]]"
-    },
     "mysql": {
       "conf_dir": "/etc",
       "old_passwords": 1,
@@ -22,22 +22,28 @@
       "pid_file": "/var/run/mysqld/mysqld.pid",
       "socket": "/var/lib/mysql/mysql.sock"
     },
+    "bonded_interfaces": {
+      "master": "bond0",
+      "configuration": {
+        "netmask": "255.255.254.0",
+        "vlan": "200",
+        "ip": "10.5.40.48",
+        "slaves": [
+          "em2",
+          "p1p4"
+        ]
+      }
+    },
     "nagios": {
       "nsca": {
         "authkey": "JZ_OtF3rF4ponomK0g5F"
       }
     },
+    "zeus_deplayed": true,
     "tags": [
-
+      "zeus-deployed"
     ],
-    "platform?": "ubuntu",
-    "network": {
-      "interfaces": {
-      }
-    },
-    "zookeeper": {
-      "server_id": 1
-    },
+    "platform?": "centos",
     "snmp": {
       "cookbook_files": [
 

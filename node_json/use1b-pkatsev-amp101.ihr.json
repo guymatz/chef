@@ -1,0 +1,39 @@
+{
+  "name": "use1b-pkatsev-amp101.ihr",
+  "chef_environment": "dev",
+  "run_list": [
+    "role[base]",
+    "role[amp]"
+  ],
+  "normal": {
+    "tomcat7": {
+      "webapp_dir": "/data/apps/tomcat7/webapps"
+    },
+    "mysql": {
+      "conf_dir": "/etc",
+      "old_passwords": 1,
+      "grants_path": "/etc/mysql_grants.sql",
+      "confd_dir": "/etc/mysql/conf.d",
+      "tunable": {
+        "innodb_adaptive_flushing": false
+      },
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "socket": "/var/lib/mysql/mysql.sock"
+    },
+    "java": {
+      "oracle": {
+        "accept_oracle_download_terms": true
+      }
+    },
+    "tags": [
+
+    ],
+    "platform?": "centos",
+    "openssh": {
+      "server": {
+      },
+      "client": {
+      }
+    }
+  }
+}

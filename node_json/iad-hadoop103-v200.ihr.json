@@ -1,0 +1,25 @@
+{
+  "name": "iad-hadoop103-v200.ihr",
+  "chef_environment": "_default",
+  "run_list": [
+    "role[base]",
+    "role[hadoop]",
+    "role[auto-bonded]"
+  ],
+  "normal": {
+    "mysql": {
+      "conf_dir": "/etc",
+      "old_passwords": 1,
+      "grants_path": "/etc/mysql_grants.sql",
+      "confd_dir": "/etc/mysql/conf.d",
+      "tunable": {
+        "innodb_adaptive_flushing": false
+      },
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "socket": "/var/lib/mysql/mysql.sock"
+    },
+    "tags": [
+
+    ]
+  }
+}

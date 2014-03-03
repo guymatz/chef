@@ -1,16 +1,11 @@
 {
-  "name": "iad-zk101.ihr",
-  "chef_environment": "prod",
+  "name": "use1b-sonos102.ihr",
+  "chef_environment": "ec2-prod",
   "run_list": [
     "role[base]",
-    "recipe[users::hadoop]",
-    "recipe[java::oracle-7]",
-    "role[zookeeper]"
+    "role[sonos]"
   ],
   "normal": {
-    "runlist_override_history": {
-      "1386348004": "[role[auto-bonded]]"
-    },
     "mysql": {
       "conf_dir": "/etc",
       "old_passwords": 1,
@@ -31,13 +26,6 @@
 
     ],
     "platform?": "ubuntu",
-    "network": {
-      "interfaces": {
-      }
-    },
-    "zookeeper": {
-      "server_id": 1
-    },
     "snmp": {
       "cookbook_files": [
 

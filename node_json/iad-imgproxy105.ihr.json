@@ -1,20 +1,22 @@
 {
-  "name": "iad-zk101.ihr",
+  "name": "iad-imgproxy105.ihr",
   "chef_environment": "prod",
   "run_list": [
     "role[base]",
-    "recipe[users::hadoop]",
-    "recipe[java::oracle-7]",
-    "role[zookeeper]"
+    "recipe[imagemagick]",
+    "recipe[users::dev]",
+    "recipe[users::deployer]",
+    "recipe[nodejs::install_from_ihr_package]",
+    "recipe[iscale]"
   ],
   "normal": {
     "runlist_override_history": {
-      "1386348004": "[role[auto-bonded]]"
+      "1391537399": "[recipe[nodejs::install_from_ihr_package], recipe[iscale]]"
     },
     "mysql": {
       "conf_dir": "/etc",
-      "old_passwords": 1,
       "grants_path": "/etc/mysql_grants.sql",
+      "old_passwords": 1,
       "confd_dir": "/etc/mysql/conf.d",
       "tunable": {
         "innodb_adaptive_flushing": false
@@ -27,16 +29,13 @@
         "authkey": "JZ_OtF3rF4ponomK0g5F"
       }
     },
-    "tags": [
-
-    ],
     "platform?": "ubuntu",
-    "network": {
-      "interfaces": {
+    "tags": [
+      ""
+    ],
+    "iscale": {
+      "app_settings": {
       }
-    },
-    "zookeeper": {
-      "server_id": 1
     },
     "snmp": {
       "cookbook_files": [

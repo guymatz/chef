@@ -1,0 +1,14 @@
+{
+  "name": "iad-statsd101.ihr",
+  "chef_environment": "_default",
+  "run_list": [
+    "role[base]",
+    "recipe[statsd]",
+    "recipe[diamond]"
+  ],
+  "normal": {
+    "tags": [
+
+    ]
+  }
+}

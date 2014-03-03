@@ -1,0 +1,57 @@
+{
+  "name": "use1b-ss-db101b.ihr",
+  "chef_environment": "ec2-prod",
+  "run_list": [
+    "role[base]",
+    "role[mysql-ha]",
+    "role[sonos-database]",
+    "role[ipplan-database]"
+  ],
+  "normal": {
+    "mysql": {
+      "conf_dir": "/etc/mysql",
+      "old_passwords": 0,
+      "grants_path": "/etc/mysql/grants.sql",
+      "server_debian_password": "8LHikuROZe6l9tY94sYe",
+      "confd_dir": "/etc/mysql/conf.d",
+      "server": {
+        "log_file": null,
+        "log_pos": null
+      },
+      "server_repl_password": "MEfIsBNV4mshN7exeT_A",
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "socket": "/var/run/mysqld/mysqld.sock",
+      "server_root_password": "zW8y7bcAlz_kfmgNAP9w"
+    },
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    },
+    "tags": [
+      "replication-configured"
+    ],
+    "platform?": "ubuntu",
+    "snmp": {
+      "cookbook_files": [
+        "/etc/default/snmpd"
+      ],
+      "packages": [
+        "snmp",
+        "snmpd"
+      ]
+    },
+    "openssh": {
+      "server": {
+      },
+      "client": {
+      }
+    },
+    "heartbeat": {
+      "config": {
+        "authkeys": "VqwIpuqhRuEgMHC_B1Cs"
+      }
+    },
+    "tagged?": "permit-root"
+  }
+}

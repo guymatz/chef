@@ -1,16 +1,13 @@
 {
-  "name": "iad-zk101.ihr",
+  "name": "iad-heartbeat101.ihr",
   "chef_environment": "prod",
   "run_list": [
     "role[base]",
-    "recipe[users::hadoop]",
-    "recipe[java::oracle-7]",
-    "role[zookeeper]"
+    "role[heartbeat]",
+    "role[auto-bonded]",
+    "role[dell]"
   ],
   "normal": {
-    "runlist_override_history": {
-      "1386348004": "[role[auto-bonded]]"
-    },
     "mysql": {
       "conf_dir": "/etc",
       "old_passwords": 1,
@@ -27,17 +24,10 @@
         "authkey": "JZ_OtF3rF4ponomK0g5F"
       }
     },
+    "whipped": true,
     "tags": [
 
     ],
-    "platform?": "ubuntu",
-    "network": {
-      "interfaces": {
-      }
-    },
-    "zookeeper": {
-      "server_id": 1
-    },
     "snmp": {
       "cookbook_files": [
 
@@ -46,12 +36,6 @@
         "net-snmp",
         "net-snmp-utils"
       ]
-    },
-    "openssh": {
-      "server": {
-      },
-      "client": {
-      }
     }
   }
 }

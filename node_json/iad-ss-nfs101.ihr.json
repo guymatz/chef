@@ -1,15 +1,24 @@
 {
-  "name": "iad-zk101.ihr",
+  "name": "iad-ss-nfs101.ihr",
   "chef_environment": "prod",
   "run_list": [
     "role[base]",
-    "recipe[users::hadoop]",
-    "recipe[java::oracle-7]",
-    "role[zookeeper]"
+    "role[shared-storage]",
+    "recipe[files.ihrdev.com::nfs]",
+    "recipe[zookeeper::nfs]",
+    "role[loghost]",
+    "recipe[rsyslog::nfs]",
+    "recipe[postgresql::users]",
+    "recipe[users::zookeeper]",
+    "recipe[files.ihrdev.com::clean_backups_mongo_fac]",
+    "recipe[files.ihrdev.com::clean_backups_mongo_usr]",
+    "recipe[files.ihrdev.com::clean_backups_mongo_util]",
+    "recipe[files.ihrdev.com::clean_backups_auth_bak]",
+    "recipe[files.ihrdev.com::clean_backups_ing_bak]"
   ],
   "normal": {
-    "runlist_override_history": {
-      "1386348004": "[role[auto-bonded]]"
+    "rsyslog": {
+      "server": true
     },
     "mysql": {
       "conf_dir": "/etc",
@@ -27,17 +36,10 @@
         "authkey": "JZ_OtF3rF4ponomK0g5F"
       }
     },
+    "whipped": true,
     "tags": [
 
     ],
-    "platform?": "ubuntu",
-    "network": {
-      "interfaces": {
-      }
-    },
-    "zookeeper": {
-      "server_id": 1
-    },
     "snmp": {
       "cookbook_files": [
 
@@ -49,8 +51,7 @@
     },
     "openssh": {
       "server": {
-      },
-      "client": {
+        "Subsystem": "sftp internal-sftp"
       }
     }
   }

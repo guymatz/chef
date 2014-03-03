@@ -1,15 +1,13 @@
 {
-  "name": "iad-zk101.ihr",
-  "chef_environment": "prod",
+  "name": "iad-stgroku101.ihr",
+  "chef_environment": "_default",
   "run_list": [
     "role[base]",
-    "recipe[users::hadoop]",
-    "recipe[java::oracle-7]",
-    "role[zookeeper]"
+    "recipe[tomcat7]"
   ],
   "normal": {
-    "runlist_override_history": {
-      "1386348004": "[role[auto-bonded]]"
+    "tomcat7": {
+      "webapp_dir": "/data/apps/tomcat7/webapps"
     },
     "mysql": {
       "conf_dir": "/etc",
@@ -30,14 +28,6 @@
     "tags": [
 
     ],
-    "platform?": "ubuntu",
-    "network": {
-      "interfaces": {
-      }
-    },
-    "zookeeper": {
-      "server_id": 1
-    },
     "snmp": {
       "cookbook_files": [
 
@@ -47,11 +37,17 @@
         "net-snmp-utils"
       ]
     },
-    "openssh": {
-      "server": {
-      },
-      "client": {
-      }
+    "tomcat": {
+      "work_dir": "/var/cache/tomcat6/work",
+      "group": "tomcat",
+      "webapp_dir": "/var/lib/tomcat6/webapps",
+      "tmp_dir": "/var/cache/tomcat6/temp",
+      "config_dir": "/etc/tomcat6",
+      "user": "tomcat",
+      "home": "/usr/share/tomcat6",
+      "log_dir": "/var/log/tomcat6",
+      "context_dir": "/etc/tomcat6/Catalina/localhost",
+      "base": "/usr/share/tomcat6"
     }
   }
 }

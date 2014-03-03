@@ -1,0 +1,65 @@
+{
+  "name": "iad-cass104.ihr",
+  "chef_environment": "prod",
+  "run_list": [
+    "role[base]",
+    "role[cassandra]",
+    "recipe[bonded_interfaces]",
+    "role[dell]",
+    "role[iad-cassandra]"
+  ],
+  "normal": {
+    "mysql": {
+      "conf_dir": "/etc",
+      "grants_path": "/etc/mysql_grants.sql",
+      "old_passwords": 1,
+      "confd_dir": "/etc/mysql/conf.d",
+      "tunable": {
+        "innodb_adaptive_flushing": false
+      },
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "socket": "/var/lib/mysql/mysql.sock"
+    },
+    "sysctl": {
+      "vm.max_map_count": "131072",
+      "vm.swappiness": 1
+    },
+    "bonded_interfaces": {
+      "master": "bond0",
+      "configuration": {
+        "netmask": "255.255.255.128",
+        "vlan": "240",
+        "ip": "10.5.42.164",
+        "slaves": [
+          "em2",
+          "p3p4"
+        ]
+      }
+    },
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    },
+    "tags": [
+
+    ],
+    "snmp": {
+      "cookbook_files": [
+
+      ],
+      "packages": [
+        "net-snmp",
+        "net-snmp-utils"
+      ]
+    },
+    "cassandra": {
+      "listen_addr": "10.5.42.164",
+      "rpc_addr": "10.5.42.164",
+      "seed_ips": [
+        "10.5.42.165",
+        "10.5.42.161"
+      ]
+    }
+  }
+}

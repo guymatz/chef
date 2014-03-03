@@ -1,0 +1,15 @@
+{
+  "name": "iad-statsd102.ihr",
+  "chef_environment": "_default",
+  "run_list": [
+    "recipe[users::splunk]",
+    "role[base]",
+    "recipe[statsd]",
+    "recipe[diamond]"
+  ],
+  "normal": {
+    "tags": [
+
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "iad-cnp101.ihr",
+  "chef_environment": "_default",
+  "run_list": [
+    "role[base]",
+    "role[vmware]",
+    "recipe[lucene]",
+    "recipe[users::cnpuser]"
+  ],
+  "normal": {
+    "tags": [
+      "lucene-deployed"
+    ]
+  }
+}

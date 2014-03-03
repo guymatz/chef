@@ -1,0 +1,40 @@
+{
+  "name": "iad-mrtest.ihr",
+  "chef_environment": "_default",
+  "run_list": [
+    "role[base]",
+    "recipe[elasticsearchnew::backup_client]",
+    "recipe[elasticsearchnew::backup_server]",
+    "recipe[users::deployer]",
+    "recipe[ftp_admin]",
+    "recipe[sendmail]",
+    "recipe[sendmail::sendmail_relay]"
+  ],
+  "normal": {
+    "tomcat7": {
+      "webapp_dir": "/data/apps/tomcat7/webapps"
+    },
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    },
+    "java": {
+      "oracle": {
+        "accept_oracle_download_terms": true
+      }
+    },
+    "tags": [
+
+    ],
+    "snmp": {
+      "cookbook_files": [
+
+      ],
+      "packages": [
+        "net-snmp",
+        "net-snmp-utils"
+      ]
+    }
+  }
+}

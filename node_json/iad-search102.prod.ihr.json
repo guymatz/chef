@@ -1,16 +1,16 @@
 {
-  "name": "iad-zk101.ihr",
+  "name": "iad-search102.prod.ihr",
   "chef_environment": "prod",
   "run_list": [
     "role[base]",
-    "recipe[users::hadoop]",
-    "recipe[java::oracle-7]",
-    "role[zookeeper]"
+    "recipe[users::splunk]",
+    "recipe[attivio::clustered]",
+    "role[attivio]",
+    "role[auto-bonded]",
+    "role[dell]",
+    "role[iad-search]"
   ],
   "normal": {
-    "runlist_override_history": {
-      "1386348004": "[role[auto-bonded]]"
-    },
     "mysql": {
       "conf_dir": "/etc",
       "old_passwords": 1,
@@ -30,14 +30,7 @@
     "tags": [
 
     ],
-    "platform?": "ubuntu",
-    "network": {
-      "interfaces": {
-      }
-    },
-    "zookeeper": {
-      "server_id": 1
-    },
+    "whipped": true,
     "snmp": {
       "cookbook_files": [
 
@@ -47,11 +40,6 @@
         "net-snmp-utils"
       ]
     },
-    "openssh": {
-      "server": {
-      },
-      "client": {
-      }
-    }
+    "es_master": true
   }
 }

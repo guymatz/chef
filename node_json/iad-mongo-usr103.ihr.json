@@ -1,15 +1,17 @@
 {
-  "name": "iad-zk101.ihr",
+  "name": "iad-mongo-usr103.ihr",
   "chef_environment": "prod",
   "run_list": [
     "role[base]",
-    "recipe[users::hadoop]",
-    "recipe[java::oracle-7]",
-    "role[zookeeper]"
+    "role[mongodb_server]",
+    "role[mongodb_config_server]",
+    "role[dell]",
+    "role[iad-mongo-usr]"
   ],
   "normal": {
-    "runlist_override_history": {
-      "1386348004": "[role[auto-bonded]]"
+    "mongodb": {
+      "oplogsize": "13319",
+      "replset": "Mongo-users2"
     },
     "mysql": {
       "conf_dir": "/etc",
@@ -22,22 +24,26 @@
       "pid_file": "/var/run/mysqld/mysqld.pid",
       "socket": "/var/lib/mysql/mysql.sock"
     },
+    "bonded_interfaces": {
+      "master": "bond0",
+      "configuration": {
+        "netmask": "255.255.255.128",
+        "vlan": "240",
+        "ip": "10.5.42.187",
+        "slaves": [
+          "em2",
+          "p2p1"
+        ]
+      }
+    },
     "nagios": {
       "nsca": {
         "authkey": "JZ_OtF3rF4ponomK0g5F"
       }
     },
     "tags": [
-
+      "mongo_usr"
     ],
-    "platform?": "ubuntu",
-    "network": {
-      "interfaces": {
-      }
-    },
-    "zookeeper": {
-      "server_id": 1
-    },
     "snmp": {
       "cookbook_files": [
 
@@ -46,12 +52,6 @@
         "net-snmp",
         "net-snmp-utils"
       ]
-    },
-    "openssh": {
-      "server": {
-      },
-      "client": {
-      }
     }
   }
 }

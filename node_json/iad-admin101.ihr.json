@@ -1,0 +1,81 @@
+{
+  "name": "iad-admin101.ihr",
+  "chef_environment": "prod",
+  "run_list": [
+    "role[base]",
+    "role[admin-server]",
+    "role[dns-server]",
+    "role[repo-server]",
+    "role[ntp-server]",
+    "role[db_master]",
+    "role[monitoring]",
+    "role[sendmail-relay]",
+    "recipe[users::splunk]",
+    "recipe[basejump]",
+    "recipe[basejump::database]",
+    "recipe[basejump::tools]",
+    "recipe[splunk::forwarder]",
+    "recipe[basejump::kickstarter]",
+    "role[dell]",
+    "role[iad-admin]"
+  ],
+  "normal": {
+    "mysql": {
+      "conf_dir": "/etc",
+      "grants_path": "/etc/mysql_grants.sql",
+      "server_debian_password": "sIPR_Divy3pZP44Zflwy",
+      "old_passwords": 1,
+      "confd_dir": "/etc/mysql/conf.d",
+      "server_repl_password": "1NS8bGnRrNheBHCm1qIS",
+      "tunable": {
+        "innodb_adaptive_flushing": false
+      },
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "socket": "/var/lib/mysql/mysql.sock",
+      "server_root_password": "qb4Qz2bGU8oTsczsp1j4"
+    },
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    },
+    "tags": [
+
+    ],
+    "apache": {
+      "cache_dir": "/var/cache/httpd",
+      "group": "apache",
+      "lib_dir": "/usr/lib64/httpd",
+      "dir": "/etc/httpd",
+      "binary": "/usr/sbin/httpd",
+      "libexecdir": "/usr/lib64/httpd/modules",
+      "error_log": "error.log",
+      "root_group": "root",
+      "listen_ports": [
+        "80",
+        "443"
+      ],
+      "package": "httpd",
+      "default_site_enabled": true,
+      "log_dir": "/var/log/httpd",
+      "user": "apache",
+      "pid_file": "/var/run/httpd/httpd.pid",
+      "icondir": "/var/www/icons"
+    },
+    "snmp": {
+      "cookbook_files": [
+
+      ],
+      "packages": [
+        "net-snmp",
+        "net-snmp-utils"
+      ]
+    },
+    "override_attributes": {
+      "splunk": {
+        "forwarder_config_folder": "prod",
+        "forwarder_role": "ingestion"
+      }
+    }
+  }
+}

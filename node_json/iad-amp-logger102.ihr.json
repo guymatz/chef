@@ -1,20 +1,21 @@
 {
-  "name": "iad-jobserver101a.ihr",
+  "name": "iad-amp-logger102.ihr",
   "chef_environment": "prod",
   "run_list": [
     "role[base]",
-    "recipe[users::splunk]",
-    "role[jobserver]",
-    "role[etljob_server]",
-    "recipe[etl_jobs::default]",
-    "recipe[etl_jobs::nrpe]",
-    "role[batchjobs]"
+    "role[auto-bonded]",
+    "role[amp-logger]",
+    "role[iad-amp-logger]",
+    "role[flume-ng]"
   ],
   "normal": {
+    "tomcat7": {
+      "webapp_dir": "/data/apps/tomcat7/webapps"
+    },
     "mysql": {
       "conf_dir": "/etc",
-      "old_passwords": 1,
       "grants_path": "/etc/mysql_grants.sql",
+      "old_passwords": 1,
       "confd_dir": "/etc/mysql/conf.d",
       "tunable": {
         "innodb_adaptive_flushing": false
@@ -27,9 +28,6 @@
         "authkey": "JZ_OtF3rF4ponomK0g5F"
       }
     },
-    "arbmongodb": {
-      "arbreplset": "Mongo-news1"
-    },
     "java": {
       "oracle": {
         "accept_oracle_download_terms": true
@@ -37,7 +35,7 @@
     },
     "whipped": true,
     "tags": [
-      "batchjobs-deployed"
+      "flume-deployed"
     ],
     "snmp": {
       "cookbook_files": [
@@ -47,22 +45,6 @@
         "net-snmp",
         "net-snmp-utils"
       ]
-    },
-    "mongosd": {
-      "mongosconfigdbs": [
-        "iad-mongo-usr101-v240.ihr:57017",
-        "iad-mongo-usr103-v240.ihr:57017",
-        "iad-mongo-usr105-v240.ihr:57017"
-      ]
-    },
-    "heartbeat": {
-      "config": {
-        "authkeys": "b2WH49dQ_wwrYtU6F1UA"
-      },
-      "ha_resources": {
-        "fac-PRN": "fac-PRN",
-        "fac-talk": "fac-talk"
-      }
     }
   }
 }
