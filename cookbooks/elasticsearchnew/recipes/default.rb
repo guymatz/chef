@@ -7,8 +7,18 @@
 # All rights reserved - Do Not Redistribute
 #
 unless tagged?('elasticsearchnew-deployed')
-  %w{ users::elasticsearch elasticsearchnew::users users::deployer elasticsearchnew::elasticsearch elasticsearchnew::plugins elasticsearchnew::backup_client }.each do |cb|
+  %w{ 
+      users::elasticsearch 
+      elasticsearchnew::users 
+      users::deployer 
+      elasticsearchnew::elasticsearch 
+      elasticsearchnew::plugins 
+    }.each do |cb|
     include_recipe cb
+  end
+
+  if /prod/ =~ node.chef_environment do
+    include_recipe "elasticsearchnew::backup_client"
   end
   
   %w{ configs data input logs }.each do |der|
