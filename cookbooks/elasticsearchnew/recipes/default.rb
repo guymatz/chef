@@ -17,7 +17,7 @@ unless tagged?('elasticsearchnew-deployed')
     include_recipe cb
   end
 
-  if /prod/ =~ node.chef_environment do
+  if /prod/ =~ node.chef_environment
     include_recipe "elasticsearchnew::backup_client"
   end
   
