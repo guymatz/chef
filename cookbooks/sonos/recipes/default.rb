@@ -15,9 +15,9 @@ end
   include_recipe cb
 end
 
+  unless tagged?("sonos-deployed")
+  Chef::Log.info('entered deploy block')
 	application "sonos" do
-	  Chef::Log.info('entered deploy block')
- 	  unless tagged?("sonos-deployed")
 	  path node[:sonos][:deploy_path]
 	  repository node[:sonos][:repo]
 	  revision node[:sonos][:rev]
