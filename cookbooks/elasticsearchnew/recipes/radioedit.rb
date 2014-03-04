@@ -12,7 +12,6 @@ unless tagged?('elasticsearchnew-deployed')
       elasticsearchnew::users 
       users::deployer 
       elasticsearchnew::elasticsearch 
-      elasticsearchnew::ulimits 
     }.each { |cb| include_recipe cb;}
   
   template "/etc/init.d/elasticsearch" do
