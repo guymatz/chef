@@ -72,7 +72,7 @@ unless tagged?('elasticsearchnew-deployed')
   end
   
   service "elasticsearch" do
-    supports :start => true, :stop =>true, :restart => true
+    supports :start => true, :stop =>true, :restart => true, :enable => true
     action :enable
   end
   
