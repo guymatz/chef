@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 unless tagged?('elasticsearchnew-deployed')
-  %w{ users::elasticsearch elasticsearchnew::users users::deployer elasticsearchnew::elasticsearch elasticsearchnew::ulimits elasticsearchnew::plugins elasticsearchnew::backup_client }.each do |cb|
+  %w{ users::elasticsearch elasticsearchnew::users users::deployer elasticsearchnew::elasticsearch elasticsearchnew::plugins elasticsearchnew::backup_client }.each do |cb|
     include_recipe cb
   end
   
