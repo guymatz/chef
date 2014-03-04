@@ -11,5 +11,5 @@ case chef_environment
 when /^development/
 default[:batchjobs][:rabbit_host] = "iad-int-rabbitmq101.ihr"
 default[:batchjobs][:rabbit_port] = 5672
-default[:batchjobs][:rovi_upload_indentity] = "Dev"
+default[:batchjobs][:rovi_upload_identity] = "Dev"
 end
