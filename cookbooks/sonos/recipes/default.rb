@@ -48,12 +48,5 @@ end
 	  end
 	end
 
-	template "/data/apps/sonos/current/local_settings.py" do
-	  source "local_settings.py.erb"
-	  mode "0755"
-	  owner "root"
-          group "root"
-	end
-
 	tag("batchjobs-deployed")
 	end
