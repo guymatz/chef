@@ -53,7 +53,7 @@ default[:encoders][:s_encoder_mount] = "/data/encoder"
 # FreeTDS
 default[:freetds][:servers][default[:ingestion_ng][:db][:host]] = {
   :description => 'Ingestion msSQL',
-  :host => '10.5.50.101',
+  :host => '10.5.61.12',
   :port => 1433,
   :tds_version => '8.0',
   :client_charset => 'UTF-8'
