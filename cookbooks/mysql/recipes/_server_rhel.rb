@@ -84,6 +84,7 @@ cmd = install_grants_cmd
 execute 'install-grants' do
   command cmd
   #notifies :restart, 'service[mysql]', :immediately
+  only_if  "/usr/bin/mysql -u root -e 'show databases -p#{node['mysql']['server_root_password']};"
 end
 
 if 1 > 2

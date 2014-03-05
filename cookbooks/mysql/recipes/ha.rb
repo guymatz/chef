@@ -36,7 +36,7 @@ case node[:platform_family]
 when "debian"
   cluster_intf = "eth0"
 when "rhel"
-  cluster_intf = "em1"
+  cluster_intf = "bond0.760"
 end
 shortname = node[:hostname]
 
@@ -80,17 +80,19 @@ begin
     rescue NoMethodError
   end
 
+puts "cluster_slaves.first:" + cluster_slaves.first.inspect
+
 heartbeat "mysql-heartbeat" do
   auto_failback false
   autojoin "none"
-  deadtime 180
-  initdead 180
+  #deadtime 30
+  initdead 30
   logfacility "local0"
   authkeys node[:heartbeat][:config][:authkeys]
   warntime 15
-  search "chef_environment:#{node.chef_environment} AND roles:mysql-ha AND hostname:#{cluster_name}*"
-  interface cluster_intf
-  interface_partner_ip cluster_slaves.first[:ipaddress]
+  search "chef_environment:#{node.chef_environment} AND roles:mysql-ha AND hostname:#{cluster_prefix}*"
+  interface "eth0"
+  interface_partner_ip IPSocket::getaddress(cluster_slaves.first[:fqdn])
   mode "ucast"
   resource_groups ha_resources
 end
@@ -104,29 +106,32 @@ ruby_block "create-replication-users" do
     end
   end
   action :create
+  only_if "mysql -u root -p#{node[:mysql][:server_root_password]} -e 'show databases;'"
 end
 
 # now we set up master stuff
+if 1 > 2 #Replication should be set manually
 
-ruby_block "master-log" do
-  block do
-    logs = %x[mysql -u root -p#{node[:mysql][:server_root_password]} -e "show master status;" | grep mysql].strip.split
-    node.default[:mysql][:server][:log_file] = logs[0]
-    node.default[:mysql][:server][:log_pos] = logs[1]
-    node.save
-  end
-  action :create
-end
-
-unless tagged?("replication-configured")
-  ruby_block "import-master-log" do
+  ruby_block "master-log" do
     block do
-      master_log_file = cluster_slaves.first[:mysql][:server][:logfile]
-      master_log_pos = cluster_slaves.first[:mysql][:server][:log_pos]
-      %x{mysql -u root -p#{node[:mysql][:server_root_password]} -e "CHANGE MASTER TO master_host='#{cluster_slaves.first[:ipaddress]}', master_port=3306, master_user='repl', master_password='#{cluster_slaves.first[:mysql][:server_repl_password]}', master_log_file='#{master_log_file}', master_log_pos=#{master_log_pos};"}
-      %x{mysql -u root -p#{node[:mysql][:server_root_password]} -e "START SLAVE;"}
+      logs = %x[mysql -u root -p#{node[:mysql][:server_root_password]} -e "show master status;" | grep mysql].strip.split
+      node.default[:mysql][:server][:log_file] = logs[0]
+      node.default[:mysql][:server][:log_pos] = logs[1]
+      node.save
     end
     action :create
   end
-  tag("replication-configured")
+
+  unless tagged?("replication-configured")
+    ruby_block "import-master-log" do
+      block do
+        master_log_file = cluster_slaves.first[:mysql][:server][:logfile]
+        master_log_pos = cluster_slaves.first[:mysql][:server][:log_pos]
+        %x{mysql -u root -p#{node[:mysql][:server_root_password]} -e "CHANGE MASTER TO master_host='#{cluster_slaves.first[:ipaddress]}', master_port=3306, master_user='repl', master_password='#{cluster_slaves.first[:mysql][:server_repl_password]}', master_log_file='#{master_log_file}', master_log_pos=#{master_log_pos};"}
+        %x{mysql -u root -p#{node[:mysql][:server_root_password]} -e "START SLAVE;"}
+      end
+      action :create
+    end
+    tag("replication-configured")
+  end
 end
