@@ -2,7 +2,7 @@
 # Cookbook Name:: mysql
 # Recipe:: default
 #
-# Copyright 2008-2011, Opscode, Inc.
+# Copyright 2008-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,225 +16,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
-
+#
+#
 include_recipe "mysql::client"
 
-# generate all passwords
-node.set_unless['mysql']['server_debian_password'] = secure_password
-node.set_unless['mysql']['server_root_password']   = secure_password
-node.set_unless['mysql']['server_repl_password']   = secure_password
+::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+::Chef::Recipe.send(:include, Opscode::Mysql::Helpers)
 
-if platform?(%w{debian ubuntu})
+if Chef::Config[:solo]
+  missing_attrs = %w[
+    server_debian_password
+    server_root_password
+    server_repl_password
+  ].select { |attr| node['mysql'][attr].nil? }.map { |attr| %Q{node['mysql']['#{attr}']} }
 
-  directory "/var/cache/local/preseeding" do
-    owner "root"
-    group node['mysql']['root_group']
-    mode 0755
-    recursive true
+  unless missing_attrs.empty?
+    Chef::Application.fatal! "You must set #{missing_attrs.join(', ')} in chef-solo mode." \
+    " For more information, see https://github.com/opscode-cookbooks/mysql#chef-solo-note"
   end
-
-  execute "preseed mysql-server" do
-    command "debconf-set-selections /var/cache/local/preseeding/mysql-server.seed"
-    action :nothing
-  end
-
-  template "/var/cache/local/preseeding/mysql-server.seed" do
-    source "mysql-server.seed.erb"
-    owner "root"
-    group node['mysql']['root_group']
-    mode "0600"
-    notifies :run, resources(:execute => "preseed mysql-server"), :immediately
-  end
-
-  template "#{node['mysql']['conf_dir']}/debian.cnf" do
-    source "debian.cnf.erb"
-    owner "root"
-    group node['mysql']['root_group']
-    mode "0600"
-  end
-
-end
-
-if platform? 'windows'
-  package_file = node['mysql']['package_file']
-
-  remote_file "#{Chef::Config[:file_cache_path]}/#{package_file}" do
-    source node['mysql']['url']
-    not_if { File.exists? "#{Chef::Config[:file_cache_path]}/#{package_file}" }
-  end
-
-  windows_package node['mysql']['server']['packages'].first do
-    source "#{Chef::Config[:file_cache_path]}/#{package_file}"
-  end
-
-  def package(*args, &blk)
-    windows_package(*args, &blk)
-  end
-end
-
-node['mysql']['server']['packages'].each do |package_name|
-  Chef::Log.info "Installing #{package_name}-#{node['mysql']['version']}"
-  yum_package package_name do
-    action :install
-	flush_cache [:before]
-	version "#{node['mysql']['version']}"
-  end
-end
-
-unless platform?(%w{mac_os_x})
-
-  directory node['mysql']['confd_dir'] do
-    owner "mysql" unless platform? 'windows'
-    group "mysql" unless platform? 'windows'
-    action :create
-    recursive true
-  end
-
-  if platform? 'windows'
-    require 'win32/service'
-
-    windows_path node['mysql']['bin_dir'] do
-      action :add
-    end
-
-    windows_batch "install mysql service" do
-      command "\"#{node['mysql']['bin_dir']}\\mysqld.exe\" --install #{node['mysql']['service_name']}"
-      not_if { Win32::Service.exists?(node['mysql']['service_name']) }
-    end
-  end
-
-  service "mysql" do
-    service_name node['mysql']['service_name']
-    if node['mysql']['use_upstart']
-      restart_command "restart mysql"
-      stop_command "stop mysql"
-      start_command "start mysql"
-    end
-    supports :status => true, :restart => true, :reload => true
-    action :nothing
-  end
-
-  skip_federated = case node['platform']
-  when 'fedora', 'ubuntu', 'amazon'
-    true
-  when 'centos', 'redhat', 'scientific'
-    node['platform_version'].to_f < 6.0
-  else
-    false
-  end
-
-  if node.run_list.include?("role[mysql-ha]")
-    if node[:fqdn] =~ /([a-z0-9-]+)([a|b])(\.ihr)?/i
-      cluster_name = $1
-      cluster_member = $2
-      case cluster_member
-      when "a"
-        cluster_node = 1
-      when "b"
-        cluster_node = 2
-      end
-	end
-	elsif node[:fqdn] =~ /(iad-[a-z-]+10)([0-9])(\.ihr)?/i
-	  cluster_name=$1
-	  cluster_node=$2
-	  if node.chef_environment =~ /^production/
-	  	cluster_name="#{cluster_name}"
-	  elsif node.chef_environment =~ /^stage/
-	  	cluster_name="#{cluster_name}"
-	  end
-
-    Chef::Log.info "cluster_name=#{cluster_name}, cluster_member=#{cluster_member}"
-    cluster_ip = IPSocket::getaddress(cluster_name)
-    Chef::Log.info "cluster_ip=#{cluster_ip}"
-  end
-  
-  template "#{node['mysql']['conf_dir']}/my.cnf" do
-    source "my.cnf.erb"
-    owner "root" unless platform? 'windows'
-    group node['mysql']['root_group'] unless platform? 'windows'
-    mode "0644"
-    case node['mysql']['reload_action']
-    when 'restart'
-      notifies :restart, resources(:service => "mysql"), :immediately
-    when 'reload'
-      notifies :reload, resources(:service => "mysql"), :immediately
-    else
-      Chef::Log.info "my.cnf updated but mysql.reload_action is #{node['mysql']['reload_action']}. No action taken."
-    end
-    variables({
-                :skip_federated => skip_federated,
-                :cluster_node => cluster_node
-              })
-  end
-end
-
-unless Chef::Config[:solo]
-  ruby_block "save node data" do
-    block do
-      node.save
-    end
-    action :create
-  end
-end
-
-# set the root password on platforms
-# that don't support pre-seeding
-unless platform?(%w{debian ubuntu})
-
-  execute "assign-root-password" do
-    command "\"#{node['mysql']['mysqladmin_bin']}\" -u root password \"#{node['mysql']['server_root_password']}\""
-    action :run
-    only_if "\"#{node['mysql']['mysql_bin']}\" -u root -e 'show databases;'"
-  end
-
-end
-
-# Homebrew has its own way to do databases
-if platform?(%w{mac_os_x})
-
-  execute "mysql-install-db" do
-    command "mysql_install_db --verbose --user=`whoami` --basedir=\"$(brew --prefix mysql)\" --datadir=#{node['mysql']['data_dir']} --tmpdir=/tmp"
-    environment('TMPDIR' => nil)
-    action :run
-    creates "#{node['mysql']['data_dir']}/mysql"
-  end
-
 else
-  grants_path = node['mysql']['grants_path']
-  begin
-    t = resources("template[#{grants_path}]")
-  rescue
-    Chef::Log.info("Could not find previously defined grants.sql resource")
-    results = search(:users, "groups:dba OR groups:sysadmin")
-    alldbas = Array.new
-    results.each do |r|
-      alldbas << r['id']
-    end
-    t = template grants_path do
-      source "grants.sql.erb"
-      owner "root" unless platform? 'windows'
-      group node['mysql']['root_group'] unless platform? 'windows'
-      mode "0600"
-      action :create
-      variables(
-                :dbas => alldbas
-                )
-    end
-  end
+  # generate all passwords
+  node.set_unless['mysql']['server_debian_password'] = secure_password
+  node.set_unless['mysql']['server_root_password']   = secure_password
+  node.set_unless['mysql']['server_repl_password']   = secure_password
+  node.save
+end
 
-  if platform? 'windows'
-    windows_batch "mysql-install-privileges" do
-      command "\"#{node['mysql']['mysql_bin']}\" -u root #{node['mysql']['server_root_password'].empty? ? '' : '-p' }\"#{node['mysql']['server_root_password']}\" < \"#{grants_path}\""
-      action :nothing
-      subscribes :run, resources("template[#{grants_path}]"), :immediately
-    end
-  else
-    execute "mysql-install-privileges" do
-      command "\"#{node['mysql']['mysql_bin']}\" -u root #{node['mysql']['server_root_password'].empty? ? '' : '-p' }\"#{node['mysql']['server_root_password']}\" < \"#{grants_path}\""
-      action :nothing
-      subscribes :run, resources("template[#{grants_path}]"), :immediately
-    end
-  end
+case node['platform_family']
+when 'rhel'
+  include_recipe 'mysql::_server_rhel'
+when 'debian'
+  include_recipe 'mysql::_server_debian'
+when 'mac_os_x'
+  include_recipe 'mysql::_server_mac_os_x'
+when 'windows'
+  include_recipe 'mysql::_server_windows'
 end

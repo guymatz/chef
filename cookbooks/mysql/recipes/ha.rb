@@ -111,8 +111,8 @@ end
 ruby_block "master-log" do
   block do
     logs = %x[mysql -u root -p#{node[:mysql][:server_root_password]} -e "show master status;" | grep mysql].strip.split
-    node[:mysql][:server][:log_file] = logs[0]
-    node[:mysql][:server][:log_pos] = logs[1]
+    node.default[:mysql][:server][:log_file] = logs[0]
+    node.default[:mysql][:server][:log_pos] = logs[1]
     node.save
   end
   action :create
