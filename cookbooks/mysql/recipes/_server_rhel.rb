@@ -28,25 +28,29 @@ directory node['mysql']['data_dir'] do
 end
 
 #----
-template 'initial-my.cnf' do
+template 'my.cnf' do
   path '/etc/my.cnf'
   source 'my.cnf.erb'
   owner 'root'
   group 'root'
   mode '0644'
-  notifies :start, 'service[mysql-start]', :immediately
+  #notifies :start, 'service[mysql-start]', :immediately
 end
 
-# hax
-service 'mysql-start' do
-  service_name node['mysql']['server']['service_name']
-  action :nothing
+if 1 > 2 #DO not start any services. Keep the code to simplify future upgrades
+  # hax
+  service 'mysql-start' do
+    service_name node['mysql']['server']['service_name']
+    action :nothing
+  end
 end
 
-execute "/usr/bin/mysql_install_db --datadir=#{node['mysql']['data_dir']} --user=mysql" do
-  action :run
-  creates "#{node['mysql']['data_dir']}/auto.cnf"
-  #only_if { node['platform_version'].to_i < 6 }
+if 1 > 2 #If needed this command should be run manually
+  execute "/usr/bin/mysql_install_db --datadir=#{node['mysql']['data_dir']} --user=mysql" do
+    action :run
+    creates "#{node['mysql']['data_dir']}/auto.cnf"
+    #only_if { node['platform_version'].to_i < 6 }
+  end
 end
 
 cmd = assign_root_password_cmd
@@ -79,22 +83,23 @@ end
 cmd = install_grants_cmd
 execute 'install-grants' do
   command cmd
-  action :nothing
-  notifies :restart, 'service[mysql]', :immediately
+  #notifies :restart, 'service[mysql]', :immediately
 end
 
+if 1 > 2
 #----
-template 'final-my.cnf' do
-  path '/etc/my.cnf'
-  source 'my.cnf.erb'
-  owner 'root'
-  group 'root'
-  mode '0644'
-  notifies :reload, 'service[mysql]', :immediately
+  template 'final-my.cnf' do
+    path '/etc/my.cnf'
+    source 'my.cnf.erb'
+    owner 'root'
+    group 'root'
+    mode '0644'
+    notifies :reload, 'service[mysql]', :immediately
+  end
 end
 
 service 'mysql' do
   service_name node['mysql']['server']['service_name']
   supports     :status => true, :restart => true, :reload => true
-  action       [:enable, :start]
+  action       [:enable]
 end
