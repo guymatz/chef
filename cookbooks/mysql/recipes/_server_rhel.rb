@@ -27,6 +27,33 @@ directory node['mysql']['data_dir'] do
   recursive true
 end
 
+Chef::Log.info "node=#{node[:fqdn]}"
+if node[:fqdn] =~ /(use1b[a-z0-9-]+)([a|b])(\.ihr)?/i
+  cluster_name = $1
+  cluster_member = $2
+  cluster_prefix = cluster_name
+  case cluster_member
+  when "a"
+    cluster_node = 1
+  when "b"
+    cluster_node = 2
+  end
+elsif node[:fqdn] =~ /(iad[a-z-]+)(10)([0-9])(\.ihr)?/i
+  cluster_prefix=$1
+  cluster_node=$3
+  if node.chef_environment =~ /^production/
+    cluster_name="#{cluster_prefix}"
+  elsif node.chef_environment =~ /^stage/
+    cluster_name="#{cluster_prefix}-v760.ihr"
+  end
+end
+
+Chef::Log.info "cluster_name=#{cluster_name}, cluster_member=#{cluster_node}"
+cluster_ip = IPSocket::getaddress(cluster_name)
+Chef::Log.info "cluster_ip=#{cluster_ip}"
+
+node.set['mysql']['tunable']['server_id']=cluster_node
+
 #----
 template 'my.cnf' do
   path '/etc/my.cnf'
