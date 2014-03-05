@@ -16,10 +16,6 @@ unless tagged?('elasticsearchnew-deployed')
     include_recipe cb
   end
 
-  if /prod/ =~ node.chef_environment
-    include_recipe "elasticsearchnew::backup_client"
-  end
-  
   %w{ configs data input logs }.each do |der|
     directory "#{node[:elasticsearchnew][:ihrsearch_path]}/#{der}" do
       owner node[:elasticsearchnew][:user]
