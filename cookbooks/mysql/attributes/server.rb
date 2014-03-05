@@ -23,6 +23,8 @@ default['mysql']['port']                       = 3306
 case node["platform"]
 when "centos", "redhat", "fedora", "suse", "scientific", "amazon"
   default['mysql']['server']['packages']      = %w{mysql-server}
+  default['mysql']['version']                 = "5.6.16-1.el6"
+  #default['mysql']['version']                 = "5.6.16"
   default['mysql']['service_name']            = "mysqld"
   default['mysql']['basedir']                 = "/usr"
   default['mysql']['data_dir']                = "/var/lib/mysql"

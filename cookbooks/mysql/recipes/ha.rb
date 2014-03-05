@@ -2,10 +2,30 @@ require 'socket'
 
 include_recipe "heartbeat"
 
-node[:fqdn] =~ /([a-z0-9-]+)([a|b])(\.ihr)?/i
-cluster_name = $1
-cluster_member = $2
+Chef::Log.info "node=#{node[:fqdn]}"
+if node[:fqdn] =~ /(use1b[a-z0-9-]+)([a|b])(\.ihr)?/i
+  cluster_name = $1
+  cluster_member = $2
+  cluster_prefix = cluster_name
+  case cluster_member
+  when "a"
+	cluster_node = 1
+  when "b"
+	cluster_node = 2
+  end
+elsif node[:fqdn] =~ /(iad[a-z-]+)(10)([0-9])(\.ihr)?/i
+  cluster_prefix=$1
+  cluster_node=$3
+  if node.chef_environment =~ /^production/
+	cluster_name="#{cluster_prefix}"
+  elsif node.chef_environment =~ /^stage/
+	cluster_name="#{cluster_prefix}-v760.ihr"
+  end
+end
+
+Chef::Log.info "cluster_name=#{cluster_name}, cluster_member=#{cluster_node}"
 cluster_ip = IPSocket::getaddress(cluster_name)
+Chef::Log.info "cluster_ip=#{cluster_ip}"
 
 if node.chef_environment == "ec2-prod"
   cluster_netmask = "255.255.255.0"
@@ -21,7 +41,7 @@ end
 shortname = node[:hostname]
 
 
-cluster_slaves = search(:node, "roles:mysql-ha AND chef_environment:#{node.chef_environment} AND hostname:#{cluster_name}* AND NOT hostname:#{shortname}")
+cluster_slaves = search(:node, "roles:mysql-ha AND chef_environment:#{node.chef_environment} AND hostname:#{cluster_prefix}* AND NOT hostname:#{shortname}")
 
 
 Chef::Log.info("Checking HB Authkeys")

@@ -75,8 +75,11 @@ if platform? 'windows'
 end
 
 node['mysql']['server']['packages'].each do |package_name|
-  package package_name do
+  Chef::Log.info "Installing #{package_name}-#{node['mysql']['version']}"
+  yum_package package_name do
     action :install
+	flush_cache [:before]
+	version "#{node['mysql']['version']}"
   end
 end
 
@@ -123,16 +126,28 @@ unless platform?(%w{mac_os_x})
   end
 
   if node.run_list.include?("role[mysql-ha]")
-    node[:fqdn] =~ /([a-z0-9-]+)([a|b])(\.ihr)?/i
-    cluster_name = $1
-    cluster_member = $2
+    if node[:fqdn] =~ /([a-z0-9-]+)([a|b])(\.ihr)?/i
+      cluster_name = $1
+      cluster_member = $2
+      case cluster_member
+      when "a"
+        cluster_node = 1
+      when "b"
+        cluster_node = 2
+      end
+	end
+	elsif node[:fqdn] =~ /(iad-[a-z-]+10)([0-9])(\.ihr)?/i
+	  cluster_name=$1
+	  cluster_node=$2
+	  if node.chef_environment =~ /^production/
+	  	cluster_name="#{cluster_name}"
+	  elsif node.chef_environment =~ /^stage/
+	  	cluster_name="#{cluster_name}"
+	  end
+
+    Chef::Log.info "cluster_name=#{cluster_name}, cluster_member=#{cluster_member}"
     cluster_ip = IPSocket::getaddress(cluster_name)
-    case cluster_member
-    when "a"
-      cluster_node = 1
-    when "b"
-      cluster_node = 2
-    end
+    Chef::Log.info "cluster_ip=#{cluster_ip}"
   end
   
   template "#{node['mysql']['conf_dir']}/my.cnf" do

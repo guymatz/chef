@@ -42,9 +42,12 @@ when "mac_os_x"
   include_recipe 'homebrew'
 end
 
-node['mysql']['client']['packages'].each do |mysql_pack|
-  package mysql_pack do
+node['mysql']['client']['packages'].each do |package_name|
+  Chef::Log.info "Installing #{package_name}-#{node['mysql']['version']}"
+  yum_package "#{package_name}" do
     action :install
+	flush_cache [:before]
+	version "#{node['mysql']['version']}"
   end
 end
 
