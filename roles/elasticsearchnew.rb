@@ -1,11 +1,24 @@
 name "elasticsearchnew"
 description "Elastic Search New"
-default_attributes "java" => {
-  "jdk_version" => "7"
-}
-run_list(
-         "recipe[java]",
+all_env = [
+	 "recipe[java]",
          "recipe[elasticsearchnew]",
-	 "recipe[elasticsearchnew::plugins]",
-	 "recipe[elasticsearchnew::backup_client]"
-)
+         "recipe[elasticsearchnew::plugins]"
+          ]
+run_list(all_env)
+
+env_run_lists(
+              "_default" => all_env,
+              "qa2" => all_env,
+              "dev" => all_env,
+              "prod" => all_env + ["recipe[elasticsearchnew::backup_client]"],
+              "ec2-prod" => all_env,
+              "ec2" => all_env
+              )
+
+override_attributes({
+        "java" => {
+            "install_flavor" => "oracle",
+            "jdk_version" => "7"
+        }
+})
