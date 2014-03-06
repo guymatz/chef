@@ -25,7 +25,7 @@
     "bondage": "= 0.1.0",
     "bonded_interfaces": "= 0.1.0",
     "boost": "= 0.2.0",
-    "build-essential": "= 1.2.0",
+    "build-essential": "= 1.4.0",
     "cassandra": "= 0.2.5",
     "chef-client": "= 1.2.0",
     "chef-server": "= 1.1.0",
