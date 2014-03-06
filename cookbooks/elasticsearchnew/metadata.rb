@@ -6,7 +6,7 @@ description      'Installs/Configures elasticsearch-new'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '1.0.1'
 
-%w{ users nagios cron }.each do |dep|
+%w{ users nagios cron social }.each do |dep|
   depends dep
 end
 
