@@ -1,0 +1,96 @@
+{
+  "name": "iad-stg-mysql-util102.ihr",
+  "chef_environment": "stage",
+  "normal": {
+    "tags": [
+      "replication-configured"
+    ],
+    "snmp": {
+      "packages": [
+        "net-snmp",
+        "net-snmp-utils"
+      ],
+      "cookbook_files": [
+
+      ]
+    },
+    "sysctl": {
+      "kernel.sysrq": 0,
+      "kernel.core_uses_pid": 1,
+      "kernel.msgmnb": 65536,
+      "kernel.msgmax": 65536,
+      "kernel.shmmax": 33792937984,
+      "kernel.shmall": 8250229,
+      "net.ipv4.ip_forward": 0,
+      "net.ipv4.conf.all.send_redirects": 0,
+      "net.ipv4.conf.default.send_redirects": 0,
+      "net.ipv4.tcp_max_syn_backlog": 1280,
+      "net.ipv4.icmp_echo_ignore_broadcasts": 0,
+      "net.ipv4.conf.all.accept_source_route": 0,
+      "net.ipv4.conf.all.accept_redirects": 0,
+      "net.ipv4.conf.all.secure_redirects": 0,
+      "net.ipv4.conf.all.log_martians": 1,
+      "net.ipv4.conf.default.accept_source_route": 0,
+      "net.ipv4.conf.default.accept_redirects": 0,
+      "net.ipv4.conf.default.secure_redirects": 0,
+      "net.ipv4.icmp_ignore_bogus_error_responses": 1,
+      "net.ipv4.tcp_syncookies": 1,
+      "net.ipv4.conf.all.rp_filter": 1,
+      "net.ipv4.conf.default.rp_filter": 1,
+      "net.ipv4.tcp_timestamps": 0,
+      "kernel.exec-shield": 1,
+      "kernel.randomize_va_space": 1,
+      "net.core.rmem_default": 262144,
+      "net.core.wmem_default": 262144,
+      "net.core.rmem_max": 8388608,
+      "net.core.wmem_max": 8388608,
+      "net.core.netdev_max_backlog": 10000,
+      "net.ipv4.tcp_rmem": "8192 87380 8388608",
+      "net.ipv4.tcp_wmem": "8192 65536 8388608",
+      "net.ipv4.udp_rmem_min": 16384,
+      "net.ipv4.udp_wmem_min": 16384,
+      "net.ipv4.tcp_mem": "8388608 12582912 16777216",
+      "net.ipv4.udp_mem": "8388608 12582912 16777216",
+      "vm.swappiness": 1,
+      "vm.dirty_ratio": 50,
+      "vm.pagecache": 90,
+      "kernel.sem": "250 64000 32 256"
+    },
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    },
+    "mysql": {
+      "tunable": {
+        "server_id": "2",
+        "innodb_adaptive_flushing": false
+      },
+      "conf_dir": "/etc",
+      "confd_dir": "/etc/mysql/conf.d",
+      "socket": "/var/lib/mysql/mysql.sock",
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "old_passwords": 1,
+      "grants_path": "/etc/mysql_grants.sql",
+      "server_debian_password": "BxDaGLijsCfp9pOXJspA",
+      "server_root_password": "iCJgmM44yh2D40I0R5MK",
+      "server_repl_password": "33HhL4sqBsDw20OYJFh8"
+    },
+    "heartbeat": {
+      "config": {
+        "authkeys": "VqwIpuqhRuEgMHC_B1Cs",
+        "slaves": [
+          "iad-stg-mysql-util101",
+          "iad-stg-mysql-util102"
+        ],
+        "cluster": "iad-stg-mysql-util-v760.ihr"
+      }
+    }
+  },
+  "run_list": [
+    "role[base]",
+    "role[mysql-ha]",
+    "role[sonos-database]",
+    "role[ipplan-database]"
+  ]
+}
