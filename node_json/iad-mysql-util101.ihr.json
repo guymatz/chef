@@ -62,7 +62,6 @@
       }
     },
     "mysql": {
-      "version": "4.1.2",
       "conf_dir": "/etc",
       "old_passwords": 1,
       "grants_path": "/etc/mysql_grants.sql",
@@ -92,6 +91,7 @@
     "role[base]",
     "role[mysql-ha]",
     "role[sonos-database]",
-    "role[ipplan-database]"
+    "role[ipplan-database]",
+    "recipe[mysql@4.2.1]"
   ]
 }
