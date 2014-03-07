@@ -48,5 +48,5 @@ end
 	  end
 	end
 
-	tag("batchjobs-deployed")
+	tag("sonos-deployed")
 	end
