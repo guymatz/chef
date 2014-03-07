@@ -115,7 +115,7 @@
     "oncall": "= 0.1.0",
     "openldap": "= 0.9.4",
     "openssh": "= 1.1.0",
-    "openssl": "= 1.0.0",
+    "openssl": "= 1.1.0",
     "operations": "= 0.1.0",
     "ops.ihrdev.com": "= 0.1.0",
     "partners.iheart.com": "= 0.1.0",
