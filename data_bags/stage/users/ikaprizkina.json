@@ -6,7 +6,7 @@
   "nagios": {
           "email": "irinakaprizkina@clearchannel.com"
   },
-  "groups":	["dba", "jobserver-sudo", "amp", "nagios", "postgresql-sysadmin", "mongodb", "sonos-sudo"],
+  "groups":	["nagios-sudo", "mysqlutil-sudo", "dba", "jobserver-sudo", "amp", "nagios", "postgresql-sysadmin", "mongodb", "sonos-sudo"],
   "ssh_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDePx4klsR7EAFr5mMpIy+xkvD4iur8A3IFl56Sr84GS97iTjJpNCt+0JNemTBSoq/i8ae0ugWW4R8ShtrHsue2FRQVXiYIXZ6oxUBGwhaZ+c1bCv2CfdGzX0EZyrxafaJItDfLQ7fFRJtE6FuFmUi1RN+9O5MJ5wIqehD4Em/vIeg/MEEWZ/1QM782yvrPfOAjXXPXAJbe9kNkGDm4UpRqFnecW8Bf7xclyhOsfm+F6T7e3nxJp32cnzYLQBdjAh4RDv0+0uO72l23uiEJr0+tbb2PGn+pAY1G7PyDRqzaIMqKqU0k+6wDhbljvaafizqKZiOnwdOHtAxO2OeTyLcz cccnyc1ixk@ccomradmin.cci.clearchannel.com",
   "shell":	"/bin/bash",
     "uid": 5009
