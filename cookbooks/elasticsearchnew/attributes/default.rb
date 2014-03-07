@@ -1,4 +1,8 @@
 
+# GP added for prn_upd_index recipe per JIRA: OPS-6357
+default[:elasticsearchnew][:prn_idx_host] = "iad-search401-v200.ihr";
+default[:elasticsearchnew][:prn_idx_port] = "9200";
+default[:elasticsearchnew][:prn_idx_path] = "_ihr/index/prn/_induce";
 
 
 default[:elasticsearchnew][:version] = "0.90.3"
