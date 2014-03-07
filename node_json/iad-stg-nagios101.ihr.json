@@ -5,7 +5,8 @@
     "role[base]",
     "role[monitoring]",
     "recipe[users::admin_access]",
-    "recipe[users::dba]"
+    "recipe[users::dba]",
+    "recipe[users::nagios-sudo]"
   ],
   "normal": {
     "nagios": {
