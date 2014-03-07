@@ -91,6 +91,7 @@
     "role[base]",
     "role[mysql-ha]",
     "role[sonos-database]",
-    "role[ipplan-database]"
+    "role[ipplan-database]",                                                                                                                                                                                                         
+    "recipe[users::mysqlutil-sudo]"
   ]
 }
