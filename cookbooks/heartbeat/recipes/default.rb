@@ -31,11 +31,10 @@ package_list.each do |pkg|
   end
 end
 
-#service "heartbeat" do
-#  supports(
-#    :restart => true,
-#    :status => true
-#  )
-#  action :enable
-#end
-#JPD
+service "heartbeat" do
+  supports(
+    :restart => true,
+    :status => true
+  )
+  action :enable
+end
