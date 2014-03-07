@@ -8,6 +8,7 @@
   "json_class": "Chef::Environment",
   "description": "",
   "cookbook_versions": {
+    "mysql": "= 1.3.0"
   },
   "override_attributes": {
   },
