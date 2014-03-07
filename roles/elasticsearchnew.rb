@@ -1,7 +1,7 @@
 name "elasticsearchnew"
 description "Elastic Search New"
 all_env = [
-	 "recipe[java::oracle7]",
+	 "recipe[java::oracle-7]",
          "recipe[elasticsearchnew]",
          "recipe[elasticsearchnew::plugins]"
           ]
