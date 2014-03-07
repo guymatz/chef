@@ -8,7 +8,10 @@
     "role[postgres-server]",
     "recipe[users::splunk]",
     "recipe[ingestion::db_mounts]",
-    "role[dell]"
+    "role[dell]",
+    "role[ps-monitoring]",
+    "role[slony-daemon]"
+
   ],
   "normal": {
     "mysql": {
