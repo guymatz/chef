@@ -36,11 +36,16 @@ case node[:platform_family]
 when "debian"
   cluster_intf = "eth0"
 when "rhel"
-  cluster_intf = "bond0.760"
+  if node.chef_environment =~ /^prod/
+    cluster_intf = "bond0.260"
+  elsif node.chef_environment =~ /^stage/
+    cluster_intf = "bond0.760"
+  end	
 end
 shortname = node[:hostname]
 
 
+Chef::Log.info("search(:node, \"roles:mysql-ha AND chef_environment:#{node.chef_environment} AND hostname:#{cluster_prefix}* AND NOT hostname:#{shortname}\")")
 cluster_slaves = search(:node, "roles:mysql-ha AND chef_environment:#{node.chef_environment} AND hostname:#{cluster_prefix}* AND NOT hostname:#{shortname}")
 
 
