@@ -42,7 +42,7 @@ elsif node[:fqdn] =~ /(iad[a-z-]+)(10)([0-9])(\.ihr)?/i
   cluster_prefix=$1
   cluster_node=$3
   if node.chef_environment =~ /^prod/
-    cluster_name="#{cluster_prefix}"
+    cluster_name="#{cluster_prefix}-v150.ihr"
   elsif node.chef_environment =~ /^stage/
     cluster_name="#{cluster_prefix}-v760.ihr"
   end
