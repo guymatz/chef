@@ -10,6 +10,6 @@ version          '1.0.1'
   supports os
 end
 
-%w{ users application_python mysql nagios }.each do |cb|
+%w{ users application_python nagios mysql }.each do |cb|
   depends cb
 end
