@@ -2,8 +2,8 @@ name "mysql-ha"
 description "MySQL with Master-Master Replication"
 all_env = [
            "recipe[mysql]",
-           "recipe[mysql]",
-           "recipe[mysql]"
+           "recipe[mysql::server]",
+           "recipe[mysql::ha]"
           ]
 run_list(all_env)
 

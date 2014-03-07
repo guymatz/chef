@@ -1,4 +1,4 @@
-name "mysql-ha"
+name "mysql-ha-4-1-2"
 description "MySQL with Master-Master Replication"
 all_env = [
            "recipe[mysql@4.1.2]",
