@@ -72,8 +72,9 @@
           Header set Edge-Control "!no-store, max-age=31536000s"
           Header set X-IHR-Edge-Control "!no-store, max-age=31536000s"
     </LocationMatch>
-    ProxyPass /flash http://securestatic.iheart.com/web/flash
-    ProxyPass /widget/ http://securestatic.iheart.com/web/widget/
+    ProxyPass /flash http://pylon.iheart.com/flash
+    ProxyPass /widget/ http://pylon.iheart.com/widget/latest/
+    ProxyPass /sdk/bridge/ http://pylon.iheart.com/sdk/latest/
     <Location />
            Order Deny,Allow
            Allow from all
