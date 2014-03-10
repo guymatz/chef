@@ -4,13 +4,13 @@ default[:sonos][:deploy_path] = "/data/apps/sonos"
 
 case chef_environment
 when /^prod/
-  default[:sonos][:mysql_vip] = "use1b-sonos-vip-v150.ihr"
+  default[:sonos][:mysql_vip] = "iad-mysql-util-v260.ihr"
 when /^ec2-prod/
   default[:sonos][:mysql_vip] = "use1b-sonos-vip-v150.ihr"
 when /^stage/
-  default[:sonos][:mysql_vip] = "iad-stg-sonos-vip-v150.ihr" 
+  default[:sonos][:mysql_vip] = "iad-stg-sonos-vip-v760.ihr" 
 when /^dev/
-  default[:sonos][:mysql_vip] = "iad-stg-sonos-vip-v150.ihr"
+  default[:sonos][:mysql_vip] = "iad-stg-sonos-vip-v760.ihr"
 end
 
 case node[:platform_family]
