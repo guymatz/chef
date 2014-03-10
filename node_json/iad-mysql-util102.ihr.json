@@ -12,7 +12,7 @@
         "innodb_adaptive_flushing": false
       },
       "pid_file": "/var/run/mysqld/mysqld.pid",
-      "server_root_password": "ACCgmM44yh2D40I0R5MK",
+      "server_root_password": "ACC9Tqj4HHRcfz2wdPVq",
       "socket": "/var/lib/mysql/mysql.sock"
     },
     "nagios": {
