@@ -79,6 +79,7 @@
     "inspircd": "= 0.5.2",
     "install_from": "= 3.0.4",
     "ipplan": "= 0.1.0",
+    "iscale": "= 1.0.1",
     "iptables": "= 0.12.0",
     "java": "= 1.10.2",
     "jenkins": "= 0.8.0",
