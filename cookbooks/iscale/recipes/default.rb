@@ -14,7 +14,7 @@ template '/etc/init.d/iscale' do
   mode "755"
   variables ({
     :user         => "#{node[:iscale][:user]}",
-    :app_home     => "#{node[:iscale][:app_home]}",
+    :app_home     => "#{node[:iscale][:app_homedir]}",
     :lock_file    => "#{node[:iscale][:lock_file]}"
   })
 end
