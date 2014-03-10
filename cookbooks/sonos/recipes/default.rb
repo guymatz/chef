@@ -27,6 +27,7 @@ end
 	  app_secrets = all_secrets[node.chef_environment]
 	  db_user = app_secrets['db_user']
 	  db_name = "sonos_#{node.chef_environment}".gsub('-', '_')
+      db_host = node[:sonos][:mysql_vip]
 	  django do
 	    interpreter "python27"
 	    requirements "requirements.txt"
@@ -36,6 +37,7 @@ end
 	    database do
 	      database db_name
 	      username db_user
+          host     db_host
 	      password app_secrets['db_pass']
 	      engine "mysql"
 	    end
