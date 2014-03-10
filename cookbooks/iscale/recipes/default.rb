@@ -63,6 +63,11 @@ unless tagged?("#{node[:iscale][:deploy_tag]}") && node.chef_environment == "pro
     notifies :restart, "service[iscale]", :immediately
   end
 
+  execute "install_npm_requirements" do
+    cwd "#{node[:iscale][:app_homedir]}"
+    user "root"
+    command "npm config set ca null && npm install -g npm && npm install"
+  end
   
   tag("#{node[:iscale][:deploy_tag]}") if node.chef_environment == "prod"
 
