@@ -9,7 +9,7 @@
       "role[auto-bonded]",
       "recipe[jenkins::server]",
       "recipe[jenkins::proxy_nginx]",
-      "recipe[users::jenkins]"
+      "recipe[users::jenkins_prod]"
   ],
   "description": "",
   "chef_type": "role",
