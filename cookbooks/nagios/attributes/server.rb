@@ -25,6 +25,13 @@
 case chef_environment
 when /^prod/
   default['nagios']['pagerduty_key'] = "05f110a1aa524e86937256ad2609d270"
+  default['nagios']['server']['url'] = 'http://yum.ihr/files'
+when /^hls/
+  default['nagios']['pagerduty_key'] = String.new
+  default['nagios']['server']['url'] = 'http://prdownloads.sourceforge.net/sourceforge/nagios'
+else
+  default['nagios']['pagerduty_key'] = String.new
+  default['nagios']['server']['url'] = 'http://yum.ihr/files'
 end
 
 case node['platform']
@@ -59,7 +66,6 @@ default['nagios']['ssl_req'] = "/C=US/ST=NY/L=NewYork/O=iheartradio/OU=Operation
   "CN=#{node['nagios']['server_name']}/emailAddress=ops@#{node['nagios']['server_name']}"
 
 # for server from source installation
-default['nagios']['server']['url']      = 'http://yum.ihr/files'
 default['nagios']['server']['version']  = '3.4.1'
 default['nagios']['server']['checksum'] = 'a5c693f9af22410cc17d6da9c0df9bd65c47d787de3f937b5ccbda934131f8c8'
 

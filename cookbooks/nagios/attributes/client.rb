@@ -40,12 +40,12 @@ default['nagios']['nrpe']['dont_blame_nrpe']   = "0"
 default['nagios']['nrpe']['command_timeout']   = "60"
 
 # for plugin from source installation
-default['nagios']['plugins']['url']      = 'http://yum.ihr/files'
 default['nagios']['plugins']['version']  = '1.4.15'
 default['nagios']['plugins']['checksum'] = '51136e5210e3664e1351550de3aff4a766d9d9fea9a24d09e37b3428ef96fa5b'
 
 # for nrpe from source installation
-default['nagios']['nrpe']['url']      = 'http://yum.ihr/files'
+default['nagios']['nsca']['version']  = '2.7.2'
+default['nagios']['nsca']['checksum'] = 'fb41e3b536735235056643fb12187355c6561b9148996c093e8faddd4fced571'
 default['nagios']['nrpe']['version']  = '2.12'
 default['nagios']['nrpe']['checksum'] = '7e8d093abef7d7ffc7219ad334823bdb612121df40de2dbaec9c6d0adeb04cfc'
 default['nagios']['nrpe']['mon_host_ips'] = [ '10.5.36.11',
@@ -57,13 +57,23 @@ default['nagios']['nrpe']['mon_host_ips'] = [ '10.5.36.11',
                                               '10.5.53.12',
                                               '10.5.53.145',
                                               '10.5.52.28',
-                                              '10.5.54.21'
+                                              '10.5.54.21',
+                                              '10.5.57.11',
+                                              '10.5.58.28'
                                             ]
 
 # for nsca from source installation
-default['nagios']['nsca']['url']      = 'http://yum.ihr/files'
-default['nagios']['nsca']['version'] = "2.7.2"
-default['nagios']['nsca']['checksum'] = 'fb41e3b536735235056643fb12187355c6561b9148996c093e8faddd4fced571'
+case chef_environment
+when /^hls/
+  default['nagios']['nsca']['url']    = 'http://prdownloads.sourceforge.net/sourceforge/nagios' 
+  default['nagios']['nrpe']['url']    = 'http://prdownloads.sourceforge.net/sourceforge/nagios'
+  default['nagios']['plugins']['url'] = 'https://www.nagios-plugins.org/download'
+else
+  default['nagios']['nsca']['url']      = 'http://yum.ihr/files'
+  default['nagios']['nrpe']['url']      = 'http://yum.ihr/files'
+  default['nagios']['plugins']['url']   = 'http://yum.ihr/files'
+end
+
 
 default['nagios']['checks']['memory']['critical'] = 150
 default['nagios']['checks']['memory']['warning']  = 250
