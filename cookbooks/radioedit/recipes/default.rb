@@ -8,10 +8,6 @@
 #
 include_recipe "users::deployer"
 
-node[:radioedit][:core][:packages].each do |p|
-  package p
-end
+#include_recipe "radioedit::radioedit-users"
+include_recipe "users::radioedit"
 
-node[:radioedit][:core][:pips].each do |p|
-  python_pip p
-end

@@ -1,15 +1,14 @@
 {
-  "environment" : "<%= node[:radioedit][:env] %>",
+  "environment" : "<%= @environment %>",
   "mongosd": {
-    "mongosconfigdbs": "<%= node[:radioedit][:mongo_cstring] %>"
+    "mongosconfigdbs": "<%= @mongo_cstring %>"
   },
   "memcached": {
     "servers": [
-      "iad-radioedit101.ihr:11211",
-      "iad-radioedit102.ihr:11211"
+      "localhost:11211"
     ] 
   },
-  "cdn_url": "<%= node[:radioedit][:cdn_url] %>",
-  "binstore": "<%= node[:radioedit][:asset_dir] %>",
-  "elasticsearch" : "http://<%= node[:ipaddress] %>:9200/"
+  "cdn_url": "<%= @cdn_url %>",
+  "binstore": "<%= @asset_dir %>",
+  "elasticsearch" : "http://<%= @ip_address %>:9200/"
 }
