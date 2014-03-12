@@ -347,5 +347,11 @@
     "iv": "7CtTFyKRy3805UsksFr+aw==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
+  },
+  "sbmg": {
+    "iv": "9GrDToa+Z26HEYmn5WdaxA==\n",
+    "cipher": "aes-256-cbc",
+    "version": 1,
+    "encrypted_data": "JAEL9H/UKgorevVfKDPUGR6z2w9S0+yK2LatO+JFrQj2QUs7gz3IqfB5Gwfl\npDIF\n"
   }
 }
