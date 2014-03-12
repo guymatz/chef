@@ -21,7 +21,12 @@
 
 # default attributes for all platforms
 #default['ntp']['servers']   = %w{ 0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org 3.pool.ntp.org }
-default['ntp']['servers']   = %w{ ntp101.ihrdev.com ntp102.ihrdev.com }
+case chef_environment
+when /^hls/
+  default['ntp']['servers']   = %w{ iad-hls1-admin101.ihr iad-hls1-admin102.ihr }
+else
+  default['ntp']['servers']   = %w{ ntp101.ihrdev.com ntp102.ihrdev.com }
+end
 default['ntp']['peers'] = Array.new
 default['ntp']['restrictions'] = Array.new
 
