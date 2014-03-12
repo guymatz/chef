@@ -34,7 +34,8 @@ env_run_lists(
               "stage" => all_env + ["role[monitored]"],
               "prod" => all_env + ["role[monitored]"],
               "ec2-prod" => all_env + ["role[monitored]"],
-              "ec2" => all_env
+              "ec2" => all_env,
+              "hls"=> all_env
               )
 
 default_attributes ({
