@@ -3,7 +3,7 @@
   "chef_environment": "_default",
   "run_list": [
     "role[base]",
-    "role[users::dev]"
+    "role[users::dev]",
     "role[users::webplayer]"
   ],
 }
