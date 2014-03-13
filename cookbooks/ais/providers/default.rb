@@ -13,9 +13,6 @@ action :deploy do
     package 'ais' do
       version new_resource.version 
     end
-    user_ulimit new_resource.owner do
-      filehandle_limit 1048576
-    end
     service 'ais'
     %w{ user.config etc/ais.instance }.each do |config|
       template "#{new_resource.path}/#{config}" do
