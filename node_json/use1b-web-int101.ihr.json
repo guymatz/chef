@@ -1,0 +1,9 @@
+{
+  "name": "use1b-web-int101.ihr",
+  "chef_environment": "_default",
+  "run_list": [
+    "role[base]",
+    "role[users::dev]"
+    "role[users::webplayer]"
+  ],
+}
