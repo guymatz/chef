@@ -35,7 +35,7 @@ env_run_lists(
               "prod" => all_env + ["role[monitored]"],
               "ec2-prod" => all_env + ["role[monitored]"],
               "ec2" => all_env,
-              "hls"=> all_env
+              "hls"=> all_env + ["role[monitored]"]
               )
 
 default_attributes ({
