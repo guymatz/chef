@@ -1,0 +1,5 @@
+{
+  "id": "Check_Vantrix",
+  "hostgroup_name": "vantrix",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Check_Vantrix -t 20"
+}

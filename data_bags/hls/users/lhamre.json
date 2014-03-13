@@ -1,0 +1,14 @@
+{
+    "id": "lhamre",
+"uid": 5005,
+    "name": "Lasse Hamre",
+    "email": "lassehamre@clearchannel.com",
+    "groups": ["heartbeat", "dev", "data-team", "attivio", "etl", "jobserver", "amp", "nagios", "membase", "rabbit", "mongodb", "facebook", "elasticsearch"],
+    "nagios": {
+        "email": "lassehamre@clearchannel.com"
+    },
+    "htpasswd": "{SHA}gTqndokzSIUwdog8TMd88J2+okY=",
+    "ssh_keys": [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtqeer0apFHKu3cyiRoi3kDVIhaQRrmqcxj8WAHjT2RxIzkINuVcvvGiRp1KGb6h0458TtuRCsVO0rL+rzkCoIBmZHRe3WZedcWvtANLYFTEgmC2gMt4Tw7GaX6/r4FHpjpiTXyLxjGOFlWWfcuJ6D8qgHG0qff9ynLT4fju3UVlHcI8h8mYGCgU6eXOiqKLOl8b3+7KK5xsmjjj84LXwLWJtqGcWbpa8Ox0sGO94VY/xHPyYcVBQYFST6qilVqmyPmaiIznctfkQc4FZ3vonNyu9Xsm0WwZ8F+8BEangknBZ5Hzvn3RJeAn1XO1jvu1cLUdlgFnRdA3W73pafiyZ3 lhamre@lhamre"
+]
+}

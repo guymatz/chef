@@ -1,0 +1,8 @@
+{
+  "id": "Check-Proc-Heartbeat",
+  "hostgroup_name": "postgres-server-ha",
+  "contact_groups": [
+    "dba-team"
+  ],
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c check_app_proc_heartbeat -t 20"
+}

@@ -1,0 +1,6 @@
+{
+  "host_name": "use1b-jobserver101a.ihr",
+  "id": "Liveradio-Thumb-ETL-Job",
+  "freshness_threshold": "7500",
+  "contact_groups": ["etl"]
+}

@@ -1,0 +1,5 @@
+{
+  "id": "Vast-ProxyPort",
+  "hostgroup_name": "vast",
+  "command_line": "$USER1$/check_tcp -H $HOSTADDRESS$ -p 8080"
+}

@@ -1,0 +1,12 @@
+{
+    "id": "chef",
+    "cookie": "SERVERID insert nocache indirect",
+    "vhosts": [ "chef.ihrdev.com" ],
+    "check": "True",
+    "backends": [
+	{
+            "server": "use1b-ss-chef002.ihrdev.com",
+            "port": "4040"
+	}
+    ]
+}

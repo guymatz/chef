@@ -1,0 +1,6 @@
+{
+  "id": "AIS-Mount-Status",
+  "hostgroup_name": "ais-cluster1-master,ais-cluster1-edge",
+  "command_line": "$USER1$/check_ais_mounts.py --url 'http://$HOSTADDRESS$/monitoring/stats?mounts' --user 'admin' --password 'hackme' --secs 180",
+  "contact_groups": ["admins"]
+}

@@ -1,0 +1,5 @@
+{
+    "id": "facebook",
+    "hostgroup_name": "facebook",
+    "search_query": "name:iad-facebook*"
+}

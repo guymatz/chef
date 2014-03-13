@@ -1,0 +1,12 @@
+{
+    "id": "basejump",
+    "cookie": "SERVERID insert nocache indirect",
+    "vhosts": [ "basejump.ihrdev.com" ],
+    "check": "True",
+    "backends": [
+	{
+            "server": "iad-admin101.ihr",
+            "port": "8080"
+	}
+    ]
+}

@@ -1,0 +1,5 @@
+{
+  "id": "Imgproxy-Alive",
+  "hostgroup_name": "imgproxy_server",
+  "command_line": "$USER1$/check_http $HOSTADDRESS$ -u '/catalog/a34748?ops=fit(400,400)'"
+}

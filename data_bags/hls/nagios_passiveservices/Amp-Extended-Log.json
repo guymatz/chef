@@ -1,0 +1,5 @@
+{
+    "id": "amp-extended-log",
+    "hostgroup_name": "amp",
+    "freshness_threshold": "1000"
+}

@@ -1,0 +1,15 @@
+{
+    "id": "astone",
+    "name": "Andrew Stone",
+    "email":    "astonecc@gmail.com",
+    "groups":   ["dev", "webplayer", "quickio", "sysadmin"],
+    "htpasswd": "{SHA}4ePk3lP7lhQiIeDoxNJrY5SCP34=",
+    "ssh_keys": [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvaVOGKGxuycPTx8uFcKrOEJonnYyu78Le6S4VBOyMM7giCp/wNaAIZsDuddPoDt9T9alS/ZEJ+YBoOFcmqVWhSsxpdv+mpAcv2en4s5fl5Gfr8m4UMGlKmVZhji++g5pxUGALZ3I/krSPWOmAiZClXBqU0RT7ZfdUvyHLxIUhEUqC3BAmp7ykT6cgG4EbeQ37OMnUtVdWjiVgJz4XN3MOeuda6zx74cndL5qU4eUjzHK8gLs0VIdxVbCCZO+j6AVnq92pySumZjub621YssJsS2uzQxgK+10InpiqLW6VpGsZ3nHvACkU3ym+V804n+A2LeN98VW5F6mLprxYegR4w== andi@apollo",
+   "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA9v0J9Tpz2cvUNoRbDjs6nBzeqF6/H1Eh8FCM3uHKWNPdIs1OumzI4yvgF+j611sGQxgswGIHjjWSEA5zAidRncmXxEtkInAbLFF2ibTEeVvK0TIsbpWU0cSTPdHrnTq/h4ySZX4Y1GgpSojxe5dVQa5ekQtjbTAhmAjkNS4Yf2M0Fa28lqIj/6cfYJYpYaZ31zM/35d8dPByjhtXoVw5HmQN0W5ft/eTwdQgXoir9yp3jGgGddB42HyxfTuLn2sIP10ZwhBhTg9ocdCTtNcDkyLHsDXGA9eEBcNeYAlWYBggdeBhk8a/omvRbyZL52kTUO9ICNe8DZcb4KyV3XanOQ== andi@schwarz",
+	"ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAC5eFeKmcZZqlULgmu/2ltBs14glAmZcf5BvicfEJQ5HDRH/VRfQexK702Y5vbBRdmFdMhXWf/bjOCkUpwAPlB3SwChgMVxuabUlxosz25f3VOrwjIu7z5GDnJanoSupHYTHJnpV7WosyA4R4x7U4JtZFi1+ge0hE4uL6JD09m/pC1nPw== andi@schwarz",
+	"ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBADUZR1QHYxuvboGcJL/YCugZjbyNfQlH+YKEZUtm7Z57LB2b9tX+t5C1/khq451iyoNACzSkmBSlxaixdUKqU8EEgD9cjvAtJCNMMTzahE/9KI838ZI1l+undxn5txbP6+XchXE4PEHHnj8wkFvww87fqxqVJ8UjE4qGn+zMYiJm9gW9g== andi@apollo"
+    ],
+    "shell":    "/bin/bash",
+    "uid": 50222
+}

@@ -1,0 +1,5 @@
+{
+  "id": "Check_incrond",
+  "hostgroup_name": "encftp101",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Check_incrond -t 20"
+}

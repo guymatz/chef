@@ -1,0 +1,5 @@
+{
+  "id": "Enrichment-Consumer-Running",
+  "host_name": "use1b-jobserver101a.ihr",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c check_app_proc_enrichmentconsumer -t 20"
+}

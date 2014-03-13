@@ -34,13 +34,11 @@ env_run_lists(
               "stage" => all_env + ["role[monitored]"],
               "prod" => all_env + ["role[monitored]"],
               "ec2-prod" => all_env + ["role[monitored]"],
-              "ec2" => all_env
+              "ec2" => all_env,
+              "hls"=> all_env + ["role[monitored]"]
               )
 
 default_attributes ({
-                      "ntp" => {
-                        "servers" => ["ntp101.ihrdev.com", "ntp102.ihrdev.com"],
-                      },
                       "snmp" => {
                         "community" => "37cd175ce59c39f191"
                       },

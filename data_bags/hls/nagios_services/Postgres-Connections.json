@@ -1,0 +1,8 @@
+{
+  "contact_groups": [
+    "dba-team"
+  ],
+  "id": "Postgres-Connections",
+  "hostgroup_name": "postgres-server",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Postgres-Connections -t 20"
+}

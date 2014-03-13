@@ -1,0 +1,5 @@
+{
+  "id": "Sonos-Gunicorn",
+  "hostgroup_name": "sonos",
+  "command_line": "$USER1$/check_tcp -H $HOSTADDRESS$ -p 8080 -w 5 -c 10"
+}

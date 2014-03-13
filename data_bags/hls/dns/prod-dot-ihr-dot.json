@@ -1,0 +1,5 @@
+{
+    "zone": "prod.ihr",
+    "id": "prod-dot-ihr",
+    "mode": "forward"
+}
