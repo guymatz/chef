@@ -1,0 +1,6 @@
+{
+  "id": "Mongodb-Connect",
+  "hostgroup_name": "mongodb_server",
+  "command_line": "$USER1$/check_mongodb.py -H $HOSTADDRESS$ -A connect -P 37017 -W 2 -C 4",
+  "contact_groups": ["admins", "dba-team"]
+}

@@ -1,0 +1,6 @@
+{
+  "id": "Exact-Target-Email-Status",
+  "host_name": "use1b-jobserver101a.ihr",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c check_exact_target_email_status -t 20",
+  "contact_groups": ["etl"]
+}

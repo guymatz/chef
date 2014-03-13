@@ -1,0 +1,5 @@
+{
+    "id": "amp-membase",
+    "hostgroup_name": "amp-membase",
+    "search_query": "name:iad-amp-cache*"
+}

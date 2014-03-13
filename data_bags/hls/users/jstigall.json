@@ -1,0 +1,12 @@
+{
+    "id": "jstigall",
+    "name": "Josh Stigall",
+    "email":    "",
+    "groups":   ["sysadmin"],
+    "ssh_keys": [
+        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCasSttG2U3yNCISAaXnq9RE3E0c+nAfsKERj9VhTPHtn+J1aMl7xbuvV0NNLu8RPpEIgihLs0xQ6R3MEPX868mwkptLn60odUGI+H2v1o3w+fyEaInZpvALfF1bJFCFuV8cwfGgSurzq/xs7lrFsQh4rfGye+GHj4/uS241XLa7Khyh1JPKVLmJHVZaBfSXDmhPU+x06T5K3kEk/NFYb4unhBV5jx8fLUKzETN1D84vSUJqQ7m5W6fLbSIhGtWQ/zIdf5tE3c2AH6Xur2ySticRu3FBDeO5QPbYhBsPll+GRbEBOtxtYwKIVIR4lt/FvsH5cylahB/eseLIXRDnfP7 Josh@nemesis-2.home"
+    ],
+    "shell":    "/bin/bash",
+    "htpasswd": "{SHA}JAu+x3cAm2sYmGFla0sSfoDRSAM=",
+    "uid": 5051
+}

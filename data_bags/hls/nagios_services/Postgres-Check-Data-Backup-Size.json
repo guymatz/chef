@@ -1,0 +1,10 @@
+{
+  "id": "Postgres-Check-Data-Backup-Size",
+  "hostgroup_name": "ps-monitoring",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c ps_check_backup_data_size -t 20",
+  "contact_groups": ["dba"],
+  "check_interval": "86400",
+  "retry_interval" : "7200",
+  "notification_interval" : "0",
+  "max_check_attempts" : "3"
+}

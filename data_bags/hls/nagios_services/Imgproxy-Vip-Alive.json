@@ -1,0 +1,5 @@
+{
+  "id": "Imgproxy-Vip-Alive",
+  "hostgroup_name": "zeus",
+  "command_line": "$USER1$/check_http iad-imgproxy-vip-v150.ihr -u '/catalog/a34748?ops=fit(400,400)'"
+}

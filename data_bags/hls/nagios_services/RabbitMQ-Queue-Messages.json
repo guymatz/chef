@@ -1,0 +1,6 @@
+{
+  "id": "RabbitMQ-Queue-Messages",
+  "hostgroup_name": "amp_rabbit_server",
+  "command_line": "$USER1$/check_rabbitmq_queues.py --url 'http://$HOSTADDRESS$:15672/api/queues/%2famp' --user nagios --pass inrabbitmqdatabag",
+  "contact_groups": ["admins","rabbit"]
+}

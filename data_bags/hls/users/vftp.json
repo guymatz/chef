@@ -1,0 +1,10 @@
+{
+  "id": "vftp",
+  "uid": 999,
+  "name":    "FTP Server User",
+  "email":    "ccdsany@clearchannel.com",
+  "groups":    ["vftp"],
+  "ssh_keys": [
+  ],
+  "shell":    "/bin/false"
+}

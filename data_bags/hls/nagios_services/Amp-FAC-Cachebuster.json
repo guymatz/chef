@@ -1,0 +1,4 @@
+{
+    "id": "Amp-FAC-Cachebuster",
+    "hostgroup_name": "amp",
+    "command_line": "$USER1$/check_http -v -H $HOSTADDRESS$ -p 8080  -u /api/v1/catalog/getTrackByTrackId?trackId=488148\\&`tr -dc A-Za-z0-9 < /dev/urandom |  head -c 14` -w 1 -c 3"

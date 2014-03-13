@@ -1,0 +1,5 @@
+{
+    "id": "Amp-Check-Genre",
+    "hostgroup_name": "amp",
+    "command_line": "$USER1$/check_http -v -H $HOSTADDRESS$ -p 8080  -u /api/v1/catalog/getGenres -t 10 -s \"Pop\" -e 'HTTP/1.1 200' -w 1 -c 3"
+}

@@ -1,0 +1,5 @@
+{
+  "host_name": "iad-search101",
+  "id": "Attivio-Process-Connector",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Attivio_Process_Connector -t 45"
+}

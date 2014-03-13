@@ -1,0 +1,5 @@
+{
+  "address": "iad-auth101-v260.ihr",
+  "hostgroups": ["VIPs","ps-monitoring"],
+  "id": "iad-auth101-v260-ihr"
+}

@@ -1,0 +1,11 @@
+{
+    "id": "iad-web-cache",
+    "instances": [
+        {
+            "port": "11211",
+            "memory": "8096",
+            "maxconn": "2048",
+            "listen": "0.0.0.0"
+        }
+    ]
+}

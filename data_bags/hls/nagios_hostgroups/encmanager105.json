@@ -1,0 +1,5 @@
+{
+    "id": "encmanager105",
+    "hostgroup_name": "encmanager105",
+    "search_query": "name:iad-encmanager105*"
+}

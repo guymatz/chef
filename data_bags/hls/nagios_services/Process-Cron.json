@@ -1,0 +1,5 @@
+{
+  "id": "Process-Cron",
+  "hostgroup_name": "jobserver",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Process-Cron -t 20"
+}

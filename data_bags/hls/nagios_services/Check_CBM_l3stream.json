@@ -1,0 +1,5 @@
+{
+  "id": "Check_CBM_l3stream",
+  "hostgroup_name": "CB",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Check_CBM_l3stream -t 20"
+}

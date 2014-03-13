@@ -1,0 +1,5 @@
+{
+  "host_name": "127.0.0.1",
+  "id": "Extern-ftp",
+  "command_line": "$USER1$/check_ftp -H nolitahouse.iheart.com"
+}

@@ -1,0 +1,5 @@
+{
+  "id": "MixIn_Converter_Running",
+  "hostgroup_name": "encmanager105",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c MixIn_Converter_Running"
+}

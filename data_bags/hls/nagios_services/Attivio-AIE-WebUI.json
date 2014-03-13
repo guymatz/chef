@@ -1,0 +1,5 @@
+{
+  "host_name": "iad-search101",
+  "id": "Attivio-AIE-WebUI",
+  "command_line": "$USER1$/check_tcp -H $HOSTADDRESS$ -p 19200"
+}
