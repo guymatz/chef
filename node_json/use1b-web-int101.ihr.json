@@ -5,5 +5,5 @@
     "role[base]",
     "role[users::dev]",
     "role[users::webplayer]"
-  ],
+  ]
 }
