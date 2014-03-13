@@ -78,39 +78,33 @@ nagios_nrpecheck "check_load" do
   command "#{node['nagios']['plugin_dir']}/check_load"
   warning_condition node['nagios']['checks']['load']['warning']
   critical_condition node['nagios']['checks']['load']['critical']
-  action :add
 end
 
 nagios_nrpecheck "check_all_mountpoints" do
   command "#{node['nagios']['plugin_dir']}/check_mountpoints.sh"
-  action :add
 end
 
 nagios_nrpecheck "check_all_disks" do
   command "#{node['nagios']['plugin_dir']}/check_disk"
   warning_condition "8%"
   critical_condition "5%"
-  parameters "-A -x /dev/shm -X nfs -i /boot"
-  action :add
+  parameters "-A -x /dev/shm -X nfs -i /boot -i /var/named*"
 end
 
 nagios_nrpecheck "check_users" do
   command "#{node['nagios']['plugin_dir']}/check_users"
   warning_condition "20"
   critical_condition "30"
-  action :add
 end
 
 nagios_nrpecheck "check_Linux_bonding" do
   command "#{node['nagios']['plugin_dir']}/check_linux_bonding.pl -s"
-  action :add
 end
 
 nagios_nrpecheck "check_nic_speed" do
   command "#{node['nagios']['plugin_dir']}/check_nic_speed"
   warning_condition "1000"
   critical_condition "100"
-  action :add
 end
 
 cookbook_file "/usr/bin/nagios_passive.py" do
