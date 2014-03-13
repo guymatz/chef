@@ -1,7 +1,6 @@
 # Performance sysctl settings
 
 default['ais']['sysctl_settings'] = {
-                                     'fs.file-max' => '1048576',
                                      'net.core.netdev_max_backlog' => '400000',
                                      'net.core.optmem_max' => '10000000',
                                      'net.core.rmem_default' => '10000000',
