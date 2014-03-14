@@ -30,12 +30,24 @@ if ais_stat_request.status_code != 200:
 # Parse the XML
 ais_stat_request_tree = ElementTree.fromstring(ais_stat_request.content)
 
+# Grab responses
+req_200 = 0.0
+req_400 = 0.0
+req_500 = 0.0
+for child in ais_stat_request_tree.findall(".//response"):
+    if child.attrib['code'] == '2xx':
+        req_200 = float(child.text)
+    if child.attrib['code'] == '4xx':
+        req_400 = float(child.text)
+    if child.attrib['code'] == '5xx':
+        req_500 = float(child.text)
+
 # Check for 200s
-if int(ais_stat_request_tree[13].text) == 0:
+if int(req_200) == 0:
     print "CRITICAL: There are no 200 responses!"
     sys.exit(2)
 
-error_percentage = (float(ais_stat_request_tree[15].text) + float(ais_stat_request_tree[16].text)) / float(ais_stat_request_tree[13].text)
+error_percentage = (req_400 + req_500) / req_200
 
 # Fire critical if error rate is above the maximum desired
 if error_percentage > float(args.percentage):
