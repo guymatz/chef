@@ -61,7 +61,7 @@
     "gems": "= 0.8.3",
     "git": "= 1.0.2",
     "gitpaste": "= 0.0.3",
-    "graphite": "= 0.4.2",
+    "graphite": "= 1.0.0",
     "groovy": "= 0.0.1",
     "gunicorn": "= 1.1.1",
     "hadoop-server": "= 1.0.0",
