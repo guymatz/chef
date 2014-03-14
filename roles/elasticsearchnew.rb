@@ -3,7 +3,8 @@ description "Elastic Search New"
 all_env = [
 	 "recipe[java::oracle-7]",
          "recipe[elasticsearchnew]",
-         "recipe[elasticsearchnew::plugins]"
+         "recipe[elasticsearchnew::plugins]",
+         "recipe[users::elasticsearch]"
           ]
 run_list(all_env)
 
