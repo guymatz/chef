@@ -6,10 +6,13 @@
   "env_run_lists": {
   },
   "run_list": [
-      "role[auto-bonded]",
-      "recipe[jenkins::server]",
-      "recipe[jenkins::proxy_nginx]",
-      "recipe[users::jenkins_prod]"
+    "recipe[java::oracle-7]",
+    "recipe[apache2]",
+    "recipe[jenkins::users]",
+    "recipe[jenkins::server]",
+    "recipe[users::amp]",
+    "recipe[users::jenkins]",
+    "recipe[maven]"
   ],
   "description": "",
   "chef_type": "role",
