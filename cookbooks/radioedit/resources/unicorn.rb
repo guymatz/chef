@@ -40,3 +40,5 @@ attribute :module
 attribute :host
 attribute :autostart
 attribute :deploy_tag
+attribute :legacy_static_root
+attribute :webserver_listen

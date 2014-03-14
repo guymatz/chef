@@ -22,7 +22,7 @@
 # default provider -- expects to be passed the app name (currently app_api / app_auth)
 #
 action :init do 
-    unless node.tags.include? "radioedit.#{new_resource.name}"
+    unless node.tags.include? "radioedit.#{new_resource.deploy_tag}"
       Chef::Log.info("Bootstrapping app #{new_resource.name}")
 
       #
@@ -85,66 +85,45 @@ action :init do
           
       end # application
 
-        #
-        # install pip requirements
-        #
-#        execute "install_requirements" do
-#            cwd @new_resource.root_dir
-#            user @new_resource.user
-#            command "#{env_path}/bin/pip install -r #{@new_resource.root_dir}/current/requirements.txt"
-#        end
+      #
+      # Nginx Config
+      #
+      template "/etc/nginx/conf.d/#{new_resource.name}.conf" do
+        source "nginx-#{new_resource.name}.conf.erb"
+        owner "root"
+        group "root"
+        mode 0600
+        variables({
+            :app_name =>            @new_resource.name,
+            :legacy_static_root =>  @new_resource.legacy_static_root,
+            :webserver_port =>      @new_resource.webserver_listen,
+        })
+          
+      end
 
-        #
-        # Nginx Config
-        #
-        template "/etc/nginx/conf.d/#{new_resource.name}.conf" do
-          source "nginx-#{new_resource.name}.conf.erb"
+      # Create service init script for application.
+      template "/etc/init/#{new_resource.name}.conf" do
+          source "radioedit-initd.sh.erb"
           owner "root"
           group "root"
-          mode 0600
-          variables({
-              :app_name =>            @new_resource.name,
-              :legacy_static_root =>  node[:radioedit][:legacy_static_root],
-              :webserver_port =>      node[:radioedit]["#{new_resource.name}"][:nginx_listen],
-          })
-            
-        end
+      end
 
-        # Create service init script for application.
-        template "/etc/init/#{new_resource.name}.conf" do
-            source "radioedit-initd.sh.erb"
-            owner "root"
-            group "root"
-        end
-
-        #
-        # setup log rotate for the app we just setup
-        # 
+      [ @new_resource.stdout_logfile, @new_resource.stderr_logfile].uniq.each do |f|
         logrotate_app "#{new_resource.name}.out" do
           cookbook "logrotate"
-          path out_log
+          path f
           options ["missingok", "compress", "notifempty", "sharedscripts","dateext"]
           frequency "daily"
           enable true
           rotate 5
           size "2G"
-          postrotate ' [ -f #{pid_file}] && kill -USR1 `cat #{pid_file}`'
+          postrotate ' [ -f #{new_resource.pid_file}] && kill -USR1 `cat #{new_resource.pid_file}`'
         end
-
-        logrotate_app "#{new_resource.name}.err" do
-          cookbook "logrotate"
-          path err_log
-          options ["missingok", "compress", "notifempty", "sharedscripts","dateext"]
-          frequency "daily"
-          enable true
-          rotate 5
-          size "2G"
-          postrotate ' [ -f #{pid_file}] && kill -USR1 `cat #{pid_file}`'
-        end
+      end
 
 
-        node.tags << "radioedit.#{new_resource.name}"
-        Chef::Log.info("Initialized app #{new_resource.name}")
+      node.tags << "radioedit.#{new_resource.deploy_tag}"
+      Chef::Log.info("Initialized app #{new_resource.name}")
 
     else 
        Chef::Log.info("App #{new_resource.name} has already been initialized")
