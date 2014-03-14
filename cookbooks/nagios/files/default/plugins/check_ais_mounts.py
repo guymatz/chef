@@ -33,8 +33,8 @@ ais_mounts = []
 
 # Go through the mounts and look for any that have been up for less than the desired time
 for mount in ais_stat_request_tree.iter('mount'):
-    if int(mount[1].text) < int(args.secs):
-        ais_mounts.append({ 'mount_name': mount[0].text, 'mount_uptime': int(mount[1].text) })
+    if int(mount.find(".//up_time").text) < int(args.secs):
+        ais_mounts.append({ 'mount_name': mount.find(".//name").text, 'mount_uptime': int(mount.find(".//up_time").text) })
 
 # Output all the mounts that have been up for less than the desired time
 if len(ais_mounts) > 0:
