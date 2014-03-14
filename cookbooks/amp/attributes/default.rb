@@ -1,5 +1,3 @@
-default[:amp][:version] = "2.22-vanilla-ice"
-default[:amp][:amp_rest_version] = "2.22.0"
 default[:amp][:url] = "http://files.ihrdev.com/amp"
 
 default[:amp][:packages] = %w{ mongo-10gen-server mongo-10gen }
@@ -29,6 +27,8 @@ default[:amp][:new_relic_version] = "3.4.2"
 
 case chef_environment
 when /^prod/
+  default[:amp][:version] = "2.22-vanilla-ice"
+  default[:amp][:amp_rest_version] = "2.22.0"
   default[:amp][:usr_mongo][:hosts] = "localhost:27017"
   default[:amp][:usr_mongo][:connections_per_host] = 300
   default[:amp][:usr_mongo][:connect_timeout] = 3000
@@ -115,6 +115,8 @@ when /^prod/
   default[:amp][:authdb][:password] = "2ph2Tr@ce"
   default[:amp][:new_relic_app_name] = "PRD-AMP"
 when /^stage/
+  default[:amp][:version] = "2.23-wham"
+  default[:amp][:amp_rest_version] = "2.23.0"
   default[:amp][:usr_mongo][:hosts] = "localhost:27017"
   default[:amp][:usr_mongo][:connections_per_host] = 300
   default[:amp][:usr_mongo][:connect_timeout] = 5000
@@ -200,6 +202,8 @@ when /^stage/
   default[:amp][:authdb][:password] = "Pk32T783q9"
   default[:amp][:new_relic_app_name] = "STG-AMP"
 else
+  default[:amp][:version] = "2.22-vanilla-ice"
+  default[:amp][:amp_rest_version] = "2.22.0"
   default[:amp][:usr_mongo][:hosts] = "localhost:27017"
   default[:amp][:usr_mongo][:connections_per_host] = 300
   default[:amp][:usr_mongo][:connect_timeout] = 3000
