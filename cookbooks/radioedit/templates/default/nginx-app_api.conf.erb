@@ -1,12 +1,12 @@
 upstream api {
-    server   unix:/var/tmp/<%= @app_name %>.sock;
+    server   <%= @server_host %>:<%= @server_port %>;
 }
 
 server {
     # We listen to 8080 in this example because varnish listens on 80
     listen <%= @webserver_port %> default;
     # Default server name for the API
-    server_name _;
+    server_name <%= @webserver_name %>;
 
     keepalive_timeout 5;
     # We often see large uploads to the API

@@ -14,9 +14,9 @@
 # AUTH APPLICATION: attributes common to all environments
 default[:radioedit][:app_auth] = {
   # application name 
-  :name => "app_auth",
+  :name                     => "app_auth",
   # codebase git repo
-  :repo => "git@github.ihrint.com:radioedit/auth.git",
+  :repo                     => "git@github.ihrint.com:radioedit/auth.git",
   # chef tag to use for deployment flag
   :deploy_tag               => "radioedit.app_auth.deployed",
   # default listen port
@@ -69,18 +69,21 @@ case chef_environment
       # cross application uri
       # #####################################
 
-      :RD_AUTH_URI            => "http://auth.radioedit-stg1-origin.ihrdev.com/auth/",
-      :RD_API_URI             => "http://api.radioedit-stg1-origin.ihrdev.com/api/rpc",
-      :RD_SERVICE_URI         => "http://api.radioedit-stg1-origin.ihrdev.com/service",
-      :RD_STORAGE_URI         => "http://api.radioedit-stg1-origin.ihrdev.com/storage",
-      :RD_SCRIPT_URI          => "http://script.radioedit-stg1-origin.ihrdev.com",
-      :RD_CDN_URI             => "http://stage.radioedit.ihrdev.com/",
-      :RD_PUBLIC_AUTH_URI     => "http://auth.stage.radioedit.ihrdev.com/auth/",
-      :RD_PUBLIC_API_URI      => "http://api.stage.radioedit.ihrdev.com/api/rpc",
-      :RD_PUBLIC_SERVICE_URI  => "http://api.stage.radioedit.ihrdev.com/service",
-      :RD_PUBLIC_STORAGE_URI  => "http://api.stage.radioedit.ihrdev.com/storage",
-      :RD_PUBLIC_SCRIPT_URI   => "http://script.stage.radioedit.ihrdev.com",
-      :RD_PUBLIC_CDN_URI      => "http://stage.radioedit.ihrdev.com"
+      # internal paths
+      :RD_AUTH_URI          => "http://auth-int.radioedit.ihrdev.com/auth",
+      :RD_API_URI           => "http://api-int.radioedit.ihrdev.com/api/rpc",
+      :RD_SERVICE_URI       => "http://api-int.radioedit.ihrdev.com/service",
+      :RD_STORAGE_URI       => "http://api-int.radioedit.ihrdev.com/storage",
+      :RD_SCRIPT_URI        => "http://script-int.radioedit.ihrdev.com",
+      :RD_CDN_URI           => "http://radioedit-int.iheart.com/",
+
+      # external paths
+      :RD_PUBLIC_AUTH_URI    => "http://auth.radioedit.iheart.com/auth",
+      :RD_PUBLIC_API_URI     => "http://api.radioedit.iheart.com/api/rpc",
+      :RD_PUBLIC_SERVICE_URI => "http://api.radioedit.iheart.com/service",
+      :RD_PUBLIC_STORAGE_URI => "http://api.radioedit.iheart.com/storage",
+      :RD_PUBLIC_SCRIPT_URI  => "http://script.radioedit.iheart.com",
+      :RD_PUBLIC_CDN_URI     => "http://radioedit.iheart.com"
 
     });
 
@@ -99,20 +102,6 @@ case chef_environment
       :nginx_listen => 8080,
     });
 
-    # # app specific settings, overrides for STAGE env
-    # # APP_AUTH
-    # default[:radioedit][:app_auth][:deploy_revision] = "han"
-    # default[:radioedit][:app_auth][:branch] = "han"
-    # default[:radioedit][:app_auth][:env] = "ihr_testing"
-    # default[:radioedit][:app_auth][:statsd] = "iad-stg-stasd101-v700.ihr"
-    # default[:radioedit][:app_auth][:statsd_prefix] = "radioedit"
-    # default[:radioedit][:app_auth][:elasticsearch_uri] = "127.0.0.1:9200"
-    # default[:radioedit][:app_auth][:auth_url] = "127.0.0.1:80"
-    # default[:radioedit][:app_auth][:sentry_dsn] = "null"
-    # default[:radioedit][:app_auth][:cdn_url] = "http://10.5.1.28/"
-    # default[:radioedit][:app_auth][:port] = "8081"
-    # default[:radioedit][:app_auth][:elastic_clustername] = "radioedit-staging";
-
      # merge in the supervisor configs
     default[:radioedit][:app_auth][:environment].merge!({
       # debug on(1)/off(0)
@@ -128,18 +117,21 @@ case chef_environment
       # cross application uri
       # #####################################
 
-      :RD_AUTH_URI            => "http://auth.radioedit-stg1-origin.ihrdev.com/auth/",
-      :RD_API_URI             => "http://api.radioedit-stg1-origin.ihrdev.com/api/rpc",
-      :RD_SERVICE_URI         => "http://api.radioedit-stg1-origin.ihrdev.com/service",
-      :RD_STORAGE_URI         => "http://api.radioedit-stg1-origin.ihrdev.com/storage",
-      :RD_SCRIPT_URI          => "http://script.radioedit-stg1-origin.ihrdev.com",
-      :RD_CDN_URI             => "http://stage.radioedit.ihrdev.com/",
-      :RD_PUBLIC_AUTH_URI     => "http://auth.stage.radioedit.ihrdev.com/auth/",
-      :RD_PUBLIC_API_URI      => "http://api.stage.radioedit.ihrdev.com/api/rpc",
-      :RD_PUBLIC_SERVICE_URI  => "http://api.stage.radioedit.ihrdev.com/service",
-      :RD_PUBLIC_STORAGE_URI  => "http://api.stage.radioedit.ihrdev.com/storage",
-      :RD_PUBLIC_SCRIPT_URI   => "http://script.stage.radioedit.ihrdev.com",
-      :RD_PUBLIC_CDN_URI      => "http://stage.radioedit.ihrdev.com"
+      # internal paths
+      :RD_AUTH_URI            => "http://auth-int.radioedit.ihrdev.com/auth",
+      :RD_API_URI             => "http://api-int.radioedit.ihrdev.com/api/rpc",
+      :RD_SERVICE_URI         => "http://api-int.radioedit.ihrdev.com/service",
+      :RD_STORAGE_URI         => "http://api-int.radioedit.ihrdev.com/storage",
+      :RD_SCRIPT_URI          => "http://script-int.radioedit.ihrdev.com",
+      :RD_CDN_URI             => "http://radioedit-int.ihrdev.com/",
+
+      # external paths
+      :RD_PUBLIC_AUTH_URI     => "http://auth.radioedit.ihrdev.com/auth",
+      :RD_PUBLIC_API_URI      => "http://api.radioedit.ihrdev.com/api/rpc",
+      :RD_PUBLIC_SERVICE_URI  => "http://api.radioedit.ihrdev.com/service",
+      :RD_PUBLIC_STORAGE_URI  => "http://api.radioedit.ihrdev.com/storage",
+      :RD_PUBLIC_SCRIPT_URI   => "http://script.radioedit.ihrdev.com",
+      :RD_PUBLIC_CDN_URI      => "http://radioedit.ihrdev.com"
 
     });
 
@@ -172,18 +164,21 @@ case chef_environment
       # cross application uri
       # #####################################
 
-      :RD_AUTH_URI            => "http://auth.radioedit-stg1-origin.ihrdev.com/auth/",
-      :RD_API_URI             => "http://api.radioedit-stg1-origin.ihrdev.com/api/rpc",
-      :RD_SERVICE_URI         => "http://api.radioedit-stg1-origin.ihrdev.com/service",
-      :RD_STORAGE_URI         => "http://api.radioedit-stg1-origin.ihrdev.com/storage",
-      :RD_SCRIPT_URI          => "http://script.radioedit-stg1-origin.ihrdev.com",
-      :RD_CDN_URI             => "http://stage.radioedit.ihrdev.com/",
-      :RD_PUBLIC_AUTH_URI     => "http://auth.stage.radioedit.ihrdev.com/auth/",
-      :RD_PUBLIC_API_URI      => "http://api.stage.radioedit.ihrdev.com/api/rpc",
-      :RD_PUBLIC_SERVICE_URI  => "http://api.stage.radioedit.ihrdev.com/service",
-      :RD_PUBLIC_STORAGE_URI  => "http://api.stage.radioedit.ihrdev.com/storage",
-      :RD_PUBLIC_SCRIPT_URI   => "http://script.stage.radioedit.ihrdev.com",
-      :RD_PUBLIC_CDN_URI      => "http://stage.radioedit.ihrdev.com"
+      # internal paths
+      :RD_AUTH_URI            => "http://auth-int.radioedit.ihrdev.com/auth",
+      :RD_API_URI             => "http://api-int.radioedit.ihrdev.com/api/rpc",
+      :RD_SERVICE_URI         => "http://api-int.radioedit.ihrdev.com/service",
+      :RD_STORAGE_URI         => "http://api-int.radioedit.ihrdev.com/storage",
+      :RD_SCRIPT_URI          => "http://script-int.radioedit.ihrdev.com",
+      :RD_CDN_URI             => "http://radioedit-int.ihrdev.com/",
+
+      # external paths
+      :RD_PUBLIC_AUTH_URI     => "http://auth.radioedit.ihrdev.com/auth",
+      :RD_PUBLIC_API_URI      => "http://api.radioedit.ihrdev.com/api/rpc",
+      :RD_PUBLIC_SERVICE_URI  => "http://api.radioedit.ihrdev.com/service",
+      :RD_PUBLIC_STORAGE_URI  => "http://api.radioedit.ihrdev.com/storage",
+      :RD_PUBLIC_SCRIPT_URI   => "http://script.radioedit.ihrdev.com",
+      :RD_PUBLIC_CDN_URI      => "http://radioedit.ihrdev.com"
 
     });
     

@@ -24,21 +24,40 @@ attribute :user, :kind_of => String, :default => "root"
 attribute :port, :required => true, :kind_of => [Integer, String]
 # severity level for log reporting
 attribute :loglevel, :kind_of => String, default => "ERROR", equal_to => %w{ DEBUG, INFO, WARN, ERROR }
-attribute :pid_file
-attribute :stdout_log
-attribute :stderr_log
-attribute :root_dir
-attribute :venv_dir
-attribute :src_dir
-attribute :repository
-attribute :revision
-attribute :workers
-attribute :environment
-attribute :environment_name
-attribute :enable_submodules
-attribute :module
-attribute :host
-attribute :autostart
-attribute :deploy_tag
-attribute :legacy_static_root
-attribute :webserver_listen
+# path to the pid file to create
+attribute :pid_file, :required => true, :kind_of => String
+# path to the stdout process log
+attribute :stdout_log, :required => true, :kind_of => String 
+# path to the stderr process log
+attribute :stderr_log, :required => true, :kind_of => String 
+# path to the root directory of the app
+attribute :root_dir, :required => true, :kind_of => String 
+# path to the virtual environment directory
+attribute :venv_dir, :required => true, :kind_of => String
+# path to the revision directory 
+attribute :src_dir, :required => true, :kind_of => String 
+# uri for the git repo
+attribute :repository, :required => true, :kind_of => String 
+# git tag or branch name to deploy
+attribute :revision, :required => true, :kind_of => String
+# switch to enable git submodule management (defaults to true, which is what you should usually want)
+attribute :enable_submodules, :kind_of => [TrueClass, FalseClass], :default => true
+# number of worker processes to spawn (defaults to most common value = 5)
+attribute :workers, :kind_of => [Integer, String], :default => 5
+# Hash of varname => value pairs added to the supervisor conf and exported at process runtime
+attribute :environment, :required => true, :kind_of => Hash 
+# the unicorn module to run
+attribute :module, :kind_of => String, :default => "wsgi" 
+# the webserver host
+attribute :host, :required => true, :kind_of => String
+# switch to indicate whether you want the application to automatically start when supervisor starts (defaults to true ---most common option we use)
+attribute :autostart, :kind_of => [TrueClass, FalseClass], :default => true
+# the chef tag to watch and set when checking if a deployment is required during a run
+attribute :deploy_tag, :required => true, :kind_of => String 
+# static directory for supporting legacy requirement for serving static files
+attribute :legacy_static_root, :required => true, :kind_of => String 
+# what port nginx should listen on
+attribute :webserver_listen, :required => true, :kind_of => String 
+
+
+
