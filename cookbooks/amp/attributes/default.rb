@@ -1,4 +1,4 @@
-default[:amp][:version] = "2.23-wham-rc-1"
+default[:amp][:version] = "wham-rc-1"
 default[:amp][:amp_rest_version] = "2.23.0"
 default[:amp][:url] = "http://files.ihrdev.com/amp"
 
