@@ -43,6 +43,8 @@ rm -f /tmp/testfile >/dev/null 2>&1
 
 # Test an upload to Riak-CS
 echo 'hello world' > /tmp/testfile
+# Make bucket in case it does not exist
+s3cmd mb s3://$BUCKET >/dev/null 2>&1
 s3cmd -P put /tmp/testfile s3://$BUCKET 1> /dev/null 2> /tmp/s3_error
 if [ $? -ne 0 ]; then
     health_fetch_error "CRITICAL: $(cat /tmp/s3_error)"
