@@ -12,5 +12,6 @@
 ### major refactor for han releaseo
 #
 actions :init
+default_action :init
 
 attribute :node, :kind_of => String, :name_attribute => true

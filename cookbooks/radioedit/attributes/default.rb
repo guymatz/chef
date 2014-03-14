@@ -85,6 +85,8 @@ default[:radioedit][:req_dirs] = %w{
 };
 
 
+
+
 #
 # Global app root for all apps
 # 
@@ -99,75 +101,36 @@ default[:radioedit][:app_user] = "ihr-deployer"
 default[:radioedit][:log_dir] = "/var/log/radioedit"
 default[:radioedit][:utildir] = "#{default[:radioedit][:path]}/util"
 default[:radioedit][:asset_dir] = "/data/binstore/assets"
-
 default[:radioedit][:host] = "unix"
 
-
-
-# App Specific Configuration.
-default[:radioedit][:app_api] = {
-  :name => "radioedit-api",
-  :repo => "git@github.ihrint.com:radioedit/core.git",
-  :deploy_revision => "master", # changes based on env
-  :nginx_listen => 8080,
-  :environment => {
-    :RD_APP_NAME =>           "app_api",
-    :RD_DEBUG =>              "1",
-    :RD_MONGO_URI =>          "mongodb://iad-stg-mongo-fac101-v760.ihr:37018,iad-stg-mongo-fac102-v760.ihr:37018/radioedit?replicaSet=Mongo-shared-STG",
-    :RD_ELASTICSEARCH_URI =>  "http://localhost:9200/",
-    :RD_CDN_URI =>            "http://api.stage.radioedit.ihr/",
-    :RD_AUTH_URI =>           "http://auth.stage.radioedit.ihr/auth",
-    :RD_API_URI =>            "http://api.stage.radioedit.ihr/api/rpc",
-    :RD_SCRIPT_URI =>         "http://script.stage.radioedit.ihr/",
-    :RD_STORAGE_URI =>        "http://api.stage.radioedit.ihr/storage",
-    :RD_SERVICE_URI =>        "http://api.stage.radioedit.ihr/service",
-    :RD_STORAGE_MOUNTS =>     "primary:/data/binstore",
-    :RD_STATSD =>             "iad-stg-statsd101-v700.ihr",
-    :RD_STATSD_PREFIX =>      "radioedit",
-    #:RD_SENTRY_DSN =>         "https://c3c60ffdb0354f38ada11c9cff9be827:0bad13885cfb4024854075c58ff53295@app.getsentry.com/11937"
+# ################################################################
+# Platform Release specific  settings.
+# ################################################################
+default[:radioedit][:image] = {
+  :path         => "/data/apps/radioedit/images",
+  :branch       => "deploy",
+  :repo         => "git@github.com:iheartradio/radioedit-img.git",
+  :port         => 8000,
+  :listen       => "/var/tmp/radioedit-image.sock",
+  :packages     => %w{ 
+      python-imaging 
+      python-psycopg2 
+      postgresql-libs 
   }
 };
 
 
-# App Specific Configuration.
-default[:radioedit][:app_auth] = {
-  :name => "radioedit-auth",
-  :repo => "git@github.ihrint.com:radioedit/auth.git",
-  :deploy_revision => "master", # changes based on env
-  :nginx_listen => 8080,
-  :environment => {
-    :RD_APP_NAME =>           "app_auth",
-    :RD_DEBUG =>              "1",
-    :RD_MONGO_URI =>          "mongodb://iad-stg-mongo-fac101-v760.ihr:37018,iad-stg-mongo-fac102-v760.ihr:37018/radioedit-auth?replicaSet=Mongo-shared-STG",
-    :RD_STATSD =>             "iad-stg-statsd101-v700.ihr",
-    :RD_STATSD_PREFIX =>      "radioedit",
-    #:RD_SENTRY_DSN =>         "https://5a99baf425954927b38c9c7373502abf:e86faffebc4e4a9f854e0fedfd2a585a@app.getsentry.com/18592"
-  }
+# should be depreciated soon - hopefully
+default[:radioedit][:cms] = {
+  :path         => "/data/apps/radioedit/radioedit-core",
+  :repo         => "git@github.com:iheartradio/featcontent.git",
+  :branch       => node.run_list.include?('role[radioedit_server_a]') ? 'deploy_a_release' : 'deploy',
+  :packages     => %w{ python-psycopg2 postgresql-libs libjpeg-devel },
+  :port         => "/var/tmp/radioedit-cms.sock",
+  :listen       => "/var/tmp/radioedit-cms.sock",
+  :host         => "unix",
+  :static       => node.run_list.include?('role[radioedit_server_a]') ? 'staticv1' : 'static'
 };
-
-# App Specific Configuration.
-default[:radioedit][:app_script] = {
-  :name => "radioedit-script",
-  :repo => "git@github.ihrint.com:radioedit/script-exec.git",
-  :nginx_listen => 8080,
-  :deploy_revision => "master",
-  :environment => {
-    :RD_APP_NAME =>           "app_script",
-    :RD_DEBUG =>              "1",
-    :RD_MONGO_URI =>          "mongodb://iad-stg-mongo-fac101-v760.ihr:37018,iad-stg-mongo-fac102-v760.ihr:37018/radioedit-logs?replicaSet=Mongo-shared-STG",
-    :RD_CDN_URI =>            "http://api.stage.radioedit.ihr/",
-    :RD_AUTH_URI =>           "http://auth.stage.radioedit.ihr/auth",
-    :RD_STORAGE_URI =>        "http://api.stage.radioedit.ihr/storage",
-    :RD_API_URI =>            "http://api.stage.radioedit.ihr/api/rpc",
-    :RD_SERVICE_URI =>        "http://api.stage.radioedit.ihr/api/service",
-    :RD_STATSD_PREFIX =>      "radioedit",
-    :RD_ELASTICSEARCH_URI =>  "http://localhost:9200/",
-    :RD_STATSD =>             "iad-stg-statsd101-v700.ihr",
-    :RD_ACCESS_TOKEN =>       "DjT5edoi7v"
-    #:RD_SENTRY_DSN =>         "https://c3c60ffdb0354f38ada11c9cff9be827:0bad13885cfb4024854075c58ff53295@app.getsentry.com/11937"
-  }
-}
-
 
 # ################################################################
 # Environment specific settings start here
@@ -217,10 +180,11 @@ case chef_environment
 
     # END PRODUCTION SETTINGS
 
-    when /^stage-jd/
     # ################################################################
     # Stage Environment settings.
     # ################################################################
+    when /^stage/
+    
 
         override[:memcached][:memory]  = 64;
 
@@ -231,65 +195,12 @@ case chef_environment
           :gateway => "10.5.52.1"
         };
 
-        # app specific settings, overrides for STAGE env
-        # APP_API
-        default[:radioedit][:app_api][:deploy_revision] = "master"
-        default[:radioedit][:app_api][:branch] = "master"
-        default[:radioedit][:app_api][:env] = "ihr_testing"
-        default[:radioedit][:app_api][:statsd] = "iad-stg-stasd101-v700.ihr"
-        default[:radioedit][:app_api][:statsd_prefix] = "radioedit"
-        default[:radioedit][:app_api][:elasticsearch_uri] = "127.0.0.1:9200"
-        default[:radioedit][:app_api][:auth_url] = "127.0.0.1:80"
-        default[:radioedit][:app_api][:sentry_dsn] = "null"
-        default[:radioedit][:app_api][:cdn_url] = "http://10.5.1.28/"
-        default[:radioedit][:app_api][:port] = "8080"
-        default[:radioedit][:app_api][:elastic_clustername] = "radioedit-staging";
-        default[:radioedit][:app_api][:staticdir] = "#{default[:radioedit][:path]}/app_api/static"
-
-        # app specific settings, overrides for STAGE env
-        # APP_AUTH
-        default[:radioedit][:app_auth][:deploy_revision] = "master"
-        default[:radioedit][:app_auth][:branch] = "master"
-        default[:radioedit][:app_auth][:env] = "ihr_testing"
-        default[:radioedit][:app_auth][:statsd] = "iad-stg-stasd101-v700.ihr"
-        default[:radioedit][:app_auth][:statsd_prefix] = "radioedit"
-        default[:radioedit][:app_auth][:elasticsearch_uri] = "127.0.0.1:9200"
-        default[:radioedit][:app_auth][:auth_url] = "127.0.0.1:80"
-        default[:radioedit][:app_auth][:sentry_dsn] = "null"
-        default[:radioedit][:app_auth][:cdn_url] = "http://10.5.1.28/"
-        default[:radioedit][:app_auth][:port] = "8081"
-        default[:radioedit][:app_auth][:elastic_clustername] = "radioedit-staging";
-
-        # app specific settings, overrides for STAGE env
-        # APP_SCRIPT
-        default[:radioedit][:app_script][:deploy_revision] = "master"
-        default[:radioedit][:app_script][:branch] = "master"
-        default[:radioedit][:app_script][:env] = "ihr_testing"
-        default[:radioedit][:app_script][:statsd] = "iad-stg-stasd101-v700.ihr"
-        default[:radioedit][:app_script][:auth_uri] = "http://auth.dev.radioedit.ihr/auth"
-        default[:radioedit][:app_script][:api_uri] = "http://api.dev.radioedit.ihr/api/rpc"
-        default[:radioedit][:app_script][:service_uri] = "http://api.dev.radioedit.ihr/api/service"
-        default[:radioedit][:app_script][:storage_uri] = "http://api.dev.radioedit.ihr/storage"
-        default[:radioedit][:app_script][:statsd_prefix] = "radioedit"
-        default[:radioedit][:app_script][:elasticsearch_uri] = "127.0.0.1:9200"
-        default[:radioedit][:app_script][:auth_url] = "127.0.0.1:80"
-        default[:radioedit][:app_script][:sentry_dsn] = "null"
-        default[:radioedit][:app_script][:cdn_url] = "http://10.5.1.29/"
-
-        #
-        # log verbosity
-        #
-        default[:radioedit][:app_api][:log_level] = "DEBUG"
 
         #
         # varnish is the same for all apps
         #
         default[:radioedit][:varnish_backend_port] = "8080"
         default[:radioedit][:varnish_backend_ip] = "127.0.0.1"
-
-        #
-        # port and worker settings
-        default[:radioedit][:app_api][:num_workers] = 5
 
 
 # TODO      default[:radioedit][:nfs_server] = "iad-nfs101-v200.ihr"
@@ -360,32 +271,3 @@ end  # env switch
 ### 
 ###
 ###
-
-# ################################################################
-# Platform Release specific  settings.
-# ################################################################
-default[:radioedit][:image] = {
-  :path         => "/data/apps/radioedit/images",
-  :branch       => "deploy",
-  :repo         => "git@github.com:iheartradio/radioedit-img.git",
-  :port         => 8000,
-  :listen       => "/var/tmp/radioedit-image.sock",
-  :packages     => %w{ 
-      python-imaging 
-      python-psycopg2 
-      postgresql-libs 
-  }
-};
-
-
-# should be depreciated soon - hopefully
-default[:radioedit][:cms] = {
-  :path         => "/data/apps/radioedit/radioedit-core",
-  :repo         => "git@github.com:iheartradio/featcontent.git",
-  :branch       => node.run_list.include?('role[radioedit_server_a]') ? 'deploy_a_release' : 'deploy',
-  :packages     => %w{ python-psycopg2 postgresql-libs libjpeg-devel },
-  :port         => "/var/tmp/radioedit-cms.sock",
-  :listen       => "/var/tmp/radioedit-cms.sock",
-  :host         => "unix",
-  :static       => node.run_list.include?('role[radioedit_server_a]') ? 'staticv1' : 'static'
-};
