@@ -1,0 +1,5 @@
+{
+  "host_name": "127.0.0.1",
+  "id": "Riak-CS-Health",
+  "command_line": "$USER1$/check_riakcs_health.sh -h hls-chunks.ihrdev.com -b nagios"
+}
