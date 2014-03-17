@@ -20,14 +20,14 @@
 #		- 3/17/24 GP
 #			- Per AMP team request(JeremyBraff@clearchannel.com) I removed endpoints containing /(livestation.undefined|account.login|account.createuser)/i 
 #					from consideration to reduce alert noise
+#			
 # #######################################################
 
 echo "[$(date)] $(basename $0): Start" >&2;
 
 trap 'echo "[$(date)] $(basename $0): End"' SIGINT SIGTERM EXIT;
 
-#NOTIFY_LIST=( <%= node[:amp][:logging][:notify_list].join ' ' %> )
-NOTIFY_LIST=( gregorypatmore@clearchannel.com )
+NOTIFY_LIST=( <%= node[:amp][:logging][:notify_list].join ' ' %> )
 function onFail {
 	LVL=${1:-Unknown Status}; 
 	shift;
