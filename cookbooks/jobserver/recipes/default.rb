@@ -9,7 +9,6 @@
 
 include_recipe "users::jobserver"
 include_recipe "users::jobserver-sudo"
-include_recipe "jobserver::update_es_index"
 
 if node.chef_environment == 'prod'
   include_recipe "jobserver::ha"
