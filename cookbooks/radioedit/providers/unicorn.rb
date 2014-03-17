@@ -77,8 +77,11 @@ action :init do
       mode 0600
       variables({
           :app_name             => new_resource.name,
-          :legacy_static_root   => new_resource.legacy_static_root,
+          :server_host          => new_resource.host,
+          :server_port          => new_resource.port,
+          :webserver_name       => new_resource.webserver_name,
           :webserver_port       => new_resource.webserver_listen,
+          :legacy_static_root   => new_resource.legacy_static_root
       })   
     end
 

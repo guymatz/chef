@@ -29,7 +29,7 @@ attribute :user, :kind_of => String, :default => "root"
 # the webserver host
 attribute :host, :required => true, :kind_of => String
 # port listener for app communication
-attribute :port, :required => true, :kind_of => [Integer, String]
+attribute :port, :required => true, :kind_of => [ Integer, String ]
 # severity level for log reporting
 attribute :log_level, :kind_of => String, :default => "ERROR", :regex => [ /(DEBUG|INFO|WARN|ERROR)/ ] #:equal_to => %w{ DEBUG, INFO, WARN, ERROR }
 # path to the pid file to create
@@ -49,21 +49,23 @@ attribute :repository, :required => true, :kind_of => String
 # git tag or branch name to deploy
 attribute :revision, :required => true, :kind_of => String
 # switch to enable git submodule management (defaults to true, which is what you should usually want)
-attribute :enable_submodules, :kind_of => [TrueClass, FalseClass], :default => true
+attribute :enable_submodules, :kind_of => [ TrueClass, FalseClass ], :default => true
 # number of worker processes to spawn (defaults to most common value = 5)
-attribute :workers, :kind_of => [Integer, String], :default => 5
+attribute :workers, :kind_of => Integer, :default => 5
 # Hash of varname => value pairs added to the supervisor conf and exported at process runtime
 attribute :environment, :required => true, :kind_of => Hash 
 # the unicorn module to run
 attribute :app_module, :kind_of => String, :default => "wsgi" 
 # switch to indicate whether you want the application to automatically start when supervisor starts (defaults to true ---most common option we use)
-attribute :autostart, :kind_of => [TrueClass, FalseClass], :default => true
+attribute :autostart, :kind_of => [ TrueClass, FalseClass ], :default => true
 # the chef tag to watch and set when checking if a deployment is required during a run
 attribute :deploy_tag, :required => true, :kind_of => String 
 # static directory for supporting legacy requirement for serving static files
-attribute :legacy_static_root, :required => true, :kind_of => String 
+attribute :legacy_static_root, :kind_of => String, :default => ""
 # what port nginx should listen on
 attribute :webserver_listen, :required => true, :kind_of => [ Integer, String ]
+# name(s)of the webserver host
+attribute :webserver_name, :required => true, :kind_of => String
 
 
 
