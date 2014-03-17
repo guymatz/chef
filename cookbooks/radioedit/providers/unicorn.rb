@@ -31,8 +31,8 @@ action :init do
     [ @new_resource.root_dir, @new_resource.venv_dir, @new_resource.src_dir ].each do |d|
 
       directory d do
-        owner @new_resource.user
-        group @new_resource.user
+        owner new_resource.user
+        group new_resource.user
       end
 
     end # directories
@@ -42,9 +42,8 @@ action :init do
 
       repository @new_resource.repository
       revision @new_resource.revision
-      path @new_resource.root_dir
-      owner @new_resource.user
-      group @new_resource.user
+      path @new_resource.root_dr
+      owner @new_resource.user      group @new_resource.user
       enable_submodules @new_resource.enable_submodules
 
       # unicorn sub resource
