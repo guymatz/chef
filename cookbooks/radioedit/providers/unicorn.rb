@@ -38,7 +38,7 @@ action :init do
     end # directories
 
     # set up the actual application and gunicorn
-    application new_resource.name do
+    application "#{new_resource.name}" do
 
       repository new_resource.repository
       revision new_resource.revision
