@@ -44,7 +44,7 @@ action :init do
 
       repository new_resource.repository
       revision new_resource.revision
-      path new_resource.root_dr
+      path new_resource.root_dir
       owner new_resource.user      
       group new_resource.user
       enable_submodules new_resource.enable_submodules
