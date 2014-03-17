@@ -49,15 +49,15 @@ action :init do
 
       # unicorn sub resource
       gunicorn do
-        app_module @new_resource.module
+        app_module @new_resource.app_module
         settings_template "re-gunicorn.py.erb"
         port @new_resource.port
         host @new_resource.host
         workers @new_resource.workers
         pidfile @new_resource.pid_file
-        stdout_logfile @new_resource.stdout_logfile
-        stderr_logfile @new_resource.stderr_logfile
-        loglevel @new_resource.loglevel 
+        stdout_logfile @new_resource.stdout_log
+        stderr_logfile @new_resource.stderr_log
+        loglevel @new_resource.log_level 
         interpreter "python27"
         requirements "requirements.txt"
         autostart @new_resource.autostart
@@ -87,8 +87,8 @@ action :init do
       group "root"
     end
 
-    # set up rotation for the log files
-    [ @new_resource.stdout_logfile, @new_resource.stderr_logfile ].uniq.each do |f|
+    # set up rotation for the log files (using unique in case both attributes are set to the same thing)
+    [ @new_resource.stdout_log, @new_resource.stderr_log ].uniq.each do |f|
       logrotate_app "#{new_resource.name}.out" do
         cookbook "logrotate"
         path f

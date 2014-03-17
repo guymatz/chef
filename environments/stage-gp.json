@@ -1,0 +1,21 @@
+{
+  "name": "stage-gp",
+  "default_attributes": {
+    "iheart": {
+      "deployer": "ihr-deployer"
+    },
+    "nagiosapi": {
+      "server": {
+        "name": "iad-stg-nagiosapi.ihr",
+        "port": "6315"
+      }
+    }
+  },
+  "json_class": "Chef::Environment",
+  "description": "Gregs Howse",
+  "cookbook_versions": {
+    "radioedit": "= 1.2.0"
+  },
+  "override_attributes": {},
+  "chef_type": "environment"
+}

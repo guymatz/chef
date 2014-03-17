@@ -31,6 +31,8 @@ default[:radioedit][:app_api] = {
   :module                   => "wsgi",
   # application host
   :host                     => "unix",
+  # pid file to create
+  :pid_file                 => "var/run/radioedit/app_api.pid",
 
   # supervisor environment variables
   :environment => {

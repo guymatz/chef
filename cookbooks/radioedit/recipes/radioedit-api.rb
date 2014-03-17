@@ -14,11 +14,32 @@
 # 
 #  Stub to setup the api service
 ## dev testing
-untag("radioedit.app_api")
 
 radioedit_unicorn "app_api" do
-    action :init
-    #not_if { node.tags.include?(radioedit.app_api) }
+
+    not_if { chef_environment =~ /^prod/ && node.tags.include?(node[:radioedit][:app_api][:deploy_tag]) }
+
+    user node[:radioedit][:app_api][:user_name]
+    host node[:radioedit][:app_api][:host]
+    port node[:radioedit][:app_api][:port]
+    app_module node[:radioedit][:app_api][:module]
+    webserver_listen node[:radioedit][:app_api][:nginx_listen]
+    log_level node[:radioedit][:app_api][:log_level]
+    pid_file node[:radioedit][:app_api][:pid_file]
+    stdout_log "#{node[:radioedit][:log_dir]}/app_api.out"
+    stderr_log "#{node[:radioedit][:log_dir]}/app_api.err"
+    root_dir node[:radioedit][:app_api][:root_dir]
+    venv_dir "#{node[:radioedit][:app_api][:root_dir]}/env"
+    src_dir "#{node[:radioedit][:app_api][:root_dir]}/releases"
+    repository node[:radioedit][:app_api][:repo]
+    revision node[:radioedit][:app_api][:deploy_revision]
+    enable_submodules true
+    workers node[:radioedit][:app_api][:num_workers]
+    environment node[:radioedit][:app_api][:environment]
+    autostart true
+    deploy_tag node[:radioedit][:app_api][:deploy_tag]
+    
+    legacy_static_root node[:radioedit][:app_api][:static_dir]
 end
 
 

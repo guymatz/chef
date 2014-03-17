@@ -11,6 +11,10 @@
 ###
 ### major refactor for han releaseo
 ### this provides the setup of a python/gunicorn app
+### @Changelog 
+###   - 3/17/14 GP
+###     - Refactored to add attribute definitions for external data sources, moving impetus to recipe to send in the right values
+###     - This allows us to push out changes to try/test without having to recode the provider.
 ###
 
 # exposed actions
@@ -22,10 +26,12 @@ default_action :init
 attribute :unicorn, :required => true, :kind_of => String, :name_attribute => true
 # user to run the app as
 attribute :user, :kind_of => String, :default => "root"
+# the webserver host
+attribute :host, :required => true, :kind_of => String
 # port listener for app communication
 attribute :port, :required => true, :kind_of => [Integer, String]
 # severity level for log reporting
-attribute :loglevel, :kind_of => String, default => "ERROR", equal_to => %w{ DEBUG, INFO, WARN, ERROR }
+attribute :log_level, :kind_of => String, default => "ERROR", equal_to => %w{ DEBUG, INFO, WARN, ERROR }
 # path to the pid file to create
 attribute :pid_file, :required => true, :kind_of => String
 # path to the stdout process log
@@ -49,9 +55,7 @@ attribute :workers, :kind_of => [Integer, String], :default => 5
 # Hash of varname => value pairs added to the supervisor conf and exported at process runtime
 attribute :environment, :required => true, :kind_of => Hash 
 # the unicorn module to run
-attribute :module, :kind_of => String, :default => "wsgi" 
-# the webserver host
-attribute :host, :required => true, :kind_of => String
+attribute :app_module, :kind_of => String, :default => "wsgi" 
 # switch to indicate whether you want the application to automatically start when supervisor starts (defaults to true ---most common option we use)
 attribute :autostart, :kind_of => [TrueClass, FalseClass], :default => true
 # the chef tag to watch and set when checking if a deployment is required during a run
