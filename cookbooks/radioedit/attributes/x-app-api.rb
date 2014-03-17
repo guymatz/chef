@@ -26,7 +26,7 @@ default[:radioedit][:app_api] = {
   # application owner username
   :user_name                => "ihr-deployer",
   # number of web server worker processes to start up
-  :num_workers              => "5",
+  :num_workers              => 5,
   # application module to run
   :module                   => "wsgi",
   # application host
