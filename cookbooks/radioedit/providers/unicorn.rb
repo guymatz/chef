@@ -28,7 +28,7 @@ action :init do
     Chef::Log.info("Bootstrapping app #{new_resource.name}")
 
     # Create directories for application (app home, venv dir, and deployment release directory)
-    [ @new_resource.root_dir, @new_resource.env_dir, @new_resource.src_dir ].each do |d|
+    [ @new_resource.root_dir, @new_resource.venv_dir, @new_resource.src_dir ].each do |d|
 
       directory d do
         owner @new_resource.user
