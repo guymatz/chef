@@ -89,7 +89,7 @@ begin
       group node[:tomcat7][:group]
       mode "0755"
     end
-    template "#{{node[:tomcat7][:install_path]}/lib/log4j.xml" do
+    template "#{node[:tomcat7][:install_path]}/lib/log4j.xml" do
       source "{node[:tomcat7][:install_path]}/lib/log4j.xml.erb"
       local true
     end
