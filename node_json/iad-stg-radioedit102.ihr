@@ -1,0 +1,27 @@
+{
+  "name": "iad-stg-radioedit102.ihr",
+  "chef_environment": "stage-gp",
+  "run_list": [
+    "role[base]",
+    "recipe[yum::epel]",
+    "recipe[users::deployer]",
+    "recipe[users::radioedit]",
+    "recipe[nodejs]",
+    "recipe[radioedit::ldap-route]",
+    "recipe[radioedit::elasticsearch-install]",
+    "recipe[radioedit::radioedit]",
+    "recipe[radioedit::radioedit-api]"
+  ],
+  "normal": {
+    "tags": [],
+    "snmp": {
+      "packages": [
+        "net-snmp",
+        "net-snmp-utils"
+      ],
+      "cookbook_files": [
+
+      ]
+    }
+  }
+}
