@@ -63,7 +63,7 @@ attribute :deploy_tag, :required => true, :kind_of => String
 # static directory for supporting legacy requirement for serving static files
 attribute :legacy_static_root, :required => true, :kind_of => String 
 # what port nginx should listen on
-attribute :webserver_listen, :required => true, :kind_of => String 
+attribute :webserver_listen, :required => true, :kind_of => [ Integer, String ]
 
 
 
