@@ -1,5 +1,5 @@
 {
     "id": "Amp-Check-Login",
     "hostgroup_name": "amp",
-    "command_line": "$USER1$/check_http -H $HOSTADDRESS$ -p 8080 -v -u /api/v1/account/login -P userName=nagios@clearchannel.com\\&password=Thumbplay1\\&host=mobile.app.thumbplay.com\\&deviceId=1\\&deviceName=1 -e 'HTTP/1.1 200' -w 2 -c 3"
+    "command_line": "$USER1$/check_http -H $HOSTADDRESS$ -p 8080 -v -u /api/v1/account/login -P userName=nagios@clearchannel.com -e 'HTTP/1.1 200' -w 2 -c 3"
 }
