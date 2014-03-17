@@ -47,7 +47,7 @@ TFILE=$(mktemp --suffix .$(date +%Y%m%d-%H-%I).amp_log.rpt)
 
 # see 'pipe flow' section in file header
 awk -v d=$(date -u -d '5 minutes ago' +%H%I%M) '/^[^#]/{gsub(/:/,"",$3);if($3 >= d)print $6,$5}' $(ls -rt /data/apps/tomcat7/logs/extended_localhost_access_log.*-*-*-*.log | tail -2) \
-	| perl -ane '$F[1]=~s/[?;].*$//;$F[1]=~s/\/[0-9]+\//\/###\//g;$F[1]=~s/\/[a-z0-9]+\/(get.*|thumbs.*|registerListen|remove)$/\/###\/\1/;$F[1]=~s/\//./g;print "$F[0] $F[1]\n";' \
+	| perl -ane '$F[1]=~s/[?;].*$//;$F[1]=~s/\/[0-9]+\//\/###\//g;$F[1]=~s/\/[a-z0-9]+\/(get.*|thumbs.*|liveStations|registerListen|remove)$/\/###\/\1/;$F[1]=~s/\//./g;print "$F[0] $F[1]\n";' \
 	| awk '/^200|^500/{if($1 == "200"){r2[$2]++}else{r5[$2]++}}END{for(u in r5){if(r5[u] != "0"){printf "%s %d %d %.0f\n",u,r2[u],r5[u],r5[u]*100/r2[u]}else{printf "%s %d %d %.0f\n",u,r2[u],r5[u],0.0}}}' \
 	| awk '$4>25{print $0,"CRITICAL"}$4==25{print $0,"WARNING"}{print $0,"OK"}' \
 	> $TFILE 2>/dev/null;
