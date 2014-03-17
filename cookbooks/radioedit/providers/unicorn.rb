@@ -23,6 +23,8 @@
 #
 action :init do 
 
+  new_resource = @new_resource
+
   unless node.tags.include? "radioedit.#{new_resource.deploy_tag}"
 
     Chef::Log.info("Bootstrapping app #{new_resource.name}")
