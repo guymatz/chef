@@ -57,7 +57,7 @@ case chef_environment
 
     default[:radioedit][:app_api].merge!({
       # git tag/branch name
-      :deploy_revision        => "master",
+      :deploy_revision        => "han",
       # webserver listen port
       :nginx_listen           => 8080,
       # name of the elasticsearch cluster
@@ -66,8 +66,6 @@ case chef_environment
       :static_dir             => "#{default[:radioedit][:path]}/app_api/static",
       # log reporting level
       :log_level              => "ERROR",
-      # supervisor environment token
-      :env                    => "ihr_testing",
       # nginx server_name value (underscore serves as the catchall host)
       :webserver_name         => "_"
     });
@@ -85,18 +83,18 @@ case chef_environment
       # graphite statsd host
       :RD_STATSD              => "iad-stg-statsd101-v700.ihr",
       # remote sentry uri
-      #:RD_SENTRY_DSN         => "https://c3c60ffdb0354f38ada11c9cff9be827:0bad13885cfb4024854075c58ff53295@app.getsentry.com/11937"
+      :RD_SENTRY_DSN          => "https://c3c60ffdb0354f38ada11c9cff9be827:0bad13885cfb4024854075c58ff53295@app.getsentry.com/11937"
 
       # #####################################
       # cross application communication uris
       # #####################################
 
       # internal paths
-      :RD_AUTH_URI          => "http://auth-int.radioedit.ihrdev.com/auth",
-      :RD_API_URI           => "http://api-int.radioedit.ihrdev.com/api/rpc",
-      :RD_SERVICE_URI       => "http://api-int.radioedit.ihrdev.com/service",
-      :RD_STORAGE_URI       => "http://api-int.radioedit.ihrdev.com/storage",
-      :RD_SCRIPT_URI        => "http://script-int.radioedit.ihrdev.com",
+      :RD_AUTH_URI          => "http://auth-int.radioedit.iheart.com/auth",
+      :RD_API_URI           => "http://api-int.radioedit.iheart.com/api/rpc",
+      :RD_SERVICE_URI       => "http://api-int.radioedit.iiheart.com/service",
+      :RD_STORAGE_URI       => "http://api-int.radioedit.iheart.com/storage",
+      :RD_SCRIPT_URI        => "http://script-int.radioedit.iheart.com",
       :RD_CDN_URI           => "http://radioedit-int.iheart.com/",
 
       # external paths
@@ -128,8 +126,6 @@ case chef_environment
       :static_dir             => "#{default[:radioedit][:path]}/app_api/static",
       # log reporting level
       :log_level              => "DEBUG",
-      # supervisor environment token
-      :env                    => "ihr_testing",
       # nginx server_name value (underscore serves as the catchall host)
       :webserver_name         => "_"
     });
@@ -179,57 +175,54 @@ case chef_environment
   # ################################################################
   when /^dev/
 
-    default[:radioedit][:app_api].merge!({
-      # git tag/branch name
-      :deploy_revision        => "han",
-      # webserver listen port
-      :nginx_listen           => 8080,
-      # name of the elasticsearch cluster
-      :elastic_clustername    => "radioedit-dev",
-      # path to the static asset directory
-      :static_dir             => "#{default[:radioedit][:path]}/app_api/static",
-      # log reporting level
-      :log_level              => "DEBUG",
-      # supervisor environment token
-      :env                    => "ihr_testing"
-    });
+    # default[:radioedit][:app_api].merge!({
+    #   # git tag/branch name
+    #   :deploy_revision        => "master",
+    #   # webserver listen port
+    #   :nginx_listen           => 8080,
+    #   # name of the elasticsearch cluster
+    #   :elastic_clustername    => "radioedit-dev",
+    #   # path to the static asset directory
+    #   :static_dir             => "#{default[:radioedit][:path]}/app_api/static",
+    #   # log reporting level
+    #   :log_level              => "DEBUG",
+    # });
 
-    # merge in the supervisor configs
-    default[:radioedit][:app_api][:environment].merge!({
-      # debug on(1)/off(0)
-      :RD_DEBUG               => "1",
-      # mongo cluster connection string
-      :RD_MONGO_URI           => "mongodb://use1b-radioedit-test102.ihr:37017,use1b-radioedit-test103.ihr:37017,use1b-radioedit-test104.ihr:37017/radioedit-f?replicaSet=RadioEdit1",
-      # elasticsearch uri
-      :RD_ELASTICSEARCH_URI   => "http://localhost:9200/",
-      # binary storage path uri
-      :RD_STORAGE_MOUNTS      => "primary:/data/binstore",
-      # graphite statsd host
-      :RD_STATSD              => "iad-stg-statsd101-v700.ihr",
-      # remote sentry uri
-      #:RD_SENTRY_DSN         => "https://c3c60ffdb0354f38ada11c9cff9be827:0bad13885cfb4024854075c58ff53295@app.getsentry.com/11937"
+    # # merge in the supervisor configs
+    # default[:radioedit][:app_api][:environment].merge!({
+    #   # debug on(1)/off(0)
+    #   :RD_DEBUG               => "1",
+    #   # mongo cluster connection string
+    #   :RD_MONGO_URI           => "mongodb://use1b-radioedit-test102.ihr:37017,use1b-radioedit-test103.ihr:37017,use1b-radioedit-test104.ihr:37017/radioedit-f?replicaSet=RadioEdit1",
+    #   # elasticsearch uri
+    #   :RD_ELASTICSEARCH_URI   => "http://localhost:9200/",
+    #   # binary storage path uri
+    #   :RD_STORAGE_MOUNTS      => "primary:/data/binstore",
+    #   # graphite statsd host
+    #   :RD_STATSD              => "iad-stg-statsd101-v700.ihr",
+    #   # remote sentry uri
 
-      # #####################################
-      # cross application uri
-      # #####################################
+    #   # #####################################
+    #   # cross application uri
+    #   # #####################################
 
-      # internal paths
-      :RD_AUTH_URI            => "http://auth-int.radioedit.ihrdev.com/auth",
-      :RD_API_URI             => "http://api-int.radioedit.ihrdev.com/api/rpc",
-      :RD_SERVICE_URI         => "http://api-int.radioedit.ihrdev.com/service",
-      :RD_STORAGE_URI         => "http://api-int.radioedit.ihrdev.com/storage",
-      :RD_SCRIPT_URI          => "http://script-int.radioedit.ihrdev.com",
-      :RD_CDN_URI             => "http://radioedit-int.ihrdev.com/",
+    #   # internal paths
+    #   :RD_AUTH_URI            => "http://auth-int.radioedit.ihrdev.com/auth",
+    #   :RD_API_URI             => "http://api-int.radioedit.ihrdev.com/api/rpc",
+    #   :RD_SERVICE_URI         => "http://api-int.radioedit.ihrdev.com/service",
+    #   :RD_STORAGE_URI         => "http://api-int.radioedit.ihrdev.com/storage",
+    #   :RD_SCRIPT_URI          => "http://script-int.radioedit.ihrdev.com",
+    #   :RD_CDN_URI             => "http://radioedit-int.ihrdev.com/",
 
-      # external paths
-      :RD_PUBLIC_AUTH_URI     => "http://auth.radioedit.ihrdev.com/auth",
-      :RD_PUBLIC_API_URI      => "http://api.radioedit.ihrdev.com/api/rpc",
-      :RD_PUBLIC_SERVICE_URI  => "http://api.radioedit.ihrdev.com/service",
-      :RD_PUBLIC_STORAGE_URI  => "http://api.radioedit.ihrdev.com/storage",
-      :RD_PUBLIC_SCRIPT_URI   => "http://script.radioedit.ihrdev.com",
-      :RD_PUBLIC_CDN_URI      => "http://radioedit.ihrdev.com"
+    #   # external paths
+    #   :RD_PUBLIC_AUTH_URI     => "http://auth.radioedit.ihrdev.com/auth",
+    #   :RD_PUBLIC_API_URI      => "http://api.radioedit.ihrdev.com/api/rpc",
+    #   :RD_PUBLIC_SERVICE_URI  => "http://api.radioedit.ihrdev.com/service",
+    #   :RD_PUBLIC_STORAGE_URI  => "http://api.radioedit.ihrdev.com/storage",
+    #   :RD_PUBLIC_SCRIPT_URI   => "http://script.radioedit.ihrdev.com",
+    #   :RD_PUBLIC_CDN_URI      => "http://radioedit.ihrdev.com"
 
-    });
+    # });
     
   # END DEVELOPMENT SETTINGS
 

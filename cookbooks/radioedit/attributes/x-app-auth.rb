@@ -25,6 +25,15 @@ default[:radioedit][:app_auth] = {
   :root_dir                 => "#{node[:radioedit][:path]}/app_auth",
   # application owner username
   :user_name                => "ihr-deployer",
+  # number of web server worker processes to start up
+  :num_workers              => "5",
+  # application module to run
+  :module                   => "wsgi",
+  # application host
+  :host                     => "unix",
+  # pid file to create
+  :pid_file                 => "var/run/radioedit/app_auth.pid",
+
 
   # supervisor environment variables
   :environment => {
@@ -49,7 +58,7 @@ case chef_environment
 
     default[:radioedit][:app_auth].merge!({
       # git tag/branch name
-      :deploy_revision => "master",
+      :deploy_revision => "han",
       # webserver listen port
       :nginx_listen => 8080,
     });
@@ -63,7 +72,7 @@ case chef_environment
       # graphite statsd host
       :RD_STATSD              => "iad-stg-statsd101-v700.ihr",
       # remote sentry uri
-      #:RD_SENTRY_DSN =>         "https://5a99baf425954927b38c9c7373502abf:e86faffebc4e4a9f854e0fedfd2a585a@app.getsentry.com/18592"
+      :RD_SENTRY_DSN =>         "https://5a99baf425954927b38c9c7373502abf:e86faffebc4e4a9f854e0fedfd2a585a@app.getsentry.com/18592"
 
       # #####################################
       # cross application uri
@@ -142,45 +151,45 @@ case chef_environment
   # ################################################################
   when /^dev/
 
-    default[:radioedit][:app_auth].merge!({
-      # git tag/branch name
-      :deploy_revision => "han",
-      # webserver listen port
-      :nginx_listen => 8080,
-    });
+    # default[:radioedit][:app_auth].merge!({
+    #   # git tag/branch name
+    #   :deploy_revision => "master",
+    #   # webserver listen port
+    #   :nginx_listen => 8080,
+    # });
 
-     # merge in the supervisor configs
-    default[:radioedit][:app_auth][:environment].merge!({
-      # debug on(1)/off(0)
-      :RD_DEBUG               => "1",
-      # mongo cluster connection string
-      :RD_MONGO_URI           => "mongodb://iad-stg-mongo-fac101-v760.ihr:37018,iad-stg-mongo-fac102-v760.ihr:37018/radioedit-logs?replicaSet=Mongo-shared-STG",
-      # graphite statsd host
-      :RD_STATSD              => "iad-stg-statsd101-v700.ihr",
-      # remote sentry uri
-      #:RD_SENTRY_DSN =>         "https://5a99baf425954927b38c9c7373502abf:e86faffebc4e4a9f854e0fedfd2a585a@app.getsentry.com/18592"
+    #  # merge in the supervisor configs
+    # default[:radioedit][:app_auth][:environment].merge!({
+    #   # debug on(1)/off(0)
+    #   :RD_DEBUG               => "1",
+    #   # mongo cluster connection string
+    #   :RD_MONGO_URI           => "mongodb://iad-stg-mongo-fac101-v760.ihr:37018,iad-stg-mongo-fac102-v760.ihr:37018/radioedit-?replicaSet=Mongo-shared-STG",
+    #   # graphite statsd host
+    #   :RD_STATSD              => "iad-stg-statsd101-v700.ihr",
+    #   # remote sentry uri
+    #   #:RD_SENTRY_DSN =>         "https://5a99baf425954927b38c9c7373502abf:e86faffebc4e4a9f854e0fedfd2a585a@app.getsentry.com/18592"
 
-      # #####################################
-      # cross application uri
-      # #####################################
+    #   # #####################################
+    #   # cross application uri
+    #   # #####################################
 
-      # internal paths
-      :RD_AUTH_URI            => "http://auth-int.radioedit.ihrdev.com/auth",
-      :RD_API_URI             => "http://api-int.radioedit.ihrdev.com/api/rpc",
-      :RD_SERVICE_URI         => "http://api-int.radioedit.ihrdev.com/service",
-      :RD_STORAGE_URI         => "http://api-int.radioedit.ihrdev.com/storage",
-      :RD_SCRIPT_URI          => "http://script-int.radioedit.ihrdev.com",
-      :RD_CDN_URI             => "http://radioedit-int.ihrdev.com/",
+    #   # internal paths
+    #   :RD_AUTH_URI            => "http://auth-int.radioedit.ihrdev.com/auth",
+    #   :RD_API_URI             => "http://api-int.radioedit.ihrdev.com/api/rpc",
+    #   :RD_SERVICE_URI         => "http://api-int.radioedit.ihrdev.com/service",
+    #   :RD_STORAGE_URI         => "http://api-int.radioedit.ihrdev.com/storage",
+    #   :RD_SCRIPT_URI          => "http://script-int.radioedit.ihrdev.com",
+    #   :RD_CDN_URI             => "http://radioedit-int.ihrdev.com/",
 
-      # external paths
-      :RD_PUBLIC_AUTH_URI     => "http://auth.radioedit.ihrdev.com/auth",
-      :RD_PUBLIC_API_URI      => "http://api.radioedit.ihrdev.com/api/rpc",
-      :RD_PUBLIC_SERVICE_URI  => "http://api.radioedit.ihrdev.com/service",
-      :RD_PUBLIC_STORAGE_URI  => "http://api.radioedit.ihrdev.com/storage",
-      :RD_PUBLIC_SCRIPT_URI   => "http://script.radioedit.ihrdev.com",
-      :RD_PUBLIC_CDN_URI      => "http://radioedit.ihrdev.com"
+    #   # external paths
+    #   :RD_PUBLIC_AUTH_URI     => "http://auth.radioedit.ihrdev.com/auth",
+    #   :RD_PUBLIC_API_URI      => "http://api.radioedit.ihrdev.com/api/rpc",
+    #   :RD_PUBLIC_SERVICE_URI  => "http://api.radioedit.ihrdev.com/service",
+    #   :RD_PUBLIC_STORAGE_URI  => "http://api.radioedit.ihrdev.com/storage",
+    #   :RD_PUBLIC_SCRIPT_URI   => "http://script.radioedit.ihrdev.com",
+    #   :RD_PUBLIC_CDN_URI      => "http://radioedit.ihrdev.com"
 
-    });
+    # });
     
   # END DEVELOPMENT SETTINGS
 
