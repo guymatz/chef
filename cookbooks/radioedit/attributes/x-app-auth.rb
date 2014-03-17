@@ -72,7 +72,7 @@ case chef_environment
       # graphite statsd host
       :RD_STATSD              => "iad-stg-statsd101-v700.ihr",
       # remote sentry uri
-      :RD_SENTRY_DSN =>         "https://5a99baf425954927b38c9c7373502abf:e86faffebc4e4a9f854e0fedfd2a585a@app.getsentry.com/18592"
+      :RD_SENTRY_DSN =>         "https://5a99baf425954927b38c9c7373502abf:e86faffebc4e4a9f854e0fedfd2a585a@app.getsentry.com/18592",
 
       # #####################################
       # cross application uri
