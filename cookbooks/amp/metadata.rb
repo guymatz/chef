@@ -1,10 +1,17 @@
+# ##############################################################
+# @Changelog
+#   - 3/17/14 GP
+#      - Bumped the version to 1.0.2 for the changes in ./templates/default/amp-extended-log-chk.sh.erb
+#
+# ##############################################################
 name             'amp'
 maintainer       'iHeartRadio'
 maintainer_email 'none@none.com'
 license          'All rights reserved'
 description      'Installs/Configures amp'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '1.0.1'
+version          '1.0.2'
+
 
 %w{ centos debian }.each do |os|
   supports os
