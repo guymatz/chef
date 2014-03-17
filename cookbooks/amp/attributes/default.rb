@@ -83,6 +83,7 @@ when /^prod/
   default[:amp][:rabbit][:facebook][:password] = "tppw2011!"
   default[:amp][:rabbit][:host] = "iad-rabbitmq-vip-v200.ihr"
   default[:amp][:rabbit][:port] = 5673
+  default[:amp][:rabbit][:consumer][:port] = 5672
   default[:amp][:rabbit][:username] = "amp-tomcat"
   default[:amp][:rabbit][:password] = "tppw2011!"
   default[:amp][:rabbit][:timeout] = 5000
@@ -168,6 +169,7 @@ when /^stage/
   default[:amp][:rabbit][:facebook][:password] = "tppw2011!"
   default[:amp][:rabbit][:host] = "iad-stg-rabbitmq-vip-v700.ihr"
   default[:amp][:rabbit][:port] = 5673
+  default[:amp][:rabbit][:consumer][:port] = 5672
   default[:amp][:rabbit][:username] = "amp-tomcat"
   default[:amp][:rabbit][:password] = "tppw2011!"
   default[:amp][:rabbit][:timeout] = 5000
@@ -254,6 +256,7 @@ else
   default[:amp][:rabbit][:facebook][:password] = "tppw2011!"
   default[:amp][:rabbit][:host] = "iad-rabbitmq-vip-v200.ihr"
   default[:amp][:rabbit][:port] = 5673
+  default[:amp][:rabbit][:consumer][:port] = 5672
   default[:amp][:rabbit][:username] = "amp-tomcat"
   default[:amp][:rabbit][:password] = "tppw2011!"
   default[:amp][:rabbit][:timeout] = 5000
