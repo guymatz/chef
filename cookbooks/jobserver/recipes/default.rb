@@ -23,6 +23,11 @@ nagios_nrpecheck "Process-Cron" do
   action :add
 end
 
+cron_d "fbconsumer_log_cleanup" do
+  hour "22"
+  command 'find /data/log/facebook-consumer* -type f -mtime +30 -exec rm -rf {} \;'
+end
+
 
 # Things that should run on the jobserver
 #### Keep them organized by the Application(cookbook) that they belong to.
