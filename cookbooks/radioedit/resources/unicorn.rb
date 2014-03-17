@@ -13,7 +13,9 @@
 ### this provides the setup of a python/gunicorn app
 ###
 
+# exposed actions
 actions :init
+# implied action when none given
 default_action :init
 
 # default name attribute

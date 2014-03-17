@@ -22,6 +22,7 @@
 # default provider -- expects to be passed the app name (currently app_api / app_auth)
 #
 action :init do 
+
   unless node.tags.include? "radioedit.#{new_resource.deploy_tag}"
 
     Chef::Log.info("Bootstrapping app #{new_resource.name}")
@@ -46,6 +47,7 @@ action :init do
       group @new_resource.user
       enable_submodules @new_resource.enable_submodules
 
+      # unicorn sub resource
       gunicorn do
         app_module @new_resource.module
         settings_template "re-gunicorn.py.erb"
@@ -72,17 +74,17 @@ action :init do
       group "root"
       mode 0600
       variables({
-          :app_name =>            @new_resource.name,
-          :legacy_static_root =>  @new_resource.legacy_static_root,
-          :webserver_port =>      @new_resource.webserver_listen,
+          :app_name             => @new_resource.name,
+          :legacy_static_root   => @new_resource.legacy_static_root,
+          :webserver_port       => @new_resource.webserver_listen,
       })   
     end
 
     # Create service init script for application.
     template "/etc/init/#{new_resource.name}.conf" do
-        source "radioedit-initd.sh.erb"
-        owner "root"
-        group "root"
+      source "radioedit-initd.sh.erb"
+      owner "root"
+      group "root"
     end
 
     # set up rotation for the log files
@@ -90,22 +92,29 @@ action :init do
       logrotate_app "#{new_resource.name}.out" do
         cookbook "logrotate"
         path f
-        options ["missingok", "compress", "notifempty", "sharedscripts","dateext"]
         frequency "daily"
         enable true
         rotate 5
         size "2G"
-        postrotate ' [ -f #{new_resource.pid_file}] && kill -USR1 `cat #{new_resource.pid_file}`'
+        options %w{ missingok compress notifempty sharedscripts dateext }
+        postrotate '[ -f #{new_resource.pid_file}] && kill -USR1 `cat #{new_resource.pid_file}`'
       end
     end
 
     # add the tag to prevent unamanaged deploys
     node.tags << "radioedit.#{new_resource.deploy_tag}"
 
+    # send word and notices that this actually did something
     Chef::Log.info("Initialized app #{new_resource.name}")
+    new_resource.updated_by_last_action(true);
 
   else 
-     Chef::Log.warn("App #{new_resource.name} has already been initialized")
+
+    # warn that the resource has already been set up
+    Chef::Log.warn("App #{new_resource.name} is blocked from repeat installations")
+    new_resource.updated_by_last_action(false);
+
   end
+
 end
 
