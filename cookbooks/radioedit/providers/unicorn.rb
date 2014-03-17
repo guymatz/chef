@@ -40,28 +40,29 @@ action :init do
     # set up the actual application and gunicorn
     application @new_resource.name do
 
-      repository @new_resource.repository
-      revision @new_resource.revision
-      path @new_resource.root_dr
-      owner @new_resource.user      group @new_resource.user
-      enable_submodules @new_resource.enable_submodules
+      repository new_resource.repository
+      revision new_resource.revision
+      path new_resource.root_dr
+      owner new_resource.user      
+      group new_resource.user
+      enable_submodules new_resource.enable_submodules
 
       # unicorn sub resource
       gunicorn do
-        app_module @new_resource.app_module
+        app_module new_resource.app_module
         settings_template "re-gunicorn.py.erb"
-        port @new_resource.port
-        host @new_resource.host
-        workers @new_resource.workers
-        pidfile @new_resource.pid_file
-        stdout_logfile @new_resource.stdout_log
-        stderr_logfile @new_resource.stderr_log
-        loglevel @new_resource.log_level 
+        port new_resource.port
+        host new_resource.host
+        workers new_resource.workers
+        pidfile new_resource.pid_file
+        stdout_logfile new_resource.stdout_log
+        stderr_logfile new_resource.stderr_log
+        loglevel new_resource.log_level 
         interpreter "python27"
         requirements "requirements.txt"
-        autostart @new_resource.autostart
-        virtualenv @new_resource.venv_dir
-        environment @new_resource.environment
+        autostart new_resource.autostart
+        virtualenv new_resource.venv_dir
+        environment new_resource.environment
       end # gunicorn
         
     end # application
@@ -73,9 +74,9 @@ action :init do
       group "root"
       mode 0600
       variables({
-          :app_name             => @new_resource.name,
-          :legacy_static_root   => @new_resource.legacy_static_root,
-          :webserver_port       => @new_resource.webserver_listen,
+          :app_name             => new_resource.name,
+          :legacy_static_root   => new_resource.legacy_static_root,
+          :webserver_port       => new_resource.webserver_listen,
       })   
     end
 
