@@ -31,7 +31,7 @@ attribute :host, :required => true, :kind_of => String
 # port listener for app communication
 attribute :port, :required => true, :kind_of => [Integer, String]
 # severity level for log reporting
-attribute :log_level, :kind_of => String, :default => "ERROR", equal_to => %w{ DEBUG, INFO, WARN, ERROR }
+attribute :log_level, :kind_of => String, :default => "ERROR", :equal_to => %w{ DEBUG, INFO, WARN, ERROR }
 # path to the pid file to create
 attribute :pid_file, :required => true, :kind_of => String
 # path to the stdout process log
