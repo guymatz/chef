@@ -15,7 +15,6 @@
 #  the app into services that (for now) are running on the same host, but in the future can possibly be
 #  run on seperate hosts.  
 ## dev testing
-untag("radioedit.api_api")
 
 
 # The default recipe sets up the requirements (I think) that are required for all physical hosts running

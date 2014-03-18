@@ -13,7 +13,11 @@
 #  Sun Feb 23 13:50:23 EST 2014
 # 
 #  Stub to setup the api service
-## dev testing
+
+service "nginx" do
+  supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
+  action [ :enablet ]
+end
 
 radioedit_unicorn "app_api" do
 
@@ -79,8 +83,7 @@ end
 
 
 service "nginx" do
-  supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
-  action [ :enable, :restart ]
+  action [ :restart ]
 end
 
 

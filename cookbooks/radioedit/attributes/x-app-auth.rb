@@ -34,7 +34,6 @@ default[:radioedit][:app_auth] = {
   # pid file to create
   :pid_file                 => "var/run/radioedit/app_auth.pid",
 
-
   # supervisor environment variables
   :environment => {
     # supervisor application process reference
