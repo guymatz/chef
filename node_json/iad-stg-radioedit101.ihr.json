@@ -1,27 +1,22 @@
 {
   "name": "iad-stg-radioedit101.ihr",
-  "chef_environment": "stage",
+  "chef_environment": "stage-gp",
   "run_list": [
     "role[base]",
-    "role[radioedit_refactor]",
-    "recipe[radioedit::epona-sudo]",
-    "recipe[memcached]"
+    "recipe[yum::epel]",
+    "recipe[users::deployer]",
+    "recipe[users::radioedit]",
+    "recipe[nodejs]",
+    "recipe[radioedit::ldap-route]",
+    "recipe[radioedit::elasticsearch-install]",
+    "recipe[radioedit::radioedit]",
+    "recipe[radioedit::stage-nfs-mount]",
+    "recipe[radioedit::radioedit-auth]",
+    "recipe[radioedit::radioedit-api]",
+    "recipe[radioedit::radioedit-script]"
   ],
   "normal": {
-    "tags": [
-
-    ],
-    "mysql": {
-      "conf_dir": "/etc",
-      "confd_dir": "/etc/mysql/conf.d",
-      "socket": "/var/lib/mysql/mysql.sock",
-      "pid_file": "/var/run/mysqld/mysqld.pid",
-      "old_passwords": 1,
-      "grants_path": "/etc/mysql_grants.sql",
-      "tunable": {
-        "innodb_adaptive_flushing": false
-      }
-    },
+    "tags": [],
     "snmp": {
       "packages": [
         "net-snmp",
@@ -30,11 +25,6 @@
       "cookbook_files": [
 
       ]
-    },
-    "nagios": {
-      "nsca": {
-        "authkey": "JZ_OtF3rF4ponomK0g5F"
-      }
     }
   }
 }
