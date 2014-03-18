@@ -10,7 +10,7 @@
     "recipe[radioedit::ldap-route]",
     "recipe[radioedit::elasticsearch-install]",
     "recipe[radioedit::radioedit]",
-    "recipe[radioedit::stage-nfs-mount]"
+    "recipe[radioedit::stage-nfs-mount]",
     "recipe[radioedit::radioedit-auth]",
     "recipe[radioedit::radioedit-api]",
     "recipe[radioedit::radioedit-script]"
