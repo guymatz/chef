@@ -55,14 +55,3 @@ radioedit_node "app_script" do
 
 end
 
-# NOTE THE CHANGE IN - to _
-template "/etc/nginx/conf.d/app-script.conf" do
-  source "nginx-app_script.conf.erb"
-  owner "root"
-  group "root"
-  mode 0600
-  variables({
-      :webserver_port =>      node[:radioedit][:app_script][:nginx_listen],
-  })
-  notifies :reload, "service[nginx]", :immediately
-end
