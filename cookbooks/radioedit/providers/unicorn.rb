@@ -40,6 +40,7 @@ action :init do
     end # directories
 
     # touch the log files to make sure they have the proper perms
+    # also set up log rotation 
     [ new_resource.stdout_log, new_resource.stderr_log ].uniq.each do |f|
 
       file f do
@@ -47,6 +48,17 @@ action :init do
         group new_resource.user
         mode "0755"
         action :touch
+      end
+
+      logrotate_app "#{new_resource.name}.out" do
+        cookbook "logrotate"
+        path f
+        frequency "daily"
+        enable true
+        rotate 5
+        size "2G"
+        options %w{ missingok compress notifempty sharedscripts dateext }
+        postrotate "[ -f #{new_resource.pid_file}] && kill -USR1 `cat #{new_resource.pid_file}`"
       end
 
     end
@@ -102,20 +114,6 @@ action :init do
       source "radioedit-initd.sh.erb"
       owner "root"
       group "root"
-    end
-
-    # set up rotation for the log files (using unique in case both attributes are set to the same thing)
-    [ @new_resource.stdout_log, @new_resource.stderr_log ].uniq.each do |f|
-      logrotate_app "#{new_resource.name}.out" do
-        cookbook "logrotate"
-        path f
-        frequency "daily"
-        enable true
-        rotate 5
-        size "2G"
-        options %w{ missingok compress notifempty sharedscripts dateext }
-        postrotate "[ -f #{new_resource.pid_file}] && kill -USR1 `cat #{new_resource.pid_file}`"
-      end
     end
 
     # add the tag to prevent unamanaged deploys

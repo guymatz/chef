@@ -25,6 +25,12 @@ default[:radioedit][:app_script] = {
   :root_dir                 => "#{node[:radioedit][:path]}/app_script",
   # application owner username
   :user_name                => "ihr-deployer",
+  # number of web server worker processes to start up
+  :num_workers              => 5,
+  # application host
+  :host                     => "unix",
+  # pid file to create
+  :pid_file                 => "var/run/radioedit/app_api.pid",
 
   # supervisor environment variables
   :environment => {
@@ -51,6 +57,9 @@ case chef_environment
       :deploy_revision => "han",
       # webserver listen port
       :nginx_listen => 8080,
+      # webserver host names to register for listening in nginx
+      :webserver_name => "script-int.radioedit.iheart.com script.radioedit.iheart.com"
+
     });
 
     # merge in the supervisor configs
@@ -104,6 +113,8 @@ case chef_environment
       :deploy_revision => "han",
       # webserver listen port
       :nginx_listen => 8080,
+      # webserver host names to register for listening in nginx
+      :webserver_name => "script-int.radioedit.ihrdev.com script.radioedit.ihrdev.com"
     });
 
     # merge in the supervisor configs
