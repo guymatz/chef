@@ -82,6 +82,16 @@ action :init do
       enable_submodules new_resource.enable_submodules
     end
 
+    # NPM
+    # The built in NPM cookbook does not seem to support package.json so 
+    # we have to do this through an "execute" directive.# TODO this should not run as root but NPM sort of sucks and tries 
+    # to create /root/.npm for some stupid ass reason.
+    execute "install_npm_requirements" do
+      cwd "#{new_resource.root_dir}/current"
+      user "root"
+      command "npm config set ca null && npm install -g npm && npm install"
+    end
+
     # set up the supervisor process monitoring
     supervisor_service "#{new_resource.name}" do      
       autostart new_resource.autostart
@@ -100,16 +110,6 @@ action :init do
     end
 
     # @TODO Create service init script for application.
-
-    # NPM
-    # The built in NPM cookbook does not seem to support package.json so 
-    # we have to do this through an "execute" directive.# TODO this should not run as root but NPM sort of sucks and tries 
-    # to create /root/.npm for some stupid ass reason.
-    execute "install_npm_requirements" do
-      cwd "#{new_resource.root_dir}/current"
-      user "root"
-      command "npm config set ca null && npm install -g npm && npm install"
-    end
 
 
     node.tags << "#{new_resource.deploy_tag}" unless node.chef_environment !~ /^prod/
