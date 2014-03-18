@@ -1,5 +1,5 @@
 upstream script {
-    server   localhost:3000;
+    server   l<%= @server_host %>:<%= @server_port %>;;
 }
 
 server {

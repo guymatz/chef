@@ -1,5 +1,5 @@
 upstream auth {
-    server   unix:/var/tmp/<%= @app_name %>.sock;
+    server <%= @server_host %>:<%= @server_port %>;
 }
 
 server {

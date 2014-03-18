@@ -28,7 +28,7 @@ default[:radioedit][:app_script] = {
   # number of web server worker processes to start up
   :num_workers              => 5,
   # application host
-  :host                     => "unix",
+  :host                     => "localhost",
   # pid file to create
   :pid_file                 => "var/run/radioedit/app_api.pid",
 
