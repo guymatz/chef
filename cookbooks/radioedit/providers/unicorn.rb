@@ -64,17 +64,17 @@ action :init do
 
     end
 
-    # touch the socket file
-    unless new_resource.port.is_a? Integer 
+    # # touch the socket file
+    # unless new_resource.port.is_a? Integer 
 
-      file f do
-        owner new_resource.user
-        group new_resource.user
-        mode "0777"
-        action :touch
-      end
+    #   file new_resource.port do
+    #     owner new_resource.user
+    #     group new_resource.user
+    #     mode "0777"
+    #     action :touch
+    #   end
 
-    end
+    # end
 
     # set up the actual application and gunicorn
     application "#{new_resource.name}" do
