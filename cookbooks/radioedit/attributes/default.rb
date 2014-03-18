@@ -195,6 +195,9 @@ case chef_environment
           :gateway => "10.5.52.1"
         };
 
+        default[:radioedit][:stage][:nfs_locdir] = "/data/binstore"
+        default[:radioedit][:stage][:nfs_server] = "iad-stg-nfs101"
+        default[:radioedit][:stage][:nfs_remdir] = "/data/export/radioedit"
 
         #
         # varnish is the same for all apps
