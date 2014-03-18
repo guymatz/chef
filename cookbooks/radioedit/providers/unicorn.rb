@@ -25,7 +25,7 @@ action :init do
 
   new_resource = @new_resource
 
-  unless node.tags.include? "radioedit.#{new_resource.deploy_tag}"
+  unless node.tags.include? "radioedit.#{new_resource.deploy_tag}" && node.chef_environment !~ /^prod/
 
     Chef::Log.info("Bootstrapping app #{new_resource.name}")
 
@@ -121,7 +121,7 @@ action :init do
     end
 
     # add the tag to prevent unamanaged deploys
-    node.tags << "radioedit.#{new_resource.deploy_tag}"
+    node.tags << "radioedit.#{new_resource.deploy_tag}" unless node.chef_environment !~ /^prod/
 
     # send word and notices that this actually did something
     Chef::Log.info("Initialized app #{new_resource.name}")
