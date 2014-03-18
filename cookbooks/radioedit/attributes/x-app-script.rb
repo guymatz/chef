@@ -20,7 +20,7 @@ default[:radioedit][:app_script] = {
   # chef tag to use for deployment flag
   :deploy_tag               => "radioedit.app_script.deployed",
   # default listen port
-  :port                     => "/var/tmp/radioedit_script.sock",
+  :port                     => 3000,
   # application root directory
   :root_dir                 => "#{node[:radioedit][:path]}/app_script",
   # application owner username
