@@ -39,6 +39,20 @@ action :init do
 
     end # directories
 
+    # touch the log files to make sure they have the proper perms
+    [ new_resource.stdout_log, new_resource.stderr_log ].uniq.each do |f|
+
+      file f do
+        owner new_resource.user
+        group new_resource.user
+        mode "0755"
+        action :touch
+      end
+
+    end
+
+
+
     # set up the actual application and gunicorn
     application "#{new_resource.name}" do
 
