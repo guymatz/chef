@@ -109,6 +109,22 @@ action :init do
 
     end
 
+    # Nginx Config
+    template "/etc/nginx/conf.d/#{new_resource.name}.conf" do
+      source "nginx-#{new_resource.name}.conf.erb"
+      owner "root"
+      group "root"
+      mode 0600
+      variables({
+          :app_name             => new_resource.name,
+          :server_host          => new_resource.host,
+          :server_port          => new_resource.port,
+          :webserver_name       => new_resource.webserver_name,
+          :webserver_port       => new_resource.webserver_listen,
+          :legacy_static_root   => new_resource.legacy_static_root
+      })   
+    end
+
     # @TODO Create service init script for application.
 
 
