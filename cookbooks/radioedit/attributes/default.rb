@@ -197,7 +197,7 @@ case chef_environment
 
         default[:radioedit][:stage][:nfs_locdir] = "/data/binstore"
         default[:radioedit][:stage][:nfs_server] = "iad-stg-nfs101-v700.ihr"
-        default[:radioedit][:stage][:nfs_remdir] = "/data/export/radioedit"
+        default[:radioedit][:stage][:nfs_remdir] = "/data/export/radioedit/binstore"
 
         #
         # varnish is the same for all apps
