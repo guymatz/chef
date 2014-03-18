@@ -49,7 +49,6 @@ radioedit_node "app_script" do
     repository node[:radioedit][:app_script][:repo]
     revision node[:radioedit][:app_script][:deploy_revision]
     enable_submodules true
-    workers node[:radioedit][:app_script][:num_workers]
     environment node[:radioedit][:app_script][:environment]
     autostart true
     deploy_tag node[:radioedit][:app_script][:deploy_tag]
