@@ -51,8 +51,6 @@ action :init do
 
     end
 
-
-
     # set up the actual application and gunicorn
     application "#{new_resource.name}" do
 
@@ -116,7 +114,7 @@ action :init do
         rotate 5
         size "2G"
         options %w{ missingok compress notifempty sharedscripts dateext }
-        postrotate '[ -f #{new_resource.pid_file}] && kill -USR1 `cat #{new_resource.pid_file}`'
+        postrotate "[ -f #{new_resource.pid_file}] && kill -USR1 `cat #{new_resource.pid_file}`"
       end
     end
 
