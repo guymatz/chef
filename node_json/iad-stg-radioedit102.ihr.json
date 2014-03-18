@@ -3,6 +3,7 @@
   "chef_environment": "stage-gp",
   "run_list": [
     "role[base]",
+    "recipe[nfs]",
     "recipe[yum::epel]",
     "recipe[users::deployer]",
     "recipe[users::radioedit]",
