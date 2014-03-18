@@ -25,13 +25,14 @@
 #
 radioedit_unicorn "app_auth" do
 
-    not_if { chef_environment =~ /^prod/ && node.tags.include?(node[:radioedit][:app_auth][:deploy_tag]) }
+    not_if { node.chef_environment =~ /^prod/ && node.tags.include?(node[:radioedit][:app_auth][:deploy_tag]) }
 
     user node[:radioedit][:app_auth][:user_name]
     host node[:radioedit][:app_auth][:host]
     port node[:radioedit][:app_auth][:port]
     app_module node[:radioedit][:app_auth][:module]
     webserver_listen node[:radioedit][:app_auth][:nginx_listen]
+    webserver_name node[:radioedit][:app_auth][:webserver_name]
     log_level node[:radioedit][:app_auth][:log_level]
     pid_file node[:radioedit][:app_auth][:pid_file]
     stdout_log "#{node[:radioedit][:log_dir]}/app_auth.out"

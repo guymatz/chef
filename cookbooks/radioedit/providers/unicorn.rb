@@ -7,7 +7,7 @@
 ## All rights reserved - Do Not Redistribute
 ##
 ## authors:
-## jderagon
+## jderagon, gpatmore
 ##
 ## major refactor for han releaseo
 ##
