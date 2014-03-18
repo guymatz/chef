@@ -5,7 +5,7 @@ upstream auth {
 server {
     listen <%= @webserver_port %>;
     # We only use this block if the HOST is auth.radioedit.ihr
-    server_name auth.stage.radioedit.ihr;
+    server_name <%= @webserver_name %>;
 
     keepalive_timeout 5;
     # Nothing is typically uploaded to auth.
