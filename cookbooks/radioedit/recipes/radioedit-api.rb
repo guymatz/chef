@@ -16,7 +16,7 @@
 
 service "nginx" do
   supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
-  action [ :enablet ]
+  action [ :enable ]
 end
 
 radioedit_unicorn "app_api" do
