@@ -61,6 +61,8 @@ case chef_environment
       :deploy_revision => "han",
       # webserver listen port
       :nginx_listen => 8080,
+      # host names to listen for traffic requests to
+      :webserver_name => "auth-int.radioedit.iheart.com auth.radioedit.iheart.com"
     });
 
      # merge in the supervisor configs
@@ -79,11 +81,11 @@ case chef_environment
       # #####################################
 
       # internal paths
-      :RD_AUTH_URI          => "http://auth-int.radioedit.ihrdev.com/auth",
-      :RD_API_URI           => "http://api-int.radioedit.ihrdev.com/api/rpc",
-      :RD_SERVICE_URI       => "http://api-int.radioedit.ihrdev.com/service",
-      :RD_STORAGE_URI       => "http://api-int.radioedit.ihrdev.com/storage",
-      :RD_SCRIPT_URI        => "http://script-int.radioedit.ihrdev.com",
+      :RD_AUTH_URI          => "http://auth-int.radioedit.iheart.com/auth",
+      :RD_API_URI           => "http://api-int.radioedit.iheart.com/api/rpc",
+      :RD_SERVICE_URI       => "http://api-int.radioedit.iheart.com/service",
+      :RD_STORAGE_URI       => "http://api-int.radioedit.iheart.com/storage",
+      :RD_SCRIPT_URI        => "http://script-int.radioedit.iheart.com",
       :RD_CDN_URI           => "http://radioedit-int.iheart.com/",
 
       # external paths
@@ -109,6 +111,8 @@ case chef_environment
       :deploy_revision => "han",
       # webserver listen port
       :nginx_listen => 8080,
+      # host names to listen for traffic requests to
+      :webserver_name => "auth-int.radioedit.ihrdev.com auth.radioedit.ihrdev.com"
     });
 
      # merge in the supervisor configs
