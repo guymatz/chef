@@ -35,6 +35,7 @@ action :init do
       directory d do
         owner new_resource.user
         group new_resource.user
+        recursive true
       end
 
     end # directories

@@ -81,11 +81,11 @@ end
 #end
 
 # reset ownership to nginx to allow static file serving
-directory "#{node[:radioedit][:app_api][:staticdir]}" do
-  owner "nginx"
-  group "nginx"
-  recursive true
-end
+# directory "#{node[:radioedit][:app_api][:staticdir]}" do
+#   owner "nginx"
+#   group "nginx"
+#   recursive true
+# end
 
 # ###############################################################
 # static files served through a redirect in nginx conf file 
@@ -148,14 +148,14 @@ template "/etc/sysconfig/varnish" do
 end
 
 #NOTE NOTE NOTE: This is DELETING an nginx config file.  Needed for use with the Han Release
-template "/etc/nginx/conf.d/radioedit.conf" do
-  source "nginx.refactor.conf.erb"
-  owner "root"
-  group "root"
-  mode 0666
-  action :delete
-  notifies :reload, "service[nginx]", :immediately
-end
+# template "/etc/nginx/conf.d/radioedit.conf" do
+#   source "nginx.refactor.conf.erb"
+#   owner "root"
+#   group "root"
+#   mode 0666
+#   action :delete
+#   notifies :reload, "service[nginx]", :immediately
+# end
 
 service "varnish" do
   supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
