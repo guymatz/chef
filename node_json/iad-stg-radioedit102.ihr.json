@@ -3,7 +3,6 @@
   "chef_environment": "stage-gp",
   "run_list": [
     "role[base]",
-    "recipe[nfs]",
     "recipe[yum::epel]",
     "recipe[users::deployer]",
     "recipe[users::radioedit]",
@@ -11,6 +10,7 @@
     "recipe[radioedit::ldap-route]",
     "recipe[radioedit::elasticsearch-install]",
     "recipe[radioedit::radioedit]",
+    "recipe[radioedit::stage-nfs-mount]"
     "recipe[radioedit::radioedit-auth]",
     "recipe[radioedit::radioedit-api]",
     "recipe[radioedit::radioedit-script]"
