@@ -1,16 +1,25 @@
 {
   "name": "iad-radioedit102.ihr",
-  "chef_environment": "prod",
+  "chef_environment": "prod-radioedit-tmp",
   "run_list": [
     "role[base]",
     "role[auto-bonded]",
     "role[monitored]",
-    "role[radioedit_refactor]",
-    "role[dell]"
+    "role[dell]",
+    "recipe[yum::epel]",
+    "recipe[users::deployer]",
+    "recipe[users::radioedit]",
+    "recipe[nodejs]",
+    "recipe[radioedit::ldap-route]",
+    "recipe[radioedit::elasticsearch-install]",
+    "recipe[radioedit::radioedit]",
+    "recipe[radioedit::stage-nfs-mount]",
+    "recipe[radioedit::radioedit-auth]",
+    "recipe[radioedit::radioedit-api]",
+    "recipe[radioedit::radioedit-script]"
   ],
   "normal": {
-    "runlist_override_history": {
-    },
+    "runlist_override_history": {},
     "mysql": {
       "conf_dir": "/etc",
       "old_passwords": 1,
@@ -23,23 +32,16 @@
       "socket": "/var/lib/mysql/mysql.sock"
     },
     "ohai": {
-      "plugins": {
-      }
+      "plugins": {}
     },
     "nagios": {
-      "nsca": {
-        "authkey": "JZ_OtF3rF4ponomK0g5F"
-      }
+      "nsca": { "authkey": "JZ_OtF3rF4ponomK0g5F" }
     },
     "platform?": "ubuntu",
-    "tags": [
-      "radioedit-deployed"
-    ],
+    "tags": [ ],
     "whipped": true,
     "snmp": {
-      "cookbook_files": [
-
-      ],
+      "cookbook_files": [ ],
       "packages": [
         "net-snmp",
         "net-snmp-utils"
@@ -53,10 +55,8 @@
       ]
     },
     "openssh": {
-      "server": {
-      },
-      "client": {
-      }
+      "server": { },
+      "client": { }
     }
   }
 }
