@@ -5,7 +5,6 @@ This cookbook deploys the AIS package on a master or edge.
 Requirements
 ------------
 #### cookbooks
-- `ulimit` - Used to setup nofile for the software user.
 - `sysctl` - Used to tune the system for concurrency.
 
 #### packages
@@ -28,6 +27,12 @@ There are a few attributes that will be unique per cluster/ais setup so these ar
 `['ais']['ais_type']` - String - Deploy a master or edge.
 
 `['ais']['version']` - String - Specifies the version of the package to deploy.
+
+Tags
+----
+`ais-deployed` - Indicates that the application has been deployed. Must be removed to update the config or the software.
+
+`reload-only` - Indicates whether or not to restart the service. Most config changes can occur via a SIGHUP and do not require a restart. Remove if a restart is desired.
 
 Usage
 -----
