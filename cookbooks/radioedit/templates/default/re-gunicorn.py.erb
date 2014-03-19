@@ -1,0 +1,26 @@
+import os
+import sys
+import multiprocessing
+
+# Application name
+APP_NAME = os.environ.get('RD_APP_NAME')
+
+if APP_NAME is None:
+    print "RD_APP_NAME must be set in the environment"
+    sys.exit(1)
+
+# These values are dependant on the prescribed directory structure.
+bind = "unix:/var/tmp/%s.sock" % APP_NAME
+chdir = "/data/apps/radioedit/%s/current" % APP_NAME
+pidfile = "/var/run/radioedit/radioedit-%s.pid" % APP_NAME
+errorlog = "/var/log/radioedit/%s.err" % APP_NAME
+proc_name = APP_NAME
+
+# Basic Values that are pretty standard
+workers = multiprocessing.cpu_count() * 2 + 1
+worker_class = "sync"
+timeout = 60
+backlog = 2048
+keepalive = 2
+max_requests = 1000
+preload_app = False

@@ -93,5 +93,5 @@ template "/etc/sysconfig/varnish" do
 end
 
 template "/etc/varnish/default.vcl" do
-  source "varnish.vcl"
+  source "varnish.vcl.erb"
 end
