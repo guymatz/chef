@@ -89,7 +89,7 @@ case chef_environment
       # log reporting level
       :log_level              => "ERROR",
       # nginx server_name value (underscore serves as the catchall host)
-      :webserver_name         => "_"
+      :webserver_name         => "_",
 
       # supervisor environment variables
       :environment => {
