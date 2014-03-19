@@ -30,9 +30,8 @@ radioedit_unicorn "app_api" do
 
     app_module node[:radioedit][:app_api][:module]
 
-    webserver_listen 8080
-
-    webserver_name "_"
+    webserver_listen node[:radioedit][:app_api][:nginx_listen]
+    webserver_name node[:radioedit][:app_api][:webserver_name]
 
     log_level node[:radioedit][:app_api][:log_level]
     pid_file node[:radioedit][:app_api][:pid_file]
