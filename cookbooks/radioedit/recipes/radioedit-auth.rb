@@ -21,7 +21,7 @@
 ## dev testing
 
 
-if node.chef_environment ~= /^prod/
+if ( node.chef_environment ~= /^prod/ )
     #
     # call the provider for app-auth 
     #
