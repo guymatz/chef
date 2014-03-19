@@ -55,7 +55,7 @@ case chef_environment
   # ################################################################
   # PRODUCTION SETTINGS!!!!!
   # ################################################################
-  when /^prod/
+  when /^prod-radioedit-tmp/
 
     default[:radioedit][:app_auth] = {
       # application name 
