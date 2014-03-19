@@ -64,61 +64,6 @@ end
 
 
 
-# TODO WHERE DOES THIS GO
-#template "#{node[:radioedit][:path]}/shared/settings.json" do
-#  source "settings.json.erb"
-#  owner node[:radioedit][:app_user]
-#  group node[:radioedit][:app_user]
-#end
-
-# TODO THIS TOO
-#link "#{node[:radioedit][:path]}/settings.json" do
-#  to "#{node[:radioedit][:path]}/shared/settings.json"
-#  action :create
-#  owner node[:radioedit][:app_user]
-#  group node[:radioedit][:app_user]
-#  not_if "test -L #{node[:radioedit][:path]}/shared/settings.json"
-#end
-
-# reset ownership to nginx to allow static file serving
-# directory "#{node[:radioedit][:app_api][:staticdir]}" do
-#   owner "nginx"
-#   group "nginx"
-#   recursive true
-# end
-
-# ###############################################################
-# static files served through a redirect in nginx conf file 
-# ###############################################################
-
-#template "#{node[:radioedit][:legacy_root]}/android.json" do
-#  source "staticfile-android.json.erb"
-#  owner "nginx"
-#  group "nginx"
-#  mode 0444
-#end
-#
-#template "#{node[:radioedit][:legacy_root]}/fux.json" do
-#  source "staticfile-fux.json.erb"
-#  owner "nginx"
-#  group "nginx"
-#  mode 0444 
-#end
-#
-#template "#{node[:radioedit][:legacy_root]}/iphone.json" do
-#  source "staticfile-iphone.json.erb"
-#  owner "nginx"
-#  group "nginx"
-#  mode 0444
-#end
-#
-#template "#{node[:radioedit][:legacy_root]}/kenwood.json" do
-#  source "staticfile-kenwood.json.erb"
-#  owner "nginx"
-#  group "nginx"
-#  mode 0444
-#end
-
 # ###############################################################
 # end static file templates 
 # ###############################################################
@@ -154,7 +99,7 @@ end
 #   group "root"
 #   mode 0666
 #   action :delete
-#   notifies :reload, "service[nginx]", :immediately
+#   notifies :reload, "service[nginx]"
 # end
 
 service "varnish" do

@@ -157,6 +157,7 @@ case chef_environment
 
       # cdn settings
       default[:radioedit][:cdn_url] = "http://imgproxy.iheart.com/"
+      
       default[:radioedit][:nfs_server] = "iad-nfs101-v200.ihr"
       default[:radioedit][:nfs_remdir] = "/data/imgscaler/radioedit"
       default[:radioedit][:nfs_locdir] = "/data/binstore"
