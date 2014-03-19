@@ -13,7 +13,6 @@ action :deploy do
     package 'ais' do
       version new_resource.version 
     end
-    service 'ais'
     %w{ user.config etc/ais.instance }.each do |config|
       template "#{new_resource.path}/#{config}" do
         owner new_resource.owner
@@ -30,9 +29,13 @@ action :deploy do
       owner new_resource.owner
       group new_resource.group
       action :create_if_missing
-      notifies :restart, 'service[ais]', :immediately
+    end
+    service 'ais' do
+      action :restart
+      not_if node.tags.include?('reload-only')
     end
     node.tags << 'ais-deployed'
+    node.tags << 'reload-only' unless node.tags.include?('reload-only')
   end
   new_resource.updated_by_last_action(true)
 end
