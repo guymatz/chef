@@ -1,6 +1,6 @@
 {
-  "hostgroup_name": "postgres-server",
-  "id": "Postgres-TxmWraparound",
+  "hostgroup_name": "ps-monitoring",
+  "id": "Postgres-TxnWraparound",
   "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Postgres-TxnWraparound -t 20",
     "contact_groups": ["dba-team"]
 }
