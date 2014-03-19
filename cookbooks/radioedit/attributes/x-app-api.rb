@@ -92,7 +92,7 @@ case chef_environment
       # internal paths
       :RD_AUTH_URI          => "http://auth-int.radioedit.iheart.com/auth",
       :RD_API_URI           => "http://api-int.radioedit.iheart.com/api/rpc",
-      :RD_SERVICE_URI       => "http://api-int.radioedit.iiheart.com/service",
+      :RD_SERVICE_URI       => "http://api-int.radioedit.iheart.com/service",
       :RD_STORAGE_URI       => "http://api-int.radioedit.iheart.com/storage",
       :RD_SCRIPT_URI        => "http://script-int.radioedit.iheart.com",
       :RD_CDN_URI           => "http://radioedit-int.iheart.com/",
