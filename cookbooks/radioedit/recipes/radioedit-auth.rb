@@ -25,8 +25,6 @@
 #
 radioedit_unicorn "app_auth" do
 
-    not_if { node.chef_environment =~ /^prod/ && node.tags.include?(node[:radioedit][:app_auth][:deploy_tag]) }
-
     user node[:radioedit][:app_auth][:user_name]
     host node[:radioedit][:app_auth][:host]
     port node[:radioedit][:app_auth][:port]
@@ -47,6 +45,8 @@ radioedit_unicorn "app_auth" do
     environment node[:radioedit][:app_auth][:environment]
     autostart true
     deploy_tag node[:radioedit][:app_auth][:deploy_tag]
+
+    not_if { node.chef_environment =~ /^prod/ && node.tags.include?(node[:radioedit][:app_auth][:deploy_tag]) }
 
 end
 
