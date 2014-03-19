@@ -36,7 +36,7 @@ radioedit_unicorn "app_api" do
     venv_dir "#{node[:radioedit][:app_api][:root_dir]}/env"
     src_dir "#{node[:radioedit][:app_api][:root_dir]}/releases"
     repository node[:radioedit][:app_api][:repo]
-    revision "han"
+    revision "han" 
     enable_submodules true
     workers node[:radioedit][:app_api][:num_workers]
     environment node[:radioedit][:app_api][:environment]
