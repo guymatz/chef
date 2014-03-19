@@ -87,7 +87,7 @@ case chef_environment
       :RD_SERVICE_URI       => "http://api-int.radioedit.iheart.com/service",
       :RD_STORAGE_URI       => "http://api-int.radioedit.iheart.com/storage",
       :RD_SCRIPT_URI        => "http://script-int.radioedit.iheart.com",
-      :RD_CDN_URI           => "http://radioedit-int.iheart.com/",
+      :RD_CDN_URI           => "http://radioedit-int.iheart.com",
 
       # external paths
       :RD_PUBLIC_AUTH_URI    => "http://auth.radioedit.iheart.com/auth",
@@ -144,7 +144,7 @@ case chef_environment
       :RD_SERVICE_URI         => "http://api-int.radioedit.ihrdev.com/service",
       :RD_STORAGE_URI         => "http://api-int.radioedit.ihrdev.com/storage",
       :RD_SCRIPT_URI          => "http://script-int.radioedit.ihrdev.com",
-      :RD_CDN_URI             => "http://radioedit-int.ihrdev.com/",
+      :RD_CDN_URI             => "http://radioedit-int.ihrdev.com",
 
       # external paths
       :RD_PUBLIC_AUTH_URI     => "http://auth.radioedit.ihrdev.com/auth",
