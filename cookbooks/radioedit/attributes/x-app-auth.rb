@@ -43,6 +43,8 @@ default[:radioedit][:app_auth] = {
   }
 };
 
+default[:radioedit][:app_auth][:user_name] = "ihr-deployer"
+
 
 
 # ################################################################
