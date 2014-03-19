@@ -27,27 +27,27 @@ if ( node.chef_environment =~ /^prod/ )
     #
     radioedit_unicorn "app_auth" do
 
-        user "ihr-deployer"
-        host "unix"
-        port "/var/tmp/app_auth.sock"
-        app_module "wsgi"
-        webserver_listen 8080
-        webserver_name "auth-int.radioedit.iheart.com auth.radioedit.iheart.com"
-        log_level "ERROR"
-        pid_file "var/run/radioedit/app_auth.pid"
-        stdout_log "/var/log/radioedit/app_auth.out"
-        stderr_log "/var/log/radioedit/app_auth.err"
-        root_dir "/var/log/radioedit"
-        venv_dir "/var/log/radioedit/env"
-        src_dir "/var/log/radioedit/releases"
-        repository "git@github.ihrint.com:radioedit/auth.git"
-        revision "han"
+        host "ihr-deployer"
+        port node[:radioedit][:app_auth][:port]
+        app_module node[:radioedit][:app_auth][:module]
+        webserver_listen node[:radioedit][:app_auth][:nginx_listen]
+        webserver_name node[:radioedit][:app_auth][:webserver_name]
+        log_level node[:radioedit][:app_auth][:log_level]
+        pid_file node[:radioedit][:app_auth][:pid_file]
+        stdout_log "#{node[:radioedit][:log_dir]}/app_auth.out"
+        stderr_log "#{node[:radioedit][:log_dir]}/app_auth.err"
+        root_dir node[:radioedit][:app_auth][:root_dir]
+        venv_dir "#{node[:radioedit][:app_auth][:root_dir]}/env"
+        src_dir "#{node[:radioedit][:app_auth][:root_dir]}/releases"
+        repository node[:radioedit][:app_auth][:repo]
+        revision node[:radioedit][:app_auth][:deploy_revision]
         enable_submodules true
-        workers 5        
-        autostart true
-        deploy_tag "radioedit.app_auth.deployed"
-
+        workers node[:radioedit][:app_auth][:num_workers]
         environment node[:radioedit][:app_auth][:environment]
+        autostart true
+        deploy_tag node[:radioedit][:app_auth][:deploy_tag]
+
+        not_if { node.chef_environment =~ /^prod/ && node.tags.include?(node[:radioedit][:app_auth][:deploy_tag]) }
 
         # environment {
         #   # supervisor application process reference
