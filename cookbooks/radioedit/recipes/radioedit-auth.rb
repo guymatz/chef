@@ -25,7 +25,7 @@
 #
 radioedit_unicorn "app_auth" do
 
-    user "#{node[:radioedit][:app_auth][:user_name]}"
+    user node[:radioedit][:app_auth][:user_name]
     host node[:radioedit][:app_auth][:host]
     port node[:radioedit][:app_auth][:port]
     app_module node[:radioedit][:app_auth][:module]

@@ -11,6 +11,8 @@
 # @Description major refactor for han release
 # @Changelog 3/13/14-GP: Split Api app configuration attributes into this file from default.rb 
 
+Chef::Log.info("Loading x-app-api attributes file")
+
 # API APPLICATION: attributes common to all environments
 default[:radioedit][:app_api] = {
   # application name 
