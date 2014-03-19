@@ -69,7 +69,7 @@ case chef_environment
       # debug on(1)/off(0)
       :RD_DEBUG               => "0",
       # mongo cluster connection string
-      :RD_MONGO_URI           => "mongodb://iad-mongo-shared101.ihr:37017,iad-mongo-shared102.ihr:37017,iad-mongo-shared103.ihr:37017/radioedit?replicaSet=Mongo-shared1",
+      :RD_MONGO_URI           => "mongodb://iad-mongo-shared101.ihr:37017,iad-mongo-shared102.ihr:37017,iad-mongo-shared103.ihr:37017/radioedit-auth?replicaSet=Mongo-shared1",
       # graphite statsd host
       :RD_STATSD              => "iad-stg-statsd101-v700.ihr",
       # remote sentry uri
@@ -166,7 +166,7 @@ case chef_environment
     #   # debug on(1)/off(0)
     #   :RD_DEBUG               => "1",
     #   # mongo cluster connection string
-    #   :RD_MONGO_URI           => "mongodb://iad-stg-mongo-fac101-v760.ihr:37018,iad-stg-mongo-fac102-v760.ihr:37018/radioedit-?replicaSet=Mongo-shared-STG",
+    #   :RD_MONGO_URI           => "mongodb://iad-stg-mongo-fac101-v760.ihr:37018,iad-stg-mongo-fac102-v760.ihr:37018/radioedit-auth?replicaSet=Mongo-shared-STG",
     #   # graphite statsd host
     #   :RD_STATSD              => "iad-stg-statsd101-v700.ihr",
     #   # remote sentry uri
@@ -182,7 +182,7 @@ case chef_environment
     #   :RD_SERVICE_URI         => "http://api-int.radioedit.ihrdev.com/service",
     #   :RD_STORAGE_URI         => "http://api-int.radioedit.ihrdev.com/storage",
     #   :RD_SCRIPT_URI          => "http://script-int.radioedit.ihrdev.com",
-    #   :RD_CDN_URI             => "http://radioedit-int.ihrdev.com/",
+    #   :RD_CDN_URI             => "http://radioedit-int.ihrdev.com",
 
     #   # external paths
     #   :RD_PUBLIC_AUTH_URI     => "http://auth.radioedit.ihrdev.com/auth",
