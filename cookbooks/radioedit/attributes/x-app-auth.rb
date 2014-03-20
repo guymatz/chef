@@ -12,36 +12,36 @@
 # @Changelog 3/13/14-GP: Split Auth app configuration attributes into this file from default.rb 
 
 # AUTH APPLICATION: attributes common to all environments
-# default[:radioedit][:app_auth] = {
-#   # application name 
-#   :name                     => "app_auth",
-#   # codebase git repo
-#   :repo                     => "git@github.ihrint.com:radioedit/auth.git",
-#   # chef tag to use for deployment flag
-#   :deploy_tag               => "radioedit.app_auth.deployed",
-#   # default listen port
-#   :port                     => "/var/tmp/app_auth.sock",
-#   # application root directory
-#   :root_dir                 => "#{node[:radioedit][:path]}/app_auth",
-#   # application owner username
-#   :user_name                => "ihr-deployer",
-#   # number of web server worker processes to start up
-#   :num_workers              => 5,
-#   # application module to run
-#   :module                   => "wsgi",
-#   # application host
-#   :host                     => "unix",
-#   # pid file to create
-#   :pid_file                 => "var/run/radioedit/app_auth.pid",
+default[:radioedit][:app_auth] = {
+  # application name 
+  :name                     => "app_auth",
+  # codebase git repo
+  :repo                     => "git@github.ihrint.com:radioedit/auth.git",
+  # chef tag to use for deployment flag
+  :deploy_tag               => "radioedit.app_auth.deployed",
+  # default listen port
+  :port                     => "/var/tmp/app_auth.sock",
+  # application root directory
+  :root_dir                 => "#{node[:radioedit][:path]}/app_auth",
+  # application owner username
+  :user_name                => "ihr-deployer",
+  # number of web server worker processes to start up
+  :num_workers              => 5,
+  # application module to run
+  :module                   => "wsgi",
+  # application host
+  :host                     => "unix",
+  # pid file to create
+  :pid_file                 => "var/run/radioedit/app_auth.pid",
 
-#   # supervisor environment variables
-#   :environment => {
-#     # supervisor application process reference
-#     :RD_APP_NAME            => "app_auth",    
-#     # graphite stat prefix
-#     :RD_STATSD_PREFIX       => "radioedit"
-#   }
-# };
+  # supervisor environment variables
+  :environment => {
+    # supervisor application process reference
+    :RD_APP_NAME            => "app_auth",    
+    # graphite stat prefix
+    :RD_STATSD_PREFIX       => "radioedit"
+  }
+};
 
 # default[:radioedit][:app_auth][:user_name] = "ihr-deployer"
 
