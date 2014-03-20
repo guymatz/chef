@@ -1,0 +1,28 @@
+{
+  "name": "stage_ps",
+  "default_attributes": {
+    "iheart": {
+      "deployer": "ihr-deployer"
+    },
+    "webplayer": {
+      "rev": "releases",
+      "settings": {
+        "url": {
+          "site_host": "stage.iheart.com"
+        }
+      }
+    },
+    "nagiosapi": {
+      "server": {
+        "name": "iad-stg-nagiosapi.ihr",
+        "port": "6315"
+      }
+    }
+  },
+  "json_class": "Chef::Environment",
+  "description": "",
+  "cookbook_versions": {
+  "override_attributes": {
+  },
+  "chef_type": "environment"
+}
