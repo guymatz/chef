@@ -1,5 +1,5 @@
 users_manage "mysql" do
-  group_id 4023
+  group_id 4026
   action [:create]
 end
 
