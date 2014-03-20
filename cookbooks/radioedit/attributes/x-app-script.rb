@@ -50,7 +50,7 @@ case chef_environment
   # ################################################################
   # PRODUCTION SETTINGS!!!!!
   # ################################################################
-  when /^prod-radioedit-tmp/
+  when /^prod/
 
     default[:radioedit][:app_script] = {
       # application name 
@@ -107,7 +107,6 @@ case chef_environment
         :RD_SERVICE_URI       => "http://api-int.radioedit.iheart.com/service",
         :RD_STORAGE_URI       => "http://api-int.radioedit.iheart.com/storage",
         :RD_SCRIPT_URI        => "http://script-int.radioedit.iheart.com",
-        #:RD_CDN_URI           => "http://radioedit-int.iheart.com",
         :RD_CDN_URI           => "http://imgproxy.iheart.com/",
 
         # external paths
@@ -116,7 +115,6 @@ case chef_environment
         :RD_PUBLIC_SERVICE_URI => "http://api.radioedit.iheart.com/service",
         :RD_PUBLIC_STORAGE_URI => "http://api.radioedit.iheart.com/storage",
         :RD_PUBLIC_SCRIPT_URI  => "http://script.radioedit.iheart.com",
-        #:RD_PUBLIC_CDN_URI     => "http://radioedit.iheart.com"
         :RD_PUBLIC_CDN_URI     => "http://imgproxy.iheart.com/"
       }
     };

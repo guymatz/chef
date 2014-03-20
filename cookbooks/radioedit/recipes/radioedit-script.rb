@@ -14,7 +14,6 @@
 #
 #  Stub to setup the auth service
 ## dev testing
-untag("radioedit.app-script")
 
 service "nginx" do
   supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
