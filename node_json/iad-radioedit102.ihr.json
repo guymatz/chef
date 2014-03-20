@@ -1,6 +1,6 @@
 {
   "name": "iad-radioedit102.ihr",
-  "chef_environment": "prod-radioedit-tmp",
+  "chef_environment": "prod",
   "run_list": [
     "role[base]",
     "role[auto-bonded]",
