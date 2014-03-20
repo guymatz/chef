@@ -92,6 +92,13 @@ template "/etc/sysconfig/varnish" do
   mode 0644
 end
 
+template "/etc/nginx/nginx.conf" do
+  source "nginx.conf"
+  owner "root"
+  group "root"
+  mode 0644
+end
+
 #NOTE NOTE NOTE: This is DELETING an nginx config file.  Needed for use with the Han Release
 # template "/etc/nginx/conf.d/radioedit.conf" do
 #   source "nginx.refactor.conf.erb"
