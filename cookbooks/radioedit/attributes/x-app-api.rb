@@ -106,7 +106,7 @@ case chef_environment
           # binary storage path uri
           :RD_STORAGE_MOUNTS      => "primary:/data/binstore",
           # graphite statsd host
-          :RD_STATSD              => "iad-stg-statsd101-v700.ihr",
+          :RD_STATSD              => "iad-statsd101.ihr",
           # remote sentry uri
           :RD_SENTRY_DSN          => "https://c3c60ffdb0354f38ada11c9cff9be827:0bad13885cfb4024854075c58ff53295@app.getsentry.com/11937",
 
@@ -120,7 +120,8 @@ case chef_environment
           :RD_SERVICE_URI       => "http://api-int.radioedit.iheart.com/service",
           :RD_STORAGE_URI       => "http://api-int.radioedit.iheart.com/storage",
           :RD_SCRIPT_URI        => "http://script-int.radioedit.iheart.com",
-          :RD_CDN_URI           => "http://radioedit-int.iheart.com",
+          #:RD_CDN_URI           => "http://radioedit-int.iheart.com",
+          :RD_CDN_URI           => "http://imgproxy.iheart.com/",
 
           # external paths
           :RD_PUBLIC_AUTH_URI    => "http://auth.radioedit.iheart.com/auth",
@@ -128,7 +129,8 @@ case chef_environment
           :RD_PUBLIC_SERVICE_URI => "http://api.radioedit.iheart.com/service",
           :RD_PUBLIC_STORAGE_URI => "http://api.radioedit.iheart.com/storage",
           :RD_PUBLIC_SCRIPT_URI  => "http://script.radioedit.iheart.com",
-          :RD_PUBLIC_CDN_URI     => "http://radioedit.iheart.com"
+          #:RD_PUBLIC_CDN_URI     => "http://radioedit.iheart.com"
+          :RD_PUBLIC_CDN_URI     => "http://imgproxy.iheart.com/"
       }
     };
 

@@ -93,7 +93,7 @@ case chef_environment
         # binary storage path uri
         :RD_STORAGE_MOUNTS      => "primary:/data/binstore",
         # graphite statsd host
-        :RD_STATSD              => "iad-stg-statsd101-v700.ihr",
+        :RD_STATSD              => "iad-statsd101.ihr",
         # access token (unknown)
         :RD_ACCESS_TOKEN        => "DjT5edoi7v",
 
@@ -107,7 +107,8 @@ case chef_environment
         :RD_SERVICE_URI       => "http://api-int.radioedit.iheart.com/service",
         :RD_STORAGE_URI       => "http://api-int.radioedit.iheart.com/storage",
         :RD_SCRIPT_URI        => "http://script-int.radioedit.iheart.com",
-        :RD_CDN_URI           => "http://radioedit-int.iheart.com",
+        #:RD_CDN_URI           => "http://radioedit-int.iheart.com",
+        :RD_CDN_URI           => "http://imgproxy.iheart.com/",
 
         # external paths
         :RD_PUBLIC_AUTH_URI    => "http://auth.radioedit.iheart.com/auth",
@@ -115,7 +116,8 @@ case chef_environment
         :RD_PUBLIC_SERVICE_URI => "http://api.radioedit.iheart.com/service",
         :RD_PUBLIC_STORAGE_URI => "http://api.radioedit.iheart.com/storage",
         :RD_PUBLIC_SCRIPT_URI  => "http://script.radioedit.iheart.com",
-        :RD_PUBLIC_CDN_URI     => "http://radioedit.iheart.com"
+        #:RD_PUBLIC_CDN_URI     => "http://radioedit.iheart.com"
+        :RD_PUBLIC_CDN_URI     => "http://imgproxy.iheart.com/"
       }
     };
 
@@ -195,7 +197,7 @@ case chef_environment
       # binary storage path uri
       :RD_STORAGE_MOUNTS      => "primary:/data/binstore",
       # graphite statsd host
-      :RD_STATSD              => "iad-stg-statsd101-v700.ihr",
+      :RD_STATSD              => "iad-statsd101-v700.ihr",
       # remote sentry uri
       #:RD_SENTRY_DSN         => "",
       # access token (unknown)
@@ -211,7 +213,7 @@ case chef_environment
       :RD_SERVICE_URI         => "http://api-int.radioedit.ihrdev.com/service",
       :RD_STORAGE_URI         => "http://api-int.radioedit.ihrdev.com/storage",
       :RD_SCRIPT_URI          => "http://script-int.radioedit.ihrdev.com",
-      :RD_CDN_URI             => "http://radioedit-int.ihrdev.com",
+      :RD_CDN_URI             => "http://imgproxy.iheart.com",
 
       # external paths
       :RD_PUBLIC_AUTH_URI     => "http://auth.radioedit.ihrdev.com/auth",
@@ -219,7 +221,7 @@ case chef_environment
       :RD_PUBLIC_SERVICE_URI  => "http://api.radioedit.ihrdev.com/service",
       :RD_PUBLIC_STORAGE_URI  => "http://api.radioedit.ihrdev.com/storage",
       :RD_PUBLIC_SCRIPT_URI   => "http://script.radioedit.ihrdev.com",
-      :RD_PUBLIC_CDN_URI      => "http://radioedit.ihrdev.com"
+      :RD_PUBLIC_CDN_URI      => "http://imgproxy.iheart.com"
 
     });
 

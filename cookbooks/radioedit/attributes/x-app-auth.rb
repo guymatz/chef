@@ -96,7 +96,7 @@ case chef_environment
         # mongo cluster connection string
         :RD_MONGO_URI           => "mongodb://iad-mongo-shared101.ihr:37017,iad-mongo-shared102.ihr:37017,iad-mongo-shared103.ihr:37017/radioedit-auth?replicaSet=Mongo-shared1",
         # graphite statsd host
-        :RD_STATSD              => "iad-stg-statsd101-v700.ihr",
+        :RD_STATSD              => "iad-statsd101.ihr",
         # remote sentry uri
         :RD_SENTRY_DSN =>         "https://5a99baf425954927b38c9c7373502abf:e86faffebc4e4a9f854e0fedfd2a585a@app.getsentry.com/18592",
 
@@ -110,7 +110,8 @@ case chef_environment
         :RD_SERVICE_URI       => "http://api-int.radioedit.iheart.com/service",
         :RD_STORAGE_URI       => "http://api-int.radioedit.iheart.com/storage",
         :RD_SCRIPT_URI        => "http://script-int.radioedit.iheart.com",
-        :RD_CDN_URI           => "http://radioedit-int.iheart.com",
+        #:RD_CDN_URI           => "http://radioedit-int.iheart.com",
+        :RD_CDN_URI           => "http://imgproxy.iheart.com/",
 
         # external paths
         :RD_PUBLIC_AUTH_URI    => "http://auth.radioedit.iheart.com/auth",
@@ -118,7 +119,8 @@ case chef_environment
         :RD_PUBLIC_SERVICE_URI => "http://api.radioedit.iheart.com/service",
         :RD_PUBLIC_STORAGE_URI => "http://api.radioedit.iheart.com/storage",
         :RD_PUBLIC_SCRIPT_URI  => "http://script.radioedit.iheart.com",
-        :RD_PUBLIC_CDN_URI     => "http://radioedit.iheart.com"
+        #:RD_PUBLIC_CDN_URI     => "http://radioedit.iheart.com"
+        :RD_PUBLIC_CDN_URI     => "http://imgproxy.iheart.com/"
       }
     };
 

@@ -5,8 +5,17 @@
     "role[base]",
     "role[auto-bonded]",
     "role[monitored]",
-    "role[radioedit_refactor]",
-    "role[dell]"
+    "role[dell]",
+    "recipe[yum::epel]",
+    "recipe[users::deployer]",
+    "recipe[users::radioedit]",
+    "recipe[nodejs]",
+    "recipe[radioedit::elasticsearch-install]",
+    "recipe[radioedit::radioedit]",
+    "recipe[radioedit::prod-nfs-mount]",
+    "recipe[radioedit::radioedit-auth]",
+    "recipe[radioedit::radioedit-api]",
+    "recipe[radioedit::radioedit-script]"
   ],
   "normal": {
     "couchbase": {

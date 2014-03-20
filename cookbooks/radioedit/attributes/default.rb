@@ -102,6 +102,7 @@ default[:radioedit][:log_dir] = "/var/log/radioedit"
 default[:radioedit][:utildir] = "#{default[:radioedit][:path]}/util"
 default[:radioedit][:asset_dir] = "/data/binstore/assets"
 default[:radioedit][:host] = "unix"
+default[:radioedit][:statsd_host] = "iad-statsd101.ihr"
 
 # ################################################################
 # Platform Release specific  settings.

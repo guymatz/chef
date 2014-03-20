@@ -130,7 +130,7 @@ action :init do
     end
 
     # add the tag to prevent unamanaged deploys
-    node.tags << "radioedit.#{new_resource.deploy_tag}" unless node.chef_environment !~ /^prod.*/ 
+    node.tags << "#{new_resource.deploy_tag}" unless node.chef_environment !~ /^prod.*/ 
 
     # send word and notices that this actually did something
     Chef::Log.info("Initialized app #{new_resource.name}")
