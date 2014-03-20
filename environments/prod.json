@@ -83,7 +83,7 @@
     "iptables": "= 0.12.0",
     "java": "= 1.10.2",
     "jenkins": "= 0.8.0",
-    "jobserver": "= 0.1.0",
+    "jobserver": "= 1.0.0",
     "jruby": "= 0.2.5",
     "kafka": "= 0.2.0",
     "line": "= 0.2.8",
