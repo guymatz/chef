@@ -1,5 +1,5 @@
 {
-  "name": "stage",
+  "name": "stage_ps",
   "default_attributes": {
     "iheart": {
       "deployer": "ihr-deployer"
