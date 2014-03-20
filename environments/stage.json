@@ -23,8 +23,9 @@
   "description": "",
   "cookbook_versions": {
     "radioedit": "= 0.1.1",
-    "batchjobs": "= 0.1.0",
-    "amp": "= 1.0.2"
+    "batchjobs": "= 1.0.1",
+    "amp": "= 1.0.2",
+    "jobserver": "= 1.0.0"
   },
   "override_attributes": {
   },
