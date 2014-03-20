@@ -32,7 +32,7 @@ action :deploy do
     end
     service 'ais' do
       action :restart
-      not_if node.tags.include?('reload-only')
+      not_if { node.tags.include?('reload-only') }
     end
     node.tags << 'ais-deployed'
     node.tags << 'reload-only' unless node.tags.include?('reload-only')
