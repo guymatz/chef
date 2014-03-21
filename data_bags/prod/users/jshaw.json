@@ -1,0 +1,12 @@
+{
+    "id": "jshaw",
+    "uid": 50229,
+    "name": "James Shaw",
+    "email": "JamesShaw@clearchannel.com",
+    "groups": ["dev", "elasticsearch"],
+    "nagios": {
+        "email": "JamesShaw@clearchannel.com"
+    },
+    "htpasswd": "{SHA}LOCKED",
+    "ssh_keys": ["ssh-dss AAAAB3NzaC1kc3MAAACBAMOBclN7Q+YL8wY7oiEIJWXa6InuIvSSGOUz9DmwoydHHbLe+afa85oHWFfemaySw3h6hPzRLQIeaF0CQH8j9mkLezFon3J/PvJTw3idKCpRo49ytPeJk2qSO2QX9Mh3QreNq/V87+DfWEqXFw2m61BAl0524Kkhuva4CuN6dQ63AAAAFQCf1XgxUWP+ve+C6UiNDT4fge6KCQAAAIAjWckqRScbsSKc1JR95/DhGTyWMbHZF9wKx21xr2ZdFj44oPKb9wt2ew8KknzQTq+Nwh0v7WdoBL8+CNMomAp4lvXombVrwjPNvaCxBvzSY6ficy2Yf+9emHrtvFOChYXSd6fhNfcHnC5Z87uOd75i9smWU4Cb6VSbAbvcfpDxgQAAAIEApQ9RESmujgwaVOAlMBQE2HgErW5IKnmHUoVJ04qLgUSML+eClNgckotZeGVMf6CgvPDkenBFXKGVSmrNG+f/GWzW7JuZ7N4o+0Z4o8g/79znmFQRW+6eeMnwN7JjBBU3zHyU7TIwZxZBXEuGcLFfJ0aDn0XOjqImumrrugJge8o= jshaw@CCCNYC03JXS"]
+}
