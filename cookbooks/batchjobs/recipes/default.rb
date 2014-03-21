@@ -54,7 +54,7 @@ cron_d "lyrics_update_job" do
   action :create
   command "/data/apps/batchjobs/jobs/lyrics/bin/wrapper.sh Prod > /data/apps/batchjobs/jobs/lyrics/logs/last_run.out 2>&1"
   minute "0"
-  hour "9"
+  hour "21"
   weekday "0"
   user "batchjobs"
 end
