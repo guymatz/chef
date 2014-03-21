@@ -49,7 +49,7 @@ cron_d "Rovi_image_job" do
   user "batchjobs"
 end
 
-
+# 3/21/14 GP edit: added job for lyrics update ref JIRA: OPS-6449
 cron_d "lyrics_update_job" do
   action :create
   command "/data/apps/batchjobs/jobs/lyrics/bin/wrapper.sh Prod > /data/apps/batchjobs/jobs/lyrics/logs/last_run.out 2>&1"
