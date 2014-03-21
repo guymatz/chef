@@ -49,6 +49,16 @@ cron_d "Rovi_image_job" do
   user "batchjobs"
 end
 
+
+cron_d "lyrics_update_job" do
+  action :create
+  command "/data/apps/batchjobs/jobs/lyrics/bin/wrapper.sh Prod > /data/apps/batchjobs/jobs/lyrics/logs/last_run.out 2>&1"
+  minute "0"
+  hour "9"
+  weekday "0"
+  user "batchjobs"
+end
+
 begin
   puts "entered deploy block"
   if not tagged?("batchjobs-deployed")
