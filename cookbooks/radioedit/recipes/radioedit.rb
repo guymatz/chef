@@ -90,6 +90,7 @@ template "/etc/sysconfig/varnish" do
   owner "root"
   group "root"
   mode 0644
+  
 end
 
 template "/etc/nginx/nginx.conf" do
@@ -99,18 +100,4 @@ template "/etc/nginx/nginx.conf" do
   mode 0644
 end
 
-#NOTE NOTE NOTE: This is DELETING an nginx config file.  Needed for use with the Han Release
-# template "/etc/nginx/conf.d/radioedit.conf" do
-#   source "nginx.refactor.conf.erb"
-#   owner "root"
-#   group "root"
-#   mode 0666
-#   action :delete
-#   notifies :reload, "service[nginx]"
-# end
-
-service "varnish" do
-  supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
-  action [ :restart ]
-end
 
