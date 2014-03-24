@@ -89,7 +89,7 @@ default[:radioedit][:req_dirs] = %w{
 
 #
 # Global app root for all apps
-# # @TODO GP: remove these as they are captured in the x-app-api.rb attributes 
+# # @TODO GP: remove these as they are captured in the x-app-api.rb attributes` 
 default[:radioedit][:app_root] = "/data/apps"
 default[:radioedit][:legacy_root] = "/data/legacy/p4"
 #

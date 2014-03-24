@@ -203,7 +203,7 @@ case chef_environment
       # name of the elasticsearch cluster
       :elastic_clustername    => "radioedit-staging",
       # path to the static asset directory
-      :static_dir             => "#{default[:radioedit][:path]}/app_api/static",
+      :static_dir             => "/data/legacy/p4",
       # log reporting level
       :log_level              => "DEBUG",
       # nginx server_name value (underscore serves as the catchall host)
@@ -263,7 +263,7 @@ case chef_environment
     #   # name of the elasticsearch cluster
     #   :elastic_clustername    => "radioedit-dev",
     #   # path to the static asset directory
-    #   :static_dir             => "#{default[:radioedit][:path]}/app_api/static",
+    #   :static_dir             => "/data/legacy/p4",
     #   # log reporting level
     #   :log_level              => "DEBUG",
     # });
