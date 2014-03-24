@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# #################################################
+# @FILE: chk_radioedit_status
+# @AUTHOR: :GregoryPatmore <gregorypatmore@clearchannel.com>}
+# @CHEF-COOKBOOK: radioedit
+# @PROJECT: Radioedit
+# @TICKETID: 
+# @TAB-SIZE: 2
+# @SOFT-TABS: YES
+# @DESC: Script to check the health of the radioedit stack
+# @NOTES: 
+# #################################################
+
+# check for port listeners open (in no particular order)
+# 1. 11211 (memcached)
+# 2. 80 (varnish)
+# 3. 8080 (nginx)
+# 4. 3000 (nodejs - 'script' app)
+# 5. 6082 (varnish)
+# 6. 9200 (elasticsearch - request serving )
+# 7. 9300 (elasticsearch - management port )
+
+
+# check for proc running using pid files
+# 1. /var/run/radioedit/radioedit-app_api.pid (app_api pid file)
+# 2. /var/run/radioedit/radioedit-app_api.pid (app_auth pid file)
+# 3. /var/run/memcached/memcached.pid (memcached pid file)
+# 4. /var/run/elasticsearch/elasticsearch.pid (elasticsearch pid file)
+# 5. /var/run/varnish.pid (varnish pid file)
+# 6. /var/run/nginx.pid (nginx pid file)
+# 7. /var/run/supervisord.pid
+
+# check for stale nfsmount
+# 1a. (staging) iad-stg-nfs101-v700.ihr:/data/export/radioedit/binstore -> /data/binstore
+# 1b. (production) 10.5.40.121:/data/imgscaler/radioedit/assets -> /data /binstore
+
