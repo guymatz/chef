@@ -115,14 +115,9 @@ if node['rabbitmq']['cluster'] and node['rabbitmq']['erlang_cookie'] != existing
 
 end
 
-unless node['rabbitmq']['rabbit_vip'].nil? 
-  rabbit_vip_shortname = node[:rabbitmq][:rabbit_vip].split('.')[1]
-  ruby_block "insert_line" do
-    block do
-      file = Chef::Util::FileEdit.new("/etc/hosts")
-      file.insert_line_if_no_match("/#{node[:rabbitmq][:rabbit_vip]}/", "#{node[:rabbitmq][:rabbit_vip]}      #{node[:rabbitmq][:rabbit_vip_ip]} #{node[:rabbit_vip_shortname]}")
-      file.write_file
-    end
+unless node['rabbitmq']['vip'].nil?
+  hostsfile_entry node['rabbitmq']['vip_ip'] do
+    hostname node['rabbitmq']['vip']
   end
 end
 
