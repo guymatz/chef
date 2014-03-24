@@ -6,6 +6,18 @@ default['rabbitmq']['config'] = nil
 default['rabbitmq']['logdir'] = nil
 default['rabbitmq']['mnesiadir'] = nil
 
+case chef_environment
+when /^prod/
+  default['rabbitmq']['vip'] = 'iad-rabbitmq-vip-v200.ihr'
+  default['rabbitmq']['vip_ip'] = '10.5.54.11'
+when /^stage/
+  default['rabbitmq']['vip'] = 'iad-stg-rabbitmq-vip-v700.ihr'
+  default['rabbitmq']['vip_ip'] = '10.5.54.46'
+when /^dev/
+  default['rabbitmq']['vip'] = nil
+  default['rabbitmq']['vip_ip'] = nil
+end
+
 # RabbitMQ version to install for "redhat", "centos", "scientific", and "amazon".
 default['rabbitmq']['version'] = '3.0.4'
 # Override this if you have a yum repo with rabbitmq available.
