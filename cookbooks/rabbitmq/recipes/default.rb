@@ -115,6 +115,17 @@ if node['rabbitmq']['cluster'] and node['rabbitmq']['erlang_cookie'] != existing
 
 end
 
+unless node['rabbitmq']['rabbit_vip'].nil? 
+  rabbit_vip_shortname = node[:rabbitmq][:rabbit_vip].split('.')[1]
+  ruby_block "insert_line" do
+    block do
+      file = Chef::Util::FileEdit.new("/etc/hosts")
+      file.insert_line_if_no_match("/#{node[:rabbitmq][:rabbit_vip]}/", "#{node[:rabbitmq][:rabbit_vip]}      #{node[:rabbitmq][:rabbit_vip_ip]} #{node[:rabbit_vip_shortname]}")
+      file.write_file
+    end
+  end
+end
+
 ## You'll see setsid used in all the init statements in this cookbook. This
 ## is because there is a problem with the stock init script in the RabbitMQ
 ## debian package (at least in 2.8.2) that makes it not daemonize properly

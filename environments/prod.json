@@ -19,6 +19,7 @@
     "aws": "= 0.100.2",
     "basejump": "= 0.1.0",
     "bastion": "= 0.1.0",
+    "batchjobs": "= 0.1.0",
     "bind": "= 0.0.6",
     "bind-chroot": "= 0.0.12",
     "bluepill": "= 2.0.0",
