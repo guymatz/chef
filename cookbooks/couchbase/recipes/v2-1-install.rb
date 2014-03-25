@@ -9,5 +9,13 @@
 #
 # #######################################
 
+# need to uninstall membase-server or it conflicts with couchbase-server 
+# (normally this is easy via package management, however, chef adds a certain barrier of easy use)
+package "membase-server" do
+  action :remove
+end
+
 # that rpm is the default rpm in our repo
-package "couchbase-server";
+package "couchbase-server" do 
+  action :install
+end
