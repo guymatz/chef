@@ -9,6 +9,5 @@
 #
 # #######################################
 
-node.default['couchbase']['server']['version'] = "2.1.1";
-
-include_recipe 'couchbase::server'
+# that rpm is the default rpm in our repo
+package "couchbase-server.x86_64"
