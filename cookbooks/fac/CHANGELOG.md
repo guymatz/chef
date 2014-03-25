@@ -3,6 +3,7 @@
 This file is used to list changes made in each version of fac.
 
 ## 0.1.0:
+## 1.0.1: Working on music2 - AC
 
 * Initial release of fac
 
