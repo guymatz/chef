@@ -28,7 +28,9 @@ case node['platform_family']
 when "debian"
   default['couchbase']['server']['package_file'] = "couchbase-server-#{node['couchbase']['server']['edition']}#{package_machine}-#{node['couchbase']['server']['version']}.deb"
 when "rhel"
-  default['couchbase']['server']['package_file'] = "couchbase-server-#{node['couchbase']['server']['edition']}#{package_machine}-#{node['couchbase']['server']['version']}.rpm"
+  default['couchbase']['server']['package_file'] = "couchbase-server-#{node['couchbase']['server']['version']}.#{package_machine}"
+                                                                                                # couchbase-server-x86_64-1.8.1-937
+                                                                                                # couchbase-server-1.8.1-937.x86_64
 when "windows"
   if node['kernel']['machine'] != 'x86_64'
     Chef::Log.error("Couchbase Server on Windows must be installed on a 64-bit machine")
