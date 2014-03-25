@@ -18,14 +18,6 @@ directory "#{script_dir}" do
   recursive true
 end
 
-%w{ attivio/add/artist attivio/add/bundle attivio/add/track
-attivio/delete/artist attivio/delete/bundle /attivio/delete/track
-fac_music }.each do |dir|
-  directory "#{script_dir}/#{dir}" do
-    recursive true
-  end
-end
-
 remote_file "#{script_dir}/fac-#{app}.jar" do
   Chef::Log.info("Downloading fac-#{app} from #{download_url}")
   source "#{download_url}"
@@ -57,41 +49,15 @@ template "/etc/init.d/fac-#{app}" do
             })
 end
 
-template "#{script_dir}/fac-incremental-runner.sh" do
-  source "fac-incremental-runner.sh.erb"
-  owner "nobody"
-  group "nobody"
-  mode "0755"
-  variables({
-              :script_dir => script_dir,
-              :radiobuild_dir => "#{node[:fac][:script_path]}/radiobuild",
-              :radiobuild2_dir => "#{node[:fac][:script_path]}/radiobuild2"
-            })
-end
-
-if node.chef_environment == "prod"
-  master = search(:node, "recipe:attivio\\:\\:clustermaster AND chef_environment:prod")
-  puts "DEBUG: MASTER: " + master[0].inspect
-  template "#{script_dir}/shipFAC2attivio.sh" do
-    source "shipFAC2attivio.sh.erb"
-    owner node[:attivio][:user]
-    group node[:attivio][:group]
-    mode "0755"
-    variables({
-                :attivio_master => master[0],
-                :attivio_inputdir => "#{node[:attivio][:input_path]}"
-              })
-  end
-end
-
-cron_d "fac-music2" do
- minute "2"
- hour "0"
- # weekday "2" # tuesday
- if tagged?("no-fac-music")
-   command "#/usr/bin/cronwrap #{node[:hostname]} fac-music \"#{script_dir}/fac-incremental-runner.sh\""
- else
-   command "/usr/bin/cronwrap #{node[:hostname]} fac-music \"#{script_dir}/fac-incremental-runner.sh\""
- end
- user "root"
-end
+#cron_d "fac-music2" do
+# minute "2"
+# hour "0"
+# # weekday "2" # tuesday
+# if tagged?("no-fac-music")
+#   command "#/usr/bin/cronwrap #{node[:hostname]} fac-music \"#{script_dir}/fac-incremental-runner.sh\""
+# else
+#   command "/usr/bin/cronwrap #{node[:hostname]} fac-music \"#{script_dir}/fac-incremental-runner.sh\""
+# end
+# user "root"
+#end
+s
