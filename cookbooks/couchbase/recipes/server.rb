@@ -55,7 +55,7 @@ when "debian", "ubuntu"
   dpkg_package File.join(Chef::Config[:file_cache_path], node['couchbase']['server']['package_file'])
 when "redhat", "centos", "scientific", "amazon", "fedora"
   # package File.join(Chef::Config[:file_cache_path], node['couchbase']['server']['package_file']) do
-  package node['couchbase']['server']['package_file']) do
+  package node['couchbase']['server']['package_file'] do
     options node['couchbase']['server']['allow_unsigned_packages'] == true ? "--nogpgcheck" : ""
   end
 
