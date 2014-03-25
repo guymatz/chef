@@ -11,26 +11,207 @@
 # @NOTES: 
 # #################################################
 
-# check for port listeners open (in no particular order)
-# 1. 11211 (memcached)
-# 2. 80 (varnish)
-# 3. 8080 (nginx)
-# 4. 3000 (nodejs - 'script' app)
-# 5. 6082 (varnish)
-# 6. 9200 (elasticsearch - request serving )
-# 7. 9300 (elasticsearch - management port )
+# ensure we can use netcat
+! hash nc 2>/dev/null \
+  && echo "error: netcat utility not found" >&2 \
+  && exit 1;
 
 
-# check for proc running using pid files
-# 1. /var/run/radioedit/radioedit-app_api.pid (app_api pid file)
-# 2. /var/run/radioedit/radioedit-app_api.pid (app_auth pid file)
-# 3. /var/run/memcached/memcached.pid (memcached pid file)
-# 4. /var/run/elasticsearch/elasticsearch.pid (elasticsearch pid file)
-# 5. /var/run/varnish.pid (varnish pid file)
-# 6. /var/run/nginx.pid (nginx pid file)
-# 7. /var/run/supervisord.pid
+# including my old error library source (until I can automate a way to deploy together or something)
+shopt -s expand_aliases;
+p=$(which echo);
+alias echo="${p}";
+declare -x LERR_LIB_FILE=$0;    
+# verbosity level 0=silent, 1=error, 2=warn+error, 3=info(error,warn and info), 4=debug(everything)
+declare -x LERR_LVL=3;
+# flag to enable/disable all lib.err functionality (1=enabled,2=disabled)
+declare -x LERR_ENABLED=1;
+# flag indicating whether to also log the message to syslog (1=true, 0=false);
+declare -x LERR_SYSLOG_ENABLED=1;
+# syslog facility to use for any syslog msgs
+declare -x LERR_FACILITY='user'; 
+# default severity to use for messages not providing one.
+declare -x LERR_DEFAULT_PRIORITY='info';
+# lookup hash for int<->name error levels
+declare -x LERR_LVL_NAMES=(silent debug info warn err);
+# backups in case they are disabled and enabled again
+declare -x LERR_DEF_COLOR_ERR="\x1b[31;01m";
+declare -x LERR_DEF_COLOR_WARN="\x1b[33;01m";
+declare -x LERR_DEF_COLOR_INFO="\x1b[1;96m";
+declare -x LERR_DEF_COLOR_DEBUG="\x1b[1;35m";
+declare -x LERR_DEF_COLOR_NONE="\e[0m";
+#color variables 
+declare -x LERR_COLOR_ERR="$LERR_DEF_COLOR_ERR";
+declare -x LERR_COLOR_WARN="$LERR_DEF_COLOR_WARN";
+declare -x LERR_COLOR_INFO="$LERR_DEF_COLOR_INFO";
+declare -x LERR_COLOR_DEBUG="$LERR_DEF_COLOR_DEBUG";
+declare -x LERR_COLOR_NONE="$LERR_DEF_COLOR_NONE";
+#date format handle
+declare -x LERR_DATE_FMT;
+#verified date command assignment
+date "--rfc-3339=ns" >/dev/null 2>&1 \
+  && LERR_DATE_FMT='--rfc-3339=ns' \
+  || LERR_DATE_FMT='+%F %T';
+#make sure we have a logger command before we blow everything up
+hash logger >/dev/null 2>&1;
+if [ $? -eq 0 ]; then
+  # calls logger util to process message
+  function lerr_log() {
+    [[ $LERR_SYSLOG_ENABLED -lt 1 ]] && return 0;
+    local pri=${1};
+    shift;
+    logger -i -p ${LERR_FACILITY}.${pri} "${@}"; #logger will handle stamping time
+    return 0;
+  };
+else 
+  # dummy function if logger command not found 
+  function lerr_log() { return 0; };
+  # disable syslog
+  LERR_SYSLOG_ENABLED=0;
+fi
+# ##################################################################
+# Error Reporting 
+# ##################################################################
+function pErr () {
+  [[ $LERR_LVL -lt 1 ]] && return 0;
+  # log to rsyslog
+  lerr_log err "${@}";
+  #prints a colorized and formatted error message (bold red text)
+  echo -en $LERR_COLOR_ERR"** Error: $(date "${LERR_DATE_FMT}") : $0 : " >&2;
+  echo -e "${@}" >&2;
+  tput sgr0;
+  return 0;
+};
+function pWarn() {
+  #prints a colorized and formatted warning message (bold gold text)
+  [[ $LERR_LVL -lt 2 ]] && return 0;
+  # log to rsyslog
+  lerr_log warn "${@}";
+  echo -en $LERR_COLOR_WARN"** Warn: $(date "${LERR_DATE_FMT}") : $0 : " >&2;
+  echo -e "${@}" >&2;
+  tput sgr0;
+  return 0;
+};
+function pInfo() {
+  [[ $LERR_LVL -lt 3 ]] && return 0;
+  # log to rsyslog
+  lerr_log info "${@}";
+  #prints a colorized and formatted information message (bold blue text)
+  echo -en $LERR_COLOR_INFO"** Info: $(date "${LERR_DATE_FMT}") : $0 : " >&2;
+  echo -e "${@}" >&2;
+  tput sgr0;
+  return 0;
+};
+function pDebug() {
+  [[ $LERR_LVL -lt 4 ]] && return 0;
+  # log to rsyslog
+  lerr_log debug "${@}";
+  #prints a colorized and formatted information message (bold pink text)
+  echo -en $LERR_COLOR_DEBUG"** Debug: $(date "${LERR_DATE_FMT}") : $0 : " >&2;
+  echo -e "${@}" >&2;
+  tput sgr0;
+  return 0;
+};
+function lerr_disableColor() {
+  # disables color output 
+  LERR_COLOR_ERR='';
+  LERR_COLOR_WARN='';
+  LERR_COLOR_INFO='';
+  LERR_COLOR_DEBUG='';
+  LERR_COLOR_NONE='';
+  return 0;
+};
+function lerr_enableColor() {
+  # enables color output 
+  LERR_COLOR_ERR=$LERR_DEF_COLOR_ERR;
+  LERR_COLOR_WARN=$LERR_DEF_COLOR_WARN;
+  LERR_COLOR_INFO=$LERR_DEF_COLOR_INFO;
+  LERR_COLOR_DEBUG=$LERR_DEF_COLOR_DEBUG;
+  LERR_COLOR_NONE=$LERR_DEF_COLOR_NONE;
+  return 0;
+};
 
-# check for stale nfsmount
-# 1a. (staging) iad-stg-nfs101-v700.ihr:/data/export/radioedit/binstore -> /data/binstore
+# export functions for external use
+export -f lerr_log;
+export -f pErr;
+export -f pWarn;
+export -f pInfo;
+export -f pDebug;
+export -f lerr_disableColor;
+export -f lerr_enableColor;
+
+# ##################################################
+# END ERROR LIBRARY SOURCE
+# ##################################################
+
+#array of hosts
+declare -a HOST_LIST=( iad-radioedit101.ihr iad-radioedit102.ihr );
+
+
+
+
+
+# simple netcat command 
+function chkPortOpen(){ nc -z ${1} ${2} >/dev/null 2>&1 && return 0 || return 1; };
+
+
+pInfo "START: Port Listener Tests";
+
+  # loop through 
+  for $h in "${HOST_LIST[@]}"; then
+
+    pInfo "START: Testing port listeners for host: ${h}";
+
+    # check for port listeners open (in no particular order)
+    # 11211 (memcached)
+    chkPortOpen $h 11211 \
+      && pInfo "Port 11211(memcached) is OPEN [PASS]" \
+      || pError "Port 11211(memcached) is CLOSED [FAIL]"
+
+    # 80 (varnish)
+    chkPortOpen $h 80 \
+      && pInfo "Port 80(varnish - http) is OPEN [PASS]" \
+      || pError "Port 80(varnish) is CLOSED [FAIL]"
+
+    # 6082 (varnish)
+    chkPortOpen $h 6082 \
+      && pInfo "Port 6082(varnish - mgmnt) is OPEN [PASS]" \
+      || pError "Port 6082(varnish - mgmnt) is CLOSED [FAIL]"
+    
+    # 8080 (nginx)
+    chkPortOpen $h 8080 \
+      && pInfo "Port 8080(nginx - http) is OPEN [PASS]" \
+      || pError "Port 8080(nginx - http) is CLOSED [FAIL]"
+
+    # 3000 (nodejs - 'script' app)
+    chkPortOpen $h 3000 \
+      && pInfo "Port 3000(nodejs - script app) is OPEN [PASS]" \
+      || pError "Port 3000(nodejs - script app) is CLOSED [FAIL]"
+    
+    # 9200 (elasticsearch - request serving )
+    chkPortOpen $h 9200 \
+      && pInfo "Port 9200(elasticsearch - http) is OPEN [PASS]" \
+      || pError "Port 9200(elasticsearch - http) is CLOSED [FAIL]"
+
+    # 9300 (elasticsearch - management port )
+    chkPortOpen $h 9300 \
+      && pInfo "Port 9300(elasticsearch - transport) is OPEN [PASS]" \
+      || pError "Port 9300(elasticsearch - transport) is CLOSED [FAIL]"
+      
+fi
+
+
+  # check for proc running using pid files
+  # 1. /var/run/radioedit/radioedit-app_api.pid (app_api pid file)
+  # 2. /var/run/radioedit/radioedit-app_api.pid (app_auth pid file)
+  # 3. /var/run/memcached/memcached.pid (memcached pid file)
+  # 4. /var/run/elasticsearch/elasticsearch.pid (elasticsearch pid file)
+  # 5. /var/run/varnish.pid (varnish pid file)
+  # 6. /var/run/nginx.pid (nginx pid file)
+  # 7. /var/run/supervisord.pid
+
+  # check for stale nfsmount
+  # 1a. (staging) iad-stg-nfs101-v700.ihr:/data/export/radioedit/binstore -> /data/binstore
 # 1b. (production) 10.5.40.121:/data/imgscaler/radioedit/assets -> /data /binstore
-
+ 
+done; # for .. ${HOST_LIST[@]}
