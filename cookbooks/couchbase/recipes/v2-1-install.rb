@@ -10,4 +10,4 @@
 # #######################################
 
 # that rpm is the default rpm in our repo
-package "couchbase-server.x86_64"
+package "couchbase-server";
