@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: fac
-# Recipe:: music
+# Recipe:: music2
 #
 # Copyright 2013, iHeartRadio
 #
@@ -10,8 +10,8 @@
 # this is to setup keys for shipping files
 include_recipe "attivio::users"
 
-app = "music"
-download_url = "#{node[:fac][:url]}/FAC-#{app}/#{node[:fac][app][:version]}/FAC-#{app}-#{node[:fac][app][:version]}.jar"
+app = "music2"
+download_url = "#{node[:fac][:files_url]}/#{app}/#{node[:fac][app][:version]}/FAC-#{app}-#{node[:fac][app][:version]}.jar"
 script_dir = "#{node[:fac][:script_path]}/#{app}"
 
 directory "#{script_dir}" do
@@ -84,14 +84,14 @@ if node.chef_environment == "prod"
   end
 end
 
-#cron_d "fac-music" do
-# minute "2"
-# hour "0"
-# # weekday "2" # tuesday
-# if tagged?("no-fac-music")
-#   command "#/usr/bin/cronwrap #{node[:hostname]} fac-music \"#{script_dir}/fac-incremental-runner.sh\""
-# else
-#   command "/usr/bin/cronwrap #{node[:hostname]} fac-music \"#{script_dir}/fac-incremental-runner.sh\""
-# end
-# user "root"
-#end
+cron_d "fac-music2" do
+ minute "2"
+ hour "0"
+ # weekday "2" # tuesday
+ if tagged?("no-fac-music")
+   command "#/usr/bin/cronwrap #{node[:hostname]} fac-music \"#{script_dir}/fac-incremental-runner.sh\""
+ else
+   command "/usr/bin/cronwrap #{node[:hostname]} fac-music \"#{script_dir}/fac-incremental-runner.sh\""
+ end
+ user "root"
+end
