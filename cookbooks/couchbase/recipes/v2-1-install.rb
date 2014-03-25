@@ -16,6 +16,6 @@ package "membase-server" do
 end
 
 # that rpm is the default rpm in our repo
-package "couchbase-server" do 
+package "couchbase-server-1.8.1-937.x86_64" do 
   action :install
 end
