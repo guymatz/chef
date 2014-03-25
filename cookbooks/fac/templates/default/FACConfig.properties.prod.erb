@@ -1,0 +1,75 @@
+env=live
+
+####################################
+# General/Misc Job Properties 
+####################################
+mongoWriteSize = 1000
+inputQueuePollIntervalSecs=120
+
+
+###############################################
+#	Mongo DB Config
+###############################################
+music.mongo.db.name=catalog
+music.mongo.serverAddress=iad-mongo-fac101-v240.ihr:37017,iad-mongo-fac102-v240.ihr:37017,iad-mongo-fac103-v240.ihr:37017
+music.mongo.connectionsPerHost=250
+music.mongo.connectTimeout=15000
+music.mongo.socketTimeout=15000
+music.mongo.maxWaitTime=15000
+music.mongo.threadsAllowedToBlockForConnectionMultiplier=5
+
+echonest.mongo.db.name=iad-mongo-fac101-v240.ihr:37017,iad-mongo-fac102-v240.ihr:37017,iad-mongo-fac103-v240.ihr:37017
+echonest.mongo.serverAddress=10.90.20.113:27017
+echonest.mongo.connectionsPerHost=250
+echonest.mongo.connectTimeout=15000
+echonest.mongo.socketTimeout=15000
+echonest.mongo.maxWaitTime=15000
+echonest.mongo.threadsAllowedToBlockForConnectionMultiplier=5
+
+radio.mongo.db.name=iad-mongo-fac101-v240.ihr:37017,iad-mongo-fac102-v240.ihr:37017,iad-mongo-fac103-v240.ihr:37017
+radio.mongo.serverAddress=10.90.20.113:27017
+radio.mongo.connectionsPerHost=250
+radio.mongo.connectTimeout=15000
+radio.mongo.socketTimeout=15000
+radio.mongo.maxWaitTime=15000
+radio.mongo.threadsAllowedToBlockForConnectionMultiplier=5
+
+####################################
+# Ingestion DB Properties 
+####################################
+
+ingestion.jdbc.driver=net.sourceforge.jtds.jdbc.Driver
+ingestion.jdbc.url=jdbc:jtds:sqlserver://iad-dwh-db102-vip.ihrint.com:1433;DatabaseName=Ingestion3
+ingestion.jdbc.user=appbatch
+ingestion.jdbc.password=i8piZZa4u
+
+ingestion.batch.size.track=100000
+ingestion.batch.size.album=100000
+ingestion.batch.size.artist=100000
+
+####################################
+# MSSQL DB Properties 
+####################################
+
+mssql.jdbc.url=jdbc:jtds:sqlserver://iad-dwh-db102-vip.ihrint.com:1433;DatabaseName=radiomodel
+mssql.jdbc.user=appBatch
+mssql.jdbc.password=i8piZZa4u
+mssql.jdbc.driver=net.sourceforge.jtds.jdbc.Driver
+
+####################################
+# Habeo DB Properties 
+####################################
+habeo.mongo.serverAddress=10.90.20.113:27017,10.90.20.114:27017
+
+####################################
+# Elastic RabbitMQ
+####################################
+elastic.rabbitmq.username=thumbplay
+elastic.rabbitmq.password=clearchannel
+# elastic.rabbitmq.username=guest
+# elastic.rabbitmq.password=guest
+elastic.rabbitmq.virtualHost=/
+elastic.rabbitmq.host.name=10.90.20.119
+elastic.rabbitmq.host.port=5672
+elastic.rabbitmq.bulkWriteCount=1000
+elastic.rabbitmq.queuename=es
