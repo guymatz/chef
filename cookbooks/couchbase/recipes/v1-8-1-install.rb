@@ -22,6 +22,6 @@ directory "/data/apps/couchbase/data" do
 end
 
 # that rpm is the default rpm in our repo
-package "couchbase-server*1.8.1*.x86_64" do 
+yum_package "couchbase-server*1.8.1*.x86_64" do 
   action :install
 end
