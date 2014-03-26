@@ -6,6 +6,8 @@
     "recipe[users::dev]",
     "recipe[users::dba]",
     "recipe[users::mongo]",
+	"role[mongodb_server_second_instance]",
+	"role[mongodb_arbiter]",
     "recipe[users::deployer]",
     "role[mongodb_server]",
     "role[mongodb_backups]"
@@ -13,7 +15,15 @@
   "normal": {
     "mongodb": {
       "data_device": "/dev/xvdg",
-      "replset": "RadioEdit1"
+      "replset": "RadioEdit1",
+	  "oplogsize": "13319"
+    },
+    "mongodb2": {
+      "replset": "RadioEdit1",
+      "oplogsize": "13319"
+    },
+    "arbmongodb": {
+      "arbreplset": "RadioEdit1"
     },
     "runlist_override_history": {
       "1383167708": "[role[base]]"
