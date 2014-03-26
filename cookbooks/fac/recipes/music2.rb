@@ -49,6 +49,17 @@ template "/etc/init.d/fac-#{app}" do
             })
 end
 
+template "#{node[:fac][:script_path]}/FACConfig.#{node.chef_environment}.properties" do
+  source "FACConfig.#{node.chef_environment}.properties.erb"
+  owner "root"
+  group "root"
+  action :create_if_missing
+  variables({
+		  # INCOMPLETE
+            })
+end
+
+
 #cron_d "fac-music2" do
 # minute "2"
 # hour "0"
@@ -60,4 +71,3 @@ end
 # end
 # user "root"
 #end
-s
