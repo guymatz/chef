@@ -3,7 +3,7 @@
   "description": "",
   "cookbook_versions": {
     "aliases": "= 0.1.0",
-    "amp": "= 1.0.3",
+    "amp": "= 1.0.0",
     "apache2": "= 1.4.2",
     "application": "= 3.0.1",
     "application_java": "= 2.0.1",
