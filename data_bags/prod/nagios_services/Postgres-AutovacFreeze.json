@@ -2,7 +2,7 @@
   "contact_groups": [
     "dba-team"
   ],
-  "id": "ps-monitoring",
-  "hostgroup_name": "postgres-server",
+  "id": "Postgres-AutovacFreeze",
+  "hostgroup_name": "ps-monitoring",
   "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Postgres-AutovacFreeze -t 20"
 }
