@@ -19,7 +19,6 @@ directory "/data/apps/couchbase/data" do
   owner "couchbase"
   group "couchbase"
   recursive true
-  action :create
 end
 
 # that rpm is the default rpm in our repo
