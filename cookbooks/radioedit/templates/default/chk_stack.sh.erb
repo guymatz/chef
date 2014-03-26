@@ -148,9 +148,6 @@ export -f lerr_enableColor;
 declare -a HOST_LIST=( iad-radioedit101.ihr iad-radioedit102.ihr );
 
 
-
-
-
 # simple netcat command 
 function chkPortOpen(){ nc -z ${1} ${2} >/dev/null 2>&1 && return 0 || return 1; };
 
