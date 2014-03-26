@@ -26,5 +26,5 @@ end
 yum_package "couchbase-server" do 
   action :install
   version "1.8.1"
-  flush_cache {:before => true}
+  flush_cache { :before=>true }
 end
