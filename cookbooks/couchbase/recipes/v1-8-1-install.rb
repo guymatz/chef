@@ -16,13 +16,14 @@ package "membase-server" do
 end
 
 directory "/data/apps/couchbase/data" do
-  recursive true
   owner "couchbase"
   group "couchbase"
+  recursive true
+  action :create
 end
 
 # that rpm is the default rpm in our repo
 # yum_package "couchbase-server*1.8.1*.x86_64" do 
-yum_package "couchbase-server" do 
-  action :install
+yum_package "couchbase-server = 1.8.1" do 
+  action :install     
 end
