@@ -1,5 +1,5 @@
 default[:sonos][:repo] = "git@github.com:iheartradio/sonos.git"
-default[:sonos][:rev] = "6b4a305c6534880281e2f81e003b432762f6ecc3"
+default[:sonos][:rev] = "683d98db3b5b47bb95907963a33fc081bd460ae1"
 default[:sonos][:deploy_path] = "/data/apps/sonos"
 
 case chef_environment
