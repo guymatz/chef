@@ -13,8 +13,8 @@ default[:batchjobs][:rabbit_port] = 5673
 default[:batchjobs][:rovi_upload_identity] = "Prod"
 default[:batchjobs][:mssql_db] = "iheartdw.ihrint.com"
 when /^stage/
-default[:batchjobs][:rabbit_host] = "iad-stg-rabbitmq-vip-v700.ihr"
-default[:batchjobs][:rabbit_port] = 5673
+default[:batchjobs][:rabbit_host] = "iad-stg-rabbitmq101-v700.ihr"
+default[:batchjobs][:rabbit_port] = 5672
 default[:batchjobs][:rovi_upload_identity] = "Stage"
 default[:batchjobs][:mssql_db] = "10.5.61.12"
 when /^development/
