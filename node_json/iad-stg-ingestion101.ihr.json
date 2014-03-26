@@ -1,6 +1,6 @@
 {
   "name": "iad-stg-ingestion101.ihr",
-  "chef_environment": "stage",
+  "chef_environment": "stage-OPS-6471-GM_celery",
   "run_list": [
     "role[base]",
     "recipe[java::oracle-7]",
