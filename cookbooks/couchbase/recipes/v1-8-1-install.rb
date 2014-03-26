@@ -26,3 +26,8 @@ end
 yum_package "couchbase-server = 1.8.1" do 
   action :install     
 end
+
+service "couchbase-server" do
+  supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
+  action [ :enable, :start ]
+end
