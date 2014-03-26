@@ -35,8 +35,9 @@ default[:ingestion_ng][:celery][:pool] = 'gevent'
 default[:ingestion_ng][:celery][:concurrency] = 8
 default[:ingestion_ng][:celery][:result_backend] = 'amqp'
 default[:ingestion_ng][:celery][:result_exchange] = 'ingestion_results'
+default[:ingestion_ng][:celery][:result_exchange_type] = 'celery'
 default[:ingestion_ng][:celery][:result_serializer] = 'json'
-default[:ingestion_ng][:celery][:task_result_expires] = 3600
+default[:ingestion_ng][:celery][:task_result_expires] = 60
 default[:ingestion_ng][:celery][:imports] = 'ingqueue.tasks'
 default[:ingestion_ng][:rabbit][:user] = 'ingestion'
 # FIXME move to a databag
