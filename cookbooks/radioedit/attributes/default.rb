@@ -261,7 +261,7 @@ case chef_environment
 #
 # db settings
 #
-        default[:radioedit][:mongo_cstring] = "mongodb://use1b-radioedit-test102.ihr:37017,use1b-radioedit-test103.ihr:37017,use1b-radioedit-test104.ihr:37017/radioedit-f?replicaSet=RadioEdit1"
+        default[:radioedit][:mongo_cstring] = "mongodb://use1b-radioedit-test102.ihr:37017,use1b-radioedit-test102.ihr:37018/radioedit-f?replicaSet=RadioEdit1"
 
       #
       # varnish / elastic settings
