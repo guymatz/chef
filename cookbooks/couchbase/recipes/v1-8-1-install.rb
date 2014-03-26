@@ -25,5 +25,4 @@ end
 # yum_package "couchbase-server*1.8.1*.x86_64" do 
 yum_package "couchbase-server" do 
   action :install
-  version "1.8.1"
 end
