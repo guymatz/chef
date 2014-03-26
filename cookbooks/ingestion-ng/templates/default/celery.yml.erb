@@ -1,16 +1,16 @@
 ## The num of concurrent worker processes/threads/green threads executing tasks
 # Defaults to the number of available CPUs.
-# CELERYD_CONCURRENCY:       < % @celery[:concurrency] %>               8
+# CELERYD_CONCURRENCY:       <%= @celery[:concurrency] %>
 
 ## Broker settings
-BROKER_URL:                                  <%= @broker_url %>
-CELERY_DEFAULT_EXCHANGE:    <%= @celery[:default_exchange] %>     ingestion
-CELERY_TASK_SERIALIZER:          <%= @celery[:task_serializer] %>           json
-CELERY_ACCEPT_CONTENT:        [<%= @celery[:accept_content] %>]        json
+BROKER_URL:                  <%= @broker_url %>
+CELERY_DEFAULT_EXCHANGE:     <%= @celery[:default_exchange] %>
+CELERY_TASK_SERIALIZER:      <%= @celery[:task_serializer] %>
+CELERY_ACCEPT_CONTENT:       [<%= @celery[:accept_content] %>]
 
 ## Result settings | send results back as AMQP messages
-CELERY_RESULT_BACKEND:          <%= @celery[:result_backend] %>         amqp
-CELERY_RESULT_EXCHANGE_TYPE:   <%= @celery[:result_exchange_type] %>   celery
-CELERY_RESULT_EXCHANGE:        <%= @celery[:result_exchange] %>      ingestion_results
-CELERY_TASK_RESULT_EXPIRES:  <%= @celery[:task_result_expires] %>    60
-CELERY_RESULT_SERIALIZER:       <%= @celery[:result_serializer] %>          json
+CELERY_RESULT_BACKEND:       <%= @celery[:result_backend] %>
+CELERY_RESULT_EXCHANGE_TYPE: <%= @celery[:result_exchange_type] %>
+CELERY_RESULT_EXCHANGE:      <%= @celery[:result_exchange] %>
+CELERY_TASK_RESULT_EXPIRES:  <%= @celery[:task_result_expires] %>
+CELERY_RESULT_SERIALIZER:    <%= @celery[:result_serializer] %>
