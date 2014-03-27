@@ -1,6 +1,6 @@
 {
   "name": "iad-amp108.ihr",
-  "chef_environment": "prod",
+  "chef_environment": "prod-OPS-6422-JH",
   "run_list": [
     "role[base]",
     "role[amp]",

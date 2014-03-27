@@ -1,6 +1,6 @@
 {
   "name": "iad-stg-ps-web101.ihr",
-  "chef_environment": "stage",
+  "chef_environment": "stage_ps",
   "run_list": [
     "role[base]",
     "role[webplayers]",

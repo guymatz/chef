@@ -49,6 +49,18 @@ cron_d "Rovi_image_job" do
   user "batchjobs"
 end
 
+# 3/21/14 GP edit: added job for lyrics update ref JIRA: OPS-6449
+if node.chef_environment =~ /^prod/
+  cron_d "lyrics_update_job" do
+    action :create
+    command "/data/apps/batchjobs/jobs/lyrics/bin/wrapper.sh Prod > /data/apps/batchjobs/jobs/lyrics/logs/last_run.out 2>&1"
+    minute "0"
+    hour "21"
+    weekday "0"
+    user "batchjobs"
+  end
+end
+
 begin
   puts "entered deploy block"
   if not tagged?("batchjobs-deployed")

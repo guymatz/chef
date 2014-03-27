@@ -115,6 +115,12 @@ if node['rabbitmq']['cluster'] and node['rabbitmq']['erlang_cookie'] != existing
 
 end
 
+unless node['rabbitmq']['vip'].nil?
+  hostsfile_entry node['rabbitmq']['vip_ip'] do
+    hostname node['rabbitmq']['vip']
+  end
+end
+
 ## You'll see setsid used in all the init statements in this cookbook. This
 ## is because there is a problem with the stock init script in the RabbitMQ
 ## debian package (at least in 2.8.2) that makes it not daemonize properly
