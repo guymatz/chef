@@ -77,7 +77,7 @@ else
   end
 end
 
-nodes = search(:node, "hostname:[* TO *] AND roles:monitored")
+nodes = search(:node, "hostname:[* TO *] AND roles:monitored AND chef_environment:#{node.chef_environment}*")
 
 if nodes.empty?
   Chef::Log.info("No nodes returned from search, using this node so hosts.cfg has data")
