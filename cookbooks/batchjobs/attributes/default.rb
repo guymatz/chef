@@ -8,7 +8,7 @@ default[:batchjobs][:user] = "batchjobs"
 default[:batchjobs][:group] = "batchjobs"
 case chef_environment
 when /^prod/
-default[:batchjobs][:rabbit_host] = "iad-rabbitmq-vip-v200.ihr"
+default[:batchjobs][:rabbit_host] = "iad-rabbitmq101-v200.ihr"
 default[:batchjobs][:rabbit_port] = 5673
 default[:batchjobs][:rovi_upload_identity] = "Prod"
 default[:batchjobs][:mssql_db] = "iheartdw.ihrint.com"
