@@ -1,5 +1,5 @@
-default[:amp][:version] = "2.22-vanilla-ice"
-default[:amp][:amp_rest_version] = "2.22.0"
+default[:amp][:version] = "wham-rc4"
+default[:amp][:amp_rest_version] = "2.23.4"
 default[:amp][:url] = "http://files.ihrdev.com/amp"
 
 default[:amp][:packages] = %w{ mongo-10gen-server mongo-10gen }
