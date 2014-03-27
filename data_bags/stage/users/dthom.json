@@ -3,5 +3,5 @@
   "groups": ["jenkins_dev"],
   "ssh_keys": [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDIzxhyGOyVv8IN6uN0EEz9Va6CN151oTB8tzAowxHKU4QwYXEeQ6MUiLbA4f2vFAye74NQRLmIXtH4vr9CFqoKmIpw+aMcSc2brCrPluyLWtS+8EHVvKMJyc9g2+/eek0D/SFkwIj7wHM//UB2vdIOaWhOEvFVcP+/CmxMDcNRZPDqPE1liUAS822dCflEcdXztZtKiEp//Ae7QuZShMRDjD1H+thxwYrC8GEh2wYyIaGTf6Xz1MCd8fCIGWDO4c/tn6yUlQxQHPjdfM0CXcRQheuRZaV33MpedUOIaYNpRjxThSq2t9heAfl9Tbf05it6B+a+XYVrnStI0BV7Rmvd dthomca@ccrd-la" ],
   "shell": "/bin/bash",
-  "uid": 5051,
+  "uid": 5051
 }
