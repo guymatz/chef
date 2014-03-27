@@ -42,11 +42,13 @@ template "/data/apps/batchjobs/jobs/rovi/bin/celeryconfig.py" do
   group "batchjobs"
 end
 
-cron_d "Rovi_image_job" do
-  command "/data/apps/batchjobs/jobs/rovi/bin/run_image_job.sh #{node[:batchjobs][:rovi_upload_identity]} > /dev/null 2>&1"
-  minute "0"
-  hour "21"
-  user "batchjobs"
+if node.chef_environment =~ /^stage/
+  cron_d "Rovi_image_job" do
+    command "/data/apps/batchjobs/jobs/rovi/bin/run_image_job.sh #{node[:batchjobs][:rovi_upload_identity]} > /dev/null 2>&1"
+    minute "0"
+    hour "21"
+    user "batchjobs"
+  end
 end
 
 # 3/21/14 GP edit: added job for lyrics update ref JIRA: OPS-6449
