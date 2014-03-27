@@ -13,3 +13,6 @@ DATABASES = {
 <%- if node.chef_environment == "prod" or node.chef_environment == "ec2-prod" %>
 ENV="prod"
 <%- end %>
+<%- if node.chef_environment == "stage" %>
+ENV="stage"
+<%- end %>
