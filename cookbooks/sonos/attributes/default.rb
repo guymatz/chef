@@ -8,7 +8,7 @@ when /^prod/
 when /^ec2-prod/
   default[:sonos][:mysql_vip] = "use1b-sonos-vip-v150.ihr"
 when /^stage/
-  default[:sonos][:mysql_vip] = "iad-stg-sonos-vip-v760.ihr" 
+  default[:sonos][:mysql_vip] = "iad-stg-mysql-util-v760.ihr"
 when /^dev/
   default[:sonos][:mysql_vip] = "iad-stg-sonos-vip-v760.ihr"
 end
