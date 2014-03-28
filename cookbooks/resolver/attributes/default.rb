@@ -20,7 +20,7 @@ default['resolver']['search'] = "ihr"
 default['resolver']['server_role'] = 'nameserver'
 
 case chef_environment
-when /^hls/ || /^staging-hls/
+when /^hls|^staging-hls/
   default['resolver']['nameservers'] = ["10.5.57.10"]
   default['resolver']['options'] = Hash.new
 when /^prod/

@@ -22,7 +22,7 @@ Tags:
 <% end -%>
 <% end -%>
 <% case node.chef_environment %>
-<% when /^prod/ || /^hls/ %>
+<% when /^prod|^hls/ %>
 ***
                     | |          | | (_)            
  _ __  _ __ ___   __| |_   _  ___| |_ _  ___  _ __  
@@ -33,7 +33,7 @@ Tags:
 |_|  
 
 ***
-<% when /^staging-hls/ || /stage/%>
+<% when /^staging-hls|stage/%>
 ***
      _              _
  ___| |_ __ _  __ _(_)_ __   __ _
