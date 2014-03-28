@@ -137,8 +137,8 @@ watchdog()
 
     id=$2
 
-    if [[  ${id} -lt 1 || ${id} -gt <%= @num_scanners %> ]]; then
-      echo "Range of ids is 1-<%= @num_scanners %>"
+    if [[  ${id} -lt 100 || ${id} -gt 10<%= @num_scanners %> ]]; then
+      echo "Range of ids is 100-10<%= @num_scanners %>"
       exit 1
     fi
 
