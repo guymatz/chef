@@ -68,7 +68,15 @@ when /^hls/
   default['nagios']['nsca']['url']    = 'http://prdownloads.sourceforge.net/sourceforge/nagios' 
   default['nagios']['nrpe']['url']    = 'http://prdownloads.sourceforge.net/sourceforge/nagios'
   default['nagios']['plugins']['url'] = 'https://www.nagios-plugins.org/download'
-else
+when /^staging-hls/
+  default['nagios']['nsca']['url']    = 'http://prdownloads.sourceforge.net/sourceforge/nagios' 
+  default['nagios']['nrpe']['url']    = 'http://prdownloads.sourceforge.net/sourceforge/nagios'
+  default['nagios']['plugins']['url'] = 'https://www.nagios-plugins.org/download'
+when /^prod/
+  default['nagios']['nsca']['url']      = 'http://yum.ihr/files'
+  default['nagios']['nrpe']['url']      = 'http://yum.ihr/files'
+  default['nagios']['plugins']['url']   = 'http://yum.ihr/files'
+when /^stage/
   default['nagios']['nsca']['url']      = 'http://yum.ihr/files'
   default['nagios']['nrpe']['url']      = 'http://yum.ihr/files'
   default['nagios']['plugins']['url']   = 'http://yum.ihr/files'

@@ -24,7 +24,11 @@
 case chef_environment
 when /^hls/
   default['ntp']['servers']   = %w{ iad-hls1-admin101.ihr iad-hls1-admin102.ihr }
-else
+when /^staging-hls/
+  default['ntp']['servers']   = %w{ iad-hls1-admin101.ihr iad-hls1-admin102.ihr }
+when /^prod/
+  default['ntp']['servers']   = %w{ ntp101.ihrdev.com ntp102.ihrdev.com }
+when /^stage/
   default['ntp']['servers']   = %w{ ntp101.ihrdev.com ntp102.ihrdev.com }
 end
 default['ntp']['peers'] = Array.new
