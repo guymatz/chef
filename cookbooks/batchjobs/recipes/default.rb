@@ -35,13 +35,6 @@ template "/etc/freetds.conf" do
   mode "0644"
 end
 
-template "/data/apps/batchjobs/jobs/rovi/bin/celeryconfig.py" do
-  source "celeryconfig.py.erb"
-  mode "0755"
-  owner "batchjobs"
-  group "batchjobs"
-end
-
 if node.chef_environment =~ /^stage/
   cron_d "Rovi_image_job" do
     command "/data/apps/batchjobs/jobs/rovi/bin/run_image_job.sh #{node[:batchjobs][:rovi_upload_identity]} > /dev/null 2>&1"
@@ -106,4 +99,11 @@ begin
   end
 rescue
   untag("batchjobs-deployed")
+end
+
+template "/data/apps/batchjobs/jobs/rovi/bin/celeryconfig.py" do
+  source "celeryconfig.py.erb"
+  mode "0755"
+  owner "batchjobs"
+  group "batchjobs"
 end
