@@ -47,6 +47,7 @@ end
 	    app_module :django
 	    Chef::Log.info("Starting up gunicorn on port 8080 for SONOS")
 	    port 8080
+            autostart true
 	  end
 	end
 
