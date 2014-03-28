@@ -15,7 +15,19 @@ package "membase-server" do
   action :remove
 end
 
+directory "/data/apps/couchbase/data" do
+  owner "couchbase"
+  group "couchbase"
+  recursive true
+end
+
 # that rpm is the default rpm in our repo
-package "couchbase-server-1.8.1-937.x86_64" do 
-  action :install
+# yum_package "couchbase-server*1.8.1*.x86_64" do 
+yum_package "couchbase-server = 2.1.1" do 
+  action :install     
+end
+
+service "couchbase-server" do
+  supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
+  action [ :enable, :start ]
 end
