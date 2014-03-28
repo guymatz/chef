@@ -26,6 +26,18 @@ when /^prod/
 	default[:fac][:radiobuild2][:version] = "1.0.23"
 	default[:fac][:recommendations][:version] = "3.4.94"
 	default[:fac][:genre][:version] = "3.4.110"
+	default[:fac][:music2][:music_mongo_server] = "iad-mongo-fac101-v240.ihr:37017,iad-mongo-fac102-v240.ihr:37017,iad-mongo-fac103-v240.ihr:37017"
+	default[:fac][:music2][:echonest_mongo_server] = "iad-mongo-fac101-v240.ihr:27017,iad-mongo-fac102-v240.ihr:27017,iad-mongo-fac103-v240.ihr:27017"
+	default[:fac][:music2][:radio_mongo_server] = "iad-mongo-fac101-v240.ihr:27017,iad-mongo-fac102-v240.ihr:27017,iad-mongo-fac103-v240.ihr:27017"
+	default[:fac][:music2][:habeo_mongo_server] = "iad-mongo-fac101-v240.ihr:27017,iad-mongo-fac102-v240.ihr:27017,iad-mongo-fac103-v240.ihr:27017"
+	default[:fac][:music2][:env] = "live"
+	default[:fac][:music2][:ingestion_jdbc] = "jdbc:jtds:sqlserver://iad-dwh-db102-vip.ihrint.com:1433;DatabaseName=Ingestion3"
+	default[:fac][:music2][:mssql_jdbc] = "jdbc:jtds:sqlserver://iad-dwh-db102-vip.ihrint.com:1433;DatabaseName=radiomodel"
+	default[:fac][:music2][:elastic_rabbitmq_username]="thumbplay"
+	default[:fac][:music2][:elastic_rabbitmq_password]="clearchannel"
+	default[:fac][:music2][:elastic_rabbitmq_virtualHost]="/"
+	default[:fac][:music2][:elastic_rabbitmq_host_name]="10.90.20.119"
+	default[:fac][:music2][:elastic_rabbitmq_queuename]="es"
 
 when /^stage/
 	default[:fac][:es_vip] = "iad-stg-search-vip-v200.ihr:9200"
@@ -39,6 +51,20 @@ when /^stage/
 	default[:fac][:radiobuild2][:version] = "1.0.23"
 	default[:fac][:recommendations][:version] = "3.4.94"
 	default[:fac][:genre][:version] = "3.4.110"
+	default[:fac][:music2][:music_mongo_server] = "iad-stg-mongo-fac101-v240.ihr:37017,iad-stg-mongo-fac102-v240.ihr:37017,iad-stg-mongo-fac103-v240.ihr:37017"
+	default[:fac][:music2][:echonest_mongo_server] = "iad-stg-mongo-fac101-v240.ihr:27017,iad-stg-mongo-fac102-v240.ihr:27017,iad-stg-mongo-fac103-v240.ihr:27017"
+	default[:fac][:music2][:radio_mongo_server] = "iad-stg-mongo-fac101-v240.ihr:27017,iad-stg-mongo-fac102-v240.ihr:27017,iad-stg-mongo-fac103-v240.ihr:27017"
+	default[:fac][:music2][:habeo_mongo_server] = "iad-stg-mongo-fac101-v240.ihr:27017,iad-stg-mongo-fac102-v240.ihr:27017,iad-stg-mongo-fac103-v240.ihr:27017"
+	default[:fac][:music2][:env] = "staging_v3_integration"
+	default[:fac][:music2][:ingestion_jdbc] = "jdbc:jtds:sqlserver://10.5.50.101:1433;DatabaseName=ingestion3"
+	default[:fac][:music2][:mssql_jdbc] = ""
+	default[:fac][:music2][:elastic_rabbitmq_username]="fac"
+	default[:fac][:music2][:elastic_rabbitmq_password]="tppw2011!"
+	default[:fac][:music2][:elastic_rabbitmq_virtualHost]="/ingestion"
+	default[:fac][:music2][:elastic_rabbitmq_host_name]="iad-stg-rabbitmq101-v700.ihr"
+	default[:fac][:music2][:elastic_rabbitmq_queuename]="elasticsearch"
+
+
 
 #case node[:platform_family]
 #
