@@ -1,6 +1,6 @@
 {
   "name": "iad-stg-radioedit101.ihr",
-  "chef_environment": "stage-gp",
+  "chef_environment": "stage",
   "run_list": [
     "role[base]",
     "recipe[yum::epel]",

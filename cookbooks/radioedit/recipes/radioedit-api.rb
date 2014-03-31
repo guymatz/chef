@@ -62,28 +62,28 @@ end
 # [this is only on the core/api server]
 # 
 
-template "#{node[:radioedit][:legacy_root]}/android.json" do
+template "#{node[:radioedit][:app_api][:static_dir]}/android.json" do
   source "staticfile-android.json.erb"
   owner "nginx"
   group "nginx"
   mode 0444
 end
 
-template "#{node[:radioedit][:legacy_root]}/fux.json" do
+template "#{node[:radioedit][:app_api][:static_dir]}/fux.json" do
   source "staticfile-fux.json.erb"
   owner "nginx"
   group "nginx"
   mode 0444
 end
 
-template "#{node[:radioedit][:legacy_root]}/iphone.json" do
+template "#{node[:radioedit][:app_api][:static_dir]}/iphone.json" do
   source "staticfile-iphone.json.erb"
   owner "nginx"
   group "nginx"
   mode 0444
 end
 
-template "#{node[:radioedit][:legacy_root]}/kenwood.json" do
+template "#{node[:radioedit][:app_api][:static_dir]}/kenwood.json" do
   source "staticfile-kenwood.json.erb"
   owner "nginx"
   group "nginx"
