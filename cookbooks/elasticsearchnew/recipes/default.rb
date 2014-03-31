@@ -79,16 +79,6 @@ unless tagged?('elasticsearchnew-deployed')
     cluster_ips << s[:ipaddress]
   end
   
-  template "#{node[:elasticsearchnew][:ihrsearch_path]}/configs/elasticsearch.yml" do
-    source "elasticsearch.yml.erb"
-    owner node[:elasticsearchnew][:user]
-    group node[:elasticsearchnew][:group]
-    variables({
-                :cluster_ips => cluster_ips.join(',')
-               })
-    notifies :restart, "service[elasticsearch]"
-  end
-  
   template "#{node[:elasticsearchnew][:ihrsearch_path]}/configs/logging.yml" do
     source "logging.yml.erb"
     owner node[:elasticsearchnew][:user]
@@ -109,3 +99,13 @@ unless tagged?('elasticsearchnew-deployed')
   end
   tag('elasticsearchnew-deployed')
 end
+
+template "#{node[:elasticsearchnew][:ihrsearch_path]}/configs/elasticsearch.yml" do
+    source "elasticsearch.yml.erb"
+    owner node[:elasticsearchnew][:user]
+    group node[:elasticsearchnew][:group]
+    variables({
+                :cluster_ips => cluster_ips.join(',')
+               })
+end
+  
