@@ -49,8 +49,8 @@ template "/etc/init.d/fac-#{app}" do
             })
 end
 
-template "#{node[:fac][:script_path]}/FACConfig.#{node.chef_environment}.properties" do
-  source "FACConfig.#{node.chef_environment}.properties.erb"
+template "#{node[:fac][:script_path]}/FACConfig.properties" do
+  source "FACConfig.properties.erb"
   owner "root"
   group "root"
   action :create_if_missing
