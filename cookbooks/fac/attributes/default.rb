@@ -63,3 +63,4 @@ when /^stage/
 	default[:fac][:music2][:elastic_rabbitmq_virtualHost]="/ingestion"
 	default[:fac][:music2][:elastic_rabbitmq_host_name]="iad-stg-rabbitmq101-v700.ihr"
 	default[:fac][:music2][:elastic_rabbitmq_queuename]="elasticsearch"
+end
