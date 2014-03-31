@@ -31,8 +31,14 @@ action :deploy do
       action :create_if_missing
     end
     service 'ais' do
-      action :restart
+      supports :restart => true, :reload => true
+      action [:enable, :restart]
       not_if { node.tags.include?('reload-only') }
+    end
+    service 'ais' do
+      supports :restart => true, :reload => true
+      action [:enable, :reload]
+      only_if { node.tags.include?('reload-only') } 
     end
     node.tags << 'ais-deployed'
     node.tags << 'reload-only' unless node.tags.include?('reload-only')
