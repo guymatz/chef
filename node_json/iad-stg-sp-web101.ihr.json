@@ -4,9 +4,7 @@
   "run_list": [
     "role[base]",
     "role[webplayers]",
-    "role[webplayer-membase]",
-    "role[memcached]",
-    "recipe[webplayer::memcached]"
+    "role[webplayer-couchbase]"
   ],
   "normal": {
     "runlist_override_history": {
