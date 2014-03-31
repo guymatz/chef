@@ -63,15 +63,4 @@ when /^stage/
 	default[:fac][:music2][:elastic_rabbitmq_virtualHost]="/ingestion"
 	default[:fac][:music2][:elastic_rabbitmq_host_name]="iad-stg-rabbitmq101-v700.ihr"
 	default[:fac][:music2][:elastic_rabbitmq_queuename]="elasticsearch"
-
-
-
-#case node[:platform_family]
-#
-#	when "centos"
-#	  default[:fac][:packages] = %w{  }
-#	when "rhel"
-#	  default[:fac][:packages] = %w{  }
-#	when "debian"
-#	  default[:fac][:packges] = %w{  }
-#	end
+end
