@@ -15,6 +15,6 @@ default_attributes ({
                         'install_id' => 'cchlsmaster211013',
                         'cluster_name' => 'staging-cluster1',
                         'ais_type' => 'master',
-                        'version' => '6.2.87'
+                        'version' => '6.2.87-1'
                       }
                     })
