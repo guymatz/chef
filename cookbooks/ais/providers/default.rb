@@ -11,7 +11,9 @@ action :deploy do
   unless node.tags.include?('ais-deployed')
     package 'java-1.7.0-openjdk'
     package 'ais' do
-      version new_resource.version 
+      version new_resource.version
+      provider Chef::Provider::Package::Yum
+      flush_cache [:before]
     end
     %w{ user.config etc/ais.instance }.each do |config|
       template "#{new_resource.path}/#{config}" do
