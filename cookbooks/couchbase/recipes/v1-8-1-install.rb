@@ -23,7 +23,7 @@ end
 
 # that rpm is the default rpm in our repo
 # yum_package "couchbase-server*1.8.1*.x86_64" do 
-yum_package "couchbase-server = 2.1.1" do 
+yum_package "couchbase-server = 1.8.1" do 
   action :install     
 end
 
