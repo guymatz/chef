@@ -13,7 +13,7 @@ env_run_lists(
 default_attributes ({
                       'ais' => {
                         'install_id' => 'cchlsedge211013',
-                        'cluster_name' => 'cluster1',
+                        'cluster_name' => 'staging-cluster1',
                         'ais_type' => 'edge',
                         'version' => '6.2.87'
                       }
