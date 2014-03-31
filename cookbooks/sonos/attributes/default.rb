@@ -1,5 +1,5 @@
 default[:sonos][:repo] = "git@github.com:iheartradio/sonos.git"
-default[:sonos][:rev] = "6b4a305c6534880281e2f81e003b432762f6ecc3"
+default[:sonos][:rev] = "1e88c90f4eefbe0b651d3a3d52177e75c09c08d3"
 default[:sonos][:deploy_path] = "/data/apps/sonos"
 
 case chef_environment
@@ -8,7 +8,7 @@ when /^prod/
 when /^ec2-prod/
   default[:sonos][:mysql_vip] = "use1b-sonos-vip-v150.ihr"
 when /^stage/
-  default[:sonos][:mysql_vip] = "iad-stg-sonos-vip-v760.ihr" 
+  default[:sonos][:mysql_vip] = "iad-stg-mysql-util-v760.ihr"
 when /^dev/
   default[:sonos][:mysql_vip] = "iad-stg-sonos-vip-v760.ihr"
 end

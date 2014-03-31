@@ -29,7 +29,10 @@ when /^prod/
 when /^hls/
   default['nagios']['pagerduty_key'] = String.new
   default['nagios']['server']['url'] = 'http://prdownloads.sourceforge.net/sourceforge/nagios'
-else
+when /^staging-hls/
+  default['nagios']['pagerduty_key'] = String.new
+  default['nagios']['server']['url'] = 'http://prdownloads.sourceforge.net/sourceforge/nagios'
+when /^stage/
   default['nagios']['pagerduty_key'] = String.new
   default['nagios']['server']['url'] = 'http://yum.ihr/files'
 end

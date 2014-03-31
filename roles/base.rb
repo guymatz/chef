@@ -35,7 +35,9 @@ env_run_lists(
               "prod" => all_env + ["role[monitored]"],
               "ec2-prod" => all_env + ["role[monitored]"],
               "ec2" => all_env,
-              "hls"=> all_env + ["role[monitored]"]
+              "hls"=> all_env + ["role[monitored]"],
+              "staging-hls" => all_env + ["role[monitored]"],
+              "prod-OPS-6422-JH"=> all_env + ["role[monitored]"]
               )
 
 default_attributes ({

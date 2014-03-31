@@ -21,3 +21,4 @@ default['supervisor']['dir'] = '/etc/supervisor.d'
 default['supervisor']['log_dir'] = '/var/log/supervisor'
 default['supervisor']['minfds'] = 1024
 default['supervisor']['minprocs'] = 200
+default['supervisor']['version'] = '3.0'
