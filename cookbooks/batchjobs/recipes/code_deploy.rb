@@ -2,13 +2,6 @@ node[:batchjobs][:packages].each do |batchjob_pkg|
   package batchjob_pkg
 end
 
-node[:batchjobs][:pip_packages].each do |pip_batchjob_pkg, pip_batchjob_ver|
-  python_pip pip_batchjob_pkg do
-    version pip_batchjob_ver unless pip_batchjob_ver.nil?
-    action :install
-  end
-end
-
 begin
   puts "entered deploy block"
   if not tagged?("batchjobs-deployed")
