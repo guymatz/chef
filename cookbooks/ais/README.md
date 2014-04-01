@@ -6,6 +6,7 @@ Requirements
 ------------
 #### cookbooks
 - `sysctl` - Used to tune the system for concurrency.
+- `hostsfile` - Used to setup master aliases on the edges.
 
 #### packages
 - `ais` - The software rpm to be in an accessible repo.
@@ -28,6 +29,10 @@ There are a few attributes that will be unique per cluster/ais setup so these ar
 
 `['ais']['version']` - String - Specifies the version of the package to deploy.
 
+`['ais']['master_aliases']` - Array of Strings - Specifies the host aliases for the masters that will be propogated to all edges.
+
+`['ais']['master_role']` - String - Role that will be searched for to build a list of masters that will be associated with an alias in the hosts file.
+
 Tags
 ----
 `ais-deployed` - Indicates that the application has been deployed. Must be removed to update the config or the software.
@@ -36,6 +41,19 @@ Tags
 
 Usage
 -----
+#### ais::master_hosts
+
+Include `recipe[ais::master_hosts]` in your node's `run_list`:
+
+```json
+{
+  "name":"my_node",
+  "run_list": [
+    "recipe[ais::master_hosts]"
+  ]
+}
+```
+
 #### ais::deploy
 
 Include `recipe[ais::deploy]` in your node's `run_list`:
