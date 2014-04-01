@@ -46,7 +46,7 @@
     "dmg": "= 1.0.0",
     "elasticsearch": "= 0.1.1",
     "elasticsearch-old": "= 0.1.0",
-    "elasticsearchnew": "= 1.0.1",
+    "elasticsearchnew": "= 1.0.3",
     "emacs": "= 0.8.2",
     "encoders": "= 0.1.6",
     "erlang": "= 1.1.2",
