@@ -15,6 +15,8 @@ default_attributes ({
                         'install_id' => 'cchlsedge211013',
                         'cluster_name' => 'staging-cluster1',
                         'ais_type' => 'edge',
-                        'version' => '6.2.87-1'
+                        'version' => '6.2.87-1',
+                        'master_aliases' => ['cluster1.master1.ihr', 'cluster1.master2.ihr'],
+                        'master_role' => 'ais-staging-cluster1-master'
                       }
                     })
