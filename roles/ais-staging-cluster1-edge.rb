@@ -1,6 +1,7 @@
 name 'ais-staging-cluster1-edge'
 description 'used to build a staging edge server for AIS'
 all_env = [
+           'recipe[ais::master_hosts]',
            'recipe[ais::deploy]'
           ]
 run_list(all_env)
