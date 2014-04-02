@@ -8,11 +8,6 @@ run_list(all_env)
 
 env_run_lists(
               '_default' => all_env,
-              'qa2' => all_env,
-              'dev' => all_env,
-              'prod' => all_env,
-              'ec2-prod' => all_env,
-              'ec2' => all_env,
               'hls' => all_env
               )
 
@@ -21,7 +16,7 @@ default_attributes ({
                         'install_id' => 'cccarpedge1',
                         'cluster_name' => 'cluster1',
                         'ais_type' => 'edge',
-                        'version' => '6.2.81',
+                        'version' => '6.2.81-1',
                         'master_aliases' => ['cluster1.master1.ihr', 'cluster1.master2.ihr'],
                         'master_role' => 'ais-cluster1-master'
                       }

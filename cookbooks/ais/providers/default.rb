@@ -31,14 +31,12 @@ action :deploy do
       group new_resource.group
       action :create_if_missing
     end
-    service 'ais' do
-      supports :restart => true, :reload => true
-      action [:enable, :restart]
+    execute 'ais' do
+      command "chkconfig ais on && /etc/init.d/ais restart"
       not_if { node.tags.include?('reload-only') }
     end
-    service 'ais' do
-      supports :restart => true, :reload => true
-      action [:enable, :reload]
+    execute 'ais' do
+      command "chkconfig ais on && /etc/init.d/ais reload"
       only_if { node.tags.include?('reload-only') } 
     end
     node.tags << 'ais-deployed'
