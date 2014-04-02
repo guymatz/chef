@@ -20,6 +20,6 @@ default_attributes ({
                         'install_id' => 'cccarpmaster1',
                         'cluster_name' => 'cluster1',
                         'ais_type' => 'master',
-                        'version' => '6.2.81'
+                        'version' => '6.2.81-1'
                       }
                     })
