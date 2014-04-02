@@ -12,4 +12,13 @@
 
 ## v1.0.0
 
+## v2.0.0 
+
+- @TODO
+
+## v2.0.1
+
+- Added v2-1-install recipe to install couchbase v2.1
+- Added v1-8-1-install recipe to install couchbase v1.8.1
+
 - Initial release

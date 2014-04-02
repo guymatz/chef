@@ -10,8 +10,9 @@ end
 action :deploy do
   unless node.tags.include?('ais-deployed')
     package 'java-1.7.0-openjdk'
-    package 'ais' do
-      version new_resource.version 
+    yum_package 'ais' do
+      version new_resource.version
+      flush_cache [:before]
     end
     %w{ user.config etc/ais.instance }.each do |config|
       template "#{new_resource.path}/#{config}" do
@@ -31,8 +32,14 @@ action :deploy do
       action :create_if_missing
     end
     service 'ais' do
-      action :restart
+      supports :restart => true, :reload => true
+      action [:enable, :restart]
       not_if { node.tags.include?('reload-only') }
+    end
+    service 'ais' do
+      supports :restart => true, :reload => true
+      action [:enable, :reload]
+      only_if { node.tags.include?('reload-only') } 
     end
     node.tags << 'ais-deployed'
     node.tags << 'reload-only' unless node.tags.include?('reload-only')

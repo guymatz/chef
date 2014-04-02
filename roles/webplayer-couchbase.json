@@ -1,0 +1,18 @@
+{
+  "name": "webplayer-couchbase",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "ganglia": {
+      "cluster_name": "webplayer-couchbase"
+    }
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[couchbase::v1-8-1-install]"
+  ],
+  "env_run_lists": {
+  }
+}

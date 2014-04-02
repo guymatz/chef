@@ -22,7 +22,7 @@ default[:ingestion_ng][:db][:type] = 'mssql'
 default[:ingestion_ng][:db][:driver] = 'pymssql'
 default[:ingestion_ng][:db][:host] = 'ingestion_capr_dev'
 default[:ingestion_ng][:db][:port] = 1433
-default[:ingestion_ng][:db][:name] = 'Ingestion3'
+default[:ingestion_ng][:db][:name] = 'Ingestion3_FULL'
 default[:ingestion_ng][:db][:user] = 'adirnberger'
 # FIXME move to a databag
 default[:ingestion_ng][:db][:pass] = 'andypassword123'
