@@ -28,11 +28,11 @@ export GEM_HOME=$($JRUBY $GEM environment gemhome)
 # ---------------------------------------------------
 
 WRAPPER='
-        require "rubygems";
-        require "spoon";
-        pid = Spoon.spawnp(*ARGV[1..-1]);
-        File.open(ARGV[0], "w") { |f| f << pid };
-        '
+    require "rubygems";
+    require "spoon";
+    pid = Spoon.spawnp(*ARGV[1..-1]);
+    File.open(ARGV[0], "w") { |f| f << pid };
+    '
 
 COMMAND="$JRUBY -e '$WRAPPER' '$PIDFILE' '$JRUBY' $ARG '$APP_PATH'"
 
@@ -43,134 +43,113 @@ umask 0002
 cd ${DIR}
 
 start_daemon() {
-    echo "Starting $APP_NAME: "
-    check_pid
-    sudo -u ${USER} -E -s eval $COMMAND >> $LOGFILE 2>> $ERRFILE
-    sleep 1
-    check_status
+  echo "Starting $APP_NAME: "
+  check_pid
+  sudo -u ${USER} -E -s eval $COMMAND >> $LOGFILE 2>> $ERRFILE
+  sleep 1
+  check_status && exit $?
 }
 
 stop_daemon() {
-    echo "Stopping $APP_NAME: "
-        if [ -e "$PIDFILE" ]; then
-                PID=`cat $PIDFILE`
+  echo "Stopping $APP_NAME: "
+    if [ -e "$PIDFILE" ]; then
+        PID=`cat $PIDFILE`
 
-                while [ 1 ]; do
-                sudo -u ${USER} -E -s kill -TERM $PID 2> /dev/null
-                sleep 1
-                [ `ps $PID 2> /dev/null | grep $PID | wc -l` -eq 0 ] && break
-                done
-        ret=$?
-        [ $ret -eq 0 ] && success || failure
-                echo
-
-                rm $PIDFILE
-        else
-                echo "PID file not found."
-        failure
+        while [ 1 ]; do
+        sudo -u ${USER} -E -s kill -TERM $PID 2> /dev/null
+        sleep 1
+        [ `ps $PID 2> /dev/null | grep $PID | wc -l` -eq 0 ] && break
+        done
+    ret=$?
+    [ $ret -eq 0 ] && success || failure
         echo
-                exit 1
-        fi
+
+        rm $PIDFILE
+    else
+        echo "PID file not found."
+    failure
+    echo
+        exit 1
+    fi
 }
 
 check_pid() {
-    if [ -r ${PIDFILE} ] ; then
-        PID=`cat $PIDFILE`
-        ps -p $PID 2>&1 > /dev/null
+  if [ -r ${PIDFILE} ] ; then
+    PID=`cat $PIDFILE`
+    ps -p $PID 2>&1 > /dev/null
 
-        if [ $? -ne 0 ]; then
-            echo "Stale PID file. Deleting "
-            rm $PIDFILE
-        else
-            echo " PIDFILE Exists and is running with PID ${PID}"
-                        failure
-                        echo
-                        exit 1
-        fi
+    if [ $? -ne 0 ]; then
+      echo "Stale PID file. Deleting "
+      rm $PIDFILE
     else
-        PID_APP=`pgrep -f "$APP_PATH"`
-                if [ $? -eq 0 ]; then
-                    echo " PIDFILE Does not exist but Running with PID ${PID_APP}"
-            failure
-            echo
-            exit 1
-        fi
+      echo " PIDFILE Exists and is running with PID ${PID}"
+      failure
+      echo
+      exit 1
     fi
+  else
+    PID_APP=`pgrep -f "$APP_PATH"`
+    if [ $? -eq 0 ]; then
+      echo " PIDFILE Does not exist but Running with PID ${PID_APP}"
+      failure
+      echo
+      exit 1
+    fi
+  fi
 }
 
 check_status() {
-    if [ -r ${PIDFILE} ]; then
-        PID=`cat $PIDFILE`
-        PID_TEST=`ps -p $PID 2>&1 > /dev/null`
-        if [ $? -ne 0 ]; then
-            echo "Stale PID file. "
-            failure
-            echo
-            exit 1
-        else
-            echo " PIDFILE exists and is running ${APP_NAME} Under PID ${PID}"
-            success
-            echo
-            exit 0
-        fi
+  if [ -r ${PIDFILE} ]; then
+    PID=`cat $PIDFILE`
+    PID_TEST=`ps -p $PID 2>&1 > /dev/null`
+    if [ $? -ne 0 ]; then
+      echo "Stale PID file. "
+      failure
+      echo
+      return 1
     else
-        PID_APP=`pgrep -f "$APP_PATH"`
-            if [ $? -eq 0 ]; then
-                            echo " PIDFILE Does not exist but Running with PID ${PID_APP}"
-                            failure
-                            echo
-        else
-            echo "$APP_NAME is not running."
-            failure
-            echo
-            exit 1
-            fi
+      echo " PIDFILE exists and is running ${APP_NAME} Under PID ${PID}"
+      success
+      echo
+      return 0
     fi
+  else
+    PID_APP=`pgrep -f "$APP_PATH"`
+      if [ $? -eq 0 ]; then
+              echo " PIDFILE Does not exist but Running with PID ${PID_APP}"
+              failure
+              echo
+    else
+      echo "$APP_NAME is not running."
+      failure
+      echo
+      return 1
+      fi
+  fi
 }
 
 watchdog()
 {
-    if [ $# -ne 2 ]; then
-        echo "must have id variable set. varcount is $#"
-        exit 1
-    fi
-
-    id=$2
-
-    if [[  ${id} -lt 100 || ${id} -gt <%= @num_scanners %> ]]; then
-        echo "Range of ids is 100-<%= @num_scanners %>"
-        exit 1
-    fi
-
-    PIDFILE=/var/run/manager/${APP_NAME}_${id}.pid
-        check_status ${id}
-
-    if [ ${fail} -eq 1 ]; then
-        load_jruby
-        COMMAND="$JRUBY -e '$WRAPPER' '$PIDFILE' '$JRUBY' $ARG '${APP_PATH}' ${id}"
-        start_daemon ${id}
-    fi
-
-    # make sure it started up fine
-    if [ ${fail} -eq 1 ]; then
-        exit 1
-        fi
+  check_status || start_daemon
 }
 
 case $1 in
-        start)
-                start_daemon
-        ;;
-        stop)
-                stop_daemon
-        ;;
-    status)
-                check_status
-        ;;
-        restart)
-                stop_daemon
-                sleep 1
-                start_daemon
-        ;;
+  start)
+    start_daemon
+  ;;
+  stop)
+    stop_daemon
+  ;;
+  status)
+    check_status && exit $?
+  ;;
+  restart)
+    stop_daemon
+    sleep 1
+    start_daemon
+  ;;
+  watchdog)
+    watchdog
+  ;;
 esac
 exit 0
