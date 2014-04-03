@@ -35,7 +35,7 @@ template "/etc/freetds.conf" do
   mode "0644"
 end
 
-if node.chef_environment =~ /^stage/
+if node.chef_environment =~ /^prod/
   cron_d "Rovi_image_job" do
     command "/data/apps/batchjobs/jobs/rovi/bin/run_image_job.sh #{node[:batchjobs][:rovi_upload_identity]} > /dev/null 2>&1"
     minute "0"
