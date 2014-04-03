@@ -9,7 +9,7 @@
     "recipe[etl_jobs::default]",
     "recipe[etl_jobs::nrpe]",
     "role[batchjobs]",
-    "recipe[elasticsearchnew::prn_upd_index]"
+    "recipe[amp::prn-idx-update]"
   ],
   "normal": {
     "mysql": {
