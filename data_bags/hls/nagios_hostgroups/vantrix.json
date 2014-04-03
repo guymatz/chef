@@ -1,0 +1,5 @@
+{
+    "id": "vantrix",
+    "hostgroup_name": "vantrix",
+    "search_query": "name:iad-vantrix101*"
+}

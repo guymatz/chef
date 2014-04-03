@@ -6,7 +6,7 @@
     "ssh_keys": [
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCl4nLMXgzzTz56YF3kzaX9ISu2Z2D22qh7t96D7E674DXJiO1vw7ZtpLiEydp7OHd1IXJkecArAk/EuWuoz8pRGXHYiiamM0uoUduyGg4A+nMA1EYCumuqhJqz9Alc7KXlPvBPDshh2wpLCbYWQTvgwkI8XUhby5vB+48hlex+JLRinlINH8S9oBKU/rTS5u0TgLLbrZMMZa8oJ5QAfCzrZo/rMiypkAR2Sd2iEgKpzXckwWyRFl3sWluuQGENECZEnOVHO9OEAOxew2NqGek/Za94NZ7fYwCoBlaEf9gWqYsNIw7OC5iv4sEDBbB8+md2Vv5WKiRSuKzizljQNKvB sspagnola@clearchannel.com"
     ],
-    "shell":    "/bin/zsh",
+    "shell":    "/bin/bash",
     "htpasswd": "{SHA}Gx4A9QwVZ+BXn+AXTUj5X2VsvTs=",
     "uid": 5050
 }

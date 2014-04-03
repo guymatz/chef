@@ -1,0 +1,12 @@
+{
+    "id": "yum",
+    "cookie": "SERVERID insert nocache indirect",
+    "vhosts": [ "yum.ihrdev.com", "xyum.ihrdev.com" ],
+    "check": "True",
+    "backends": [
+	{
+            "server": "use1b-ss-web002.ihrdev.com",
+            "port": "80"
+	}
+    ]
+}

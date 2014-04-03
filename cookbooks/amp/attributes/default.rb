@@ -1,5 +1,5 @@
-default[:amp][:version] = "2.22-vanilla-ice"
-default[:amp][:amp_rest_version] = "2.22.0"
+default[:amp][:version] = "wham-rc5"
+default[:amp][:amp_rest_version] = "2.23.5"
 default[:amp][:url] = "http://files.ihrdev.com/amp"
 
 default[:amp][:packages] = %w{ mongo-10gen-server mongo-10gen }
@@ -83,6 +83,7 @@ when /^prod/
   default[:amp][:rabbit][:facebook][:password] = "tppw2011!"
   default[:amp][:rabbit][:host] = "iad-rabbitmq-vip-v200.ihr"
   default[:amp][:rabbit][:port] = 5673
+  default[:amp][:rabbit][:consumer][:port] = 5672
   default[:amp][:rabbit][:username] = "amp-tomcat"
   default[:amp][:rabbit][:password] = "tppw2011!"
   default[:amp][:rabbit][:timeout] = 5000
@@ -168,6 +169,7 @@ when /^stage/
   default[:amp][:rabbit][:facebook][:password] = "tppw2011!"
   default[:amp][:rabbit][:host] = "iad-stg-rabbitmq-vip-v700.ihr"
   default[:amp][:rabbit][:port] = 5673
+  default[:amp][:rabbit][:consumer][:port] = 5672
   default[:amp][:rabbit][:username] = "amp-tomcat"
   default[:amp][:rabbit][:password] = "tppw2011!"
   default[:amp][:rabbit][:timeout] = 5000
@@ -254,6 +256,7 @@ else
   default[:amp][:rabbit][:facebook][:password] = "tppw2011!"
   default[:amp][:rabbit][:host] = "iad-rabbitmq-vip-v200.ihr"
   default[:amp][:rabbit][:port] = 5673
+  default[:amp][:rabbit][:consumer][:port] = 5672
   default[:amp][:rabbit][:username] = "amp-tomcat"
   default[:amp][:rabbit][:password] = "tppw2011!"
   default[:amp][:rabbit][:timeout] = 5000
@@ -286,4 +289,4 @@ else
 end
 # GP EDIT 8/16/13 Included a list of people to notify when endpoints show alert levels of 500s 
 # Used in ./templates/default/amp-extended-log-chk.sh.erb
-default[:amp][:logging][:notify_list] = %w{ jeremybraff@clearchannel.com kengilmer@clearchannel.com LaurentVauthrin@clearchannel.com gregorypatmore@clearchannel.com }
+default[:amp][:logging][:notify_list] = %w{ jeremybraff@clearchannel.com kengilmer@clearchannel.com LaurentVauthrin@clearchannel.com }

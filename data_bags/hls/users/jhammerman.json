@@ -1,0 +1,8 @@
+{
+  "id": "jhammerman",
+  "groups": ["sysadmin"],
+  "ssh_keys": [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD20TrC5z435I055aENAAorIwZI0i0bf+9yDV5KUurQg0Hb2Dvh9cvwFpJ0xU42ja3+kMfPWuePNfw0Vwb5jvby03jKlH7VCEntnNo/Zkpy3sZsnMAo7TzUgHR5gMGpnDSCvKCN3uFfMQiMtCwt4FTW7I+QHyt88VouTwx0tkOLM7fziYgsrhPGZ+ARwTH69nIs+ZYdaaEDYghaQJuvha/DpC+Bw8Klm9/0gzH9nFpJIOgzLlbVoa/xvuHpXoGgJRHyqpyECnSPxcbT9FXVRInIKxIbYG/bkGcDV0+NIPlmdtbK7RIxD0YNkapNwm2MchSox7pEZJhF+bgyfVhPQoX7 jhammerman@Administrators-MacBook-Pro.local" ],
+  "shell": "/bin/bash",
+  "uid": 5004,
+  "htpasswd": "{SHA}DGAhx1vtkooshlnHJ+TgGBM7so8="
+}

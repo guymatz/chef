@@ -1,0 +1,5 @@
+{
+    "id": "zookeeper-ports.json",
+    "hostgroup_name": "attivio",
+    "command_line": "$USER1$/check_port"
+}

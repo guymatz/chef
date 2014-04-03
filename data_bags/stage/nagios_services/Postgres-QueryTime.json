@@ -3,6 +3,6 @@
     "dba-team"
   ],
   "id": "Postgres-QueryTime",
-  "hostgroup_name": "postgres-server",
+  "hostgroup_name": "ps-monitoring",
   "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Postgres-QueryTime -t 20"
 }

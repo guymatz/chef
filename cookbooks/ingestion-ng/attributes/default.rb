@@ -22,7 +22,7 @@ default[:ingestion_ng][:db][:type] = 'mssql'
 default[:ingestion_ng][:db][:driver] = 'pymssql'
 default[:ingestion_ng][:db][:host] = 'ingestion_capr_dev'
 default[:ingestion_ng][:db][:port] = 1433
-default[:ingestion_ng][:db][:name] = 'Ingestion3'
+default[:ingestion_ng][:db][:name] = 'Ingestion3_FULL'
 default[:ingestion_ng][:db][:user] = 'adirnberger'
 # FIXME move to a databag
 default[:ingestion_ng][:db][:pass] = 'andypassword123'
@@ -35,8 +35,9 @@ default[:ingestion_ng][:celery][:pool] = 'gevent'
 default[:ingestion_ng][:celery][:concurrency] = 8
 default[:ingestion_ng][:celery][:result_backend] = 'amqp'
 default[:ingestion_ng][:celery][:result_exchange] = 'ingestion_results'
+default[:ingestion_ng][:celery][:result_exchange_type] = 'celery'
 default[:ingestion_ng][:celery][:result_serializer] = 'json'
-default[:ingestion_ng][:celery][:task_result_expires] = 3600
+default[:ingestion_ng][:celery][:task_result_expires] = 60
 default[:ingestion_ng][:celery][:imports] = 'ingqueue.tasks'
 default[:ingestion_ng][:rabbit][:user] = 'ingestion'
 # FIXME move to a databag
@@ -53,7 +54,7 @@ default[:encoders][:s_encoder_mount] = "/data/encoder"
 # FreeTDS
 default[:freetds][:servers][default[:ingestion_ng][:db][:host]] = {
   :description => 'Ingestion msSQL',
-  :host => '10.5.50.101',
+  :host => 'iad-stg-dwh101.ihr',
   :port => 1433,
   :tds_version => '8.0',
   :client_charset => 'UTF-8'

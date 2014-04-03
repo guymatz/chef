@@ -5,3 +5,4 @@ cron_d "fbgraph_log_cleanup" do
   minute 0
   command 'rm -f /var/log/fbgraph-consumer/*log.*'
 end
+

@@ -84,14 +84,14 @@ if node.chef_environment == "prod"
   end
 end
 
-cron_d "fac-music" do
- minute "2"
- hour "0"
- # weekday "2" # tuesday
- if tagged?("no-fac-music")
-   command "#/usr/bin/cronwrap #{node[:hostname]} fac-music \"#{script_dir}/fac-incremental-runner.sh\""
- else
-   command "/usr/bin/cronwrap #{node[:hostname]} fac-music \"#{script_dir}/fac-incremental-runner.sh\""
- end
- user "root"
-end
+#cron_d "fac-music" do
+# minute "2"
+# hour "0"
+# # weekday "2" # tuesday
+# if tagged?("no-fac-music")
+#   command "#/usr/bin/cronwrap #{node[:hostname]} fac-music \"#{script_dir}/fac-incremental-runner.sh\""
+# else
+#   command "/usr/bin/cronwrap #{node[:hostname]} fac-music \"#{script_dir}/fac-incremental-runner.sh\""
+# end
+# user "root"
+#end

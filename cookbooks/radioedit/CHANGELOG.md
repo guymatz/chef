@@ -6,6 +6,22 @@ This file is used to list changes made in each version of radioedit.
 
 * Initial release of radioedit
 
+## 0.1.1
+
+* @TODO
+
+## 1.0.0
+
+* @TODO
+
+## 1.2.0
+
+* Han Release
+* Introduces 3 app stack: api, auth, and script
+* Split attribute files up per app
+* Split up application deployment into separate recipes
+* Introduces 2 LWRPs radioedit_unicorn and radioedit_node used as application deployment abstraction layer
+
 - - -
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
 

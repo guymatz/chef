@@ -1,0 +1,74 @@
+env=<%= node[:fac][:music2][:env] %>
+
+####################################
+# General/Misc Job Properties 
+####################################
+mongoWriteSize = 1000
+inputQueuePollIntervalSecs=120
+
+###############################################
+#	Mongo DB Config
+###############################################
+music.mongo.db.name=catalog
+music.mongo.serverAddress=<%= node[:fac][:music2][:music_mongo_server] %> 
+music.mongo.connectionsPerHost=250
+music.mongo.connectTimeout=15000
+music.mongo.socketTimeout=15000
+music.mongo.maxWaitTime=15000
+music.mongo.threadsAllowedToBlockForConnectionMultiplier=5
+
+echonest.mongo.db.name=echonest
+echonest.mongo.serverAddress=<%= node[:fac][:music2][:echonest_mongo_server] %> 
+echonest.mongo.connectionsPerHost=250
+echonest.mongo.connectTimeout=15000
+echonest.mongo.socketTimeout=15000
+echonest.mongo.maxWaitTime=15000
+echonest.mongo.threadsAllowedToBlockForConnectionMultiplier=5
+
+radio.mongo.db.name=radio
+radio.mongo.serverAddress=<%= node[:fac][:music2][:radio_mongo_server] %>
+radio.mongo.connectionsPerHost=250
+radio.mongo.connectTimeout=15000
+radio.mongo.socketTimeout=15000
+radio.mongo.maxWaitTime=15000
+radio.mongo.threadsAllowedToBlockForConnectionMultiplier=5
+
+####################################
+# Ingestion DB Properties 
+####################################
+
+ingestion.jdbc.driver=net.sourceforge.jtds.jdbc.Driver
+ingestion.jdbc.url=<%= node[:fac][:music2][:ingestion_jdbc] %>
+ingestion.jdbc.user=appbatch
+ingestion.jdbc.password=i8piZZa4u
+
+ingestion.batch.size.track=100000
+ingestion.batch.size.album=100000
+ingestion.batch.size.artist=100000
+
+####################################
+# MSSQL DB Properties 
+####################################
+
+mssql.jdbc.url=<%= node[:fac][:music2][:mssql_jdbc] %>
+mssql.jdbc.user=appBatch
+mssql.jdbc.password=i8piZZa4u
+mssql.jdbc.driver=net.sourceforge.jtds.jdbc.Driver
+
+####################################
+# Habeo DB Properties 
+####################################
+habeo.mongo.serverAddress=<%= node[:fac][:music2][:habeo_mongo_server] %>
+
+####################################
+# Elastic RabbitMQ
+####################################
+elastic.rabbitmq.username=<%= node[:fac][:music2][:elastic_rabbitmq_username] %>
+elastic.rabbitmq.password=<%= node[:fac][:music2][:elastic_rabbitmq_password] %>
+# elastic.rabbitmq.username=guest
+# elastic.rabbitmq.password=guest
+elastic.rabbitmq.virtualHost=<%= node[:fac][:music2][:elastic_rabbitmq_virtualHost] %>
+elastic.rabbitmq.host.name=<%= node[:fac][:music2][:elastic_rabbitmq_host_name] %>
+elastic.rabbitmq.host.port=5672
+elastic.rabbitmq.bulkWriteCount=1000
+elastic.rabbitmq.queuename=<%= node[:fac][:music2][:elastic_rabbitmq_queuename] %>

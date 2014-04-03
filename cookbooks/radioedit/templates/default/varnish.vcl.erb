@@ -1,0 +1,171 @@
+# Here we are using two different backends pointed to the same locations.
+# The reason for this is that backends share HTTP connection pools and once a connection
+# is closed it opens connections again at a fixed rate. Since we force connection-close
+# to occur on vcl_pipe we will send all of those through the "direct" backend. At least
+# connections will not be drained from the keep-alive requests happening on "default".
+
+import timers;
+import statsd;
+
+backend direct {
+    .host = "<%= @host %>";
+    .port = "<%= @port %>";
+}
+
+backend default {
+    .host = "<%= @host %>";
+    .port = "<%= @port %>";
+}
+
+# Allow purging from the VPN or local
+acl purge {
+    "localhost";
+    "127.0.0.1";
+    "10.10.0.0"/16;
+}
+
+sub vcl_init {
+    statsd.server("<%= @statsd_host %>", "8125");
+    statsd.prefix("radioedit.vcl.");
+    timers.unit("milliseconds");
+}
+
+
+sub vcl_recv {
+
+    statsd.incr("hit");
+
+    # This is to check the acl if the request is a PURGE request.
+
+    if (req.request == "PURGE") {
+        if (!client.ip ~ purge) {
+            error 405 "Not allowed.";
+        }
+        return (lookup);
+    }
+
+
+    # This is a RadioEdit quirk. Take the X-Localtime header and create a NEW version of the header
+    # that is called X-Localtime-Cache which is a truncated version of the original.
+    #
+    # Services will issue a Vary header on the X-Localtime-Cache version and not the X-Localtime version
+    # so that varnish can actually cache for more than a single second, in this case an hour.
+
+    if (req.http.X-Localtime && req.restarts == 0) {
+        # Create truncated version of header from client.
+        set req.http.X-Localtime-Cache = regsub(req.http.X-Localtime, "(\d{4}\-\d{2}\-\d{2} \d{2}):\d{2}:\d{2}", "\1");
+    }
+
+    # Ensure propagation of XFF header.
+    if (req.restarts == 0) {
+        if (req.http.x-forwarded-for) {
+            set req.http.X-Forwarded-For =
+                req.http.X-Forwarded-For + ", " + client.ip;
+        } else {
+            set req.http.X-Forwarded-For = client.ip;
+        }
+    }
+
+    # This modification is for the aforementioned nonsense with connection draining and weird behavior
+    # on longer lived POST/PUT requests or POST/PUT requests that error. We just want to tell varnish
+    # to send these on their merry way.
+
+    if (req.request != "GET" && req.request != "HEAD") {
+        set req.backend = direct;
+        return (pipe);
+        # return (pass);
+    }
+
+
+    # RadioEdit does not use cookies at all except for the Auth Server. Currently the Auth Server exists at
+    # /auth/ so if the path does not start with /auth/ remove the Cookie header.
+
+    if ( !( req.url ~ "^/auth/") ) {
+        unset req.http.Cookie;
+    }
+
+    if (req.http.Authorization || req.http.Cookie) {
+        /* Not cacheable by default */
+        return (pass);
+    }
+    return (lookup);
+
+}
+
+
+sub vcl_fetch {
+    # Record status
+    set req.http.X-Stats-Status = beresp.status;
+
+    # Let's put a small sieve on our non OK requests so that weird traffic can't DDOS our
+    # frontends asking for thousands of 404s or 500s.
+
+    if (beresp.status >= 400) {
+        set beresp.ttl = 20s;
+        set beresp.grace = 30s;
+    }
+
+    # Default Varnish
+    if (beresp.ttl <= 0s || beresp.http.Set-Cookie || beresp.http.Vary == "*") {
+        # Mark as "Hit-For-Pass" for the next 2 minutes
+        set beresp.ttl = 120 s;
+        return (hit_for_pass);
+    }
+}
+
+
+sub vcl_error {
+    # An error may have occurred, and we've been sent to vcl_error
+    # capture the response code that the backend sent if it wasn't
+    # already
+    if( !req.http.X-Stats-Status ) {
+        set req.http.X-Stats-Status = obj.status;
+    }
+}
+
+
+sub vcl_hit {
+    if (req.request == "PURGE") {
+        purge;
+        error 200 "Purged.";
+    }
+}
+
+sub vcl_miss {
+    if (req.request == "PURGE") {
+        purge;
+        error 200 "Purged.";
+    }
+}
+
+
+sub vcl_deliver {
+    # Hit or Miss?
+    if( obj.hits == 0 ) {
+        set req.http.X-Stats-HitMiss = "miss";
+    } else {
+        set req.http.X-Stats-HitMiss = "hit";
+    }
+
+    # So, not set in vcl_fetch or vcl_error? Use the response code
+    # that will be sent to the client.
+    if( !req.http.X-Stats-Status ) {
+        set req.http.X-Stats-Status = resp.status;
+    }
+
+    # Key to use for statsd. Something like: config.hit.200
+    set req.http.X-Stats-Key = req.http.X-Stats-HitMiss + "." + req.http.X-Stats-Status;
+
+    # Increment the amount of requests here, and how long this
+    # particular backend took.
+    statsd.incr(req.http.X-Stats-Key);
+    statsd.timing(req.http.X-Stats-Key, timers.req_response_time());
+
+}
+
+
+sub vcl_pipe {
+    # Force the connection to be closed afterwards so
+    # subsequent reqs don't use pipe.
+    set bereq.http.connection = "close";
+}

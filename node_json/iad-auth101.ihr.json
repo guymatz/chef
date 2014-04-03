@@ -4,6 +4,7 @@
   "run_list": [
     "role[base]",
     "role[postgres-server-ha]",
+    "role[postgres-server]",
     "recipe[multipath]",
     "role[sendmail-smart-host]",
     "recipe[basejump::tools]",

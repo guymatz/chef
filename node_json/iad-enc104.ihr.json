@@ -4,6 +4,7 @@
   "run_list": [
     "role[base]",
     "role[encoders]",
+    "role[batchjobs_code]",
     "role[dell]"
   ],
   "normal": {

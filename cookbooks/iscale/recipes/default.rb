@@ -14,7 +14,7 @@ template '/etc/init.d/iscale' do
   mode "755"
   variables ({
     :user         => "#{node[:iscale][:user]}",
-    :app_home     => "#{node[:iscale][:app_home]}",
+    :app_home     => "#{node[:iscale][:app_homedir]}",
     :lock_file    => "#{node[:iscale][:lock_file]}"
   })
 end
@@ -63,6 +63,11 @@ unless tagged?("#{node[:iscale][:deploy_tag]}") && node.chef_environment == "pro
     notifies :restart, "service[iscale]", :immediately
   end
 
+  execute "install_npm_requirements" do
+    cwd "#{node[:iscale][:app_homedir]}"
+    user "root"
+    command "npm config set ca null && npm install -g npm && npm install"
+  end
   
   tag("#{node[:iscale][:deploy_tag]}") if node.chef_environment == "prod"
 

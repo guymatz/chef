@@ -17,15 +17,15 @@
   end
 end
 
-directory "#{node[:radioedit][:production][:nfs_locdir]}" do
+directory "#{node[:radioedit][:nfs_locdir]}" do
   owner "ihr-deployer"
   group "ihr-deployer"
   action :create
-  not_if "test -d #{node[:radioedit][:production][:nfs_locdir]}"
+  not_if "test -d #{node[:radioedit][:nfs_locdir]}"
 end
 
-mount "#{node[:radioedit][:production][:nfs_locdir]}" do
-  device "#{node[:radioedit][:production][:nfs_server]}:#{node[:radioedit][:production][:nfs_remdir]}"
+mount "#{node[:radioedit][:nfs_locdir]}" do
+  device "#{node[:radioedit][:nfs_server]}:#{node[:radioedit][:nfs_remdir]}"
   fstype "nfs"
   options "rw"
   action [:mount, :enable]

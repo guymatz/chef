@@ -26,6 +26,16 @@ default[:elasticsearchnew][:shards] = "3"
 default[:elasticsearchnew][:replicas] = "1"
 default[:elasticsearchnew][:mlockall] = true
 default[:elasticsearchnew][:cluster_name] = ""
+
+case chef_environment 
+when /^prod/
+	default[:elasticsearchnew][:minimum_master_nodes] = 2
+when /^stage/
+	default[:elasticsearchnew][:minimum_master_nodes] = 1
+else
+	default[:elasticsearchnew][:minimum_master_nodes] = 1
+end
+
 case chef_environment 
 when /^prod/
   default[:elasticsearchnew][:slowlog_settings] = { "index.search.slowlog.threshold.query.warn" => "10s", "index.search.slowlog.threshold.query.info" => "5s", "index.search.slowlog.threshold.query.debug" => "5s", "index.search.slowlog.threshold.query.trace" => "500ms", "index.search.slowlog.threshold.fetch.warn" => "1s", "index.search.slowlog.threshold.fetch.info" => "800ms", "index.search.slowlog.threshold.fetch.debug" => "800ms", "index.search.slowlog.threshold.fetch.trace" => "200ms", "index.indexing.slowlog.threshold.index.warn" => "10s", "index.indexing.slowlog.threshold.index.info" => "5s", "index.indexing.slowlog.threshold.index.debug" => "2s", "index.indexing.slowlog.threshold.index.trace" => "500ms" }

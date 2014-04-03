@@ -1,0 +1,13 @@
+{
+  "id": "hive",
+  "servers": [
+    {
+      "fqdn": "use1c-hadoop-master002.ihrdev.com",
+      "ipaddress": "10.243.94.46"
+    },
+    {
+      "fqdn": "use1c-hadoop-master001b.ihrdev.com",
+      "ipaddress": "10.116.239.232"
+    }
+  ]
+}

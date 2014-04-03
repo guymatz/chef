@@ -1,0 +1,52 @@
+upstream api {
+    server   <%= @server_host %>:<%= @server_port %>;
+}
+
+server {
+    # We listen to 8080 in this example because varnish listens on 80
+    listen <%= @webserver_port %> default;
+    # Default server name for the API
+    server_name <%= @webserver_name %>;
+
+    keepalive_timeout 5;
+    # We often see large uploads to the API
+    client_max_body_size 500M;
+    client_body_buffer_size 10M;
+
+    gzip             on;
+    gzip_min_length  1000;
+    gzip_types       text/plain application/xml text/javascript application/x-javascript application/json text/css;
+
+    # These are fallbacks for legacy systems, should probably also be handled at a higher level.
+    location = /api/v1/public/target_group/android {
+        add_header Content-Type application/json;
+        alias <%= @legacy_static_root %>/android.json;
+    }
+    location = /api/v1/public/target/fux.slideshow.auto@HEAD {
+        add_header Content-Type application/json;
+        alias <%= @legacy_static_root %>/fux.json;
+    }
+    location = /api/v1/public/target/fux.slideshow.auto.kenwood@HEAD {
+        add_header Content-Type application/json;
+        alias <%= @legacy_static_root %>/kenwood.json;
+    }
+    location = /api/v1/public/target_group/iphone {
+        add_header Content-Type application/json;
+        alias <%= @legacy_static_root %>/iphone.json;
+    }
+
+    location / {
+        try_files $uri @proxy_to_application;
+    }
+
+    location @proxy_to_application {
+        add_header X-API 1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Scheme $scheme;
+        #proxy_set_header X-Script-Name /;
+        proxy_redirect off;
+        proxy_pass  http://api;
+    }
+}

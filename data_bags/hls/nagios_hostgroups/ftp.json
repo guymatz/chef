@@ -1,0 +1,5 @@
+{
+    "id": "ftp",
+    "hostgroup_name": "ftp",
+    "search_query": "name:iad-encftp*"
+}

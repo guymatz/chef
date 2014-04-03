@@ -82,11 +82,16 @@ begin
       local true
     end
 
-    remote_file "#{node[:tomcat7][:install_path]}/lib/log4j.xml" do
-      source "#{node[:amp][:url]}/#{node[:amp][:version]}/log4j.xml"
+    #OPS-6427
+    remote_file "#{node[:tomcat7][:install_path]}/lib/log4j.xml.erb" do
+      source "http://files.ihrdev.com/amp/#{node[:amp][:version]}/log4j.xml.erb"
       owner node[:tomcat7][:user]
       group node[:tomcat7][:group]
       mode "0755"
+    end
+    template "#{node[:tomcat7][:install_path]}/lib/log4j.xml" do
+      source "#{node[:tomcat7][:install_path]}/lib/log4j.xml.erb"
+      local true
     end
 
     remote_file "#{Chef::Config[:file_cache_path]}/amplib.tgz" do

@@ -1,9 +1,10 @@
 name "elasticsearchnew"
 description "Elastic Search New"
 all_env = [
-	 "recipe[java]",
+	 "recipe[java::oracle-7]",
          "recipe[elasticsearchnew]",
-         "recipe[elasticsearchnew::plugins]"
+         "recipe[elasticsearchnew::plugins]",
+         "recipe[users::elasticsearch]"
           ]
 run_list(all_env)
 
@@ -17,8 +18,4 @@ env_run_lists(
               )
 
 override_attributes({
-        "java" => {
-            "install_flavor" => "oracle",
-            "jdk_version" => "7"
-        }
 })

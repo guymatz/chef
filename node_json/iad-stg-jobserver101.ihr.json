@@ -5,6 +5,7 @@
     "role[base]",
     "recipe[users::dba]",
     "recipe[users::jobserver]",
+    "recipe[fac::music2]",
     "role[mongodb_arbiter]",
     "role[mongosd]",
     "role[jobserver]",

@@ -1,0 +1,6 @@
+{
+  "id": "AIS-Error-Percentage",
+  "hostgroup_name": "ais-cluster1-master,ais-cluster1-edge",
+  "command_line": "$USER1$/check_ais_errors.py --url 'http://$HOSTADDRESS$/monitoring/stats' --user 'admin' --password 'hackme' --percentage 1",
+  "contact_groups": ["admins"]
+}

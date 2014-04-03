@@ -1,0 +1,5 @@
+{
+    "id": "newsletter",
+    "hostgroup_name": "newsletter",
+    "search_query": "name:iad-news*"
+}

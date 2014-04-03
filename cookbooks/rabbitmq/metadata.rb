@@ -15,6 +15,10 @@ depends "users"
   supports os
 end
 
+%w{ hostsfile }.each do |package|
+  depends package
+end
+
 attribute "rabbitmq",
   :display_name => "RabbitMQ",
   :description => "Hash of RabbitMQ attributes",

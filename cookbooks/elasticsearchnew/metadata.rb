@@ -4,7 +4,7 @@ maintainer_email 'jake.plimack@gmail.com'
 license          'All rights reserved'
 description      'Installs/Configures elasticsearch-new'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '1.0.1'
+version          '1.0.3'
 
 %w{ users nagios cron social }.each do |dep|
   depends dep

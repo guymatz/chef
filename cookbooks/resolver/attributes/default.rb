@@ -16,17 +16,25 @@
 # limitations under the License.
 #
 
-
 default['resolver']['search'] = "ihr"
-default['resolver']['nameservers'] = ["10.5.32.21", "10.5.33.16"]
-default['resolver']['options'] = {
-  "timeout" => 2,
-  "rotate" => true
-}
 default['resolver']['server_role'] = 'nameserver'
 
 case chef_environment
+when /^hls|^staging-hls/
+  default['resolver']['nameservers'] = ["10.5.57.10"]
+  default['resolver']['options'] = Hash.new
+when /^prod/
+  default['resolver']['nameservers'] = ["10.5.32.21", "10.5.33.16"]
+  default['resolver']['options'] = {
+    "timeout" => 2,
+    "rotate" => true
+  }
 when /^stage/
+  default['resolver']['nameservers'] = ["10.5.32.21", "10.5.33.16"]
+  default['resolver']['options'] = {
+    "timeout" => 2,
+    "rotate" => true
+  }
   default['resolver']['fileserver_ip'] = '10.5.36.28'
   default['resolver']['fileserver_fqdn'] = 'files.ihrdev.com'
 end

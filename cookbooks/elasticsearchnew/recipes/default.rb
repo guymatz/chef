@@ -71,24 +71,6 @@ unless tagged?('elasticsearchnew-deployed')
     action :start
   end
   
-  cluster_members = search(:node, "cluster_name:#{node[:elasticsearchnew][:cluster_name]}")
-  
-  cluster_ips = Array.new
-  cluster_members.each do |s|
-    #cluster_ips << s["network"]["interfaces"]["eth0"]["addresses"].to_hash.select {|addr, info| info["family"] == "inet"}.flatten.first
-    cluster_ips << s[:ipaddress]
-  end
-  
-  template "#{node[:elasticsearchnew][:ihrsearch_path]}/configs/elasticsearch.yml" do
-    source "elasticsearch.yml.erb"
-    owner node[:elasticsearchnew][:user]
-    group node[:elasticsearchnew][:group]
-    variables({
-                :cluster_ips => cluster_ips.join(',')
-               })
-    notifies :restart, "service[elasticsearch]"
-  end
-  
   template "#{node[:elasticsearchnew][:ihrsearch_path]}/configs/logging.yml" do
     source "logging.yml.erb"
     owner node[:elasticsearchnew][:user]
@@ -109,3 +91,22 @@ unless tagged?('elasticsearchnew-deployed')
   end
   tag('elasticsearchnew-deployed')
 end
+
+cluster_members = search(:node, "cluster_name:#{node[:elasticsearchnew][:cluster_name]} AND chef_environment:#{node.chef_environment}")
+  
+cluster_ips = Array.new
+cluster_members.each do |s|
+  #cluster_ips << s["network"]["interfaces"]["eth0"]["addresses"].to_hash.select {|addr, info| info["family"] == "inet"}.flatten.first
+  cluster_ips << s[:ipaddress]
+end
+  
+template "#{node[:elasticsearchnew][:ihrsearch_path]}/configs/elasticsearch.yml" do
+    source "elasticsearch.yml.erb"
+    owner node[:elasticsearchnew][:user]
+    group node[:elasticsearchnew][:group]
+    variables({
+                :cluster_ips => cluster_ips.join(',')
+               })
+    backup 100
+end
+  

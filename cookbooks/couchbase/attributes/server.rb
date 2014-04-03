@@ -21,14 +21,16 @@
 
 package_machine = node['kernel']['machine'] == "x86_64" ? "x86_64" : "x86"
 
-default['couchbase']['server']['edition'] = "community"
-default['couchbase']['server']['version'] = "1.8.1"
+default['couchbase']['server']['edition'] = ""
+default['couchbase']['server']['version'] = "1.8.1-937"
 
 case node['platform_family']
 when "debian"
-  default['couchbase']['server']['package_file'] = "couchbase-server-#{node['couchbase']['server']['edition']}_#{package_machine}_#{node['couchbase']['server']['version']}.deb"
+  default['couchbase']['server']['package_file'] = "couchbase-server-#{node['couchbase']['server']['edition']}#{package_machine}-#{node['couchbase']['server']['version']}.deb"
 when "rhel"
-  default['couchbase']['server']['package_file'] = "couchbase-server-#{node['couchbase']['server']['edition']}_#{package_machine}_#{node['couchbase']['server']['version']}.rpm"
+  default['couchbase']['server']['package_file'] = "couchbase-server-#{node['couchbase']['server']['version']}.#{package_machine}"
+                                                                                                # couchbase-server-x86_64-1.8.1-937
+                                                                                                # couchbase-server-1.8.1-937.x86_64
 when "windows"
   if node['kernel']['machine'] != 'x86_64'
     Chef::Log.error("Couchbase Server on Windows must be installed on a 64-bit machine")
@@ -46,7 +48,7 @@ case node['platform_family']
 when "windows"
   default['couchbase']['server']['install_dir'] = File.join("C:","Program Files","Couchbase","Server")
 else
-  default['couchbase']['server']['install_dir'] = "/opt/couchbase"
+  default['couchbase']['server']['install_dir'] = "/data/apps/coucbase"
 end
 
 default['couchbase']['server']['database_path'] = File.join(node['couchbase']['server']['install_dir'],"var","lib","couchbase","data")

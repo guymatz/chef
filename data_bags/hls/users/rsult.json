@@ -1,0 +1,11 @@
+{
+    "id": "rsult",
+    "uid": 50226,
+    "name": "Ryan Sult",
+    "email": "RyanSult@clearchannel.com",
+    "groups": ["jobserver", "cnpuser"],
+    "shell":    "/bin/bash",
+    "ssh_keys": [
+       "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIEA862psCBNVsVcCUtEgAjWTPzCpWWsaOUtMFFnHzGWrck4LlIbWEu7UHAMSWLBwex74hQgSA5/X+YM1O1f61Dr4+d4vcD57q4shmjfFwXGQs8mSFqi8LniIECEn6mnaKp2GAfFGntOWruOje3mE44Qolj7l/+NLIUV3Lr9AFk9398="
+    ]
+}

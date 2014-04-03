@@ -1,0 +1,12 @@
+{
+    "id": "hue",
+    "cookie": "SERVERID insert nocache indirect",
+    "vhosts": [ "hue.ihrdev.com" ],
+    "check": "True",
+    "backends": [
+	{
+            "server": "use1b-hadoop-master001.ihrdev.com",
+            "port": "8888"
+	}
+    ]
+}

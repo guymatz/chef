@@ -6,8 +6,9 @@
   "env_run_lists": {
   },
   "run_list": [
-      "role[auto-bonded]",
-    "recipe[jenkins::node_ssh]"
+    "role[auto-bonded]",
+    "recipe[jenkins::node_ssh]",
+    "recipe[users::jenkins_prod]"
   ],
   "description": "",
   "chef_type": "role",

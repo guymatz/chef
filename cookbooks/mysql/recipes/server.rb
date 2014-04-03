@@ -19,6 +19,7 @@
 #
 #
 include_recipe "mysql::client"
+include_recipe "users::mysql"
 
 ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
 ::Chef::Recipe.send(:include, Opscode::Mysql::Helpers)

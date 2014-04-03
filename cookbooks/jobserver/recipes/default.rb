@@ -9,7 +9,6 @@
 
 include_recipe "users::jobserver"
 include_recipe "users::jobserver-sudo"
-include_recipe "jobserver::update_es_index"
 
 if node.chef_environment == 'prod'
   include_recipe "jobserver::ha"
@@ -21,6 +20,11 @@ nagios_nrpecheck "Process-Cron" do
   critical_condition "1:"
   parameters "-C crond"
   action :add
+end
+
+cron_d "fbconsumer_log_cleanup" do
+  hour "22"
+  command 'find /data/log/facebook-consumer* -type f -mtime +30 -exec rm -rf {} \;'
 end
 
 

@@ -1,0 +1,8 @@
+{
+    "id": "membase",
+    "name": "Membase Service",
+    "groups":   ["membase"],
+    "shell":    "/sbin/nologin",
+    "home": "/data/membase",
+    "uid": 497
+}

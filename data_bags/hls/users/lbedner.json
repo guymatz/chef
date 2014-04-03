@@ -1,0 +1,10 @@
+{
+    "id": "lbedner",
+    "uid": 5017,
+    "name": "Leonard Bedner",
+    "email": "lenoardbedner@clearchanndl.com",
+    "groups": ["etl", "dev", "qa", "converter", "talk", "top20"],
+    "ssh_keys": [
+     "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAoiCRuZM8kaMFuJcjX7B9G0++I34A3rfUTBvuZZV0Xe4abG0y2rhsjwxI1PyyR+AdffkoijUWtnyUkRYlqn0D8gA7MxBgUHS/vO6FHqLLkC+JmzLWwct1zGhK6Oem+AUnuJdeoWDcK+q2q+Gk4YB/oWAT7YY4ciwRZN+7LpnoMDE5FnQI3JqY8dpV8b066nMBWeMAkBVgkzbz+alXzhWwI2aLHAM28qyjY3ZNibC06M+qUZIBs752ptXzVBWW0wmUM84dhUwihUPFb6Q9XPX/xHeEhUt5HPkjGEhPdYdEsEjJGxA1tgWP+LjnuZyhaXV0Pxr4+mkt16yV1LRRMxS+DQ== lbedner@TECH-LBEDNER"
+    ]
+}

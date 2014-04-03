@@ -35,18 +35,25 @@ template "/etc/freetds.conf" do
   mode "0644"
 end
 
-template "/data/apps/batchjobs/jobs/rovi/bin/celeryconfig.py" do
-  source "celeryconfig.py.erb"
-  mode "0755"
-  owner "batchjobs"
-  group "batchjobs"
+if node.chef_environment =~ /^prod/
+  cron_d "Rovi_image_job" do
+    command "/data/apps/batchjobs/jobs/rovi/bin/run_image_job.sh #{node[:batchjobs][:rovi_upload_identity]} > /dev/null 2>&1"
+    minute "0"
+    hour "21"
+    user "batchjobs"
+  end
 end
 
-cron_d "Rovi_image_job" do
-  command "/data/apps/batchjobs/jobs/rovi/bin/run_image_job.sh #{node[:batchjobs][:rovi_upload_identity]} > /dev/null 2>&1"
-  minute "0"
-  hour "21"
-  user "batchjobs"
+# 3/21/14 GP edit: added job for lyrics update ref JIRA: OPS-6449
+if node.chef_environment =~ /^prod/
+  cron_d "lyrics_update_job" do
+    action :create
+    command "/data/apps/batchjobs/jobs/lyrics/bin/wrapper.sh Prod > /data/apps/batchjobs/jobs/lyrics/logs/last_run.out 2>&1"
+    minute "0"
+    hour "21"
+    weekday "0"
+    user "batchjobs"
+  end
 end
 
 begin
@@ -92,4 +99,11 @@ begin
   end
 rescue
   untag("batchjobs-deployed")
+end
+
+template "/data/apps/batchjobs/jobs/rovi/bin/celeryconfig.py" do
+  source "celeryconfig.py.erb"
+  mode "0755"
+  owner "batchjobs"
+  group "batchjobs"
 end

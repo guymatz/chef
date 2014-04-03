@@ -101,6 +101,10 @@ if (node[:proftpd][:sql] == "on")
   end
 end
 
+# Dir where ftp home logs will be
+directory "#{node[:proftpd][:log_dir]}" do
+  mode 0775
+end
 # Dir where ftp home dirs will be
 directory "#{node[:proftpd][:default_root]}" do
   owner node[:proftpd][:ftp_user]

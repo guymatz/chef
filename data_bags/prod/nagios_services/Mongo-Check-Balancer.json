@@ -1,0 +1,10 @@
+{
+  "id": "Mongo-Check-Balancer",
+  "hostgroup_name": "mongosd",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c mongodb_check_balancer -t 20",
+  "contact_groups": ["dba"],
+  "check_interval": "86400",
+  "retry_interval" : "3600",
+  "notification_interval" : "0",
+  "max_check_attempts" : "1"
+}

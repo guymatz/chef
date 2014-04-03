@@ -1,0 +1,10 @@
+{
+    "id": "mlisovich",
+    "uid": 5041,
+    "name": "Mikhail Lisovich",
+    "email": "mikhaillisovich@clearchannel.com",
+    "groups": ["hadoop", "data-team" ],
+    "ssh_keys": [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCZUJaR+YNk8F168c+pn49LstvL7dZQU3K0b7JzEX57HrWCBOzUylAf/e2wQOCnO8OGoAOi8gW/3OGW0ESP4tObvyHoj34IAa+y4UQn5OMqFAuzOfOztEpAH0WWSeAjHHKi7DQiUWVjZfeNUK5E4QDFh9gy7X5LdtXkLqz6tTOJ+HSRrmrMx9WfTW/pzf8Gq5gRgRjiGxrezvDCDYRkSoXkxU5xtDJLuNNpECmIx/BrB2THyUZLYrCasraFc2UPxfNXHa6CLB2d/u7Z13xyK1piBSBrPJtknZSBaP4ybxiY9SJph1mzX/HJ7n+99JK63f/ABPJC2wlhzMbSLr58hYaP GitHub@mul118"
+    ]
+}

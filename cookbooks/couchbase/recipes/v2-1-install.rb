@@ -9,6 +9,25 @@
 #
 # #######################################
 
-node.default['couchbase']['server']['version'] = "2.1.1";
+# need to uninstall membase-server or it conflicts with couchbase-server 
+# (normally this is easy via package management, however, chef adds a certain barrier of easy use)
+package "membase-server" do
+  action :remove
+end
 
-include_recipe 'couchbase::server'
+directory "/data/apps/couchbase/data" do
+  owner "couchbase"
+  group "couchbase"
+  recursive true
+end
+
+# that rpm is the default rpm in our repo
+# yum_package "couchbase-server*1.8.1*.x86_64" do 
+yum_package "couchbase-server = 2.1.1" do 
+  action :install     
+end
+
+service "couchbase-server" do
+  supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
+  action [ :enable, :start ]
+end

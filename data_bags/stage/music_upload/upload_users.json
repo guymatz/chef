@@ -371,5 +371,11 @@
     "cipher": "aes-256-cbc",
     "version": 1,
     "encrypted_data": "ctn6sFpmwJc5AKMfq5SbqY3CyWTSE34LUUDCVA6b1xSMQ4Gk8t657dyUDvjj\ngXLF\n"
+  },
+  "nuance": {
+    "encrypted_data": "yFm3rtcuDNc1J8kiOy1dFXXZQ6jW+Qs/6JKl73/66GydUNYeQ/yZ568GH/jO\n292W\n",
+    "iv": "7CtTFyKRy3805UsksFr+aw==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
   }
 }

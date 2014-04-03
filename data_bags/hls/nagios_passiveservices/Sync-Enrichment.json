@@ -1,0 +1,6 @@
+{
+  "id": "sync-enrichment",
+  "host_name": "use1b-jobserver101a.ihr",
+  "contact_groups": ["etl"],
+  "freshness_threshold": "1000"
+}

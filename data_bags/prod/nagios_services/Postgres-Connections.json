@@ -3,6 +3,6 @@
     "dba-team"
   ],
   "id": "Postgres-Connections",
-  "hostgroup_name": "postgres-server",
+  "hostgroup_name": "ps-monitoring",
   "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c Postgres-Connections -t 20"
 }
