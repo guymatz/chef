@@ -8,7 +8,7 @@
   },
   "chef_type": "role",
   "run_list": [
-    "recipe[imgscaler]",
+    "recipe[imgproxy::nat_workaround]",
     "recipe[imgscaler::nrpe]",
     "recipe[users::imgsca]"
   ],
