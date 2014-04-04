@@ -21,7 +21,7 @@ template "/data/apps/prn-idx-update/prn-idxupdate.sh" do
 end 
 
 cron_d "prn-index-update" do
-  minute "50"
+  hour "*/6"
   command "/data/apps/prn-idx-update/prn-idxupdate.sh > /data/apps/prn-idx-update/prn-idxupdate.last_run.out 2>&1"
 end
 
