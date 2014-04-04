@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# #################################################
+# @FILE: prn-idxupdate.sh.erb
+# @AUTHOR: GregoryPatmore <gregorypatmore@clearchannel.com>}
+# @CHEF-COOKBOOK: amp
+# @PROJECT: automated prn index update
+# @TICKETID: OPS-6357
+# @TAB-SIZE: 2
+# @SOFT-TABS: YES
+# @DESC: Runs a curl statement to update the prn index on the elasticsearch cluster
+# @NOTES: Intially implemented to run hourly but seems to run quickly so may be possible to increase frequency to index new content more frequently
+# #################################################
+
+# make sure we have a curl command 
+! hash curl >/dev/null 2>&1 \
+  && echo "Error: curl command not found in PATH or not installed" >&2 \
+  && exit 1;
+
+
+curl -XPUT -v "http://iad-search401-v200.ihr.:9200/_ihr/index/prn/_induce"

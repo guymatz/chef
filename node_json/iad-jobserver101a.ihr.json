@@ -8,7 +8,8 @@
     "role[etljob_server]",
     "recipe[etl_jobs::default]",
     "recipe[etl_jobs::nrpe]",
-    "role[batchjobs]"
+    "role[batchjobs]",
+    "recipe[amp::prn-idx-update]"
   ],
   "normal": {
     "mysql": {
