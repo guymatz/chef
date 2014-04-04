@@ -12,6 +12,7 @@
   "chef_type": "role",
   "run_list": [
     "role[iad-imgproxy]",
+    "recipe[imgproxy::nat_workaround]"
     "recipe[imgproxy]",
     "recipe[imgproxy::nrpe]"
   ],
