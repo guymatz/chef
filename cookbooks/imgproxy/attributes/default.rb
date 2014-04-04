@@ -24,3 +24,9 @@ default[:imgproxy][:template_files] = { "/etc/supervisord.conf" => "supervisord.
                                         "/etc/varnish/default.vcl" => "varnish.vcl.erb"
                                       }
 #node[:supervisor][:directives]
+
+case chef_environment
+when /^prod.*/
+  default[:imgproxy][:host_entries] = { "10.5.53.40" => "radioedit.ihrdev.com" 
+                                      }
+end
