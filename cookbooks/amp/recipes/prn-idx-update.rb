@@ -14,7 +14,7 @@
 directory "/data/apps/prn-idx-update"
 
 template "/data/apps/prn-idx-update/prn-idxupdate.sh" do
-  souce "prn-idxupdate.sh.erb"
+  source "prn-idxupdate.sh.erb"
   owner 'root'
   group 'root'
   mode "744"
