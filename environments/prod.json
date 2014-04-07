@@ -157,7 +157,7 @@
     "ssh-wrapper": "= 0.0.3",
     "statsd": "= 0.1.1",
     "sudo": "= 1.2.0",
-    "supervisor": "= 0.2.0",
+    "supervisor": "= 1.0.0",
     "sysctl": "= 1.2.1",
     "thrift": "= 1.0.0",
     "timezone": "= 0.0.1",
