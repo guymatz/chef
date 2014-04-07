@@ -11,7 +11,7 @@ package "java-1.6.0-openjdk"
 package "ImageMagick"
 package "nfs-utils"
 
-exec "set-java7-default" do
+execute "set-java7-default" do
   command <<-EOH
     alternatives --install /usr/bin/java java /usr/java/latest/jre/bin/java 200000
     alternatives --install /usr/bin/javac javac /usr/java/latest/bin/javac 200000
