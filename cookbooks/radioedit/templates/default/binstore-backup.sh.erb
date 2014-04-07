@@ -1,21 +1,15 @@
 #!/usr/bin/env bash
 # #################################################
-# @FILE: chk_radioedit_status
-# @AUTHOR: :GregoryPatmore <gregorypatmore@clearchannel.com>}
-# @CHEF-COOKBOOK: radioedit
-# @PROJECT: Radioedit
-# @TICKETID: 
+# @FILE: binstore-backup.sh.erb
+# @AUTHOR: GregoryPatmore <gregorypatmore@clearchannel.com>}
+# @CHEF-COOKBOOK: radioedit (recipe[radioedit::binstore-backup])
+# @PROJECT: radioedit
+# @TICKETID: OPS-6354 ( https://jira.ccrd.clearchannel.com/browse/OPS-6354 )
 # @TAB-SIZE: 2
 # @SOFT-TABS: YES
-# @DESC: Script to check the health of the radioedit stack
+# @DESC: Creates a local backup of the binstore directory in .tgz format and rsyncs the binstore directory delta changes to the backup server
 # @NOTES: 
 # #################################################
-
-# ensure we can use netcat
-! hash nc 2>/dev/null \
-  && echo "error: netcat utility not found" >&2 \
-  && exit 1;
-
 
 # including my old error library source (until I can automate a way to deploy together or something)
 shopt -s expand_aliases;
@@ -140,73 +134,54 @@ export -f pDebug;
 export -f lerr_disableColor;
 export -f lerr_enableColor;
 
-# ##################################################
-# END ERROR LIBRARY SOURCE
-# ##################################################
+# no color needed for this one guys
+# lerr_disableColor
 
-# array of hosts
-declare -a HOST_LIST=( iad-radioedit101.ihr iad-radioedit102.ihr );
+# ##################################################################
+# Begin script 
+# ##################################################################
 
+# local directory to process
+declare LOCAL_DIR='/data/exports/files.ihrdev.com/radioedit-stash/radioedit';
+# the remote directory to save to
+declare REMOTE_DIR='/data/exports/dr_backups/radioedit';
+# the remote host to send to
+declare REMOTE_HOST='iad-backup101.ihr';
 
-# simple netcat command 
-function chkPortOpen(){ nc -z ${1} ${2} >/dev/null 2>&1 && return 0 || return 1; };
+# lets keep everything local
+pushd $(dirname ${LOCAL_DIR});
 
+  # save the last backup in case it fails this time.
+  [[ -f ${LOCAL_DIR}.tgz ]] \
+    && mv ${LOCAL_DIR}.tgz ${LOCAL_DIR}.tgz.1;
 
-pInfo "START: Port Listener Tests";
+  # create the local backup (last test run before initial deployment this took 15m6.156s compressions 7.2GB -> 6.8GB)
+  tar czf ${LOCAL_DIR}.tgz ${LOCAL_DIR} &
+  ARCHIVE_PID=$!;
 
-# loop through 
-for h in ${HOST_LIST[@]}; do
+  # sync the delta of changes to the backup server
+  rsync -azrv ${LOCAL_DIR} ${REMOTE_HOST}:${REMOTE_DIR}/;
+  declare -i RES=$?;
 
-  pInfo "START: Testing port listeners for host: ${h}";
+  # if we didn't end cleanly report the error and pass along the exit status 
+  [[ $RES -ne 0 ]] \
+    && pErr "Backup sync failed with nonzero exit status (${RES}). Please manually verify backup validity and resync if needed"; 
 
-  # check for port listeners open (in no particular order)
-  # 11211 (memcached)
-  chkPortOpen "${h}" 11211 \
-    && pInfo "[PASS] Port 11211(memcached) is OPEN" \
-    || pErr "[FAIL] Port 11211(memcached) is CLOSED";
+popd; # $(dirname ${LOCAL_DIR})
 
-  # 80 (varnish)
-  chkPortOpen "${h}" 80 \
-    && pInfo "[PASS] Port 80(varnish - http) is OPEN" \
-    || pErr "[FAIL] Port 80(varnish - http) is CLOSED";
+# wait for the tar call to complete
+wait $ARCHIVE_PID;
+RES=$?;
 
-  # 6082 (varnish)
-  chkPortOpen "${h}" 6082 \
-    && pInfo "[PASS] Port 6082(varnish - mgmnt) is OPEN" \
-    || pErr "[FAIL] Port 6082(varnish - mgmnt) is CLOSED";
+# if it was successful, delete the .tgz.1 copy
+if [[ $RES -eq 0 ]]; then
+  pInfo "Local archive created successfully"
+  rm -f ${LOCAL_DIR}.tgz.1;
+
+# if it fails, complain a bit, but don't erase the only local backup we have, instead erase the current .tgz so no one tries to use it.
+else
+  pWarn "Local Archive process failed with nonzero status ($RES). previous archive saved with .tgz.1 filename suffix"
+  rm -f ${LOCAL_DIR}.tgz
   
-  # 8080 (nginx)
-  chkPortOpen "${h}" 8080 \
-    && pInfo "[PASS] Port 8080(nginx - http) is OPEN" \
-    || pErr "[FAIL] Port 8080(nginx - http) is CLOSED";
+fi
 
-  # 3000 (nodejs - 'script' app)
-  chkPortOpen "${h}" 3000 \
-    && pInfo "[PASS] Port 3000(nodejs - script app) is OPEN" \
-    || pErr "[FAIL] Port 3000(nodejs - script app) is CLOSED";
-  
-  # 9200 (elasticsearch - request serving )
-  chkPortOpen "${h}" 9200 \
-    && pInfo "[PASS] Port 9200(elasticsearch - http) is OPEN" \
-    || pErr "[FAIL] Port 9200(elasticsearch - http) is CLOSED";
-
-  # 9300 (elasticsearch - management port )
-  chkPortOpen "${h}" 9300 \
-    && pInfo "[PASS] Port 9300(elasticsearch - transport) is OPEN" \
-    || pErr "[FAIL] Port 9300(elasticsearch - transport) is CLOSED";
-      
-
-  # check for proc running using pid files
-  # 1. /var/run/radioedit/radioedit-app_api.pid (app_api pid file)
-  # 2. /var/run/radioedit/radioedit-app_api.pid (app_auth pid file)
-  # 3. /var/run/memcached/memcached.pid (memcached pid file)
-  # 4. /var/run/elasticsearch/elasticsearch.pid (elasticsearch pid file)
-  # 5. /var/run/varnish.pid (varnish pid file)
-  # 6. /var/run/nginx.pid (nginx pid file)
-  # 7. /var/run/supervisord.pid
-
-  # check for stale nfsmount
-  # 1a. (staging) iad-stg-nfs101-v700.ihr:/data/export/radioedit/binstore -> /data/binstore
-# 1b. (production) 10.5.40.121:/data/imgscaler/radioedit/assets -> /data /binstore
- 
-done; # for .. ${HOST_LIST[@]}
