@@ -8,6 +8,7 @@
   },
   "chef_type": "role",
   "run_list": [
+    "recipe[java::oracle-7]",
     "recipe[imgproxy::nat_workaround]",
     "recipe[imgscaler]",
     "recipe[imgscaler::nrpe]",
