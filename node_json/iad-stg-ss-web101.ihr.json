@@ -5,7 +5,6 @@
     "role[base]",
     "role[webplayers]",
     "role[webplayer-membase]",
-    "role[memcached]",
     "recipe[webplayer::memcached]"
   ],
   "normal": {
