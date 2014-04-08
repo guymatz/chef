@@ -1,0 +1,36 @@
+{
+  "name": "iad-stg-quickio101.ihr",
+  "chef_environment": "stage",
+  "run_list": [
+    "role[base]",
+    "role[dell]",
+    "role[quickio]"
+  ],
+  "normal": {
+    "mysql": {
+      "conf_dir": "/etc/mysql",
+      "old_passwords": 0,
+      "grants_path": "/etc/mysql/grants.sql",
+      "confd_dir": "/etc/mysql/conf.d",
+      "pid_file": "/var/run/mysqld/mysqld.pid",
+      "socket": "/var/run/mysqld/mysqld.sock"
+    },
+    "nagios": {
+      "nsca": {
+        "authkey": "JZ_OtF3rF4ponomK0g5F"
+      }
+    },
+    "tags": [
+      "quickio-deployed"
+    ],
+    "snmp": {
+      "cookbook_files": [
+        "/etc/default/snmpd"
+      ],
+      "packages": [
+        "snmp",
+        "snmpd"
+      ]
+    }
+  }
+}
