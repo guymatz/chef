@@ -142,11 +142,11 @@ lerr_disableColor
 # ##################################################################
 
 # local directory to process
-declare LOCAL_DIR='/data/exports/files.ihrdev.com/radioedit-stash/radioedit';
+declare LOCAL_DIR='<%= @local_dir %>';
 # the remote directory to save to
-declare REMOTE_DIR='/data/exports/dr_backups/radioedit';
+declare REMOTE_DIR='<%= @remote_dir %>';
 # the remote host to send to
-declare REMOTE_HOST='iad-backup101.ihr';
+declare REMOTE_HOST='<%= @remote_host %>';
 
 # lets keep everything local
 pushd $(dirname ${LOCAL_DIR});
