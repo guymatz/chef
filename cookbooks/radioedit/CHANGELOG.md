@@ -26,6 +26,10 @@ This file is used to list changes made in each version of radioedit.
 
 * recipe[radioedit::binstore-backup] installs shell script to create a tarball of the binstore directory and copy it to the backup server
 
+## 1.2.2
+
+* recipe[radioedit::app-restart-script] installs a shell script in /usr/local/bin to restart the applications within the radioedit stack
+
 - - -
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
 
