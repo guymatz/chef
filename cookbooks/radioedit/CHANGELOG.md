@@ -22,6 +22,14 @@ This file is used to list changes made in each version of radioedit.
 * Split up application deployment into separate recipes
 * Introduces 2 LWRPs radioedit_unicorn and radioedit_node used as application deployment abstraction layer
 
+## 1.2.1
+
+* recipe[radioedit::binstore-backup] installs shell script to create a tarball of the binstore directory and copy it to the backup server
+
+## 1.2.2
+
+* recipe[radioedit::app-restart-script] installs a shell script in /usr/local/bin to restart the applications within the radioedit stack
+
 - - -
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
 
