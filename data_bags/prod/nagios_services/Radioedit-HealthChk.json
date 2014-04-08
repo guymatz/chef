@@ -1,5 +1,5 @@
 {
-  "host_name": "iad-radioedit101.ihr",
+  "host_name": "iad-radioedit101",
   "id": "radioedit-health-chk",
   "command_line": "$USER1$/check_http -H $HOSTADDRESS$ -u http://$HOSTADDRESS$/health_check/"
 }
