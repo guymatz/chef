@@ -14,7 +14,8 @@
     "recipe[files.ihrdev.com::clean_backups_mongo_usr]",
     "recipe[files.ihrdev.com::clean_backups_mongo_util]",
     "recipe[files.ihrdev.com::clean_backups_auth_bak]",
-    "recipe[files.ihrdev.com::clean_backups_ing_bak]"
+    "recipe[files.ihrdev.com::clean_backups_ing_bak]",
+    "recipe[radioedit::binstore-backup]"
   ],
   "normal": {
     "rsyslog": {
