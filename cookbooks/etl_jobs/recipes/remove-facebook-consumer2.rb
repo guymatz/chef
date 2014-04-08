@@ -1,12 +1,15 @@
 
 directory "/home/amqp-consumer/facebook-consumer-2" do
   action :delete
+  recursive true
 end
 directory "/data/log/facebook-consumer-2" do
   action :delete
+  recursive true
 end
 directory "/var/run/facebook-consumer-2" do
   action :delete
+  recursive true
 end
 file "/home/amqp-consumer/facebook-consumer-2/facebook_consumer.jar" do
   action :delete 
