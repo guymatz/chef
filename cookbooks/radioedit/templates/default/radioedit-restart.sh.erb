@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# #################################################
+# @FILE: radioedit-restart.sh.erb
+# @AUTHOR: GregoryPatmore <gregorypatmore@clearchannel.com>}
+# @CHEF-COOKBOOK: radioedit
+# @PROJECT: restart radioedit after compaction
+# @TICKETID: OPS-6030
+# @TAB-SIZE: 2
+# @SOFT-TABS: YES
+# @DESC: Restarts radioedit
+# @NOTES: 
+# #################################################
+
+sudo kill -HUP `cat /var/run/radioedit/radioedit-app_api.pid`
+sudo kill -HUP `cat /var/run/radioedit/radioedit-app_auth.pid`
+sudo supervisorctl restart app_script
