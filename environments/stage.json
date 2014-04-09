@@ -26,8 +26,7 @@
     "batchjobs": "= 1.0.1",
     "fac": "= 1.0.1",
     "jobserver": "= 1.0.0",
-    "amp": "= 1.0.4",
-    "quickio": "= 2.0.0"
+    "amp": "= 1.0.4"
   },
   "override_attributes": {
   },
