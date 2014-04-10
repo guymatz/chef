@@ -12,7 +12,8 @@
     "recipe[radioedit::stage-nfs-mount]",
     "recipe[radioedit::radioedit-auth]",
     "recipe[radioedit::radioedit-api]",
-    "recipe[radioedit::radioedit-script]"
+    "recipe[radioedit::radioedit-script]",
+    "recipe[radioedit::app-restart-script]"
   ],
   "normal": {
     "tags": [],
