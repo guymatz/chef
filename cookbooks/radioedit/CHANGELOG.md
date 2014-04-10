@@ -24,7 +24,7 @@ This file is used to list changes made in each version of radioedit.
 
 ## 1.2.1
 
-* recipe[radioedit::binstore-backup] installs shell script to create a tarball of the binstore directory and copy it to the backup server
+* recipe[radioedit::binstore-backup] installs shell script to create a local tarball of the binstore directory as well as rsync it to the backup server
 
 ## 1.2.2
 
