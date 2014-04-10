@@ -50,7 +50,7 @@ when /^stage/
 	default[:fac][:radiobuild][:version] = "1.0.22"
 	default[:fac][:radiobuild2][:version] = "1.0.23"
 	default[:fac][:recommendations][:version] = "3.4.94"
-	default[:fac][:genre][:version] = "3.4.110"
+	default[:fac][:genre][:version] = "3.4.126"
 	default[:fac][:music2][:music_mongo_server] = "iad-stg-mongo-fac101-v240.ihr:37017,iad-stg-mongo-fac102-v240.ihr:37017,iad-stg-mongo-fac103-v240.ihr:37017"
 	default[:fac][:music2][:echonest_mongo_server] = "iad-stg-mongo-fac101-v240.ihr:27017,iad-stg-mongo-fac102-v240.ihr:27017,iad-stg-mongo-fac103-v240.ihr:27017"
 	default[:fac][:music2][:radio_mongo_server] = "iad-stg-mongo-fac101-v240.ihr:27017,iad-stg-mongo-fac102-v240.ihr:27017,iad-stg-mongo-fac103-v240.ihr:27017"
