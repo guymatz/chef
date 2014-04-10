@@ -20,7 +20,8 @@
     },
     "tags": [
       "compactor",
-      "mongo_fac"
+      "mongo_fac",
+	  "mongo_shared"
     ],
     "mysql": {
       "conf_dir": "/etc",
