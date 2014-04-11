@@ -1,5 +1,5 @@
-default[:amp][:version] = "wham-rc5"
-default[:amp][:amp_rest_version] = "2.23.5"
+default[:amp][:version] = "xzibit-uat-7"
+default[:amp][:amp_rest_version] = "2.24.1"
 default[:amp][:url] = "http://files.ihrdev.com/amp"
 
 default[:amp][:packages] = %w{ mongo-10gen-server mongo-10gen }
@@ -115,6 +115,7 @@ when /^prod/
   default[:amp][:authdb][:user_name] = "appuser"
   default[:amp][:authdb][:password] = "2ph2Tr@ce"
   default[:amp][:new_relic_app_name] = "PRD-AMP"
+  default[:amp][:reporting_url] = "http://api2.iheart.com"
 when /^stage/
   default[:amp][:usr_mongo][:hosts] = "localhost:27017"
   default[:amp][:usr_mongo][:connections_per_host] = 300
@@ -201,6 +202,7 @@ when /^stage/
   default[:amp][:authdb][:user_name] = "appuser"
   default[:amp][:authdb][:password] = "Pk32T783q9"
   default[:amp][:new_relic_app_name] = "STG-AMP"
+  default[:amp][:reporting_url] = "https://api-stg1.iheart.com"
 else
   default[:amp][:usr_mongo][:hosts] = "localhost:27017"
   default[:amp][:usr_mongo][:connections_per_host] = 300
