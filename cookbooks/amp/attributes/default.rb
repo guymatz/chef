@@ -1,5 +1,5 @@
-default[:amp][:version] = "xzibit-uat-8"
-default[:amp][:amp_rest_version] = "2.24.2"
+default[:amp][:version] = "xzibit-rc-1"
+default[:amp][:amp_rest_version] = "2.24.3"
 default[:amp][:url] = "http://files.ihrdev.com/amp"
 
 default[:amp][:packages] = %w{ mongo-10gen-server mongo-10gen }
