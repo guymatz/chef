@@ -41,7 +41,7 @@ unless tagged?('elasticsearchnew-deployed')
   end
   
   remote_file "#{Chef::Config[:file_cache_path]}/#{pkg}" do
-    source "#{node[:elasticsearchnew][:url]}/#{node.chef_environment}/es-configs/#{pkg}"
+    source "#{node[:elasticsearchnew][:url]}/#{node[:elasticsearchnew][:install_tag]}/es-configs/#{pkg}"
     notifies :run, resources(:execute => "Untar-ihr-search-configs"), :immediately
     owner node[:elasticsearchnew][:user]
     group node[:elasticsearchnew][:group]

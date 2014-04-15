@@ -17,13 +17,13 @@ unless tagged?("es-plugins-installed")
   end
 
   execute "install-ihrsearch-query-plugin" do
-    command "#{ES_HOME}/bin/plugin --url #{node[:elasticsearchnew][:url]}/#{node.chef_environment}/es-plugins/es-query-plugin-1.0.zip --install ihr-query"
+    command "#{ES_HOME}/bin/plugin --url #{node[:elasticsearchnew][:url]}/#{node[:elasticsearchnew][:install_tag]}/es-plugins/es-query-plugin-1.0.zip --install ihr-query"
     cwd Chef::Config[:file_cache_path]
     user node[:elasticsearchnew][:user]
     group node[:elasticsearchnew][:group]
   end
   execute "install-ihrsearch-indexer-plugin" do
-    command "#{ES_HOME}/bin/plugin --url #{node[:elasticsearchnew][:url]}/#{node.chef_environment}/es-plugins/es-indexer-plugin-1.0.zip --install ihr-index"
+    command "#{ES_HOME}/bin/plugin --url #{node[:elasticsearchnew][:url]}/#{node[:elasticsearchnew][:install_tag]}/es-plugins/es-indexer-plugin-1.0.zip --install ihr-index"
     cwd Chef::Config[:file_cache_path]
     notifies :restart, "service[elasticsearch]"
     user node[:elasticsearchnew][:user]
@@ -32,7 +32,7 @@ unless tagged?("es-plugins-installed")
 
   
   execute "install-river-rabbitmq-plugin" do
-    command "#{ES_HOME}/bin/plugin --url #{node[:elasticsearchnew][:url]}/#{node.chef_environment}/es-plugins/elasticsearch-river-rabbitmq.zip --install river-rabbitmq"
+    command "#{ES_HOME}/bin/plugin --url #{node[:elasticsearchnew][:url]}/#{node[:elasticsearchnew][:install_tag]}/es-plugins/elasticsearch-river-rabbitmq.zip --install river-rabbitmq"
     cwd Chef::Config[:file_cache_path]
     notifies :restart, "service[elasticsearch]"
     user node[:elasticsearchnew][:user]

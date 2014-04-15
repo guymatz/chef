@@ -30,10 +30,14 @@ default[:elasticsearchnew][:cluster_name] = ""
 case chef_environment 
 when /^prod/
 	default[:elasticsearchnew][:minimum_master_nodes] = 2
+	default[:elasticsearchnew][:install_tag] = 'prod'
 when /^stage/
 	default[:elasticsearchnew][:minimum_master_nodes] = 1
+	default[:elasticsearchnew][:install_tag] = 'battlestar'
 else
 	default[:elasticsearchnew][:minimum_master_nodes] = 1
+	# Leave it empty causing chef-client  to fail
+	default[:elasticsearchnew][:install_tag] = ''
 end
 
 case chef_environment 
