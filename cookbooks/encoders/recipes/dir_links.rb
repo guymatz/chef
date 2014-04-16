@@ -45,7 +45,7 @@ content_music_prod_links = {
     "/data/encoder/believe" => "/content/music/prod/Believe",
     "/data/encoder/alienprod" => "/content/music/prod/Alien_Prod",
     "/data/encoder/catapult" => "/content/music/prod/Catapult",
-    "/data/encoder/consolidated" => "/content/music/prod/Consolidated5",
+    "/data/encoder/consolidated" => "/content/music/prod/Consolidated5"
 }
 
 content_music_directory_links.each do |source,dest|
