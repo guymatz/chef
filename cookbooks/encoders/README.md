@@ -3,6 +3,8 @@ encoder Cookbook
 TODO: Massive cookbook to deploy our encoder / transcoder / ingestion enviornment
 
 
+1.0.2 added dir_links recipe
+
 Requirements
 ------------
 
