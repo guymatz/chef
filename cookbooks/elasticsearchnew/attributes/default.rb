@@ -31,13 +31,17 @@ case chef_environment
 when /^prod/
 	default[:elasticsearchnew][:minimum_master_nodes] = 2
 	default[:elasticsearchnew][:install_tag] = 'prod'
+	# Leave empty should be set on node level since it is different for each prod node
+	default[:elasticsearchnew][:heap_size] = ''
 when /^stage/
 	default[:elasticsearchnew][:minimum_master_nodes] = 1
 	default[:elasticsearchnew][:install_tag] = 'battlestar'
+	default[:elasticsearchnew][:heap_size] = '8g'
 else
 	default[:elasticsearchnew][:minimum_master_nodes] = 1
 	# Leave it empty causing chef-client  to fail
 	default[:elasticsearchnew][:install_tag] = ''
+	default[:elasticsearchnew][:heap_size] = ''
 end
 
 case chef_environment 

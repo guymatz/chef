@@ -59,6 +59,7 @@ unless tagged?('elasticsearchnew-deployed')
     group "root"
     mode "0755"
     notifies :restart, "service[elasticsearch]"
+	backup 100
   end
 
   bash "install-elasticsearch-service" do
@@ -75,6 +76,7 @@ unless tagged?('elasticsearchnew-deployed')
     source "logging.yml.erb"
     owner node[:elasticsearchnew][:user]
     group node[:elasticsearchnew][:group]
+	backup 100
   end
   
   dwh_creds = Chef::EncryptedDataBagItem.load("secrets", "dwh_radiomodel_creds")

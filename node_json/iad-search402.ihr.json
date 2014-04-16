@@ -35,6 +35,7 @@
     ],
     "elasticsearchnew": {
       "cluster_name": "cluster2"
+	  ,"heap_size" : "12g"
     },
     "platform?": "ubuntu",
     "snmp": {

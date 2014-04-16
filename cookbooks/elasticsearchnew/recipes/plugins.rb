@@ -9,7 +9,7 @@ service "elasticsearch" do
   supports :start => true, :stop => true
 end
 
-unless tagged?("es-plugins-installed")
+unless tagged?("es-plugins-installed") then
   ES_HOME = node[:elasticsearchnew][:deploy_path]
 
   execute "delete plugins" do
@@ -44,9 +44,9 @@ unless tagged?("es-plugins-installed")
   Chef::Log.info("Primary node info: #{primary_node}")
   Chef::Log.info("Host name info: #{node[:hostname]}")
 
-  if /stage/ =~ node.chef_environment
-
-    if primary_node[:hostname] == node[:hostname]
+  case node.chef_environment
+  when /^stage/ then
+    if primary_node[:hostname] == node[:hostname] then
       execute "configure-river-rabbitmq-plugin" do
         command <<-EOH 
           /usr/bin/curl -XPUT '#{node[:ipaddress]}:9200/_river/my_river/_meta' -d '{ \
@@ -83,12 +83,12 @@ unless tagged?("es-plugins-installed")
               "ordered" : false \
           } \
          }'
-        EOH
+				EOH
       end # execute
-
     end # if primary
+  end # when
 
 end #unless tagged
-  tag("es-plugins-installed")
+
+tag("es-plugins-installed")
   
-end
