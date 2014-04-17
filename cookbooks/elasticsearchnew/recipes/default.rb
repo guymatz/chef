@@ -58,7 +58,7 @@ unless tagged?('elasticsearchnew-deployed')
     owner "root"
     group "root"
     mode "0755"
-    notifies :restart, "service[elasticsearch]"
+    #notifies :restart, "service[elasticsearch]"
 	backup 100
   end
 

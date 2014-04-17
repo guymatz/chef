@@ -34,7 +34,7 @@ unless tagged?("es-plugins-installed") then
   execute "install-river-rabbitmq-plugin" do
     command "#{ES_HOME}/bin/plugin --url #{node[:elasticsearchnew][:url]}/#{node[:elasticsearchnew][:install_tag]}/es-plugins/elasticsearch-river-rabbitmq.zip --install river-rabbitmq"
     cwd Chef::Config[:file_cache_path]
-    notifies :restart, "service[elasticsearch]"
+    # notifies :restart, "service[elasticsearch]"
     user node[:elasticsearchnew][:user]
     group node[:elasticsearchnew][:group]
   end
