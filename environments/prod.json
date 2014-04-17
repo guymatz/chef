@@ -28,7 +28,7 @@
     "boost": "= 0.2.0",
     "build-essential": "= 1.4.0",
     "cassandra": "= 0.2.5",
-    "chef-client": "= 1.2.0",
+    "chef-client": "= 2.02.0",
     "chef-server": "= 1.1.0",
     "chef-server-2.0": "= 2.0.0",
     "chef_handler": "= 1.1.4",
