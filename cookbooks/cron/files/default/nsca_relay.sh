@@ -23,6 +23,10 @@ declare -r HOST_NAME=$(uname -n | sed 's/\.ihr//') ;
 declare -r CMD_DELIM='--';
 # sentinel to flag when we've hit the end of the script args.
 declare -i DELIM_FOUND=0;
+# output log file
+declare STDOUT_FILE=
+# error log file
+declare STDERR_FILE=
 # variable to capture the nagios status (OK|WARNING|CRITIAL)
 declare NAG_STATUS
 
@@ -52,6 +56,28 @@ while [[ -n "${1}" && $DELIM_FOUND -eq 0 ]]; do
         -S | --service-name )
             shift;
             SVC_NM="${1}";
+            shift;
+            ;;
+
+        # save standard output to given file
+        -o | --out-log )
+            shift;
+            STDOUT_FILE=${1};
+            shift;
+            ;;
+
+        # save standard error output to a given file 
+        -e | --err-log )
+            shift;
+            STDERR_FILE=${1};
+            shift;
+            ;;
+
+        # save BOTH stdout and stderr to a given file
+        -L | --log-file )
+            shift;
+            STDOUT_FILE=${1};
+            STDERR_FILE=${1};
             shift;
             ;;
 
@@ -91,18 +117,19 @@ PATH=$PATH:/bin:/usr/local/bin:/usr/bin:/sbin;
 export PATH;
 
 
-# tmp files to record output/errput
-TMPF_OUT=$(mktemp --suffix=.nsca_relay.log);
-TMPF_ERR=$(mktemp --suffix=.nsca_relay.err);
+# if no out/err log specified, we create a tmp file to catch the output, then clean up on exit
+if [ -z "${STDOUT_FILE}" ]; then
+    STDOUT_FILE=$(mktemp --suffix=.nsca_relay.out);
+    trap 'rm -rf $STDOUT_FILE' SIGINT SIGTERM EXIT;
+fi
 
-# clean up the tmp files on exit
-trap 'rm -rf $TMPF_OUT $TMPF_ERR' SIGINT SIGTERM EXIT;
-
-
-# /usr/lib/nagios/plugins/send_nsca nagios-iad.ihrdev.com -c /etc/nagios/send_nsca.conf "msg"
+if [ -z "${STDOUT_FILE}" ]; then
+    STDERR_FILE=$(mktemp --suffix=.nsca_relay.err);
+    trap 'rm -rf $STDERR_FILE' SIGINT SIGTERM EXIT;
+fi
 
 # execute the subcommands
-$* >$TMPF_OUT 2>$TMPF_ERR;
+$* >$STDOUT_FILE 2>$STDERR_FILE;
 # save exit status
 SUB_XSTAT=$?;
 
@@ -119,7 +146,7 @@ case $SUB_XSTAT in
 esac
 
 # report to nsca  
-$NSCA_CMD -H $NAG_SVR -c $NSCA_CONF < <(echo -e "${HOST_NAME}\t${SVC_NM}\t${SUB_XSTAT}\t${NAG_STATUS}:$(cat $TMPF_OUT)")
+$NSCA_CMD -H $NAG_SVR -c $NSCA_CONF < <(echo -e "${HOST_NAME}\t${SVC_NM}\t${SUB_XSTAT}\t${NAG_STATUS}:$(cat $STDOUT_FILE)")
 [[ $? -ne 0 ]] \
     && echo "${SCRIPT}: ERROR: Nonzero exit status reported from nsca command" \
     && exit 1;
