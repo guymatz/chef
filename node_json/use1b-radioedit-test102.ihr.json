@@ -1,6 +1,6 @@
 {
   "name": "use1b-radioedit-test102.ihr",
-  "chef_environment": "stage",
+  "chef_environment": "development",
   "run_list": [
     "role[base]",
     "recipe[users::dev]",
