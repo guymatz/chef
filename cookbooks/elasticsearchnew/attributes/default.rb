@@ -30,7 +30,7 @@ default[:elasticsearchnew][:cluster_name] = ""
 case chef_environment 
 when /^prod/
 	default[:elasticsearchnew][:minimum_master_nodes] = 2
-	default[:elasticsearchnew][:install_tag] = 'prod'
+	default[:elasticsearchnew][:install_tag] = 'battlestar'
 	# Leave empty should be set on node level since it is different for each prod node
 	default[:elasticsearchnew][:heap_size] = ''
 when /^stage/
