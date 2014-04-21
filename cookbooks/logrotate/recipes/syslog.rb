@@ -12,3 +12,11 @@ logrotate_app "syslog" do
   frequency "daily"
   rotate 7
 end
+
+template "/etc/logrotate.conf" do
+  source logrotate.conf.erb
+  owner "root"
+  group "root"
+  mode 0644
+  not_if { ::File.directory?("/etc/logrotate.conf") }
+end
