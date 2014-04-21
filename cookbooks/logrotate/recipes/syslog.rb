@@ -18,5 +18,5 @@ template "/etc/logrotate.conf" do
   owner "root"
   group "root"
   mode 0644
-  not_if { ::File.directory?("/etc/logrotate.conf") }
+  not_if { ::File.exists?("/etc/logrotate.conf") }
 end
