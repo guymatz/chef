@@ -23,7 +23,8 @@ all_env = [
            "recipe[operations]",
            "recipe[logrotate::syslog]",
            "recipe[vmware-tools::noop]",
-           "recipe[ulimit]"
+           "recipe[ulimit]",
+	   "recipe[logrotate::global]"
           ]
 run_list(all_env)
 
