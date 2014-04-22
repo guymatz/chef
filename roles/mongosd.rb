@@ -1,6 +1,7 @@
 name "mongosd"
 description "mongosd"
 all_env = [
+           "recipe[mongodb::source]",
            "recipe[mongodb::mongosd]",
            "recipe[mongodb::ulimits]",
            "recipe[mongodb::nagios]"
