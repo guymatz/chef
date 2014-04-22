@@ -1,6 +1,6 @@
 {
   "name": "iad-pnp102.ihr",
-  "chef_environment": "_default",
+  "chef_environment": "prod",
   "run_list": [
     "role[base]",
     "recipe[users::dev]"
