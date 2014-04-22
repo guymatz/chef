@@ -22,7 +22,7 @@
   "json_class": "Chef::Environment",
   "description": "",
   "cookbook_versions": {
-    "radioedit": "= 1.2.2",
+    "radioedit": "= 2.0.0",
     "batchjobs": "= 1.0.1",
     "fac": "= 1.0.1",
     "jobserver": "= 1.0.0",
