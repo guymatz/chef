@@ -98,6 +98,7 @@ cluster_members = search(:node, "cluster_name:#{node[:elasticsearchnew][:cluster
   
 cluster_ips = Array.new
 cluster_members.each do |s|
+  Chef::Log.info("Checking node for cluster_ips: #{node.to_json}")
   #cluster_ips << s["network"]["interfaces"]["eth0"]["addresses"].to_hash.select {|addr, info| info["family"] == "inet"}.flatten.first
   cluster_ips << s[:ipaddress]
 end
