@@ -41,7 +41,7 @@ unless tagged?('elasticsearchnew-deployed')
   end
   
   remote_file "#{Chef::Config[:file_cache_path]}/#{pkg}" do
-    source "#{node[:elasticsearchnew][:url]}/#{node.chef_environment}/es-configs/#{pkg}"
+    source "#{node[:elasticsearchnew][:url]}/#{node[:elasticsearchnew][:install_tag]}/es-configs/#{pkg}"
     notifies :run, resources(:execute => "Untar-ihr-search-configs"), :immediately
     owner node[:elasticsearchnew][:user]
     group node[:elasticsearchnew][:group]
@@ -58,7 +58,8 @@ unless tagged?('elasticsearchnew-deployed')
     owner "root"
     group "root"
     mode "0755"
-    notifies :restart, "service[elasticsearch]"
+    #notifies :restart, "service[elasticsearch]"
+	backup 100
   end
 
   bash "install-elasticsearch-service" do
@@ -75,6 +76,7 @@ unless tagged?('elasticsearchnew-deployed')
     source "logging.yml.erb"
     owner node[:elasticsearchnew][:user]
     group node[:elasticsearchnew][:group]
+	backup 100
   end
   
   dwh_creds = Chef::EncryptedDataBagItem.load("secrets", "dwh_radiomodel_creds")

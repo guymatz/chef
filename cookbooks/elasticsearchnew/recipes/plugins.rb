@@ -9,7 +9,7 @@ service "elasticsearch" do
   supports :start => true, :stop => true
 end
 
-unless tagged?("es-plugins-installed")
+unless tagged?("es-plugins-installed") then
   ES_HOME = node[:elasticsearchnew][:deploy_path]
 
   execute "delete plugins" do
@@ -17,13 +17,13 @@ unless tagged?("es-plugins-installed")
   end
 
   execute "install-ihrsearch-query-plugin" do
-    command "#{ES_HOME}/bin/plugin --url #{node[:elasticsearchnew][:url]}/#{node.chef_environment}/es-plugins/es-query-plugin-1.0.zip --install ihr-query"
+    command "#{ES_HOME}/bin/plugin --url #{node[:elasticsearchnew][:url]}/#{node[:elasticsearchnew][:install_tag]}/es-plugins/es-query-plugin-1.0.zip --install ihr-query"
     cwd Chef::Config[:file_cache_path]
     user node[:elasticsearchnew][:user]
     group node[:elasticsearchnew][:group]
   end
   execute "install-ihrsearch-indexer-plugin" do
-    command "#{ES_HOME}/bin/plugin --url #{node[:elasticsearchnew][:url]}/#{node.chef_environment}/es-plugins/es-indexer-plugin-1.0.zip --install ihr-index"
+    command "#{ES_HOME}/bin/plugin --url #{node[:elasticsearchnew][:url]}/#{node[:elasticsearchnew][:install_tag]}/es-plugins/es-indexer-plugin-1.0.zip --install ihr-index"
     cwd Chef::Config[:file_cache_path]
     notifies :restart, "service[elasticsearch]"
     user node[:elasticsearchnew][:user]
@@ -32,9 +32,9 @@ unless tagged?("es-plugins-installed")
 
   
   execute "install-river-rabbitmq-plugin" do
-    command "#{ES_HOME}/bin/plugin --url #{node[:elasticsearchnew][:url]}/#{node.chef_environment}/es-plugins/elasticsearch-river-rabbitmq.zip --install river-rabbitmq"
+    command "#{ES_HOME}/bin/plugin --url #{node[:elasticsearchnew][:url]}/#{node[:elasticsearchnew][:install_tag]}/es-plugins/elasticsearch-river-rabbitmq.zip --install river-rabbitmq"
     cwd Chef::Config[:file_cache_path]
-    notifies :restart, "service[elasticsearch]"
+    # notifies :restart, "service[elasticsearch]"
     user node[:elasticsearchnew][:user]
     group node[:elasticsearchnew][:group]
   end
@@ -44,9 +44,9 @@ unless tagged?("es-plugins-installed")
   Chef::Log.info("Primary node info: #{primary_node}")
   Chef::Log.info("Host name info: #{node[:hostname]}")
 
-  if /stage/ =~ node.chef_environment
-
-    if primary_node[:hostname] == node[:hostname]
+  case node.chef_environment
+  when /^stage/ then
+    if primary_node[:hostname] == node[:hostname] then
       execute "configure-river-rabbitmq-plugin" do
         command <<-EOH 
           /usr/bin/curl -XPUT '#{node[:ipaddress]}:9200/_river/my_river/_meta' -d '{ \
@@ -83,12 +83,12 @@ unless tagged?("es-plugins-installed")
               "ordered" : false \
           } \
          }'
-        EOH
+				EOH
       end # execute
-
     end # if primary
+  end # when
 
 end #unless tagged
-  tag("es-plugins-installed")
+
+tag("es-plugins-installed")
   
-end
