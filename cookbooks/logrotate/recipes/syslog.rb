@@ -14,7 +14,7 @@ logrotate_app "syslog" do
 end
 
 template "/etc/logrotate.conf" do
-  source logrotate.conf.erb
+  source "logrotate.conf.erb"
   owner "root"
   group "root"
   mode 0644
