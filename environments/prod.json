@@ -35,7 +35,7 @@
     "confluence": "= 0.0.2",
     "couchbase": "= 1.1.0",
     "couchdb": "= 1.0.4",
-    "cron": "= 1.2.2",
+    "cron": "= 2.0.0",
     "custom_talk": "= 0.1.1",
     "cutlery": "= 0.1.0",
     "daemontools": "= 1.0.0",
