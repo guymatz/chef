@@ -1,9 +1,0 @@
-# Bind Tomcat services to this address.  Defaults to all interfaces.
-export HOST=`/sbin/ifconfig | grep 10.5.40 | awk '{print $2}' | cut -d: -f2`
-
-# make sure tomcat uses a pid so we can kill properly
-export CATALINA_PID=/var/run/tomcat/tomcat.pid
-
-export CATALINA_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=8999 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Djava.rmi.server.hostname=${HOST} -Djava.rmi.server.useLocalHostname=true"
-
-export CATALINA_OPTS 
