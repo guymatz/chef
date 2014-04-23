@@ -123,7 +123,7 @@ if [ -z "${STDOUT_FILE}" ]; then
     trap 'rm -rf $STDOUT_FILE' SIGINT SIGTERM EXIT;
 fi
 
-if [ -z "${STDOUT_FILE}" ]; then
+if [ -z "${STDERR_FILE}" ]; then
     STDERR_FILE=$(mktemp --suffix=.nsca_relay.err);
     trap 'rm -rf $STDERR_FILE' SIGINT SIGTERM EXIT;
 fi
