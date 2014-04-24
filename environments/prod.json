@@ -150,7 +150,7 @@
     "shared-web": "= 0.1.0",
     "smf": "= 0.6.8",
     "snmp": "= 0.4.0",
-    "sonos": "= 1.0.1",
+    "sonos": "= 1.0.2",
     "splunk": "= 0.1.1",
     "splunk_handler": "= 1.2.0",
     "splunkforwarder": "= 1.0.0",
