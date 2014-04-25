@@ -1,3 +1,7 @@
+## v2.0.2
+* [] - IHEART changes: increase the timeout value across all the nagios 
+ nrpe processes from 1800 secs to to 3600 secs to accomodate longer running checks 
+
 ## v1.3.0:
 
 * [COOK-715] - don't source /etc/sysconfig/network on non-RHEL
