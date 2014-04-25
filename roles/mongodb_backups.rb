@@ -13,7 +13,7 @@ env_run_lists(
 default_attributes({
         'nagios' => {
                 'nrpe' => {
-                        'command_timeout' => "1800"
+                        'command_timeout' => "3600"
                         }
                 }
                    }) 
