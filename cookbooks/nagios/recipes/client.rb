@@ -111,7 +111,7 @@ template "/usr/bin/nagios_passive.py" do
   source "nagios_passive.py.erb"
   owner "root"
   group "root"
-  mode 0755
+  mode "0755"
 end
 
 include_recipe "nagios::nsca_source"
