@@ -1,6 +1,9 @@
-## v2.0.2
-* [] - IHEART changes: increase the timeout value across all the nagios 
- nrpe processes from 1800 secs to to 3600 secs to accomodate longer running checks 
+## v2.0.2:
+* [OPS-6595] - Increase the timeout value across all the nagios 
+  nrpe processes from 1800 secs to to 3600 secs to accomodate longer running checks 
+  Create nagios_passive.py from template. The version in files had a bug 
+  and was not working, probably was chnaged when staging and prod repos were merged
+  and never uploaded to knife.
 
 ## v1.3.0:
 
