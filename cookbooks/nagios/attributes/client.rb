@@ -91,3 +91,12 @@ default['nagios']['checks']['smtp_host'] = String.new
 
 default['nagios']['server_role'] = "monitoring"
 default['nagios']['multi_environment_monitoring'] = false
+
+#Parameter for nagios_passive.py
+case chef_environment
+when /^stage/
+	default['nagios']['passive']['server'] = "iad-stg-nagios101.ihr"
+when /^prod/
+	default['nagios']['passive']['server'] = "nagios-iad.ihrdev.com"
+end
+
