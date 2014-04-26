@@ -63,6 +63,13 @@
     RewriteRule ^/(festival|vegas)/?$   http://festival.iheart.com [QSA,R=301,L]
     RewriteRule ^/awards/?$             http://news.iheart.com/awards/ [QSA,R=301,L]
 
+    # LEGACY REDIRECTS
+    RewriteRule ^/simple/activate/?$    /activate/ [QSA,R=301,L]
+
+    # TRAILING SLASH FIXES
+    RewriteRule ^/activate$             /activate/ [QSA,R=301,L]
+    RewriteRule ^/widget$               /widget/ [QSA,R=301,L]
+
     # Proxy flash files from static to avoid crossdomain.xml
     # Set far-expiry times for flash assets
     <LocationMatch "^/flash/">
