@@ -58,7 +58,7 @@ end
 memcached_servers = Array.new
 res.each do |s|
   if node.chef_environment == "prod"
-    memcached_servers << s[:hostname] + "-v200.ihr:11211"
+    memcached_servers << s[:hostname] + "-v200.ihr:11212"
   else
     memcached_servers << s[:hostname] + ".ihr:11211"
   end
