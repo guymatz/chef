@@ -1,7 +1,7 @@
 {
   "id": "Postgres-Check-Data-Backup-Corruption",
   "hostgroup_name": "ps-monitoring",
-  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c ps_check_backup_data_corruption -t 1800",
+  "command_line": "$USER1$/check_nrpe -H $HOSTADDRESS$ -c ps_check_backup_data_corruption -t 3600",
   "contact_groups": ["dba"],
   "check_interval": "86400",
   "retry_interval" : "7200",

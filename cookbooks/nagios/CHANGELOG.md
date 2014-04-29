@@ -1,3 +1,10 @@
+## v2.0.2:
+* [OPS-6595] - Increase the timeout value across all the nagios 
+  nrpe processes from 1800 secs to to 3600 secs to accomodate longer running checks 
+  Create nagios_passive.py from the template. The version in files had a bug 
+  and was not working, probably was changed when staging and prod repos were merged,
+  but was never uploaded to knife for testing.
+
 ## v1.3.0:
 
 * [COOK-715] - don't source /etc/sysconfig/network on non-RHEL

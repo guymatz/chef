@@ -107,8 +107,8 @@ nagios_nrpecheck "check_nic_speed" do
   critical_condition "100"
 end
 
-cookbook_file "/usr/bin/nagios_passive.py" do
-  source "nagios_passive.py"
+template "/usr/bin/nagios_passive.py" do
+  source "nagios_passive.py.erb"
   owner "root"
   group "root"
   mode "0755"
