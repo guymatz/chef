@@ -23,18 +23,18 @@ for ifaceName in ['bond1.150', 'bond0.200']:
  addresses = [i['addr'] for i in ifaddresses(ifaceName).setdefault(AF_INET, [{'addr':'No IP addr'}] )]
  for address in addresses:
   try:
-   address_current_master_fh=open('/tmp/current_master_%s' % address, 'r')
-   address_current_master_w_newline=address_current_master_fh.readline()
-   address_current_master = address_current_master_w_newline.rstrip()
-   match = re.match(address_current_master, hostname)
+   address_current_main_fh=open('/tmp/current_main_%s' % address, 'r')
+   address_current_main_w_newline=address_current_main_fh.readline()
+   address_current_main = address_current_main_w_newline.rstrip()
+   match = re.match(address_current_main, hostname)
    if match is None:
     #/usr/sbin/arping -I bond1.150 -c1 -U $ip
     os.system('/usr/sbin/arping -I %s -c1 -U %s' % (ifaceName,address))
-    address_current_master_fh=open('/tmp/current_master_%s' % address, 'w')
-    address_current_master_fh.write('%s' % hostname)
+    address_current_main_fh=open('/tmp/current_main_%s' % address, 'w')
+    address_current_main_fh.write('%s' % hostname)
   except:
-   address_current_master_fh=open('/tmp/current_master_%s' % address, 'w')
-   address_current_master_fh.write('%s' % hostname)
+   address_current_main_fh=open('/tmp/current_main_%s' % address, 'w')
+   address_current_main_fh.write('%s' % hostname)
   ips_on_this_box.append(address)
 
 ips_on_other_host=set(ips_arr) - set(ips_on_this_box)
@@ -44,5 +44,5 @@ ips_on_other_host=set(ips_arr) - set(ips_on_this_box)
 #print set(ips_on_other_host)
 
 for ip in ips_on_other_host:
- address_current_master_fh=open('/tmp/current_master_%s' % ip, 'w')
- address_current_master_fh.write('%s' % other_hostname)
+ address_current_main_fh=open('/tmp/current_main_%s' % ip, 'w')
+ address_current_main_fh.write('%s' % other_hostname)

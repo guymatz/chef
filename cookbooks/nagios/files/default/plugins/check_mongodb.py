@@ -252,10 +252,10 @@ def mongo_connect(host=None, port=None, ssl=False, user=None, passwd=None, repli
                 con = pymongo.Connection(host, port, read_preference=pymongo.ReadPreference.SECONDARY, ssl=ssl, replicaSet=replica, network_timeout=10)
         else:
             if replica is None:
-                con = pymongo.Connection(host, port, slave_okay=True, network_timeout=10)
+                con = pymongo.Connection(host, port, subordinate_okay=True, network_timeout=10)
             else:
-                con = pymongo.Connection(host, port, slave_okay=True, network_timeout=10)
-                #con = pymongo.Connection(host, port, slave_okay=True, replicaSet=replica, network_timeout=10)
+                con = pymongo.Connection(host, port, subordinate_okay=True, network_timeout=10)
+                #con = pymongo.Connection(host, port, subordinate_okay=True, replicaSet=replica, network_timeout=10)
 
         if user and passwd:
             db = con["admin"]
@@ -329,7 +329,7 @@ def check_rep_lag(con, host, warning, critical, percent, perf_data, max_lag, use
         warning = warning or 600
         critical = critical or 3600
     rs_status = {}
-    slaveDelays = {}
+    subordinateDelays = {}
     try:
         set_read_preference(con.admin)
 
@@ -348,10 +348,10 @@ def check_rep_lag(con, host, warning, critical, percent, perf_data, max_lag, use
             #
             rs_conf = con.local.system.replset.find_one()
             for member in rs_conf['members']:
-                if member.get('slaveDelay') is not None:
-                    slaveDelays[member['host']] = member.get('slaveDelay')
+                if member.get('subordinateDelay') is not None:
+                    subordinateDelays[member['host']] = member.get('subordinateDelay')
                 else:
-                    slaveDelays[member['host']] = 0
+                    subordinateDelays[member['host']] = 0
 
             # Find the primary and/or the current node
             primary_node = None
@@ -385,8 +385,8 @@ def check_rep_lag(con, host, warning, critical, percent, perf_data, max_lag, use
                     maximal_lag = 0
                     for member in rs_status['members']:
                         if not member['stateStr'] == "ARBITER":
-                            lastSlaveOpTime = member['optimeDate']
-                            replicationLag = abs(primary_node["optimeDate"] - lastSlaveOpTime).seconds - slaveDelays[member['name']]
+                            lastSubordinateOpTime = member['optimeDate']
+                            replicationLag = abs(primary_node["optimeDate"] - lastSubordinateOpTime).seconds - subordinateDelays[member['name']]
                             data = data + member['name'] + " lag=%d;" % replicationLag
                             maximal_lag = max(maximal_lag, replicationLag)
                     if percent:
@@ -409,12 +409,12 @@ def check_rep_lag(con, host, warning, critical, percent, perf_data, max_lag, use
 
             optime_lag = abs(primary_node["optimeDate"] - host_node["optimeDate"])
 
-            if host_node['name'] in slaveDelays:
-                slave_delay = slaveDelays[host_node['name']]
-            elif host_node['name'].endswith(':27017') and host_node['name'][:-len(":27017")] in slaveDelays:
-                slave_delay = slaveDelays[host_node['name'][:-len(":27017")]]
+            if host_node['name'] in subordinateDelays:
+                subordinate_delay = subordinateDelays[host_node['name']]
+            elif host_node['name'].endswith(':27017') and host_node['name'][:-len(":27017")] in subordinateDelays:
+                subordinate_delay = subordinateDelays[host_node['name'][:-len(":27017")]]
             else:
-                raise Exception("Unable to determine slave delay for {0}".format(host_node['name']))
+                raise Exception("Unable to determine subordinate delay for {0}".format(host_node['name']))
 
             try:  # work starting from python2.7
                 lag = optime_lag.total_seconds()
@@ -435,7 +435,7 @@ def check_rep_lag(con, host, warning, critical, percent, perf_data, max_lag, use
             else:
                 message = "Lag is " + str(lag) + " seconds"
                 message += performance_data(perf_data, [(lag, "replication_lag", warning, critical)])
-            return check_levels(lag, warning + slaveDelays[host_node['name']], critical + slaveDelays[host_node['name']], message)
+            return check_levels(lag, warning + subordinateDelays[host_node['name']], critical + subordinateDelays[host_node['name']], message)
         else:
             #
             # less than 2.0 check
@@ -857,7 +857,7 @@ def check_oplog(con, warning, critical, perf_data):
             if (db.system.namespaces.find_one({"name": "local.oplog.$main"}) != None):
                 oplog = "oplog.$main"
             else:
-                message = "neither master/slave nor replica set replication detected"
+                message = "neither main/subordinate nor replica set replication detected"
                 return check_levels(None, warning, critical, message)
 
         try:
@@ -1174,11 +1174,11 @@ def check_connect_primary(con, warning, critical, perf_data):
     try:
         try:
             set_read_preference(con.admin)
-            data = con.admin.command(pymongo.son_manipulator.SON([('isMaster', 1)]))
+            data = con.admin.command(pymongo.son_manipulator.SON([('isMain', 1)]))
         except:
-            data = con.admin.command(son.SON([('isMaster', 1)]))
+            data = con.admin.command(son.SON([('isMain', 1)]))
 
-        if data['ismaster'] == True:
+        if data['ismain'] == True:
             print "OK - This server is primary"
             return 0
 
